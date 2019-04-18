@@ -1,0 +1,77 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using AutoMapper;
+using Core.Api.Entities;
+using Core.Api.Extensions.CustomException;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Core.Api.Controllers
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    [Route("/error")]
+    [ApiController]
+    public class ErrorController : ControllerBase
+    {
+        private readonly Context _dbContext;
+        private readonly IMapper _mapper;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="mapper"></param>
+        public ErrorController(Context dbContext, IMapper mapper)
+        {
+            this._dbContext = dbContext;
+            this._mapper = mapper;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        [Route("{code}")]
+        [HttpGet]
+        public IActionResult Code(int code)
+        {
+            // 捕获状态码
+            HttpStatusCode statusCode = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error is HttpException httpEx ?
+                httpEx.StatusCode : (HttpStatusCode)Response.StatusCode;
+            HttpException ex = (HttpException)HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
+
+            HttpStatusCode parsedCode = (HttpStatusCode)code;
+            ErrorDetails error = new ErrorDetails
+            {
+                StatusCode = code,
+                Message = ex?.ToString()
+            };
+            // 如果是ASP.NET Core Web Api 应用程序，直接返回状态码(不跳转到错误页面，这里假设所有API接口的路径都是以/api/开始的)
+            if (HttpContext.Features.Get<IHttpRequestFeature>().RawTarget.StartsWith("/api/", StringComparison.Ordinal))
+            {
+                parsedCode = (HttpStatusCode)code;
+                // error = new ErrorDetails
+                //{
+                //    StatusCode = code,
+                //    Message = parsedCode.ToString()
+                //};
+
+                return new ObjectResult(error);
+            }
+            IQueryable<Role> query = this._dbContext.Role.AsQueryable();
+            List<Role> a = query.ToList();
+            // error = new ErrorDetails
+            //{
+            //    StatusCode = code,
+            //    Message = parsedCode.ToString()
+            //};
+
+            return new ObjectResult(a);
+        }
+    }
+}
