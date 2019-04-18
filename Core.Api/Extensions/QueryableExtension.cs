@@ -75,13 +75,13 @@ namespace Core.Api.Extensions.Queryable
             return query;
         }
 
-        public static IQueryable<T> AddGuidEqualsFilter<T>(this IQueryable<T> query, Guid? value, string name)
+        public static IQueryable<T> AddGuidEqualsFilter<T>(this IQueryable<T> query, Guid? guid, string name)
         {
-            if (value.HasValue)
+            if (guid.HasValue)
             {
                 var parameter = Expression.Parameter(typeof(T), key);
                 var left = Expression.Property(parameter, typeof(T).GetProperty(name));
-                var right = Expression.Constant(value);
+                var right = Expression.Constant(guid.Value);
                 var predicate = Expression.Equal(left, right);
                 var lambda = Expression.Lambda<Func<T, bool>>(predicate, parameter);
                 query = query.Where(lambda);

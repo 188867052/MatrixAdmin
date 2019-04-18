@@ -48,7 +48,7 @@ namespace ExpressionBuilder.Generics
         /// <param name="value"></param>
         /// <param name="value2"></param>
         /// <param name="connector"></param>
-        public FilterInfo(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default(Connector))
+        public FilterInfo(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
         {
             PropertyName = propertyId;
             Connector = connector;
