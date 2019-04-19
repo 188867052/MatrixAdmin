@@ -19,11 +19,10 @@ namespace Core.Mvc.Controllers
             return Content(Dialog.Render(), "text/html");
         }
 
-        public IActionResult Contact()
+        public IActionResult Carousel()
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            Carousel Dialog = new Carousel();
+            return Content(Dialog.Render(), "text/html");
         }
 
         public IActionResult Privacy()
