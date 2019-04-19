@@ -6,23 +6,22 @@ using System.Diagnostics;
 
 namespace Core.Mvc.Controllers
 {
-    public class LoginController : Controller
+    public class FileController : Controller
     {
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public LoginController(IHostingEnvironment hostingEnvironment)
+        public FileController(IHostingEnvironment hostingEnvironment)
         {
             this._hostingEnvironment = hostingEnvironment;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(string fileName)
         {
-            Login Table = new Login(this._hostingEnvironment);
-            return Content(Table.Render(), "text/html");
-        }
-
-        public IActionResult File(string fileName)
-        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                fileName = "index";
+            }
             File File = new File(_hostingEnvironment, fileName);
             return Content(File.Render(), "text/html");
         }
