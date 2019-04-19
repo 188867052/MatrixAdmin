@@ -1,5 +1,6 @@
 ﻿using Core.Mvc.Models;
 using Core.Web.Dialog;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,9 +8,16 @@ namespace Core.Mvc.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+        public LoginController(IHostingEnvironment hostingEnvironment)
+        {
+            this._hostingEnvironment = hostingEnvironment;
+        }
+
         public IActionResult Index()
         {
-            Login Table = new Login();
+            Login Table = new Login(this._hostingEnvironment);
             return Content(Table.Render(), "text/html");
         }
 

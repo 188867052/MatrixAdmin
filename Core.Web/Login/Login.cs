@@ -1,17 +1,22 @@
-﻿namespace Core.Web.Dialog
+﻿using Microsoft.AspNetCore.Hosting;
+using System.IO;
+
+namespace Core.Web.Dialog
 {
     public class Login
     {
-        private string html = System.IO.File.ReadAllText(@"C:\Users\54215\Desktop\Study\Asp.Net\Core.Mvc\wwwroot\045\index.html");
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public Login()
+        public Login(IHostingEnvironment hostingEnvironment)
         {
-
+            this._hostingEnvironment = hostingEnvironment;
         }
 
         public string Render()
         {
-            return this.html;
+            string path = Path.Combine(this._hostingEnvironment.WebRootPath, @"Html\Index.html");
+            string html= System.IO.File.ReadAllText(path);
+            return html;
         }
     }
 }
