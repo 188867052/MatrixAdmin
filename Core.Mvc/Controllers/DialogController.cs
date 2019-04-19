@@ -5,20 +5,18 @@ using System.Diagnostics;
 
 namespace Core.Mvc.Controllers
 {
-    public class HomeController : Controller
+    public class DialogController : Controller
     {
         public IActionResult Index()
         {
             LargeDialog Dialog = new LargeDialog();
             return Content(Dialog.Render(), "text/html");
-            //return View();
         }
 
-        public IActionResult About()
+        public IActionResult SmallDialog()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            SmallDialog Dialog = new SmallDialog();
+            return Content(Dialog.Render(), "text/html");
         }
 
         public IActionResult Contact()
