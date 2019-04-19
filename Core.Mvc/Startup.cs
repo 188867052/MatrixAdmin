@@ -50,7 +50,7 @@ namespace Core.Mvc
 
             app.UseMvc(routes =>
             {
-                string defaultController = nameof(TableController).Replace(nameof(Controller), string.Empty);
+                string defaultController = nameof(LoginController).Replace(nameof(Controller), string.Empty);
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=" + defaultController + "}/{action=Index}/{id?}");
