@@ -50,6 +50,7 @@ namespace Core.Api.Controllers.Api.V1.Rbac
             {
                 IQueryable<Icon> query = this._dbContext.Icon.AsQueryable();
                 Filter<Icon> filter = new Filter<Icon>(new FilterInfo<DateTime>(nameof(Icon.CreatedOn), Operation.Between, DateTime.Now, DateTime.Now));
+
                 query = query.AddFilter(filter);
                 //query = query.ExpressionBuilder(model.Status, nameof(Icon.Status));
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Icon.IsEnable));

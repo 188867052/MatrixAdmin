@@ -79,7 +79,7 @@ namespace ExpressionBuilder.Generics
         /// <summary>
         /// Instantiates a new <see cref="Filter{TClass}" />
         /// </summary>
-        public Filter(IFilterInfo statement)
+        public Filter(Core.Api.Filter.IFilterInfo statement)
         {
             _statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
             this.By(statement);
