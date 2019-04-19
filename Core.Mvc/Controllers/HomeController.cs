@@ -9,9 +9,9 @@ namespace Core.Mvc.Controllers
     {
         public IActionResult Index()
         {
-            //LargeDialog Dialog = new LargeDialog();
-            //return Content(Dialog.Render(), "text/html");
-            return View();
+            LargeDialog Dialog = new LargeDialog();
+            return Content(Dialog.Render(), "text/html");
+            //return View();
         }
 
         public IActionResult About()
