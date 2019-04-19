@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Core.Mvc.Models;
+using Core.Web.Dialog;
 using Microsoft.AspNetCore.Mvc;
-using Core.Mvc.Models;
+using System.Diagnostics;
 
 namespace Core.Mvc.Controllers
 {
@@ -12,7 +9,9 @@ namespace Core.Mvc.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            LargeDialog Dialog = new LargeDialog();
+            return Content(Dialog.Render(), "text/html");
+            //return View();
         }
 
         public IActionResult About()
