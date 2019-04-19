@@ -49,9 +49,8 @@ namespace Core.Api.Controllers.Api.V1.Rbac
             using (this._dbContext)
             {
                 IQueryable<Icon> query = this._dbContext.Icon.AsQueryable();
-                Filter<Icon> filter = new Filter<Icon>(new FilterInfo<DateTime>(nameof(Icon.CreatedOn), Operation.Between, DateTime.Now, DateTime.Now));
-
-                query = query.AddFilter(filter);
+                //Filter<Icon> filter = new Filter<Icon>(new FilterInfo<DateTime>(nameof(Icon.CreatedOn), Operation.Between, DateTime.Now, DateTime.Now));
+                //query = query.AddFilter(filter);
                 //query = query.ExpressionBuilder(model.Status, nameof(Icon.Status));
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Icon.IsEnable));
                 query = query.AddStringContainsFilter(model.KeyWord, nameof(Icon.Code));
