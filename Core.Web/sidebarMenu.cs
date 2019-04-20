@@ -8,7 +8,7 @@ namespace Core.Web
     {
         private readonly List<Submenu> LinkButtons;
 
-        public SidebarMenu(string iconClass, string iconText)
+        public SidebarMenu(/*string iconClass, string iconText*/)
         {
 
         }
@@ -27,9 +27,11 @@ namespace Core.Web
 
     public class Submenu
     {
-        public Submenu(string iconClass)
+        public Submenu(string iconClass, string url,string innerText)
         {
             this.IconClass = iconClass;
+            this.Url = url;
+            this.InnerText = innerText;
         }
 
         public bool IsActive { get; set; }

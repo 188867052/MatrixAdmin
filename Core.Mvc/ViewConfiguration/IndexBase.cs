@@ -72,8 +72,10 @@ namespace Core.Mvc.ViewConfigurations
 
         private void GetSidebarMenu()
         {
-            SidebarMenu sidebarMenu = new SidebarMenu("icon icon-home", "Dashboard");
-            Submenu LinkButton = new Submenu();
+            SidebarMenu SidebarMenu = new SidebarMenu();
+            SidebarMenu.AddLinkButton(new Submenu("icon icon-home", "Dashboard", "Dashboard"));
+            SidebarMenu.AddLinkButton(new Submenu("icon icon-home", "Dashboard", "Dashboard"));
+            SidebarMenu.AddLinkButton(new Submenu("icon icon-home", "/Redirect/index", "Charts &amp; Graphs"));
 
         }
     }
