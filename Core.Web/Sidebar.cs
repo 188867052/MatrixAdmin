@@ -4,7 +4,7 @@ namespace Core.Web
 {
     public class Sidebar
     {
-        private readonly List<Submenu> Submenus;
+        private List<Submenu> _subMenus;
 
         public Sidebar(/*string iconClass, string iconText*/)
         {
@@ -13,14 +13,18 @@ namespace Core.Web
 
         public void AddLinkButton(Submenu Submenu)
         {
-            this.Submenus.Add(Submenu);
+            if (this._subMenus == null)
+            {
+                this._subMenus = new List<Submenu>();
+            }
+            this._subMenus.Add(Submenu);
         }
 
         public string Render()
         {
-            string format = "<div id=\"sidebar\">{0}<ul></ul></div>";
+            string format = "<div id=\"sidebar\"><a href=\"#\" class=\"visible-phone\"><i class=\"icon icon-home\"></i>Dashboard</a>{0}<ul></ul></div>";
             string text = "";
-            foreach (var item in Submenus)
+            foreach (var item in this._subMenus)
             {
                 text += item.Render();
             }
