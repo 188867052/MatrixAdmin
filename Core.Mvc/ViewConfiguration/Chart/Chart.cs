@@ -14,7 +14,7 @@ namespace Core.Mvc.ViewConfiguration.Chart
         {
             get
             {
-                return "buttons";
+                return "charts";
             }
         }
 
@@ -24,8 +24,8 @@ namespace Core.Mvc.ViewConfiguration.Chart
             {
                 "/css/bootstrap.min.css",
                 "/css/bootstrap-responsive.min.css",
-                "/css/fullcalendar.css",
                 "/css/matrix-style.css",
+                "/css/fullcalendar.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
             };
@@ -37,8 +37,12 @@ namespace Core.Mvc.ViewConfiguration.Chart
             {
                "/js/jquery.min.js",
                "/js/bootstrap.min.js",
-               "/js/jquery.ui.custom.js",
+               "/js/jquery.flot.min.js",
+               "/js/jquery.flot.pie.min.js",
+               "/js/matrix.charts.js",
+               "/js/jquery.flot.resize.min.js",
                "/js/matrix.js",
+               "/js/jquery.peity.min.js",
             };
         }
     }
