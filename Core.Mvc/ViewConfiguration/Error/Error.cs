@@ -1,13 +1,17 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace Core.Mvc.ViewConfigurations.Table
 {
     public class Error : IndexBase
     {
-        public Error(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
-        {
+        private readonly int errorNumber;
 
+        public Error(IHostingEnvironment hostingEnvironment, int errorNumber) : base(hostingEnvironment)
+        {
+            this.errorNumber = errorNumber;
         }
 
         protected override string Title
@@ -30,11 +34,12 @@ namespace Core.Mvc.ViewConfigurations.Table
             };
         }
 
+
         protected override string FileName
         {
             get
             {
-                return "Error403";
+                return "Error";
             }
         }
 
@@ -46,6 +51,26 @@ namespace Core.Mvc.ViewConfigurations.Table
                "/js/jquery.ui.custom.js",
                "/js/bootstrap.min.js",
             };
+        }
+
+        public override string Render()
+        {
+            string path = Path.Combine(this._hostingEnvironment.WebRootPath, $@"html\{this.FileName}.html");
+            string htmlFormat = File.ReadAllText(path);
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (var item in this.Css())
+            {
+                stringBuilder.Append($"<link href=\"{item}\" rel=\"stylesheet\">");
+            }
+            foreach (var item in this.Javascript())
+            {
+                stringBuilder.Append($"<script src=\"{item}\"></script>");
+            }
+            string head = $"<head>{stringBuilder}</head>";
+            string html = htmlFormat.Replace("{{head}}", head);
+            html = html.Replace("{{number}}", this.errorNumber.ToString());
+
+            return html;
         }
     }
 }

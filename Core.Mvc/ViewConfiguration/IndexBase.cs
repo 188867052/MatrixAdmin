@@ -7,7 +7,7 @@ namespace Core.Mvc.ViewConfigurations
 {
     public abstract class IndexBase
     {
-        private readonly IHostingEnvironment _hostingEnvironment;
+        protected readonly IHostingEnvironment _hostingEnvironment;
 
         public IndexBase(IHostingEnvironment hostingEnvironment)
         {
@@ -44,7 +44,7 @@ namespace Core.Mvc.ViewConfigurations
         /// <returns></returns>
         public virtual string Render()
         {
-            string path = Path.Combine(this._hostingEnvironment.WebRootPath, $@"Html\{this.FileName}.html");
+            string path = Path.Combine(this._hostingEnvironment.WebRootPath, $@"html\{this.FileName}.html");
             string htmlFormat = File.ReadAllText(path);
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var item in this.Css())

@@ -77,26 +77,26 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Error403()
         {
-            Error File = new Error(_hostingEnvironment);
-            return Content(File.Render(), "text/html");
+            Error Error = new Error(_hostingEnvironment, 403);
+            return Content(Error.Render(), "text/html");
         }
 
         public IActionResult Error404()
         {
-            File File = new File(_hostingEnvironment, "Error404");
-            return Content(File.Render(), "text/html");
+            Error Error = new Error(_hostingEnvironment, 404);
+            return Content(Error.Render(), "text/html");
         }
 
         public IActionResult Error405()
         {
-            File File = new File(_hostingEnvironment, "Error405");
-            return Content(File.Render(), "text/html");
+            Error Error = new Error(_hostingEnvironment, 405);
+            return Content(Error.Render(), "text/html");
         }
 
         public IActionResult Error500()
         {
-            File File = new File(_hostingEnvironment, "Error500");
-            return Content(File.Render(), "text/html");
+            Error Error = new Error(_hostingEnvironment, 500);
+            return Content(Error.Render(), "text/html");
         }
 
         public IActionResult FormCommon()
