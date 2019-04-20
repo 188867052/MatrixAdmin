@@ -16,13 +16,13 @@ namespace Core.Web.Sidebar
             this._subMenus.Add(subMenu);
         }
 
-        public void AddSubContent(SidebarContent subMenu)
+        public void AddSubContent(SidebarContent subContent)
         {
             if (this._subContent == null)
             {
                 this._subContent = new List<SidebarContent>();
             }
-            this._subContent.Add(subMenu);
+            this._subContent.Add(subContent);
         }
 
         public string Render()
@@ -37,10 +37,10 @@ namespace Core.Web.Sidebar
             string content = "";
             foreach (var item in this._subContent)
             {
-                menu += item.Render();
+                content += item.Render();
             }
 
-            return string.Format(sidebar, content, menu);
+            return string.Format(sidebar, menu, content);
         }
     }
 }
