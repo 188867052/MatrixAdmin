@@ -41,8 +41,8 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Widgets()
         {
-            File File = new File(_hostingEnvironment, "widgets");
-            return Content(File.Render(), "text/html");
+            Widget widget = new Widget(_hostingEnvironment);
+            return Content(widget.Render(), "text/html");
         }
 
         public IActionResult Buttons()
@@ -77,7 +77,7 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Error403()
         {
-            File File = new File(_hostingEnvironment, "Error403");
+            Error File = new Error(_hostingEnvironment);
             return Content(File.Render(), "text/html");
         }
 
