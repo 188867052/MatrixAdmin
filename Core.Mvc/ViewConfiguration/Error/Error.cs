@@ -55,7 +55,7 @@ namespace Core.Mvc.ViewConfiguration.Error
 
         public override string Render()
         {
-            string path = Path.Combine(this._hostingEnvironment.WebRootPath, $@"html\{this.FileName}.html");
+            string path = Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\{this.FileName}.html");
             string htmlFormat = File.ReadAllText(path);
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var item in this.Css())

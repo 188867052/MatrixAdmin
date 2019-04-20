@@ -8,11 +8,11 @@ namespace Core.Mvc.ViewConfiguration
 {
     public abstract class IndexBase
     {
-        protected readonly IHostingEnvironment _hostingEnvironment;
+        protected readonly IHostingEnvironment HostingEnvironment;
 
-        public IndexBase(IHostingEnvironment hostingEnvironment)
+        protected IndexBase(IHostingEnvironment hostingEnvironment)
         {
-            this._hostingEnvironment = hostingEnvironment;
+            this.HostingEnvironment = hostingEnvironment;
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Core.Mvc.ViewConfiguration
         public virtual string Render()
         {
             string sidebarMenu = this.GetSidebarMenu();
-            string htmlFormat = File.ReadAllText(Path.Combine(this._hostingEnvironment.WebRootPath, $@"html\{this.FileName}.html"));
+            string htmlFormat = File.ReadAllText(Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\{this.FileName}.html"));
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var item in this.Css())
             {
