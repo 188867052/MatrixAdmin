@@ -42,16 +42,10 @@
         <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
     </div>
     <!--close-top-serch-->
-    <!--sidebar-menu-->
     {{sidebarMenu}}
-    <!--sidebar-menu-->
     <!--main-container-part-->
     <div id="content">
-        <!--breadcrumbs-->
-        <div id="content-header">
-            <div id="breadcrumb"> <a href="/Redirect/index" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
-        </div>
-        <!--End-breadcrumbs-->
+        {{breadCrumb}}
         <!--Action boxes-->
         <div class="container-fluid">
             <div class="quick-actions_homepage">
@@ -386,43 +380,6 @@
     <div class="row-fluid">
         <div id="footer" class="span12"> 2013 &copy; Matrix Admin. More Templates <a href="http://h2design.taobao.com/" target="_blank">氢设计</a></div>
     </div>
-
     <!--end-Footer-part-->
-    <script type="text/javascript">
-        // This function is called from the pop-up menus to transfer to
-        // a different page. Ignore if the value returned is a null string:
-        function goPage(newURL) {
-
-            // if url is empty, skip the menu dividers and reset the menu selection to default
-            if (newURL != "") {
-
-                // if url is "-", it is this page -- reset the menu:
-                if (newURL == "-") {
-                    resetMenu();
-                }
-                // else, send page to designated URL
-                else {
-                    document.location.href = newURL;
-                }
-            }
-        }
-
-        // resets the menu selection upon entry to this page:
-        function resetMenu() {
-            document.gomenu.selector.selectedIndex = 2;
-        }
-
-        //$('.submenu').click(function (e) {
-        //    $('.submenu').removeClass("active");
-        //    e.currentTarget.classList.add("active");
-        //    return true;
-        //});
-        $(".submenu").bind("click",
-            function(e) {
-                $('.submenu').removeClass("active");
-                e.currentTarget.classList.add("active");
-                window.location.href = e.currentTarget.firstChild.href;
-            });
-    </script>
 </body>
 </html>

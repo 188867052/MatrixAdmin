@@ -52,6 +52,7 @@ namespace Core.Mvc.ViewConfiguration
         public virtual string Render()
         {
             string sidebarMenu = this.GenerateSidebarMenu();
+            string breadCrumb = BreadCrumb();
             string htmlFormat = File.ReadAllText(Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\{this.FileName}.html"));
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var item in this.Css())
@@ -65,6 +66,7 @@ namespace Core.Mvc.ViewConfiguration
             string head = $"<head>{stringBuilder}</head>";
             string html = htmlFormat.Replace("{{head}}", head);
             html = html.Replace("{{sidebarMenu}}", sidebarMenu);
+            html = html.Replace("{{breadCrumb}}", breadCrumb);
 
             return html;
         }
@@ -79,7 +81,7 @@ namespace Core.Mvc.ViewConfiguration
             forms.AddLinkButton(new LinkedAnchor("/Redirect/formcommon", "Basic Form"));
             forms.AddLinkButton(new LinkedAnchor("/Redirect/formvalidation", "Form with Validation"));
             forms.AddLinkButton(new LinkedAnchor("/Redirect/formwizard", "Form with Wizard"));
-      
+
 
             SubMenu addons = new SubMenu("icon icon-file", "", "Addons", 5);
             addons.AddLinkButton(new LinkedAnchor("/Redirect/index2", "Dashboard2"));
@@ -107,9 +109,18 @@ namespace Core.Mvc.ViewConfiguration
             sidebar.AddSubMenu(error);
 
             sidebar.AddSubContent(new SidebarContent("Monthly Bandwidth Transfer", 0.77, "21419.94 / 14000 MB", "progress progress-mini progress-danger active progress-striped"));
-            sidebar.AddSubContent(new SidebarContent("Disk Space Usage",  0.87, "604.44 / 4000 MB", "progress progress-mini active progress-striped"));
+            sidebar.AddSubContent(new SidebarContent("Disk Space Usage", 0.87, "604.44 / 4000 MB", "progress progress-mini active progress-striped"));
+            sidebar.AddSubContent(new SidebarContent("Disk Space Usage", 0.27, "614.44 / 4000 MB", "progress progress-mini active progress-striped"));
 
             return sidebar.Render();
+        }
+
+
+        protected virtual string BreadCrumb()
+        {
+            BreadCrumb breadCrumb = new BreadCrumb();
+            breadCrumb.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
+            return breadCrumb.Render();
         }
     }
 }

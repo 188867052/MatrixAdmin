@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
+using Core.Web.Sidebar;
 
 namespace Core.Mvc.ViewConfiguration.Error
 {
@@ -60,5 +61,14 @@ namespace Core.Mvc.ViewConfiguration.Error
             string html = base.Render().Replace("{{number}}", this.errorNumber.ToString());
             return html;
         }
+
+
+        //protected override string BreadCrumb()
+        //{
+        //    BreadCrumb breadCrumb = new BreadCrumb("Error 404");
+        //    breadCrumb.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
+        //    breadCrumb.AddAnchor(new Anchor("/Redirect/error", "Error", "Go to Error", "icon-info-sign", "tip-bottom"));
+        //    return breadCrumb.Render();
+        //}
     }
 }
