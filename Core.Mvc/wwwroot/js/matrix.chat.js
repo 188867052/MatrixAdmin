@@ -19,16 +19,16 @@ $(document).ready(function(){
 	});
 	
 	setTimeout(function(){
-			add_message('Linda','img/demo/av2.jpg','Hello Every one do u want to freindship with me?')
+			add_message('Linda','/img/demo/av2.jpg','Hello Every one do u want to freindship with me?')
 		},'1000');
 	setTimeout(function(){
 			add_message('Mark','img/demo/av3.jpg','Yuppi! why not sirji!!.')
 		},'4000');
 	setTimeout(function(){
-			add_message('Linda','img/demo/av2.jpg','Thanks!!! See you soon than')
+			add_message('Linda','/img/demo/av2.jpg','Thanks!!! See you soon than')
 		},'8000');
 	setTimeout(function(){
-			add_message('Mark','img/demo/av3.jpg','ok Bye than!!!.')
+			add_message('Mark','/img/demo/av3.jpg','ok Bye than!!!.')
 		},'12000');	
 	setTimeout(function(){
             remove_user('Linda','Linda')
