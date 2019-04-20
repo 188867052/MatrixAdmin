@@ -411,6 +411,18 @@
         function resetMenu() {
             document.gomenu.selector.selectedIndex = 2;
         }
+
+        //$('.submenu').click(function (e) {
+        //    $('.submenu').removeClass("active");
+        //    e.currentTarget.classList.add("active");
+        //    return true;
+        //});
+        $(".submenu").bind("click",
+            function(e) {
+                $('.submenu').removeClass("active");
+                e.currentTarget.classList.add("active");
+                window.location.href = e.currentTarget.firstChild.href;
+            });
     </script>
 </body>
 </html>

@@ -37,15 +37,15 @@ namespace Core.Web.Sidebar
 
         public string Render()
         {
-            string activeClass = this.IsSelected ? "class=\"active\"" : "";
+            string activeClass = this.IsSelected ? "class=\"submenu active\"" : "class=\"submenu\"";
             string url = string.IsNullOrEmpty(this.Url) ? "#" : this.Url;
 
             if (_linkedAnchors == null)
             {
-                return $"<li {activeClass}><a href=\"{url}\"><i class=\"{this.IconClass}\"></i><span>{this.InnerText}</span></a></li>";
+                return $"<li  {activeClass}><a href=\"{url}\"><i class=\"{this.IconClass}\"></i><span>{this.InnerText}</span></a></li>";
             }
 
-            activeClass = this.IsSelected ? "class=\"submenu active\"" : "class=\"submenu\"";
+            
             string text = "<li {0}>{1}<ul>{2}</ul></li>";
             string importantText = this.ImportantCount == 0 ? "" : $"<span class=\"label label-important\">{this.ImportantCount}</span>";
             string header = $"<a href=\"#\"><i class=\"{this.IconClass}\"></i><span>{this.InnerText}</span>{importantText}</a>";
