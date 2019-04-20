@@ -41,5 +41,17 @@ namespace Core.Mvc.Controllers
             File File = new File(_hostingEnvironment, "widgets");
             return Content(File.Render(), "text/html");
         }
+
+        public IActionResult Grid()
+        {
+            File File = new File(_hostingEnvironment, "Grid");
+            return Content(File.Render(), "text/html");
+        }
+
+        public IActionResult Chat()
+        {
+            File File = new File(_hostingEnvironment, "Chat");
+            return Content(File.Render(), "text/html");
+        }
     }
 }
