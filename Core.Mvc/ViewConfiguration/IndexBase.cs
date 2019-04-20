@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Core.Web;
+using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -50,8 +51,8 @@ namespace Core.Mvc.ViewConfigurations
         /// <returns></returns>
         public virtual string Render()
         {
-            string path = Path.Combine(this._hostingEnvironment.WebRootPath, $@"html\{this.FileName}.html");
-            string htmlFormat = File.ReadAllText(path);
+            string sidebarMenu = File.ReadAllText(Path.Combine(this._hostingEnvironment.WebRootPath, @"html\sidebarMenu.html"));
+            string htmlFormat = File.ReadAllText(Path.Combine(this._hostingEnvironment.WebRootPath, $@"html\{this.FileName}.html"));
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var item in this.Css())
             {
@@ -63,8 +64,17 @@ namespace Core.Mvc.ViewConfigurations
             }
             string head = $"<head>{stringBuilder}</head>";
             string html = htmlFormat.Replace("{{head}}", head);
+            html = html.Replace("{{sidebarMenu}}", sidebarMenu);
 
             return html;
+        }
+
+
+        private void GetSidebarMenu()
+        {
+            SidebarMenu sidebarMenu = new SidebarMenu("icon icon-home", "Dashboard");
+            Submenu LinkButton = new Submenu();
+
         }
     }
 }
