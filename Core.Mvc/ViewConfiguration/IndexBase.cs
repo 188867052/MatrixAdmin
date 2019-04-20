@@ -51,8 +51,7 @@ namespace Core.Mvc.ViewConfiguration
         /// <returns></returns>
         public virtual string Render()
         {
-            string sidebarMenu = File.ReadAllText(Path.Combine(this._hostingEnvironment.WebRootPath, @"html\sidebarMenu.html"));
-            sidebarMenu = this.GetSidebarMenu();
+            string sidebarMenu = this.GetSidebarMenu();
             string htmlFormat = File.ReadAllText(Path.Combine(this._hostingEnvironment.WebRootPath, $@"html\{this.FileName}.html"));
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var item in this.Css())
@@ -97,7 +96,7 @@ namespace Core.Mvc.ViewConfiguration
             addons.AddLinkButton(new LinkedAnchor("/Redirect/chat", "Chat option"));
             sidebar.AddLinkButton(addons);
 
-            SubMenu error = new SubMenu("icon icon-sign", "", "Error", 4);
+            SubMenu error = new SubMenu("icon icon-info-sign", "", "Error", 4);
             error.AddLinkButton(new LinkedAnchor("/Redirect/error403", "Error 403"));
             error.AddLinkButton(new LinkedAnchor("/Redirect/error404", "Error 404"));
             error.AddLinkButton(new LinkedAnchor("/Redirect/error405", "Error 405"));

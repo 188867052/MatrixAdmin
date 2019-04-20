@@ -12,7 +12,7 @@ namespace Core.Web
             this.Url = url;
             this.InnerText = innerText;
             this.ImportantCount = importantCount;
-            this.IsSelected = this.IsSelected;
+            this.IsSelected = isSelected;
         }
 
         public bool IsSelected { get; set; }
