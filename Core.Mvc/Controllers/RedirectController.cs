@@ -126,7 +126,7 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Grid()
         {
-            File File = new File(_hostingEnvironment, "Grid");
+            Grid File = new Grid(_hostingEnvironment);
             return Content(File.Render(), "text/html");
         }
 
