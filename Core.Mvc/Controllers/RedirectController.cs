@@ -47,7 +47,7 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Buttons()
         {
-            File File = new File(_hostingEnvironment, "buttons");
+            Button File = new Button(_hostingEnvironment);
             return Content(File.Render(), "text/html");
         }
 
