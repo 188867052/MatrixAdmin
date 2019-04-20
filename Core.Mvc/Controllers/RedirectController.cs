@@ -1,4 +1,5 @@
-﻿using Core.Web.Dialog;
+﻿using Core.Mvc.ViewConfigurations.Table;
+using Core.Web.Dialog;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,8 +16,8 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Index()
         {
-            File File = new File(_hostingEnvironment, "index");
-            return Content(File.Render(), "text/html");
+            Index index = new Index(this._hostingEnvironment);
+            return Content(index.Render(), "text/html");
         }
 
         public IActionResult Index2()
@@ -129,7 +130,7 @@ namespace Core.Mvc.Controllers
             return Content(File.Render(), "text/html");
         }
 
-   
+
         public IActionResult Interface()
         {
             File File = new File(_hostingEnvironment, "interface");
