@@ -51,7 +51,7 @@ namespace Core.Mvc.ViewConfiguration
         /// <returns></returns>
         public virtual string Render()
         {
-            string sidebarMenu = this.GetSidebarMenu();
+            string sidebarMenu = this.GenerateSidebarMenu();
             string htmlFormat = File.ReadAllText(Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\{this.FileName}.html"));
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var item in this.Css())
@@ -69,8 +69,11 @@ namespace Core.Mvc.ViewConfiguration
             return html;
         }
 
-
-        private string GetSidebarMenu()
+        /// <summary>
+        /// Generate sidebar menu.
+        /// </summary>
+        /// <returns></returns>
+        protected string GenerateSidebarMenu()
         {
             Sidebar sidebar = new Sidebar();
             sidebar.AddLinkButton(new SubMenu("icon icon-home", "/Redirect/index", "Dashboard", 0, true));

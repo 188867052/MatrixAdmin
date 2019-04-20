@@ -1,4 +1,5 @@
 ﻿using Core.Mvc.ViewConfiguration.Button;
+using Core.Mvc.ViewConfiguration.Chart;
 using Core.Mvc.ViewConfiguration.Error;
 using Core.Mvc.ViewConfiguration.Form;
 using Core.Mvc.ViewConfiguration.Grid;
@@ -67,8 +68,8 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Charts()
         {
-            File file = new File(_hostingEnvironment, "charts");
-            return Content(file.Render(), "text/html");
+            Chart button = new Chart(_hostingEnvironment);
+            return Content(button.Render(), "text/html");
         }
 
         public IActionResult Chat()

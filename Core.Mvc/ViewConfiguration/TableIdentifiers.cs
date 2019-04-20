@@ -1,6 +1,6 @@
 ﻿using Core.Web.Identifiers;
 
-namespace Core.Mvc.ViewConfigurations.Table
+namespace Core.Mvc.ViewConfiguration
 {
 	public class TableIdentifiers
 	{

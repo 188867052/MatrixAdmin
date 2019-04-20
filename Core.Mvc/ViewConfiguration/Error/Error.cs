@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using System.Collections.Generic;
 
 namespace Core.Mvc.ViewConfiguration.Error
 {
@@ -53,23 +51,13 @@ namespace Core.Mvc.ViewConfiguration.Error
             };
         }
 
+        /// <summary>
+        /// 渲染
+        /// </summary>
+        /// <returns></returns>
         public override string Render()
         {
-            string path = Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\{this.FileName}.html");
-            string htmlFormat = File.ReadAllText(path);
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach (var item in this.Css())
-            {
-                stringBuilder.Append($"<link href=\"{item}\" rel=\"stylesheet\">");
-            }
-            foreach (var item in this.Javascript())
-            {
-                stringBuilder.Append($"<script src=\"{item}\"></script>");
-            }
-            string head = $"<head>{stringBuilder}</head>";
-            string html = htmlFormat.Replace("{{head}}", head);
-            html = html.Replace("{{number}}", this.errorNumber.ToString());
-
+            string html = base.Render().Replace("{{number}}", this.errorNumber.ToString());
             return html;
         }
     }
