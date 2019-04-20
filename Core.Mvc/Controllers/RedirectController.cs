@@ -29,7 +29,7 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Tables()
         {
-            File File = new File(_hostingEnvironment, "tables");
+            ViewConfigurations.Table.Table File = new ViewConfigurations.Table.Table(_hostingEnvironment);
             return Content(File.Render(), "text/html");
         }
 

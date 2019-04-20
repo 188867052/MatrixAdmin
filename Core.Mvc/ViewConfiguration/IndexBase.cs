@@ -18,7 +18,13 @@ namespace Core.Mvc.ViewConfigurations
         /// Title
         /// </summary>
         /// <returns></returns>
-        protected abstract string Title { get; }
+        protected virtual string Title
+        {
+            get
+            {
+                return "Matrix Admin";
+            }
+        }
 
         /// <summary>
         /// Html

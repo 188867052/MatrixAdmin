@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Core.Mvc.ViewConfigurations.Table
 {
-    public class Login : IndexBase
+    public class Table : IndexBase
     {
-        public Login(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
+        public Table(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
 
         }
@@ -16,8 +16,11 @@ namespace Core.Mvc.ViewConfigurations.Table
             {
                 "/css/bootstrap.min.css",
                 "/css/bootstrap-responsive.min.css",
+                "/css/uniform.css",
+                "/css/select2.css",
+                "/css/matrix-style.css",
+                "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
-                "/css/matrix-login.css",
             };
         }
 
@@ -25,7 +28,7 @@ namespace Core.Mvc.ViewConfigurations.Table
         {
             get
             {
-                return "login";
+                return "tables";
             }
         }
 
@@ -34,7 +37,13 @@ namespace Core.Mvc.ViewConfigurations.Table
             return new List<string>
             {
                "/js/jquery.min.js",
-               "/js/matrix.login.js"
+               "/js/jquery.ui.custom.js",
+               "/js/bootstrap.min.js",
+               "/js/jquery.uniform.js",
+               "/js/select2.min.js",
+               "/js/jquery.dataTables.min.js",
+               "/js/matrix.js",
+               "/js/matrix.tables.js"
             };
         }
     }

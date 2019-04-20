@@ -10,13 +10,6 @@ namespace Core.Mvc.ViewConfigurations.Table
 
         }
 
-        protected override string Title
-        {
-            get
-            {
-                return "Matrix Admin";
-            }
-        }
 
         public override IList<string> Css()
         {
