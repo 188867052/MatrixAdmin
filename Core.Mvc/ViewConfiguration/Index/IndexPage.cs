@@ -56,7 +56,7 @@ namespace Core.Mvc.ViewConfigurations
                 stringBuilder.Append($"<script src=\"{item}\"></script>");
             }
             string head = $"<head>{stringBuilder}</head>";
-            string html = htmlFormat.Replace("{{0}}", head);
+            string html = string.Format(htmlFormat, head);
 
             return html;
         }

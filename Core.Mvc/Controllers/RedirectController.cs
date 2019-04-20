@@ -35,8 +35,8 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Login()
         {
-            File File = new File(_hostingEnvironment, "Login");
-            return Content(File.Render(), "text/html");
+            ViewConfigurations.Table.Login login = new ViewConfigurations.Table.Login(_hostingEnvironment);
+            return Content(login.Render(), "text/html");
         }
 
         public IActionResult Widgets()
