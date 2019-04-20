@@ -70,13 +70,21 @@ namespace Core.Mvc.ViewConfigurations
         }
 
 
-        private void GetSidebarMenu()
+        private string GetSidebarMenu()
         {
-            SidebarMenu SidebarMenu = new SidebarMenu();
-            SidebarMenu.AddLinkButton(new Submenu("icon icon-home", "Dashboard", "Dashboard"));
-            SidebarMenu.AddLinkButton(new Submenu("icon icon-home", "Dashboard", "Dashboard"));
-            SidebarMenu.AddLinkButton(new Submenu("icon icon-home", "/Redirect/index", "Charts &amp; Graphs"));
+            Sidebar sidebar = new Sidebar();
+            sidebar.AddLinkButton(new Submenu("icon icon-home", "/Redirect/index", "Dashboard"));
+            sidebar.AddLinkButton(new Submenu("icon icon-signal", "/Redirect/charts", "Charts &amp; Graphs"));
+            sidebar.AddLinkButton(new Submenu("icon icon-inbox", "/Redirect/widgets", "Charts &amp; Graphs"));
+            sidebar.AddLinkButton(new Submenu("icon icon-th", "/Redirect/tables", "Charts &amp; Graphs"));
+            sidebar.AddLinkButton(new Submenu("icon icon-fullscreen", "/Redirect/grid", "Charts &amp; Graphs"));
+            sidebar.AddLinkButton(new Submenu("icon icon-th-list", "", "Charts &amp; Graphs"));
+            sidebar.AddLinkButton(new Submenu("icon icon-tint", "/Redirect/buttons", "Charts &amp; Graphs"));
+            sidebar.AddLinkButton(new Submenu("icon icon-pencil", "/Redirect/interface", "Charts &amp; Graphs"));
+            sidebar.AddLinkButton(new Submenu("icon icon-file", "", "Charts &amp; Graphs"));
+            sidebar.AddLinkButton(new Submenu("icon icon-info-sign", "", "Charts &amp; Graphs"));
 
+            return sidebar.Render();
         }
     }
 }
