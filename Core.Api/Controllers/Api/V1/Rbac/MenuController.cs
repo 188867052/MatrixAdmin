@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
-using Core.Api.Entities;
-using Core.Api.Entities.Enums;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Api.Extensions.Queryable;
-using Core.Api.Models.Menu;
 using Core.Api.Models.Response;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +9,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Api.Configurations;
+using Core.Models.Entities;
+using Core.Models.Entities.Enums;
+using Core.Models.Models.Menu;
+using MenuJsonModel = Core.Api.Models.Menu.MenuJsonModel;
 
 namespace Core.Api.Controllers.Api.V1.Rbac
 {

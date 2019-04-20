@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using Core.Api.Entities;
-using Core.Api.Models.Icon;
-using Core.Api.Models.Menu;
-using Core.Api.Models.Permission;
-using Core.Api.Models.Role;
-using Core.Api.Models.User;
-using Core.Api.ViewModels.Rbac.User;
+using Core.Models;
+using Core.Models.Entities;
+using Core.Models.Models.Menu;
+using MenuJsonModel = Core.Api.Models.Menu.MenuJsonModel;
 
 namespace Core.Api.Configurations
 {

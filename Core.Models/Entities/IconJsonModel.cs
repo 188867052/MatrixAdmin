@@ -1,7 +1,7 @@
 ﻿using System;
-using Core.Api.Entities.Enums;
+using Core.Models.Entities.Enums;
 
-namespace Core.Api.Models.Icon
+namespace Core.Models.Entities
 {
     /// <summary>
     /// 

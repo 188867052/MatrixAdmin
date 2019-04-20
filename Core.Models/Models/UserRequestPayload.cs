@@ -1,4 +1,4 @@
-﻿namespace Core.Api.Models.User
+﻿namespace Core.Models.Models
 {
     /// <summary>
     /// 

@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Core.Api.Entities;
-using Core.Api.Entities.QueryModels.Permission;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Api.Extensions.Queryable;
@@ -15,7 +13,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Api.Models.Permission;
+using Core.Models;
+using Core.Models.Entities;
+using Core.Models.Entities.QueryModels.Permission;
 
 namespace Core.Api.Controllers.Api.V1.Rbac
 {

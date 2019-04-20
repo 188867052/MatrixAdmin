@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Api.Entities
+namespace Core.Models.Entities
 {
     /// <summary>
     /// 图标实体类

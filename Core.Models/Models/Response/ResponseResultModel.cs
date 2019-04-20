@@ -1,4 +1,4 @@
-﻿namespace Core.Api.Models.Response
+﻿namespace Core.Models.Models.Response
 {
     /// <summary>
     /// 

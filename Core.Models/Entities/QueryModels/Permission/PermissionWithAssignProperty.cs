@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Api.Entities.QueryModels.Permission
+namespace Core.Models.Entities.QueryModels.Permission
 {
     /// <summary>
     /// 

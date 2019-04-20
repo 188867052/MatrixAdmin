@@ -1,4 +1,4 @@
-﻿namespace Core.Api.Entities.Enums
+﻿namespace Core.Models.Entities.Enums
 {
     /// <summary>
     /// 是否已删

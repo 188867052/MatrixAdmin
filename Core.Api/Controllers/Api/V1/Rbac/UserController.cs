@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Core.Api.Entities;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Api.Extensions.CustomException;
@@ -11,9 +10,10 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Api.Models.User;
-using Core.Api.ViewModels.Rbac.User;
 using Core.Api.Extensions.Queryable;
+using Core.Models;
+using Core.Models.Entities;
+using Core.Models.Models;
 
 namespace Core.Api.Controllers.Api.V1.Rbac
 {
@@ -54,8 +54,8 @@ namespace Core.Api.Controllers.Api.V1.Rbac
                 {
                     query = query.Where(x => x.LoginName.Contains(model.KeyWord.Trim()) || x.DisplayName.Contains(model.KeyWord.Trim()));
                 }
-                query = query.AddBooleanFilter(model.IsEnable, nameof(Entities.User.IsEnable));
-                query = query.AddBooleanFilter(model.Status, nameof(Entities.User.Status));
+                query = query.AddBooleanFilter(model.IsEnable, nameof(Core.Models.Entities.User.IsEnable));
+                query = query.AddBooleanFilter(model.Status, nameof(Core.Models.Entities.User.Status));
                 query = query.Paged(model.CurrentPage, model.PageSize);
                 if (model.FirstSort != null)
                 {

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Api.Entities;
-using Core.Api.Entities.Enums;
-using Core.Api.Entities.QueryModels.Permission;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Api.Models.Response;
+using Core.Models.Entities;
+using Core.Models.Entities.Enums;
+using Core.Models.Entities.QueryModels.Permission;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

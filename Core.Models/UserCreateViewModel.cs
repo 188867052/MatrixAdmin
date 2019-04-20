@@ -1,6 +1,6 @@
-﻿using Core.Api.Entities.Enums;
+﻿using Core.Models.Entities.Enums;
 
-namespace Core.Api.ViewModels.Rbac.User
+namespace Core.Models
 {
     /// <summary>
     /// 

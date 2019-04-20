@@ -1,4 +1,4 @@
-﻿namespace Core.Api.Entities
+﻿namespace Core.Models.Entities
 {
     public abstract class Entity<T>
     {

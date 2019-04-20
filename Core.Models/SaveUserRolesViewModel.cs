@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Core.Api.ViewModels.Rbac.User
+namespace Core.Models
 {
     /// <summary>
     /// 用户获得的角色实体对象

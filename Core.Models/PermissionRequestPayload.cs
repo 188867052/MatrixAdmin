@@ -1,6 +1,7 @@
 ﻿using System;
+using Core.Models.Models;
 
-namespace Core.Api.Models.Permission
+namespace Core.Models
 {
     /// <summary>
     /// 

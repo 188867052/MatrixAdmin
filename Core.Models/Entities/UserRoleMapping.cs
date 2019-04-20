@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Api.Entities
+namespace Core.Models.Entities
 {
     /// <summary>
     /// 用户-角色映射

@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Security.Claims;
 using Core.Api.Auth;
-using Core.Api.Entities;
-using Core.Api.Entities.Enums;
 using Core.Api.Extensions;
 using Core.Api.Models.Response;
+using Core.Models.Entities;
+using Core.Models.Entities.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 

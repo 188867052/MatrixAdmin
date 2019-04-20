@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Core.Api.Models.Menu
+namespace Core.Models.Models.Menu
 {
     /// <summary>
     /// 用于iview的菜单树

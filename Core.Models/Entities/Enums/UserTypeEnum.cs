@@ -1,4 +1,4 @@
-﻿namespace Core.Api.Entities.Enums
+﻿namespace Core.Models.Entities.Enums
 {
     /// <summary>
     /// 用户类型枚举

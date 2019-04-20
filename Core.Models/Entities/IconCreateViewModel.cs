@@ -1,4 +1,4 @@
-﻿namespace Core.Api.Models.Icon
+﻿namespace Core.Models.Entities
 {
     /// <summary>
     /// 图标的视图类(创建/编辑)

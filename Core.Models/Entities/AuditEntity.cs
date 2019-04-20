@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Api.Entities
+namespace Core.Models.Entities
 {
     public abstract class AuditEntity
     {

@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using Core.Api.Entities;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Api.Extensions.Queryable;
-using Core.Api.Models.Icon;
 using Core.Api.Models.Response;
 using Dapper;
 using ExpressionBuilder.Generics;
@@ -13,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Api.Configurations;
+using Core.Models.Entities;
 
 namespace Core.Api.Controllers.Api.V1.Rbac
 {

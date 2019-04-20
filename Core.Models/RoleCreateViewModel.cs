@@ -1,4 +1,4 @@
-﻿namespace Core.Api.Models.Role
+﻿namespace Core.Models
 {
     /// <summary>
     /// 

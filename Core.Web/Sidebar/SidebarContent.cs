@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Core.Web.Sidebar
+﻿namespace Core.Web.Sidebar
 {
     public class SidebarContent
     {

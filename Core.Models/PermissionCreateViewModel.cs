@@ -1,7 +1,7 @@
-﻿using Core.Api.Entities.Enums;
-using System;
+﻿using System;
+using Core.Models.Entities.Enums;
 
-namespace Core.Api.Models.Permission
+namespace Core.Models
 {
     /// <summary>
     /// 权限实体类

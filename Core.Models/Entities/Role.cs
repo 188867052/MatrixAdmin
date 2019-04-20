@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Api.Entities.Enums;
 
-namespace Core.Api.Entities
+namespace Core.Models.Entities
 {
     /// <summary>
     /// 角色实体类

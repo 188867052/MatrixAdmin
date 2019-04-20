@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Api.Models.Menu
+namespace Core.Models.Models.Menu
 {
     /// <summary>
     /// 

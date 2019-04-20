@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.Api.Models
+namespace Core.Models.Models
 {
     /// <summary>
     /// 请求实体

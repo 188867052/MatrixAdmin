@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data.Common;
-using Core.Api.Entities.QueryModels.Permission;
+using Core.Models.Entities.QueryModels.Permission;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Api.Entities
+namespace Core.Models.Entities
 {
     /// <summary>
     /// 

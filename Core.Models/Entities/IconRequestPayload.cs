@@ -1,4 +1,6 @@
-﻿namespace Core.Api.Models.Icon
+﻿using Core.Models.Models;
+
+namespace Core.Models.Entities
 {
     /// <summary>
     /// 图标请求参数实体

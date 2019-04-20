@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Core.Api.Entities;
 using Core.Api.Extensions;
 using Core.Api.Models.Response;
+using Core.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Api.Controllers.Api.V2
