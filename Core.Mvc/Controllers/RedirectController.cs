@@ -101,7 +101,7 @@ namespace Core.Mvc.Controllers
 
         public IActionResult FormCommon()
         {
-            File File = new File(_hostingEnvironment, "Form-Common");
+            BasicForm File = new BasicForm(_hostingEnvironment);
             return Content(File.Render(), "text/html");
         }
 
@@ -133,7 +133,7 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Interface()
         {
-            File File = new File(_hostingEnvironment, "interface");
+            Interface File = new Interface(_hostingEnvironment);
             return Content(File.Render(), "text/html");
         }
 
