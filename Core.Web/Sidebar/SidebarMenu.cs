@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-
-namespace Core.Web
+﻿namespace Core.Web.Sidebar
 {
     public class LinkedAnchor
     {

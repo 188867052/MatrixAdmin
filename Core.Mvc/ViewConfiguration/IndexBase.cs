@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using Core.Web;
+using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration
@@ -76,20 +77,20 @@ namespace Core.Mvc.ViewConfiguration
         protected string GenerateSidebarMenu()
         {
             Sidebar sidebar = new Sidebar();
-            sidebar.AddLinkButton(new SubMenu("icon icon-home", "/Redirect/index", "Dashboard", 0, true));
-            sidebar.AddLinkButton(new SubMenu("icon icon-signal", "/Redirect/charts", "Charts &amp; Graphs"));
-            sidebar.AddLinkButton(new SubMenu("icon icon-inbox", "/Redirect/widgets", "Widgets"));
-            sidebar.AddLinkButton(new SubMenu("icon icon-th", "/Redirect/tables", "Tables"));
-            sidebar.AddLinkButton(new SubMenu("icon icon-fullscreen", "/Redirect/grid", "Full width"));
+            sidebar.AddSubMenu(new SubMenu("icon icon-home", "/Redirect/index", "Dashboard", 0, true));
+            sidebar.AddSubMenu(new SubMenu("icon icon-signal", "/Redirect/charts", "Charts &amp; Graphs"));
+            sidebar.AddSubMenu(new SubMenu("icon icon-inbox", "/Redirect/widgets", "Widgets"));
+            sidebar.AddSubMenu(new SubMenu("icon icon-th", "/Redirect/tables", "Tables"));
+            sidebar.AddSubMenu(new SubMenu("icon icon-fullscreen", "/Redirect/grid", "Full width"));
 
             SubMenu forms = new SubMenu("icon icon-th-list", "", "Forms", 3);
             forms.AddLinkButton(new LinkedAnchor("/Redirect/formcommon", "Basic Form"));
             forms.AddLinkButton(new LinkedAnchor("/Redirect/formvalidation", "Form with Validation"));
             forms.AddLinkButton(new LinkedAnchor("/Redirect/formwizard", "Form with Wizard"));
-            sidebar.AddLinkButton(forms);
+            sidebar.AddSubMenu(forms);
 
-            sidebar.AddLinkButton(new SubMenu("icon icon-tint", "/Redirect/buttons", "Buttons &amp; icons"));
-            sidebar.AddLinkButton(new SubMenu("icon icon-pencil", "/Redirect/interface", "Elements"));
+            sidebar.AddSubMenu(new SubMenu("icon icon-tint", "/Redirect/buttons", "Buttons &amp; icons"));
+            sidebar.AddSubMenu(new SubMenu("icon icon-pencil", "/Redirect/interface", "Elements"));
 
             SubMenu addons = new SubMenu("icon icon-file", "", "Addons", 5);
             addons.AddLinkButton(new LinkedAnchor("/Redirect/index2", "Dashboard2"));
@@ -97,14 +98,14 @@ namespace Core.Mvc.ViewConfiguration
             addons.AddLinkButton(new LinkedAnchor("/Redirect/calendar", "Calendar"));
             addons.AddLinkButton(new LinkedAnchor("/Redirect/invoice", "Invoice"));
             addons.AddLinkButton(new LinkedAnchor("/Redirect/chat", "Chat option"));
-            sidebar.AddLinkButton(addons);
+            sidebar.AddSubMenu(addons);
 
             SubMenu error = new SubMenu("icon icon-info-sign", "", "Error", 4);
             error.AddLinkButton(new LinkedAnchor("/Redirect/error403", "Error 403"));
             error.AddLinkButton(new LinkedAnchor("/Redirect/error404", "Error 404"));
             error.AddLinkButton(new LinkedAnchor("/Redirect/error405", "Error 405"));
             error.AddLinkButton(new LinkedAnchor("/Redirect/error500", "Error 500"));
-            sidebar.AddLinkButton(error);
+            sidebar.AddSubMenu(error);
 
             return sidebar.Render();
         }

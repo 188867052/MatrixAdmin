@@ -8,6 +8,7 @@ using Core.Mvc.ViewConfiguration.Table;
 using Core.Mvc.ViewConfiguration.Widget;
 using Core.Mvc.ViewConfigurations.Table;
 using Core.Web.Dialog;
+using Core.Web.File;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Login = Core.Mvc.ViewConfiguration.Login.Login;

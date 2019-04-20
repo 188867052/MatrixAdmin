@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Core.Web
+namespace Core.Web.Sidebar
 {
     public class SubMenu
     {
