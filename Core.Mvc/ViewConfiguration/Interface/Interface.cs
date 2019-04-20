@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
+using Core.Mvc.ViewConfiguration;
 
 namespace Core.Mvc.ViewConfigurations.Table
 {

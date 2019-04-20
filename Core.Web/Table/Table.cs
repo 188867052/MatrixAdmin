@@ -1,4 +1,4 @@
-﻿namespace Core.Web.Dialog
+﻿namespace Core.Web.Table
 {
     public class Table
     {

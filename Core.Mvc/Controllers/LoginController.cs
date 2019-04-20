@@ -17,26 +17,26 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Index()
         {
-            Login Table = new Login(this._hostingEnvironment);
-            return Content(Table.Render(), "text/html");
+            Login login = new Login(this._hostingEnvironment);
+            return Content(login.Render(), "text/html");
         }
 
         public IActionResult File(string fileName)
         {
-            File File = new File(_hostingEnvironment, fileName);
-            return Content(File.Render(), "text/html");
+            File file = new File(_hostingEnvironment, fileName);
+            return Content(file.Render(), "text/html");
         }
 
         public IActionResult SmallDialog()
         {
-            SmallDialog Dialog = new SmallDialog();
-            return Content(Dialog.Render(), "text/html");
+            SmallDialog dialog = new SmallDialog();
+            return Content(dialog.Render(), "text/html");
         }
 
         public IActionResult Carousel()
         {
-            Carousel Dialog = new Carousel();
-            return Content(Dialog.Render(), "text/html");
+            Carousel dialog = new Carousel();
+            return Content(dialog.Render(), "text/html");
         }
 
         public IActionResult Privacy()

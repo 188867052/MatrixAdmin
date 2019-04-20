@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Microsoft.AspNetCore.Hosting;
 
-namespace Core.Mvc.ViewConfigurations.Table
+namespace Core.Mvc.ViewConfiguration.Error
 {
     public class Error : IndexBase
     {

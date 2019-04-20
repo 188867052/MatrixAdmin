@@ -9,20 +9,20 @@ namespace Core.Mvc.Controllers
     {
         public IActionResult Index()
         {
-            LargeDialog Dialog = new LargeDialog();
-            return Content(Dialog.Render(), "text/html");
+            LargeDialog largeDialog = new LargeDialog();
+            return Content(largeDialog.Render(), "text/html");
         }
 
         public IActionResult SmallDialog()
         {
-            SmallDialog Dialog = new SmallDialog();
-            return Content(Dialog.Render(), "text/html");
+            SmallDialog smallDialog = new SmallDialog();
+            return Content(smallDialog.Render(), "text/html");
         }
 
         public IActionResult Carousel()
         {
-            Carousel Dialog = new Carousel();
-            return Content(Dialog.Render(), "text/html");
+            Carousel carousel = new Carousel();
+            return Content(carousel.Render(), "text/html");
         }
 
         public IActionResult Privacy()

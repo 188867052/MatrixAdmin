@@ -1,4 +1,4 @@
-﻿namespace Core.Mvc.ViewConfigurations.Table
+﻿namespace Core.Mvc.ViewConfiguration.Index
 {
     public class ViewInstance
     {
