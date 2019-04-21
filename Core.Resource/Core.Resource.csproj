@@ -61,6 +61,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ViewConfiguration\IndexBaseResource.resx" />
     <EmbeddedResource Include="ViewConfiguration\Error\ErrorResource.resx" />
     <EmbeddedResource Include="ViewConfiguration\Administration\IconResource.resx" />
   </ItemGroup>

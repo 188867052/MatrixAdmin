@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Core.Resource.ViewConfiguration;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
@@ -100,15 +101,15 @@ namespace Core.Mvc.ViewConfiguration
             error.AddLinkButton(new LinkedAnchor("/Redirect/error405", "Error 405"));
             error.AddLinkButton(new LinkedAnchor("/Redirect/error500", "Error 500"));
 
-            SubMenu manage = new SubMenu("icon icon-user", "", "系统管理", 8);
-            manage.AddLinkButton(new LinkedAnchor("/User/UserManage", "用户管理"));
-            manage.AddLinkButton(new LinkedAnchor("/User/RoleManage", "角色管理"));
-            manage.AddLinkButton(new LinkedAnchor("/User/PermissionManage", "权限管理"));
-            manage.AddLinkButton(new LinkedAnchor("/User/MenuManage", "菜单管理"));
-            manage.AddLinkButton(new LinkedAnchor("/User/IconManage", "图标管理"));
+            SubMenu manage = new SubMenu("icon icon-user", "", IndexBaseResource.SystemManage, 8);
+            manage.AddLinkButton(new LinkedAnchor("/User/UserManage", IndexBaseResource.UserManage));
+            manage.AddLinkButton(new LinkedAnchor("/User/RoleManage", IndexBaseResource.RoleManage));
+            manage.AddLinkButton(new LinkedAnchor("/User/PermissionManage", IndexBaseResource.PermissionManage));
+            manage.AddLinkButton(new LinkedAnchor("/User/MenuManage", IndexBaseResource.MenuManage));
+            manage.AddLinkButton(new LinkedAnchor("/User/IconManage", IndexBaseResource.IconManage));
 
-            SubMenu log = new SubMenu("icon icon-edit", "", "日志管理", 2);
-            log.AddLinkButton(new LinkedAnchor("/Log/error", "错误日志"));
+            SubMenu log = new SubMenu("icon icon-edit", "", IndexBaseResource.LogManage, 2);
+            log.AddLinkButton(new LinkedAnchor("/Log/error", IndexBaseResource.ErrorLog));
 
             Sidebar sidebar = new Sidebar();
             sidebar.AddSubMenu(new SubMenu("icon icon-home", "/Redirect/index", "Dashboard", 0, true));
