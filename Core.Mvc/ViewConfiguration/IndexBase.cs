@@ -69,6 +69,9 @@ namespace Core.Mvc.ViewConfiguration
             html = html.Replace("{{breadCrumb}}", breadCrumb);
             html = html.Replace("{{Footer}}", this.Footer());
 
+            string tobHeader = File.ReadAllText(Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\topHeader.html"));
+            html = html.Replace("{{tobHeader}}", tobHeader);
+
             return html;
         }
 
