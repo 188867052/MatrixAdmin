@@ -37,7 +37,7 @@ namespace Core.Web.Sidebar
                 current = $"<a href=\"#\" class=\"current\">{currentText}</a>";
             }
 
-            return $"<div id=\"breadcrumb\">{aa}{current}</div>";
+            return $"<div id=\"content-header\"><div id=\"breadcrumb\">{aa}{current}</div></div>";
         }
     }
 }

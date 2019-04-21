@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using Core.Web.Sidebar;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Core.Mvc.ViewConfiguration.Error
 {
@@ -63,12 +64,12 @@ namespace Core.Mvc.ViewConfiguration.Error
         }
 
 
-        //protected override string BreadCrumb()
-        //{
-        //    BreadCrumb breadCrumb = new BreadCrumb("Error 404");
-        //    breadCrumb.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
-        //    breadCrumb.AddAnchor(new Anchor("/Redirect/error", "Error", "Go to Error", "icon-info-sign", "tip-bottom"));
-        //    return breadCrumb.Render();
-        //}
+        protected override string BreadCrumb()
+        {
+            BreadCrumb breadCrumb = new BreadCrumb("Error " + this.errorNumber);
+            breadCrumb.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
+            breadCrumb.AddAnchor(new Anchor("/Redirect/error"+ this.errorNumber, "Error", "Go to Error", "icon-info-sign", "tip-bottom"));
+            return breadCrumb.Render();
+        }
     }
 }

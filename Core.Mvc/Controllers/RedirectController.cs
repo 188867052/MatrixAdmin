@@ -117,8 +117,8 @@ namespace Core.Mvc.Controllers
 
         public IActionResult FormValidation()
         {
-            File file = new File(_hostingEnvironment, "form-validation");
-            return Content(file.Render(), "text/html");
+            FormValidation basicForm = new FormValidation(_hostingEnvironment);
+            return Content(basicForm.Render(), "text/html");
         }
 
 

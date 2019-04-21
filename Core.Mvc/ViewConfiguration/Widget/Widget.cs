@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Widget
@@ -40,6 +41,14 @@ namespace Core.Mvc.ViewConfiguration.Widget
                "/js/jquery.ui.custom.js",
                "/js/matrix.js",
             };
+        }
+
+
+        protected override string BreadCrumb()
+        {
+            BreadCrumb breadCrumb = new BreadCrumb("Widget");
+            breadCrumb.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
+            return breadCrumb.Render();
         }
     }
 }
