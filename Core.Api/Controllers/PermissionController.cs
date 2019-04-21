@@ -19,7 +19,7 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 权限控制器
     /// </summary>
-    [Route("api/v1/rbac/[controller]/[action]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     //[CustomAuthorize]
     public class PermissionController : Controller

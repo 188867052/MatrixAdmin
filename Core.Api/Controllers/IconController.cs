@@ -15,7 +15,7 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [Route("api/v1/rbac/[controller]/[action]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     //[WebApiExceptionFilter]
     //[CustomAuthorize]

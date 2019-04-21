@@ -64,7 +64,7 @@ namespace Core.Mvc.ViewConfiguration.Administrator
 
         protected override string ContentHeader()
         {
-            ContentHeader contentHeader = new ContentHeader("用户管理");
+            ContentHeader contentHeader = new ContentHeader("角色管理");
             contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;

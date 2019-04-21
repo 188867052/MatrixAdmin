@@ -16,7 +16,7 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 账户控制器
     /// </summary>
-    [Route("api/v1/[controller]/[action]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     [Authorize]
     public class AccountController : ControllerBase
