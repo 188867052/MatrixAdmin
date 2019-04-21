@@ -32,7 +32,7 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Index2()
         {
-            File file = new File(_hostingEnvironment, "index2");
+            Index2 file = new Index2(_hostingEnvironment);
             return Content(file.Render(), "text/html");
         }
 
