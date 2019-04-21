@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
-using Core.Api.Extensions.CustomException;
 using Core.Api.Extensions.Queryable;
 using Core.Api.Models.Response;
 using Core.Api.Utils;
@@ -14,16 +10,18 @@ using Core.Models.Entities.Enums;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Api.Controllers
 {
     /// <summary>
     /// 角色控制器
     /// </summary>
-    [CustomAuthorize]
-    [Route("api/v1/rbac/[controller]/[action]")]
+    [Route("[controller]/[action]")]
     [ApiController]
-    [CustomAuthorize]
+    //[CustomAuthorize]
     public class RoleController : ControllerBase
     {
         private readonly Context _dbContext;
@@ -37,6 +35,19 @@ namespace Core.Api.Controllers
         {
             this._dbContext = dbContext;
             this._mapper = mapper;
+        }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            using (this._dbContext)
+            {
+                IQueryable<Role> query = this._dbContext.Role.AsQueryable();
+                var list = query.ToList();
+                ResponseModel response = ResponseModelFactory.CreateInstance;
+                response.SetData(list);
+                return Ok(response);
+            }
         }
 
         /// <summary>

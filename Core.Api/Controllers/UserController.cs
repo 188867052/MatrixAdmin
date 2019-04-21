@@ -20,10 +20,9 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 用户控制器
     /// </summary>
-    [CustomAuthorize]
-    [Route("[controller]/[action]")]
+    [Route("/[controller]/[action]")]
     [ApiController]
-    [CustomAuthorize]
+    //[CustomAuthorize]
     public class UserController : ControllerBase
     {
         private readonly Context _dbContext;

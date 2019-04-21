@@ -35,6 +35,19 @@ namespace Core.Api.Controllers
             this._mapper = mapper;
         }
 
+        [HttpGet("/api/v1/rbac/icon/index")]
+        public IActionResult Index()
+        {
+            using (this._dbContext)
+            {
+                IQueryable<Icon> query = this._dbContext.Icon.AsQueryable();
+                var list = query.ToList();
+                ResponseModel response = ResponseModelFactory.CreateInstance;
+                response.SetData(list);
+                return Ok(response);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>

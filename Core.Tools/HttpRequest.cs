@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Core.Models.Models.Response;
 using Newtonsoft.Json;
 
-namespace Core.Tools
+namespace Core.Extension
 {
     public static class AsyncRequest
     {

@@ -2,13 +2,13 @@
 using Core.Models.Entities;
 using Core.Web.Grid;
 
-namespace Core.Mvc.ViewConfiguration.UserManage
+namespace Core.Mvc.ViewConfiguration.Administrator
 {
-    public class ViewConfiguration
+    public class UserViewConfiguration
     {
         private readonly IList<User> users;
 
-        public ViewConfiguration(IList<User> users)
+        public UserViewConfiguration(IList<User> users)
         {
             this.users = users;
         }

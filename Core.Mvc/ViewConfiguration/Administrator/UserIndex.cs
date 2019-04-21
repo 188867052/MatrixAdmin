@@ -1,20 +1,19 @@
-﻿using Core.Models.Entities;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Core.Extension;
+using Core.Models.Entities;
 using Core.Models.Models.Response;
-using Core.Tools;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Core.Web.Grid;
 
-namespace Core.Mvc.ViewConfiguration.UserManage
+namespace Core.Mvc.ViewConfiguration.Administrator
 {
-    public class UserManage : IndexBase
+    public class UserIndex : IndexBase
     {
 
         private readonly List<User> users;
 
-        public UserManage(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
+        public UserIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
             Task<ResponseModel> a = AsyncRequest.GetAsync<IList<User>>("/user");
             this.users = (List<User>)a.Result.Data;
@@ -59,7 +58,7 @@ namespace Core.Mvc.ViewConfiguration.UserManage
 
         public override string Render()
         {
-            ViewConfiguration configuration=new ViewConfiguration(this.users);
+            UserViewConfiguration configuration =new UserViewConfiguration(this.users);
             string table = configuration.Render();
             return base.Render().Replace("{{Table}}", table);
         }

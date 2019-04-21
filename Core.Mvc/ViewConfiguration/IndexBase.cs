@@ -100,9 +100,13 @@ namespace Core.Mvc.ViewConfiguration
             error.AddLinkButton(new LinkedAnchor("/Redirect/error405", "Error 405"));
             error.AddLinkButton(new LinkedAnchor("/Redirect/error500", "Error 500"));
 
+            SubMenu manage = new SubMenu("icon icon-user", "", "系统管理", 8);
+            manage.AddLinkButton(new LinkedAnchor("/User/UserManage", "用户管理"));
+            manage.AddLinkButton(new LinkedAnchor("/User/RoleManage", "角色管理"));
+
             Sidebar sidebar = new Sidebar();
             sidebar.AddSubMenu(new SubMenu("icon icon-home", "/Redirect/index", "Dashboard", 0, true));
-            sidebar.AddSubMenu(new SubMenu("icon icon-user", "/User/UserManage", "用户管理", 0));
+            sidebar.AddSubMenu(manage);
             sidebar.AddSubMenu(new SubMenu("icon icon-signal", "/Redirect/charts", "Charts &amp; Graphs"));
             sidebar.AddSubMenu(new SubMenu("icon icon-inbox", "/Redirect/widgets", "Widgets"));
             sidebar.AddSubMenu(new SubMenu("icon icon-th", "/Redirect/tables", "Tables"));
