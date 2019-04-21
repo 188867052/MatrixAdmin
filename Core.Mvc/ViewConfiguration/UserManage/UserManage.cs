@@ -59,7 +59,8 @@ namespace Core.Mvc.ViewConfiguration.UserManage
 
         public override string Render()
         {
-            string table = GenerateTable();
+            ViewConfiguration configuration=new ViewConfiguration(this.users);
+            string table = configuration.Render();
             return base.Render().Replace("{{Table}}", table);
         }
 
@@ -69,18 +70,6 @@ namespace Core.Mvc.ViewConfiguration.UserManage
             contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
-        }
-
-        private string GenerateTable()
-        {
-            Column<User> column = new Column<User>(users);
-            column.AddTextColumn(new TextColumn<User>(o => o.LoginName, "登录名"));
-            column.AddTextColumn(new TextColumn<User>(o => o.DisplayName, "显示名"));
-            column.AddEnumColumn(new EnumColumn<User>(o => o.UserType, "用户类型"));
-            column.AddEnumColumn(new EnumColumn<User>(o => o.Status, "状态"));
-            column.AddDateTimeColumn(new DateTimeColumn<User>(o => o.CreatedOn, "创建时间"));
-            column.AddTextColumn(new TextColumn<User>(o => o.CreatedByUserName, "创建者"));
-            return column.Render();
         }
     }
 }
