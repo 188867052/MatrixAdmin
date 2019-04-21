@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Table
@@ -45,6 +46,13 @@ namespace Core.Mvc.ViewConfiguration.Table
                "/js/matrix.js",
                "/js/matrix.tables.js"
             };
+        }
+
+        protected override string ContentHeader()
+        {
+            ContentHeader contentHeader = new ContentHeader("Tables");
+            contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
+            return contentHeader.Render();
         }
     }
 }
