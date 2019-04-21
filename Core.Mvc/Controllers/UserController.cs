@@ -35,5 +35,11 @@ namespace Core.Mvc.Controllers
             PermissionIndex index = new PermissionIndex(this._hostingEnvironment);
             return Content(index.Render(), "text/html", Encoding.UTF8);
         }
+
+        public IActionResult MenuManage()
+        {
+            MenuIndex index = new MenuIndex(this._hostingEnvironment);
+            return Content(index.Render(), "text/html", Encoding.UTF8);
+        }
     }
 }

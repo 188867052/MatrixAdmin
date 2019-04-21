@@ -16,7 +16,7 @@ using MenuJsonModel = Core.Api.Models.Menu.MenuJsonModel;
 namespace Core.Api.Controllers
 {
     /// <summary>
-    /// 
+    /// 菜单
     /// </summary>
     [Route("[controller]/[action]")]
     [ApiController]
@@ -25,8 +25,9 @@ namespace Core.Api.Controllers
     {
         private readonly Context _dbContext;
         private readonly IMapper _mapper;
+
         /// <summary>
-        /// 
+        /// 构造函数
         /// </summary>
         /// <param name="dbContext"></param>
         /// <param name="mapper"></param>
@@ -36,11 +37,24 @@ namespace Core.Api.Controllers
             this._mapper = mapper;
         }
 
+        [HttpGet]
+        public IActionResult Index()
+        {
+            using (this._dbContext)
+            {
+                IQueryable<Menu> query = this._dbContext.Menu.AsQueryable();
+                var list = query.ToList();
+                ResponseModel response = ResponseModelFactory.CreateInstance;
+                response.SetData(list);
+                return Ok(response);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        
+
         [HttpPost]
         public IActionResult List(MenuRequestPayload request)
         {

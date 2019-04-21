@@ -15,6 +15,15 @@ namespace Core.Extension.Expression
             return obj is null ? default : property.GetValue(instance).ToString();
         }
 
+        public static int GetValue<T>(this Expression<Func<T, int>> expression, object instance)
+        {
+            MemberExpression memberExpression = expression.Body as MemberExpression;
+            string propertyName = memberExpression.Member.Name;
+            var property = typeof(T).GetProperties().First(l => l.Name == propertyName);
+            var obj = property.GetValue(instance);
+            return obj is null ? default : (int)property.GetValue(instance);
+        }
+
         public static bool GetValue<T>(this Expression<Func<T, bool>> expression, object instance)
         {
             MemberExpression memberExpression = expression.Body as MemberExpression;

@@ -9,6 +9,7 @@ namespace Core.Web.Grid
         public IList<T> EntityList;
         public List<TextColumn<T>> TextColumns;
         public List<BooleanColumn<T>> BooleanColumns;
+        public List<IntegerColumn<T>> IntegerColumns;
         public List<DateTimeColumn<T>> DateTimeColumns;
         public List<EnumColumn<T>> EnumColumns;
         public ColumnConfiguration(IList<T> list)
@@ -16,6 +17,7 @@ namespace Core.Web.Grid
             this.TextColumns = new List<TextColumn<T>>();
             this.BooleanColumns = new List<BooleanColumn<T>>();
             this.DateTimeColumns = new List<DateTimeColumn<T>>();
+            this.IntegerColumns=new List<IntegerColumn<T>>();
             this.EnumColumns = new List<EnumColumn<T>>();
             this.EntityList = list;
         }
@@ -23,6 +25,12 @@ namespace Core.Web.Grid
         public void AddBooleanColumn(BooleanColumn<T> column)
         {
             this.BooleanColumns.Add(column);
+
+        }
+
+        public void AddIntegerColumn(IntegerColumn<T> column)
+        {
+            this.IntegerColumns.Add(column);
         }
 
         public void AddTextColumn(TextColumn<T> column)
@@ -58,6 +66,10 @@ namespace Core.Web.Grid
             {
                 thead += $"<th>{item.Thead}</th>";
             }
+            foreach (var item in IntegerColumns)
+            {
+                thead += $"<th>{item.Thead}</th>";
+            }
             string tbody = default;
             foreach (var entity in EntityList)
             {
@@ -85,7 +97,12 @@ namespace Core.Web.Grid
                     bool value = item.Expression.GetValue(entity);
                     tr += $"<td>{value}</td>";
                 }
-                
+                foreach (var item in IntegerColumns)
+                {
+                    int value = item.Expression.GetValue(entity);
+                    tr += $"<td>{value}</td>";
+                }
+
                 tbody += $"<tr>{tr}</tr>";
             }
 
