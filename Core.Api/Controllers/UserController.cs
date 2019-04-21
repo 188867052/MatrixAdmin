@@ -5,7 +5,7 @@ using Core.Api.Models.Response;
 using Core.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Core.Api.Controllers.Api.V2
+namespace Core.Api.Controllers
 {
     /// <summary>
     /// 用户控制器
@@ -20,6 +20,7 @@ namespace Core.Api.Controllers.Api.V2
         {
             this._dbContext = dbContext;
         }
+
         [HttpGet]
         public IActionResult List()
         {

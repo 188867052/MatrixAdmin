@@ -15,9 +15,10 @@ namespace Core.Api.Configurations
     {
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
-        public CustomErrorMessageDelegatingHandler(RequestDelegate next, ILoggerFactory loggerFactory)
+        public CustomErrorMessageDelegatingHandler(RequestDelegate next, ILoggerFactory loggerFactory, ILogger logger)
         {
-                
+            _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)

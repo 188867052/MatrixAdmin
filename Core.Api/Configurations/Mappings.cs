@@ -1,33 +1,35 @@
-﻿using AutoMapper;
-using Core.Api.Configurations;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
+using AutoMapper;
 
-public class Mappings
+namespace Core.Api.Configurations
 {
-    public static void RegisterMappings()
+    public class Mappings
     {
-        //获取所有IProfile实现类
-        var allType =
-            Assembly
-                .GetEntryAssembly()//获取默认程序集
-                .GetReferencedAssemblies()//获取所有引用程序集
-                .Select(Assembly.Load)
-                .SelectMany(y => y.DefinedTypes)
-                .Where(type => typeof(IProfile).GetTypeInfo().IsAssignableFrom(type.AsType()));
-
-        foreach (var typeInfo in allType)
+        public static void RegisterMappings()
         {
-            var type = typeInfo.AsType();
-            if (type.Equals(typeof(IProfile)))
+            //获取所有IProfile实现类
+            var allType =
+                Assembly
+                    .GetEntryAssembly()//获取默认程序集
+                    .GetReferencedAssemblies()//获取所有引用程序集
+                    .Select(Assembly.Load)
+                    .SelectMany(y => y.DefinedTypes)
+                    .Where(type => typeof(IProfile).GetTypeInfo().IsAssignableFrom(type.AsType()));
+
+            foreach (var typeInfo in allType)
             {
-                //注册映射
-                Mapper.Initialize(y =>
+                var type = typeInfo.AsType();
+                if (type == typeof(IProfile))
                 {
-                    y.AddProfiles(type); // Initialise each Profile classe
-                });
+                    //注册映射
+                    Mapper.Initialize(y =>
+                    {
+                        y.AddProfiles(type); // Initialise each Profile classe
+                    });
+                }
             }
         }
-    }
 
+    }
 }
