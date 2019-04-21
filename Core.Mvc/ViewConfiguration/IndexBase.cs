@@ -67,6 +67,7 @@ namespace Core.Mvc.ViewConfiguration
             string html = htmlFormat.Replace("{{head}}", head);
             html = html.Replace("{{sidebarMenu}}", sidebarMenu);
             html = html.Replace("{{breadCrumb}}", breadCrumb);
+            html = html.Replace("{{Footer}}", this.Footer());
 
             return html;
         }
@@ -121,6 +122,15 @@ namespace Core.Mvc.ViewConfiguration
             BreadCrumb breadCrumb = new BreadCrumb();
             breadCrumb.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
             return breadCrumb.Render();
+        }
+
+        private string Footer()
+        {
+            return $"<div class=\"row-fluid\">" +
+                   $"<div id = \"footer\" class=\"span12\"> 2019 &copy; Matrix Admin.More Templates" +
+                   $"<a href=\"http://www.taobao.com/\" target=\"_blank\"> My Blog</a>" +
+                   $"</div>" +
+                   $"</div>";
         }
     }
 }
