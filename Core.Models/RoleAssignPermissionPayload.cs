@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Core.Models
+namespace Core.Model
 {
     /// <summary>
     /// 角色分配权限的请求载体类

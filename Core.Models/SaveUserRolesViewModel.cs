@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Core.Models
+namespace Core.Model
 {
     /// <summary>
     /// 用户获得的角色实体对象

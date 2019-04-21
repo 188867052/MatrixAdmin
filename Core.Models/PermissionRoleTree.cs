@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Core.Models
+namespace Core.Model
 {
     /// <summary>
     /// 用于角色权限的菜单树

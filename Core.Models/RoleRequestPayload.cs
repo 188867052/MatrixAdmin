@@ -1,6 +1,6 @@
-﻿using Core.Models.Models;
+﻿using Core.Model.Models;
 
-namespace Core.Models
+namespace Core.Model
 {
     /// <summary>
     /// 

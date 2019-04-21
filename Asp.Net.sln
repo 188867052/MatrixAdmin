@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Api", "Core.Api\Core.Api.csproj", "{437FDCBD-D4B4-447D-B3EF-A6E7FA1B0727}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Models", "Core.Models\Core.Models.csproj", "{A443552B-B90B-4C2A-AB3C-9A3E35A9847C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Model", "Core.Models\Core.Model.csproj", "{A443552B-B90B-4C2A-AB3C-9A3E35A9847C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Service", "Core.Service\Core.Service.csproj", "{7DC7B6B1-340D-4A31-BB19-74A96B6A3167}"
 EndProject

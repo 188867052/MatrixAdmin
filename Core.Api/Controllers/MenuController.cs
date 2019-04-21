@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Api.Extensions.Queryable;
 using Core.Api.Models.Response;
-using Core.Models.Entities;
-using Core.Models.Entities.Enums;
-using Core.Models.Models.Menu;
+using Core.Model.Entity;
+using Core.Model.Enums;
+using Core.Model.Menu;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using MenuJsonModel = Core.Api.Models.Menu.MenuJsonModel;
 
 namespace Core.Api.Controllers

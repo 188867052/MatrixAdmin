@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using AutoMapper;
+﻿using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.CustomException;
 using Core.Api.Models.Response;
-using Core.Models.Entities;
+using Core.Model.Entity;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 
 namespace Core.Api.Controllers
 {

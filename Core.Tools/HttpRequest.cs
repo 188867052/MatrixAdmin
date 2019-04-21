@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
-using Core.Models.Models.Response;
+using Core.Model.ResponseModels;
 using Newtonsoft.Json;
 
 namespace Core.Extension

@@ -1,7 +1,7 @@
 ﻿using System;
-using Core.Models.Entities.Enums;
+using Core.Model.Enums;
 
-namespace Core.Models
+namespace Core.Model
 {
     /// <summary>
     /// 权限实体类

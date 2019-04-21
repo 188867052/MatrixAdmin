@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Core.Models;
-using Core.Models.Entities;
-using Core.Models.Models.Menu;
+using Core.Model;
+using Core.Model.Entity;
+using Core.Model.Menu;
 using MenuJsonModel = Core.Api.Models.Menu.MenuJsonModel;
 
 namespace Core.Api.Configurations

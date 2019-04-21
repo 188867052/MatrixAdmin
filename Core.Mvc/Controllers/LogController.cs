@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using Core.Models.Entities;
 using Core.Mvc.ViewConfiguration.Error;
 using Core.Web.Table;
 using Microsoft.AspNetCore.Hosting;

@@ -1,14 +1,7 @@
-﻿/******************************************
- * AUTHOR:          Rector
- * CREATEDON:       2018-09-26
- * OFFICAL_SITE:    码友网(https://codedefault.com)--专注.NET/.NET Core
- * DESCRIPTION:     角色信息实体类
- ******************************************/
+﻿using System;
+using Core.Model.Enums;
 
-using System;
-using Core.Models.Entities.Enums;
-
-namespace Core.Models
+namespace Core.Model
 {
     /// <summary>
     /// 

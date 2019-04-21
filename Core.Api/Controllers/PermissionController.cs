@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Api.Extensions.Queryable;
 using Core.Api.Models.Response;
 using Core.Api.Utils;
-using Core.Models;
-using Core.Models.Entities;
-using Core.Models.Entities.QueryModels.Permission;
+using Core.Model.Entity;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Core.Model;
+using Core.Model.PostedModels;
+using Core.Model.QueryModels.Permission;
 
 namespace Core.Api.Controllers
 {
@@ -55,7 +56,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult List(PermissionRequestPayload model)
+        public IActionResult List(PermissionPostedModel model)
         {
             ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
             using (this._dbContext)

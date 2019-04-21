@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using Core.Models.Entities;
+﻿using Core.Model.Entity;
 using Core.Web.Grid;
+using System.Collections.Generic;
 
 namespace Core.Mvc.ViewConfiguration.Administrator
 {

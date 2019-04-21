@@ -1,10 +1,10 @@
 ﻿using Core.Extension;
-using Core.Models.Entities;
-using Core.Models.Models.Response;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core.Model.Entity;
+using Core.Model.ResponseModels;
 
 namespace Core.Mvc.ViewConfiguration.Administrator
 {

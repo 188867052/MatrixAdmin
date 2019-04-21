@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core.Models.Entities;
+using Core.Model.Entity;
 using Core.Web.Grid;
 
 namespace Core.Mvc.ViewConfiguration.Administrator

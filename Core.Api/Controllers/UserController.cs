@@ -4,15 +4,15 @@ using Core.Api.Extensions.AuthContext;
 using Core.Api.Extensions.DataAccess;
 using Core.Api.Extensions.Queryable;
 using Core.Api.Models.Response;
-using Core.Models;
-using Core.Models.Entities;
-using Core.Models.Models;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Model;
+using Core.Model.Entity;
+using Core.Model.Models;
 
 namespace Core.Api.Controllers
 {
@@ -64,8 +64,8 @@ namespace Core.Api.Controllers
                 {
                     query = query.Where(x => x.LoginName.Contains(model.KeyWord.Trim()) || x.DisplayName.Contains(model.KeyWord.Trim()));
                 }
-                query = query.AddBooleanFilter(model.IsEnable, nameof(Core.Models.Entities.User.IsEnable));
-                query = query.AddBooleanFilter(model.Status, nameof(Core.Models.Entities.User.Status));
+                query = query.AddBooleanFilter(model.IsEnable, nameof(Core.Model.Entity.User.IsEnable));
+                query = query.AddBooleanFilter(model.Status, nameof(Core.Model.Entity.User.Status));
                 query = query.Paged(model.CurrentPage, model.PageSize);
                 if (model.FirstSort != null)
                 {

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Core.Model.Entity;
 using Core.Web.Grid;
-using Core.Models.Entities;
+using System.Collections.Generic;
 
 namespace Core.Mvc.ViewConfiguration.Error
 {

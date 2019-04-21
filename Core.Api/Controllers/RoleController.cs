@@ -4,15 +4,15 @@ using Core.Api.Extensions.AuthContext;
 using Core.Api.Extensions.Queryable;
 using Core.Api.Models.Response;
 using Core.Api.Utils;
-using Core.Models;
-using Core.Models.Entities;
-using Core.Models.Entities.Enums;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Model;
+using Core.Model.Entity;
+using Core.Model.Enums;
 
 namespace Core.Api.Controllers
 {
