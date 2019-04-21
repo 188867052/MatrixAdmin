@@ -63,7 +63,7 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Calendar()
         {
-            File file = new File(_hostingEnvironment, "calendar");
+            Calendar file = new Calendar(_hostingEnvironment);
             return Content(file.Render(), "text/html");
         }
 
@@ -75,8 +75,8 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Chat()
         {
-            File file = new File(_hostingEnvironment, "Chat");
-            return Content(file.Render(), "text/html");
+            Chat button = new Chat(_hostingEnvironment);
+            return Content(button.Render(), "text/html");
         }
 
         public IActionResult Dashboard()
@@ -149,8 +149,8 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Invoice()
         {
-            File file = new File(_hostingEnvironment, "invoice");
-            return Content(file.Render(), "text/html");
+            Invoice @interface = new Invoice(_hostingEnvironment);
+            return Content(@interface.Render(), "text/html");
         }
     }
 }
