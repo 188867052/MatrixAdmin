@@ -1,19 +1,16 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Api.Extensions.Queryable;
 using Core.Api.Models.Response;
-using Dapper;
-using ExpressionBuilder.Generics;
-using ExpressionBuilder.Operations;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Core.Api.Configurations;
 using Core.Models.Entities;
+using Dapper;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Core.Api.Controllers.Api.V1.Rbac
+namespace Core.Api.Controllers
 {
     /// <summary>
     /// 

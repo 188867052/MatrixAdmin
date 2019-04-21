@@ -21,10 +21,6 @@
     <ProjectReference Include="..\Core.Tools\Core.Tools.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\Api\V2\" />
-  </ItemGroup>
-
   <ProjectExtensions><VisualStudio><UserProperties Properties_4launchSettings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
 
 

@@ -1,23 +1,20 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Api.Extensions.Queryable;
 using Core.Api.Models.Response;
 using Core.Api.Utils;
-using Dapper;
-using ExpressionBuilder.Common;
-using ExpressionBuilder.Generics;
-using ExpressionBuilder.Operations;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Models;
 using Core.Models.Entities;
 using Core.Models.Entities.QueryModels.Permission;
+using Dapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace Core.Api.Controllers.Api.V1.Rbac
+namespace Core.Api.Controllers
 {
     /// <summary>
     /// 权限控制器

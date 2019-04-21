@@ -15,7 +15,7 @@ using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Api.Controllers.Api.V1.Rbac
+namespace Core.Api.Controllers
 {
     /// <summary>
     /// 角色控制器
