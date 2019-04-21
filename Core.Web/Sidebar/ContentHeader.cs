@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Core.Web.Sidebar
 {
-    public class BreadCrumb
+    public class ContentHeader
     {
         public IList<Anchor> linkedAnchors;
         public string currentText;
 
-        public BreadCrumb(string currentText = default)
+        public ContentHeader(string currentText = default)
         {
             this.currentText = currentText;
         }

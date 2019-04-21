@@ -64,12 +64,12 @@ namespace Core.Mvc.ViewConfiguration.Error
         }
 
 
-        protected override string BreadCrumb()
+        protected override string ContentHeader()
         {
-            BreadCrumb breadCrumb = new BreadCrumb("Error " + this.errorNumber);
-            breadCrumb.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
-            breadCrumb.AddAnchor(new Anchor("/Redirect/error"+ this.errorNumber, "Error", "Go to Error", "icon-info-sign", "tip-bottom"));
-            return breadCrumb.Render();
+            ContentHeader contentHeader = new ContentHeader("Error " + this.errorNumber);
+            contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor("/Redirect/error"+ this.errorNumber, "Error", "Go to Error", "icon-info-sign", "tip-bottom"));
+            return contentHeader.Render();
         }
     }
 }

@@ -44,11 +44,11 @@ namespace Core.Mvc.ViewConfiguration.Widget
         }
 
 
-        protected override string BreadCrumb()
+        protected override string ContentHeader()
         {
-            BreadCrumb breadCrumb = new BreadCrumb("Widget");
-            breadCrumb.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
-            return breadCrumb.Render();
+            ContentHeader contentHeader = new ContentHeader("Widget");
+            contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
+            return contentHeader.Render();
         }
     }
 }

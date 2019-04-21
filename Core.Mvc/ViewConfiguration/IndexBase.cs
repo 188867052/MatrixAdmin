@@ -52,7 +52,7 @@ namespace Core.Mvc.ViewConfiguration
         public virtual string Render()
         {
             string sidebarMenu = this.GenerateSidebarMenu();
-            string breadCrumb = BreadCrumb();
+            string contentHeader = this.ContentHeader();
             string htmlFormat = File.ReadAllText(Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\{this.FileName}.html"));
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var item in this.Css())
@@ -66,7 +66,7 @@ namespace Core.Mvc.ViewConfiguration
             string head = $"<head>{stringBuilder}</head>";
             string html = htmlFormat.Replace("{{head}}", head);
             html = html.Replace("{{sidebarMenu}}", sidebarMenu);
-            html = html.Replace("{{breadCrumb}}", breadCrumb);
+            html = html.Replace("{{content-header}}", contentHeader);
             html = html.Replace("{{Footer}}", this.Footer());
 
             string tobHeader = File.ReadAllText(Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\topHeader.html"));
@@ -120,11 +120,11 @@ namespace Core.Mvc.ViewConfiguration
         }
 
 
-        protected virtual string BreadCrumb()
+        protected virtual string ContentHeader()
         {
-            BreadCrumb breadCrumb = new BreadCrumb();
-            breadCrumb.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
-            return breadCrumb.Render();
+            ContentHeader contentHeader = new ContentHeader();
+            contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
+            return contentHeader.Render();
         }
 
         private string Footer()

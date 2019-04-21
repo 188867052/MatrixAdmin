@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using Core.Web.Sidebar;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using System.Collections.Generic;
 
 namespace Core.Mvc.ViewConfiguration.Index
 {
