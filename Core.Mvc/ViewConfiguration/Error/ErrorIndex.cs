@@ -1,6 +1,7 @@
 ﻿using Core.Extension;
 using Core.Model.Entity;
 using Core.Model.ResponseModels;
+using Core.Resource.Error;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
@@ -57,16 +58,16 @@ namespace Core.Mvc.ViewConfiguration.Error
 
         public override string Render()
         {
-            ErrorViewConfiguration configuration=new ErrorViewConfiguration(this._errors);
+            ErrorViewConfiguration configuration = new ErrorViewConfiguration(this._errors);
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
-            html = html.Replace("{{widget-title}}", "日志管理");
+            html = html.Replace("{{widget-title}}", ErrorResource.Header);
             return html;
         }
 
         protected override string ContentHeader()
         {
-            ContentHeader contentHeader = new ContentHeader("日志管理");
+            ContentHeader contentHeader = new ContentHeader(ErrorResource.Header);
             contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "Error-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
