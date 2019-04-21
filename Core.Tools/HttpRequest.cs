@@ -14,6 +14,7 @@ namespace Core.Extension
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
             ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
             model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
+
             return model;
         }
     }

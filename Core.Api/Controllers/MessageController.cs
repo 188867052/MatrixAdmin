@@ -4,7 +4,7 @@ using Core.Api.Models.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Core.Api.Controllers.Api.V1
+namespace Core.Api.Controllers
 {
     /// <summary>
     /// 

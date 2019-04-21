@@ -8,13 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\Api\V1\Rbac\**" />
-    <Content Remove="Controllers\Api\V1\Rbac\**" />
-    <EmbeddedResource Remove="Controllers\Api\V1\Rbac\**" />
-    <None Remove="Controllers\Api\V1\Rbac\**" />
-  </ItemGroup>
-
-  <ItemGroup>
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.2" />

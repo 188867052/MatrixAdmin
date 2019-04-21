@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
-using Core.Api.Extensions.CustomException;
 using Core.Api.Extensions.DataAccess;
 using Core.Api.Extensions.Queryable;
 using Core.Api.Models.Response;
@@ -14,6 +10,9 @@ using Core.Models.Models;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Api.Controllers
 {
@@ -37,6 +36,18 @@ namespace Core.Api.Controllers
         {
             this._dbContext = dbContext;
             this._mapper = mapper;
+        }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            using (this._dbContext)
+            {
+                List<User> list = this._dbContext.User.ToList();
+                ResponseModel response = ResponseModelFactory.CreateInstance;
+                response.SetData(list);
+                return Ok(response);
+            }
         }
 
         /// <summary>
