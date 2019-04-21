@@ -45,23 +45,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResourceCode.Generated.cs">
+    <Compile Include="Resource.Generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ResourceCode.Generated.tt</DependentUpon>
+      <DependentUpon>Resource.Generated.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ResourceCode.Generated.tt">
+    <None Include="Resource.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ResourceCode.Generated.cs</LastGenOutput>
+      <LastGenOutput>Resource.Generated.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Error\ErrorResource.resx" />
+    <EmbeddedResource Include="ViewConfiguration\Error\ErrorResource.resx" />
+    <EmbeddedResource Include="ViewConfiguration\Administration\IconResource.resx" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

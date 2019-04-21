@@ -1,8 +1,8 @@
-﻿using Core.Model.Entity;
+﻿using System.Collections.Generic;
+using Core.Model.Entity;
 using Core.Web.Grid;
-using System.Collections.Generic;
 
-namespace Core.Mvc.ViewConfiguration.Administrator
+namespace Core.Mvc.ViewConfiguration.Administration
 {
     public class PermissionViewConfiguration
     {

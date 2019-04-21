@@ -1,12 +1,12 @@
-﻿using Core.Extension;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Core.Extension;
 using Core.Model.Entity;
 using Core.Model.ResponseModels;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace Core.Mvc.ViewConfiguration.Administrator
+namespace Core.Mvc.ViewConfiguration.Administration
 {
     public class PermissionIndex : IndexBase
     {

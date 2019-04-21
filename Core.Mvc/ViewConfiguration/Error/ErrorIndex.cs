@@ -1,7 +1,7 @@
 ﻿using Core.Extension;
 using Core.Model.Entity;
 using Core.Model.ResponseModels;
-using Core.Resource.Error;
+using Core.Resource.ViewConfiguration.Error;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;

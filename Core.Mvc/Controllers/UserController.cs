@@ -1,7 +1,7 @@
-﻿using Core.Mvc.ViewConfiguration.Administrator;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using Core.Mvc.ViewConfiguration.Administration;
 
 namespace Core.Mvc.Controllers
 {

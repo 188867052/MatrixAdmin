@@ -2,7 +2,7 @@
 using Core.Model.Entity;
 using Core.Web.Grid;
 
-namespace Core.Mvc.ViewConfiguration.Administrator
+namespace Core.Mvc.ViewConfiguration.Administration
 {
     public class RoleViewConfiguration
     {

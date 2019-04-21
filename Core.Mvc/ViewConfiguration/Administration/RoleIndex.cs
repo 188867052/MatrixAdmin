@@ -1,21 +1,21 @@
-﻿using Core.Extension;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Core.Extension;
 using Core.Model.Entity;
 using Core.Model.ResponseModels;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace Core.Mvc.ViewConfiguration.Administrator
+namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class IconIndex : IndexBase
+    public class RoleIndex : IndexBase
     {
-        private readonly List<Icon> _icons;
+        private readonly List<Role> roles;
 
-        public IconIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
+        public RoleIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Icon>>("/Icon/Index");
-            this._icons = (List<Icon>)a.Result.Data;
+            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Role>>("/Role/Index");
+            this.roles = (List<Role>)a.Result.Data;
         }
 
         public override IList<string> Css()
@@ -57,16 +57,16 @@ namespace Core.Mvc.ViewConfiguration.Administrator
 
         public override string Render()
         {
-            IconViewConfiguration configuration=new IconViewConfiguration(this._icons);
+            RoleViewConfiguration configuration=new RoleViewConfiguration(this.roles);
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
-            html = html.Replace("{{widget-title}}", "图标管理");
+            html = html.Replace("{{widget-title}}", "角色管理");
             return html;
         }
 
         protected override string ContentHeader()
         {
-            ContentHeader contentHeader = new ContentHeader("图标管理");
+            ContentHeader contentHeader = new ContentHeader("角色管理");
             contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;

@@ -1,22 +1,21 @@
-﻿using Core.Extension;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Core.Extension;
 using Core.Model.Entity;
 using Core.Model.ResponseModels;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace Core.Mvc.ViewConfiguration.Administrator
+namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class UserIndex : IndexBase
+    public class MenuIndex : IndexBase
     {
+        private readonly List<Menu> _menus;
 
-        private readonly List<User> users;
-
-        public UserIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
+        public MenuIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<User>>("/User/Index");
-            this.users = (List<User>)a.Result.Data;
+            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Menu>>("/Menu/Index");
+            this._menus = (List<Menu>)a.Result.Data;
         }
 
         public override IList<string> Css()
@@ -58,17 +57,16 @@ namespace Core.Mvc.ViewConfiguration.Administrator
 
         public override string Render()
         {
-            UserViewConfiguration configuration =new UserViewConfiguration(this.users);
+            MenuViewConfiguration configuration=new MenuViewConfiguration(this._menus);
             string table = configuration.Render();
-
-            var html = base.Render().Replace("{{Table}}", table);
-            html = html.Replace("{{widget-title}}", "用户管理");
+            var html= base.Render().Replace("{{Table}}", table);
+            html = html.Replace("{{widget-title}}", "菜单管理");
             return html;
         }
 
         protected override string ContentHeader()
         {
-            ContentHeader contentHeader = new ContentHeader("用户管理");
+            ContentHeader contentHeader = new ContentHeader("菜单管理");
             contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
