@@ -10,7 +10,6 @@ namespace Core.Tools
 {
     public static class AsyncRequest
     {
-
         public static async Task<ResponseModel> GetAsync<T>(string url)
         {
             HttpClient client = new HttpClient();
@@ -19,11 +18,6 @@ namespace Core.Tools
             ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
             model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
             return model;
-        }
-
-        public static Task<ResponseModel> GetAsync2<T>(string v)
-        {
-            throw new NotImplementedException();
         }
     }
 }

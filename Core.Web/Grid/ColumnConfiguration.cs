@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Core.Tools.ExpressionExtension;
 
 namespace Core.Web.Grid
 {
-    public class Column<T>
+    public class ColumnConfiguration<T>
     {
         public IList<T> EntityList;
         public List<TextColumn<T>> TextColumns;
         public List<BooleanColumn<T>> BooleanColumns;
         public List<DateTimeColumn<T>> DateTimeColumns;
         public List<EnumColumn<T>> EnumColumns;
-        public Column(IList<T> list)
+        public ColumnConfiguration(IList<T> list)
         {
             this.TextColumns = new List<TextColumn<T>>();
             this.BooleanColumns = new List<BooleanColumn<T>>();
@@ -61,19 +62,19 @@ namespace Core.Web.Grid
             {
                 foreach (var item in TextColumns)
                 {
-                    string value = this.GetStringValue(item.Expression, entity);
+                    string value = item.Expression.GetValue(entity);
                     tbody += $"<td>{value}</td>";
                 }
 
                 foreach (var item in DateTimeColumns)
                 {
-                    DateTime value = this.GetDateTimeValue(item.Expression, entity);
+                    DateTime value = item.Expression.GetValue(entity);
                     tbody += $"<td>{value}</td>";
                 }
 
                 foreach (var item in EnumColumns)
                 {
-                    Enum value = this.GetEnumValue(item.Expression, entity);
+                    Enum value = item.Expression.GetValue(entity);
                     tbody += $"<td>{value}</td>";
                 }
 
@@ -84,37 +85,6 @@ namespace Core.Web.Grid
             return table;
         }
 
-        private string GetStringValue(Expression<Func<T, string>> expression, object instance)
-        {
-            MemberExpression memberExpression = expression.Body as MemberExpression;
-            string propertyName = memberExpression.Member.Name;
-            var property = typeof(T).GetProperties().First(l => l.Name == propertyName);
-            var obj = property.GetValue(instance);
-            return obj is null ? default : property.GetValue(instance).ToString();
-        }
 
-        private bool GetBooleanValue(Expression<Func<T, bool>> expression, object instance)
-        {
-            MemberExpression memberExpression = expression.Body as MemberExpression;
-            string propertyName = memberExpression.Member.Name;
-            var property = typeof(T).GetProperties().First(l => l.Name == propertyName);
-            return (bool)property.GetValue(instance);
-        }
-
-        private DateTime GetDateTimeValue(Expression<Func<T, DateTime>> expression, object instance)
-        {
-            MemberExpression memberExpression = expression.Body as MemberExpression;
-            string propertyName = memberExpression.Member.Name;
-            var property = typeof(T).GetProperties().First(o => o.Name == propertyName);
-            return (DateTime)property.GetValue(instance);
-        }
-
-        private Enum GetEnumValue(Expression<Func<T, Enum>> expression, object instance)
-        {
-            string memberExpression = expression.Body.ToString();
-            string propertyName = memberExpression.Split('.', ',')[1];
-            var property = typeof(T).GetProperties().First(l => l.Name == propertyName);
-            return (Enum)property.GetValue(instance);
-        }
     }
 }

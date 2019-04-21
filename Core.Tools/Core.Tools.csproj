@@ -31,7 +31,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core.Models\Core.Models.csproj" />
-    <ProjectReference Include="..\Core.Web\Core.Web.csproj" />
   </ItemGroup>
 
 </Project>

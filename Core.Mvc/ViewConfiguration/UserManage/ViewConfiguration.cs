@@ -15,7 +15,7 @@ namespace Core.Mvc.ViewConfiguration.UserManage
 
         public string Render()
         {
-            Column<User> column = new Column<User>(users);
+            ColumnConfiguration<User> column = new ColumnConfiguration<User>(users);
             column.AddTextColumn(new TextColumn<User>(o => o.LoginName, "登录名"));
             column.AddTextColumn(new TextColumn<User>(o => o.DisplayName, "显示名"));
             column.AddEnumColumn(new EnumColumn<User>(o => o.UserType, "用户类型"));
