@@ -1,4 +1,7 @@
-﻿using Core.Mvc.Controllers;
+﻿using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
+using Core.Mvc.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,7 +30,7 @@ namespace Core.Mvc
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

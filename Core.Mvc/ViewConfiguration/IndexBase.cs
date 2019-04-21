@@ -102,6 +102,7 @@ namespace Core.Mvc.ViewConfiguration
 
             Sidebar sidebar = new Sidebar();
             sidebar.AddSubMenu(new SubMenu("icon icon-home", "/Redirect/index", "Dashboard", 0, true));
+            sidebar.AddSubMenu(new SubMenu("icon icon-user", "/Redirect/UserManage", "用户管理", 0));
             sidebar.AddSubMenu(new SubMenu("icon icon-signal", "/Redirect/charts", "Charts &amp; Graphs"));
             sidebar.AddSubMenu(new SubMenu("icon icon-inbox", "/Redirect/widgets", "Widgets"));
             sidebar.AddSubMenu(new SubMenu("icon icon-th", "/Redirect/tables", "Tables"));
