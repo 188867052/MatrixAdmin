@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Form
 {
-    public class FormValidation : IndexBase
+    public class FormWizard : IndexBase
     {
-        public FormValidation(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
+        public FormWizard(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
 
         }
@@ -14,7 +14,7 @@ namespace Core.Mvc.ViewConfiguration.Form
         {
             get
             {
-                return "form-validation";
+                return "form-wizard";
             }
         }
 
@@ -24,8 +24,6 @@ namespace Core.Mvc.ViewConfiguration.Form
             {
                "/css/bootstrap.min.css",
                "/css/bootstrap-responsive.min.css",
-               "/css/uniform.css" ,
-               "/css/select2.css" ,
                "/css/matrix-style.css" ,
                "/css/matrix-media.css",
                "/font-awesome/css/font-awesome.css" ,
@@ -39,11 +37,10 @@ namespace Core.Mvc.ViewConfiguration.Form
                "/js/jquery.min.js",
                "/js/jquery.ui.custom.js",
                "/js/bootstrap.min.js",
-               "/js/jquery.uniform.js",
-               "/js/select2.min.js",
-               "/js/matrix.js",
-               "/js/matrix.form_common.js",
                "/js/jquery.validate.js",
+               "/js/jquery.wizard.js",
+               "/js/matrix.js",
+               "/js/matrix.wizard.js",
             };
         }
     }

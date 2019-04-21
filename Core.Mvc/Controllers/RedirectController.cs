@@ -124,8 +124,8 @@ namespace Core.Mvc.Controllers
 
         public IActionResult FormWizard()
         {
-            File file = new File(_hostingEnvironment, "form-wizard");
-            return Content(file.Render(), "text/html");
+            FormWizard basicForm = new FormWizard(_hostingEnvironment);
+            return Content(basicForm.Render(), "text/html");
         }
 
         public IActionResult Gallery()
