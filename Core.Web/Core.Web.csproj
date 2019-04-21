@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core.Models\Core.Models.csproj" />
-    <ProjectReference Include="..\Core.Tools\Core.Tools.csproj" />
+    <ProjectReference Include="..\Core.Tools\Core.Extension.csproj" />
   </ItemGroup>
 
 </Project>
