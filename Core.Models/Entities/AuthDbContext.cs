@@ -47,6 +47,11 @@ namespace Core.Models.Entities
         public DbSet<Icon> Icon { get; set; }
 
         /// <summary>
+        /// 日志
+        /// </summary>
+        public DbSet<Log> Log { get; set; }
+
+        /// <summary>
         /// 用户-角色多对多映射
         /// </summary>
         public DbSet<UserRoleMapping> UserRoleMapping { get; set; }

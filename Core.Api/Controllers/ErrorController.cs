@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using AutoMapper;
+using Core.Api.Extensions;
 using Core.Api.Extensions.CustomException;
+using Core.Api.Models.Response;
 using Core.Models.Entities;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
@@ -29,6 +31,19 @@ namespace Core.Api.Controllers
         {
             this._dbContext = dbContext;
             this._mapper = mapper;
+        }
+
+        [HttpGet]
+        public IActionResult Index()
+        {
+            using (this._dbContext)
+            {
+                IQueryable<Log> query = this._dbContext.Log.AsQueryable();
+                var list = query.ToList();
+                ResponseModel response = ResponseModelFactory.CreateInstance;
+                response.SetData(list);
+                return Ok(response);
+            }
         }
 
         /// <summary>

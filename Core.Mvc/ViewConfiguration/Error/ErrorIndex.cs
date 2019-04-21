@@ -1,21 +1,21 @@
-﻿using Core.Extension;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Core.Extension;
 using Core.Models.Entities;
 using Core.Models.Models.Response;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace Core.Mvc.ViewConfiguration.Administrator
+namespace Core.Mvc.ViewConfiguration.Error
 {
-    public class MenuIndex : IndexBase
+    public class ErrorIndex : IndexBase
     {
-        private readonly List<Menu> _menus;
+        private readonly List<Log> _errors;
 
-        public MenuIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
+        public ErrorIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Menu>>("/Menu/Index");
-            this._menus = (List<Menu>)a.Result.Data;
+            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Log>>("/error");
+            this._errors = (List<Log>)a.Result.Data;
         }
 
         public override IList<string> Css()
@@ -57,17 +57,17 @@ namespace Core.Mvc.ViewConfiguration.Administrator
 
         public override string Render()
         {
-            MenuViewConfiguration configuration=new MenuViewConfiguration(this._menus);
+            ErrorViewConfiguration configuration=new ErrorViewConfiguration(this._errors);
             string table = configuration.Render();
-            var html= base.Render().Replace("{{Table}}", table);
-            html = html.Replace("{{widget-title}}", "菜单管理");
+            var html = base.Render().Replace("{{Table}}", table);
+            html = html.Replace("{{widget-title}}", "日志管理");
             return html;
         }
 
         protected override string ContentHeader()
         {
-            ContentHeader contentHeader = new ContentHeader("菜单管理");
-            contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
+            ContentHeader contentHeader = new ContentHeader("日志管理");
+            contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "Error-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
         }

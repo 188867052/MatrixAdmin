@@ -107,9 +107,13 @@ namespace Core.Mvc.ViewConfiguration
             manage.AddLinkButton(new LinkedAnchor("/User/MenuManage", "菜单管理"));
             manage.AddLinkButton(new LinkedAnchor("/User/IconManage", "图标管理"));
 
+            SubMenu log = new SubMenu("icon icon-edit", "", "日志管理", 2);
+            log.AddLinkButton(new LinkedAnchor("/Log/error", "错误日志"));
+
             Sidebar sidebar = new Sidebar();
             sidebar.AddSubMenu(new SubMenu("icon icon-home", "/Redirect/index", "Dashboard", 0, true));
             sidebar.AddSubMenu(manage);
+            sidebar.AddSubMenu(log);
             sidebar.AddSubMenu(new SubMenu("icon icon-signal", "/Redirect/charts", "Charts &amp; Graphs"));
             sidebar.AddSubMenu(new SubMenu("icon icon-inbox", "/Redirect/widgets", "Widgets"));
             sidebar.AddSubMenu(new SubMenu("icon icon-th", "/Redirect/tables", "Tables"));
