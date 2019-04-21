@@ -105,6 +105,7 @@ namespace Core.Mvc.ViewConfiguration
             manage.AddLinkButton(new LinkedAnchor("/User/RoleManage", "角色管理"));
             manage.AddLinkButton(new LinkedAnchor("/User/PermissionManage", "权限管理"));
             manage.AddLinkButton(new LinkedAnchor("/User/MenuManage", "菜单管理"));
+            manage.AddLinkButton(new LinkedAnchor("/User/IconManage", "图标管理"));
 
             Sidebar sidebar = new Sidebar();
             sidebar.AddSubMenu(new SubMenu("icon icon-home", "/Redirect/index", "Dashboard", 0, true));

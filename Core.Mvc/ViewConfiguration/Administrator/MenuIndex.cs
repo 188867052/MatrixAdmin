@@ -5,6 +5,7 @@ using Core.Models.Entities;
 using Core.Models.Models.Response;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Core.Mvc.ViewConfiguration.Administrator
 {
@@ -36,7 +37,7 @@ namespace Core.Mvc.ViewConfiguration.Administrator
         {
             get
             {
-                return "MenuManage";
+                return "Manage";
             }
         }
 
@@ -59,7 +60,9 @@ namespace Core.Mvc.ViewConfiguration.Administrator
         {
             MenuViewConfiguration configuration=new MenuViewConfiguration(this._menus);
             string table = configuration.Render();
-            return base.Render().Replace("{{Table}}", table);
+            var html= base.Render().Replace("{{Table}}", table);
+            html = html.Replace("{{widget-title}}", "菜单管理");
+            return html;
         }
 
         protected override string ContentHeader()

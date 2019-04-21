@@ -41,5 +41,10 @@ namespace Core.Mvc.Controllers
             MenuIndex index = new MenuIndex(this._hostingEnvironment);
             return Content(index.Render(), "text/html", Encoding.UTF8);
         }
+        public IActionResult IconManage()
+        {
+            IconIndex index = new IconIndex(this._hostingEnvironment);
+            return Content(index.Render(), "text/html", Encoding.UTF8);
+        }
     }
 }

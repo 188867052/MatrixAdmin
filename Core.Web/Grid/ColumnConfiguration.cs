@@ -8,6 +8,7 @@ namespace Core.Web.Grid
     {
         public IList<T> EntityList;
         public List<TextColumn<T>> TextColumns;
+        public List<IconColumn<T>> IconColumns;
         public List<BooleanColumn<T>> BooleanColumns;
         public List<IntegerColumn<T>> IntegerColumns;
         public List<DateTimeColumn<T>> DateTimeColumns;
@@ -17,8 +18,9 @@ namespace Core.Web.Grid
             this.TextColumns = new List<TextColumn<T>>();
             this.BooleanColumns = new List<BooleanColumn<T>>();
             this.DateTimeColumns = new List<DateTimeColumn<T>>();
-            this.IntegerColumns=new List<IntegerColumn<T>>();
+            this.IntegerColumns = new List<IntegerColumn<T>>();
             this.EnumColumns = new List<EnumColumn<T>>();
+            this.IconColumns=new List<IconColumn<T>>();
             this.EntityList = list;
         }
 
@@ -38,6 +40,11 @@ namespace Core.Web.Grid
             this.TextColumns.Add(column);
         }
 
+        public void AddIconColumn(IconColumn<T> column)
+        {
+            this.IconColumns.Add(column);
+        }
+
         public void AddDateTimeColumn(DateTimeColumn<T> column)
         {
             this.DateTimeColumns.Add(column);
@@ -50,6 +57,10 @@ namespace Core.Web.Grid
         public string Render()
         {
             string thead = default;
+            foreach (var item in IconColumns)
+            {
+                thead += $"<th>{item.Thead}</th>";
+            }
             foreach (var item in TextColumns)
             {
                 thead += $"<th>{item.Thead}</th>";
@@ -70,10 +81,17 @@ namespace Core.Web.Grid
             {
                 thead += $"<th>{item.Thead}</th>";
             }
+           
             string tbody = default;
             foreach (var entity in EntityList)
             {
                 string tr = default;
+                foreach (var item in IconColumns)
+                {
+                    string value = item.Expression.GetValue(entity);
+                    tr += $"<td><li><i class=\"{value}\"></i></li></td>";
+                }
+
                 foreach (var item in TextColumns)
                 {
                     string value = item.Expression.GetValue(entity);

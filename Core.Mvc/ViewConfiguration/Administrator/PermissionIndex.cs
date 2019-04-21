@@ -36,7 +36,7 @@ namespace Core.Mvc.ViewConfiguration.Administrator
         {
             get
             {
-                return "PermissionManage";
+                return "Manage";
             }
         }
 
@@ -59,7 +59,9 @@ namespace Core.Mvc.ViewConfiguration.Administrator
         {
             PermissionViewConfiguration configuration=new PermissionViewConfiguration(this._permissions);
             string table = configuration.Render();
-            return base.Render().Replace("{{Table}}", table);
+            var html = base.Render().Replace("{{Table}}", table);
+            html = html.Replace("{{widget-title}}", "权限管理");
+            return html;
         }
 
         protected override string ContentHeader()

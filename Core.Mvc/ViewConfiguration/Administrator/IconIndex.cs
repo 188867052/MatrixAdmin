@@ -8,15 +8,14 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Administrator
 {
-    public class UserIndex : IndexBase
+    public class IconIndex : IndexBase
     {
+        private readonly List<Icon> _icons;
 
-        private readonly List<User> users;
-
-        public UserIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
+        public IconIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<User>>("/user");
-            this.users = (List<User>)a.Result.Data;
+            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Icon>>("/Icon/Index");
+            this._icons = (List<Icon>)a.Result.Data;
         }
 
         public override IList<string> Css()
@@ -58,17 +57,16 @@ namespace Core.Mvc.ViewConfiguration.Administrator
 
         public override string Render()
         {
-            UserViewConfiguration configuration =new UserViewConfiguration(this.users);
+            IconViewConfiguration configuration=new IconViewConfiguration(this._icons);
             string table = configuration.Render();
-
             var html = base.Render().Replace("{{Table}}", table);
-            html = html.Replace("{{widget-title}}", "用户管理");
+            html = html.Replace("{{widget-title}}", "图标管理");
             return html;
         }
 
         protected override string ContentHeader()
         {
-            ContentHeader contentHeader = new ContentHeader("用户管理");
+            ContentHeader contentHeader = new ContentHeader("图标管理");
             contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;

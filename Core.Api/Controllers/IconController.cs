@@ -35,7 +35,7 @@ namespace Core.Api.Controllers
             this._mapper = mapper;
         }
 
-        [HttpGet("/api/v1/rbac/icon/index")]
+        [HttpGet]
         public IActionResult Index()
         {
             using (this._dbContext)
