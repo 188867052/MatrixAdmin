@@ -2,11 +2,11 @@
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Core.Mvc.ViewConfiguration.Grid
+namespace Core.Mvc.ViewConfiguration.Addons
 {
-    public class Grid : IndexBase
+    public class Gallery : IndexBase
     {
-        public Grid(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
+        public Gallery(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
 
         }
@@ -15,7 +15,7 @@ namespace Core.Mvc.ViewConfiguration.Grid
         {
             get
             {
-                return "grid";
+                return "Gallery";
             }
         }
 
@@ -44,7 +44,7 @@ namespace Core.Mvc.ViewConfiguration.Grid
 
         protected override string ContentHeader()
         {
-            ContentHeader contentHeader = new ContentHeader("Grid Layout");
+            ContentHeader contentHeader = new ContentHeader("Gallery");
             contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
         }

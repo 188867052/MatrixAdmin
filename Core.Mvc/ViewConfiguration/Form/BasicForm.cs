@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Form
@@ -54,6 +55,12 @@ namespace Core.Mvc.ViewConfiguration.Form
                "/js/jquery.peity.min.js",
                "/js/bootstrap-wysihtml5.js",
             };
+        }
+        protected override string ContentHeader()
+        {
+            ContentHeader contentHeader = new ContentHeader("Basic Form");
+            contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
+            return contentHeader.Render();
         }
     }
 }

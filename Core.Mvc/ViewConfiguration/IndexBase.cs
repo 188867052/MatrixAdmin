@@ -107,7 +107,7 @@ namespace Core.Mvc.ViewConfiguration
             sidebar.AddSubMenu(new SubMenu("icon icon-th", "/Redirect/tables", "Tables"));
             sidebar.AddSubMenu(new SubMenu("icon icon-fullscreen", "/Redirect/grid", "Full width"));
             sidebar.AddSubMenu(forms);
-            sidebar.AddSubMenu(new SubMenu("icon icon-tint", "/Redirect/buttons", "Buttons &amp; icons"));
+            sidebar.AddSubMenu(new SubMenu("icon icon-tint", "/Redirect/buttons", "Buttons &amp; Icons"));
             sidebar.AddSubMenu(new SubMenu("icon icon-pencil", "/Redirect/interface", "Elements"));
             sidebar.AddSubMenu(addons);
             sidebar.AddSubMenu(error);

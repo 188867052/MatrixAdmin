@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using System.Collections.Generic;
-using Core.Mvc.ViewConfiguration;
+﻿using System.Collections.Generic;
+using Core.Web.Sidebar;
+using Microsoft.AspNetCore.Hosting;
 
-namespace Core.Mvc.ViewConfigurations.Table
+namespace Core.Mvc.ViewConfiguration.Interface
 {
     public class Interface : IndexBase
     {
@@ -45,6 +45,13 @@ namespace Core.Mvc.ViewConfigurations.Table
                "/js/matrix.interface.js",
                "/js/matrix.popover.js",
             };
+        }
+
+        protected override string ContentHeader()
+        {
+            ContentHeader contentHeader = new ContentHeader("Elements");
+            contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
+            return contentHeader.Render();
         }
     }
 }

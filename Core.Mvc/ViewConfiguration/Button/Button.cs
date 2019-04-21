@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Button
@@ -40,6 +41,13 @@ namespace Core.Mvc.ViewConfiguration.Button
                "/js/jquery.ui.custom.js",
                "/js/matrix.js",
             };
+        }
+
+        protected override string ContentHeader()
+        {
+            ContentHeader contentHeader = new ContentHeader("Buttons & Icons");
+            contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
+            return contentHeader.Render();
         }
     }
 }

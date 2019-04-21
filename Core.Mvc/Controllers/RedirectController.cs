@@ -1,12 +1,13 @@
-﻿using Core.Mvc.ViewConfiguration.Button;
+﻿using Core.Mvc.ViewConfiguration.Addons;
+using Core.Mvc.ViewConfiguration.Button;
 using Core.Mvc.ViewConfiguration.Chart;
 using Core.Mvc.ViewConfiguration.Error;
 using Core.Mvc.ViewConfiguration.Form;
 using Core.Mvc.ViewConfiguration.Grid;
 using Core.Mvc.ViewConfiguration.Index;
+using Core.Mvc.ViewConfiguration.Interface;
 using Core.Mvc.ViewConfiguration.Table;
 using Core.Mvc.ViewConfiguration.Widget;
-using Core.Mvc.ViewConfigurations.Table;
 using Core.Web.File;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -129,7 +130,7 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Gallery()
         {
-            File file = new File(_hostingEnvironment, "gallery");
+            Gallery file = new Gallery(_hostingEnvironment);
             return Content(file.Render(), "text/html");
         }
 
