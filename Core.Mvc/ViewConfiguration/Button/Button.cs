@@ -1,4 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Core.Extension;
+using Core.Models.Entities;
+using Core.Models.Models.Response;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
@@ -48,6 +52,18 @@ namespace Core.Mvc.ViewConfiguration.Button
             ContentHeader contentHeader = new ContentHeader("Buttons & Icons");
             contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
+        }
+
+        public override string Render()
+        {
+            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Icon>>("/Icon/Index");
+            List<Icon> icons = (List<Icon>)a.Result.Data;
+            string iconHtml = default;
+            foreach (var icon in icons)
+            {
+                iconHtml += $"<li><i class=\"{icon.Code}\"></i> {icon.Code}</li>";
+            }
+            return base.Render().Replace("{{icon-png}}", iconHtml);
         }
     }
 }
