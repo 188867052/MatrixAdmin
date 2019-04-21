@@ -54,29 +54,39 @@ namespace Core.Web.Grid
             {
                 thead += $"<th>{item.Thead}</th>";
             }
-
+            foreach (var item in BooleanColumns)
+            {
+                thead += $"<th>{item.Thead}</th>";
+            }
             string tbody = default;
             foreach (var entity in EntityList)
             {
+                string tr = default;
                 foreach (var item in TextColumns)
                 {
                     string value = item.Expression.GetValue(entity);
-                    tbody += $"<td>{value}</td>";
+                    tr += $"<td>{value}</td>";
                 }
 
                 foreach (var item in DateTimeColumns)
                 {
                     DateTime value = item.Expression.GetValue(entity);
-                    tbody += $"<td>{value}</td>";
+                    tr += $"<td>{value}</td>";
                 }
 
                 foreach (var item in EnumColumns)
                 {
                     Enum value = item.Expression.GetValue(entity);
-                    tbody += $"<td>{value}</td>";
+                    tr += $"<td>{value}</td>";
                 }
 
-                tbody += $"<tr>{tbody}</tr>";
+                foreach (var item in BooleanColumns)
+                {
+                    bool value = item.Expression.GetValue(entity);
+                    tr += $"<td>{value}</td>";
+                }
+                
+                tbody += $"<tr>{tr}</tr>";
             }
 
             string table = $"<table class=\"table table-bordered data-table\"><thead><tr>{thead}</tr></thead><tbody>{tbody}</tbody></table>";
