@@ -37,6 +37,19 @@ namespace Core.Api.Controllers
             this._mapper = mapper;
         }
 
+        [HttpGet]
+        public IActionResult Index()
+        {
+            using (this._dbContext)
+            {
+                IQueryable<Permission> query = this._dbContext.Permission.AsQueryable();
+                var list = query.ToList();
+                ResponseModel response = ResponseModelFactory.CreateInstance;
+                response.SetData(list);
+                return Ok(response);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
