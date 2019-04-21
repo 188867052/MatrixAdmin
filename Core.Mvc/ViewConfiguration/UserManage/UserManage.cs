@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Core.Mvc.ViewConfiguration.Table
+namespace Core.Mvc.ViewConfiguration.UserManage
 {
     public class UserManage : IndexBase
     {
@@ -54,5 +55,24 @@ namespace Core.Mvc.ViewConfiguration.Table
             contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
         }
+
+        private void GenerateTable()
+        {
+            Column column = new Column();
+
+        }
+    }
+
+    internal class Column
+    {
+        private List<string> Heads;
+
+        public Column()
+        {
+                
+        }
+
+
+
     }
 }

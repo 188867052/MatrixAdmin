@@ -11,7 +11,7 @@ namespace Core.Api.Controllers.Api.V2
     /// 用户控制器
     /// </summary>
     //[CustomAuthorize]
-    [Route("api/v2/[controller]/[action]")]
+    [Route("/user")]
     [ApiController]
     public class UserController : ControllerBase
     {

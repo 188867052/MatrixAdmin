@@ -37,11 +37,6 @@ namespace Core.Mvc.Controllers
             return Content(file.Render(), "text/html",Encoding.UTF8);
         }
 
-        public IActionResult UserManage()
-        {
-            UserManage index = new UserManage(this._hostingEnvironment);
-            return Content(index.Render(), "text/html",Encoding.UTF8);
-        }
         public IActionResult Tables()
         {
             Table table = new Table(_hostingEnvironment);
