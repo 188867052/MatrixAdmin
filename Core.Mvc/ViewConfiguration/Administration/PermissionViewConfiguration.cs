@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Model.Entity;
+using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.Grid;
 
 namespace Core.Mvc.ViewConfiguration.Administration
@@ -15,13 +16,13 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public string Render()
         {
-            GridColumn<Permission> column = new GridColumn<Permission>(_permissions);
-            column.AddTextColumn(new TextColumn<Permission>(o => o.Name, "权限名称"));
+            GridColumn<Permission> column = new GridColumn<Permission>(this._permissions);
+            column.AddTextColumn(new TextColumn<Permission>(o => o.Name, PermissionIndexResource.Name));
             column.AddBooleanColumn(new BooleanColumn<Permission>(o => o.Status, "关联菜单"));
-            column.AddTextColumn(new TextColumn<Permission>(o => o.ActionCode, "操作码"));
-            column.AddBooleanColumn(new BooleanColumn<Permission>(o => o.Status, "状态"));
-            column.AddDateTimeColumn(new DateTimeColumn<Permission>(o => o.CreatedOn, "创建时间"));
-            column.AddTextColumn(new TextColumn<Permission>(o => o.CreatedByUserName, "创建者"));
+            column.AddTextColumn(new TextColumn<Permission>(o => o.ActionCode, PermissionIndexResource.ActionCode));
+            column.AddBooleanColumn(new BooleanColumn<Permission>(o => o.Status, PermissionIndexResource.Status));
+            column.AddDateTimeColumn(new DateTimeColumn<Permission>(o => o.CreatedOn, PermissionIndexResource.CreatedOn));
+            column.AddTextColumn(new TextColumn<Permission>(o => o.CreatedByUserName, PermissionIndexResource.CreatedByUserName));
             return column.Render();
         }
     }

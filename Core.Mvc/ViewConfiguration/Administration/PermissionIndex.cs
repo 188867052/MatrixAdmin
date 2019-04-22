@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Core.Extension;
 using Core.Model.Entity;
 using Core.Model.ResponseModels;
+using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
@@ -57,16 +58,16 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public override string Render()
         {
-            PermissionViewConfiguration configuration=new PermissionViewConfiguration(this._permissions);
+            PermissionViewConfiguration configuration = new PermissionViewConfiguration(this._permissions);
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
-            html = html.Replace("{{widget-title}}", "权限管理");
+            html = html.Replace("{{widget-title}}", PermissionIndexResource.WidgetTitle);
             return html;
         }
 
         protected override string ContentHeader()
         {
-            ContentHeader contentHeader = new ContentHeader("权限管理");
+            ContentHeader contentHeader = new ContentHeader(PermissionIndexResource.WidgetTitle);
             contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
