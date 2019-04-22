@@ -1,19 +1,19 @@
-﻿using System;
+﻿using Core.Extension.Expression;
+using System;
 using System.Linq.Expressions;
 
 namespace Core.Web.Grid
 {
-    public class EnumColumn<T>
+    public class EnumColumn<T> : DynamicGridColumn<T>
     {
-        public Expression<Func<T, Enum>> Expression { get; set; }
-
-        public string Thead { get; set; }
-
-
-        public EnumColumn(Expression<Func<T, Enum>> expression, string thead)
+        public EnumColumn(Expression<Func<T, Enum>> expression, string thead) : base(expression.GetPropertyInfo(), thead)
         {
-            this.Expression = expression;
-            this.Thead = thead;
+        }
+
+        public override string RenderTd(T entity)
+        {
+            object value = this.PropertyInfo.GetValue(entity);
+            return $"<td><li><i class=\"{value}\"></i></li></td>";
         }
     }
 }

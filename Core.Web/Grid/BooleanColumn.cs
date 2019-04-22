@@ -1,19 +1,13 @@
 ﻿using System;
 using System.Linq.Expressions;
+using Core.Extension.Expression;
 
 namespace Core.Web.Grid
 {
-    public class BooleanColumn<T>
+    public sealed class BooleanColumn<T> : DynamicGridColumn<T>
     {
-        public Expression<Func<T, bool>> Expression { get; set; }
-
-        public string Thead { get; set; }
-
-
-        public BooleanColumn(Expression<Func<T, bool>> expression, string thead)
+        public BooleanColumn(Expression<Func<T, bool>> expression, string thead) : base(expression.GetPropertyInfo(), thead)
         {
-            this.Expression = expression;
-            this.Thead = thead;
         }
     }
 }

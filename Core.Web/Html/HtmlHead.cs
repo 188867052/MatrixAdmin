@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Core.Web.Html
+﻿namespace Core.Web.Html
 {
     public class HtmlHead
     {

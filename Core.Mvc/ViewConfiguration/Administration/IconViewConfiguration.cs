@@ -16,7 +16,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public string Render()
         {
-            ColumnConfiguration<Icon> column = new ColumnConfiguration<Icon>(_icons);
+            GridColumn<Icon> column = new GridColumn<Icon>(_icons);
             column.AddIconColumn(new IconColumn<Icon>(o => o.Code, IconResource.Icon));
             column.AddTextColumn(new TextColumn<Icon>(o => o.Code, IconResource.Code));
             column.AddTextColumn(new TextColumn<Icon>(o => o.Custom, IconResource.Custom));

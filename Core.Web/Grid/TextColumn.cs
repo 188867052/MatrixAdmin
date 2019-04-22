@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Linq.Expressions;
+using Core.Extension.Expression;
 
 namespace Core.Web.Grid
 {
-    public class TextColumn<T>
+    public class TextColumn<T> : DynamicGridColumn<T>
     {
-        public Expression<Func<T, string>> Expression { get; set; }
-
-        public string Thead { get; set; }
-
-        public TextColumn(Expression<Func<T, string>> expression, string thead)
+        public TextColumn(Expression<Func<T, string>> expression, string thead) : base(expression.GetPropertyInfo(), thead)
         {
-            this.Expression = expression;
-            this.Thead = thead;
+
         }
     }
 }

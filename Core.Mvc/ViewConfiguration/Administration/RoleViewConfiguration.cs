@@ -15,7 +15,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public string Render()
         {
-            ColumnConfiguration<Role> column = new ColumnConfiguration<Role>(users);
+            GridColumn<Role> column = new GridColumn<Role>(users);
             column.AddTextColumn(new TextColumn<Role>(o => o.Name, "角色名称"));
             column.AddBooleanColumn(new BooleanColumn<Role>(o => o.Status, "状态"));
             column.AddBooleanColumn(new BooleanColumn<Role>(o => o.IsBuiltin, "是否内置"));

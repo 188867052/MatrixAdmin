@@ -15,7 +15,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public string Render()
         {
-            ColumnConfiguration<Permission> column = new ColumnConfiguration<Permission>(_permissions);
+            GridColumn<Permission> column = new GridColumn<Permission>(_permissions);
             column.AddTextColumn(new TextColumn<Permission>(o => o.Name, "权限名称"));
             column.AddBooleanColumn(new BooleanColumn<Permission>(o => o.Status, "关联菜单"));
             column.AddTextColumn(new TextColumn<Permission>(o => o.ActionCode, "操作码"));

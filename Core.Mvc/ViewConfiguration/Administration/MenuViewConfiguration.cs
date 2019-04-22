@@ -15,7 +15,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public string Render()
         {
-            ColumnConfiguration<Menu> column = new ColumnConfiguration<Menu>(_menus);
+            GridColumn<Menu> column = new GridColumn<Menu>(_menus);
             column.AddTextColumn(new TextColumn<Menu>(o => o.Name, "菜单名称"));
             column.AddTextColumn(new TextColumn<Menu>(o => o.Url, "请求地址"));
             column.AddTextColumn(new TextColumn<Menu>(o => o.Alias, "菜单别名"));
