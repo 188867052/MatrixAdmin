@@ -57,9 +57,9 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public override string Render()
         {
-            MenuViewConfiguration configuration=new MenuViewConfiguration(this._menus);
+            MenuViewConfiguration configuration = new MenuViewConfiguration(this._menus);
             string table = configuration.Render();
-            var html= base.Render().Replace("{{Table}}", table);
+            var html = base.Render().Replace("{{Table}}", table);
             html = html.Replace("{{widget-title}}", "菜单管理");
             return html;
         }
