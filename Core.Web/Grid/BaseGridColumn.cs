@@ -10,10 +10,10 @@ namespace Core.Web.Grid
             this.Thead = thead;
         }
 
-        public PropertyInfo PropertyInfo { get; set; }
+        protected PropertyInfo PropertyInfo { get; }
 
+        private string Thead { get; }
 
-        public string Thead { get; set; }
 
         public string RenderTh()
         {

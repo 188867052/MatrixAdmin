@@ -12,7 +12,7 @@ namespace Core.Web.Grid
 
         public override string RenderTd(T entity)
         {
-            var value = this.PropertyInfo.GetValue(entity);
+            var value = base.PropertyInfo.GetValue(entity);
             return $"<td><li><i class=\"{value}\"></i></li></td>";
         }
     }
