@@ -1,8 +1,8 @@
-﻿using ExpressionBuilder.Common;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using System.Reflection;
+using Core.Api.ExpressionBuilder.Common;
 
-namespace ExpressionBuilder.Operations
+namespace Core.Api.ExpressionBuilder.Operations
 {
     /// <summary>
     /// Operation representing a string "EndsWith" method call.

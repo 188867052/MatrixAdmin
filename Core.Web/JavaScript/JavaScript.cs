@@ -29,9 +29,7 @@ namespace Core.Web.JavaScript
 				stringBuilder.Append($"{this.GlobalVariableName}._{keyValuePair.Key}=\"{keyValuePair.Value}\";");
 			}
 
-			string variableName = "Core";
-			string url = "";
-			//stringBuilder.Append($"{variableName}._{url}=\"{keyValuePair.Value}\";");
+            //stringBuilder.Append($"{variableName}._{url}=\"{keyValuePair.Value}\";");
 
 			return $"window.{this.GlobalVariableName} = new {this.ClassName}();{stringBuilder}";
 		}

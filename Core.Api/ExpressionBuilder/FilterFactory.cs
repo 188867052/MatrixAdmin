@@ -1,9 +1,8 @@
-﻿using ExpressionBuilder.Generics;
-using ExpressionBuilder.Interfaces;
-using System;
+﻿using System;
 using Core.Api.ExpressionBuilder.Generics;
+using Core.Api.ExpressionBuilder.Interfaces;
 
-namespace ExpressionBuilder
+namespace Core.Api.ExpressionBuilder
 {
     /// <summary>
     /// </summary>

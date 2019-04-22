@@ -1,9 +1,8 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using ExpressionBuilder.Common;
+using Core.Api.ExpressionBuilder.Common;
 
-namespace ExpressionBuilder.Configuration
+namespace Core.Api.ExpressionBuilder.Configuration
 {
     public class Settings
     {

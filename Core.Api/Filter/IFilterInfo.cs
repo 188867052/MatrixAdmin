@@ -1,5 +1,5 @@
-﻿using ExpressionBuilder.Common;
-using ExpressionBuilder.Interfaces;
+﻿using Core.Api.ExpressionBuilder.Common;
+using Core.Api.ExpressionBuilder.Interfaces;
 
 namespace Core.Api.Filter
 {

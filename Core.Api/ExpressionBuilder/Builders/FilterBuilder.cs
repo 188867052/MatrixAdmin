@@ -1,13 +1,13 @@
-using ExpressionBuilder.Common;
-using ExpressionBuilder.Exceptions;
-using ExpressionBuilder.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Core.Api.ExpressionBuilder.Common;
+using Core.Api.ExpressionBuilder.Exceptions;
+using Core.Api.ExpressionBuilder.Interfaces;
 
-namespace ExpressionBuilder.Builders
+namespace Core.Api.ExpressionBuilder.Builders
 {
     public class FilterBuilder
     {

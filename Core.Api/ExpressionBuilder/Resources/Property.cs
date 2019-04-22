@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace ExpressionBuilder.Resources
+namespace Core.Api.ExpressionBuilder.Resources
 {
     /// <summary>
     /// Provides information on the property to the Expression Builder.

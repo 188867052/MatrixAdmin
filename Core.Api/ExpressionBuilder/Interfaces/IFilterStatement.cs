@@ -1,7 +1,7 @@
-﻿using ExpressionBuilder.Common;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
+using Core.Api.ExpressionBuilder.Common;
 
-namespace ExpressionBuilder.Interfaces
+namespace Core.Api.ExpressionBuilder.Interfaces
 {
     /// <summary>
     /// Defines how a property should be filtered.

@@ -4,7 +4,6 @@ using System.Linq;
 using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
-using Core.Api.Extensions.Queryable;
 using Core.Api.Models.Response;
 using Core.Model.Entity;
 using Dapper;

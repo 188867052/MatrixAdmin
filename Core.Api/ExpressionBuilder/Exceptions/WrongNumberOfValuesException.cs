@@ -1,7 +1,7 @@
-﻿using ExpressionBuilder.Interfaces;
-using System;
+﻿using System;
+using Core.Api.ExpressionBuilder.Interfaces;
 
-namespace ExpressionBuilder.Exceptions
+namespace Core.Api.ExpressionBuilder.Exceptions
 {
     /// <summary>
     /// Represents an attempt to use an operation providing the wrong number of values.

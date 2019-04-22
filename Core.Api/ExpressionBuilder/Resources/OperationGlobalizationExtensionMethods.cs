@@ -1,7 +1,7 @@
-﻿using ExpressionBuilder.Interfaces;
-using System.Resources;
+﻿using System.Resources;
+using Core.Api.ExpressionBuilder.Interfaces;
 
-namespace ExpressionBuilder.Resources
+namespace Core.Api.ExpressionBuilder.Resources
 {
     /// <summary>
     /// Extension methods for <see cref="IOperation" />.

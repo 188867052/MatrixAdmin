@@ -1,4 +1,4 @@
-﻿namespace ExpressionBuilder.Interfaces
+﻿namespace Core.Api.ExpressionBuilder.Interfaces
 {
     /// <summary>
     /// Connects to FilterStatement together.

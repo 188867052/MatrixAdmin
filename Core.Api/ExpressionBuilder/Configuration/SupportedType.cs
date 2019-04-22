@@ -1,7 +1,7 @@
-﻿using ExpressionBuilder.Common;
-using System;
+﻿using System;
+using Core.Api.ExpressionBuilder.Common;
 
-namespace ExpressionBuilder.Configuration
+namespace Core.Api.ExpressionBuilder.Configuration
 {
     public class SupportedType
     {

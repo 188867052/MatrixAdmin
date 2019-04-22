@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ExpressionBuilder.Common;
+using Core.Api.ExpressionBuilder.Common;
 
-namespace ExpressionBuilder.Interfaces
+namespace Core.Api.ExpressionBuilder.Interfaces
 {
     /// <summary>
     /// Defines a filter from which a expression will be built.

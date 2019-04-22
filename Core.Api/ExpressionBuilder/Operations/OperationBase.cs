@@ -1,9 +1,9 @@
 ﻿using System;
-using ExpressionBuilder.Common;
-using ExpressionBuilder.Interfaces;
 using System.Linq.Expressions;
+using Core.Api.ExpressionBuilder.Common;
+using Core.Api.ExpressionBuilder.Interfaces;
 
-namespace ExpressionBuilder.Operations
+namespace Core.Api.ExpressionBuilder.Operations
 {
     /// <summary>
     /// Base class for operations.

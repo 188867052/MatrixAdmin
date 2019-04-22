@@ -1,7 +1,7 @@
-﻿using ExpressionBuilder.Common;
-using ExpressionBuilder.Interfaces;
+﻿using Core.Api.ExpressionBuilder.Common;
+using Core.Api.ExpressionBuilder.Interfaces;
 
-namespace ExpressionBuilder.Generics
+namespace Core.Api.ExpressionBuilder.Generics
 {
     /// <summary>
     /// Connects to FilterStatement together.

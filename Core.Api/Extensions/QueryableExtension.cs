@@ -1,12 +1,11 @@
-﻿using ExpressionBuilder.Builders;
-using ExpressionBuilder.Generics;
-using System;
+﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Core.Api.ExpressionBuilder.Builders;
 using Core.Api.ExpressionBuilder.Generics;
 
-namespace Core.Api.Extensions.Queryable
+namespace Core.Api.Extensions
 {
     /// <summary>
     /// 

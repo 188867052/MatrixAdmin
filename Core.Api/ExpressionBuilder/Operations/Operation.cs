@@ -1,8 +1,8 @@
-﻿using ExpressionBuilder.Helpers;
-using ExpressionBuilder.Interfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Core.Api.ExpressionBuilder.Helpers;
+using Core.Api.ExpressionBuilder.Interfaces;
 
-namespace ExpressionBuilder.Operations
+namespace Core.Api.ExpressionBuilder.Operations
 {
     /// <summary>
     /// Exposes the default operations supported by the <seealso cref="Builders.FilterBuilder" />.

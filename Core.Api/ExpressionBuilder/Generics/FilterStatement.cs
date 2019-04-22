@@ -1,13 +1,13 @@
-﻿using ExpressionBuilder.Common;
-using ExpressionBuilder.Exceptions;
-using ExpressionBuilder.Helpers;
-using ExpressionBuilder.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Schema;
+using Core.Api.ExpressionBuilder.Common;
+using Core.Api.ExpressionBuilder.Exceptions;
+using Core.Api.ExpressionBuilder.Helpers;
+using Core.Api.ExpressionBuilder.Interfaces;
 
-namespace ExpressionBuilder.Generics
+namespace Core.Api.ExpressionBuilder.Generics
 {
     /// <summary>
 	/// Defines how a property should be filtered.

@@ -1,9 +1,9 @@
-﻿using ExpressionBuilder.Common;
-using System;
+﻿using System;
 using System.Collections;
 using System.Linq.Expressions;
+using Core.Api.ExpressionBuilder.Common;
 
-namespace ExpressionBuilder.Operations
+namespace Core.Api.ExpressionBuilder.Operations
 {
     /// <summary>
     /// Operation representing the inverse of a list "Contains" method call.

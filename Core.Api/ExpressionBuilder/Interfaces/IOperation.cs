@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
-using ExpressionBuilder.Common;
+using Core.Api.ExpressionBuilder.Common;
 
-namespace ExpressionBuilder.Interfaces
+namespace Core.Api.ExpressionBuilder.Interfaces
 {
     /// <summary>
     /// Define an operation.

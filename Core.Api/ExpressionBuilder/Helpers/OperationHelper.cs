@@ -1,12 +1,12 @@
-﻿using ExpressionBuilder.Common;
-using ExpressionBuilder.Configuration;
-using ExpressionBuilder.Exceptions;
-using ExpressionBuilder.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Api.ExpressionBuilder.Common;
+using Core.Api.ExpressionBuilder.Configuration;
+using Core.Api.ExpressionBuilder.Exceptions;
+using Core.Api.ExpressionBuilder.Interfaces;
 
-namespace ExpressionBuilder.Helpers
+namespace Core.Api.ExpressionBuilder.Helpers
 {
     /// <summary>
     /// Useful methods regarding <seealso cref="IOperation"></seealso>.

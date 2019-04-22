@@ -1,12 +1,12 @@
-﻿using ExpressionBuilder.Interfaces;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
+using Core.Api.ExpressionBuilder.Interfaces;
 
-namespace ExpressionBuilder.Resources
+namespace Core.Api.ExpressionBuilder.Resources
 {
     /// <summary>
     /// Collection of <see cref="Property" />.

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
-using Core.Api.Extensions.Queryable;
 using Core.Api.Models.Response;
 using Core.Api.Utils;
 using Dapper;

@@ -1,8 +1,8 @@
-﻿using ExpressionBuilder.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Core.Api.ExpressionBuilder.Interfaces;
 
-namespace ExpressionBuilder.Helpers
+namespace Core.Api.ExpressionBuilder.Helpers
 {
     internal class OperationEqualityComparer : IEqualityComparer<IOperation>
     {

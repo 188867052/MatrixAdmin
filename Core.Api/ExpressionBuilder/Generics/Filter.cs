@@ -6,10 +6,9 @@ using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using ExpressionBuilder.Builders;
-using ExpressionBuilder.Common;
-using ExpressionBuilder.Generics;
-using ExpressionBuilder.Interfaces;
+using Core.Api.ExpressionBuilder.Builders;
+using Core.Api.ExpressionBuilder.Common;
+using Core.Api.ExpressionBuilder.Interfaces;
 
 namespace Core.Api.ExpressionBuilder.Generics
 {

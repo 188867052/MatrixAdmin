@@ -1,7 +1,7 @@
-﻿using ExpressionBuilder.Common;
-using ExpressionBuilder.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Core.Api.ExpressionBuilder.Common;
+using Core.Api.ExpressionBuilder.Interfaces;
 
 namespace Core.Api.Filter
 {

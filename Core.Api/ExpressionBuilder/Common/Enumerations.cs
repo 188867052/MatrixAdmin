@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ExpressionBuilder.Common
+namespace Core.Api.ExpressionBuilder.Common
 {
     /// <summary>
     /// Defines how the filter statements will be connected to each other.
