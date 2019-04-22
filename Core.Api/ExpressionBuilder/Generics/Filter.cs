@@ -1,7 +1,4 @@
-﻿using ExpressionBuilder.Builders;
-using ExpressionBuilder.Common;
-using ExpressionBuilder.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -9,8 +6,12 @@ using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using ExpressionBuilder.Builders;
+using ExpressionBuilder.Common;
+using ExpressionBuilder.Generics;
+using ExpressionBuilder.Interfaces;
 
-namespace ExpressionBuilder.Generics
+namespace Core.Api.ExpressionBuilder.Generics
 {
     /// <summary>
     /// Aggregates <see cref="FilterInfo{TPropertyType}" /> and build them into a LINQ expression.
@@ -19,7 +20,6 @@ namespace ExpressionBuilder.Generics
     [Serializable]
     public class Filter<TClass> : IFilter, IXmlSerializable where TClass : class
     {
-        private readonly IQueryable<TClass> _query;
         private readonly List<List<IFilterInfo>> _statements;
 
         public IFilter Group
@@ -215,14 +215,6 @@ namespace ExpressionBuilder.Generics
             var expression = builder.GetExpression<TClass>(filter);
             return expression;
         }
-
-        public IList<TClass> ToList()
-        {
-            var builder = new FilterBuilder();
-            var expression = builder.GetExpression<TClass>(this);
-            return this._query.Where(expression).ToList();
-        }
-
 
         /// <summary>
         /// String representation of <see cref="Filter{TClass}" />.

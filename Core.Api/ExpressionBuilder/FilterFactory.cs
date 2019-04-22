@@ -1,6 +1,7 @@
 ﻿using ExpressionBuilder.Generics;
 using ExpressionBuilder.Interfaces;
 using System;
+using Core.Api.ExpressionBuilder.Generics;
 
 namespace ExpressionBuilder
 {

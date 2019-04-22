@@ -25,8 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core.Extension\Core.Extension.csproj" />
     <ProjectReference Include="..\Core.Resource\Core.Resource.csproj" />
-    <ProjectReference Include="..\Core.Tools\Core.Extension.csproj" />
     <ProjectReference Include="..\Core.Web\Core.Web.csproj" />
   </ItemGroup>
 

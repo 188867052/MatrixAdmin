@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core.Extension\Core.Extension.csproj" />
     <ProjectReference Include="..\Core.Models\Core.Model.csproj" />
-    <ProjectReference Include="..\Core.Tools\Core.Extension.csproj" />
   </ItemGroup>
 
 </Project>
