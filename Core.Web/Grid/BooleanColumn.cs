@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Core.Extension.Expression;
 
 namespace Core.Web.Grid
 {
-    public sealed class BooleanColumn<T> : BaseGridColumn<T>
+    public class BooleanColumn<T> : BaseGridColumn<T>
     {
-        public BooleanColumn(Expression<Func<T, bool>> expression, string thead) : base(expression.GetPropertyInfo(), thead)
+        private readonly Expression<Func<T, bool>> expression;
+
+        public BooleanColumn(Expression<Func<T, bool>> expression, string thead) : base(thead)
         {
+            this.expression = expression;
+        }
+
+        public override string RenderTd(T entity)
+        {
+            var value = this.expression.Compile()(entity);
+            return $"<td>{value}</td>";
         }
     }
 }
