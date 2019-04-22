@@ -4,11 +4,11 @@ namespace Core.Web.Grid
 {
     public class GridColumn<T>
     {
-        public List<DynamicGridColumn<T>> GridColumns;
+        public List<BaseGridColumn<T>> GridColumns;
         public IList<T> EntityList;
         public GridColumn(IList<T> list)
         {
-            this.GridColumns = new List<DynamicGridColumn<T>>();
+            this.GridColumns = new List<BaseGridColumn<T>>();
             this.EntityList = list;
         }
 

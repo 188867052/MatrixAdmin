@@ -2,9 +2,9 @@
 
 namespace Core.Web.Grid
 {
-    public class DynamicGridColumn<T>
+    public class BaseGridColumn<T>
     {
-        public DynamicGridColumn(PropertyInfo property, string thead)
+        public BaseGridColumn(PropertyInfo property, string thead)
         {
             this.PropertyInfo = property;
             this.Thead = thead;

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Core.Web.Grid
 {
-    public class EnumColumn<T> : DynamicGridColumn<T>
+    public class EnumColumn<T> : BaseGridColumn<T>
     {
         public EnumColumn(Expression<Func<T, Enum>> expression, string thead) : base(expression.GetPropertyInfo(), thead)
         {
