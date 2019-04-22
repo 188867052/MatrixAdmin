@@ -10,17 +10,8 @@ namespace Core.Model.Entity
     public class Log
     {
         /// <summary>
-        /// 构造函数
-        /// </summary>
-        public Log()
-        {
-        }
-
-        /// <summary>
         /// 
         /// </summary>
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         /// <summary>
