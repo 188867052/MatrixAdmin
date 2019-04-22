@@ -47,7 +47,7 @@ namespace Core.Web.Grid
             string thead = default;
             foreach (var item in GridColumns)
             {
-                thead += item.RenderHead();
+                thead += item.RenderTh();
             }
             string tbody = default;
             foreach (var entity in EntityList)

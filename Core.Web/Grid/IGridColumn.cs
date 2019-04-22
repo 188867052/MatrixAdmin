@@ -15,7 +15,7 @@ namespace Core.Web.Grid
 
         public string Thead { get; set; }
 
-        public virtual string RenderHead()
+        public virtual string RenderTh()
         {
             return $"<th>{this.Thead}</th>"; ;
         }
