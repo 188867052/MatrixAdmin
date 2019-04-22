@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 namespace Core.Web.Grid
 {
@@ -44,20 +45,20 @@ namespace Core.Web.Grid
 
         public string Render()
         {
-            string thead = default;
+            StringBuilder thead = new StringBuilder();
             foreach (var item in GridColumns)
             {
-                thead += item.RenderTh();
+                thead.Append(item.RenderTh());
             }
-            string tbody = default;
+            StringBuilder tbody = new StringBuilder();
             foreach (var entity in EntityList)
             {
-                string tr = default;
+                StringBuilder tr = new StringBuilder(); ;
                 foreach (var item in GridColumns)
                 {
-                    tr += item.RenderTd(entity); ;
+                    tr.Append(item.RenderTd(entity));
                 }
-                tbody += $"<tr>{tr}</tr>";
+                tbody.Append($"<tr>{tr}</tr>");
             }
             return $"<table class=\"table table-bordered data-table\"><thead><tr>{thead}</tr></thead><tbody>{tbody}</tbody></table>";
         }
