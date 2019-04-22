@@ -9,53 +9,32 @@ namespace Core.Extension.Expression
     {
         public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, int>> expression)
         {
-            if (expression.Body is MemberExpression memberExpression)
-            {
-                string propertyName = memberExpression.Member.Name;
-                return typeof(T).GetProperties().First(o => o.Name == propertyName);
-            }
-            return null;
+            string propertyName = ((MemberExpression)expression.Body).Member.Name;
+            return typeof(T).GetProperties().First(o => o.Name == propertyName);
         }
 
         public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, decimal>> expression)
         {
-            if (expression.Body is MemberExpression memberExpression)
-            {
-                string propertyName = memberExpression.Member.Name;
-                return typeof(T).GetProperties().First(o => o.Name == propertyName);
-            }
-            return null;
+            string propertyName = ((MemberExpression)expression.Body).Member.Name;
+            return typeof(T).GetProperties().First(o => o.Name == propertyName);
         }
 
         public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, DateTime>> expression)
         {
-            if (expression.Body is MemberExpression memberExpression)
-            {
-                string propertyName = memberExpression.Member.Name;
-                return typeof(T).GetProperties().First(o => o.Name == propertyName);
-            }
-            return null;
+            string propertyName = ((MemberExpression)expression.Body).Member.Name;
+            return typeof(T).GetProperties().First(o => o.Name == propertyName);
         }
 
         public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, bool>> expression)
         {
-            if (expression.Body is MemberExpression memberExpression)
-            {
-                string propertyName = memberExpression.Member.Name;
-                return typeof(T).GetProperties().First(o => o.Name == propertyName);
-            }
-            return null;
+            string propertyName = ((MemberExpression)expression.Body).Member.Name;
+            return typeof(T).GetProperties().First(o => o.Name == propertyName);
         }
-
 
         public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, string>> expression)
         {
-            if (expression.Body is MemberExpression memberExpression)
-            {
-                string propertyName = memberExpression.Member.Name;
-                return typeof(T).GetProperties().First(o => o.Name == propertyName);
-            }
-            return null;
+            string propertyName = ((MemberExpression)expression.Body).Member.Name;
+            return typeof(T).GetProperties().First(o => o.Name == propertyName);
         }
 
         public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, Enum>> expression)
