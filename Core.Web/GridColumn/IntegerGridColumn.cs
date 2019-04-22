@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Core.Web.Grid
+namespace Core.Web.GridColumn
 {
-    public class DateTimeGridColumn<T> : BaseGridColumn<T>
+    public class IntegerGridColumn<T> : BaseGridColumn<T>
     {
-        private readonly Expression<Func<T, DateTime>> expression;
+        private readonly Expression<Func<T, int>> expression;
 
-        public DateTimeGridColumn(Expression<Func<T, DateTime>> expression, string thead) : base(thead)
+        public IntegerGridColumn(Expression<Func<T, int>> expression, string thead) : base(thead)
         {
             this.expression = expression;
         }

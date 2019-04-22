@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Core.Web.Grid
+namespace Core.Web.GridColumn
 {
-    public class EnumGridColumn<T> : BaseGridColumn<T>
+    public class BooleanGridColumn<T> : BaseGridColumn<T>
     {
-        private readonly Expression<Func<T, Enum>> expression;
+        private readonly Expression<Func<T, bool>> expression;
 
-        public EnumGridColumn(Expression<Func<T, Enum>> expression, string thead) : base(thead)
+        public BooleanGridColumn(Expression<Func<T, bool>> expression, string thead) : base(thead)
         {
             this.expression = expression;
         }

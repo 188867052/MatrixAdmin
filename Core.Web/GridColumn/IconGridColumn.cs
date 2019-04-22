@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Core.Web.Grid
+namespace Core.Web.GridColumn
 {
     public class IconGridColumn<T> : TextGridColumn<T>
     {

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Core.Web.Grid
+namespace Core.Web.GridColumn
 {
-    public class IntegerGridColumn<T> : BaseGridColumn<T>
+    public class TextGridColumn<T> : BaseGridColumn<T>
     {
-        private readonly Expression<Func<T, int>> expression;
+        private readonly Expression<Func<T, string>> expression;
 
-        public IntegerGridColumn(Expression<Func<T, int>> expression, string thead) : base(thead)
+        public TextGridColumn(Expression<Func<T, string>> expression, string thead) : base(thead)
         {
             this.expression = expression;
         }

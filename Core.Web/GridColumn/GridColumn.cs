@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Web.Grid
+namespace Core.Web.GridColumn
 {
     public class GridColumn<T>
     {

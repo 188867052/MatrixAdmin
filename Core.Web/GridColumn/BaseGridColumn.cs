@@ -1,4 +1,4 @@
-﻿namespace Core.Web.Grid
+﻿namespace Core.Web.GridColumn
 {
     public abstract class BaseGridColumn<T>
     {
