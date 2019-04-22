@@ -3,11 +3,11 @@ using System.Linq.Expressions;
 
 namespace Core.Web.Grid
 {
-    public class TextColumn<T> : BaseGridColumn<T>
+    public class EnumGridColumn<T> : BaseGridColumn<T>
     {
-        private readonly Expression<Func<T, string>> expression;
+        private readonly Expression<Func<T, Enum>> expression;
 
-        public TextColumn(Expression<Func<T, string>> expression, string thead) : base(thead)
+        public EnumGridColumn(Expression<Func<T, Enum>> expression, string thead) : base(thead)
         {
             this.expression = expression;
         }

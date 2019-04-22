@@ -3,11 +3,11 @@ using System.Linq.Expressions;
 
 namespace Core.Web.Grid
 {
-    public class IntegerColumn<T> : BaseGridColumn<T>
+    public class BooleanGridColumn<T> : BaseGridColumn<T>
     {
-        private readonly Expression<Func<T, int>> expression;
+        private readonly Expression<Func<T, bool>> expression;
 
-        public IntegerColumn(Expression<Func<T, int>> expression, string thead) : base(thead)
+        public BooleanGridColumn(Expression<Func<T, bool>> expression, string thead) : base(thead)
         {
             this.expression = expression;
         }

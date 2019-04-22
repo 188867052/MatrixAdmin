@@ -3,11 +3,11 @@ using System.Linq.Expressions;
 
 namespace Core.Web.Grid
 {
-    public class DateTimeColumn<T> : BaseGridColumn<T>
+    public class TextGridColumn<T> : BaseGridColumn<T>
     {
-        private readonly Expression<Func<T, DateTime>> expression;
+        private readonly Expression<Func<T, string>> expression;
 
-        public DateTimeColumn(Expression<Func<T, DateTime>> expression, string thead) : base(thead)
+        public TextGridColumn(Expression<Func<T, string>> expression, string thead) : base(thead)
         {
             this.expression = expression;
         }

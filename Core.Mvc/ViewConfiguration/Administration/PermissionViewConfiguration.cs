@@ -17,12 +17,12 @@ namespace Core.Mvc.ViewConfiguration.Administration
         public string Render()
         {
             GridColumn<Permission> column = new GridColumn<Permission>(this._permissions);
-            column.AddTextColumn(new TextColumn<Permission>(o => o.Name, PermissionIndexResource.Name));
-            column.AddBooleanColumn(new BooleanColumn<Permission>(o => o.Status, "关联菜单"));
-            column.AddTextColumn(new TextColumn<Permission>(o => o.ActionCode, PermissionIndexResource.ActionCode));
-            column.AddBooleanColumn(new BooleanColumn<Permission>(o => o.Status, PermissionIndexResource.Status));
-            column.AddDateTimeColumn(new DateTimeColumn<Permission>(o => o.CreatedOn, PermissionIndexResource.CreatedOn));
-            column.AddTextColumn(new TextColumn<Permission>(o => o.CreatedByUserName, PermissionIndexResource.CreatedByUserName));
+            column.AddTextColumn(new TextGridColumn<Permission>(o => o.Name, PermissionIndexResource.Name));
+            column.AddBooleanColumn(new BooleanGridColumn<Permission>(o => o.Status, "关联菜单"));
+            column.AddTextColumn(new TextGridColumn<Permission>(o => o.ActionCode, PermissionIndexResource.ActionCode));
+            column.AddBooleanColumn(new BooleanGridColumn<Permission>(o => o.Status, PermissionIndexResource.Status));
+            column.AddDateTimeColumn(new DateTimeGridColumn<Permission>(o => o.CreatedOn, PermissionIndexResource.CreatedOn));
+            column.AddTextColumn(new TextGridColumn<Permission>(o => o.CreatedByUserName, PermissionIndexResource.CreatedByUserName));
             return column.Render();
         }
     }

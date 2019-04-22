@@ -13,32 +13,32 @@ namespace Core.Web.Grid
             this.EntityList = list;
         }
 
-        public void AddBooleanColumn(BooleanColumn<T> column)
+        public void AddBooleanColumn(BooleanGridColumn<T> column)
         {
             this.GridColumns.Add(column);
         }
 
-        public void AddIntegerColumn(IntegerColumn<T> column)
+        public void AddIntegerColumn(IntegerGridColumn<T> column)
         {
             this.GridColumns.Add(column);
         }
 
-        public void AddTextColumn(TextColumn<T> column)
+        public void AddTextColumn(TextGridColumn<T> column)
         {
             this.GridColumns.Add(column);
         }
 
-        public void AddIconColumn(IconColumn<T> column)
+        public void AddIconColumn(IconGridColumn<T> column)
         {
             this.GridColumns.Add(column);
         }
 
-        public void AddDateTimeColumn(DateTimeColumn<T> column)
+        public void AddDateTimeColumn(DateTimeGridColumn<T> column)
         {
             this.GridColumns.Add(column);
         }
 
-        public void AddEnumColumn(EnumColumn<T> column)
+        public void AddEnumColumn(EnumGridColumn<T> column)
         {
             this.GridColumns.Add(column);
         }
