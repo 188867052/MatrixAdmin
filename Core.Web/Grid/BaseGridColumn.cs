@@ -15,7 +15,7 @@ namespace Core.Web.Grid
 
         public string Thead { get; set; }
 
-        public virtual string RenderTh()
+        public string RenderTh()
         {
             return $"<th>{this.Thead}</th>"; ;
         }
@@ -23,7 +23,7 @@ namespace Core.Web.Grid
         public virtual string RenderTd(T entity)
         {
             object value = this.PropertyInfo.GetValue(entity);
-            return  $"<td>{value}</td>";
+            return $"<td>{value}</td>";
         }
     }
 }
