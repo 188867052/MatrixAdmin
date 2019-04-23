@@ -2,21 +2,18 @@
 using Core.Model.Entity;
 using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.GridColumn;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class PermissionViewConfiguration
+    public class PermissionViewConfiguration : ViewConfiguration<Permission>
     {
-        private readonly IList<Permission> _permissions;
-
-        public PermissionViewConfiguration(IList<Permission> permissions)
+        public PermissionViewConfiguration(IList<Permission> entity) : base(entity)
         {
-            this._permissions = permissions;
         }
-
-        public string Render()
+        public override string Render()
         {
-            GridColumn<Permission> column = new GridColumn<Permission>(this._permissions);
+            GridColumn<Permission> column = new GridColumn<Permission>(base.Entity);
             column.AddTextColumn(new TextGridColumn<Permission>(o => o.Name, PermissionIndexResource.Name));
             column.AddBooleanColumn(new BooleanGridColumn<Permission>(o => o.Status, "关联菜单"));
             column.AddTextColumn(new TextGridColumn<Permission>(o => o.ActionCode, PermissionIndexResource.ActionCode));

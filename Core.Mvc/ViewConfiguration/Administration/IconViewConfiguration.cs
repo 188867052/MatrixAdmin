@@ -2,21 +2,19 @@
 using Core.Model.Entity;
 using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.GridColumn;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class IconViewConfiguration
+    public class IconViewConfiguration : ViewConfiguration<Icon>
     {
-        private readonly IList<Icon> _icons;
-
-        public IconViewConfiguration(IList<Icon> icons)
+        public IconViewConfiguration(IList<Icon> entity) : base(entity)
         {
-            this._icons = icons;
         }
 
-        public string Render()
+        public override string Render()
         {
-            GridColumn<Icon> column = new GridColumn<Icon>(_icons);
+            GridColumn<Icon> column = new GridColumn<Icon>(base.Entity);
             column.AddIconColumn(new IconGridColumn<Icon>(o => o.Code, IconResource.Icon));
             column.AddTextColumn(new TextGridColumn<Icon>(o => o.Code, IconResource.Code));
             column.AddTextColumn(new TextGridColumn<Icon>(o => o.Custom, IconResource.Custom));
@@ -27,5 +25,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             column.AddTextColumn(new TextGridColumn<Icon>(o => o.CreatedByUserName, IconResource.CreatedByUserName));
             return column.Render();
         }
+
+
     }
 }

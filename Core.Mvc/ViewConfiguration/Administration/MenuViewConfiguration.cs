@@ -1,22 +1,20 @@
 ﻿using System.Collections.Generic;
 using Core.Model.Entity;
 using Core.Web.GridColumn;
-using  Core.Resource.ViewConfiguration.Administration;
+using Core.Resource.ViewConfiguration.Administration;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class MenuViewConfiguration
+    public class MenuViewConfiguration : ViewConfiguration<Menu>
     {
-        private readonly IList<Menu> _menus;
-
-        public MenuViewConfiguration(IList<Menu> menus)
+        public MenuViewConfiguration(IList<Menu> entities) : base(entities)
         {
-            this._menus = menus;
         }
 
-        public string Render()
+        public override string Render()
         {
-            GridColumn<Menu> column = new GridColumn<Menu>(_menus);
+            GridColumn<Menu> column = new GridColumn<Menu>(base.Entity);
             column.AddTextColumn(new TextGridColumn<Menu>(o => o.Name, MenuIndexResource.Name));
             column.AddTextColumn(new TextGridColumn<Menu>(o => o.Url, MenuIndexResource.Url));
             column.AddTextColumn(new TextGridColumn<Menu>(o => o.Alias, MenuIndexResource.Alias));

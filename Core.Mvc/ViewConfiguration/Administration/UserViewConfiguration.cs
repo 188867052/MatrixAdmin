@@ -1,21 +1,19 @@
 ﻿using System.Collections.Generic;
 using Core.Model.Entity;
 using Core.Web.GridColumn;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class UserViewConfiguration
+    public class UserViewConfiguration : ViewConfiguration<User>
     {
-        private readonly IList<User> users;
-
-        public UserViewConfiguration(IList<User> users)
+        public UserViewConfiguration(IList<User> entity) : base(entity)
         {
-            this.users = users;
         }
 
-        public string Render()
+        public override string Render()
         {
-            GridColumn<User> column = new GridColumn<User>(users);
+            GridColumn<User> column = new GridColumn<User>(base.Entity);
             column.AddTextColumn(new TextGridColumn<User>(o => o.LoginName, "登录名"));
             column.AddTextColumn(new TextGridColumn<User>(o => o.DisplayName, "显示名"));
             column.AddEnumColumn(new EnumGridColumn<User>(o => o.UserType, "用户类型"));
