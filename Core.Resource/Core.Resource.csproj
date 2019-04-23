@@ -61,6 +61,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="ViewConfiguration\Administration\UserIndexResource.resx" />
     <EmbeddedResource Include="ViewConfiguration\Administration\RoleIndexResource.resx" />
     <EmbeddedResource Include="ViewConfiguration\Administration\MenuIndexResource.resx" />
     <EmbeddedResource Include="ViewConfiguration\Administration\PermissionIndexResource.resx" />

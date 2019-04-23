@@ -290,6 +290,74 @@ namespace Core.Resource.ViewConfiguration.Administration
 		/// </summary>
 		public static string WidgetTitle { get { return GetResourceString("WidgetTitle"); } }
 	}
+	/// <summary>
+	/// A static class used to access a specific set of resources.
+	/// </summary>
+	public static class UserIndexResource
+	{
+        private static ResourceManager resourceManager;
+        
+        /// <summary>
+        /// Gets the cached ResourceManager instance used by this class.
+        /// </summary>
+        private static ResourceManager ResourceManager 
+		{
+            get 
+			{
+                if (object.ReferenceEquals(resourceManager, null)) 
+				{
+                    resourceManager = new ResourceManager("Core.Resource.ViewConfiguration.Administration.UserIndexResource", typeof(UserIndexResource).Assembly);
+                }
+                return resourceManager;
+            }
+        }
+        
+        /// <summary>
+        /// Returns the formatted resource string.
+        /// </summary>
+		/// <param name="key">The resource key.</param>
+		/// <returns>The localized resource string.</returns>
+        private static string GetResourceString(string key)
+		{
+			var culture = Thread.CurrentThread.CurrentCulture;
+            return ResourceManager.GetString(key, culture);
+        }
+		
+		/// <summary>
+		/// Gets the localized string for CreatedByUserName.
+		/// </summary>
+		public static string CreatedByUserName { get { return GetResourceString("CreatedByUserName"); } }
+
+		/// <summary>
+		/// Gets the localized string for CreatedOn.
+		/// </summary>
+		public static string CreatedOn { get { return GetResourceString("CreatedOn"); } }
+
+		/// <summary>
+		/// Gets the localized string for DisplayName.
+		/// </summary>
+		public static string DisplayName { get { return GetResourceString("DisplayName"); } }
+
+		/// <summary>
+		/// Gets the localized string for LoginName.
+		/// </summary>
+		public static string LoginName { get { return GetResourceString("LoginName"); } }
+
+		/// <summary>
+		/// Gets the localized string for Status.
+		/// </summary>
+		public static string Status { get { return GetResourceString("Status"); } }
+
+		/// <summary>
+		/// Gets the localized string for UserType.
+		/// </summary>
+		public static string UserType { get { return GetResourceString("UserType"); } }
+
+		/// <summary>
+		/// Gets the localized string for WidgetTitle.
+		/// </summary>
+		public static string WidgetTitle { get { return GetResourceString("WidgetTitle"); } }
+	}
 }
 
 namespace Core.Resource.ViewConfiguration.Error
