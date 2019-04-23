@@ -11,7 +11,12 @@
 
         public virtual string Render()
         {
-            return $"<div class=\"form-group\"><input class=\"form-control\" type=\"text\" value=\"{Value}\" placeholder=\"{this.Value}\"></div>";
+            string a = $"<div class=\"custom-control-inline\">" +
+                       $"<label class=\"custom-control-label\" for=\"customRadio1\">{this.Value}</label>" +
+                       $"<input class=\"form-control\" type=\"text\" value=\"{this.Value}\" placeholder=\"{this.Value}\">" +
+                       $"</div>";
+            return a;
+            //return $"<div class=\"form-group\"><input class=\"form-control\" type=\"text\" value=\"{Value}\" placeholder=\"{this.Value}\"></div>";
         }
     }
 }
