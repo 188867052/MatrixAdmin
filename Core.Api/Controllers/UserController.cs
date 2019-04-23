@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Model;
 using Core.Model.Entity;
-using Core.Model.Models;
+using Core.Model.PostModel;
 
 namespace Core.Api.Controllers
 {

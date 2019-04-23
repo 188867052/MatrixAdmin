@@ -1,11 +1,11 @@
-﻿using Core.Model.Models;
+﻿using Core.Model.PostModel;
 
 namespace Core.Model.Entity
 {
     /// <summary>
     /// 图标请求参数实体
     /// </summary>
-    public class IconPostedModel : PostedModel
+    public class IconPostedModel : PostModel.PostModel
     {
         /// <summary>
         /// 是否可用

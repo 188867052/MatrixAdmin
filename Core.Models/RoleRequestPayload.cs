@@ -1,11 +1,11 @@
-﻿using Core.Model.Models;
+﻿using Core.Model.PostModel;
 
 namespace Core.Model
 {
     /// <summary>
     /// 
     /// </summary>
-    public class RoleRequestPayload : PostedModel
+    public class RoleRequestPayload : PostModel.PostModel
     {
         /// <summary>
         /// 是否已被删除

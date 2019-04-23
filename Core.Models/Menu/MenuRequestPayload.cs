@@ -1,12 +1,12 @@
 ﻿using System;
-using Core.Model.Models;
+using Core.Model.PostModel;
 
 namespace Core.Model.Menu
 {
     /// <summary>
     /// 
     /// </summary>
-    public class MenuRequestPayload : PostedModel
+    public class MenuRequestPayload : PostModel.PostModel
     {
         /// <summary>
         /// 是否已被删除

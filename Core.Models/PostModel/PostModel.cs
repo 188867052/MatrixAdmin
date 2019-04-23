@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.Model.Models
+namespace Core.Model.PostModel
 {
     /// <summary>
     /// 请求实体
     /// </summary>
-    public class PostedModel
+    public class PostModel
     {
         /// <summary>
         /// 
         /// </summary>
-        public PostedModel()
+        public PostModel()
         {
             Sort = new List<Sort>();
             KeyWord = "";

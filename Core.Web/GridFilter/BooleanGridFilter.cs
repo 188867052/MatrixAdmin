@@ -7,7 +7,7 @@ namespace Core.Web.GridFilter
     {
         private readonly Expression<Func<T, bool>> expression;
 
-        public BooleanGridFilter(Expression<Func<T, bool>> expression, string thead) : base(thead)
+        public BooleanGridFilter(Expression<Func<T, bool>> expression, string labelText) : base(labelText)
         {
             this.expression = expression;
         }

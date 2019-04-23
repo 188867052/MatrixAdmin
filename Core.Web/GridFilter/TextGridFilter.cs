@@ -7,7 +7,7 @@ namespace Core.Web.GridFilter
     {
         private readonly Expression<Func<T, string>> expression;
 
-        public TextGridFilter(Expression<Func<T, string>> expression, string thead) : base(thead)
+        public TextGridFilter(Expression<Func<T, string>> expression, string label) : base(label)
         {
             this.expression = expression;
         }

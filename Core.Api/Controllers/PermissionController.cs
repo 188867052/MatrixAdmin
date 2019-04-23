@@ -11,8 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Model;
-using Core.Model.PostedModels;
 using Core.Model.QueryModels.Permission;
+using Core.Model.PostModel;
 
 namespace Core.Api.Controllers
 {
@@ -55,7 +55,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult List(PermissionPostedModel model)
+        public IActionResult List(PermissionPostModel model)
         {
             ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
             using (this._dbContext)
