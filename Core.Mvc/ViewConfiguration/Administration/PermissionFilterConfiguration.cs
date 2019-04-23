@@ -7,9 +7,9 @@ using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class PermissionViewConfiguration : ViewConfiguration<Permission>
+    public class PermissionFilterConfiguration : ViewConfiguration<Permission>
     {
-        public PermissionViewConfiguration(IList<Permission> entity) : base(entity)
+        public PermissionFilterConfiguration(IList<Permission> entity) : base(entity)
         {
         }
 
@@ -21,6 +21,11 @@ namespace Core.Mvc.ViewConfiguration.Administration
             GridColumn.AddBooleanColumn(new BooleanGridColumn<Permission>(o => o.Status, PermissionIndexResource.Status));
             GridColumn.AddDateTimeColumn(new DateTimeGridColumn<Permission>(o => o.CreatedOn, PermissionIndexResource.CreatedOn));
             GridColumn.AddTextColumn(new TextGridColumn<Permission>(o => o.CreatedByUserName, PermissionIndexResource.CreatedByUserName));
+        }
+
+        public override void GenerateGridFilter()
+        {
+            GridFilter.AddTextFilter(new TextGridFilter<Permission>(o => o.Name, PermissionIndexResource.Name));
         }
     }
 }

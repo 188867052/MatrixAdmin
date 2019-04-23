@@ -1,66 +1,58 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Core.Web.GridFilter;
 
 namespace Core.Web.GridFilter
 {
     public class GridFilter<T>
     {
-        public List<BaseGridFilter<T>> GridColumns;
+        public List<BaseGridFilter<T>> GridFilters;
         public IList<T> EntityList;
         public GridFilter(IList<T> list)
         {
-            this.GridColumns = new List<BaseGridFilter<T>>();
+            this.GridFilters = new List<BaseGridFilter<T>>();
             this.EntityList = list;
         }
 
-        public void AddBooleanColumn(BooleanGridFilter<T> column)
+        public void AddBooleanFilter(BooleanGridFilter<T> filter)
         {
-            this.GridColumns.Add(column);
+            this.GridFilters.Add(filter);
         }
 
-        public void AddIntegerColumn(IntegerGridFilter<T> column)
+        public void AddIntegerFilter(IntegerGridFilter<T> filter)
         {
-            this.GridColumns.Add(column);
+            this.GridFilters.Add(filter);
         }
 
-        public void AddTextColumn(TextGridFilter<T> column)
+        public void AddTextFilter(TextGridFilter<T> filter)
         {
-            this.GridColumns.Add(column);
+            this.GridFilters.Add(filter);
         }
 
-        public void AddIconColumn(IconGridColumn<T> column)
+        public void AddIconFilter(IconGridFilter<T> filter)
         {
-            this.GridColumns.Add(column);
+            this.GridFilters.Add(filter);
         }
 
-        public void AddDateTimeColumn(DateTimeGridFilter<T> column)
+        public void AddDateTimeFilter(DateTimeGridFilter<T> filter)
         {
-            this.GridColumns.Add(column);
+            this.GridFilters.Add(filter);
         }
 
-        public void AddEnumColumn(EnumGridFilter<T> column)
+        public void AddEnumFilter(EnumGridFilter<T> filter)
         {
-            this.GridColumns.Add(column);
+            this.GridFilters.Add(filter);
         }
 
         public string Render()
         {
             StringBuilder thead = new StringBuilder();
-            foreach (var item in GridColumns)
+            foreach (var item in GridFilters)
             {
-                thead.Append(item.RenderTh());
+                thead.Append(item.Render());
             }
-            StringBuilder tbody = new StringBuilder();
-            foreach (var entity in EntityList)
-            {
-                StringBuilder tr = new StringBuilder(); ;
-                foreach (var item in GridColumns)
-                {
-                    tr.Append(item.RenderTd(entity));
-                }
-                tbody.Append($"<tr>{tr}</tr>");
-            }
-            return $"<table class=\"table table-bordered data-table\"><thead><tr>{thead}</tr></thead><tbody>{tbody}</tbody></table>";
+
+            return thead.ToString();
         }
     }
 }

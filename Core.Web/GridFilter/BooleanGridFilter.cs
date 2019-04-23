@@ -11,11 +11,5 @@ namespace Core.Web.GridFilter
         {
             this.expression = expression;
         }
-
-        public override string RenderTd(T entity)
-        {
-            var value = this.expression.Compile()(entity);
-            return base.RenderTd(value);
-        }
     }
 }

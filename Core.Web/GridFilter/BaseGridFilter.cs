@@ -2,23 +2,16 @@
 {
     public abstract class BaseGridFilter<T>
     {
-        protected BaseGridFilter(string thead)
+        protected BaseGridFilter(string value)
         {
-            this.Thead = thead;
+            this.Value = value;
         }
 
-        private string Thead { get; }
+        private string Value { get; }
 
-        public virtual string RenderTh()
+        public virtual string Render()
         {
-            return $"<th>{this.Thead}</th>"; ;
-        }
-
-        public abstract string RenderTd(T entity);
-
-        protected virtual string RenderTd(object value)
-        {
-            return $"<td>{value}</td>";
+            return $"<div class=\"form-group\"><input class=\"form-control\" type=\"text\" placeholder=\"{this.Value}\"></div>";
         }
     }
 }
