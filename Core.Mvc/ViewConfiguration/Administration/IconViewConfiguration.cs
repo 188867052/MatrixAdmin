@@ -12,20 +12,16 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
         }
 
-        public override string Render()
+        public override void GenerateGridColumn()
         {
-            GridColumn<Icon> column = new GridColumn<Icon>(base.Entity);
-            column.AddIconColumn(new IconGridColumn<Icon>(o => o.Code, IconResource.Icon));
-            column.AddTextColumn(new TextGridColumn<Icon>(o => o.Code, IconResource.Code));
-            column.AddTextColumn(new TextGridColumn<Icon>(o => o.Custom, IconResource.Custom));
-            column.AddTextColumn(new TextGridColumn<Icon>(o => o.Size, IconResource.Size));
-            column.AddTextColumn(new TextGridColumn<Icon>(o => o.Color, IconResource.Color));
-            column.AddBooleanColumn(new BooleanGridColumn<Icon>(o => o.Status, IconResource.Status));
-            column.AddDateTimeColumn(new DateTimeGridColumn<Icon>(o => o.CreatedOn, IconResource.CreatedOn));
-            column.AddTextColumn(new TextGridColumn<Icon>(o => o.CreatedByUserName, IconResource.CreatedByUserName));
-            return column.Render();
+            GridColumn.AddIconColumn(new IconGridColumn<Icon>(o => o.Code, IconResource.Icon));
+            GridColumn.AddTextColumn(new TextGridColumn<Icon>(o => o.Code, IconResource.Code));
+            GridColumn.AddTextColumn(new TextGridColumn<Icon>(o => o.Custom, IconResource.Custom));
+            GridColumn.AddTextColumn(new TextGridColumn<Icon>(o => o.Size, IconResource.Size));
+            GridColumn.AddTextColumn(new TextGridColumn<Icon>(o => o.Color, IconResource.Color));
+            GridColumn.AddBooleanColumn(new BooleanGridColumn<Icon>(o => o.Status, IconResource.Status));
+            GridColumn.AddDateTimeColumn(new DateTimeGridColumn<Icon>(o => o.CreatedOn, IconResource.CreatedOn));
+            GridColumn.AddTextColumn(new TextGridColumn<Icon>(o => o.CreatedByUserName, IconResource.CreatedByUserName));
         }
-
-
     }
 }

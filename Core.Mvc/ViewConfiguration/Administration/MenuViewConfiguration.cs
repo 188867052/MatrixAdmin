@@ -12,19 +12,17 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
         }
 
-        public override string Render()
+        public override void GenerateGridColumn()
         {
-            GridColumn<Menu> column = new GridColumn<Menu>(base.Entity);
-            column.AddTextColumn(new TextGridColumn<Menu>(o => o.Name, MenuIndexResource.Name));
-            column.AddTextColumn(new TextGridColumn<Menu>(o => o.Url, MenuIndexResource.Url));
-            column.AddTextColumn(new TextGridColumn<Menu>(o => o.Alias, MenuIndexResource.Alias));
-            column.AddTextColumn(new TextGridColumn<Menu>(o => o.ParentName, MenuIndexResource.ParentName));
-            column.AddIntegerColumn(new IntegerGridColumn<Menu>(o => o.Sort, MenuIndexResource.Sort));
-            column.AddBooleanColumn(new BooleanGridColumn<Menu>(o => o.Status, MenuIndexResource.Status));
-            column.AddEnumColumn(new EnumGridColumn<Menu>(o => o.IsDefaultRouter, MenuIndexResource.IsDefaultRouter));
-            column.AddDateTimeColumn(new DateTimeGridColumn<Menu>(o => o.CreatedOn, MenuIndexResource.CreatedOn));
-            column.AddTextColumn(new TextGridColumn<Menu>(o => o.CreatedByUserName, MenuIndexResource.CreatedByUserName));
-            return column.Render();
+            GridColumn.AddTextColumn(new TextGridColumn<Menu>(o => o.Name, MenuIndexResource.Name));
+            GridColumn.AddTextColumn(new TextGridColumn<Menu>(o => o.Url, MenuIndexResource.Url));
+            GridColumn.AddTextColumn(new TextGridColumn<Menu>(o => o.Alias, MenuIndexResource.Alias));
+            GridColumn.AddTextColumn(new TextGridColumn<Menu>(o => o.ParentName, MenuIndexResource.ParentName));
+            GridColumn.AddIntegerColumn(new IntegerGridColumn<Menu>(o => o.Sort, MenuIndexResource.Sort));
+            GridColumn.AddBooleanColumn(new BooleanGridColumn<Menu>(o => o.Status, MenuIndexResource.Status));
+            GridColumn.AddEnumColumn(new EnumGridColumn<Menu>(o => o.IsDefaultRouter, MenuIndexResource.IsDefaultRouter));
+            GridColumn.AddDateTimeColumn(new DateTimeGridColumn<Menu>(o => o.CreatedOn, MenuIndexResource.CreatedOn));
+            GridColumn.AddTextColumn(new TextGridColumn<Menu>(o => o.CreatedByUserName, MenuIndexResource.CreatedByUserName));
         }
     }
 }

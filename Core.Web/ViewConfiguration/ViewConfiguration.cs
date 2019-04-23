@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Core.Web.GridColumn;
+using System.Collections.Generic;
 
 namespace Core.Web.ViewConfiguration
 {
@@ -7,11 +8,18 @@ namespace Core.Web.ViewConfiguration
         protected ViewConfiguration(IList<T> entity)
         {
             this.Entity = entity;
+            this.GridColumn = new GridColumn<T>(entity);
         }
+
+        public GridColumn<T> GridColumn { get; }
 
         public IList<T> Entity { get; }
 
+        public abstract void GenerateGridColumn();
 
-        public abstract string Render();
+        public virtual string Render()
+        {
+            return GridColumn.Render();
+        }
     }
 }

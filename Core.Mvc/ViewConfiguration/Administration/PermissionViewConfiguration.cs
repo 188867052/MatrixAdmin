@@ -11,16 +11,15 @@ namespace Core.Mvc.ViewConfiguration.Administration
         public PermissionViewConfiguration(IList<Permission> entity) : base(entity)
         {
         }
-        public override string Render()
+
+        public override void GenerateGridColumn()
         {
-            GridColumn<Permission> column = new GridColumn<Permission>(base.Entity);
-            column.AddTextColumn(new TextGridColumn<Permission>(o => o.Name, PermissionIndexResource.Name));
-            column.AddBooleanColumn(new BooleanGridColumn<Permission>(o => o.Status, "关联菜单"));
-            column.AddTextColumn(new TextGridColumn<Permission>(o => o.ActionCode, PermissionIndexResource.ActionCode));
-            column.AddBooleanColumn(new BooleanGridColumn<Permission>(o => o.Status, PermissionIndexResource.Status));
-            column.AddDateTimeColumn(new DateTimeGridColumn<Permission>(o => o.CreatedOn, PermissionIndexResource.CreatedOn));
-            column.AddTextColumn(new TextGridColumn<Permission>(o => o.CreatedByUserName, PermissionIndexResource.CreatedByUserName));
-            return column.Render();
+            GridColumn.AddTextColumn(new TextGridColumn<Permission>(o => o.Name, PermissionIndexResource.Name));
+            GridColumn.AddBooleanColumn(new BooleanGridColumn<Permission>(o => o.Status, "关联菜单"));
+            GridColumn.AddTextColumn(new TextGridColumn<Permission>(o => o.ActionCode, PermissionIndexResource.ActionCode));
+            GridColumn.AddBooleanColumn(new BooleanGridColumn<Permission>(o => o.Status, PermissionIndexResource.Status));
+            GridColumn.AddDateTimeColumn(new DateTimeGridColumn<Permission>(o => o.CreatedOn, PermissionIndexResource.CreatedOn));
+            GridColumn.AddTextColumn(new TextGridColumn<Permission>(o => o.CreatedByUserName, PermissionIndexResource.CreatedByUserName));
         }
     }
 }

@@ -11,16 +11,14 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
         }
 
-        public override string Render()
+        public override void GenerateGridColumn()
         {
-            GridColumn<User> column = new GridColumn<User>(base.Entity);
-            column.AddTextColumn(new TextGridColumn<User>(o => o.LoginName, "登录名"));
-            column.AddTextColumn(new TextGridColumn<User>(o => o.DisplayName, "显示名"));
-            column.AddEnumColumn(new EnumGridColumn<User>(o => o.UserType, "用户类型"));
-            column.AddEnumColumn(new EnumGridColumn<User>(o => o.Status, "状态"));
-            column.AddDateTimeColumn(new DateTimeGridColumn<User>(o => o.CreatedOn, "创建时间"));
-            column.AddTextColumn(new TextGridColumn<User>(o => o.CreatedByUserName, "创建者"));
-            return column.Render();
+            GridColumn.AddTextColumn(new TextGridColumn<User>(o => o.LoginName, "登录名"));
+            GridColumn.AddTextColumn(new TextGridColumn<User>(o => o.DisplayName, "显示名"));
+            GridColumn.AddEnumColumn(new EnumGridColumn<User>(o => o.UserType, "用户类型"));
+            GridColumn.AddEnumColumn(new EnumGridColumn<User>(o => o.Status, "状态"));
+            GridColumn.AddDateTimeColumn(new DateTimeGridColumn<User>(o => o.CreatedOn, "创建时间"));
+            GridColumn.AddTextColumn(new TextGridColumn<User>(o => o.CreatedByUserName, "创建者"));
         }
     }
 }

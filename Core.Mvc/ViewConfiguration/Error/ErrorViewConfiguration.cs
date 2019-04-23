@@ -1,25 +1,21 @@
 ﻿using Core.Model.Entity;
 using System.Collections.Generic;
 using Core.Web.GridColumn;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.ViewConfiguration.Error
 {
-    public class ErrorViewConfiguration
+    public class ErrorViewConfiguration: ViewConfiguration<Log>
     {
-        private readonly IList<Log> _errors;
-
-        public ErrorViewConfiguration(IList<Log> errors)
+        public ErrorViewConfiguration(IList<Log> entity) : base(entity)
         {
-            _errors = errors;
         }
 
-        public string Render()
+        public override void GenerateGridColumn()
         {
-            GridColumn<Log> column = new GridColumn<Log>(_errors);
-            column.AddIntegerColumn(new IntegerGridColumn<Log>(o => o.Id, "ID"));
-            column.AddTextColumn(new TextGridColumn<Log>(o => o.Message, "日志"));
-            column.AddDateTimeColumn(new DateTimeGridColumn<Log>(o => o.CreateTime, "创建时间"));
-            return column.Render();
+            GridColumn.AddIntegerColumn(new IntegerGridColumn<Log>(o => o.Id, "ID"));
+            GridColumn.AddTextColumn(new TextGridColumn<Log>(o => o.Message, "日志"));
+            GridColumn.AddDateTimeColumn(new DateTimeGridColumn<Log>(o => o.CreateTime, "创建时间"));
         }
     }
 }
