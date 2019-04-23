@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Model.Entity;
 using Core.Web.GridColumn;
+using  Core.Resource.ViewConfiguration.Administration;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
@@ -16,15 +17,15 @@ namespace Core.Mvc.ViewConfiguration.Administration
         public string Render()
         {
             GridColumn<Menu> column = new GridColumn<Menu>(_menus);
-            column.AddTextColumn(new TextGridColumn<Menu>(o => o.Name, "菜单名称"));
-            column.AddTextColumn(new TextGridColumn<Menu>(o => o.Url, "请求地址"));
-            column.AddTextColumn(new TextGridColumn<Menu>(o => o.Alias, "菜单别名"));
-            column.AddTextColumn(new TextGridColumn<Menu>(o => o.ParentName, "上级菜单"));
-            column.AddIntegerColumn(new IntegerGridColumn<Menu>(o => o.Sort, "排序"));
-            column.AddBooleanColumn(new BooleanGridColumn<Menu>(o => o.Status, "状态"));
-            column.AddEnumColumn(new EnumGridColumn<Menu>(o => o.IsDefaultRouter, "默认路由"));
-            column.AddDateTimeColumn(new DateTimeGridColumn<Menu>(o => o.CreatedOn, "创建时间"));
-            column.AddTextColumn(new TextGridColumn<Menu>(o => o.CreatedByUserName, "创建者"));
+            column.AddTextColumn(new TextGridColumn<Menu>(o => o.Name, MenuIndexResource.Name));
+            column.AddTextColumn(new TextGridColumn<Menu>(o => o.Url, MenuIndexResource.Url));
+            column.AddTextColumn(new TextGridColumn<Menu>(o => o.Alias, MenuIndexResource.Alias));
+            column.AddTextColumn(new TextGridColumn<Menu>(o => o.ParentName, MenuIndexResource.ParentName));
+            column.AddIntegerColumn(new IntegerGridColumn<Menu>(o => o.Sort, MenuIndexResource.Sort));
+            column.AddBooleanColumn(new BooleanGridColumn<Menu>(o => o.Status, MenuIndexResource.Status));
+            column.AddEnumColumn(new EnumGridColumn<Menu>(o => o.IsDefaultRouter, MenuIndexResource.IsDefaultRouter));
+            column.AddDateTimeColumn(new DateTimeGridColumn<Menu>(o => o.CreatedOn, MenuIndexResource.CreatedOn));
+            column.AddTextColumn(new TextGridColumn<Menu>(o => o.CreatedByUserName, MenuIndexResource.CreatedByUserName));
             return column.Render();
         }
     }
