@@ -19,6 +19,7 @@ namespace Core.Web.ViewConfiguration
 
         public virtual string Render()
         {
+            this.GenerateGridColumn();
             return GridColumn.Render();
         }
     }
