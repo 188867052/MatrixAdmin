@@ -12,13 +12,12 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
         }
 
-        public void GenerateGridFilter(PermissionPostModel model)
+        public void GenerateGridFilter()
         {
-            var filter = new GridFilter<Permission, PermissionPostModel>();
-            if (model.Status.HasValue)
-            {
-                filter.AddBooleanFilter(new BooleanGridFilter( PermissionIndexResource.Name));
-            }
+            var filter = new GridFilter();
+            filter.AddBooleanFilter(new BooleanGridFilter(PermissionIndexResource.Name));
+            filter.AddBooleanFilter(new BooleanGridFilter(PermissionIndexResource.Status));
+            filter.Render();
         }
     }
 }

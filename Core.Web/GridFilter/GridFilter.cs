@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Core.Web.GridFilter
 {
-    public class GridFilter<TModel,TPostModel>
+    public class GridFilter
     {
         public List<BaseGridFilter> GridFilters;
         public GridFilter()
@@ -43,13 +43,13 @@ namespace Core.Web.GridFilter
 
         public string Render()
         {
-            StringBuilder thead = new StringBuilder();
+            StringBuilder filterText = new StringBuilder();
             foreach (var item in GridFilters)
             {
-                thead.Append(item.Render());
+                filterText.Append(item.Render());
             }
 
-            return thead.ToString();
+            return filterText.ToString();
         }
     }
 }

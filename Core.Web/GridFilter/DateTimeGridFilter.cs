@@ -5,7 +5,7 @@ namespace Core.Web.GridFilter
 {
     public class DateTimeGridFilter : BaseGridFilter
     {
-        public DateTimeGridFilter(string thead) : base(thead)
+        public DateTimeGridFilter(string labelText) : base(labelText)
         {
         }
     }

@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class PermissionViewConfiguration : ViewConfiguration<Permission>
+    public class LogFilterConfiguration : ViewConfiguration<Permission>
     {
-        public PermissionViewConfiguration(IList<Permission> entity) : base(entity)
+        public LogFilterConfiguration(IList<Permission> entity) : base(entity)
         {
         }
 

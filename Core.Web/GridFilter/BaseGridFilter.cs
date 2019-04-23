@@ -11,7 +11,7 @@
 
         public virtual string Render()
         {
-            return $"<div class=\"form-group\"><input class=\"form-control\" type=\"text\" placeholder=\"{this.Value}\"></div>";
+            return $"<div class=\"form-group\"><input class=\"form-control\" type=\"text\" value=\"{Value}\" placeholder=\"{this.Value}\"></div>";
         }
     }
 }
