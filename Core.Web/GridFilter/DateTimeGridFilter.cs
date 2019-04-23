@@ -3,13 +3,10 @@ using System.Linq.Expressions;
 
 namespace Core.Web.GridFilter
 {
-    public class DateTimeGridFilter<T> : BaseGridFilter<T>
+    public class DateTimeGridFilter : BaseGridFilter
     {
-        private readonly Expression<Func<T, DateTime>> expression;
-
-        public DateTimeGridFilter(Expression<Func<T, DateTime>> expression, string thead) : base(thead)
+        public DateTimeGridFilter(string thead) : base(thead)
         {
-            this.expression = expression;
         }
     }
 }

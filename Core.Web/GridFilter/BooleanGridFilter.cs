@@ -3,13 +3,11 @@ using System.Linq.Expressions;
 
 namespace Core.Web.GridFilter
 {
-    public class BooleanGridFilter<T> : BaseGridFilter<T>
+    public class BooleanGridFilter : BaseGridFilter
     {
-        private readonly Expression<Func<T, bool>> expression;
 
-        public BooleanGridFilter(Expression<Func<T, bool>> expression, string labelText) : base(labelText)
+        public BooleanGridFilter( string labelText) : base(labelText)
         {
-            this.expression = expression;
         }
     }
 }

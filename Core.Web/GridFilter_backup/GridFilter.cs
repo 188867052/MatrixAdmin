@@ -1,42 +1,42 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Web.GridFilter
+namespace Core.Web.GridFilter_backup
 {
     public class GridFilter<TModel,TPostModel>
     {
-        public List<BaseGridFilter> GridFilters;
+        public List<BaseGridFilter<TModel, TPostModel>> GridFilters;
         public GridFilter()
         {
-            this.GridFilters = new List<BaseGridFilter>();
+            this.GridFilters = new List<BaseGridFilter<TModel, TPostModel>>();
         }
 
-        public void AddBooleanFilter(BooleanGridFilter filter)
+        public void AddBooleanFilter(BooleanGridFilter<TModel, TPostModel> filter)
         {
             this.GridFilters.Add(filter);
         }
 
-        public void AddIntegerFilter(IntegerGridFilter filter)
+        public void AddIntegerFilter(IntegerGridFilter<TModel, TPostModel> filter)
         {
             this.GridFilters.Add(filter);
         }
 
-        public void AddTextFilter(TextGridFilter filter)
+        public void AddTextFilter(TextGridFilter<TModel, TPostModel> filter)
         {
             this.GridFilters.Add(filter);
         }
 
-        public void AddIconFilter(IconGridFilter filter)
+        public void AddIconFilter(IconGridFilter<TModel, TPostModel> filter)
         {
             this.GridFilters.Add(filter);
         }
 
-        public void AddDateTimeFilter(DateTimeGridFilter filter)
+        public void AddDateTimeFilter(DateTimeGridFilter<TModel, TPostModel> filter)
         {
             this.GridFilters.Add(filter);
         }
 
-        public void AddEnumFilter(EnumGridFilter filter)
+        public void AddEnumFilter(EnumGridFilter<TModel, TPostModel> filter)
         {
             this.GridFilters.Add(filter);
         }

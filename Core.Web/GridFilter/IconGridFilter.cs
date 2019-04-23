@@ -3,9 +3,9 @@ using System.Linq.Expressions;
 
 namespace Core.Web.GridFilter
 {
-    public class IconGridFilter<T> : TextGridFilter<T>
+    public class IconGridFilter : TextGridFilter
     {
-        public IconGridFilter(Expression<Func<T, string>> expression, string thead) : base(expression, thead)
+        public IconGridFilter(string thead) : base(thead)
         {
         }
     }

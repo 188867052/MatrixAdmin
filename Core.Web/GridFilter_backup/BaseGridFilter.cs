@@ -1,6 +1,6 @@
-﻿namespace Core.Web.GridFilter
+﻿namespace Core.Web.GridFilter_backup
 {
-    public abstract class BaseGridFilter
+    public abstract class BaseGridFilter<TModel, TPostModel>
     {
         protected BaseGridFilter(string value)
         {
