@@ -22,7 +22,6 @@ namespace Core.Mvc.ViewConfiguration.Log
         {
             return new List<string>
             {
-                "/css/bootstrap.min.css", 
                 "/css/bootstrap-responsive.min.css",
                 "/css/uniform.css",
                 "/css/select2.css",

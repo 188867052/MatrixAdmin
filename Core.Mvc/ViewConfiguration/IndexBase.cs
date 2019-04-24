@@ -40,6 +40,20 @@ namespace Core.Mvc.ViewConfiguration
         /// <returns></returns>
         public abstract IList<string> Css();
 
+        private IList<string> CssResource()
+        {
+            var list = this.Css();
+            var newList = new List<string>()
+            {
+                "/css/bootstrap.min.css"
+            };
+            foreach (var item in list)
+            {
+                newList.Add(item);
+            }
+            return newList;
+        }
+
         /// <summary>
         /// Javascript文件
         /// </summary>
@@ -56,7 +70,7 @@ namespace Core.Mvc.ViewConfiguration
             string contentHeader = this.ContentHeader();
             string htmlFormat = File.ReadAllText(Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\{this.FileName}.html"));
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (var item in this.Css())
+            foreach (var item in this.CssResource())
             {
                 stringBuilder.Append($"<link href=\"{item}\" rel=\"stylesheet\">");
             }
