@@ -41,7 +41,7 @@ namespace Core.Web.GridFilter
             this.GridFilters.Add(filter);
         }
 
-        public StringBuilder Render()
+        public string Render()
         {
             StringBuilder filterText = new StringBuilder();
             foreach (var item in GridFilters)
@@ -49,7 +49,7 @@ namespace Core.Web.GridFilter
                 filterText.Append(item.Render());
             }
 
-            return filterText;
+            return filterText.ToString();
         }
     }
 }
