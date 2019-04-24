@@ -1,9 +1,16 @@
-﻿namespace Core.Web.GridFilter
+﻿using System;
+using System.Linq.Expressions;
+
+namespace Core.Web.GridFilter
 {
-    public class IntegerGridFilter : BaseGridFilter
+    public class IntegerGridFilter<TPostModel> : BaseGridFilter
     {
-        public IntegerGridFilter(string thead) : base(thead)
+        private readonly Expression<Func<TPostModel, int>> expression;
+        public IntegerGridFilter(Expression<Func<TPostModel, int>> expression, string label) : base(label)
         {
+            this.expression = expression;
         }
+
+
     }
 }

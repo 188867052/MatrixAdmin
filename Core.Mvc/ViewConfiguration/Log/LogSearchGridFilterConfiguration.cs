@@ -2,7 +2,9 @@
 using Core.Web.GridFilter;
 using System;
 using System.Collections.Generic;
+using Core.Mvc.Controllers;
 using Core.Web.Button;
+using Core.Web.GridFilter_backup;
 using Core.Web.Identifiers;
 
 namespace Core.Mvc.ViewConfiguration.Log
@@ -15,9 +17,9 @@ namespace Core.Mvc.ViewConfiguration.Log
         }
         public override string GenerateSearchFilter()
         {
-            var filter = new GridSearchFilter();
-            filter.AddTextFilter(new TextGridFilter(LogResource.ID));
-            filter.AddTextFilter(new TextGridFilter(LogResource.Message));
+            var filter = new GridSearchFilter<LogPostModel>();
+            filter.AddIntegerFilter(new IntegerGridFilter<LogPostModel>(o => o.Id, LogResource.ID));
+            filter.AddTextFilter(new TextGridFilter<LogPostModel>(o => o.Message, LogResource.Message));
             filter.AddDateTimeFilter(new DateTimeGridFilter("开始" + LogResource.CreateTime));
             filter.AddDateTimeFilter(new DateTimeGridFilter("结束" + LogResource.CreateTime));
             filter.AddDropDownGridFilter(new DropDownGridFilter("天数"));

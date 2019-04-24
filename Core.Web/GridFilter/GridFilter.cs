@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Core.Web.GridFilter_backup;
 
 namespace Core.Web.GridFilter
 {
-    public class GridSearchFilter
+    public class GridSearchFilter<T>
     {
         public List<BaseGridFilter> GridFilters;
         public GridSearchFilter()
@@ -16,12 +17,12 @@ namespace Core.Web.GridFilter
             this.GridFilters.Add(filter);
         }
 
-        public void AddIntegerFilter(IntegerGridFilter filter)
+        public void AddIntegerFilter(IntegerGridFilter<T> filter)
         {
             this.GridFilters.Add(filter);
         }
 
-        public void AddTextFilter(TextGridFilter filter)
+        public void AddTextFilter(TextGridFilter<T> filter)
         {
             this.GridFilters.Add(filter);
         }
@@ -31,7 +32,7 @@ namespace Core.Web.GridFilter
             this.GridFilters.Add(filter);
         }
 
-        public void AddIconFilter(IconGridFilter filter)
+        public void AddIconFilter(IconGridFilter<T> filter)
         {
             this.GridFilters.Add(filter);
         }

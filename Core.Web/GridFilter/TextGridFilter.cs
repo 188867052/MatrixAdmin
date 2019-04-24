@@ -1,9 +1,14 @@
-﻿namespace Core.Web.GridFilter
+﻿using System;
+using System.Linq.Expressions;
+
+namespace Core.Web.GridFilter
 {
-    public class TextGridFilter : BaseGridFilter
+    public class TextGridFilter<TPostModel> : BaseGridFilter
     {
-        public TextGridFilter(string label) : base(label)
+        private readonly Expression<Func<TPostModel, string>> expression;
+        public TextGridFilter(Expression<Func<TPostModel, string>> expression, string label) : base(label)
         {
+            this.expression = expression;
         }
 
 

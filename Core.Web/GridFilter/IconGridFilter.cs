@@ -1,8 +1,12 @@
-﻿namespace Core.Web.GridFilter
+﻿using System;
+using System.Linq.Expressions;
+using Core.Web.GridFilter_backup;
+
+namespace Core.Web.GridFilter
 {
-    public class IconGridFilter : TextGridFilter
+    public class IconGridFilter<T> : TextGridFilter<T>
     {
-        public IconGridFilter(string thead) : base(thead)
+        public IconGridFilter(Expression<Func<T, string>> expression, string label) : base(expression, label)
         {
         }
     }
