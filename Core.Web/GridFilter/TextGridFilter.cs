@@ -8,5 +8,8 @@ namespace Core.Web.GridFilter
         public TextGridFilter(string label) : base(label)
         {
         }
+
+
+        public string Event { get; set; }
     }
 }
