@@ -42,17 +42,22 @@ namespace Core.Mvc.ViewConfiguration
 
         private IList<string> CssResource()
         {
-            var list = this.Css();
-            var newList = new List<string>()
-            {
-                "/css/bootstrap.min.css"
-            };
-            foreach (var item in list)
-            {
-                newList.Add(item);
-            }
-            return newList;
+            List<string> list = new List<string>();
+            list.Add("/css/bootstrap.min.css");
+            list.AddRange(this.Css());
+
+            return list;
         }
+
+        private IList<string> JavaScriptResource()
+        {
+            List<string> list = new List<string>();
+            list.Add("/js/jquery.min.js");
+            list.AddRange(this.Javascript());
+
+            return list;
+        }
+
 
         /// <summary>
         /// Javascript文件
@@ -74,7 +79,7 @@ namespace Core.Mvc.ViewConfiguration
             {
                 stringBuilder.Append($"<link href=\"{item}\" rel=\"stylesheet\">");
             }
-            foreach (var item in this.Javascript())
+            foreach (var item in this.JavaScriptResource())
             {
                 stringBuilder.Append($"<script src=\"{item}\"></script>");
             }
