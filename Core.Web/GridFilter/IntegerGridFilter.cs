@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-
-namespace Core.Web.GridFilter
+﻿namespace Core.Web.GridFilter
 {
     public class IntegerGridFilter : BaseGridFilter
     {
