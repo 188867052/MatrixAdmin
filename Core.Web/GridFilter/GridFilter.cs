@@ -3,10 +3,10 @@ using System.Text;
 
 namespace Core.Web.GridFilter
 {
-    public class GridFilter
+    public class GridSearchFilter
     {
         public List<BaseGridFilter> GridFilters;
-        public GridFilter()
+        public GridSearchFilter()
         {
             this.GridFilters = new List<BaseGridFilter>();
         }

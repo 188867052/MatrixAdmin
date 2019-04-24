@@ -14,7 +14,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public void GenerateGridFilter()
         {
-            var filter = new GridFilter();
+            var filter = new GridSearchFilter();
             filter.AddBooleanFilter(new BooleanGridFilter(PermissionIndexResource.Name));
             filter.AddBooleanFilter(new BooleanGridFilter(PermissionIndexResource.Status));
             filter.Render();
