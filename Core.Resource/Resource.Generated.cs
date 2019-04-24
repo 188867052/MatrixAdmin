@@ -402,6 +402,96 @@ namespace Core.Resource.ViewConfiguration.Error
 	}
 }
 
+namespace Core.Resource.ViewConfiguration.Log
+{
+	/// <summary>
+	/// A static class used to access a specific set of resources.
+	/// </summary>
+	public static class ErrorResource
+	{
+        private static ResourceManager resourceManager;
+        
+        /// <summary>
+        /// Gets the cached ResourceManager instance used by this class.
+        /// </summary>
+        private static ResourceManager ResourceManager 
+		{
+            get 
+			{
+                if (object.ReferenceEquals(resourceManager, null)) 
+				{
+                    resourceManager = new ResourceManager("Core.Resource.ViewConfiguration.Log.ErrorResource", typeof(ErrorResource).Assembly);
+                }
+                return resourceManager;
+            }
+        }
+        
+        /// <summary>
+        /// Returns the formatted resource string.
+        /// </summary>
+		/// <param name="key">The resource key.</param>
+		/// <returns>The localized resource string.</returns>
+        private static string GetResourceString(string key)
+		{
+			var culture = Thread.CurrentThread.CurrentCulture;
+            return ResourceManager.GetString(key, culture);
+        }
+		
+		/// <summary>
+		/// Gets the localized string for Header.
+		/// </summary>
+		public static string Header { get { return GetResourceString("Header"); } }
+	}
+	/// <summary>
+	/// A static class used to access a specific set of resources.
+	/// </summary>
+	public static class LogResource
+	{
+        private static ResourceManager resourceManager;
+        
+        /// <summary>
+        /// Gets the cached ResourceManager instance used by this class.
+        /// </summary>
+        private static ResourceManager ResourceManager 
+		{
+            get 
+			{
+                if (object.ReferenceEquals(resourceManager, null)) 
+				{
+                    resourceManager = new ResourceManager("Core.Resource.ViewConfiguration.Log.LogResource", typeof(LogResource).Assembly);
+                }
+                return resourceManager;
+            }
+        }
+        
+        /// <summary>
+        /// Returns the formatted resource string.
+        /// </summary>
+		/// <param name="key">The resource key.</param>
+		/// <returns>The localized resource string.</returns>
+        private static string GetResourceString(string key)
+		{
+			var culture = Thread.CurrentThread.CurrentCulture;
+            return ResourceManager.GetString(key, culture);
+        }
+		
+		/// <summary>
+		/// Gets the localized string for CreateTime.
+		/// </summary>
+		public static string CreateTime { get { return GetResourceString("CreateTime"); } }
+
+		/// <summary>
+		/// Gets the localized string for ID.
+		/// </summary>
+		public static string ID { get { return GetResourceString("ID"); } }
+
+		/// <summary>
+		/// Gets the localized string for Message.
+		/// </summary>
+		public static string Message { get { return GetResourceString("Message"); } }
+	}
+}
+
 namespace Core.Resource.ViewConfiguration
 {
 	/// <summary>
