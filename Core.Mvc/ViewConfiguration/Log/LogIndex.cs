@@ -22,13 +22,11 @@ namespace Core.Mvc.ViewConfiguration.Log
         {
             return new List<string>
             {
-                
                 "/css/uniform.css",
                 "/css/select2.css",
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
-                
 
                 "/css/Log/Log.css",
             };
@@ -46,14 +44,11 @@ namespace Core.Mvc.ViewConfiguration.Log
         {
             return new List<string>
             {
-               
                "/js/jquery.ui.custom.js",
-               
                "/js/select2.min.js",
                "/js/jquery.dataTables.min.js",
                "/js/matrix.js",
                //"/js/matrix.tables.js",
-
 
                "/lib/jquery/dist/jquery.js",
                "/js/bootstrap-datetimepicker.js",

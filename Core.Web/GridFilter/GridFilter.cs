@@ -26,6 +26,11 @@ namespace Core.Web.GridFilter
             this.GridFilters.Add(filter);
         }
 
+        public void AddDropDownGridFilter(DropDownGridFilter filter)
+        {
+            this.GridFilters.Add(filter);
+        }
+
         public void AddIconFilter(IconGridFilter filter)
         {
             this.GridFilters.Add(filter);

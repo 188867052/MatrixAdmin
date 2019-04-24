@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Core.Web.Button
 {
-    public class Button
+    public class StandardButton
     {
-        public Button(string text)
+        public StandardButton(string text, string @event)
         {
             this.Text = text;
         }
