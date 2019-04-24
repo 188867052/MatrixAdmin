@@ -17,7 +17,7 @@
 
         search: function () {
             var data = new Object();
-            data.id = 1;
+            data.id = "1";
             data.message = "Message";
             data.startTime = "2019-04-25 14:45";
             data.endTime = "2019-04-25 14:45";
