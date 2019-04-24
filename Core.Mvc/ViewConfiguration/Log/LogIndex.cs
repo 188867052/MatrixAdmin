@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Mvc.ViewConfiguration.Landing;
+using Core.Web.JavaScript;
 
 namespace Core.Mvc.ViewConfiguration.Log
 {
@@ -50,9 +51,10 @@ namespace Core.Mvc.ViewConfiguration.Log
                "/js/jquery.dataTables.min.js",
                "/js/matrix.js",
                //"/js/matrix.tables.js",
-
                "/lib/jquery/dist/jquery.js",
                "/js/bootstrap-datetimepicker.js",
+
+               "/js/log/index.js",
             };
         }
 
@@ -67,7 +69,7 @@ namespace Core.Mvc.ViewConfiguration.Log
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
             html = html.Replace("{{button-group}}", filter.GenerateButton());
 
-            return html;
+            return html + RenderJavaScript();
         }
 
         protected override string ContentHeader()
@@ -76,6 +78,13 @@ namespace Core.Mvc.ViewConfiguration.Log
             contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "Error-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
+        }
+
+        private string RenderJavaScript()
+        {
+            JavaScript js = new JavaScript("index", "Index");
+
+            return $"<script>{js.Render()}</script>";
         }
     }
 }

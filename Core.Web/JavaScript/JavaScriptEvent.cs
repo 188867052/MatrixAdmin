@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using Core.Web.Identifiers;
+﻿using Core.Web.Identifiers;
 
 namespace Core.Web.JavaScript
 {
@@ -26,7 +24,7 @@ namespace Core.Web.JavaScript
             string @event = default;
             if (this._id != default && this._delegate !=null)
             {
-                @event = $"$(\"#{this._id.Value}\").on('{this._event.EventString()}',function(){{{this._delegate};}});";
+                @event = $"$(\"#{this._id.Value}\").on('{this._event.EventString()}',function(){{{this._delegate}();}});";
             }
 
             return @event;

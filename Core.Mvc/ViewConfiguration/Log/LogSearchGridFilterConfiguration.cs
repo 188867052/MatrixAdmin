@@ -27,7 +27,7 @@ namespace Core.Mvc.ViewConfiguration.Log
 
         public override string GenerateButton()
         {
-            this.Buttons.Add(new StandardButton("搜索", new Identifier(), "alert(this.value)"));
+            this.Buttons.Add(new StandardButton("搜索", new Identifier(), "index.search"));
             this.Buttons.Add(new StandardButton("添加"));
             this.Buttons.Add(new StandardButton("编辑"));
             string html = default;
