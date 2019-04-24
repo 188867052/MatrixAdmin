@@ -14,7 +14,7 @@ namespace Core.Mvc.ViewConfiguration.Login
         {
             return new List<string>
             {
-                "/css/bootstrap.min.css",
+                
                 "/css/bootstrap-responsive.min.css",
                 "/font-awesome/css/font-awesome.css",
                 "/css/matrix-login.css",
@@ -33,7 +33,7 @@ namespace Core.Mvc.ViewConfiguration.Login
         {
             return new List<string>
             {
-               "/js/jquery.min.js",
+               
                "/js/matrix.login.js"
             };
         }

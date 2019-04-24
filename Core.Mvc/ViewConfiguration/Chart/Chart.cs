@@ -23,7 +23,7 @@ namespace Core.Mvc.ViewConfiguration.Chart
         {
             return new List<string>
             {
-                "/css/bootstrap.min.css",
+                
                 "/css/bootstrap-responsive.min.css",
                 "/css/matrix-style.css",
                 "/css/fullcalendar.css",
@@ -36,7 +36,7 @@ namespace Core.Mvc.ViewConfiguration.Chart
         {
             return new List<string>
             {
-               "/js/jquery.min.js",
+               
                "/js/bootstrap.min.js",
                "/js/jquery.flot.min.js",
                "/js/jquery.flot.pie.min.js",

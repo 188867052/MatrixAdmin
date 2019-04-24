@@ -23,7 +23,7 @@ namespace Core.Mvc.ViewConfiguration.Interface
         {
             return new List<string>
             {
-                "/css/bootstrap.min.css",
+                
                 "/css/bootstrap-responsive.min.css",
                 "/css/jquery.gritter.css",
                 "/css/matrix-style.css",
@@ -36,7 +36,7 @@ namespace Core.Mvc.ViewConfiguration.Interface
         {
             return new List<string>
             {
-               "/js/jquery.min.js",
+               
                "/js/jquery.ui.custom.js",
                "/js/bootstrap.min.js",
                "/js/jquery.gritter.min.js",

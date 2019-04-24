@@ -15,7 +15,7 @@ namespace Core.Mvc.ViewConfiguration.Table
         {
             return new List<string>
             {
-                "/css/bootstrap.min.css",
+                
                 "/css/bootstrap-responsive.min.css",
                 "/css/uniform.css",
                 "/css/select2.css",
@@ -37,7 +37,7 @@ namespace Core.Mvc.ViewConfiguration.Table
         {
             return new List<string>
             {
-               "/js/jquery.min.js",
+               
                "/js/jquery.ui.custom.js",
                "/js/bootstrap.min.js",
                "/js/jquery.uniform.js",

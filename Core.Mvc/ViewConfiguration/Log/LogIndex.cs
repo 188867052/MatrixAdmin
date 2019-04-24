@@ -46,7 +46,7 @@ namespace Core.Mvc.ViewConfiguration.Log
         {
             return new List<string>
             {
-               "/js/jquery.min.js",
+               
                "/js/jquery.ui.custom.js",
                "/js/bootstrap.min.js",
                "/js/select2.min.js",
