@@ -17,6 +17,17 @@ namespace Core.Mvc.Controllers
         /// <summary>
         /// 
         /// </summary>
-        public DateTime CreateTime { get; set; }
+        public DateTime StartTime { get; set; }
+
+        public DateTime EndTime { get; set; }
+
+        public Person Person { get; set; }
+    }
+
+
+    public class Person
+    {
+        public string Name { get; set; }
+        public string Sex { get; set; }
     }
 }

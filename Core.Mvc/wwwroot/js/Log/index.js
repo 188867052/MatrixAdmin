@@ -17,9 +17,13 @@
 
         search: function () {
             var data = new Object();
-            data.Id = 1;
-            data.Message = "Message";
-            data.CreateTime = "2019-04-25 14:45";
+            data.id = 1;
+            data.message = "Message";
+            data.startTime = "2019-04-25 14:45";
+            data.endTime = "2019-04-25 14:45";
+            data.person = new Object();
+            data.person.name = "Message";
+            data.person.sex = "Message";
             $.post(this._searchUrl, data, function () {
                 alert();
             });
