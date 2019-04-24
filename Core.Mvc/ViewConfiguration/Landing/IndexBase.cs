@@ -1,11 +1,10 @@
-﻿using Core.Mvc.ViewConfiguration.Landing;
-using Core.Web.Sidebar;
-using Microsoft.AspNetCore.Hosting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Core.Web.Sidebar;
+using Microsoft.AspNetCore.Hosting;
 
-namespace Core.Mvc.ViewConfiguration
+namespace Core.Mvc.ViewConfiguration.Landing
 {
     public abstract class IndexBase
     {

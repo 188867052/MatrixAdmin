@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Mvc.ViewConfiguration.Landing;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Login

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Mvc.ViewConfiguration.Landing;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
