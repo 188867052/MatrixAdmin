@@ -83,6 +83,7 @@ namespace Core.Mvc.ViewConfiguration.Log
         private string RenderJavaScript()
         {
             JavaScript js = new JavaScript("index", "Index");
+            js.AddStringInstance("searchUrl", "/Log/Search");
 
             return $"<script>{js.Render()}</script>";
         }

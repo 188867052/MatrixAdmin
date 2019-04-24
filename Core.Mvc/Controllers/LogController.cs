@@ -18,7 +18,14 @@ namespace Core.Mvc.Controllers
         public IActionResult Error()
         {
             LogIndex table = new LogIndex(_hostingEnvironment);
-            return Content(table.Render(), "text/html",Encoding.UTF8);
+            return Content(table.Render(), "text/html", Encoding.UTF8);
+        }
+
+        [HttpPost]
+        public IActionResult Search(LogPostModel model)
+        {
+            LogIndex table = new LogIndex(_hostingEnvironment);
+            return Content(table.Render(), "text/html", Encoding.UTF8);
         }
     }
 }
