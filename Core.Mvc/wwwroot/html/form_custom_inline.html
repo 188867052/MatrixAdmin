@@ -1,29 +1,19 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Bootstrap 实例</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
-    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <title></title>
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <script src="../lib/jquery/dist/jquery.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../datepicker/bootstrap/js/bootstrap-datetimepicker.js"></script>
 </head>
 <body>
-    <div class="container mt-3">
-        <h2>自定义控件显示在同一行</h2>
-        <p>我们可以在外部元素上使用 .custom-control-inline 类来包裹自定义表单控件，这样自定义表单控件就能显示在同一行：</p>
-        <form>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" id="customRadio1" name="example1">
-                <label class="custom-control-label" for="customRadio1">自定义单选框 1</label>
-            </div>
-            <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" class="custom-control-input" id="customRadio2" name="example2">
-                <label class="custom-control-label" for="customRadio2">自定义单选框 2</label>
-            </div>
-            <button type="submit" class="btn btn-primary">提交</button>
-        </form>
+    <div class="container">
+        <input size="16" type="text" value="2012-06-15 14:45" readonly class="form_datetime">
     </div>
+    <script type="text/javascript">
+        $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
+    </script>
 </body>
 </html>

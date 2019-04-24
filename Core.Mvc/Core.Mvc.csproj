@@ -38,4 +38,8 @@
     <ProjectReference Include="..\Core.Web\Core.Web.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\datepicker\bootstrap\css\" />
+  </ItemGroup>
+
 </Project>

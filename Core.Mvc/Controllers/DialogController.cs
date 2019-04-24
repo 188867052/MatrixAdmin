@@ -45,6 +45,7 @@ namespace Core.Mvc.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        //https://localhost:44317/Dialog/FormInLine
         public IActionResult FormInLine()
         {
             File file = new File(_hostingEnvironment, "form_custom_inline");

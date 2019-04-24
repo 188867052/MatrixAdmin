@@ -15,5 +15,10 @@ namespace Core.Web.GridFilter
         public JavaScriptEvent Event { get; set; }
 
         public string Delegate { get; set; }
+
+        public override string Render()
+        {
+            return "";
+        }
     }
 }
