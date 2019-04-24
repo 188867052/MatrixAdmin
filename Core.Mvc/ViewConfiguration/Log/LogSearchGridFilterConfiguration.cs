@@ -3,6 +3,7 @@ using Core.Web.GridFilter;
 using System;
 using System.Collections.Generic;
 using Core.Web.Button;
+using Core.Web.Identifiers;
 
 namespace Core.Mvc.ViewConfiguration.Log
 {
@@ -10,14 +11,14 @@ namespace Core.Mvc.ViewConfiguration.Log
     {
         public LogSearchGridFilterConfiguration()
         {
-                this.Buttons=new List<StandardButton>();
+            this.Buttons = new List<StandardButton>();
         }
         public override string GenerateSearchFilter()
         {
             var filter = new GridSearchFilter();
             filter.AddTextFilter(new TextGridFilter(LogResource.ID));
             filter.AddTextFilter(new TextGridFilter(LogResource.Message));
-            filter.AddDateTimeFilter(new DateTimeGridFilter("开始"+LogResource.CreateTime));
+            filter.AddDateTimeFilter(new DateTimeGridFilter("开始" + LogResource.CreateTime));
             filter.AddDateTimeFilter(new DateTimeGridFilter("结束" + LogResource.CreateTime));
             filter.AddDropDownGridFilter(new DropDownGridFilter("天数"));
             filter.AddDropDownGridFilter(new DropDownGridFilter("价格"));
@@ -26,16 +27,20 @@ namespace Core.Mvc.ViewConfiguration.Log
 
         public override string GenerateButton()
         {
-            this.Buttons.Add(new StandardButton("搜索"));
+            this.Buttons.Add(new StandardButton("搜索", new Identifier(), "alert(this.value)"));
             this.Buttons.Add(new StandardButton("添加"));
             this.Buttons.Add(new StandardButton("编辑"));
             string html = default;
+            string script = default;
+
             foreach (var button in Buttons)
             {
                 html += button.Render();
+                script += button.Event.Render();
             }
 
-            return html;
+            script = $"<script>{script}</script>";
+            return html + script;
         }
     }
 }

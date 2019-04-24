@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Core.Web.Identifiers;
 
 namespace Core.Web.JavaScript
 {
@@ -8,33 +9,27 @@ namespace Core.Web.JavaScript
     /// </summary>
     public class JavaScriptEvent
     {
-        public JavaScriptEventEnum Event { get; set; }
+        private readonly JavaScriptEventEnum _event;
+        private readonly Identifier _id;
+        private readonly string _delegate;
 
-        public string Delegate { get; set; }
-
-        public JavaScriptEvent(string @delegate, JavaScriptEventEnum @event = default)
+        public JavaScriptEvent(string @delegate, Identifier id = default, JavaScriptEventEnum @event = default)
         {
-            this.Event = @event;
-            this.Delegate = @delegate;
+            this._event = @event;
+            this._delegate = @delegate;
+            this._id = id;
         }
+
 
         public string Render()
         {
-            return $"$(\".form-control\").on('{Event.EventString()}',function(){{{Delegate};}});";
-        }
-    }
-
-    public static class EnumMap
-    {
-        public static string EventString(this JavaScriptEventEnum @event)
-        {
-            switch (@event)
+            string @event = default;
+            if (this._id != default && this._delegate !=null)
             {
-                case JavaScriptEventEnum.click:
-                    return "click";
-                default:
-                    return @event.ToString();
+                @event = $"$(\"#{this._id.Value}\").on('{this._event.EventString()}',function(){{{this._delegate};}});";
             }
+
+            return @event;
         }
     }
 }
