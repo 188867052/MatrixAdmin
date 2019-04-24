@@ -19,7 +19,7 @@ namespace Core.Web.GridFilter
         {
             return $"<div class=\"custom-control-inline\">" +
                    $"<label>{this.Value}</label>" +
-                  $"<input size=\"16\" type=\"text\" value=\"2019-04-25 14:45\" readonly class=\"form_datetime\">" +
+                  $"<input size=\"16\" type=\"text\" readonly class=\"form_datetime\">" +
                    $"</div>";
         }
     }
