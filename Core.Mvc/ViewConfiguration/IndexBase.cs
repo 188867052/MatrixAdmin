@@ -45,7 +45,8 @@ namespace Core.Mvc.ViewConfiguration
             List<string> list = new List<string>
             {
                 "/css/bootstrap.min.css",
-                "/css/bootstrap-responsive.min.css"
+                "/css/bootstrap-responsive.min.css",
+                "/css/bootstrap-datetimepicker.css",
             };
             list.AddRange(this.Css());
 

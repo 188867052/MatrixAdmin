@@ -28,7 +28,7 @@ namespace Core.Mvc.ViewConfiguration.Log
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
-                "/css/bootstrap-datetimepicker.css",
+                
 
                 "/css/Log/Log.css",
             };
