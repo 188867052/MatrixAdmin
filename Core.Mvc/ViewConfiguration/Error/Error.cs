@@ -26,7 +26,7 @@ namespace Core.Mvc.ViewConfiguration.Error
             return new List<string>
             {
                 
-                "/css/bootstrap-responsive.min.css",
+                
                 "/font-awesome/css/font-awesome.css",
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",

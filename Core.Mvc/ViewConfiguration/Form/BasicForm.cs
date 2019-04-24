@@ -24,7 +24,7 @@ namespace Core.Mvc.ViewConfiguration.Form
             return new List<string>
             {
                
-               "/css/bootstrap-responsive.min.css",
+               
                "/css/colorpicker.css" ,
                "/css/datepicker.css" ,
                "/css/uniform.css" ,

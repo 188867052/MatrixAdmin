@@ -16,7 +16,7 @@ namespace Core.Mvc.ViewConfiguration.Index
             return new List<string>
             {
                 
-                "/css/bootstrap-responsive.min.css",
+                
                 "/css/fullcalendar.css",
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",

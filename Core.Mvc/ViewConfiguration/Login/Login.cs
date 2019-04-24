@@ -15,7 +15,7 @@ namespace Core.Mvc.ViewConfiguration.Login
             return new List<string>
             {
                 
-                "/css/bootstrap-responsive.min.css",
+                
                 "/font-awesome/css/font-awesome.css",
                 "/css/matrix-login.css",
             };

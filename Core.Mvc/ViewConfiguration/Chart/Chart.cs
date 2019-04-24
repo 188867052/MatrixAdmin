@@ -24,7 +24,7 @@ namespace Core.Mvc.ViewConfiguration.Chart
             return new List<string>
             {
                 
-                "/css/bootstrap-responsive.min.css",
+                
                 "/css/matrix-style.css",
                 "/css/fullcalendar.css",
                 "/css/matrix-media.css",

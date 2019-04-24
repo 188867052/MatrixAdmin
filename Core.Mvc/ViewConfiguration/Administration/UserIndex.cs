@@ -24,7 +24,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             return new List<string>
             {
                 
-                "/css/bootstrap-responsive.min.css",
+                
                 "/css/uniform.css",
                 "/css/select2.css",
                 "/css/matrix-style.css",

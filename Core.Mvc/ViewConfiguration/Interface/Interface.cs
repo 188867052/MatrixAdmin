@@ -24,7 +24,7 @@ namespace Core.Mvc.ViewConfiguration.Interface
             return new List<string>
             {
                 
-                "/css/bootstrap-responsive.min.css",
+                
                 "/css/jquery.gritter.css",
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
