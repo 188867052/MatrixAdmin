@@ -42,7 +42,7 @@ namespace Core.Mvc.ViewConfiguration.Form
             {
                
                "/js/jquery.ui.custom.js",
-               "/js/bootstrap.min.js",
+               
                "/js/bootstrap-colorpicker.js",
                "/js/bootstrap-datepicker.js",
                "/js/jquery.toggle.buttons.html",

@@ -48,7 +48,7 @@ namespace Core.Mvc.ViewConfiguration.Log
             {
                
                "/js/jquery.ui.custom.js",
-               "/js/bootstrap.min.js",
+               
                "/js/select2.min.js",
                "/js/jquery.dataTables.min.js",
                "/js/matrix.js",

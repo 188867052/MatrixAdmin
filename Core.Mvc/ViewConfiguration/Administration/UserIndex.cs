@@ -47,7 +47,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             {
                
                "/js/jquery.ui.custom.js",
-               "/js/bootstrap.min.js",
+               
                "/js/jquery.uniform.js",
                "/js/select2.min.js",
                "/js/jquery.dataTables.min.js",

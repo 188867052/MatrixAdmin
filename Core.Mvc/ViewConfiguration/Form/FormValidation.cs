@@ -39,7 +39,7 @@ namespace Core.Mvc.ViewConfiguration.Form
             {
                
                "/js/jquery.ui.custom.js",
-               "/js/bootstrap.min.js",
+               
                "/js/jquery.uniform.js",
                "/js/select2.min.js",
                "/js/matrix.js",

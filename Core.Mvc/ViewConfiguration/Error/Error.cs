@@ -48,7 +48,7 @@ namespace Core.Mvc.ViewConfiguration.Error
             {
                
                "/js/jquery.ui.custom.js",
-               "/js/bootstrap.min.js",
+               
             };
         }
 

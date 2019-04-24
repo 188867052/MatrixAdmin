@@ -36,7 +36,7 @@ namespace Core.Mvc.ViewConfiguration.Grid
             return new List<string>
             {
                
-               "/js/bootstrap.min.js",
+               
                "/js/jquery.ui.custom.js",
                "/js/matrix.js",
             };

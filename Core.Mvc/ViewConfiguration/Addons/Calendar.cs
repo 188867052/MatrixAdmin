@@ -37,7 +37,7 @@ namespace Core.Mvc.ViewConfiguration.Addons
             return new List<string>
             {
                
-               "/js/bootstrap.min.js",
+               
                "/js/jquery.ui.custom.js",
                "/js/matrix.js",
                "/js/fullcalendar.min.js",

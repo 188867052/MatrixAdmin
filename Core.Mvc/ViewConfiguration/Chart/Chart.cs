@@ -37,7 +37,7 @@ namespace Core.Mvc.ViewConfiguration.Chart
             return new List<string>
             {
                
-               "/js/bootstrap.min.js",
+               
                "/js/jquery.flot.min.js",
                "/js/jquery.flot.pie.min.js",
                "/js/matrix.charts.js",

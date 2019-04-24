@@ -42,8 +42,10 @@ namespace Core.Mvc.ViewConfiguration
 
         private IList<string> CssResource()
         {
-            List<string> list = new List<string>();
-            list.Add("/css/bootstrap.min.css");
+            List<string> list = new List<string>
+            {
+                "/css/bootstrap.min.css"
+            };
             list.AddRange(this.Css());
 
             return list;
@@ -51,8 +53,11 @@ namespace Core.Mvc.ViewConfiguration
 
         private IList<string> JavaScriptResource()
         {
-            List<string> list = new List<string>();
-            list.Add("/js/jquery.min.js");
+            List<string> list = new List<string>
+            {
+                "/js/jquery.min.js",
+                "/js/bootstrap.min.js"
+            };
             list.AddRange(this.Javascript());
 
             return list;

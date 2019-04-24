@@ -38,7 +38,7 @@ namespace Core.Mvc.ViewConfiguration.Interface
             {
                
                "/js/jquery.ui.custom.js",
-               "/js/bootstrap.min.js",
+               
                "/js/jquery.gritter.min.js",
                "/js/jquery.peity.min.js",
                "/js/matrix.js",
