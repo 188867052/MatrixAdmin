@@ -13,20 +13,20 @@ namespace Core.Mvc.ViewConfiguration.Landing
         /// <returns></returns>
         public string GenerateSidebarMenu()
         {
-            SubMenu forms = new SubMenu("icon icon-th-list", default, "Forms", 3);
+            SubMenu forms = new SubMenu("icon icon-th-list", default, SidebarNavigationResource.FormsTitle, 3);
             forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormCommon)), SidebarNavigationResource.FormCommon));
             forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormValidation)), SidebarNavigationResource.FormValidation));
             forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormWizard)), SidebarNavigationResource.FormWizard));
 
 
-            SubMenu addons = new SubMenu("icon icon-file", default, "Addons", 5);
+            SubMenu addons = new SubMenu("icon icon-file", default, SidebarNavigationResource.ErrorTitle, 5);
             addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Index2)), SidebarNavigationResource.Index2));
             addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Gallery)), SidebarNavigationResource.Gallery));
             addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Calendar)), SidebarNavigationResource.Calendar));
             addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Invoice)), SidebarNavigationResource.Invoice));
             addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Chat)), SidebarNavigationResource.Chat));
 
-            SubMenu error = new SubMenu("icon icon-info-sign", default, "Error", 4);
+            SubMenu error = new SubMenu("icon icon-info-sign", default, SidebarNavigationResource.AddonsTitle, 4);
             error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error403)), SidebarNavigationResource.Error403));
             error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error404)), SidebarNavigationResource.Error404));
             error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error405)), SidebarNavigationResource.Error405));
