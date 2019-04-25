@@ -33,11 +33,11 @@ namespace Core.Mvc.ViewConfiguration.Landing
             error.AddLinkButton(new LinkedAnchor("/Redirect/error500", "Error 500"));
 
             SubMenu manage = new SubMenu("icon icon-user", "", IndexBaseResource.SystemManage, 8);
-            manage.AddLinkButton(new LinkedAnchor("/User/UserManage", IndexBaseResource.UserManage));
-            manage.AddLinkButton(new LinkedAnchor("/User/RoleManage", IndexBaseResource.RoleManage));
-            manage.AddLinkButton(new LinkedAnchor("/User/PermissionManage", IndexBaseResource.PermissionManage));
-            manage.AddLinkButton(new LinkedAnchor("/User/MenuManage", IndexBaseResource.MenuManage));
-            manage.AddLinkButton(new LinkedAnchor("/User/IconManage", IndexBaseResource.IconManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.UserManage)), IndexBaseResource.UserManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.RoleManage)), IndexBaseResource.RoleManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.PermissionManage)), IndexBaseResource.PermissionManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.MenuManage)), IndexBaseResource.MenuManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.IconManage)), IndexBaseResource.IconManage));
 
             SubMenu log = new SubMenu("icon icon-edit", "", IndexBaseResource.LogManage, 2);
             log.AddLinkButton(new LinkedAnchor(new Url(typeof(LogController), nameof(LogController.Error)), IndexBaseResource.ErrorLog));
