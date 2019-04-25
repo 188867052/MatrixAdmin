@@ -1,7 +1,6 @@
 ﻿using Core.Mvc.Controllers;
 using Core.Resource.ViewConfiguration;
 using Core.Web.Sidebar;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Mvc.ViewConfiguration.Landing
 {
@@ -14,23 +13,23 @@ namespace Core.Mvc.ViewConfiguration.Landing
         public string GenerateSidebarMenu()
         {
             SubMenu forms = new SubMenu("icon icon-th-list", "", "Forms", 3);
-            forms.AddLinkButton(new LinkedAnchor("/Redirect/formcommon", "Basic Form"));
-            forms.AddLinkButton(new LinkedAnchor("/Redirect/formvalidation", "Form with Validation"));
-            forms.AddLinkButton(new LinkedAnchor("/Redirect/formwizard", "Form with Wizard"));
+            forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormCommon)), "Basic Form"));
+            forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormValidation)), "Form with Validation"));
+            forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormWizard)), "Form with Wizard"));
 
 
             SubMenu addons = new SubMenu("icon icon-file", "", "Addons", 5);
-            addons.AddLinkButton(new LinkedAnchor("/Redirect/index2", "Dashboard2"));
-            addons.AddLinkButton(new LinkedAnchor("/Redirect/gallery", "Gallery"));
-            addons.AddLinkButton(new LinkedAnchor("/Redirect/calendar", "Calendar"));
-            addons.AddLinkButton(new LinkedAnchor("/Redirect/invoice", "Invoice"));
-            addons.AddLinkButton(new LinkedAnchor("/Redirect/chat", "Chat option"));
+            addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Index2)), "Dashboard2"));
+            addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Gallery)), "Gallery"));
+            addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Calendar)), "Calendar"));
+            addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Invoice)), "Invoice"));
+            addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Chat)), "Chat option"));
 
             SubMenu error = new SubMenu("icon icon-info-sign", "", "Error", 4);
-            error.AddLinkButton(new LinkedAnchor("/Redirect/error403", "Error 403"));
-            error.AddLinkButton(new LinkedAnchor("/Redirect/error404", "Error 404"));
-            error.AddLinkButton(new LinkedAnchor("/Redirect/error405", "Error 405"));
-            error.AddLinkButton(new LinkedAnchor("/Redirect/error500", "Error 500"));
+            error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error403)), "Error 403"));
+            error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error404)), "Error 404"));
+            error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error404)), "Error 405"));
+            error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error404)), "Error 500"));
 
             SubMenu manage = new SubMenu("icon icon-user", "", IndexBaseResource.SystemManage, 8);
             manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.UserManage)), IndexBaseResource.UserManage));
