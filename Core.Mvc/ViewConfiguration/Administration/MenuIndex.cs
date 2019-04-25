@@ -20,7 +20,8 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// <param name="hostingEnvironment"></param>
         public MenuIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Menu>>("/Menu/Index");
+            var url = new Url(typeof(Api.Controllers.MenuController), nameof(Api.Controllers.MenuController.Index));
+            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Menu>>(url);
             this._menus = (List<Menu>)a.Result.Data;
         }
 
@@ -67,7 +68,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("菜单管理");
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
         }

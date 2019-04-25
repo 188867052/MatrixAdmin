@@ -20,7 +20,8 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// <param name="hostingEnvironment"></param>
         public RoleIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Role>>("/Role/Index");
+            var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Index));
+            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Role>>(url);
             this.roles = (List<Role>)a.Result.Data;
         }
 

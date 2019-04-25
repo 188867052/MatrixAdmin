@@ -20,7 +20,8 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// <param name="hostingEnvironment"></param>
         public IconIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Icon>>("/Icon/Index");
+            var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Index));
+            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Icon>>(url);
             this._icons = (List<Icon>)a.Result.Data;
         }
 
@@ -57,7 +58,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public override string Render()
         {
-            IconViewConfiguration configuration=new IconViewConfiguration(this._icons);
+            IconViewConfiguration configuration = new IconViewConfiguration(this._icons);
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
             html = html.Replace("{{widget-title}}", "图标管理");
@@ -67,7 +68,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("图标管理");
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
         }

@@ -16,12 +16,12 @@ namespace Core.Extension
         /// <typeparam name="T"></typeparam>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static async Task<ResponseModel> GetAsync<T>(string url)
+        public static async Task<ResponseModel> GetAsync<T>(Url url)
         {
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
-                httpResponse = await client.GetAsync(host + url);
+                httpResponse = await client.GetAsync(host + url.Render());
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
@@ -39,7 +39,7 @@ namespace Core.Extension
         /// <param name="url"></param>
         /// <param name="postModel"></param>
         /// <returns></returns>
-        public static async Task<ResponseModel> PostAsync<TModel, TPostModel>(string url, TPostModel postModel)
+        public static async Task<ResponseModel> PostAsync<TModel, TPostModel>(Url url, TPostModel postModel)
         {
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
@@ -47,7 +47,7 @@ namespace Core.Extension
                 string postPara = JsonConvert.SerializeObject(postModel);
                 StringContent httpContent = new StringContent(postPara);
                 httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                httpResponse = await client.PostAsync(host + url, httpContent);
+                httpResponse = await client.PostAsync(host + url.Render(), httpContent);
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();

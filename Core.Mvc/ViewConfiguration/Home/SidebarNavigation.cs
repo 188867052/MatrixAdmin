@@ -1,4 +1,5 @@
-﻿using Core.Mvc.Controllers;
+﻿using Core.Extension;
+using Core.Mvc.Controllers;
 using Core.Resource.ViewConfiguration;
 using Core.Resource.ViewConfiguration.Home;
 using Core.Web.Sidebar;
@@ -63,7 +64,4 @@ namespace Core.Mvc.ViewConfiguration.Home
             return sidebar.Render();
         }
     }
-
-
-
 }

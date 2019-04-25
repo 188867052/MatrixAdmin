@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Core.Extension;
 using Core.Web.Sidebar;
 
 namespace Core.Web.JavaScript

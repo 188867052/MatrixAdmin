@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Core.Extension;
 using Core.Mvc.Controllers;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;

@@ -47,13 +47,14 @@ namespace Core.Mvc.ViewConfiguration.Button
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("Buttons & Icons");
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
         }
 
         public override string Render()
         {
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Icon>>("/Icon/Index");
+            var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Index));
+            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Icon>>(url);
             List<Icon> icons = (List<Icon>)a.Result.Data;
             string iconHtml = default;
             foreach (var icon in icons)

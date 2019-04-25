@@ -30,7 +30,8 @@ namespace Core.Mvc.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
-            Task<ResponseModel> model = AsyncRequest.GetAsync<IList<Log>>("/error");
+            var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Index));
+            Task<ResponseModel> model = AsyncRequest.GetAsync<IList<Log>>(url);
             var errors = (List<Log>)model.Result.Data;
             LogIndex table = new LogIndex(_hostingEnvironment, errors);
             return Content(table.Render(), "text/html", Encoding.UTF8);
@@ -44,7 +45,8 @@ namespace Core.Mvc.Controllers
         [HttpPost]
         public IActionResult GridStateChange(LogPostModel postModel)
         {
-            Task<ResponseModel> model = AsyncRequest.PostAsync<IList<Log>, LogPostModel>("/error", postModel);
+            var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Search));
+            Task<ResponseModel> model = AsyncRequest.PostAsync<IList<Log>, LogPostModel>(url, postModel);
             List<Log> logs = (List<Log>)model.Result.Data;
             LogIndex table = new LogIndex(_hostingEnvironment, logs);
 

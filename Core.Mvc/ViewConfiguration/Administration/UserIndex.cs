@@ -21,7 +21,8 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// <param name="hostingEnvironment"></param>
         public UserIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<User>>("/User/Index");
+            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Index));
+            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<User>>(url);
             this.users = (List<User>)a.Result.Data;
         }
 

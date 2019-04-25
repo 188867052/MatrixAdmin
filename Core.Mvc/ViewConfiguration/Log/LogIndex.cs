@@ -5,6 +5,7 @@ using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
+using Core.Extension;
 
 namespace Core.Mvc.ViewConfiguration.Log
 {

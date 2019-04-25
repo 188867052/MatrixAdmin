@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Core.Web.Sidebar
+namespace Core.Extension
 {
     public class Url
     {

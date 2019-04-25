@@ -1,4 +1,6 @@
-﻿namespace Core.Web.Sidebar
+﻿using Core.Extension;
+
+namespace Core.Web.Sidebar
 {
     public class LinkedAnchor
     {
