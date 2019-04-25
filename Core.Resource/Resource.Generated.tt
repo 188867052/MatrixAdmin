@@ -128,7 +128,7 @@ try{
 		}
 
 		WriteLine("\r\n\t\t/// <summary>");
-		WriteLine(string.Format("\t\t/// Gets the localized string for {0}.",  entry.Name));
+		WriteLine(string.Format("\t\t/// 获取本地化字符串 [{0}].",  entry.Name));
 		
 		if(entry.Comment != null)
 		{
