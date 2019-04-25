@@ -23,7 +23,7 @@ namespace Core.Mvc.ViewConfiguration.Landing
         {
             get
             {
-                return "Matrix Admin";
+                return "My Web";
             }
         }
 

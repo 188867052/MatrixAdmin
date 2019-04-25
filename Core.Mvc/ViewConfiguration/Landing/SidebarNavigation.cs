@@ -1,5 +1,7 @@
-﻿using Core.Resource.ViewConfiguration;
+﻿using Core.Mvc.Controllers;
+using Core.Resource.ViewConfiguration;
 using Core.Web.Sidebar;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Mvc.ViewConfiguration.Landing
 {
@@ -38,7 +40,7 @@ namespace Core.Mvc.ViewConfiguration.Landing
             manage.AddLinkButton(new LinkedAnchor("/User/IconManage", IndexBaseResource.IconManage));
 
             SubMenu log = new SubMenu("icon icon-edit", "", IndexBaseResource.LogManage, 2);
-            log.AddLinkButton(new LinkedAnchor("/Log/error", IndexBaseResource.ErrorLog));
+            log.AddLinkButton(new LinkedAnchor(new Url(typeof(LogController), nameof(LogController.Error)), IndexBaseResource.ErrorLog));
 
             Sidebar sidebar = new Sidebar();
             sidebar.AddSubMenu(new SubMenu("icon icon-home", "/Redirect/index", "Dashboard", 0, true));
@@ -61,4 +63,7 @@ namespace Core.Mvc.ViewConfiguration.Landing
             return sidebar.Render();
         }
     }
+
+
+
 }

@@ -8,6 +8,14 @@
             this.InnerText = innerText;
             this.Class = @class;
         }
+
+        public LinkedAnchor(Url url, string innerText, string @class = default)
+        {
+            this.Url = url.Render();
+            this.InnerText = innerText;
+            this.Class = @class;
+        }
+
         public string Class { get; set; }
         public string InnerText { get; set; }
 
