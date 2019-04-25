@@ -7,12 +7,12 @@ using Core.Mvc.ViewConfiguration.Form;
 using Core.Mvc.ViewConfiguration.Grid;
 using Core.Mvc.ViewConfiguration.Index;
 using Core.Mvc.ViewConfiguration.Interface;
+using Core.Mvc.ViewConfiguration.Login;
 using Core.Mvc.ViewConfiguration.Table;
 using Core.Mvc.ViewConfiguration.Widget;
 using Core.Web.File;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Login = Core.Mvc.ViewConfiguration.Login.Login;
 
 namespace Core.Mvc.Controllers
 {
