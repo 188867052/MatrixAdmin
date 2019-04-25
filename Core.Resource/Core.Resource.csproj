@@ -67,6 +67,7 @@
     <EmbeddedResource Include="ViewConfiguration\Administration\RoleIndexResource.resx" />
     <EmbeddedResource Include="ViewConfiguration\Administration\MenuIndexResource.resx" />
     <EmbeddedResource Include="ViewConfiguration\Administration\PermissionIndexResource.resx" />
+    <EmbeddedResource Include="ViewConfiguration\Home\SidebarNavigationResource.resx" />
     <EmbeddedResource Include="ViewConfiguration\Log\LogResource.resx" />
     <EmbeddedResource Include="ViewConfiguration\Log\ErrorResource.resx" />
     <EmbeddedResource Include="ViewConfiguration\IndexBaseResource.resx" />

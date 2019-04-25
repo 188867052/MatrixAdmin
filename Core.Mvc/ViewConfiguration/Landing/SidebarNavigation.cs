@@ -1,5 +1,6 @@
 ﻿using Core.Mvc.Controllers;
 using Core.Resource.ViewConfiguration;
+using Core.Resource.ViewConfiguration.Home;
 using Core.Web.Sidebar;
 
 namespace Core.Mvc.ViewConfiguration.Landing
@@ -13,23 +14,23 @@ namespace Core.Mvc.ViewConfiguration.Landing
         public string GenerateSidebarMenu()
         {
             SubMenu forms = new SubMenu("icon icon-th-list", default, "Forms", 3);
-            forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormCommon)), "Basic Form"));
-            forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormValidation)), "Form with Validation"));
-            forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormWizard)), "Form with Wizard"));
+            forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormCommon)), SidebarNavigationResource.FormCommon));
+            forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormValidation)), SidebarNavigationResource.FormValidation));
+            forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormWizard)), SidebarNavigationResource.FormWizard));
 
 
             SubMenu addons = new SubMenu("icon icon-file", default, "Addons", 5);
-            addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Index2)), "Dashboard2"));
-            addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Gallery)), "Gallery"));
-            addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Calendar)), "Calendar"));
-            addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Invoice)), "Invoice"));
-            addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Chat)), "Chat option"));
+            addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Index2)), SidebarNavigationResource.Index2));
+            addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Gallery)), SidebarNavigationResource.Gallery));
+            addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Calendar)), SidebarNavigationResource.Calendar));
+            addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Invoice)), SidebarNavigationResource.Invoice));
+            addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Chat)), SidebarNavigationResource.Chat));
 
             SubMenu error = new SubMenu("icon icon-info-sign", default, "Error", 4);
-            error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error403)), "Error 403"));
-            error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error404)), "Error 404"));
-            error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error404)), "Error 405"));
-            error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error404)), "Error 500"));
+            error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error403)), SidebarNavigationResource.Error403));
+            error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error404)), SidebarNavigationResource.Error404));
+            error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error405)), SidebarNavigationResource.Error405));
+            error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error500)), SidebarNavigationResource.Error500));
 
             SubMenu manage = new SubMenu("icon icon-user", default, IndexBaseResource.SystemManage, 8);
             manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.UserManage)), IndexBaseResource.UserManage));
