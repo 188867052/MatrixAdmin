@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Core.Web.Sidebar;
 
 namespace Core.Web.JavaScript
 {
@@ -20,6 +21,11 @@ namespace Core.Web.JavaScript
         public void AddStringInstance(string key, string value)
         {
             this._fields.Add(key, value);
+        }
+
+        public void AddUrlInstance(string key, Url url)
+        {
+            AddStringInstance(key, url.Render());
         }
 
         public string GlobalVariableName { get; set; }

@@ -7,6 +7,7 @@ using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core.Mvc.Controllers;
 
 namespace Core.Mvc.ViewConfiguration.Log
 {
@@ -75,7 +76,8 @@ namespace Core.Mvc.ViewConfiguration.Log
         private string RenderJavaScript()
         {
             JavaScript js = new JavaScript("index", "Index");
-            js.AddStringInstance("searchUrl", "/Log/Search");
+            var url = new Url(typeof(LogController), nameof(LogController.Search));
+            js.AddUrlInstance("searchUrl", url);
 
             return $"<script>{js.Render()}</script>";
         }
