@@ -1,6 +1,4 @@
-﻿using Core.Model.PostModel;
-
-namespace Core.Model
+﻿namespace Core.Model
 {
     /// <summary>
     /// 

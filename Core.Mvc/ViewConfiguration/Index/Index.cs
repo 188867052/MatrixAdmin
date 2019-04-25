@@ -16,7 +16,6 @@ namespace Core.Mvc.ViewConfiguration.Index
         {
             return new List<string>
             {
-                
                 "/css/fullcalendar.css",
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",

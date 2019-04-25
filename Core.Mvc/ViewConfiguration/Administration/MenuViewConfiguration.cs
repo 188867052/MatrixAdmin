@@ -8,6 +8,10 @@ namespace Core.Mvc.ViewConfiguration.Administration
 {
     public class MenuViewConfiguration : ViewConfiguration<Menu>
     {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="entities"></param>
         public MenuViewConfiguration(IList<Menu> entities) : base(entities)
         {
         }

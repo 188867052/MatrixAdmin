@@ -13,6 +13,10 @@ namespace Core.Mvc.ViewConfiguration.Administration
     {
         private readonly List<Role> roles;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="hostingEnvironment"></param>
         public RoleIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
             Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Role>>("/Role/Index");
@@ -23,8 +27,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             return new List<string>
             {
-                
-                
                 "/css/uniform.css",
                 "/css/select2.css",
                 "/css/matrix-style.css",
@@ -47,7 +49,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
             {
                
                "/js/jquery.ui.custom.js",
-               
                "/js/jquery.uniform.js",
                "/js/select2.min.js",
                "/js/jquery.dataTables.min.js",

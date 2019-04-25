@@ -1,5 +1,4 @@
-﻿using Core.Api.Configurations;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Api

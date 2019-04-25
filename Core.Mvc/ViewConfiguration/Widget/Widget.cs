@@ -24,8 +24,6 @@ namespace Core.Mvc.ViewConfiguration.Widget
         {
             return new List<string>
             {
-                
-                
                 "/css/fullcalendar.css",
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
@@ -37,8 +35,6 @@ namespace Core.Mvc.ViewConfiguration.Widget
         {
             return new List<string>
             {
-               
-               
                "/js/jquery.ui.custom.js",
                "/js/matrix.js",
             };

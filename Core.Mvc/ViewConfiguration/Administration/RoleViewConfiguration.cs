@@ -8,6 +8,10 @@ namespace Core.Mvc.ViewConfiguration.Administration
 {
     public class RoleViewConfiguration : ViewConfiguration<Role>
     {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="entity"></param>
         public RoleViewConfiguration(IList<Role> entity) : base(entity)
         {
         }

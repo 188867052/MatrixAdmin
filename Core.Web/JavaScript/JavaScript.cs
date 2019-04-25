@@ -8,14 +8,14 @@ namespace Core.Web.JavaScript
     /// </summary>
     public class JavaScript
     {
+        private readonly Dictionary<string, string> _fields;
+
         public JavaScript(string globalVariableName, string className)
         {
             this.GlobalVariableName = globalVariableName;
             this.ClassName = className;
             this._fields = new Dictionary<string, string>();
         }
-
-        private readonly Dictionary<string, string> _fields;
 
         public void AddStringInstance(string key, string value)
         {
@@ -33,8 +33,6 @@ namespace Core.Web.JavaScript
             {
                 stringBuilder.Append($"{this.GlobalVariableName}._{keyValuePair.Key}=\"{keyValuePair.Value}\";");
             }
-
-            //stringBuilder.Append($"{variableName}._{url}=\"{keyValuePair.Value}\";");
 
             return $"window.{this.GlobalVariableName} = new {this.ClassName}();{stringBuilder}";
         }

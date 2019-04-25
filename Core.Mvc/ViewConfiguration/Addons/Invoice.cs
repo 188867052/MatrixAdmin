@@ -24,8 +24,6 @@ namespace Core.Mvc.ViewConfiguration.Addons
         {
             return new List<string>
             {
-                
-                
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
@@ -36,8 +34,6 @@ namespace Core.Mvc.ViewConfiguration.Addons
         {
             return new List<string>
             {
-               
-               
                "/js/jquery.ui.custom.js",
                "/js/matrix.js",
             };

@@ -5,6 +5,10 @@ namespace Core.Web.ViewConfiguration
 {
     public abstract class ViewConfiguration<T>
     {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="entity"></param>
         protected ViewConfiguration(IList<T> entity)
         {
             this.GridColumn = new GridColumn<T>(entity);

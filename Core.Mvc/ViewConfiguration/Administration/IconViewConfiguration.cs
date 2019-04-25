@@ -8,6 +8,10 @@ namespace Core.Mvc.ViewConfiguration.Administration
 {
     public class IconViewConfiguration : ViewConfiguration<Icon>
     {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="entity"></param>
         public IconViewConfiguration(IList<Icon> entity) : base(entity)
         {
         }

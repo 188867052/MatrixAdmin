@@ -1,5 +1,4 @@
-﻿using System.Text;
-using System.Text.Encodings.Web;
+﻿using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using Core.Mvc.Controllers;
 using Microsoft.AspNetCore.Builder;

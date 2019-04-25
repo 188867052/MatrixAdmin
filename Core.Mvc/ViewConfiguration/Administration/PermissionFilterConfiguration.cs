@@ -1,5 +1,4 @@
-﻿using Core.Model.Entity;
-using Core.Model.PostModel;
+﻿using Core.Model.PostModel;
 using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.GridFilter;
 using System.Collections.Generic;

@@ -2,6 +2,9 @@
 
 namespace Core.Web.GridFilter
 {
+    /// <summary>
+    /// 构造函数
+    /// </summary>
     public class DropDownGridFilter : BaseGridFilter
     {
         public DropDownGridFilter(string labelText) : base(labelText)

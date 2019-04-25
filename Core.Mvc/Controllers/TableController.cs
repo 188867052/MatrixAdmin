@@ -8,6 +8,10 @@ namespace Core.Mvc.Controllers
 {
     public class TableController : Controller
     {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             Table table = new Table();

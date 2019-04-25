@@ -14,6 +14,10 @@ namespace Core.Mvc.ViewConfiguration.Administration
     {
         private readonly List<Permission> _permissions;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="hostingEnvironment"></param>
         public PermissionIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
             Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Permission>>("/Permission/Index");
@@ -24,8 +28,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             return new List<string>
             {
-                
-                
                 "/css/uniform.css",
                 "/css/select2.css",
                 "/css/matrix-style.css",
@@ -46,9 +48,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             return new List<string>
             {
-               
                "/js/jquery.ui.custom.js",
-               
                "/js/jquery.uniform.js",
                "/js/select2.min.js",
                "/js/jquery.dataTables.min.js",

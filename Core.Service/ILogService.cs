@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Core.Repository.Dependency;
+﻿using Core.Repository.Dependency;
 
 namespace Core.Service
 {

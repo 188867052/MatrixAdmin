@@ -2,8 +2,11 @@
 {
     public class BooleanGridFilter : BaseGridFilter
     {
-
-        public BooleanGridFilter( string labelText) : base(labelText)
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="labelText"></param>
+        public BooleanGridFilter(string labelText) : base(labelText)
         {
         }
     }

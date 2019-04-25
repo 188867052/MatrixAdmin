@@ -15,8 +15,6 @@ namespace Core.Mvc.ViewConfiguration.Login
         {
             return new List<string>
             {
-                
-                
                 "/font-awesome/css/font-awesome.css",
                 "/css/matrix-login.css",
             };
@@ -34,7 +32,6 @@ namespace Core.Mvc.ViewConfiguration.Login
         {
             return new List<string>
             {
-               
                "/js/matrix.login.js"
             };
         }

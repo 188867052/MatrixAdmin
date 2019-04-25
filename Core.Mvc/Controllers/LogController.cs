@@ -1,7 +1,5 @@
 ﻿using System.Text;
-using Core.Mvc.ViewConfiguration.Error;
 using Core.Mvc.ViewConfiguration.Log;
-using Core.Web.Table;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +9,10 @@ namespace Core.Mvc.Controllers
     {
         private readonly IHostingEnvironment _hostingEnvironment;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="hostingEnvironment"></param>
         public LogController(IHostingEnvironment hostingEnvironment)
         {
             this._hostingEnvironment = hostingEnvironment;

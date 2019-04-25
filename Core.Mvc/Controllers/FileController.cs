@@ -11,6 +11,10 @@ namespace Core.Mvc.Controllers
     {
         private readonly IHostingEnvironment _hostingEnvironment;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="hostingEnvironment"></param>
         public FileController(IHostingEnvironment hostingEnvironment)
         {
             this._hostingEnvironment = hostingEnvironment;

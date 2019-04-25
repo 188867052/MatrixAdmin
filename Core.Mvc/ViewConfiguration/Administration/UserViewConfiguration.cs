@@ -8,6 +8,10 @@ namespace Core.Mvc.ViewConfiguration.Administration
 {
     public class UserViewConfiguration : ViewConfiguration<User>
     {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="entity"></param>
         public UserViewConfiguration(IList<User> entity) : base(entity)
         {
         }

@@ -1,6 +1,4 @@
-﻿using Core.Model.PostModel;
-
-namespace Core.Model.Entity
+﻿namespace Core.Model.Entity
 {
     /// <summary>
     /// 图标请求参数实体

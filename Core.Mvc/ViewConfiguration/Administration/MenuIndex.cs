@@ -13,6 +13,10 @@ namespace Core.Mvc.ViewConfiguration.Administration
     {
         private readonly List<Menu> _menus;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="hostingEnvironment"></param>
         public MenuIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
             Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Menu>>("/Menu/Index");
@@ -23,8 +27,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             return new List<string>
             {
-                
-                
                 "/css/uniform.css",
                 "/css/select2.css",
                 "/css/matrix-style.css",

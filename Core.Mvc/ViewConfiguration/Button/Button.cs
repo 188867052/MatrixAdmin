@@ -28,8 +28,6 @@ namespace Core.Mvc.ViewConfiguration.Button
         {
             return new List<string>
             {
-                
-                
                 "/css/fullcalendar.css",
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",

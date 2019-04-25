@@ -24,8 +24,6 @@ namespace Core.Mvc.ViewConfiguration.Chart
         {
             return new List<string>
             {
-                
-                
                 "/css/matrix-style.css",
                 "/css/fullcalendar.css",
                 "/css/matrix-media.css",
@@ -37,8 +35,6 @@ namespace Core.Mvc.ViewConfiguration.Chart
         {
             return new List<string>
             {
-               
-               
                "/js/jquery.flot.min.js",
                "/js/jquery.flot.pie.min.js",
                "/js/matrix.charts.js",

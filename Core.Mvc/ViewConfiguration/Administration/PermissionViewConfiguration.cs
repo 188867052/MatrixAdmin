@@ -8,6 +8,10 @@ namespace Core.Mvc.ViewConfiguration.Administration
 {
     public class LogFilterConfiguration : ViewConfiguration<Permission>
     {
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="entity"></param>
         public LogFilterConfiguration(IList<Permission> entity) : base(entity)
         {
         }

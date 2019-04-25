@@ -11,7 +11,7 @@ namespace Core.Model.Entity
     public class Context : DbContext
     {
         /// <summary>
-        /// 
+        /// 构造函数
         /// </summary>
         /// <param name="options"></param>
         public Context(DbContextOptions<Context> options) : base(options)

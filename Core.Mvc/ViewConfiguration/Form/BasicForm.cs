@@ -24,8 +24,6 @@ namespace Core.Mvc.ViewConfiguration.Form
         {
             return new List<string>
             {
-               
-               
                "/css/colorpicker.css" ,
                "/css/datepicker.css" ,
                "/css/uniform.css" ,

@@ -7,6 +7,12 @@ namespace Core.Web.GridFilter
     public class IntegerGridFilter<TPostModel> : BaseGridFilter
     {
         private readonly Expression<Func<TPostModel, int>> expression;
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="label"></param>
         public IntegerGridFilter(Expression<Func<TPostModel, int>> expression, string label) : base(label)
         {
             this.expression = expression;

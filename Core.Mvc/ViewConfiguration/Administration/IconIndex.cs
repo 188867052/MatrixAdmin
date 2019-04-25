@@ -13,6 +13,10 @@ namespace Core.Mvc.ViewConfiguration.Administration
     {
         private readonly List<Icon> _icons;
 
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="hostingEnvironment"></param>
         public IconIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
             Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Icon>>("/Icon/Index");
@@ -23,8 +27,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             return new List<string>
             {
-                
-                
                 "/css/uniform.css",
                 "/css/select2.css",
                 "/css/matrix-style.css",

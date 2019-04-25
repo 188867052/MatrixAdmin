@@ -6,6 +6,10 @@ namespace Core.Web.GridFilter
     public class GridSearchFilter<T>
     {
         public List<BaseGridFilter> GridFilters;
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
         public GridSearchFilter()
         {
             this.GridFilters = new List<BaseGridFilter>();
