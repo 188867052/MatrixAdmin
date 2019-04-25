@@ -9,10 +9,21 @@ namespace Core.Extension
     public static class AsyncRequest
     {
         private static string host = "https://localhost:44377";
+
+        /// <summary>
+        /// GetAsync
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url"></param>
+        /// <returns></returns>
         public static async Task<ResponseModel> GetAsync<T>(string url)
         {
-            HttpClient client = new HttpClient();
-            HttpResponseMessage httpResponse = await client.GetAsync(host + url);
+            HttpResponseMessage httpResponse;
+            using (HttpClient client = new HttpClient())
+            {
+                httpResponse = await client.GetAsync(host + url);
+            }
+
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
             ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
             model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
@@ -20,15 +31,24 @@ namespace Core.Extension
             return model;
         }
 
-
+        /// <summary>
+        /// PostAsync
+        /// </summary>
+        /// <typeparam name="TModel"></typeparam>
+        /// <typeparam name="TPostModel"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="postModel"></param>
+        /// <returns></returns>
         public static async Task<ResponseModel> PostAsync<TModel, TPostModel>(string url, TPostModel postModel)
         {
-            HttpClient client = new HttpClient();
-            string postPara = JsonConvert.SerializeObject(postModel);
-            StringContent httpContent = new StringContent(postPara);
-            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-            var httpResponse = await client.PostAsync(host + url, httpContent);
+            HttpResponseMessage httpResponse;
+            using (HttpClient client = new HttpClient())
+            {
+                string postPara = JsonConvert.SerializeObject(postModel);
+                StringContent httpContent = new StringContent(postPara);
+                httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                httpResponse = await client.PostAsync(host + url, httpContent);
+            }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
             ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
