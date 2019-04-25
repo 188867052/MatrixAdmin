@@ -43,16 +43,16 @@ namespace Core.Mvc.ViewConfiguration.Landing
             log.AddLinkButton(new LinkedAnchor(new Url(typeof(LogController), nameof(LogController.Error)), IndexBaseResource.ErrorLog));
 
             Sidebar sidebar = new Sidebar();
-            sidebar.AddSubMenu(new SubMenu("icon icon-home", new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Dashboard", 0, true));
+            sidebar.AddSubMenu(new SubMenu("icon icon-home", new Url(typeof(RedirectController), nameof(RedirectController.Index)), SidebarNavigationResource.DashboardTitle, 0, true));
             sidebar.AddSubMenu(manage);
             sidebar.AddSubMenu(log);
-            sidebar.AddSubMenu(new SubMenu("icon icon-signal", new Url(typeof(RedirectController), nameof(RedirectController.Charts)), "Charts &amp; Graphs"));
-            sidebar.AddSubMenu(new SubMenu("icon icon-inbox", new Url(typeof(RedirectController), nameof(RedirectController.Widgets)), "Widgets"));
-            sidebar.AddSubMenu(new SubMenu("icon icon-th", new Url(typeof(RedirectController), nameof(RedirectController.Tables)), "Tables"));
-            sidebar.AddSubMenu(new SubMenu("icon icon-fullscreen", new Url(typeof(RedirectController), nameof(RedirectController.Grid)), "Full width"));
+            sidebar.AddSubMenu(new SubMenu("icon icon-signal", new Url(typeof(RedirectController), nameof(RedirectController.Charts)), SidebarNavigationResource.Charts));
+            sidebar.AddSubMenu(new SubMenu("icon icon-inbox", new Url(typeof(RedirectController), nameof(RedirectController.Widgets)), SidebarNavigationResource.Widgets));
+            sidebar.AddSubMenu(new SubMenu("icon icon-th", new Url(typeof(RedirectController), nameof(RedirectController.Tables)), SidebarNavigationResource.Tables));
+            sidebar.AddSubMenu(new SubMenu("icon icon-fullscreen", new Url(typeof(RedirectController), nameof(RedirectController.Grid)), SidebarNavigationResource.Grid));
             sidebar.AddSubMenu(forms);
-            sidebar.AddSubMenu(new SubMenu("icon icon-tint", new Url(typeof(RedirectController), nameof(RedirectController.Buttons)), "Buttons &amp; Icons"));
-            sidebar.AddSubMenu(new SubMenu("icon icon-pencil", new Url(typeof(RedirectController), nameof(RedirectController.Interface)), "Elements"));
+            sidebar.AddSubMenu(new SubMenu("icon icon-tint", new Url(typeof(RedirectController), nameof(RedirectController.Buttons)), SidebarNavigationResource.Buttons));
+            sidebar.AddSubMenu(new SubMenu("icon icon-pencil", new Url(typeof(RedirectController), nameof(RedirectController.Interface)), SidebarNavigationResource.Interface));
             sidebar.AddSubMenu(addons);
             sidebar.AddSubMenu(error);
 

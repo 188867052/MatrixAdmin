@@ -443,14 +443,29 @@ namespace Core.Resource.ViewConfiguration.Home
 		public static string AddonsTitle { get { return GetResourceString("AddonsTitle"); } }
 
 		/// <summary>
+		/// Gets the localized string for Buttons.
+		/// </summary>
+		public static string Buttons { get { return GetResourceString("Buttons"); } }
+
+		/// <summary>
 		/// Gets the localized string for Calendar.
 		/// </summary>
 		public static string Calendar { get { return GetResourceString("Calendar"); } }
 
 		/// <summary>
+		/// Gets the localized string for Charts.
+		/// </summary>
+		public static string Charts { get { return GetResourceString("Charts"); } }
+
+		/// <summary>
 		/// Gets the localized string for Chat.
 		/// </summary>
 		public static string Chat { get { return GetResourceString("Chat"); } }
+
+		/// <summary>
+		/// Gets the localized string for DashboardTitle.
+		/// </summary>
+		public static string DashboardTitle { get { return GetResourceString("DashboardTitle"); } }
 
 		/// <summary>
 		/// Gets the localized string for Error403.
@@ -503,14 +518,34 @@ namespace Core.Resource.ViewConfiguration.Home
 		public static string Gallery { get { return GetResourceString("Gallery"); } }
 
 		/// <summary>
+		/// Gets the localized string for Grid.
+		/// </summary>
+		public static string Grid { get { return GetResourceString("Grid"); } }
+
+		/// <summary>
 		/// Gets the localized string for Index2.
 		/// </summary>
 		public static string Index2 { get { return GetResourceString("Index2"); } }
 
 		/// <summary>
+		/// Gets the localized string for Interface.
+		/// </summary>
+		public static string Interface { get { return GetResourceString("Interface"); } }
+
+		/// <summary>
 		/// Gets the localized string for Invoice.
 		/// </summary>
 		public static string Invoice { get { return GetResourceString("Invoice"); } }
+
+		/// <summary>
+		/// Gets the localized string for Tables.
+		/// </summary>
+		public static string Tables { get { return GetResourceString("Tables"); } }
+
+		/// <summary>
+		/// Gets the localized string for Widgets.
+		/// </summary>
+		public static string Widgets { get { return GetResourceString("Widgets"); } }
 	}
 }
 

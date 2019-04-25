@@ -120,11 +120,20 @@
   <data name="AddonsTitle" xml:space="preserve">
     <value>Addons</value>
   </data>
+  <data name="Buttons" xml:space="preserve">
+    <value>Buttons &amp;amp; Icons</value>
+  </data>
   <data name="Calendar" xml:space="preserve">
     <value>Calendar</value>
   </data>
+  <data name="Charts" xml:space="preserve">
+    <value>Charts &amp;amp; Graphs</value>
+  </data>
   <data name="Chat" xml:space="preserve">
     <value>Chat option</value>
+  </data>
+  <data name="DashboardTitle" xml:space="preserve">
+    <value>Dashboard</value>
   </data>
   <data name="Error403" xml:space="preserve">
     <value>Error 403</value>
@@ -156,10 +165,22 @@
   <data name="Gallery" xml:space="preserve">
     <value>Gallery</value>
   </data>
+  <data name="Grid" xml:space="preserve">
+    <value>Full width</value>
+  </data>
   <data name="Index2" xml:space="preserve">
     <value>Dashboard2</value>
   </data>
+  <data name="Interface" xml:space="preserve">
+    <value>Elements</value>
+  </data>
   <data name="Invoice" xml:space="preserve">
     <value>Invoice</value>
+  </data>
+  <data name="Tables" xml:space="preserve">
+    <value>Tables</value>
+  </data>
+  <data name="Widgets" xml:space="preserve">
+    <value>Widgets</value>
   </data>
 </root>
