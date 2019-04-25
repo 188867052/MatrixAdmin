@@ -57,7 +57,8 @@ namespace Core.Mvc.ViewConfiguration.Landing
             List<string> list = new List<string>
             {
                 "/js/jquery.min.js",
-                "/js/bootstrap.min.js"
+                "/js/bootstrap.min.js",
+                "/js/framework.js"
             };
             list.AddRange(this.Javascript());
 

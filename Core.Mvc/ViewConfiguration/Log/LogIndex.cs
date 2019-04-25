@@ -49,8 +49,6 @@ namespace Core.Mvc.ViewConfiguration.Log
                "/js/jquery.ui.custom.js",
                "/js/select2.min.js",
                "/js/jquery.dataTables.min.js",
-               "/js/matrix.js",
-               //"/js/matrix.tables.js",
                "/lib/jquery/dist/jquery.js",
                "/js/bootstrap-datetimepicker.js",
 
