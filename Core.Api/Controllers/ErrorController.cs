@@ -3,6 +3,7 @@ using Core.Api.Extensions;
 using Core.Api.Extensions.CustomException;
 using Core.Api.Models.Response;
 using Core.Model.Entity;
+using Core.Model.PostModel;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Core.Model.PostModel;
-using Core.Mvc.Controllers;
-using Core.Mvc.ViewConfiguration.Error;
 
 namespace Core.Api.Controllers
 {
