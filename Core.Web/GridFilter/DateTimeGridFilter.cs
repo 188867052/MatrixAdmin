@@ -18,7 +18,7 @@ namespace Core.Web.GridFilter
         public override string Render()
         {
             return $"<div class=\"custom-control-inline\">" +
-                   $"<label>{this.Value}</label>" +
+                   $"<label>{this.LabelText}</label>" +
                   $"<input size=\"16\" type=\"text\" value=\"2019-04-25 14:45\" readonly class=\"form_datetime\">" +
                    $"</div>";
         }

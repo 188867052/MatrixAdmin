@@ -4,15 +4,15 @@
     {
         protected BaseGridFilter(string value)
         {
-            this.Value = value;
+            this.LabelText = value;
         }
 
-        public string Value { get; }
+        public string LabelText { get; }
 
         public virtual string Render()
         {
             return $"<div class=\"custom-control-inline\">" +
-                      $"<label>{this.Value}</label>" +
+                      $"<label>{this.LabelText}</label>" +
                       $"<input type=\"text\">" +
                    $"</div>";
         }
