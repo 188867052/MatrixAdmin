@@ -35,7 +35,7 @@ namespace Core.Mvc.ViewConfiguration.Interface
         {
             return new List<string>
             {
-               "/js/jquery.ui.custom.js",
+               
                "/js/jquery.gritter.min.js",
                "/js/jquery.peity.min.js",
                "/js/matrix.js",

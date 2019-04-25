@@ -46,7 +46,7 @@ namespace Core.Mvc.ViewConfiguration.Error
             return new List<string>
             {
                
-               "/js/jquery.ui.custom.js",
+               
                
             };
         }

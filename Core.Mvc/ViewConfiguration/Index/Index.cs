@@ -38,7 +38,7 @@ namespace Core.Mvc.ViewConfiguration.Index
             {
                "/js/excanvas.min.js",
                
-               "/js/jquery.ui.custom.js",
+               
                
                "/js/jquery.flot.min.js",
                "/js/jquery.flot.resize.min.js",

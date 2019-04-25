@@ -36,7 +36,7 @@ namespace Core.Mvc.ViewConfiguration.Table
         {
             return new List<string>
             {
-               "/js/jquery.ui.custom.js",
+               
                "/js/jquery.uniform.js",
                "/js/select2.min.js",
                "/js/jquery.dataTables.min.js",

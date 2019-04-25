@@ -36,7 +36,7 @@ namespace Core.Mvc.ViewConfiguration.Grid
             {
                
                
-               "/js/jquery.ui.custom.js",
+               
                "/js/matrix.js",
             };
         }

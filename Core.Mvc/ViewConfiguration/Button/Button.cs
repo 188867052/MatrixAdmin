@@ -41,7 +41,7 @@ namespace Core.Mvc.ViewConfiguration.Button
             {
                
                
-               "/js/jquery.ui.custom.js",
+               
                "/js/matrix.js",
             };
         }

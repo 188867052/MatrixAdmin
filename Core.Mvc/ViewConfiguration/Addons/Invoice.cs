@@ -34,7 +34,7 @@ namespace Core.Mvc.ViewConfiguration.Addons
         {
             return new List<string>
             {
-               "/js/jquery.ui.custom.js",
+               
                "/js/matrix.js",
             };
         }

@@ -36,7 +36,7 @@ namespace Core.Mvc.ViewConfiguration.Addons
             {
                
                
-               "/js/jquery.ui.custom.js",
+               
                "/js/matrix.js",
             };
         }

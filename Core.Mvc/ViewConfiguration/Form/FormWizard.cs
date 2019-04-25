@@ -35,7 +35,7 @@ namespace Core.Mvc.ViewConfiguration.Form
             return new List<string>
             {
                
-               "/js/jquery.ui.custom.js",
+               
                
                "/js/jquery.validate.js",
                "/js/jquery.wizard.js",
