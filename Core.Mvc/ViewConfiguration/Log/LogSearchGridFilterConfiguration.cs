@@ -10,14 +10,13 @@ namespace Core.Mvc.ViewConfiguration.Log
     {
         public override string GenerateSearchFilter()
         {
-            var filter = new GridSearchFilter<LogPostModel>();
-            filter.AddIntegerFilter(new IntegerGridFilter<LogPostModel>(o => o.Id, LogResource.ID));
-            filter.AddTextFilter(new TextGridFilter<LogPostModel>(o => o.Message, LogResource.Message));
-            filter.AddDateTimeFilter(new DateTimeGridFilter("开始" + LogResource.CreateTime));
-            filter.AddDateTimeFilter(new DateTimeGridFilter("结束" + LogResource.CreateTime));
-            filter.AddDropDownGridFilter(new DropDownGridFilter("天数"));
-            filter.AddDropDownGridFilter(new DropDownGridFilter("价格"));
-            return filter.Render();
+            GridSearchFilter.AddIntegerFilter(new IntegerGridFilter<LogPostModel>(o => o.Id, LogResource.ID));
+            GridSearchFilter.AddTextFilter(new TextGridFilter<LogPostModel>(o => o.Message, LogResource.Message));
+            GridSearchFilter.AddDateTimeFilter(new DateTimeGridFilter("开始" + LogResource.CreateTime));
+            GridSearchFilter.AddDateTimeFilter(new DateTimeGridFilter("结束" + LogResource.CreateTime));
+            GridSearchFilter.AddDropDownGridFilter(new DropDownGridFilter("天数"));
+            GridSearchFilter.AddDropDownGridFilter(new DropDownGridFilter("价格"));
+            return GridSearchFilter.Render();
         }
 
         public override string GenerateButton()
