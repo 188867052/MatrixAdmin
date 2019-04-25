@@ -37,42 +37,42 @@ namespace Core.Resource.ViewConfiguration.Administration
         }
 		
 		/// <summary>
-		/// 获取本地化字符串 [Code].
+		/// Gets the localized string for Code.
 		/// </summary>
 		public static string Code { get { return GetResourceString("Code"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Color].
+		/// Gets the localized string for Color.
 		/// </summary>
 		public static string Color { get { return GetResourceString("Color"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [CreatedByUserName].
+		/// Gets the localized string for CreatedByUserName.
 		/// </summary>
 		public static string CreatedByUserName { get { return GetResourceString("CreatedByUserName"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [CreatedOn].
+		/// Gets the localized string for CreatedOn.
 		/// </summary>
 		public static string CreatedOn { get { return GetResourceString("CreatedOn"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Custom].
+		/// Gets the localized string for Custom.
 		/// </summary>
 		public static string Custom { get { return GetResourceString("Custom"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Icon].
+		/// Gets the localized string for Icon.
 		/// </summary>
 		public static string Icon { get { return GetResourceString("Icon"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Size].
+		/// Gets the localized string for Size.
 		/// </summary>
 		public static string Size { get { return GetResourceString("Size"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Status].
+		/// Gets the localized string for Status.
 		/// </summary>
 		public static string Status { get { return GetResourceString("Status"); } }
 	}
@@ -110,52 +110,52 @@ namespace Core.Resource.ViewConfiguration.Administration
         }
 		
 		/// <summary>
-		/// 获取本地化字符串 [Alias].
+		/// Gets the localized string for Alias.
 		/// </summary>
 		public static string Alias { get { return GetResourceString("Alias"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [CreatedByUserName].
+		/// Gets the localized string for CreatedByUserName.
 		/// </summary>
 		public static string CreatedByUserName { get { return GetResourceString("CreatedByUserName"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [CreatedOn].
+		/// Gets the localized string for CreatedOn.
 		/// </summary>
 		public static string CreatedOn { get { return GetResourceString("CreatedOn"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [IsDefaultRouter].
+		/// Gets the localized string for IsDefaultRouter.
 		/// </summary>
 		public static string IsDefaultRouter { get { return GetResourceString("IsDefaultRouter"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Name].
+		/// Gets the localized string for Name.
 		/// </summary>
 		public static string Name { get { return GetResourceString("Name"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [ParentName].
+		/// Gets the localized string for ParentName.
 		/// </summary>
 		public static string ParentName { get { return GetResourceString("ParentName"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Sort].
+		/// Gets the localized string for Sort.
 		/// </summary>
 		public static string Sort { get { return GetResourceString("Sort"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Status].
+		/// Gets the localized string for Status.
 		/// </summary>
 		public static string Status { get { return GetResourceString("Status"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Url].
+		/// Gets the localized string for Url.
 		/// </summary>
 		public static string Url { get { return GetResourceString("Url"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [WidgetTitle].
+		/// Gets the localized string for WidgetTitle.
 		/// </summary>
 		public static string WidgetTitle { get { return GetResourceString("WidgetTitle"); } }
 	}
@@ -193,32 +193,32 @@ namespace Core.Resource.ViewConfiguration.Administration
         }
 		
 		/// <summary>
-		/// 获取本地化字符串 [ActionCode].
+		/// Gets the localized string for ActionCode.
 		/// </summary>
 		public static string ActionCode { get { return GetResourceString("ActionCode"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [CreatedByUserName].
+		/// Gets the localized string for CreatedByUserName.
 		/// </summary>
 		public static string CreatedByUserName { get { return GetResourceString("CreatedByUserName"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [CreatedOn].
+		/// Gets the localized string for CreatedOn.
 		/// </summary>
 		public static string CreatedOn { get { return GetResourceString("CreatedOn"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Name].
+		/// Gets the localized string for Name.
 		/// </summary>
 		public static string Name { get { return GetResourceString("Name"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Status].
+		/// Gets the localized string for Status.
 		/// </summary>
 		public static string Status { get { return GetResourceString("Status"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [WidgetTitle].
+		/// Gets the localized string for WidgetTitle.
 		/// </summary>
 		public static string WidgetTitle { get { return GetResourceString("WidgetTitle"); } }
 	}
@@ -256,37 +256,37 @@ namespace Core.Resource.ViewConfiguration.Administration
         }
 		
 		/// <summary>
-		/// 获取本地化字符串 [CreatedByUserName].
+		/// Gets the localized string for CreatedByUserName.
 		/// </summary>
 		public static string CreatedByUserName { get { return GetResourceString("CreatedByUserName"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [CreatedOn].
+		/// Gets the localized string for CreatedOn.
 		/// </summary>
 		public static string CreatedOn { get { return GetResourceString("CreatedOn"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [IsBuiltin].
+		/// Gets the localized string for IsBuiltin.
 		/// </summary>
 		public static string IsBuiltin { get { return GetResourceString("IsBuiltin"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [IsSuperAdministrator].
+		/// Gets the localized string for IsSuperAdministrator.
 		/// </summary>
 		public static string IsSuperAdministrator { get { return GetResourceString("IsSuperAdministrator"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Name].
+		/// Gets the localized string for Name.
 		/// </summary>
 		public static string Name { get { return GetResourceString("Name"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Status].
+		/// Gets the localized string for Status.
 		/// </summary>
 		public static string Status { get { return GetResourceString("Status"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [WidgetTitle].
+		/// Gets the localized string for WidgetTitle.
 		/// </summary>
 		public static string WidgetTitle { get { return GetResourceString("WidgetTitle"); } }
 	}
@@ -324,37 +324,37 @@ namespace Core.Resource.ViewConfiguration.Administration
         }
 		
 		/// <summary>
-		/// 获取本地化字符串 [CreatedByUserName].
+		/// Gets the localized string for CreatedByUserName.
 		/// </summary>
 		public static string CreatedByUserName { get { return GetResourceString("CreatedByUserName"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [CreatedOn].
+		/// Gets the localized string for CreatedOn.
 		/// </summary>
 		public static string CreatedOn { get { return GetResourceString("CreatedOn"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [DisplayName].
+		/// Gets the localized string for DisplayName.
 		/// </summary>
 		public static string DisplayName { get { return GetResourceString("DisplayName"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [LoginName].
+		/// Gets the localized string for LoginName.
 		/// </summary>
 		public static string LoginName { get { return GetResourceString("LoginName"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Status].
+		/// Gets the localized string for Status.
 		/// </summary>
 		public static string Status { get { return GetResourceString("Status"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [UserType].
+		/// Gets the localized string for UserType.
 		/// </summary>
 		public static string UserType { get { return GetResourceString("UserType"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [WidgetTitle].
+		/// Gets the localized string for WidgetTitle.
 		/// </summary>
 		public static string WidgetTitle { get { return GetResourceString("WidgetTitle"); } }
 	}
@@ -396,7 +396,7 @@ namespace Core.Resource.ViewConfiguration.Error
         }
 		
 		/// <summary>
-		/// 获取本地化字符串 [Header].
+		/// Gets the localized string for Header.
 		/// </summary>
 		public static string Header { get { return GetResourceString("Header"); } }
 	}
@@ -438,112 +438,112 @@ namespace Core.Resource.ViewConfiguration.Home
         }
 		
 		/// <summary>
-		/// 获取本地化字符串 [AddonsTitle].
+		/// Gets the localized string for AddonsTitle.
 		/// </summary>
 		public static string AddonsTitle { get { return GetResourceString("AddonsTitle"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Buttons].
+		/// Gets the localized string for Buttons.
 		/// </summary>
 		public static string Buttons { get { return GetResourceString("Buttons"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Calendar].
+		/// Gets the localized string for Calendar.
 		/// </summary>
 		public static string Calendar { get { return GetResourceString("Calendar"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Charts].
+		/// Gets the localized string for Charts.
 		/// </summary>
 		public static string Charts { get { return GetResourceString("Charts"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Chat].
+		/// Gets the localized string for Chat.
 		/// </summary>
 		public static string Chat { get { return GetResourceString("Chat"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [DashboardTitle].
+		/// Gets the localized string for DashboardTitle.
 		/// </summary>
 		public static string DashboardTitle { get { return GetResourceString("DashboardTitle"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Error403].
+		/// Gets the localized string for Error403.
 		/// </summary>
 		public static string Error403 { get { return GetResourceString("Error403"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Error404].
+		/// Gets the localized string for Error404.
 		/// </summary>
 		public static string Error404 { get { return GetResourceString("Error404"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Error405].
+		/// Gets the localized string for Error405.
 		/// </summary>
 		public static string Error405 { get { return GetResourceString("Error405"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Error500].
+		/// Gets the localized string for Error500.
 		/// </summary>
 		public static string Error500 { get { return GetResourceString("Error500"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [ErrorTitle].
+		/// Gets the localized string for ErrorTitle.
 		/// </summary>
 		public static string ErrorTitle { get { return GetResourceString("ErrorTitle"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [FormCommon].
+		/// Gets the localized string for FormCommon.
 		/// </summary>
 		public static string FormCommon { get { return GetResourceString("FormCommon"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [FormsTitle].
+		/// Gets the localized string for FormsTitle.
 		/// </summary>
 		public static string FormsTitle { get { return GetResourceString("FormsTitle"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [FormValidation].
+		/// Gets the localized string for FormValidation.
 		/// </summary>
 		public static string FormValidation { get { return GetResourceString("FormValidation"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [FormWizard].
+		/// Gets the localized string for FormWizard.
 		/// </summary>
 		public static string FormWizard { get { return GetResourceString("FormWizard"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Gallery].
+		/// Gets the localized string for Gallery.
 		/// </summary>
 		public static string Gallery { get { return GetResourceString("Gallery"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Grid].
+		/// Gets the localized string for Grid.
 		/// </summary>
 		public static string Grid { get { return GetResourceString("Grid"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Index2].
+		/// Gets the localized string for Index2.
 		/// </summary>
 		public static string Index2 { get { return GetResourceString("Index2"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Interface].
+		/// Gets the localized string for Interface.
 		/// </summary>
 		public static string Interface { get { return GetResourceString("Interface"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Invoice].
+		/// Gets the localized string for Invoice.
 		/// </summary>
 		public static string Invoice { get { return GetResourceString("Invoice"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Tables].
+		/// Gets the localized string for Tables.
 		/// </summary>
 		public static string Tables { get { return GetResourceString("Tables"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Widgets].
+		/// Gets the localized string for Widgets.
 		/// </summary>
 		public static string Widgets { get { return GetResourceString("Widgets"); } }
 	}
@@ -585,7 +585,7 @@ namespace Core.Resource.ViewConfiguration.Log
         }
 		
 		/// <summary>
-		/// 获取本地化字符串 [Header].
+		/// Gets the localized string for Header.
 		/// </summary>
 		public static string Header { get { return GetResourceString("Header"); } }
 	}
@@ -623,17 +623,17 @@ namespace Core.Resource.ViewConfiguration.Log
         }
 		
 		/// <summary>
-		/// 获取本地化字符串 [CreateTime].
+		/// Gets the localized string for CreateTime.
 		/// </summary>
 		public static string CreateTime { get { return GetResourceString("CreateTime"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [ID].
+		/// Gets the localized string for ID.
 		/// </summary>
 		public static string ID { get { return GetResourceString("ID"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [Message].
+		/// Gets the localized string for Message.
 		/// </summary>
 		public static string Message { get { return GetResourceString("Message"); } }
 	}
@@ -675,42 +675,42 @@ namespace Core.Resource.ViewConfiguration
         }
 		
 		/// <summary>
-		/// 获取本地化字符串 [ErrorLog].
+		/// Gets the localized string for ErrorLog.
 		/// </summary>
 		public static string ErrorLog { get { return GetResourceString("ErrorLog"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [IconManage].
+		/// Gets the localized string for IconManage.
 		/// </summary>
 		public static string IconManage { get { return GetResourceString("IconManage"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [LogManage].
+		/// Gets the localized string for LogManage.
 		/// </summary>
 		public static string LogManage { get { return GetResourceString("LogManage"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [MenuManage].
+		/// Gets the localized string for MenuManage.
 		/// </summary>
 		public static string MenuManage { get { return GetResourceString("MenuManage"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [PermissionManage].
+		/// Gets the localized string for PermissionManage.
 		/// </summary>
 		public static string PermissionManage { get { return GetResourceString("PermissionManage"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [RoleManage].
+		/// Gets the localized string for RoleManage.
 		/// </summary>
 		public static string RoleManage { get { return GetResourceString("RoleManage"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [SystemManage].
+		/// Gets the localized string for SystemManage.
 		/// </summary>
 		public static string SystemManage { get { return GetResourceString("SystemManage"); } }
 
 		/// <summary>
-		/// 获取本地化字符串 [UserManage].
+		/// Gets the localized string for UserManage.
 		/// </summary>
 		public static string UserManage { get { return GetResourceString("UserManage"); } }
 	}
