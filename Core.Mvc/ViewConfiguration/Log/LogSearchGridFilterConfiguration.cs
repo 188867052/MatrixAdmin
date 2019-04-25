@@ -3,16 +3,11 @@ using Core.Resource.ViewConfiguration.Log;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.Identifiers;
-using System.Collections.Generic;
 
 namespace Core.Mvc.ViewConfiguration.Log
 {
-    public class LogSearchGridFilterConfiguration : GridFilterConfiguration
+    public class LogSearchGridFilterConfiguration : GridFilterConfiguration<LogPostModel>
     {
-        public LogSearchGridFilterConfiguration()
-        {
-            this.Buttons = new List<StandardButton>();
-        }
         public override string GenerateSearchFilter()
         {
             var filter = new GridSearchFilter<LogPostModel>();
