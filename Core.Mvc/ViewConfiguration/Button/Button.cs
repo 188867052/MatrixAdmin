@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Model.Entity;
 using Core.Model.ResponseModels;
-using Core.Mvc.ViewConfiguration.Landing;
+using Core.Mvc.ViewConfiguration.Home;
 
 namespace Core.Mvc.ViewConfiguration.Button
 {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Core.Extension;
 using Core.Model.Entity;
 using Core.Model.ResponseModels;
-using Core.Mvc.ViewConfiguration.Landing;
+using Core.Mvc.ViewConfiguration.Home;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 

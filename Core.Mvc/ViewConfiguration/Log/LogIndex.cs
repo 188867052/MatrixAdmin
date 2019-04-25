@@ -5,7 +5,7 @@ using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Core.Mvc.ViewConfiguration.Landing;
+using Core.Mvc.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 
 namespace Core.Mvc.ViewConfiguration.Log

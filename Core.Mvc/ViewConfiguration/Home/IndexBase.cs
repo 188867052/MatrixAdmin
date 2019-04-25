@@ -4,7 +4,7 @@ using System.Text;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Core.Mvc.ViewConfiguration.Landing
+namespace Core.Mvc.ViewConfiguration.Home
 {
     public abstract class IndexBase
     {

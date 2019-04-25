@@ -3,7 +3,7 @@ using Core.Resource.ViewConfiguration;
 using Core.Resource.ViewConfiguration.Home;
 using Core.Web.Sidebar;
 
-namespace Core.Mvc.ViewConfiguration.Landing
+namespace Core.Mvc.ViewConfiguration.Home
 {
     public class SidebarNavigation
     {

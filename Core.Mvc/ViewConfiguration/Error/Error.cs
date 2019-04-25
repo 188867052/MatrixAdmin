@@ -1,7 +1,7 @@
 ﻿using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
-using Core.Mvc.ViewConfiguration.Landing;
+using Core.Mvc.ViewConfiguration.Home;
 
 namespace Core.Mvc.ViewConfiguration.Error
 {
