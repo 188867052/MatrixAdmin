@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Core.Extension;
 using Core.Model.Entity;
 using Core.Model.ResponseModels;
+using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.Sidebar;
@@ -67,7 +68,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader(PermissionIndexResource.WidgetTitle);
-            contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
         }

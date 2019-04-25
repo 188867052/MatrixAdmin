@@ -1,13 +1,10 @@
-﻿using Core.Extension;
-using Core.Model.ResponseModels;
+﻿using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Resource.ViewConfiguration.Error;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Core.Mvc.Controllers;
 
 namespace Core.Mvc.ViewConfiguration.Log
 {
@@ -68,7 +65,7 @@ namespace Core.Mvc.ViewConfiguration.Log
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader(ErrorResource.Header);
-            contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "Error-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "Error-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
         }
@@ -76,7 +73,7 @@ namespace Core.Mvc.ViewConfiguration.Log
         private string RenderJavaScript()
         {
             JavaScript js = new JavaScript("index", "Index");
-            var url = new Url(typeof(LogController), nameof(LogController.Search));
+            Url url = new Url(typeof(LogController), nameof(LogController.GridStateChange));
             js.AddUrlInstance("searchUrl", url);
 
             return $"<script>{js.Render()}</script>";

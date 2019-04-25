@@ -33,7 +33,7 @@ namespace Core.Mvc.Controllers
         }
 
         [HttpPost]
-        public IActionResult Search(LogPostModel postModel)
+        public IActionResult GridStateChange(LogPostModel postModel)
         {
             var model = AsyncRequest.PostAsync<IList<Model.Entity.Log>, LogPostModel>("/error", postModel);
             var errors = (List<Model.Entity.Log>)model.Result.Data;

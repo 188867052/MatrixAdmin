@@ -2,13 +2,6 @@
 {
     public class LinkedAnchor
     {
-        public LinkedAnchor(string url, string innerText, string @class = default)
-        {
-            this.Url = url;
-            this.InnerText = innerText;
-            this.Class = @class;
-        }
-
         public LinkedAnchor(Url url, string innerText, string @class = default)
         {
             this.Url = url.Render();

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Core.Mvc.Controllers;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
@@ -111,7 +112,7 @@ namespace Core.Mvc.ViewConfiguration.Home
         protected virtual string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader();
-            contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
         }
 

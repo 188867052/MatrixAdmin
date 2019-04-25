@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Model.Entity;
 using Core.Model.ResponseModels;
+using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
 
 namespace Core.Mvc.ViewConfiguration.Button
@@ -46,7 +47,7 @@ namespace Core.Mvc.ViewConfiguration.Button
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("Buttons & Icons");
-            contentHeader.AddAnchor(new Anchor("/Redirect/index", "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
         }
 

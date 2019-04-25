@@ -2,9 +2,9 @@
 {
     public class Anchor
     {
-        public Anchor(string url, string displayText, string toolTip, string iconClass, string @class)
+        public Anchor(Url url, string displayText, string toolTip, string iconClass, string @class)
         {
-            this.Url = url;
+            this.Url = url.Render();
             this.DisplayText = displayText;
             this.Class = @class;
             this.ToolTip = toolTip;
