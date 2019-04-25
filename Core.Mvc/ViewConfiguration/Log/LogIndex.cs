@@ -46,12 +46,7 @@ namespace Core.Mvc.ViewConfiguration.Log
         {
             return new List<string>
             {
-               "/js/jquery.ui.custom.js",
                "/js/select2.min.js",
-               "/js/jquery.dataTables.min.js",
-               "/lib/jquery/dist/jquery.js",
-               "/js/bootstrap-datetimepicker.js",
-
                "/js/log/index.js",
             };
         }

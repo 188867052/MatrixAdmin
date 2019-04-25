@@ -57,8 +57,12 @@ namespace Core.Mvc.ViewConfiguration.Landing
             List<string> list = new List<string>
             {
                 "/js/jquery.min.js",
+                "/js/jquery.ui.custom.js",
+                "/js/jquery.dataTables.min.js",
                 "/js/bootstrap.min.js",
-                "/js/framework.js"
+                "/js/jquery/dist/jquery.js",
+                "/js/bootstrap-datetimepicker.js",
+                "/js/framework.js",
             };
             list.AddRange(this.Javascript());
 
