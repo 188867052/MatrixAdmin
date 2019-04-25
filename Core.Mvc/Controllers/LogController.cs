@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using Core.Extension;
+using Core.Model.Entity;
 using Core.Model.PostModel;
 using Core.Model.ResponseModels;
 using Core.Mvc.ViewConfiguration.Error;
@@ -24,20 +25,29 @@ namespace Core.Mvc.Controllers
             this._hostingEnvironment = hostingEnvironment;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
-            Task<ResponseModel> model = AsyncRequest.GetAsync<IList<Model.Entity.Log>>("/error");
-            var errors = (List<Model.Entity.Log>)model.Result.Data;
+            Task<ResponseModel> model = AsyncRequest.GetAsync<IList<Log>>("/error");
+            var errors = (List<Log>)model.Result.Data;
             LogIndex table = new LogIndex(_hostingEnvironment, errors);
             return Content(table.Render(), "text/html", Encoding.UTF8);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="postModel"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult GridStateChange(LogPostModel postModel)
         {
-            var model = AsyncRequest.PostAsync<IList<Model.Entity.Log>, LogPostModel>("/error", postModel);
-            var errors = (List<Model.Entity.Log>)model.Result.Data;
-            LogIndex table = new LogIndex(_hostingEnvironment, errors);
+            Task<ResponseModel> model = AsyncRequest.PostAsync<IList<Log>, LogPostModel>("/error", postModel);
+            List<Log> logs = (List<Log>)model.Result.Data;
+            LogIndex table = new LogIndex(_hostingEnvironment, logs);
 
             return Content(table.Render(), "text/html", Encoding.UTF8);
         }

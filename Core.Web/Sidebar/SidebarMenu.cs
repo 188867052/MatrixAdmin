@@ -4,19 +4,19 @@
     {
         public LinkedAnchor(Url url, string innerText, string @class = default)
         {
-            this.Url = url.Render();
+            this.Url = url;
             this.InnerText = innerText;
             this.Class = @class;
         }
 
-        public string Class { get; set; }
-        public string InnerText { get; set; }
+        private string Class { get; }
+        private string InnerText { get; }
 
-        public string Url { get; set; }
+        private Url Url { get; }
 
         public string Render()
         {
-            return $"<li><a href=\"{this.Url}\">{this.InnerText}</a></li>";
+            return $"<li><a href=\"{this.Url.Render()}\">{this.InnerText}</a></li>";
         }
     }
 }
