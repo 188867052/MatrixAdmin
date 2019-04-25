@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Core.Extension\Core.Extension.csproj" />
     <ProjectReference Include="..\Core.Models\Core.Model.csproj" />
+    <ProjectReference Include="..\Core.Mvc\Core.Mvc.csproj" />
     <ProjectReference Include="..\Core.Service\Core.Service.csproj" />
   </ItemGroup>
 

@@ -1,12 +1,12 @@
 ﻿using Core.Extension;
 using Core.Model.ResponseModels;
+using Core.Mvc.ViewConfiguration.Home;
 using Core.Resource.ViewConfiguration.Error;
+using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Core.Mvc.ViewConfiguration.Home;
-using Core.Web.JavaScript;
 
 namespace Core.Mvc.ViewConfiguration.Log
 {
@@ -14,10 +14,9 @@ namespace Core.Mvc.ViewConfiguration.Log
     {
         private readonly List<Model.Entity.Log> _errors;
 
-        public LogIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
+        public LogIndex(IHostingEnvironment hostingEnvironment, List<Model.Entity.Log> errors) : base(hostingEnvironment)
         {
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Model.Entity.Log>>("/error");
-            this._errors = (List<Model.Entity.Log>)a.Result.Data;
+            this._errors = errors;
         }
 
         public override IList<string> Css()

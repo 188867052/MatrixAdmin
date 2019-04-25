@@ -40,7 +40,7 @@ namespace Core.Web.GridFilter
             this.GridFilters.Add(filter);
         }
 
-        public void AddDateTimeFilter(DateTimeGridFilter filter)
+        public void AddDateTimeFilter(DateTimeGridFilter<T> filter)
         {
             this.GridFilters.Add(filter);
         }

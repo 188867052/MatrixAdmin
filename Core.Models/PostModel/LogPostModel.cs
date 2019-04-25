@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Mvc.Controllers
+namespace Core.Model.PostModel
 {
     public class LogPostModel
     {

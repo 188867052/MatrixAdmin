@@ -1,4 +1,6 @@
-﻿using Core.Mvc.Controllers;
+﻿using Core.Model.PostModel;
+using Core.Mvc.Controllers;
+using Core.Mvc.ViewConfiguration.Error;
 using Core.Resource.ViewConfiguration.Log;
 using Core.Web.Button;
 using Core.Web.GridFilter;
@@ -12,8 +14,8 @@ namespace Core.Mvc.ViewConfiguration.Log
         {
             GridSearchFilter.AddIntegerFilter(new IntegerGridFilter<LogPostModel>(o => o.Id, LogResource.ID));
             GridSearchFilter.AddTextFilter(new TextGridFilter<LogPostModel>(o => o.Message, LogResource.Message));
-            //GridSearchFilter.AddDateTimeFilter(new DateTimeGridFilter("开始" + LogResource.CreateTime));
-            //GridSearchFilter.AddDateTimeFilter(new DateTimeGridFilter("结束" + LogResource.CreateTime));
+            GridSearchFilter.AddDateTimeFilter(new DateTimeGridFilter<LogPostModel>(o => o.StartTime, "开始" + LogResource.CreateTime));
+            GridSearchFilter.AddDateTimeFilter(new DateTimeGridFilter<LogPostModel>(o => o.EndTime, "结束" + LogResource.CreateTime));
             //GridSearchFilter.AddDropDownGridFilter(new DropDownGridFilter("天数"));
             //GridSearchFilter.AddDropDownGridFilter(new DropDownGridFilter("价格"));
             return GridSearchFilter.Render();

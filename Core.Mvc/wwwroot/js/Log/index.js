@@ -24,7 +24,6 @@
                 data[propertyName] = value;
             }
             $.post(this._searchUrl, data, function () {
-                alert("post");
             });
         }
 

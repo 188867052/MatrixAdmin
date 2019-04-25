@@ -10,6 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Core.Model.PostModel;
+using Core.Mvc.Controllers;
+using Core.Mvc.ViewConfiguration.Error;
 
 namespace Core.Api.Controllers
 {
@@ -39,6 +42,20 @@ namespace Core.Api.Controllers
             using (this._dbContext)
             {
                 IQueryable<Log> query = this._dbContext.Log.AsQueryable();
+                var list = query.ToList();
+                ResponseModel response = ResponseModelFactory.CreateInstance;
+                response.SetData(list);
+                return Ok(response);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Search(LogPostModel model)
+        {
+            using (this._dbContext)
+            {
+                IQueryable<Log> query = this._dbContext.Log.AsQueryable();
+                query = query.Where(o => o.Id.ToString().Contains(model.Id.ToString()));
                 var list = query.ToList();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(list);

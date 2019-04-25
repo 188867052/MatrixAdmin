@@ -40,7 +40,7 @@ namespace Core.Mvc.ViewConfiguration.Home
             manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.IconManage)), IndexBaseResource.IconManage));
 
             SubMenu log = new SubMenu("icon icon-edit", default, IndexBaseResource.LogManage, 2);
-            log.AddLinkButton(new LinkedAnchor(new Url(typeof(LogController), nameof(LogController.Error)), IndexBaseResource.ErrorLog));
+            log.AddLinkButton(new LinkedAnchor(new Url(typeof(LogController), nameof(LogController.Index)), IndexBaseResource.ErrorLog));
 
             Sidebar sidebar = new Sidebar();
             sidebar.AddSubMenu(new SubMenu("icon icon-home", new Url(typeof(RedirectController), nameof(RedirectController.Index)), SidebarNavigationResource.DashboardTitle, 0, true));
