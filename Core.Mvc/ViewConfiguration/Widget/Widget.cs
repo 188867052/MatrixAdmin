@@ -35,7 +35,6 @@ namespace Core.Mvc.ViewConfiguration.Widget
         {
             return new List<string>
             {
-               
                "/js/matrix.js",
             };
         }

@@ -43,12 +43,7 @@ namespace Core.Mvc.ViewConfiguration.Error
 
         protected override IList<string> Javascript()
         {
-            return new List<string>
-            {
-               
-               
-               
-            };
+            return new List<string>();
         }
 
         /// <summary>

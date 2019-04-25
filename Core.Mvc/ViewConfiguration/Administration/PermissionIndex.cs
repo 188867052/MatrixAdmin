@@ -48,10 +48,8 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             return new List<string>
             {
-               
                "/js/jquery.uniform.js",
                "/js/select2.min.js",
-               "/js/jquery.dataTables.min.js",
                "/js/matrix.js",
                "/js/matrix.tables.js"
             };

@@ -37,9 +37,6 @@ namespace Core.Mvc.ViewConfiguration.Index
             return new List<string>
             {
                "/js/excanvas.min.js",
-               
-               
-               
                "/js/jquery.flot.min.js",
                "/js/jquery.flot.resize.min.js",
                "/js/jquery.peity.min.js",
@@ -55,7 +52,6 @@ namespace Core.Mvc.ViewConfiguration.Index
                "/js/jquery.uniform.js",
                "/js/select2.min.js",
                "/js/matrix.popover.js",
-               "/js/jquery.dataTables.min.js",
                "/js/matrix.tables.js"
             };
         }

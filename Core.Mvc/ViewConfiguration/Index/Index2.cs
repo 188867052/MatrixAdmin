@@ -36,9 +36,6 @@ namespace Core.Mvc.ViewConfiguration.Index
             return new List<string>
             {
                "/js/excanvas.min.js",
-               
-               
-               
                "/js/jquery.flot.min.js",
                "/js/jquery.flot.resize.min.js",
                "/js/jquery.peity.min.js",

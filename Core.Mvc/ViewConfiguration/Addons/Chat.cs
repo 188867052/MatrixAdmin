@@ -34,9 +34,6 @@ namespace Core.Mvc.ViewConfiguration.Addons
         {
             return new List<string>
             {
-               
-               
-               
                "/js/matrix.js",
                "/js/matrix.chat.js"
             };

@@ -34,9 +34,6 @@ namespace Core.Mvc.ViewConfiguration.Grid
         {
             return new List<string>
             {
-               
-               
-               
                "/js/matrix.js",
             };
         }

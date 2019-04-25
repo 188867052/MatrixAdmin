@@ -39,9 +39,6 @@ namespace Core.Mvc.ViewConfiguration.Button
         {
             return new List<string>
             {
-               
-               
-               
                "/js/matrix.js",
             };
         }
