@@ -42,7 +42,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Log> query = this.DbContext.Log.AsQueryable();
-                query = query.Where(o => o.Id.ToString().Contains(model.Id.ToString()));
+                query = query.Where(o => o.Message.Contains(model.Message));
                 var list = query.ToList();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(list);
@@ -93,6 +93,6 @@ namespace Core.Api.Controllers
             return new ObjectResult(a);
         }
 
-     
+
     }
 }
