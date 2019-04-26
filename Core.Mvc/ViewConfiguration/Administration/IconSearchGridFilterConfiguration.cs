@@ -13,8 +13,8 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             GridSearchFilter.AddTextFilter(new TextGridFilter<IconPostModel>(o => o.Code,IconResource.Code));
             var filter = new BooleanGridFilter<IconPostModel>(o => o.IsEnable, IconResource.Status);
-            filter.AddOption(1, "可用");
-            filter.AddOption(0, "不可用");
+            filter.AddOption(true, "可用");
+            filter.AddOption(false, "不可用");
             GridSearchFilter.AddBooleanFilter(filter);
             return GridSearchFilter.Render();
         }

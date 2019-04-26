@@ -14,8 +14,10 @@
 
         // Public Methods
 
-        search: function () {
+        search: function (e) {
             var data = new Object;
+            data.pageSize = 10;
+            data.currentPage = e.innerText;
             var list = $(".custom-control-inline");
             for (var i = 0; i < list.length; i++) {
                 var input = list[i].lastElementChild;

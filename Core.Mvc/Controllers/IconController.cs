@@ -26,7 +26,11 @@ namespace Core.Mvc.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
-            IconIndex index = new IconIndex(this.HostingEnvironment);
+            var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Index));
+            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Icon>>(url);
+            var _icons = (List<Icon>)a.Result.Data;
+            IconIndex index = new IconIndex(this.HostingEnvironment, _icons);
+
             return this.ViewConfiguration(index);
         }
 

@@ -23,7 +23,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             GridColumn.AddTextColumn(new TextGridColumn<Icon>(o => o.Custom, IconResource.Custom));
             GridColumn.AddTextColumn(new TextGridColumn<Icon>(o => o.Size, IconResource.Size));
             GridColumn.AddTextColumn(new TextGridColumn<Icon>(o => o.Color, IconResource.Color));
-            GridColumn.AddBooleanColumn(new BooleanGridColumn<Icon>(o => o.Status, IconResource.Status));
+            GridColumn.AddBooleanColumn(new BooleanGridColumn<Icon>(o => o.IsEnable, IconResource.Status));
             GridColumn.AddDateTimeColumn(new DateTimeGridColumn<Icon>(o => o.CreatedOn, IconResource.CreatedOn));
             GridColumn.AddTextColumn(new TextGridColumn<Icon>(o => o.CreatedByUserName, IconResource.CreatedByUserName));
         }

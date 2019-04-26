@@ -15,11 +15,6 @@ namespace Core.Mvc.Controllers
         {
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult UserManage()
         {
             UserIndex index = new UserIndex(this.HostingEnvironment);
@@ -40,11 +35,6 @@ namespace Core.Mvc.Controllers
         public IActionResult MenuManage()
         {
             MenuIndex index = new MenuIndex(this.HostingEnvironment);
-            return Content(index.Render(), "text/html", Encoding.UTF8);
-        }
-        public IActionResult IconManage()
-        {
-            IconIndex index = new IconIndex(this.HostingEnvironment);
             return Content(index.Render(), "text/html", Encoding.UTF8);
         }
     }

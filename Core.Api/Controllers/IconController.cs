@@ -80,8 +80,9 @@ namespace Core.Api.Controllers
                 }
                 //if (postModel.Status)
                 {
-                    query = query.Where(x => x.Status == model.Status);
+                    query = query.Where(x => x.IsEnable == model.IsEnable);
                 }
+                query = query.Paged();
                 List<Icon> list = query.ToList();
                 response.SetData(list);
 

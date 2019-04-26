@@ -19,11 +19,9 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
-        public IconIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
+        public IconIndex(IHostingEnvironment hostingEnvironment,List<Icon> icons) : base(hostingEnvironment)
         {
-            var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Index));
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Icon>>(url);
-            this._icons = (List<Icon>)a.Result.Data;
+            this._icons = icons;
         }
 
         public override IList<string> Css()
@@ -31,7 +29,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
             return new List<string>
             {
                 "/css/uniform.css",
-
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",

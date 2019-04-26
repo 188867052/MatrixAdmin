@@ -9,7 +9,7 @@ namespace Core.Web.GridFilter
     public class BooleanGridFilter<TPostModel> : BaseGridFilter
     {
         private readonly Expression<Func<TPostModel, bool>> _expression;
-        private readonly IList<KeyValuePair<int, string>> _keyValuePair;
+        private readonly IList<KeyValuePair<bool, string>> _keyValuePair;
         private readonly bool _isContainsEmpty;
 
         /// <summary>
@@ -21,18 +21,18 @@ namespace Core.Web.GridFilter
         public BooleanGridFilter(Expression<Func<TPostModel, bool>> expression, string labelText, bool isNotContainsEmpty = default) : base(labelText)
         {
             this._expression = expression;
-            this._keyValuePair = new List<KeyValuePair<int, string>>();
+            this._keyValuePair = new List<KeyValuePair<bool, string>>();
             this._isContainsEmpty = isNotContainsEmpty;
         }
 
         public void AddOption(Enum key, string value)
         {
-            _keyValuePair.Add(new KeyValuePair<int, string>((int)Enum.Parse(key.GetType(), key.ToString()), value));
+            _keyValuePair.Add(new KeyValuePair<bool, string>((bool)Enum.Parse(key.GetType(), key.ToString()), value));
         }
 
-        public void AddOption(int key, string value)
+        public void AddOption(bool key, string value)
         {
-            _keyValuePair.Add(new KeyValuePair<int, string>(key, value));
+            _keyValuePair.Add(new KeyValuePair<bool, string>(key, value));
         }
 
         public override string Render()
@@ -55,8 +55,8 @@ namespace Core.Web.GridFilter
 
         private void SetDefaultOptions()
         {
-            _keyValuePair.Add(new KeyValuePair<int, string>(1, "是"));
-            _keyValuePair.Add(new KeyValuePair<int, string>(0, "否"));
+            _keyValuePair.Add(new KeyValuePair<bool, string>(true, "是"));
+            _keyValuePair.Add(new KeyValuePair<bool, string>(false, "否"));
         }
     }
 }
