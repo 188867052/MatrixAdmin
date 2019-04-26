@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using Core.Model.Entity;
+﻿using Core.Model.Entity;
+using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
-using Core.Resource.ViewConfiguration.Administration;
+using System.Collections.Generic;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {

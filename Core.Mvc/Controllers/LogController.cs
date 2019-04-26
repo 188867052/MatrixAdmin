@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Core.Mvc.Controllers
 {
     public class LogController : Controller

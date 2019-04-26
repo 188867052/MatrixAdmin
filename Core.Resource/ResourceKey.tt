@@ -1,6 +1,0 @@
-﻿<#
-#>
-<#@ include file="C:\SVN\Tranlslation\ResourceKeys\ResourceKeyDotNetCommon.t4" #>
-<#+
-const string ProjectFile = "AutotaskCorporation.Autotask.Web.UI.PopulatedWebControls.Resources.csproj";
-#>
