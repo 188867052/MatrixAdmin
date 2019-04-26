@@ -12,8 +12,9 @@ namespace Core.Web.GridFilter
     /// </summary>
     public class DropDownGridFilter<TPostModel> : BaseGridFilter
     {
-        private readonly Expression<Func<TPostModel, Enum>> expression;
-        private readonly IList<KeyValuePair<int, string>> keyValuePair;
+        private readonly Expression<Func<TPostModel, Enum>> _expression;
+        private readonly IList<KeyValuePair<int, string>> _keyValuePair;
+        private readonly bool _isContainsEmpty;
 
         /// <summary>
         /// 构造函数
@@ -26,21 +27,14 @@ namespace Core.Web.GridFilter
             this.Delegate = "alert(this.value)";
             this.Text = labelText;
             this.Event = new JavaScriptEvent(Delegate);
-            this.IsContainsEmpty = isContainsEmpty;
-            this.expression = expression;
-            this.keyValuePair = new List<KeyValuePair<int, string>>();
-        }
-
-        private bool IsContainsEmpty { get; }
-
-        private void AddOption(int key, string value)
-        {
-            keyValuePair.Add(new KeyValuePair<int, string>(key, value));
+            this._isContainsEmpty = isContainsEmpty;
+            this._expression = expression;
+            this._keyValuePair = new List<KeyValuePair<int, string>>();
         }
 
         public void AddOption(Enum key, string value)
         {
-            keyValuePair.Add(new KeyValuePair<int, string>((int)Enum.Parse(key.GetType(), key.ToString()), value));
+            _keyValuePair.Add(new KeyValuePair<int, string>((int)Enum.Parse(key.GetType(), key.ToString()), value));
         }
 
         private JavaScriptEvent Event { get; }
@@ -51,11 +45,11 @@ namespace Core.Web.GridFilter
 
         public override string Render()
         {
-            string options = IsContainsEmpty ? "<option></option>" : default;
-            string name = this.expression.GetPropertyInfo().Name;
-            options = keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
+            string options = _isContainsEmpty ? "<option></option>" : default;
+            string name = this._expression.GetPropertyInfo().Name;
+            options = _keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
-            return $"<div class=\"custom-control-inline\">" +
+            return $"<div class=\"{this.Class}\">" +
                    $"<label>{Text}</label>" +
                    $"<select name=\"{name}\">{options}</select>" +
                    $"</div>";

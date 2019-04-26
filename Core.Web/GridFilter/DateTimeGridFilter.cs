@@ -22,7 +22,7 @@ namespace Core.Web.GridFilter
         public override string Render()
         {
             string name = this.expression.GetPropertyInfo().Name;
-            return $"<div class=\"custom-control-inline\">" +
+            return $"<div class=\"{this.Class}\">" +
                    $"<label>{this.LabelText}</label>" +
                    $"<input name= \"{name}\" size=\"16\" type=\"text\" value=\"2019-04-25 14:45\" readonly class=\"form_datetime\">" +
                    $"</div>";

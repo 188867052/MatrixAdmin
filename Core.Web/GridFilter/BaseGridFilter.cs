@@ -9,9 +9,11 @@
 
         public string LabelText { get; }
 
+        public string Class = "custom-control-inline";
+
         public virtual string Render()
         {
-            return $"<div class=\"custom-control-inline\">" +
+            return $"<div class=\"{Class}\">" +
                       $"<label>{this.LabelText}</label>" +
                       $"<input type=\"text\">" +
                    $"</div>";
