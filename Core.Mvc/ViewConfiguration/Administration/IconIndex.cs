@@ -5,6 +5,7 @@ using Core.Model.Entity;
 using Core.Model.ResponseModels;
 using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
+using Core.Mvc.ViewConfiguration.Log;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
@@ -34,6 +35,8 @@ namespace Core.Mvc.ViewConfiguration.Administration
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
+
+                "/css/Log/Log.css",
             };
         }
 
@@ -49,10 +52,8 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             return new List<string>
             {
-               "/js/jquery.uniform.js",
-               "/js/select2.min.js",
-               "/js/matrix.js",
-               "/js/matrix.tables.js"
+                "/js/select2.min.js",
+                "/js/log/index.js",
             };
         }
 
@@ -62,6 +63,11 @@ namespace Core.Mvc.ViewConfiguration.Administration
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
             html = html.Replace("{{widget-title}}", "图标管理");
+
+            IconSearchGridFilterConfiguration filter = new IconSearchGridFilterConfiguration();
+            html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
+            html = html.Replace("{{button-group}}", filter.GenerateButton());
+
             return html;
         }
 

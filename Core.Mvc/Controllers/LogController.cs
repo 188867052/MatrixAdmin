@@ -21,7 +21,7 @@ namespace Core.Mvc.Controllers
         }
 
         /// <summary>
-        /// 
+        /// The Index.
         /// </summary>
         /// <returns></returns>
         public IActionResult Index()
@@ -35,7 +35,7 @@ namespace Core.Mvc.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Grid state change.
         /// </summary>
         /// <param name="postModel"></param>
         /// <returns></returns>

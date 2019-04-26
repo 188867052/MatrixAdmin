@@ -53,10 +53,11 @@ namespace Core.Mvc.ViewConfiguration.Log
         {
             LogViewConfiguration configuration = new LogViewConfiguration(this._errors);
             string table = configuration.Render();
-            LogSearchGridFilterConfiguration filter = new LogSearchGridFilterConfiguration();
 
             var html = base.Render().Replace("{{Table}}", table);
             html = html.Replace("{{widget-title}}", ErrorResource.Header);
+
+            LogSearchGridFilterConfiguration filter = new LogSearchGridFilterConfiguration();
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
             html = html.Replace("{{button-group}}", filter.GenerateButton());
 
