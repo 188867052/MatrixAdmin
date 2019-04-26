@@ -35,8 +35,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
-
-                "/css/Log/Log.css",
             };
         }
 

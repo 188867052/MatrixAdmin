@@ -26,9 +26,7 @@ namespace Core.Mvc.ViewConfiguration.Log
                 "/css/select2.css",
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
-                "/font-awesome/css/font-awesome.css",
-
-                "/css/Log/Log.css",
+                "/font-awesome/css/font-awesome.css"
             };
         }
 

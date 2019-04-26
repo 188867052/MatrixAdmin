@@ -49,6 +49,7 @@ namespace Core.Mvc.ViewConfiguration.Home
                 "/css/bootstrap.min.css",
                 "/css/bootstrap-responsive.min.css",
                 "/css/bootstrap-datetimepicker.css",
+                "/css/core.css",
             };
             list.AddRange(this.Css());
 
