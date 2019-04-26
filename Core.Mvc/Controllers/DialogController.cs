@@ -7,17 +7,14 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.Controllers
 {
-    public class DialogController : Controller
+    public class DialogController : StandardController
     {
-        private readonly IHostingEnvironment _hostingEnvironment;
-
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
-        public DialogController(IHostingEnvironment hostingEnvironment)
+        public DialogController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-            this._hostingEnvironment = hostingEnvironment;
         }
 
         public IActionResult Index()
@@ -52,7 +49,7 @@ namespace Core.Mvc.Controllers
         //https://localhost:44317/Dialog/FormInLine
         public IActionResult FormInLine()
         {
-            File file = new File(_hostingEnvironment, "form_custom_inline");
+            File file = new File(HostingEnvironment, "form_custom_inline");
             return Content(file.Render(), "text/html");
         }
     }

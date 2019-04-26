@@ -16,144 +16,141 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Mvc.Controllers
 {
-    public class RedirectController : Controller
+    public class RedirectController : StandardController
     {
-        private readonly IHostingEnvironment _hostingEnvironment;
-
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
-        public RedirectController(IHostingEnvironment hostingEnvironment)
+        public RedirectController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-            this._hostingEnvironment = hostingEnvironment;
         }
 
         public IActionResult Index()
         {
-            Index index = new Index(this._hostingEnvironment);
+            Index index = new Index(this.HostingEnvironment);
             return Content(index.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Index2()
         {
-            Index2 file = new Index2(_hostingEnvironment);
+            Index2 file = new Index2(HostingEnvironment);
             return Content(file.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Tables()
         {
-            Table table = new Table(_hostingEnvironment);
+            Table table = new Table(HostingEnvironment);
             return Content(table.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Login()
         {
-            Login login = new Login(_hostingEnvironment);
+            Login login = new Login(HostingEnvironment);
             return Content(login.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Widgets()
         {
-            Widget widget = new Widget(_hostingEnvironment);
+            Widget widget = new Widget(HostingEnvironment);
             return Content(widget.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Buttons()
         {
-            Button button = new Button(_hostingEnvironment);
+            Button button = new Button(HostingEnvironment);
             return Content(button.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Calendar()
         {
-            Calendar file = new Calendar(_hostingEnvironment);
+            Calendar file = new Calendar(HostingEnvironment);
             return Content(file.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Charts()
         {
-            Chart button = new Chart(_hostingEnvironment);
+            Chart button = new Chart(HostingEnvironment);
             return Content(button.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Chat()
         {
-            Chat button = new Chat(_hostingEnvironment);
+            Chat button = new Chat(HostingEnvironment);
             return Content(button.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Dashboard()
         {
-            File file = new File(_hostingEnvironment, "dashboard");
+            File file = new File(HostingEnvironment, "dashboard");
             return Content(file.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Error403()
         {
-            Error error = new Error(_hostingEnvironment, 403);
+            Error error = new Error(HostingEnvironment, 403);
             return Content(error.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Error404()
         {
-            Error error = new Error(_hostingEnvironment, 404);
+            Error error = new Error(HostingEnvironment, 404);
             return Content(error.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Error405()
         {
-            Error error = new Error(_hostingEnvironment, 405);
+            Error error = new Error(HostingEnvironment, 405);
             return Content(error.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Error500()
         {
-            Error error = new Error(_hostingEnvironment, 500);
+            Error error = new Error(HostingEnvironment, 500);
             return Content(error.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult FormCommon()
         {
-            BasicForm basicForm = new BasicForm(_hostingEnvironment);
+            BasicForm basicForm = new BasicForm(HostingEnvironment);
             return Content(basicForm.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult FormValidation()
         {
-            FormValidation basicForm = new FormValidation(_hostingEnvironment);
+            FormValidation basicForm = new FormValidation(HostingEnvironment);
             return Content(basicForm.Render(), "text/html",Encoding.UTF8);
         }
 
 
         public IActionResult FormWizard()
         {
-            FormWizard basicForm = new FormWizard(_hostingEnvironment);
+            FormWizard basicForm = new FormWizard(HostingEnvironment);
             return Content(basicForm.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Gallery()
         {
-            Gallery file = new Gallery(_hostingEnvironment);
+            Gallery file = new Gallery(HostingEnvironment);
             return Content(file.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Grid()
         {
-            Grid file = new Grid(_hostingEnvironment);
+            Grid file = new Grid(HostingEnvironment);
             return Content(file.Render(), "text/html",Encoding.UTF8);
         }
 
 
         public IActionResult Interface()
         {
-            Interface @interface = new Interface(_hostingEnvironment);
+            Interface @interface = new Interface(HostingEnvironment);
             return Content(@interface.Render(), "text/html",Encoding.UTF8);
         }
 
         public IActionResult Invoice()
         {
-            Invoice @interface = new Invoice(_hostingEnvironment);
+            Invoice @interface = new Invoice(HostingEnvironment);
             return Content(@interface.Render(), "text/html",Encoding.UTF8);
         }
     }

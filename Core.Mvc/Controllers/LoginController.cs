@@ -7,29 +7,26 @@ using Core.Web.File;
 
 namespace Core.Mvc.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : StandardController
     {
-        private readonly IHostingEnvironment _hostingEnvironment;
-
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
 
-        public LoginController(IHostingEnvironment hostingEnvironment)
+        public LoginController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-            this._hostingEnvironment = hostingEnvironment;
         }
 
         public IActionResult Index()
         {
-            Login login = new Login(this._hostingEnvironment);
+            Login login = new Login(this.HostingEnvironment);
             return Content(login.Render(), "text/html");
         }
 
         public IActionResult File(string fileName)
         {
-            File file = new File(_hostingEnvironment, fileName);
+            File file = new File(HostingEnvironment, fileName);
             return Content(file.Render(), "text/html");
         }
 

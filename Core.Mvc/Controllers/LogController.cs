@@ -11,17 +11,14 @@ using System.Threading.Tasks;
 
 namespace Core.Mvc.Controllers
 {
-    public class LogController : Controller
+    public class LogController : StandardController
     {
-        private readonly IHostingEnvironment _hostingEnvironment;
-
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
-        public LogController(IHostingEnvironment hostingEnvironment)
+        public LogController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-            this._hostingEnvironment = hostingEnvironment;
         }
 
         /// <summary>
@@ -33,7 +30,7 @@ namespace Core.Mvc.Controllers
             var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Index));
             Task<ResponseModel> model = AsyncRequest.GetAsync<IList<Log>>(url);
             var errors = (List<Log>)model.Result.Data;
-            LogIndex table = new LogIndex(_hostingEnvironment, errors);
+            LogIndex table = new LogIndex(HostingEnvironment, errors);
             return Content(table.Render(), "text/html", Encoding.UTF8);
         }
 
@@ -48,7 +45,7 @@ namespace Core.Mvc.Controllers
             var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Search));
             Task<ResponseModel> model = AsyncRequest.PostAsync<IList<Log>, LogPostModel>(url, postModel);
             List<Log> logs = (List<Log>)model.Result.Data;
-            LogIndex table = new LogIndex(_hostingEnvironment, logs);
+            LogIndex table = new LogIndex(HostingEnvironment, logs);
 
             return Content(table.Render(), "text/html", Encoding.UTF8);
         }

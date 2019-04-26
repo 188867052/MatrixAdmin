@@ -7,17 +7,14 @@ using Core.Web.File;
 
 namespace Core.Mvc.Controllers
 {
-    public class FileController : Controller
+    public class FileController : StandardController
     {
-        private readonly IHostingEnvironment _hostingEnvironment;
-
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
-        public FileController(IHostingEnvironment hostingEnvironment)
+        public FileController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-            this._hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet]
@@ -27,7 +24,7 @@ namespace Core.Mvc.Controllers
             {
                 fileName = "index";
             }
-            File file = new File(_hostingEnvironment, fileName);
+            File file = new File(HostingEnvironment, fileName);
             return Content(file.Render(), "text/html");
         }
 
