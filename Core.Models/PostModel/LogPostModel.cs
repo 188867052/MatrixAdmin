@@ -17,6 +17,11 @@ namespace Core.Model.PostModel
         /// <summary>
         /// 
         /// </summary>
+        public int Type { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime StartTime { get; set; }
 
         public DateTime EndTime { get; set; }

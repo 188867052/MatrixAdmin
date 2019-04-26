@@ -30,7 +30,7 @@ namespace Core.Web.GridFilter
             this.GridFilters.Add(filter);
         }
 
-        public void AddDropDownGridFilter(DropDownGridFilter filter)
+        public void AddDropDownGridFilter(DropDownGridFilter<T> filter)
         {
             this.GridFilters.Add(filter);
         }

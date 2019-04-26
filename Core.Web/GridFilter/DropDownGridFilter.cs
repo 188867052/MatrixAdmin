@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using Core.Extension.Expression;
 using Core.Web.JavaScript;
 
 namespace Core.Web.GridFilter
@@ -6,14 +10,16 @@ namespace Core.Web.GridFilter
     /// <summary>
     /// 构造函数
     /// </summary>
-    public class DropDownGridFilter : BaseGridFilter
+    public class DropDownGridFilter<TPostModel> : BaseGridFilter
     {
-        public DropDownGridFilter(string labelText, bool isContainsEmpty = default) : base(labelText)
+        private readonly Expression<Func<TPostModel, int>> expression;
+        public DropDownGridFilter(Expression<Func<TPostModel, int>> expression, string labelText, bool isContainsEmpty = default) : base(labelText)
         {
             this.Delegate = "alert(this.value)";
             this.Text = labelText;
             this.Event = new JavaScriptEvent(Delegate);
             this.IsContainsEmpty = isContainsEmpty;
+            this.expression = expression;
             this.keyValuePair = new List<KeyValuePair<int, string>>();
         }
 
@@ -34,15 +40,12 @@ namespace Core.Web.GridFilter
 
         public override string Render()
         {
-            string options = (IsContainsEmpty ? $"<option></option>" : "");
-
-            foreach (var item in keyValuePair)
-            {
-                options += $"<option value='{item.Key}'>{item.Value}</option>";
-            }
+            string options = IsContainsEmpty ? "<option></option>" : default;
+            string name = this.expression.GetPropertyInfo().Name;
+            options = keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
             return $"<label>{Text}</label>" +
-                   $"<select>{options}</select>";
+                   $"<select name=\"{name}\">{options}</select>";
         }
     }
 }
