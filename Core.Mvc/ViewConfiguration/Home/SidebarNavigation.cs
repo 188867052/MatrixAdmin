@@ -38,7 +38,7 @@ namespace Core.Mvc.ViewConfiguration.Home
             manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.RoleManage)), IndexBaseResource.RoleManage));
             manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.PermissionManage)), IndexBaseResource.PermissionManage));
             manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.MenuManage)), IndexBaseResource.MenuManage));
-            manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.IconManage)), IndexBaseResource.IconManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(typeof(IconController), nameof(IconController.Index)), IndexBaseResource.IconManage));
 
             SubMenu log = new SubMenu("icon icon-edit", default, IndexBaseResource.LogManage, 2);
             log.AddLinkButton(new LinkedAnchor(new Url(typeof(LogController), nameof(LogController.Index)), IndexBaseResource.ErrorLog));
