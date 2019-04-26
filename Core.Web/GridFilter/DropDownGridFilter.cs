@@ -13,6 +13,14 @@ namespace Core.Web.GridFilter
     public class DropDownGridFilter<TPostModel> : BaseGridFilter
     {
         private readonly Expression<Func<TPostModel, int>> expression;
+        private readonly IList<KeyValuePair<int, string>> keyValuePair;
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="labelText"></param>
+        /// <param name="isContainsEmpty"></param>
         public DropDownGridFilter(Expression<Func<TPostModel, int>> expression, string labelText, bool isContainsEmpty = default) : base(labelText)
         {
             this.Delegate = "alert(this.value)";
@@ -25,7 +33,6 @@ namespace Core.Web.GridFilter
 
         public bool IsContainsEmpty { get; set; }
 
-        private readonly IList<KeyValuePair<int, string>> keyValuePair;
 
         public void AddOption(int key, string value)
         {
@@ -44,8 +51,10 @@ namespace Core.Web.GridFilter
             string name = this.expression.GetPropertyInfo().Name;
             options = keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
-            return $"<label>{Text}</label>" +
-                   $"<select name=\"{name}\">{options}</select>";
+            return $"<div class=\"custom-control-inline\">" +
+                   $"<label>{Text}</label>" +
+                   $"<select name=\"{name}\">{options}</select>" +
+                   $"</div>";
         }
     }
 }
