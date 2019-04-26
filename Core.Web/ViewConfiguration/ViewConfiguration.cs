@@ -1,9 +1,10 @@
 ﻿using Core.Web.GridColumn;
 using System.Collections.Generic;
+using Core.Web.Html;
 
 namespace Core.Web.ViewConfiguration
 {
-    public abstract class ViewConfiguration<T>
+    public abstract class ViewConfiguration<T> : IRender
     {
         /// <summary>
         /// 构造函数

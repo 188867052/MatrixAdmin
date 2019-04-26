@@ -31,7 +31,7 @@ namespace Core.Mvc.Controllers
             var errors = (List<Log>)model.Result.Data;
             LogIndex table = new LogIndex(HostingEnvironment, errors);
 
-            return this.Index(table);
+            return this.ViewConfiguration(table);
         }
 
         /// <summary>
@@ -45,9 +45,9 @@ namespace Core.Mvc.Controllers
             var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Search));
             Task<ResponseModel> model = AsyncRequest.PostAsync<IList<Log>, LogPostModel>(url, postModel);
             List<Log> logs = (List<Log>)model.Result.Data;
-            LogIndex table = new LogIndex(HostingEnvironment, logs);
+            LogViewConfiguration configuration = new LogViewConfiguration(logs);
 
-            return this.Index(table);
+            return this.GridConfiguration(configuration);
         }
     }
 }

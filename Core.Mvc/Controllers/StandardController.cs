@@ -3,6 +3,7 @@ using Core.Web.Html;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Controllers
 {
@@ -20,12 +21,12 @@ namespace Core.Mvc.Controllers
             this.HostingEnvironment = hostingEnvironment;
         }
 
-        protected ContentResult Index(IndexBase index)
+        protected ContentResult ViewConfiguration(IndexBase index)
         {
             return this.RenderContent(index);
         }
 
-        protected ContentResult Grid(IndexBase index)
+        protected ContentResult GridConfiguration<T>(ViewConfiguration<T> index)
         {
             return this.RenderContent(index);
         }

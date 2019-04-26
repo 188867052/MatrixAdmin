@@ -23,7 +23,8 @@
                 var value = input.value;
                 data[propertyName] = value;
             }
-            $.post(this._searchUrl, data, function () {
+            $.post(this._searchUrl, data, function (response) {
+                $(".widget-content")[0].innerHTML = response;
             });
         }
 
