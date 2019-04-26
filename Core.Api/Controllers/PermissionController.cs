@@ -19,30 +19,19 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 权限控制器
     /// </summary>
-    [Route("[controller]/[action]")]
-    [ApiController]
     //[CustomAuthorize]
-    public class PermissionController : Controller
+    public class PermissionController : StandardController
     {
-        private readonly Context _dbContext;
-        private readonly IMapper _mapper;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="dbContext"></param>
-        /// <param name="mapper"></param>
-        public PermissionController(Context dbContext, IMapper mapper)
+        public PermissionController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
         {
-            this._dbContext = dbContext;
-            this._mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                IQueryable<Permission> query = this._dbContext.Permission.AsQueryable();
+                IQueryable<Permission> query = this.DbContext.Permission.AsQueryable();
                 var list = query.ToList();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(list);
@@ -58,9 +47,9 @@ namespace Core.Api.Controllers
         public IActionResult List(PermissionPostModel model)
         {
             ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                IQueryable<Permission> query = this._dbContext.Permission.AsQueryable();
+                IQueryable<Permission> query = this.DbContext.Permission.AsQueryable();
                 //Filter<Permission> filter1 = new Filter<Permission>(nameof(Permission.Name), Operation.EqualTo, model.Status);
                 //Filter<Permission> filter2 = new Filter<Permission>(nameof(Permission.Id), Operation.EqualTo, model.IsEnable);
                 //Filter<Permission> filter = new Filter<Permission>(filter1, filter2, Connector.Or);
@@ -72,7 +61,7 @@ namespace Core.Api.Controllers
 
                 List<Permission> list = query.Include(x => x.Menu).ToList();
                 int totalCount = query.Count();
-                IEnumerable<PermissionJsonModel> data = list.Select(this._mapper.Map<Permission, PermissionJsonModel>);
+                IEnumerable<PermissionJsonModel> data = list.Select(this.Mapper.Map<Permission, PermissionJsonModel>);
                 /*
                  * .Select(x => new PermissionJsonModel {
                     MenuName = x.Menu.Name,
@@ -100,20 +89,20 @@ namespace Core.Api.Controllers
                 response.SetFailed("请输入权限名称");
                 return Ok(response);
             }
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                if (this._dbContext.Permission.Count(x => x.ActionCode == model.ActionCode && x.MenuGuid == model.MenuGuid) > 0)
+                if (this.DbContext.Permission.Count(x => x.ActionCode == model.ActionCode && x.MenuGuid == model.MenuGuid) > 0)
                 {
                     response.SetFailed("权限操作码已存在");
                     return Ok(response);
                 }
-                Permission entity = _mapper.Map<PermissionCreateViewModel, Permission>(model);
+                Permission entity = Mapper.Map<PermissionCreateViewModel, Permission>(model);
                 entity.CreatedOn = DateTime.Now;
                 entity.Id = RandomHelper.GetRandomizer(8, true, false, true, true);
                 entity.CreatedByUserGuid = AuthContextService.CurrentUser.Guid;
                 entity.CreatedByUserName = AuthContextService.CurrentUser.DisplayName;
-                this._dbContext.Permission.Add(entity);
-                this._dbContext.SaveChanges();
+                this.DbContext.Permission.Add(entity);
+                this.DbContext.SaveChanges();
 
                 response.SetSuccess();
                 return Ok(response);
@@ -129,12 +118,12 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Edit(string code)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                Permission entity = this._dbContext.Permission.FirstOrDefault(x => x.Id == code);
+                Permission entity = this.DbContext.Permission.FirstOrDefault(x => x.Id == code);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                PermissionEditViewModel model = _mapper.Map<Permission, PermissionEditViewModel>(entity);
-                Menu menu = this._dbContext.Menu.FirstOrDefault(x => x.Guid == entity.MenuGuid);
+                PermissionEditViewModel model = Mapper.Map<Permission, PermissionEditViewModel>(entity);
+                Menu menu = this.DbContext.Menu.FirstOrDefault(x => x.Guid == entity.MenuGuid);
                 model.MenuName = menu.Name;
                 response.SetData(model);
                 return Ok(response);
@@ -151,14 +140,14 @@ namespace Core.Api.Controllers
         public IActionResult Edit(PermissionEditViewModel model)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                if (this._dbContext.Permission.Count(x => x.ActionCode == model.ActionCode && x.Id != model.Code) > 0)
+                if (this.DbContext.Permission.Count(x => x.ActionCode == model.ActionCode && x.Id != model.Code) > 0)
                 {
                     response.SetFailed("权限操作码已存在");
                     return Ok(response);
                 }
-                Permission entity = this._dbContext.Permission.FirstOrDefault(x => x.Id == model.Code);
+                Permission entity = this.DbContext.Permission.FirstOrDefault(x => x.Id == model.Code);
                 if (entity == null)
                 {
                     response.SetFailed("权限不存在");
@@ -173,7 +162,7 @@ namespace Core.Api.Controllers
                 entity.ModifiedOn = DateTime.Now;
                 entity.Status = model.Status;
                 entity.Description = model.Description;
-                this._dbContext.SaveChanges();
+                this.DbContext.SaveChanges();
                 response.SetSuccess();
                 return Ok(response);
             }
@@ -245,15 +234,15 @@ namespace Core.Api.Controllers
         public IActionResult PermissionTree(string code)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                Role role = this._dbContext.Role.FirstOrDefault(x => x.Id == code);
+                Role role = this.DbContext.Role.FirstOrDefault(x => x.Id == code);
                 if (role == null)
                 {
                     response.SetFailed("角色不存在");
                     return Ok(response);
                 }
-                List<PermissionMenuTree> menu = this._dbContext.Menu.Where(x => !x.IsEnable && x.Status).OrderBy(x => x.CreatedOn).ThenBy(x => x.Sort)
+                List<PermissionMenuTree> menu = this.DbContext.Menu.Where(x => !x.IsEnable && x.Status).OrderBy(x => x.CreatedOn).ThenBy(x => x.Sort)
                     .Select(x => new PermissionMenuTree
                     {
                         Guid = x.Guid,
@@ -270,7 +259,7 @@ WHERE P.IsDeleted=0 AND P.Status=1";
                     sql = @"SELECT P.Code,P.MenuGuid,P.Name,P.ActionCode,'SUPERADM' AS RoleCode,(CASE WHEN P.Code IS NOT NULL THEN 1 ELSE 0 END) AS IsAssigned FROM DncPermission AS P 
 WHERE P.IsDeleted=0 AND P.Status=1";
                 }
-                List<PermissionWithAssignProperty> permissionList = this._dbContext.PermissionWithAssignProperty.FromSql(sql, code).ToList();
+                List<PermissionWithAssignProperty> permissionList = this.DbContext.PermissionWithAssignProperty.FromSql(sql, code).ToList();
                 List<PermissionMenuTree> tree = menu.FillRecursive(permissionList, Guid.Empty, role.IsSuperAdministrator);
                 response.SetData(new { tree, selectedPermissions = permissionList.Where(x => x.IsAssigned == 1).Select(x => x.Code) });
             }
@@ -286,10 +275,10 @@ WHERE P.IsDeleted=0 AND P.Status=1";
         /// <returns></returns>
         private ResponseModel UpdateIsEnable(bool isEnable, string ids)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
                 string sql = @"UPDATE Permission SET IsEnable = @IsEnable WHERE Id IN @Id";
-                this._dbContext.Dapper.Execute(sql, new { IsEnable = isEnable, Id = ids });
+                this.DbContext.Dapper.Execute(sql, new { IsEnable = isEnable, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }
@@ -302,13 +291,14 @@ WHERE P.IsDeleted=0 AND P.Status=1";
         /// <returns></returns>
         private ResponseModel UpdateStatus(bool status, string ids)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
                 string sql = @"UPDATE Permission SET Status = @Status WHERE Id IN @Id";
-                this._dbContext.Dapper.Execute(sql, new { Status = status, Id = ids });
+                this.DbContext.Dapper.Execute(sql, new { Status = status, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }
+
     }
 
     /// <summary>

@@ -16,12 +16,11 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 账户控制器
     /// </summary>
-    [Route("[controller]/[action]")]
-    [ApiController]
     [Authorize]
     public class AccountController : ControllerBase
     {
         private readonly Context _dbContext;
+
         /// <summary>
         /// 
         /// </summary>

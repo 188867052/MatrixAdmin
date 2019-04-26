@@ -14,32 +14,19 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [Route("[controller]/[action]")]
-    [ApiController]
-    //[WebApiExceptionFilter]
     //[CustomAuthorize]
-    public class IconController : ControllerBase
+    public class IconController : StandardController
     {
-        private readonly Context _dbContext;
-        private readonly IMapper _mapper;
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="dbContext">The dbContext.</param>
-        /// <param name="mapper">The mapper.</param>
-        public IconController(Context dbContext, IMapper mapper)
+        public IconController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
         {
-            this._dbContext = dbContext;
-            this._mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                IQueryable<Icon> query = this._dbContext.Icon.AsQueryable();
+                IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();
                 var list = query.ToList();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(list);
@@ -54,9 +41,9 @@ namespace Core.Api.Controllers
         [HttpPost]
         public IActionResult List(IconPostedModel model)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                IQueryable<Icon> query = this._dbContext.Icon.AsQueryable();
+                IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();
                 //Filter<Icon> filter = new Filter<Icon>(new FilterInfo<DateTime>(nameof(Icon.CreatedOn), Operation.Between, DateTime.Now, DateTime.Now));
                 //query = query.AddFilter(filter);
                 //query = query.ExpressionBuilder(model.Status, nameof(Icon.Status));
@@ -67,7 +54,7 @@ namespace Core.Api.Controllers
 
                 List<Icon> list = query.ToList();
                 int totalCount = list.Count;
-                IEnumerable<IconJsonModel> data = list.Select(this._mapper.Map<Icon, IconJsonModel>);
+                IEnumerable<IconJsonModel> data = list.Select(this.Mapper.Map<Icon, IconJsonModel>);
                 ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
                 response.SetData(data, totalCount);
 
@@ -88,9 +75,9 @@ namespace Core.Api.Controllers
                 response.SetFailed("没有查询到数据");
                 return Ok(response);
             }
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                IQueryable<Icon> query = this._dbContext.Icon.Where(x => x.Code.Contains(kw));
+                IQueryable<Icon> query = this.DbContext.Icon.Where(x => x.Code.Contains(kw));
                 List<Icon> list = query.ToList();
                 var data = list.Select(x => new { x.Code, x.Color, x.Size });
                 response.SetData(data);
@@ -114,19 +101,19 @@ namespace Core.Api.Controllers
                 response.SetFailed("请输入图标名称");
                 return Ok(response);
             }
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                if (this._dbContext.Icon.Count(x => x.Code == model.Code) > 0)
+                if (this.DbContext.Icon.Count(x => x.Code == model.Code) > 0)
                 {
                     response.SetFailed("图标已存在");
                     return Ok(response);
                 }
-                Icon entity = this._mapper.Map<IconCreateViewModel, Icon>(model);
+                Icon entity = this.Mapper.Map<IconCreateViewModel, Icon>(model);
                 entity.CreatedOn = DateTime.Now;
                 entity.CreatedByUserGuid = AuthContextService.CurrentUser.Guid;
                 entity.CreatedByUserName = AuthContextService.CurrentUser.DisplayName;
-                this._dbContext.Icon.Add(entity);
-                this._dbContext.SaveChanges();
+                this.DbContext.Icon.Add(entity);
+                this.DbContext.SaveChanges();
                 response.SetSuccess();
 
                 return Ok(response);
@@ -142,11 +129,11 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Edit(int id)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                Icon entity = this._dbContext.Icon.FirstOrDefault(x => x.Id == id);
+                Icon entity = this.DbContext.Icon.FirstOrDefault(x => x.Id == id);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(_mapper.Map<Icon, IconCreateViewModel>(entity));
+                response.SetData(Mapper.Map<Icon, IconCreateViewModel>(entity));
                 return Ok(response);
             }
         }
@@ -166,14 +153,14 @@ namespace Core.Api.Controllers
                 response.SetFailed("请输入图标名称");
                 return Ok(response);
             }
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                if (this._dbContext.Icon.Count(x => x.Code == model.Code && x.Id != model.Id) > 0)
+                if (this.DbContext.Icon.Count(x => x.Code == model.Code && x.Id != model.Id) > 0)
                 {
                     response.SetFailed("图标已存在");
                     return Ok(response);
                 }
-                Icon entity = this._dbContext.Icon.FirstOrDefault(x => x.Id == model.Id);
+                Icon entity = this.DbContext.Icon.FirstOrDefault(x => x.Id == model.Id);
                 entity.Code = model.Code;
                 entity.Color = model.Color;
                 entity.Custom = model.Custom;
@@ -184,7 +171,7 @@ namespace Core.Api.Controllers
                 entity.ModifiedOn = DateTime.Now;
                 entity.Status = model.Status.Value;
                 entity.Description = model.Description;
-                this._dbContext.SaveChanges();
+                this.DbContext.SaveChanges();
                 response.SetSuccess();
                 return Ok(response);
             }
@@ -270,10 +257,10 @@ namespace Core.Api.Controllers
                 CreatedOn = DateTime.Now,
                 CreatedByUserName = "超级管理员"
             });
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                this._dbContext.Icon.AddRange(models);
-                this._dbContext.SaveChanges();
+                this.DbContext.Icon.AddRange(models);
+                this.DbContext.SaveChanges();
                 response.SetSuccess();
                 return Ok(response);
             }
@@ -287,10 +274,10 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         private ResponseModel UpdateIsEnable(bool isEnable, int[] ids)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
                 string sql = @"UPDATE Icon SET IsEnable = @IsEnable WHERE Id IN @Id";
-                this._dbContext.Dapper.Execute(sql, new { IsEnable = isEnable, Id = ids });
+                this.DbContext.Dapper.Execute(sql, new { IsEnable = isEnable, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }
@@ -303,10 +290,10 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         private ResponseModel UpdateStatus(bool status, int[] ids)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
                 string sql = @"UPDATE Icon SET Status = @Status WHERE Id IN @Id";
-                this._dbContext.Dapper.Execute(sql, new { Status = status, Id = ids });
+                this.DbContext.Dapper.Execute(sql, new { Status = status, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }

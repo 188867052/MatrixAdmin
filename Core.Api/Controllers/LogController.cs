@@ -17,29 +17,18 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class LogController : ControllerBase
+    public class LogController : StandardController
     {
-        private readonly Context _dbContext;
-        private readonly IMapper _mapper;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="dbContext"></param>
-        /// <param name="mapper"></param>
-        public LogController(Context dbContext, IMapper mapper)
+        public LogController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
         {
-            this._dbContext = dbContext;
-            this._mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                IQueryable<Log> query = this._dbContext.Log.AsQueryable();
+                IQueryable<Log> query = this.DbContext.Log.AsQueryable();
                 var list = query.ToList();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(list);
@@ -50,9 +39,9 @@ namespace Core.Api.Controllers
         [HttpPost]
         public IActionResult Search(LogPostModel model)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                IQueryable<Log> query = this._dbContext.Log.AsQueryable();
+                IQueryable<Log> query = this.DbContext.Log.AsQueryable();
                 query = query.Where(o => o.Id.ToString().Contains(model.Id.ToString()));
                 var list = query.ToList();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
@@ -93,7 +82,7 @@ namespace Core.Api.Controllers
 
                 return new ObjectResult(error);
             }
-            IQueryable<Role> query = this._dbContext.Role.AsQueryable();
+            IQueryable<Role> query = this.DbContext.Role.AsQueryable();
             List<Role> a = query.ToList();
             // error = new ErrorDetails
             //{
@@ -103,5 +92,7 @@ namespace Core.Api.Controllers
 
             return new ObjectResult(a);
         }
+
+     
     }
 }

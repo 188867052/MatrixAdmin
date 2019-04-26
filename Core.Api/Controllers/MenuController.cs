@@ -17,31 +17,19 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 菜单
     /// </summary>
-    [Route("[controller]/[action]")]
-    [ApiController]
     //[CustomAuthorize]
-    public class MenuController : ControllerBase
+    public class MenuController : StandardController
     {
-        private readonly Context _dbContext;
-        private readonly IMapper _mapper;
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="dbContext"></param>
-        /// <param name="mapper"></param>
-        public MenuController(Context dbContext, IMapper mapper)
+        public MenuController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
         {
-            this._dbContext = dbContext;
-            this._mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                IQueryable<Menu> query = this._dbContext.Menu.AsQueryable();
+                IQueryable<Menu> query = this.DbContext.Menu.AsQueryable();
                 var list = query.ToList();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(list);
@@ -57,9 +45,9 @@ namespace Core.Api.Controllers
         [HttpPost]
         public IActionResult List(MenuRequestPayload request)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                IQueryable<Menu> query = this._dbContext.Menu.AsQueryable();
+                IQueryable<Menu> query = this.DbContext.Menu.AsQueryable();
                 query = query.AddStringContainsFilter(request.KeyWord, nameof(Menu.Name));
                 query = query.AddBooleanFilter(request.IsEnable, nameof(Menu.IsEnable));
                 query = query.AddBooleanFilter(request.Status, nameof(Menu.Status));
@@ -68,7 +56,7 @@ namespace Core.Api.Controllers
 
                 List<Menu> list = query.ToList();
                 int totalCount = query.Count();
-                IEnumerable<MenuJsonModel> data = list.Select(_mapper.Map<Menu, MenuJsonModel>);
+                IEnumerable<MenuJsonModel> data = list.Select(Mapper.Map<Menu, MenuJsonModel>);
                 ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
                 response.SetData(data, totalCount);
                 return Ok(response);
@@ -84,15 +72,15 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Create(MenuCreateViewModel model)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                Menu entity = _mapper.Map<MenuCreateViewModel, Menu>(model);
+                Menu entity = Mapper.Map<MenuCreateViewModel, Menu>(model);
                 entity.CreatedOn = DateTime.Now;
                 entity.Guid = Guid.NewGuid();
                 entity.CreatedByUserGuid = AuthContextService.CurrentUser.Guid;
                 entity.CreatedByUserName = AuthContextService.CurrentUser.DisplayName;
-                this._dbContext.Menu.Add(entity);
-                this._dbContext.SaveChanges();
+                this.DbContext.Menu.Add(entity);
+                this.DbContext.SaveChanges();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetSuccess();
                 return Ok(response);
@@ -108,11 +96,11 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Edit(Guid guid)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                Menu entity = this._dbContext.Menu.FirstOrDefault(x => x.Guid == guid);
+                Menu entity = this.DbContext.Menu.FirstOrDefault(x => x.Guid == guid);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                MenuEditViewModel model = _mapper.Map<Menu, MenuEditViewModel>(entity);
+                MenuEditViewModel model = Mapper.Map<Menu, MenuEditViewModel>(entity);
                 //if (model.ParentGuid.HasValue)
                 //{
                 //    var parent = this._dbContext.DncMenu.FirstOrDefault(x => x.Guid == entity.ParentGuid);
@@ -136,9 +124,9 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Edit(MenuEditViewModel model)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                Menu entity = this._dbContext.Menu.FirstOrDefault(x => x.Guid == model.Guid);
+                Menu entity = this.DbContext.Menu.FirstOrDefault(x => x.Guid == model.Guid);
                 entity.Name = model.Name;
                 entity.Icon = model.Icon;
                 entity.Level = 1;
@@ -155,7 +143,7 @@ namespace Core.Api.Controllers
                 entity.Status = model.Status;
                 entity.IsDefaultRouter = model.IsDefaultRouter;
 
-                this._dbContext.SaveChanges();
+                this.DbContext.SaveChanges();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetSuccess();
                 return Ok(response);
@@ -240,10 +228,10 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         private ResponseModel UpdateIsEnable(bool isEnable, int[] ids)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
                 string sql = @"UPDATE Menu SET IsEnable = @IsEnable WHERE Id IN @Ids";
-                this._dbContext.Dapper.Execute(sql, new { IsEnable = isEnable, Ids = ids });
+                this.DbContext.Dapper.Execute(sql, new { IsEnable = isEnable, Ids = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }
@@ -256,17 +244,17 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         private ResponseModel UpdateStatus(StatusEnum status, int[] ids)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
                 string sql = @"UPDATE Menu SET Status = @Status WHERE Guid IN @Id";
-                this._dbContext.Dapper.Execute(sql, new { Status = status, Id = ids });
+                this.DbContext.Dapper.Execute(sql, new { Status = status, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }
 
         private List<MenuTree> LoadMenuTree(string selectedGuid = null)
         {
-            List<MenuTree> temp = this._dbContext.Menu.Where(x => !x.IsEnable && x.Status).ToList().Select(x => new MenuTree
+            List<MenuTree> temp = this.DbContext.Menu.Where(x => !x.IsEnable && x.Status).ToList().Select(x => new MenuTree
             {
                 Guid = x.Guid.ToString(),
                 ParentGuid = x.ParentGuid,

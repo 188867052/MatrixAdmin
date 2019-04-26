@@ -3,46 +3,34 @@ using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Api.Extensions.DataAccess;
 using Core.Api.Models.Response;
+using Core.Model;
+using Core.Model.Entity;
+using Core.Model.PostModel;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Model;
-using Core.Model.Entity;
-using Core.Model.PostModel;
 
 namespace Core.Api.Controllers
 {
     /// <summary>
     /// 用户控制器
     /// </summary>
-    [Route("/[controller]/[action]")]
-    [ApiController]
     //[CustomAuthorize]
-    public class UserController : ControllerBase
+    public class UserController : StandardController
     {
-        private readonly Context _dbContext;
-        private readonly IMapper _mapper;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="dbContext"></param>
-        /// <param name="mapper"></param>
-        public UserController(Context dbContext, IMapper mapper)
+        public UserController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
         {
-            this._dbContext = dbContext;
-            this._mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                List<User> list = this._dbContext.User.ToList();
+                List<User> list = this.DbContext.User.ToList();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(list);
                 return Ok(response);
@@ -56,9 +44,9 @@ namespace Core.Api.Controllers
         [HttpPost]
         public IActionResult List(UserRequestPayload model)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                IQueryable<User> query = this._dbContext.User.AsQueryable();
+                IQueryable<User> query = this.DbContext.User.AsQueryable();
                 if (!string.IsNullOrEmpty(model.KeyWord))
                 {
                     query = query.Where(x => x.LoginName.Contains(model.KeyWord.Trim()) || x.DisplayName.Contains(model.KeyWord.Trim()));
@@ -72,7 +60,7 @@ namespace Core.Api.Controllers
                 }
                 List<User> list = query.ToList();
                 int totalCount = query.Count();
-                IEnumerable<UserJsonModel> data = list.Select(_mapper.Map<User, UserJsonModel>);
+                IEnumerable<UserJsonModel> data = list.Select(Mapper.Map<User, UserJsonModel>);
                 ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
                 response.SetData(data, totalCount);
                 return Ok(response);
@@ -94,19 +82,19 @@ namespace Core.Api.Controllers
                 response.SetFailed("请输入登录名称");
                 return Ok(response);
             }
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                if (this._dbContext.User.Count(x => x.LoginName == model.LoginName) > 0)
+                if (this.DbContext.User.Count(x => x.LoginName == model.LoginName) > 0)
                 {
                     response.SetFailed("登录名已存在");
                     return Ok(response);
                 }
-                User entity = _mapper.Map<UserCreateViewModel, User>(model);
+                User entity = Mapper.Map<UserCreateViewModel, User>(model);
                 entity.CreatedOn = DateTime.Now;
                 entity.Guid = Guid.NewGuid();
                 entity.Status = model.Status;
-                this._dbContext.User.Add(entity);
-                this._dbContext.SaveChanges();
+                this.DbContext.User.Add(entity);
+                this.DbContext.SaveChanges();
 
                 response.SetSuccess();
                 return Ok(response);
@@ -122,11 +110,11 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Edit(Guid guid)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                User entity = this._dbContext.User.FirstOrDefault(x => x.Guid == guid);
+                User entity = this.DbContext.User.FirstOrDefault(x => x.Guid == guid);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(_mapper.Map<User, UserEditViewModel>(entity));
+                response.SetData(Mapper.Map<User, UserEditViewModel>(entity));
                 return Ok(response);
             }
         }
@@ -141,9 +129,9 @@ namespace Core.Api.Controllers
         public IActionResult Edit(UserEditViewModel model)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                User entity = this._dbContext.User.FirstOrDefault(x => x.Guid == model.Guid);
+                User entity = this.DbContext.User.FirstOrDefault(x => x.Guid == model.Guid);
                 if (entity == null)
                 {
                     response.SetFailed("用户不存在");
@@ -159,7 +147,7 @@ namespace Core.Api.Controllers
                 entity.Status = model.Status;
                 entity.UserType = model.UserType;
                 entity.Description = model.Description;
-                this._dbContext.SaveChanges();
+                this.DbContext.SaveChanges();
                 response = ResponseModelFactory.CreateInstance;
                 return Ok(response);
             }
@@ -238,12 +226,12 @@ namespace Core.Api.Controllers
                 CreatedOn = DateTime.Now,
                 RoleCode = x.Trim()
             }).ToList();
-            this._dbContext.Database.ExecuteSqlCommand("DELETE FROM DncUserRoleMapping WHERE UserGuid={0}", model.UserGuid);
+            this.DbContext.Database.ExecuteSqlCommand("DELETE FROM DncUserRoleMapping WHERE UserGuid={0}", model.UserGuid);
             bool success = true;
             if (roles.Count > 0)
             {
-                this._dbContext.UserRoleMapping.AddRange(roles);
-                success = this._dbContext.SaveChanges() > 0;
+                this.DbContext.UserRoleMapping.AddRange(roles);
+                success = this.DbContext.SaveChanges() > 0;
             }
 
             if (success)
@@ -266,10 +254,10 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         private ResponseModel UpdateIsEnable(bool isEnable, int[] ids)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
                 string sql = @"UPDATE User SET IsEnable = @IsEnable WHERE Id IN @Id";
-                this._dbContext.Dapper.Execute(sql, new { IsEnable = isEnable, Id = ids });
+                this.DbContext.Dapper.Execute(sql, new { IsEnable = isEnable, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }
@@ -282,10 +270,10 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         private ResponseModel UpdateStatus(bool status, int[] ids)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
                 string sql = @"UPDATE User SET IsEnable = @IsEnable WHERE Guid IN @Id";
-                this._dbContext.Dapper.Execute(sql, new { Status = status, Id = ids });
+                this.DbContext.Dapper.Execute(sql, new { Status = status, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }

@@ -18,30 +18,19 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 角色控制器
     /// </summary>
-    [Route("[controller]/[action]")]
-    [ApiController]
     //[CustomAuthorize]
-    public class RoleController : ControllerBase
+    public class RoleController : StandardController
     {
-        private readonly Context _dbContext;
-        private readonly IMapper _mapper;
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="dbContext"></param>
-        /// <param name="mapper"></param>
-        public RoleController(Context dbContext, IMapper mapper)
+        public RoleController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
         {
-            this._dbContext = dbContext;
-            this._mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                IQueryable<Role> query = this._dbContext.Role.AsQueryable();
+                IQueryable<Role> query = this.DbContext.Role.AsQueryable();
                 var list = query.ToList();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(list);
@@ -57,16 +46,16 @@ namespace Core.Api.Controllers
         public IActionResult List(RoleRequestPayload model)
         {
             ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                IQueryable<Role> query = this._dbContext.Role.AsQueryable();
+                IQueryable<Role> query = this.DbContext.Role.AsQueryable();
                 //query.AddStringContainsFilter(x => x.Name.Contains(model.KeyWord.Trim()) || x.Id.Contains(model.KeyWord.Trim()));
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Role.IsEnable));
                 query = query.AddBooleanFilter(model.Status, nameof(Role.Status));
                 query = query.Paged(model.CurrentPage, model.PageSize);
                 List<Role> list = query.ToList();
                 int totalCount = query.Count();
-                IEnumerable<RoleJsonModel> data = list.Select(_mapper.Map<Role, RoleJsonModel>);
+                IEnumerable<RoleJsonModel> data = list.Select(Mapper.Map<Role, RoleJsonModel>);
 
                 response.SetData(data, totalCount);
                 return Ok(response);
@@ -88,22 +77,22 @@ namespace Core.Api.Controllers
                 response.SetFailed("请输入角色名称");
                 return Ok(response);
             }
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                if (this._dbContext.Role.Count(x => x.Name == model.Name) > 0)
+                if (this.DbContext.Role.Count(x => x.Name == model.Name) > 0)
                 {
                     response.SetFailed("角色已存在");
                     return Ok(response);
                 }
-                Role entity = _mapper.Map<RoleCreateViewModel, Role>(model);
+                Role entity = Mapper.Map<RoleCreateViewModel, Role>(model);
                 entity.CreatedOn = DateTime.Now;
                 entity.Id = RandomHelper.GetRandomizer(8, true, false, true, true);
                 entity.IsSuperAdministrator = false;
                 entity.IsBuiltin = false;
                 entity.CreatedByUserGuid = AuthContextService.CurrentUser.Guid;
                 entity.CreatedByUserName = AuthContextService.CurrentUser.DisplayName;
-                this._dbContext.Role.Add(entity);
-                this._dbContext.SaveChanges();
+                this.DbContext.Role.Add(entity);
+                this.DbContext.SaveChanges();
 
                 response.SetSuccess();
                 return Ok(response);
@@ -119,11 +108,11 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Edit(string code)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                Role entity = this._dbContext.Role.FirstOrDefault(x => x.Id == code);
+                Role entity = this.DbContext.Role.FirstOrDefault(x => x.Id == code);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(_mapper.Map<Role, RoleCreateViewModel>(entity));
+                response.SetData(Mapper.Map<Role, RoleCreateViewModel>(entity));
                 return Ok(response);
             }
         }
@@ -138,15 +127,15 @@ namespace Core.Api.Controllers
         public IActionResult Edit(RoleCreateViewModel model)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                if (this._dbContext.Role.Count(x => x.Name == model.Name && x.Id != model.Code) > 0)
+                if (this.DbContext.Role.Count(x => x.Name == model.Name && x.Id != model.Code) > 0)
                 {
                     response.SetFailed("角色已存在");
                     return Ok(response);
                 }
 
-                Role entity = this._dbContext.Role.FirstOrDefault(x => x.Id == model.Code);
+                Role entity = this.DbContext.Role.FirstOrDefault(x => x.Id == model.Code);
 
                 if (entity.IsSuperAdministrator && !AuthContextService.IsSupperAdministrator)
                 {
@@ -161,7 +150,7 @@ namespace Core.Api.Controllers
                 entity.ModifiedOn = DateTime.Now;
                 entity.Status = model.Status.Value;
                 entity.Description = model.Description;
-                this._dbContext.SaveChanges();
+                this.DbContext.SaveChanges();
                 return Ok(response);
             }
         }
@@ -232,9 +221,9 @@ namespace Core.Api.Controllers
         public IActionResult AssignPermission(RoleAssignPermissionPayload payload)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                Role role = this._dbContext.Role.FirstOrDefault(x => x.Id == payload.RoleCode);
+                Role role = this.DbContext.Role.FirstOrDefault(x => x.Id == payload.RoleCode);
                 if (role == null)
                 {
                     response.SetFailed("角色不存在");
@@ -247,7 +236,7 @@ namespace Core.Api.Controllers
                     return Ok(response);
                 }
                 //先删除当前角色原来已分配的权限
-                this._dbContext.Database.ExecuteSqlCommand("DELETE FROM DncRolePermissionMapping WHERE RoleCode={0}", payload.RoleCode);
+                this.DbContext.Database.ExecuteSqlCommand("DELETE FROM DncRolePermissionMapping WHERE RoleCode={0}", payload.RoleCode);
                 if (payload.Permissions != null || payload.Permissions.Count > 0)
                 {
                     IEnumerable<RolePermissionMapping> permissions = payload.Permissions.Select(x => new RolePermissionMapping
@@ -256,8 +245,8 @@ namespace Core.Api.Controllers
                         PermissionCode = x.Trim(),
                         RoleCode = payload.RoleCode.Trim()
                     });
-                    this._dbContext.RolePermissionMapping.AddRange(permissions);
-                    this._dbContext.SaveChanges();
+                    this.DbContext.RolePermissionMapping.AddRange(permissions);
+                    this.DbContext.SaveChanges();
                 }
 
             }
@@ -273,10 +262,10 @@ namespace Core.Api.Controllers
         public IActionResult FindListByUserGuid(Guid guid)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
-            using (this._dbContext)
+            using (this.DbContext)
             {
                 //有N+1次查询的性能问题
-                //var query = this._dbContext.DncUser
+                //var query = this.DbContext.DncUser
                 //    .Include(r => r.UserRoles)
                 //    .ThenInclude(x => x.DncRole)
                 //    .Where(x => x.Guid == guid);
@@ -288,9 +277,9 @@ namespace Core.Api.Controllers
                 string sql = @"SELECT R.* FROM DncUserRoleMapping AS URM
 INNER JOIN DncRole AS R ON R.Code=URM.RoleCode
 WHERE URM.UserGuid={0}";
-                List<Role> query = this._dbContext.Role.FromSql(sql, guid).ToList();
+                List<Role> query = this.DbContext.Role.FromSql(sql, guid).ToList();
                 List<string> assignedRoles = query.ToList().Select(x => x.Id).ToList();
-                var roles = this._dbContext.Role.Where(x => !x.IsEnable && x.Status).ToList().Select(x => new { label = x.Name, key = x.Id });
+                var roles = this.DbContext.Role.Where(x => !x.IsEnable && x.Status).ToList().Select(x => new { label = x.Name, key = x.Id });
                 response.SetData(new { roles, assignedRoles });
                 return Ok(response);
             }
@@ -304,9 +293,9 @@ WHERE URM.UserGuid={0}";
         public IActionResult FindSimpleList()
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                var roles = this._dbContext.Role.Where(x => !x.IsEnable && x.Status).Select(x => new { x.Name, x.Id }).ToList();
+                var roles = this.DbContext.Role.Where(x => !x.IsEnable && x.Status).Select(x => new { x.Name, x.Id }).ToList();
                 response.SetData(roles);
             }
             return Ok(response);
@@ -322,10 +311,10 @@ WHERE URM.UserGuid={0}";
         /// <returns></returns>
         private ResponseModel UpdateIsEnable(bool isEnable, string ids)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
                 string sql = @"UPDATE Role SET IsEnable = @IsEnable WHERE Id IN @Ids";
-                this._dbContext.Dapper.Execute(sql, new { IsEnable = isEnable, Ids = ids });
+                this.DbContext.Dapper.Execute(sql, new { IsEnable = isEnable, Ids = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }
@@ -338,10 +327,10 @@ WHERE URM.UserGuid={0}";
         /// <returns></returns>
         private ResponseModel UpdateStatus(StatusEnum status, string ids)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
                 string sql = @"UPDATE Role SET Status = @Status WHERE Id IN @Ids";
-                this._dbContext.Dapper.Execute(sql, new { Status = status, Ids = ids });
+                this.DbContext.Dapper.Execute(sql, new { Status = status, Ids = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }
