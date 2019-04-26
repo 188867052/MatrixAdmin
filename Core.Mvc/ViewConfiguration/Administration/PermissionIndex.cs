@@ -31,7 +31,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             return new List<string>
             {
                 "/css/uniform.css",
-                "/css/select2.css",
+                
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",

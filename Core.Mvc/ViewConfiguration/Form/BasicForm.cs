@@ -29,7 +29,6 @@ namespace Core.Mvc.ViewConfiguration.Form
                "/css/colorpicker.css" ,
                "/css/datepicker.css" ,
                "/css/uniform.css" ,
-               "/css/select2.css" ,
                "/css/matrix-style.css" ,
                "/css/matrix-media.css",
                "/css/bootstrap-wysihtml5.css" ,
