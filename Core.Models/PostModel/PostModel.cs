@@ -56,6 +56,10 @@ namespace Core.Model.PostModel
         {
             get
             {
+                if (Sort == null ||Sort.Count == 0)
+                {
+                    return null;
+                }
                 Sort fs = Sort[0];
                 if (fs == null)
                 {

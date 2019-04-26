@@ -5,9 +5,9 @@ namespace Core.Model.PostModel
     /// <summary>
     /// 图标
     /// </summary>
-    public class IconPostModel
+    public class IconPostModel : PostModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         /// <summary>
         /// 图标名称
@@ -35,7 +35,7 @@ namespace Core.Model.PostModel
         /// <summary>
         /// 
         /// </summary>
-        public bool Status { get; set; }
+        public bool? Status { get; set; }
 
         /// <summary>
         /// 是否可用

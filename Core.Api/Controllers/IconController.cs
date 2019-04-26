@@ -28,6 +28,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();
+                query = query.Paged();
                 var list = query.ToList();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(list);

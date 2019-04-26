@@ -22,7 +22,7 @@ namespace Core.Api.Extensions
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public static IQueryable<T> Paged<T>(this IQueryable<T> query, int pageIndex = 1, int pageSize = 20)
+        public static IQueryable<T> Paged<T>(this IQueryable<T> query, int pageIndex = 1, int pageSize = 10)
         {
             if (pageIndex < 1)
             {

@@ -20,6 +20,10 @@ namespace Core.Mvc.Controllers
         {
         }
 
+        /// <summary>
+        /// The index page.
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             IconIndex index = new IconIndex(this.HostingEnvironment);
@@ -29,14 +33,14 @@ namespace Core.Mvc.Controllers
         /// <summary>
         /// Grid state change.
         /// </summary>
-        /// <param name="postModel"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult GridStateChange(IconPostModel postModel)
+        public IActionResult GridStateChange(IconPostModel model)
         {
             var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Search));
-            Task<ResponseModel> model = AsyncRequest.PostAsync<IList<Icon>, IconPostModel>(url, postModel);
-            List<Icon> icons = (List<Icon>)model.Result.Data;
+            Task<ResponseModel> response = AsyncRequest.PostAsync<IList<Icon>, IconPostModel>(url, model);
+            List<Icon> icons = (List<Icon>)response.Result.Data;
             IconGridConfiguration configuration = new IconGridConfiguration(icons);
 
             return this.GridConfiguration(configuration);

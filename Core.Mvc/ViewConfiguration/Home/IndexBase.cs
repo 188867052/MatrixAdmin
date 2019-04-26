@@ -122,7 +122,7 @@ namespace Core.Mvc.ViewConfiguration.Home
         private string Footer()
         {
             return $"<div class=\"row-fluid\">" +
-                   $"<div id = \"footer\" class=\"span12\"> 2019 &copy; Matrix Admin.More Templates" +
+                   $"<div id = \"footer\" class=\"span12\"> 2019 &copy;https://github.com/188867052" +
                    $"<a href=\"http://www.taobao.com/\" target=\"_blank\"> My Blog</a>" +
                    $"</div>" +
                    $"</div>";
