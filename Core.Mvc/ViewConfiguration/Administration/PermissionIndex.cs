@@ -21,7 +21,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// <param name="hostingEnvironment"></param>
         public PermissionIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-            var url = new Url(typeof(Api.Controllers.PermissionController), nameof(Api.Controllers.Log2Controller.Index));
+            var url = new Url(typeof(Api.Controllers.PermissionController), nameof(Api.Controllers.LogController.Index));
             Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Permission>>(url);
             this._permissions = (List<Permission>)a.Result.Data;
         }

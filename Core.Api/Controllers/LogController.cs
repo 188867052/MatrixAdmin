@@ -17,9 +17,9 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
-    public class Log2Controller : ControllerBase
+    public class LogController : ControllerBase
     {
         private readonly Context _dbContext;
         private readonly IMapper _mapper;
@@ -28,7 +28,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="dbContext"></param>
         /// <param name="mapper"></param>
-        public Log2Controller(Context dbContext, IMapper mapper)
+        public LogController(Context dbContext, IMapper mapper)
         {
             this._dbContext = dbContext;
             this._mapper = mapper;

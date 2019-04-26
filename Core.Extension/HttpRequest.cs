@@ -8,7 +8,7 @@ namespace Core.Extension
 {
     public static class AsyncRequest
     {
-        private static string host = "https://localhost:44377";
+        private static string host = "https://localhost:44377/api";
 
         /// <summary>
         /// GetAsync
