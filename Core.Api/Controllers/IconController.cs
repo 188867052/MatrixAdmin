@@ -67,15 +67,19 @@ namespace Core.Api.Controllers
         /// 搜索
         /// </summary>
         /// <returns></returns>
-        public IActionResult Search(IconPostModel postModel)
+        public IActionResult Search(IconPostModel model)
         {
             ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
             using (this.DbContext)
             {
                 IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();
-                if (!string.IsNullOrEmpty(postModel.Code))
+                if (!string.IsNullOrEmpty(model.Code))
                 {
-                    query = query.Where(x => x.Code.Contains(postModel.Code));
+                    query = query.Where(x => x.Code.Contains(model.Code));
+                }
+                //if (postModel.Status)
+                {
+                    query = query.Where(x => x.Status == model.Status);
                 }
                 List<Icon> list = query.ToList();
                 response.SetData(list);

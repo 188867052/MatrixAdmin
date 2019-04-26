@@ -1,7 +1,6 @@
 ﻿using Core.Model.PostModel;
 using Core.Mvc.ViewConfiguration.Log;
 using Core.Resource.ViewConfiguration.Administration;
-using Core.Resource.ViewConfiguration.Log;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.Identifiers;
@@ -14,8 +13,8 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             GridSearchFilter.AddTextFilter(new TextGridFilter<IconPostModel>(o => o.Code,IconResource.Code));
             var filter = new BooleanGridFilter<IconPostModel>(o => o.IsEnable, IconResource.Status);
-            filter.AddOption(0, "可用");
-            filter.AddOption(1, "不可用");
+            filter.AddOption(1, "可用");
+            filter.AddOption(0, "不可用");
             GridSearchFilter.AddBooleanFilter(filter);
             return GridSearchFilter.Render();
         }

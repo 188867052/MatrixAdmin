@@ -46,6 +46,7 @@ namespace Core.Web.GridColumn
         public string Render()
         {
             StringBuilder thead = new StringBuilder();
+            thead.Append("<th>序号</th>");
             foreach (var item in GridColumns)
             {
                 thead.Append(item.RenderTh());
@@ -53,7 +54,8 @@ namespace Core.Web.GridColumn
             StringBuilder tbody = new StringBuilder();
             foreach (var entity in EntityList)
             {
-                StringBuilder tr = new StringBuilder(); ;
+                StringBuilder tr = new StringBuilder();
+                tr.Append($"<td>{EntityList.IndexOf(entity) + 1}</td>");
                 foreach (var item in GridColumns)
                 {
                     tr.Append(item.RenderTd(entity));

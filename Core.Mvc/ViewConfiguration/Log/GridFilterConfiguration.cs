@@ -18,5 +18,6 @@ namespace Core.Mvc.ViewConfiguration.Log
         public abstract string GenerateSearchFilter();
 
         public abstract string GenerateButton();
+
     }
 }

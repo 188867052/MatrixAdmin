@@ -13,7 +13,6 @@ namespace Core.Mvc.ViewConfiguration.Log
 
         public override void GenerateGridColumn()
         {
-            GridColumn.AddIntegerColumn(new IntegerGridColumn<Model.Entity.Log>(o => o.Id, LogResource.ID));
             GridColumn.AddTextColumn(new TextGridColumn<Model.Entity.Log>(o => o.Message, LogResource.Message));
             GridColumn.AddDateTimeColumn(new DateTimeGridColumn<Model.Entity.Log>(o => o.CreateTime, LogResource.CreateTime));
         }
