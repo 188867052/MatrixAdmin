@@ -50,7 +50,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             return new List<string>
             {
-                "/js/select2.min.js",
                 "/js/icon/index.js",
             };
         }

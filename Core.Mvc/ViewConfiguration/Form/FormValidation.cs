@@ -38,7 +38,6 @@ namespace Core.Mvc.ViewConfiguration.Form
             return new List<string>
             {
                "/js/jquery.uniform.js",
-               "/js/select2.min.js",
                "/js/matrix.js",
                "/js/matrix.form_common.js",
                "/js/jquery.validate.js",

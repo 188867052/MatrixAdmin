@@ -50,7 +50,6 @@ namespace Core.Mvc.ViewConfiguration.Index
                "/js/matrix.form_validation.js",
                "/js/jquery.wizard.js",
                "/js/jquery.uniform.js",
-               "/js/select2.min.js",
                "/js/matrix.popover.js",
                "/js/matrix.tables.js"
             };

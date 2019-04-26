@@ -48,7 +48,6 @@ namespace Core.Mvc.ViewConfiguration.Form
                "/js/jquery.toggle.buttons.html",
                "/js/masked.js",
                "/js/jquery.uniform.js",
-               "/js/select2.min.js",
                "/js/matrix.js",
                "/js/matrix.form_common.js",
                "/js/wysihtml5-0.3.0.js",

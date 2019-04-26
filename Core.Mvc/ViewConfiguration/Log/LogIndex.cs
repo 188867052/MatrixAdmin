@@ -42,7 +42,6 @@ namespace Core.Mvc.ViewConfiguration.Log
         {
             return new List<string>
             {
-               "/js/select2.min.js",
                "/js/log/index.js",
             };
         }
