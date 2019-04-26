@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class RoleViewConfiguration : ViewConfiguration<Role>
+    public class RoleViewConfiguration : GridConfiguration<Role>
     {
         /// <summary>
         /// 构造函数

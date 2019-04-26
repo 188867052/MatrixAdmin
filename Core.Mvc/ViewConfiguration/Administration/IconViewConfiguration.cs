@@ -6,7 +6,7 @@ using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class IconGridConfiguration : ViewConfiguration<Icon>
+    public class IconGridConfiguration : GridConfiguration<Icon>
     {
         /// <summary>
         /// 构造函数

@@ -6,7 +6,7 @@ using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class UserViewConfiguration : ViewConfiguration<User>
+    public class UserViewConfiguration : GridConfiguration<User>
     {
         /// <summary>
         /// 构造函数

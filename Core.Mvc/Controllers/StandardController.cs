@@ -26,7 +26,7 @@ namespace Core.Mvc.Controllers
             return this.RenderContent(index);
         }
 
-        protected ContentResult GridConfiguration<T>(ViewConfiguration<T> index)
+        protected ContentResult GridConfiguration<T>(GridConfiguration<T> index)
         {
             return this.RenderContent(index);
         }

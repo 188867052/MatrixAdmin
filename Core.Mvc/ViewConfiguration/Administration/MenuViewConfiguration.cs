@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class MenuViewConfiguration : ViewConfiguration<Menu>
+    public class MenuViewConfiguration : GridConfiguration<Menu>
     {
         /// <summary>
         /// 构造函数

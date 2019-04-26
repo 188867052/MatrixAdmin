@@ -5,7 +5,7 @@ using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.ViewConfiguration.Log
 {
-    public class LogGridConfiguration : ViewConfiguration<Model.Entity.Log>
+    public class LogGridConfiguration : GridConfiguration<Model.Entity.Log>
     {
         public LogGridConfiguration(IList<Model.Entity.Log> entity) : base(entity)
         {

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class LogFilterConfiguration : ViewConfiguration<Permission>
+    public class LogFilterConfiguration : GridConfiguration<Permission>
     {
         /// <summary>
         /// 构造函数

@@ -4,13 +4,13 @@ using Core.Web.Html;
 
 namespace Core.Web.ViewConfiguration
 {
-    public abstract class ViewConfiguration<T> : IRender
+    public abstract class GridConfiguration<T> : IRender
     {
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="entity"></param>
-        protected ViewConfiguration(IList<T> entity)
+        protected GridConfiguration(IList<T> entity)
         {
             this.GridColumn = new GridColumn<T>(entity);
         }
