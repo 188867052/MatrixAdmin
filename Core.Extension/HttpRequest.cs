@@ -8,7 +8,7 @@ namespace Core.Extension
 {
     public static class AsyncRequest
     {
-        private static string host = "https://localhost:44377/api";
+        private static readonly string Host = "https://localhost:44377/api";
 
         /// <summary>
         /// GetAsync
@@ -21,7 +21,7 @@ namespace Core.Extension
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
-                httpResponse = await client.GetAsync(host + url.Render());
+                httpResponse = await client.GetAsync(Host + url.Render());
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
@@ -47,7 +47,7 @@ namespace Core.Extension
                 string postPara = JsonConvert.SerializeObject(postModel);
                 StringContent httpContent = new StringContent(postPara);
                 httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                httpResponse = await client.PostAsync(host + url.Render(), httpContent);
+                httpResponse = await client.PostAsync(Host + url.Render(), httpContent);
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();

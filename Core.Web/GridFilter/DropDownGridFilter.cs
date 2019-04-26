@@ -31,7 +31,7 @@ namespace Core.Web.GridFilter
             this.keyValuePair = new List<KeyValuePair<int, string>>();
         }
 
-        public bool IsContainsEmpty { get; set; }
+        private bool IsContainsEmpty { get; }
 
         private void AddOption(int key, string value)
         {
@@ -43,11 +43,11 @@ namespace Core.Web.GridFilter
             keyValuePair.Add(new KeyValuePair<int, string>((int)Enum.Parse(key.GetType(), key.ToString()), value));
         }
 
-        public JavaScriptEvent Event { get; set; }
+        private JavaScriptEvent Event { get; }
 
-        public string Delegate { get; set; }
+        private string Delegate { get; }
 
-        public string Text { get; set; }
+        private string Text { get; }
 
         public override string Render()
         {
