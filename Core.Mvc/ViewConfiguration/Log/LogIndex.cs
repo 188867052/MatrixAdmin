@@ -51,7 +51,7 @@ namespace Core.Mvc.ViewConfiguration.Log
 
         public override string Render()
         {
-            LogViewConfiguration configuration = new LogViewConfiguration(this._errors);
+            LogGridConfiguration configuration = new LogGridConfiguration(this._errors);
             string table = configuration.Render();
 
             var html = base.Render().Replace("{{Table}}", table);

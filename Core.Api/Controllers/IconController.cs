@@ -6,6 +6,7 @@ using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Api.Models.Response;
 using Core.Model.Entity;
+using Core.Model.PostModel;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -66,21 +67,18 @@ namespace Core.Api.Controllers
         /// 搜索
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/api/v1/rbac/icon/find_list_by_kw/{kw}")]
-        public IActionResult Search(string kw)
+        public IActionResult Search(IconPostModel postModel)
         {
             ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
-            if (string.IsNullOrEmpty(kw))
-            {
-                response.SetFailed("没有查询到数据");
-                return Ok(response);
-            }
             using (this.DbContext)
             {
-                IQueryable<Icon> query = this.DbContext.Icon.Where(x => x.Code.Contains(kw));
+                IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();
+                if (!string.IsNullOrEmpty(postModel.Code))
+                {
+                    query = query.Where(x => x.Code.Contains(postModel.Code));
+                }
                 List<Icon> list = query.ToList();
-                var data = list.Select(x => new { x.Code, x.Color, x.Size });
-                response.SetData(data);
+                response.SetData(list);
 
                 return Ok(response);
             }

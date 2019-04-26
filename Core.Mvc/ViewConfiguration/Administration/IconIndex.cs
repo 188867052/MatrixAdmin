@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Core.Extension;
+﻿using Core.Extension;
 using Core.Model.Entity;
 using Core.Model.ResponseModels;
 using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
-using Core.Mvc.ViewConfiguration.Log;
+using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
@@ -53,13 +53,13 @@ namespace Core.Mvc.ViewConfiguration.Administration
             return new List<string>
             {
                 "/js/select2.min.js",
-                "/js/log/index.js",
+                "/js/icon/index.js",
             };
         }
 
         public override string Render()
         {
-            IconViewConfiguration configuration = new IconViewConfiguration(this._icons);
+            IconGridConfiguration configuration = new IconGridConfiguration(this._icons);
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
             html = html.Replace("{{widget-title}}", "图标管理");
@@ -68,7 +68,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
             html = html.Replace("{{button-group}}", filter.GenerateButton());
 
-            return html;
+            return html + RenderJavaScript();
         }
 
         protected override string ContentHeader()
@@ -77,6 +77,15 @@ namespace Core.Mvc.ViewConfiguration.Administration
             contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
+        }
+
+        private string RenderJavaScript()
+        {
+            JavaScript js = new JavaScript("index", "Index");
+            Url url = new Url(typeof(IconController), nameof(IconController.GridStateChange));
+            js.AddUrlInstance("searchUrl", url);
+
+            return $"<script>{js.Render()}</script>";
         }
     }
 }
