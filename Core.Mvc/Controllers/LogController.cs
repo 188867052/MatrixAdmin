@@ -31,7 +31,8 @@ namespace Core.Mvc.Controllers
             Task<ResponseModel> model = AsyncRequest.GetAsync<IList<Log>>(url);
             var errors = (List<Log>)model.Result.Data;
             LogIndex table = new LogIndex(HostingEnvironment, errors);
-            return Content(table.Render(), "text/html", Encoding.UTF8);
+
+            return this.Index(table);
         }
 
         /// <summary>
