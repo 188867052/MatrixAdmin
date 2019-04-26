@@ -10,10 +10,22 @@ namespace Core.Web.ViewConfiguration
         /// 构造函数
         /// </summary>
         /// <param name="entity"></param>
-        protected GridConfiguration(IList<T> entity)
+        /// <param name="count"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="currentPage"></param>
+        protected GridConfiguration(IList<T> entity, int count = default, int pageSize = default, int currentPage = default)
         {
             this.GridColumn = new GridColumn<T>(entity);
+            this.Count = count;
+            this.PageSize = pageSize;
+            this.CurrentPage = currentPage;
         }
+
+        public int CurrentPage { get; set; }
+
+        public int PageSize { get; set; }
+
+        public int Count { get; set; }
 
         public GridColumn<T> GridColumn { get; }
 
@@ -22,7 +34,7 @@ namespace Core.Web.ViewConfiguration
         public virtual string Render()
         {
             this.GenerateGridColumn();
-            return GridColumn.Render();
+            return GridColumn.Render(Count, PageSize, CurrentPage);
         }
     }
 }

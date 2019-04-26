@@ -43,7 +43,7 @@ namespace Core.Web.GridColumn
             this.GridColumns.Add(column);
         }
 
-        public string Render()
+        public string Render(int count, int pageSize, int currentPage)
         {
             StringBuilder thead = new StringBuilder();
             thead.Append("<th>序号</th>");
@@ -55,7 +55,7 @@ namespace Core.Web.GridColumn
             foreach (var entity in EntityList)
             {
                 StringBuilder tr = new StringBuilder();
-                tr.Append($"<td>{EntityList.IndexOf(entity) + 1}</td>");
+                tr.Append($"<td>{(currentPage - 1) * pageSize + EntityList.IndexOf(entity) + 1}</td>");
                 foreach (var item in GridColumns)
                 {
                     tr.Append(item.RenderTd(entity));

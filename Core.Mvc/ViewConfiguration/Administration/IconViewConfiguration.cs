@@ -12,7 +12,10 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// 构造函数
         /// </summary>
         /// <param name="entity"></param>
-        public IconGridConfiguration(IList<Icon> entity) : base(entity)
+        /// <param name="count"></param>
+        /// <param name="pageSize" />
+        /// <param name="currentPage"></param>
+        public IconGridConfiguration(IList<Icon> entity, int count = default, int pageSize = default, int currentPage = default) : base(entity, count, pageSize, currentPage)
         {
         }
 

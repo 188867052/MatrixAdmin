@@ -19,6 +19,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
+        /// <param name="icons"></param>
         public IconIndex(IHostingEnvironment hostingEnvironment,List<Icon> icons) : base(hostingEnvironment)
         {
             this._icons = icons;

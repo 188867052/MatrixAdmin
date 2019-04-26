@@ -13,6 +13,9 @@
             Code = 200;
             Message = "操作成功";
         }
+
+        public int TotalCount { get; set; }
+
         /// <summary>
         /// 响应代码
         /// </summary>
@@ -82,9 +85,11 @@
         /// 设置响应数据
         /// </summary>
         /// <param name="data"></param>
-        public void SetData(object data)
+        /// <param name="total"></param>
+        public void SetData(object data, int total = 0)
         {
             Data = data;
+            this.TotalCount = total;
         }
     }
 }

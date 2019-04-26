@@ -28,8 +28,8 @@ namespace Core.Mvc.Controllers
         {
             var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Index));
             Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Icon>>(url);
-            var _icons = (List<Icon>)a.Result.Data;
-            IconIndex index = new IconIndex(this.HostingEnvironment, _icons);
+            var icons = (List<Icon>)a.Result.Data;
+            IconIndex index = new IconIndex(this.HostingEnvironment, icons);
 
             return this.ViewConfiguration(index);
         }
@@ -45,7 +45,8 @@ namespace Core.Mvc.Controllers
             var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Search));
             Task<ResponseModel> response = AsyncRequest.PostAsync<IList<Icon>, IconPostModel>(url, model);
             List<Icon> icons = (List<Icon>)response.Result.Data;
-            IconGridConfiguration configuration = new IconGridConfiguration(icons);
+            int count = response.Result.TotalCount;
+            IconGridConfiguration configuration = new IconGridConfiguration(icons, count, model.PageSize, model.CurrentPage);
 
             return this.GridConfiguration(configuration);
         }
