@@ -1,4 +1,6 @@
-﻿namespace Core.Web.Sidebar
+﻿using Core.Web.Html;
+
+namespace Core.Web.Sidebar
 {
     public class CurrentAnchor : IRender
     {

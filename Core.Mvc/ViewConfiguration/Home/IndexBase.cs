@@ -3,12 +3,13 @@ using System.IO;
 using System.Text;
 using Core.Extension;
 using Core.Mvc.Controllers;
+using Core.Web.Html;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Home
 {
-    public abstract class IndexBase
+    public abstract class IndexBase: IRender
     {
         protected readonly IHostingEnvironment HostingEnvironment;
 

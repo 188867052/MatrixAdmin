@@ -6,7 +6,6 @@ using Core.Mvc.ViewConfiguration.Log;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Core.Mvc.Controllers
@@ -48,7 +47,7 @@ namespace Core.Mvc.Controllers
             List<Log> logs = (List<Log>)model.Result.Data;
             LogIndex table = new LogIndex(HostingEnvironment, logs);
 
-            return Content(table.Render(), "text/html", Encoding.UTF8);
+            return this.Index(table);
         }
     }
 }

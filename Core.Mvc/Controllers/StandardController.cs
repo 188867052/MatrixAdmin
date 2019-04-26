@@ -1,7 +1,8 @@
-﻿using System.Text;
-using Core.Mvc.ViewConfiguration.Home;
+﻿using Core.Mvc.ViewConfiguration.Home;
+using Core.Web.Html;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace Core.Mvc.Controllers
 {
@@ -21,12 +22,17 @@ namespace Core.Mvc.Controllers
 
         protected ContentResult Index(IndexBase index)
         {
-            return base.Content(index.Render(), _contentType, _encoding);
+            return this.RenderContent(index);
         }
 
         protected ContentResult Grid(IndexBase index)
         {
-            return base.Content(index.Render(), _contentType, _encoding);
+            return this.RenderContent(index);
+        }
+
+        private ContentResult RenderContent(IRender render)
+        {
+            return base.Content(render.Render(), this._contentType, this._encoding);
         }
     }
 }
