@@ -62,6 +62,11 @@ namespace Core.Mvc.ViewConfiguration.Administration
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
             html = html.Replace("{{widget-title}}", "角色管理");
+
+            RoleSearchGridFilterConfiguration filter = new RoleSearchGridFilterConfiguration();
+            html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
+            html = html.Replace("{{button-group}}", filter.GenerateButton());
+
             return html;
         }
 

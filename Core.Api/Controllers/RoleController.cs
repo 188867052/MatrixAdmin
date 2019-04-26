@@ -43,7 +43,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult List(RoleRequestPayload model)
+        public IActionResult Search(RolePostModel model)
         {
             ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
             using (this.DbContext)
@@ -55,9 +55,8 @@ namespace Core.Api.Controllers
                 query = query.Paged(model.CurrentPage, model.PageSize);
                 List<Role> list = query.ToList();
                 int totalCount = query.Count();
-                IEnumerable<RoleJsonModel> data = list.Select(Mapper.Map<Role, RoleJsonModel>);
 
-                response.SetData(data, totalCount);
+                response.SetData(list, totalCount);
                 return Ok(response);
             }
         }

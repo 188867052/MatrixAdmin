@@ -3,7 +3,7 @@
     /// <summary>
     /// 
     /// </summary>
-    public class RoleRequestPayload : PostModel.PostModel
+    public class RolePostModel : PostModel.PostModel
     {
         /// <summary>
         /// 是否已被删除

@@ -1,26 +1,35 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title></title>
-    <link href="../css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../css/bootstrap-datetimepicker.css" rel="stylesheet" />
-    <script src="../lib/jquery/dist/jquery.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/bootstrap-datetimepicker.js"></script>
+    <title>Bootstrap 实例</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <label>选择列表</label>
-        <select>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
-    </div>
-    <script type="text/javascript">
-        $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
-    </script>
+
+<div class="container">
+    <h2>分页显示大小</h2>
+    <p>.pagination-lg 类设置大字体的分页条目，.pagination-sm 类设置小字体的分页条目:</p>                  
+    <ul class="pagination pagination-lg">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul>
+   
+    <ul class="pagination pagination-md">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul>
+</div>
+
 </body>
 </html>
