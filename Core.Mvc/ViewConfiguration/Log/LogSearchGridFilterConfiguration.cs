@@ -15,10 +15,11 @@ namespace Core.Mvc.ViewConfiguration.Log
             GridSearchFilter.AddDateTimeFilter(new DateTimeGridFilter<LogPostModel>(o => o.StartTime, "开始" + LogResource.CreateTime));
             GridSearchFilter.AddDateTimeFilter(new DateTimeGridFilter<LogPostModel>(o => o.EndTime, "结束" + LogResource.CreateTime));
 
-            var dropDown = new DropDownGridFilter<LogPostModel>( o=>o.Type,  "类型", true);
-            dropDown.AddOption(1, "警告");
-            dropDown.AddOption(2, "日志");
-            dropDown.AddOption(3, "调试");
+            var dropDown = new DropDownGridFilter<LogPostModel>(o => o.Type, "类型", true);
+            dropDown.AddOption(LogType.Error, "错误");
+            dropDown.AddOption(LogType.Alert, "警告");
+            dropDown.AddOption(LogType.Info, "日志");
+            dropDown.AddOption(LogType.Debug, "调试");
             GridSearchFilter.AddDropDownGridFilter(dropDown);
             return GridSearchFilter.Render();
         }

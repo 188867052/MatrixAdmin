@@ -12,7 +12,7 @@ namespace Core.Web.GridFilter
     /// </summary>
     public class DropDownGridFilter<TPostModel> : BaseGridFilter
     {
-        private readonly Expression<Func<TPostModel, int>> expression;
+        private readonly Expression<Func<TPostModel, Enum>> expression;
         private readonly IList<KeyValuePair<int, string>> keyValuePair;
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace Core.Web.GridFilter
         /// <param name="expression"></param>
         /// <param name="labelText"></param>
         /// <param name="isContainsEmpty"></param>
-        public DropDownGridFilter(Expression<Func<TPostModel, int>> expression, string labelText, bool isContainsEmpty = default) : base(labelText)
+        public DropDownGridFilter(Expression<Func<TPostModel, Enum>> expression, string labelText, bool isContainsEmpty = default) : base(labelText)
         {
             this.Delegate = "alert(this.value)";
             this.Text = labelText;
@@ -33,10 +33,14 @@ namespace Core.Web.GridFilter
 
         public bool IsContainsEmpty { get; set; }
 
-
-        public void AddOption(int key, string value)
+        private void AddOption(int key, string value)
         {
             keyValuePair.Add(new KeyValuePair<int, string>(key, value));
+        }
+
+        public void AddOption(Enum key, string value)
+        {
+            keyValuePair.Add(new KeyValuePair<int, string>((int)Enum.Parse(key.GetType(), key.ToString()), value));
         }
 
         public JavaScriptEvent Event { get; set; }

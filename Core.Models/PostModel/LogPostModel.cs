@@ -17,7 +17,7 @@ namespace Core.Model.PostModel
         /// <summary>
         /// 
         /// </summary>
-        public int Type { get; set; }
+        public LogType Type { get; set; }
 
         /// <summary>
         /// 
@@ -34,5 +34,14 @@ namespace Core.Model.PostModel
     {
         public string Name { get; set; }
         public string Sex { get; set; }
+    }
+
+
+    public enum LogType
+    {
+        Info = 0,
+        Error = 1,
+        Alert = 2,
+        Debug = 3
     }
 }
