@@ -14,8 +14,12 @@ namespace Core.Mvc.ViewConfiguration.Log
             GridSearchFilter.AddTextFilter(new TextGridFilter<LogPostModel>(o => o.Message, LogResource.Message));
             GridSearchFilter.AddDateTimeFilter(new DateTimeGridFilter<LogPostModel>(o => o.StartTime, "开始" + LogResource.CreateTime));
             GridSearchFilter.AddDateTimeFilter(new DateTimeGridFilter<LogPostModel>(o => o.EndTime, "结束" + LogResource.CreateTime));
-            //GridSearchFilter.AddDropDownGridFilter(new DropDownGridFilter("天数"));
-            //GridSearchFilter.AddDropDownGridFilter(new DropDownGridFilter("价格"));
+
+            var dropDown = new DropDownGridFilter("类型", true);
+            dropDown.AddOption(1, "警告");
+            dropDown.AddOption(2, "日志");
+            dropDown.AddOption(3, "调试");
+            GridSearchFilter.AddDropDownGridFilter(dropDown);
             return GridSearchFilter.Render();
         }
 
