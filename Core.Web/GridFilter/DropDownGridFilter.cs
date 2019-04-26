@@ -24,9 +24,8 @@ namespace Core.Web.GridFilter
         /// <param name="isContainsEmpty"></param>
         public DropDownGridFilter(Expression<Func<TPostModel, Enum>> expression, string labelText, bool isContainsEmpty = default) : base(labelText)
         {
-            this.Delegate = "alert(this.value)";
-            this.Text = labelText;
-            this.Event = new JavaScriptEvent(Delegate);
+            //this.Delegate = "alert(this.value)";
+            //this.Event = new JavaScriptEvent(Delegate);
             this._isContainsEmpty = isContainsEmpty;
             this._expression = expression;
             this._keyValuePair = new List<KeyValuePair<int, string>>();
@@ -37,11 +36,9 @@ namespace Core.Web.GridFilter
             _keyValuePair.Add(new KeyValuePair<int, string>((int)Enum.Parse(key.GetType(), key.ToString()), value));
         }
 
-        private JavaScriptEvent Event { get; }
+        //private JavaScriptEvent Event { get; }
 
-        private string Delegate { get; }
-
-        private string Text { get; }
+        //private string Delegate { get; }
 
         public override string Render()
         {
@@ -50,7 +47,7 @@ namespace Core.Web.GridFilter
             options = _keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
             return $"<div class=\"{this.ContainerClass}\">" +
-                   $"<label>{Text}</label>" +
+                   $"<label>{LabelText}</label>" +
                    $"<select name=\"{name}\">{options}</select>" +
                    $"</div>";
         }

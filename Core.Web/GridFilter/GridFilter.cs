@@ -15,7 +15,7 @@ namespace Core.Web.GridFilter
             this.GridFilters = new List<BaseGridFilter>();
         }
 
-        public void AddBooleanFilter(BooleanGridFilter filter)
+        public void AddBooleanFilter(BooleanGridFilter<T> filter)
         {
             this.GridFilters.Add(filter);
         }

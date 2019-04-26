@@ -1,5 +1,6 @@
 ﻿using Core.Model.PostModel;
 using Core.Mvc.ViewConfiguration.Log;
+using Core.Resource.ViewConfiguration.Administration;
 using Core.Resource.ViewConfiguration.Log;
 using Core.Web.Button;
 using Core.Web.GridFilter;
@@ -11,10 +12,11 @@ namespace Core.Mvc.ViewConfiguration.Administration
     {
         public override string GenerateSearchFilter()
         {
-            GridSearchFilter.AddIntegerFilter(new IntegerGridFilter<IconPostModel>(o => o.Id, LogResource.ID));
-            GridSearchFilter.AddTextFilter(new TextGridFilter<IconPostModel>(o => o.Code, LogResource.Message));
-            GridSearchFilter.AddDateTimeFilter(new DateTimeGridFilter<IconPostModel>(o => o.StartTime, "开始" + LogResource.CreateTime));
-            GridSearchFilter.AddDateTimeFilter(new DateTimeGridFilter<IconPostModel>(o => o.EndTime, "结束" + LogResource.CreateTime));
+            GridSearchFilter.AddTextFilter(new TextGridFilter<IconPostModel>(o => o.Code,IconResource.Code));
+            var filter = new BooleanGridFilter<IconPostModel>(o => o.IsEnable, IconResource.Status);
+            filter.AddOption(0, "可用");
+            filter.AddOption(1, "不可用");
+            GridSearchFilter.AddBooleanFilter(filter);
             return GridSearchFilter.Render();
         }
 
