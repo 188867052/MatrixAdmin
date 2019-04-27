@@ -46,7 +46,7 @@ namespace Core.Api.Controllers
         [HttpPost]
         public IActionResult List(PermissionPostModel model)
         {
-            ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
+            ResponseModel response = ResponseModelFactory.CreateResultInstance;
             using (this.DbContext)
             {
                 IQueryable<Permission> query = this.DbContext.Permission.AsQueryable();
@@ -57,7 +57,7 @@ namespace Core.Api.Controllers
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Permission.IsEnable));
                 query = query.AddBooleanFilter(model.Status, nameof(Permission.Status));
                 query = query.AddGuidEqualsFilter(model.MenuGuid, nameof(Permission.MenuGuid));
-                var list = query.Paged(out var totalCount, model.PageSize);
+                var list = query.Paged(out var totalCount, model);
 
                 //List<Permission> list = query.Include(x => x.Menu).ToList();
                 IEnumerable<PermissionJsonModel> data = list.Select(this.Mapper.Map<Permission, PermissionJsonModel>);

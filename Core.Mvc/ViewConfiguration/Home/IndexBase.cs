@@ -13,6 +13,7 @@ namespace Core.Mvc.ViewConfiguration.Home
     {
         protected readonly IHostingEnvironment HostingEnvironment;
 
+
         protected IndexBase(IHostingEnvironment hostingEnvironment)
         {
             this.HostingEnvironment = hostingEnvironment;

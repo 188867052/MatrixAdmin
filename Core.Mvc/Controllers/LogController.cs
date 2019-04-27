@@ -27,10 +27,8 @@ namespace Core.Mvc.Controllers
         public IActionResult Index()
         {
             var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Index));
-            Task<ResponseModel> model = AsyncRequest.GetAsync<IList<Log>>(url);
-            var errors = (List<Log>)model.Result.Data;
-            int total = model.Result.TotalCount;
-            LogIndex table = new LogIndex(HostingEnvironment, errors, total, 0, 0);
+            var model = AsyncRequest.GetAsync<IList<Log>>(url).Result;
+            LogIndex table = new LogIndex(HostingEnvironment, model);
 
             return this.ViewConfiguration(table);
         }
@@ -45,9 +43,7 @@ namespace Core.Mvc.Controllers
         {
             var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Search));
             ResponseModel response = AsyncRequest.PostAsync<IList<Log>, LogPostModel>(url, model).Result;
-            int count = response.TotalCount;
-            List<Log> logs = (List<Log>)response.Data;
-            LogGridConfiguration configuration = new LogGridConfiguration(logs, count, model.PageSize, model.CurrentPage);
+            LogGridConfiguration configuration = new LogGridConfiguration(response);
 
             return this.GridConfiguration(configuration);
         }

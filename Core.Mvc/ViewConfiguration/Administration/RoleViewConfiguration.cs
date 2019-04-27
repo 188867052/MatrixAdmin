@@ -3,6 +3,7 @@ using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
 using System.Collections.Generic;
+using Core.Model.ResponseModels;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
@@ -12,7 +13,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// 构造函数
         /// </summary>
         /// <param name="entity"></param>
-        public RoleViewConfiguration(IList<Role> entity) : base(entity)
+        public RoleViewConfiguration(ResponseModel entity) : base(entity)
         {
         }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Model.Entity;
+using Core.Model.ResponseModels;
 using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
@@ -12,7 +13,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// 构造函数
         /// </summary>
         /// <param name="entity"></param>
-        public UserViewConfiguration(IList<User> entity) : base(entity)
+        public UserViewConfiguration(ResponseModel entity) : base(entity)
         {
         }
 

@@ -57,7 +57,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public override string Render()
         {
-            RoleViewConfiguration configuration=new RoleViewConfiguration(this.roles);
+            RoleViewConfiguration configuration=new RoleViewConfiguration(new ResponseModel());
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
             html = html.Replace("{{widget-title}}", "角色管理");

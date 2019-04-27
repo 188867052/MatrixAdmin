@@ -58,7 +58,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public override string Render()
         {
-            LogFilterConfiguration configuration = new LogFilterConfiguration(this._permissions);
+            LogFilterConfiguration configuration = new LogFilterConfiguration(new ResponseModel());
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
             html = html.Replace("{{widget-title}}", PermissionIndexResource.WidgetTitle);

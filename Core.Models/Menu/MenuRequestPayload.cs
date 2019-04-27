@@ -1,11 +1,12 @@
 ﻿using System;
+using Core.Model.ResponseModels;
 
 namespace Core.Model.Menu
 {
     /// <summary>
     /// 
     /// </summary>
-    public class MenuRequestPayload : PostModel.PostModel
+    public class MenuPostModel : Pager
     {
         /// <summary>
         /// 是否已被删除

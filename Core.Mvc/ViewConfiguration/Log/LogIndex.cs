@@ -6,28 +6,25 @@ using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using Core.Extension;
+using Core.Model.ResponseModels;
 
 namespace Core.Mvc.ViewConfiguration.Log
 {
     public class LogIndex : IndexBase
     {
-        private readonly List<Model.Entity.Log> _errors;
+        private readonly ResponseModel response;
 
-        public LogIndex(IHostingEnvironment hostingEnvironment, List<Model.Entity.Log> errors, int total, int pageSize, int pageIndex) : base(hostingEnvironment)
+        public LogIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
-            this._errors = errors;
+            this.response = response;
 
         }
 
-        public int total;
-        public int pageSize;
-        public int pageIndex;
         public override IList<string> Css()
         {
             return new List<string>
             {
                 "/css/uniform.css",
-
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css"
@@ -52,7 +49,7 @@ namespace Core.Mvc.ViewConfiguration.Log
 
         public override string Render()
         {
-            LogGridConfiguration configuration = new LogGridConfiguration(this._errors, total, pageSize, pageIndex);
+            LogGridConfiguration configuration = new LogGridConfiguration(response);
             string table = configuration.Render();
 
             var html = base.Render().Replace("{{Table}}", table);

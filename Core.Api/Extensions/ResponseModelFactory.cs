@@ -14,6 +14,6 @@ namespace Core.Api.Extensions
         /// <summary>
         /// 
         /// </summary>
-        public static ResponseResultModel CreateResultInstance => new ResponseResultModel();
+        public static ResponseModel CreateResultInstance => new ResponseModel();
     }
 }

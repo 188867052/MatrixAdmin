@@ -58,7 +58,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public override string Render()
         {
-            UserViewConfiguration configuration =new UserViewConfiguration(this.users);
+            UserViewConfiguration configuration =new UserViewConfiguration(new ResponseModel());
             string table = configuration.Render();
 
             var html = base.Render().Replace("{{Table}}", table);

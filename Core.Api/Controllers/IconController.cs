@@ -49,11 +49,11 @@ namespace Core.Api.Controllers
                 //query = query.AddFilter(filter);
                 //query = query.ExpressionBuilder(model.Status, nameof(Icon.Status));
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Icon.IsEnable));
-                query = query.AddStringContainsFilter(model.KeyWord, nameof(Icon.Code));
+                //query = query.AddStringContainsFilter(model.KeyWord, nameof(Icon.Code));
                 query = query.AddBooleanFilter(model.Status, nameof(Icon.Status));
-                var list = query.Paged(out var count, model.CurrentPage, model.PageSize);
+                var list = query.Paged(out var count, model);
                 IEnumerable<IconJsonModel> data = list.Select(this.Mapper.Map<Icon, IconJsonModel>);
-                ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
+                ResponseModel response = ResponseModelFactory.CreateResultInstance;
                 response.SetData(data, count);
 
                 return Ok(response);
@@ -66,7 +66,7 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         public IActionResult Search(IconPostModel model)
         {
-            ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
+            ResponseModel response = ResponseModelFactory.CreateResultInstance;
             using (this.DbContext)
             {
                 IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();

@@ -1,11 +1,12 @@
 ﻿using System;
+using Core.Model.ResponseModels;
 
 namespace Core.Model.PostModel
 {
     /// <summary>
     /// 
     /// </summary>
-    public class PermissionPostModel : PostModel
+    public class PermissionPostModel : Pager
     {
         /// <summary>
         /// 是否已被删除

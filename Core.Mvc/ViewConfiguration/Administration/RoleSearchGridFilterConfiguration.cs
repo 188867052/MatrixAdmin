@@ -11,7 +11,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
     {
         public override string GenerateSearchFilter()
         {
-            GridSearchFilter.AddTextFilter(new TextGridFilter<RolePostModel>(o => o.KeyWord, LogResource.Message));
+            GridSearchFilter.AddTextFilter(new TextGridFilter<RolePostModel>(o => o.IsEnable.ToString(), LogResource.Message));
        
             return GridSearchFilter.Render();
         }

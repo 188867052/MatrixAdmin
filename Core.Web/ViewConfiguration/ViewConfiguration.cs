@@ -1,6 +1,7 @@
 ﻿using System;
 using Core.Web.GridColumn;
 using System.Collections.Generic;
+using Core.Model.ResponseModels;
 using Core.Web.Html;
 
 namespace Core.Web.ViewConfiguration
@@ -10,16 +11,12 @@ namespace Core.Web.ViewConfiguration
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="count"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="currentPage"></param>
-        protected GridConfiguration(IList<T> entity, int count = default, int pageSize = default, int currentPage = default)
+        protected GridConfiguration(ResponseModel model)
         {
-            this.GridColumn = new GridColumn<T>(entity);
-            this.Count = count;
-            this.PageSize = pageSize;
-            this.CurrentPage = currentPage;
+            this.GridColumn = new GridColumn<T>((List<T>)model.Data);
+            this.Count = model.TotalCount;
+            this.PageSize = model.PageSize;
+            this.CurrentPage = model.PageIndex;
         }
 
         public int CurrentPage { get; set; }

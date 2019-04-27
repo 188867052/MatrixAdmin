@@ -1,8 +1,8 @@
 ﻿using Core.Model.Entity;
+using Core.Model.ResponseModels;
 using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
-using System.Collections.Generic;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
@@ -12,7 +12,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// 构造函数
         /// </summary>
         /// <param name="entity"></param>
-        public LogFilterConfiguration(IList<Permission> entity) : base(entity)
+        public LogFilterConfiguration(ResponseModel entity) : base(entity)
         {
         }
 

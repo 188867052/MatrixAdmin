@@ -20,7 +20,7 @@
 
         search: function (e) {
             var data = new Object;
-            data.currentPage = this.getCurrentPage(e);
+            data.pageIndex = this.getPageIndex(e);
             data.pageSize = 10;
             var list = $(".custom-control-inline");
             for (var i = 0; i < list.length; i++) {
@@ -42,17 +42,6 @@
             index._pageSize = response.pageSize;
             index._currentPage = response.currentPage;
             $(".page-link").on('click', function () { index.search(event.currentTarget); });
-        },
-
-        getCurrentPage: function (e) {
-            if (e.type === "submit") {
-                return 1;
-            } else if (e.innerText === "«") {
-                return this._currentPage - 1;
-            } else if (e.innerText === "»") {
-                return this._currentPage + 1;
-            }
-            return e.innerText;
         },
 
         getPageIndex: function (e) {

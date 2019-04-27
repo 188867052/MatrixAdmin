@@ -57,8 +57,8 @@ namespace Core.Api.Controllers
                 }
                 this.DbContext.SaveChanges();
 
-                var list = query.Paged(out var count, model.CurrentPage, model.PageSize);
-                ResponseModel response = ResponseModelFactory.CreateInstance;
+                var list = query.Paged(out var count, model);
+                ResponseModel response = new ResponseModel(list, model);
                 response.SetData(list, count);
                 return Ok(response);
             }

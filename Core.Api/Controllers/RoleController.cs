@@ -45,14 +45,13 @@ namespace Core.Api.Controllers
         [HttpPost]
         public IActionResult Search(RolePostModel model)
         {
-            ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
+            ResponseModel response = ResponseModelFactory.CreateResultInstance;
             using (this.DbContext)
             {
                 IQueryable<Role> query = this.DbContext.Role.AsQueryable();
-                //query.AddStringContainsFilter(x => x.Name.Contains(model.KeyWord.Trim()) || x.Id.Contains(model.KeyWord.Trim()));
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Role.IsEnable));
                 query = query.AddBooleanFilter(model.Status, nameof(Role.Status));
-                var list = query.Paged(out var totalCount, model.PageSize);
+                var list = query.Paged(out var totalCount, model);
 
                 response.SetData(list, totalCount);
                 return Ok(response);

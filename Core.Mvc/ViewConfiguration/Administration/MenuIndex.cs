@@ -12,17 +12,15 @@ namespace Core.Mvc.ViewConfiguration.Administration
 {
     public class MenuIndex : IndexBase
     {
-        private readonly List<Menu> _menus;
+        private readonly ResponseModel response;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
-        public MenuIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
+        public MenuIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
-            var url = new Url(typeof(Api.Controllers.MenuController), nameof(Api.Controllers.MenuController.Index));
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Menu>>(url);
-            this._menus = (List<Menu>)a.Result.Data;
+            this.response = response;
         }
 
         public override IList<string> Css()
@@ -30,7 +28,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             return new List<string>
             {
                 "/css/uniform.css",
-                
+
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
@@ -57,7 +55,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public override string Render()
         {
-            MenuViewConfiguration configuration = new MenuViewConfiguration(this._menus);
+            MenuViewConfiguration configuration = new MenuViewConfiguration(this.response);
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
             html = html.Replace("{{widget-title}}", "菜单管理");

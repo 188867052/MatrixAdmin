@@ -1,9 +1,11 @@
-﻿namespace Core.Model
+﻿using Core.Model.ResponseModels;
+
+namespace Core.Model
 {
     /// <summary>
     /// 
     /// </summary>
-    public class RolePostModel : PostModel.PostModel
+    public class RolePostModel : Pager
     {
         /// <summary>
         /// 是否已被删除

@@ -43,18 +43,17 @@ namespace Core.Api.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        public IActionResult List(MenuRequestPayload request)
+        public IActionResult Search(MenuPostModel request)
         {
             using (this.DbContext)
             {
                 IQueryable<Menu> query = this.DbContext.Menu.AsQueryable();
-                query = query.AddStringContainsFilter(request.KeyWord, nameof(Menu.Name));
                 query = query.AddBooleanFilter(request.IsEnable, nameof(Menu.IsEnable));
                 query = query.AddBooleanFilter(request.Status, nameof(Menu.Status));
                 query = query.AddGuidEqualsFilter(request.ParentGuid, nameof(Menu.ParentGuid));
-                var list = query.Paged(out var count,request.CurrentPage,request.PageSize);
+                var list = query.Paged(out var count, request);
                 IEnumerable<MenuJsonModel> data = list.Select(Mapper.Map<Menu, MenuJsonModel>);
-                ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
+                ResponseModel response = ResponseModelFactory.CreateResultInstance;
                 response.SetData(data, count);
                 return Ok(response);
             }

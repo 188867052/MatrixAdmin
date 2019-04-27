@@ -1,9 +1,11 @@
-﻿namespace Core.Model.Entity
+﻿using Core.Model.ResponseModels;
+
+namespace Core.Model.Entity
 {
     /// <summary>
     /// 图标请求参数实体
     /// </summary>
-    public class IconPostedModel : PostModel.PostModel
+    public class IconPostedModel : Pager
     {
         /// <summary>
         /// 是否可用

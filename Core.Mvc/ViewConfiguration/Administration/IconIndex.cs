@@ -1,28 +1,27 @@
 ﻿using Core.Extension;
 using Core.Model.Entity;
-using Core.Model.ResponseModels;
 using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using Core.Model.ResponseModels;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
     public class IconIndex : IndexBase
     {
-        private readonly List<Icon> _icons;
+        private readonly ResponseModel response;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
         /// <param name="icons"></param>
-        public IconIndex(IHostingEnvironment hostingEnvironment,List<Icon> icons) : base(hostingEnvironment)
+        public IconIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
-            this._icons = icons;
+            this.response = response;
         }
 
         public override IList<string> Css()
@@ -54,7 +53,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public override string Render()
         {
-            IconGridConfiguration configuration = new IconGridConfiguration(this._icons);
+            IconGridConfiguration configuration = new IconGridConfiguration(this.response);
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
             html = html.Replace("{{widget-title}}", "图标管理");
@@ -86,7 +85,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public string Pager()
         {
-            JavaScriptEvent js=new JavaScriptEvent("index.search", "page-link");
+            JavaScriptEvent js = new JavaScriptEvent("index.search", "page-link");
             string script = $"<script>{js.Render()}</script>";
             return $"<ul class=\"pager\">" +
                    $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&laquo;</a></li>" +

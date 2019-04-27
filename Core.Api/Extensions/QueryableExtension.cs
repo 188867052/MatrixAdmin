@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Core.Api.ExpressionBuilder.Builders;
 using Core.Api.ExpressionBuilder.Generics;
+using Core.Model.ResponseModels;
 
 namespace Core.Api.Extensions
 {
@@ -13,29 +14,33 @@ namespace Core.Api.Extensions
     /// </summary>
     public static class QueryableExtension
     {
-        private const string key = "o";
+        private const string Key = "o";
 
         /// <summary>
         /// IQueryable分页
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="query"></param>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageSize"></param>
+        /// <param name="count"></param>
+        /// <param name="pager"></param>
         /// <returns></returns>
-        public static IList<T> Paged<T>(this IQueryable<T> query, out int count, int pageIndex = 1, int pageSize = 10)
+        public static IList<T> Paged<T>(this IQueryable<T> query, out int count, Pager pager = default)
         {
-            if (pageIndex < 1)
+            if (pager == default)
+            {
+                pager = new Pager {PageSize = 10, PageIndex = 1};
+            }
+            if (pager.PageIndex < 1)
             {
                 throw new Exception("pageIndex must lager than 0");
             }
-            if (pageSize < 1)
+            if (pager.PageSize < 1)
             {
                 throw new Exception("pageSize must lager than 0");
             }
 
             count = query.Count();
-            return query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            return query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
         }
 
 
@@ -43,7 +48,7 @@ namespace Core.Api.Extensions
         {
             if (value.HasValue)
             {
-                var parameter = Expression.Parameter(typeof(T), key);
+                var parameter = Expression.Parameter(typeof(T), Key);
                 var left = Expression.Property(parameter, typeof(T).GetProperty(name));
                 var right = Expression.Constant(value);
                 var predicate = Expression.Equal(left, right);
@@ -66,7 +71,7 @@ namespace Core.Api.Extensions
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
-                var parameter = Expression.Parameter(typeof(T), key);
+                var parameter = Expression.Parameter(typeof(T), Key);
                 var left = Expression.Property(parameter, typeof(T).GetProperty(name));
                 var right = Expression.Constant(value.Trim());
                 MethodInfo method = typeof(string).GetMethod(nameof(System.String.Contains), new[] { typeof(string) });
@@ -81,7 +86,7 @@ namespace Core.Api.Extensions
         {
             if (guid.HasValue)
             {
-                var parameter = Expression.Parameter(typeof(T), key);
+                var parameter = Expression.Parameter(typeof(T), Key);
                 var left = Expression.Property(parameter, typeof(T).GetProperty(name));
                 var right = Expression.Constant(guid.Value);
                 var predicate = Expression.Equal(left, right);

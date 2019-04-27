@@ -11,7 +11,7 @@
         /// <summary>
         /// 当前页码
         /// </summary>
-        public int CurrentPage { get; set; }
+        public int PageIndex { get; set; }
 
         public int TotalCount { get; set; }
     }
@@ -21,6 +21,15 @@
     /// </summary>
     public class ResponseModel : Pager
     {
+
+        public ResponseModel(object data, Pager pager) : this()
+        {
+            this.Data = data;
+            this.PageSize = pager.PageSize;
+            this.PageIndex = pager.PageIndex;
+            this.TotalCount = pager.TotalCount;
+        }
+
         /// <summary>
         /// 请求响应实体类
         /// </summary>

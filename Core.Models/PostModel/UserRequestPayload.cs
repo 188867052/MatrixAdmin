@@ -1,11 +1,13 @@
-﻿namespace Core.Model.PostModel
+﻿using Core.Model.ResponseModels;
+
+namespace Core.Model.PostModel
 {
     /// <summary>
     /// 
     /// </summary>
-    public class UserRequestPayload : PostModel
+    public class UserPostModel : Pager
     {
-        /// <summary>
+        /// <summary>   
         /// 是否已被删除
         /// </summary>
         public bool? IsEnable { get; set; }

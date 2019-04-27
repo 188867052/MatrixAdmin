@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using Core.Model.ResponseModels;
 using Core.Resource.ViewConfiguration.Log;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
@@ -7,7 +7,7 @@ namespace Core.Mvc.ViewConfiguration.Log
 {
     public class LogGridConfiguration : GridConfiguration<Model.Entity.Log>
     {
-        public LogGridConfiguration(IList<Model.Entity.Log> entity, int total, int pageSize, int pageIndex) : base(entity, total, pageSize, pageIndex)
+        public LogGridConfiguration(ResponseModel response) : base(response)
         {
         }
 

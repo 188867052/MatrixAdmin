@@ -1,8 +1,8 @@
 ﻿using Core.Model.Entity;
+using Core.Model.ResponseModels;
 using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
-using System.Collections.Generic;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
@@ -11,8 +11,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="entities"></param>
-        public MenuViewConfiguration(IList<Menu> entities) : base(entities)
+        public MenuViewConfiguration(ResponseModel response) : base(response)
         {
         }
 
