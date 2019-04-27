@@ -19,8 +19,8 @@
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="AutoMapper" Version="8.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.2" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-beta" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0-beta" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0-rc2" />
   </ItemGroup>
 
   <ItemGroup>
