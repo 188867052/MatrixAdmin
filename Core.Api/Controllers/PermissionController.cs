@@ -2,17 +2,16 @@
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Api.Utils;
-using Core.Model.Entity;
-using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Extension.Dapper;
 using Core.Model;
-using Core.Model.QueryModels.Permission;
-using Core.Model.PostModel;
-using Core.Model.ResponseModels;
+using Core.Model.Administration.Menu;
+using Core.Model.Administration.Permission;
+using Core.Model.Administration.Role;
 
 namespace Core.Api.Controllers
 {

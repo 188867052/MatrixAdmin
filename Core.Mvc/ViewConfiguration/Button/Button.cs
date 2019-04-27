@@ -3,8 +3,8 @@ using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Core.Model.Entity;
-using Core.Model.ResponseModels;
+using Core.Model;
+using Core.Model.Administration.Icon;
 using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
 

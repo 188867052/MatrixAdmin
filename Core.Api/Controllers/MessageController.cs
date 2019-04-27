@@ -1,6 +1,6 @@
 ﻿using System;
 using Core.Api.Extensions;
-using Core.Model.ResponseModels;
+using Core.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

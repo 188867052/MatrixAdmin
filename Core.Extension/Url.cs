@@ -35,7 +35,7 @@ namespace Core.Extension
                 url += $"/{Area}";
             }
             string parameter = default;
-            if (Area != default)
+            if (Parameter != default)
             {
                 parameter += $"/{Parameter}";
             }

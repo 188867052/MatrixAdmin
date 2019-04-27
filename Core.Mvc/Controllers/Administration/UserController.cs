@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
-using Core.Model.Entity;
-using Core.Model.PostModel;
-using Core.Model.ResponseModels;
+using Core.Model;
+using Core.Model.Administration.User;
 using Core.Mvc.ViewConfiguration.Administration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

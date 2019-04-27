@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Data;
+
 #if !NETSTANDARD1_3
-namespace Dapper
+namespace Core.Extension.Dapper
 {
     internal sealed class DataTableHandler : SqlMapper.ITypeHandler
     {

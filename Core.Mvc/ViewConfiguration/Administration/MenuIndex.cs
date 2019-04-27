@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
-using Core.Model.ResponseModels;
+using Core.Model;
 using Core.Mvc.Controllers;
 using Core.Mvc.Controllers.Administration;
 using Core.Mvc.ViewConfiguration.Home;

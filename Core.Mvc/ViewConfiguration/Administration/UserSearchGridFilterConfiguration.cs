@@ -1,5 +1,4 @@
-﻿using Core.Model.PostModel;
-using Core.Mvc.ViewConfiguration.Log;
+﻿using Core.Model.Administration.User;
 using Core.Resource.ViewConfiguration.Log;
 using Core.Web.Button;
 using Core.Web.GridFilter;

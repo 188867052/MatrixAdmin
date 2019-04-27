@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Dapper
+namespace Core.Extension.Dapper
 {
     public static partial class SqlMapper
     {

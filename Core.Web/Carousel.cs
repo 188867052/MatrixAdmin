@@ -2,9 +2,5 @@
 {
     public class Carousel
     {
-        public Carousel()
-        {
-
-        }
     }
 }

@@ -12,13 +12,6 @@ namespace Core.Api.Extensions.CustomException
     public class CustomAuthorizeAttribute : AuthorizeAttribute, IAuthorizationFilter
     {
         //private readonly string _someFilterParameter;
-        /// <summary>
-        /// 
-        /// </summary>
-        public CustomAuthorizeAttribute()
-        {
-            //_someFilterParameter = someFilterParameter;
-        }
 
         /// <summary>
         /// 

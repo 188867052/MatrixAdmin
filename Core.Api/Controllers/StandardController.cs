@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Core.Model.Entity;
+using Core.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Api.Controllers

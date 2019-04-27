@@ -2,11 +2,6 @@
 {
     public class HtmlHead
     {
-        public HtmlHead()
-        {
-
-        }
-
         public string Render()
         {
 

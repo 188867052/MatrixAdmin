@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Dapper
+namespace Core.Extension.Dapper
 {
     internal class WrappedReader : IWrappedDataReader
     {

@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Core.Model.ResponseModels;
+using Core.Model;
 using Newtonsoft.Json;
 
 namespace Core.Extension

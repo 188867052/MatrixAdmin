@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Reflection;
 
 #if !NETSTANDARD1_3
-namespace Dapper
+namespace Core.Extension.Dapper
 {
     /// <summary>
     /// Used to pass a DataTable as a TableValuedParameter

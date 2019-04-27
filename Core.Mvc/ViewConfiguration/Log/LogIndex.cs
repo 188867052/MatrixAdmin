@@ -1,12 +1,13 @@
 ﻿using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
-using Core.Resource.ViewConfiguration.Error;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using Core.Extension;
-using Core.Model.ResponseModels;
+using Core.Model;
+using Core.Mvc.Controllers.Log;
+using Core.Resource.ViewConfiguration.Log;
 
 namespace Core.Mvc.ViewConfiguration.Log
 {
@@ -71,7 +72,7 @@ namespace Core.Mvc.ViewConfiguration.Log
         private string RenderJavaScript()
         {
             JavaScript js = new JavaScript("index", "Index");
-            Url url = new Url(typeof(LogController), nameof(LogController.GridStateChange));
+            Url url = new Url(nameof(Log), typeof(LogController), nameof(LogController.GridStateChange));
             js.AddUrlInstance("searchUrl", url);
 
             return $"<script>{js.Render()}</script>";

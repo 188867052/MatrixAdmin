@@ -2,15 +2,14 @@
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Model;
-using Core.Model.Entity;
-using Core.Model.PostModel;
-using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Model.ResponseModels;
+using Core.Extension.Dapper;
+using Core.Model.Administration.Role;
+using Core.Model.Administration.User;
 
 namespace Core.Api.Controllers
 {
@@ -46,9 +45,9 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<User> query = this.DbContext.User.AsQueryable();
-                query = query.AddBooleanFilter(model.IsEnable, nameof(Model.Entity.User.IsEnable));
-                query = query.AddBooleanFilter(model.Status, nameof(Model.Entity.User.Status));
-                query = query.AddStringContainsFilter(model.DisplayName, nameof(Model.Entity.User.DisplayName));
+                query = query.AddBooleanFilter(model.IsEnable, nameof(Model.Administration.User.User.IsEnable));
+                query = query.AddBooleanFilter(model.Status, nameof(Model.Administration.User.User.Status));
+                query = query.AddStringContainsFilter(model.DisplayName, nameof(Model.Administration.User.User.DisplayName));
                 var list = query.Paged(out _, model);
 
                 return Ok(new ResponseModel(list, model));

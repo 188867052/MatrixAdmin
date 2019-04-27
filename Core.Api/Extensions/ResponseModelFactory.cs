@@ -1,4 +1,4 @@
-﻿using Core.Model.ResponseModels;
+﻿using Core.Model;
 
 namespace Core.Api.Extensions
 {

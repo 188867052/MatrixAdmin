@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Dapper
+namespace Core.Extension.Dapper
 {
     internal static class TypeExtensions
     {

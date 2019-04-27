@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Globalization;
-namespace Dapper
+using System.Linq;
+
+namespace Core.Extension.Dapper
 {
     public static partial class SqlMapper
     {

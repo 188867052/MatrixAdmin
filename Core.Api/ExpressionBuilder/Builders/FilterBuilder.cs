@@ -11,10 +11,6 @@ namespace Core.Api.ExpressionBuilder.Builders
 {
     public class FilterBuilder
     {
-        public FilterBuilder()
-        {
-        }
-
         public Expression<Func<T, bool>> GetExpression<T>(IFilter filter) where T : class
         {
             var param = Expression.Parameter(typeof(T), "x");

@@ -1,7 +1,7 @@
 ﻿using System;
 using Core.Web.GridColumn;
 using System.Collections.Generic;
-using Core.Model.ResponseModels;
+using Core.Model;
 using Core.Web.Html;
 
 namespace Core.Web.ViewConfiguration

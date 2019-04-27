@@ -10,7 +10,7 @@ using System.Reflection.Emit;
 using ApplicationException = System.InvalidOperationException;
 #endif
 
-namespace Dapper
+namespace Core.Extension.Dapper
 {
     /// <summary>
     /// A bag of parameters that can be passed to the Dapper Query and Execute methods

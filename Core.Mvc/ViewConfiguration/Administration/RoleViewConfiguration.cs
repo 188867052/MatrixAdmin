@@ -1,8 +1,8 @@
-﻿using Core.Model.Entity;
+﻿using Core.Model;
+using Core.Model.Administration.Role;
 using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
-using Core.Model.ResponseModels;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {

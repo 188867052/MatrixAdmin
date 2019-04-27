@@ -1,4 +1,4 @@
-﻿using Core.Model.PostModel;
+﻿using Core.Model.Log;
 using Core.Resource.ViewConfiguration.Log;
 using Core.Web.Button;
 using Core.Web.GridFilter;

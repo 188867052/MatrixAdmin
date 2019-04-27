@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Core.Model.Entity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using System.ComponentModel;
+using Core.Model;
 
 namespace Core.Api
 {

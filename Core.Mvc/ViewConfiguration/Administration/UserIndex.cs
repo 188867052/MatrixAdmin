@@ -1,11 +1,11 @@
 ﻿using Core.Extension;
-using Core.Model.ResponseModels;
 using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
+using Core.Model;
 using Core.Mvc.Controllers.Administration;
 
 namespace Core.Mvc.ViewConfiguration.Administration

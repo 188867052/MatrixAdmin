@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Dapper
+namespace Core.Extension.Dapper
 {
     /// <summary>
     /// Represents default type mapping strategy used by Dapper

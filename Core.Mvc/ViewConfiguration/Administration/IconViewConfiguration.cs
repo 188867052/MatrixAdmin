@@ -1,5 +1,5 @@
-﻿using Core.Model.Entity;
-using Core.Model.ResponseModels;
+﻿using Core.Model;
+using Core.Model.Administration.Icon;
 using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;

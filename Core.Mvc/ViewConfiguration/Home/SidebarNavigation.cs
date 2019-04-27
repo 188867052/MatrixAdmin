@@ -1,6 +1,7 @@
 ﻿using Core.Extension;
 using Core.Mvc.Controllers;
 using Core.Mvc.Controllers.Administration;
+using Core.Mvc.Controllers.Log;
 using Core.Resource.ViewConfiguration;
 using Core.Resource.ViewConfiguration.Home;
 using Core.Web.Sidebar;
@@ -42,7 +43,7 @@ namespace Core.Mvc.ViewConfiguration.Home
             manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(IconController), nameof(IconController.Index)), IndexBaseResource.IconManage));
 
             SubMenu log = new SubMenu("icon icon-edit", default, IndexBaseResource.LogManage, 2);
-            log.AddLinkButton(new LinkedAnchor(new Url(typeof(LogController), nameof(LogController.Index)), IndexBaseResource.ErrorLog));
+            log.AddLinkButton(new LinkedAnchor(new Url(nameof(Log), typeof(LogController), nameof(LogController.Index)), IndexBaseResource.ErrorLog));
 
             Sidebar sidebar = new Sidebar();
             sidebar.AddSubMenu(new SubMenu("icon icon-home", new Url(typeof(RedirectController), nameof(RedirectController.Index)), SidebarNavigationResource.DashboardTitle, 0, true));

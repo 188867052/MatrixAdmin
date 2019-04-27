@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.CustomException;
-using Core.Model.Entity;
-using Core.Model.PostModel;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Core.Model;
+using Core.Model.Administration.Role;
+using Core.Model.Log;
 using Newtonsoft.Json;
-using Core.Model.ResponseModels;
 
 namespace Core.Api.Controllers
 {

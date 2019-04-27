@@ -18,7 +18,7 @@ using System.Xml.Linq;
 using DataException = System.InvalidOperationException;
 #endif
 
-namespace Dapper
+namespace Core.Extension.Dapper
 {
     /// <summary>
     /// Dapper, a light weight object mapper for ADO.NET

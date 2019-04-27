@@ -2,7 +2,7 @@
 using System.Data;
 using System.Linq;
 
-namespace Dapper
+namespace Core.Extension.Dapper
 {
     /// <summary>
     /// Used to pass a IEnumerable&lt;SqlDataRecord&gt; as a SqlDataRecordListTVPParameter

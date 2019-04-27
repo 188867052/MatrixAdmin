@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
-using Core.Model.Entity;
 using Core.Model.Enums;
-using Core.Model.Menu;
-using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Model.ResponseModels;
+using Core.Extension.Dapper;
+using Core.Model;
+using Core.Model.Administration.Menu;
 
 namespace Core.Api.Controllers
 {

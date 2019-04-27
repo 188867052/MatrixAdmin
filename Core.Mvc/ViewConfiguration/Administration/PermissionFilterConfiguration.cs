@@ -1,5 +1,4 @@
-﻿using Core.Model.PostModel;
-using Core.Mvc.ViewConfiguration.Log;
+﻿using Core.Model.Administration.Permission;
 using Core.Resource.ViewConfiguration.Log;
 using Core.Web.Button;
 using Core.Web.GridFilter;
@@ -9,10 +8,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
 {
     public class PermissionFilterConfiguration : GridFilterConfiguration<PermissionPostModel>
     {
-        public PermissionFilterConfiguration()
-        {
-        }
-
         public override string GenerateSearchFilter()
         {
             GridSearchFilter.AddBooleanFilter(new BooleanGridFilter<PermissionPostModel>(o => o.IsEnable, LogResource.Message));

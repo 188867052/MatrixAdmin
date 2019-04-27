@@ -1,12 +1,12 @@
 ﻿using Core.Api.Auth;
 using Core.Api.Extensions;
-using Core.Model.Entity;
 using Core.Model.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Linq;
 using System.Security.Claims;
-using Core.Model.ResponseModels;
+using Core.Model;
+using Core.Model.Administration.User;
 
 namespace Core.Api.Controllers
 {

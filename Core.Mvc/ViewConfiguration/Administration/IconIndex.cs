@@ -5,7 +5,8 @@ using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
-using Core.Model.ResponseModels;
+using Core.Model;
+using Core.Mvc.Controllers.Administration;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
@@ -75,7 +76,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         private string RenderJavaScript()
         {
             JavaScript js = new JavaScript("index", "Index");
-            Url url = new Url(typeof(IconController), nameof(IconController.GridStateChange));
+            Url url = new Url(nameof(Administration), typeof(IconController), nameof(IconController.GridStateChange));
             js.AddUrlInstance("searchUrl", url);
 
             return $"<script>{js.Render()}</script>";

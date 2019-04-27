@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Core.Api.ExpressionBuilder.Builders;
 using Core.Api.ExpressionBuilder.Generics;
-using Core.Model.ResponseModels;
+using Core.Model;
 
 namespace Core.Api.Extensions
 {

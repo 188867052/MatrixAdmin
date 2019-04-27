@@ -1,5 +1,4 @@
-﻿using Core.Model.Menu;
-using Core.Mvc.ViewConfiguration.Log;
+﻿using Core.Model.Administration.Menu;
 using Core.Resource.ViewConfiguration.Log;
 using Core.Web.Button;
 using Core.Web.GridFilter;
@@ -9,10 +8,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
 {
     public class MenuFilterConfiguration : GridFilterConfiguration<MenuPostModel>
     {
-        public MenuFilterConfiguration()
-        {
-        }
-
         public override string GenerateSearchFilter()
         {
             GridSearchFilter.AddBooleanFilter(new BooleanGridFilter<MenuPostModel>(o => o.IsEnable, LogResource.Message));

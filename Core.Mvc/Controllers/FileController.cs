@@ -1,8 +1,8 @@
-﻿using Core.Mvc.Models;
-using Core.Web.Dialog;
+﻿using Core.Web.Dialog;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Core.Model.Log;
 using Core.Web.File;
 
 namespace Core.Mvc.Controllers
