@@ -11,7 +11,7 @@ namespace Core.Web.GridFilter
         /// </summary>
         /// <param name="expression"></param>
         /// <param name="label"></param>
-        public IntegerGridFilter(Expression<Func<TPostModel, int>> expression, string label) : base(label, expression.GetPropertyInfo())
+        public IntegerGridFilter(Expression<Func<TPostModel, int?>> expression, string label) : base(label, expression.GetPropertyInfo())
         {
         }
     }

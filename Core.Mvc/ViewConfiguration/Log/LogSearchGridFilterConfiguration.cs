@@ -10,6 +10,7 @@ namespace Core.Mvc.ViewConfiguration.Log
     {
         public override string GenerateSearchFilter()
         {
+            GridSearchFilter.AddBooleanFilter(new BooleanGridFilter<LogPostModel>(o => o.IsEnable, "是否启用"));
             GridSearchFilter.AddIntegerFilter(new IntegerGridFilter<LogPostModel>(o => o.Id, LogResource.ID));
             GridSearchFilter.AddTextFilter(new TextGridFilter<LogPostModel>(o => o.Message, LogResource.Message));
             GridSearchFilter.AddDateTimeFilter(new DateTimeGridFilter<LogPostModel>(o => o.StartTime, "开始" + LogResource.CreateTime));

@@ -4,9 +4,11 @@ namespace Core.Model.PostModel
 {
     public class LogPostModel
     {
-        public  int CurrentPage { get; set; }
+        public int CurrentPage { get; set; }
 
         public int PageSize { get; set; }
+
+        public bool? IsEnable { get; set; }
 
         /// <summary>
         /// 

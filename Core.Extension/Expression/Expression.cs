@@ -17,12 +17,32 @@ namespace Core.Extension.Expression
             return ((MemberExpression)expression.Body).PropertyInfo<T>();
         }
 
+        public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, decimal?>> expression)
+        {
+            return ((MemberExpression)expression.Body).PropertyInfo<T>();
+        }
+
         public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, DateTime>> expression)
         {
             return ((MemberExpression)expression.Body).PropertyInfo<T>();
         }
 
+        public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, DateTime?>> expression)
+        {
+            return ((MemberExpression)expression.Body).PropertyInfo<T>();
+        }
+
+        public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, int?>> expression)
+        {
+            return ((MemberExpression)expression.Body).PropertyInfo<T>();
+        }
+
         public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, bool>> expression)
+        {
+            return ((MemberExpression)expression.Body).PropertyInfo<T>();
+        }
+
+        public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, bool?>> expression)
         {
             return ((MemberExpression)expression.Body).PropertyInfo<T>();
         }

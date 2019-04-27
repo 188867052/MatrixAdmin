@@ -8,7 +8,7 @@ namespace Core.Web.GridFilter
 {
     public class BooleanGridFilter<TPostModel> : BaseGridFilter
     {
-        private readonly Expression<Func<TPostModel, bool>> _expression;
+        private readonly Expression<Func<TPostModel, bool?>> _expression;
         private readonly IList<KeyValuePair<bool, string>> _keyValuePair;
         private readonly bool _isContainsEmpty;
 
@@ -18,7 +18,7 @@ namespace Core.Web.GridFilter
         /// <param name="expression"></param>
         /// <param name="labelText"></param>
         /// <param name="isNotContainsEmpty"></param>
-        public BooleanGridFilter(Expression<Func<TPostModel, bool>> expression, string labelText, bool isNotContainsEmpty = default) : base(labelText)
+        public BooleanGridFilter(Expression<Func<TPostModel, bool?>> expression, string labelText, bool isNotContainsEmpty = default) : base(labelText)
         {
             this._expression = expression;
             this._keyValuePair = new List<KeyValuePair<bool, string>>();
