@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoMapper;
 using Core.Api.Extensions;
 using Core.Model;
 using Microsoft.AspNetCore.Authorization;
@@ -9,10 +10,9 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [Route("api/v1/[controller]/[action]")]
     [ApiController]
     [Authorize]
-    public class MessageController : ControllerBase
+    public class MessageController : StandardController
     {
         /// <summary>
         /// 消息控制器
@@ -84,6 +84,10 @@ namespace Core.Api.Controllers
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
             return Ok(response);
+        }
+
+        public MessageController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
+        {
         }
     }
 }
