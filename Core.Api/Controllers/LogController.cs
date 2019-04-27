@@ -11,7 +11,6 @@ using System.Net;
 using Core.Model;
 using Core.Model.Administration.Role;
 using Core.Model.Log;
-using Newtonsoft.Json;
 
 namespace Core.Api.Controllers
 {
@@ -45,22 +44,25 @@ namespace Core.Api.Controllers
             {
                 IQueryable<Log> query = this.DbContext.Log.AsQueryable();
                 query = query.OrderByDescending(o => o.CreateTime);
-                Log log = new Log
+                if (model.Id.HasValue)
                 {
-                    Message = JsonConvert.SerializeObject(model),
-                    CreateTime = DateTime.Now
-                };
-                this.DbContext.Log.Add(log);
+                    query = query.Where(o => o.Id == model.Id);
+                }
+                if (model.StartTime.HasValue)
+                {
+                    query = query.Where(o => o.CreateTime >= model.StartTime);
+                }
+                if (model.EndTime.HasValue)
+                {
+                    query = query.Where(o => o.CreateTime <= model.EndTime);
+                }
                 if (!string.IsNullOrEmpty(model.Message))
                 {
                     query = query.Where(o => o.Message.Contains(model.Message));
                 }
-                this.DbContext.SaveChanges();
 
-                var list = query.Paged(out var count, model);
-                ResponseModel response = new ResponseModel(list, model);
-                response.SetData(list, count);
-                return Ok(response);
+
+                return this.StandardResponse(query, model);
             }
         }
 

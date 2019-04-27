@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Chart
 {
-    public class Chart : IndexBase
+    public class Chart : SearchGridPage
     {
         public Chart(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {

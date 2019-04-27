@@ -21,7 +21,7 @@ namespace Core.Mvc.Controllers
             this.HostingEnvironment = hostingEnvironment;
         }
 
-        protected ContentResult ViewConfiguration(IndexBase index)
+        protected ContentResult ViewConfiguration(SearchGridPage index)
         {
             return this.RenderContent(index);
         }

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Form
 {
-    public class FormValidation : IndexBase
+    public class FormValidation : SearchGridPage
     {
         public FormValidation(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {

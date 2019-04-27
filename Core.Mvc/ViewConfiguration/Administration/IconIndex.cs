@@ -10,7 +10,7 @@ using Core.Mvc.Controllers.Administration;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class IconIndex : IndexBase
+    public class IconIndex : SearchGridPage
     {
         private readonly ResponseModel response;
 

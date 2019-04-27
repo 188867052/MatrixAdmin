@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Addons
 {
-    public class Chat : IndexBase
+    public class Chat : SearchGridPage
     {
         public Chat(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {

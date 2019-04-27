@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class RoleIndex : IndexBase
+    public class RoleIndex : SearchGridPage
     {
         private readonly ResponseModel response;
 

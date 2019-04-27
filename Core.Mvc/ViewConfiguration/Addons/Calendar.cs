@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Addons
 {
-    public class Calendar : IndexBase
+    public class Calendar : SearchGridPage
     {
         public Calendar(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Login
 {
-    public class Login : IndexBase
+    public class Login : SearchGridPage
     {
         public Login(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {

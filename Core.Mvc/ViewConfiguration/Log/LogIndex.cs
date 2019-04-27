@@ -11,7 +11,7 @@ using Core.Resource.ViewConfiguration.Log;
 
 namespace Core.Mvc.ViewConfiguration.Log
 {
-    public class LogIndex : IndexBase
+    public class LogIndex : SearchGridPage
     {
         private readonly ResponseModel response;
 

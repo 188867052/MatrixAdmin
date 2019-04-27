@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using Core.Mvc.ViewConfiguration.Home;
+using Core.Web.JavaScript;
 
 namespace Core.Mvc.ViewConfiguration.Index
 {
-    public class Index : IndexBase
+    public class Index : SearchGridPage
     {
         public Index(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
@@ -51,8 +52,17 @@ namespace Core.Mvc.ViewConfiguration.Index
                "/js/jquery.wizard.js",
                "/js/jquery.uniform.js",
                "/js/matrix.popover.js",
-               "/js/matrix.tables.js"
+               "/js/matrix.tables.js",
+
             };
+        }
+
+
+        protected override IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
+        {
+            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>();
+            constructions.Add(new IndexViewInstance());
+            return constructions;
         }
     }
 }

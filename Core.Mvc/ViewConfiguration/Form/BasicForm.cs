@@ -2,12 +2,13 @@
 using Core.Extension;
 using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
+using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Form
 {
-    public class BasicForm : IndexBase
+    public class BasicForm : SearchGridPage
     {
         public BasicForm(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
@@ -40,9 +41,6 @@ namespace Core.Mvc.ViewConfiguration.Form
         {
             return new List<string>
             {
-               
-               
-               
                "/js/bootstrap-colorpicker.js",
                "/js/bootstrap-datepicker.js",
                "/js/jquery.toggle.buttons.html",
@@ -60,6 +58,11 @@ namespace Core.Mvc.ViewConfiguration.Form
             ContentHeader contentHeader = new ContentHeader("Basic Form");
             contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
+        }
+
+        protected override IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

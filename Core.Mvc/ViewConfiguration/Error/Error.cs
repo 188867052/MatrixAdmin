@@ -7,7 +7,7 @@ using Core.Mvc.ViewConfiguration.Home;
 
 namespace Core.Mvc.ViewConfiguration.Error
 {
-    public class Error : IndexBase
+    public class Error : SearchGridPage
     {
         private readonly int errorNumber;
 

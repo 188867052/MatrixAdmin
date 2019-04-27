@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Addons
 {
-    public class Gallery : IndexBase
+    public class Gallery : SearchGridPage
     {
         public Gallery(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {

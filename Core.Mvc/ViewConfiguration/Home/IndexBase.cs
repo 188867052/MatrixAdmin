@@ -10,12 +10,12 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Home
 {
-    public abstract class IndexBase: IRender
+    public abstract class SearchGridPage : IRender
     {
         protected readonly IHostingEnvironment HostingEnvironment;
 
 
-        protected IndexBase(IHostingEnvironment hostingEnvironment)
+        protected SearchGridPage(IHostingEnvironment hostingEnvironment)
         {
             this.HostingEnvironment = hostingEnvironment;
         }
@@ -69,6 +69,8 @@ namespace Core.Mvc.ViewConfiguration.Home
                 "/js/jquery/dist/jquery.js",
                 "/js/bootstrap-datetimepicker.js",
                 "/js/framework.js",
+
+                "/js/core.js"
             };
             list.AddRange(this.Javascript());
 
@@ -110,14 +112,14 @@ namespace Core.Mvc.ViewConfiguration.Home
             string tobHeader = File.ReadAllText(Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\topHeader.html"));
             html = html.Replace("{{tobHeader}}", tobHeader);
 
-            return html;
+            return html + $"<script>{this.RenderJavaScript()}</script>";
         }
 
 
         protected virtual string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader();
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
         }
 
@@ -141,6 +143,25 @@ namespace Core.Mvc.ViewConfiguration.Home
                    $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">3</a></li>" +
                    $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&raquo;</a></li>" +
                    $"</ul>" + script;
+        }
+
+
+        private string RenderJavaScript()
+        {
+            string script = default;
+            foreach (var instance in CreateViewInstanceConstructions())
+            {
+                script += instance.InitializeViewInstance().Render();
+            }
+
+            return script;
+        }
+
+        protected virtual IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
+        {
+            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>();
+            constructions.Add(new IndexViewInstance());
+            return constructions;
         }
     }
 }

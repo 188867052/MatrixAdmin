@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Addons
 {
-    public class Invoice : IndexBase
+    public class Invoice : SearchGridPage
     {
         public Invoice(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {

@@ -10,7 +10,7 @@ using Core.Mvc.Controllers.Administration;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class UserIndex : IndexBase
+    public class UserIndex : SearchGridPage
     {
 
         private ResponseModel response;
@@ -19,7 +19,8 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
-        public UserIndex(IHostingEnvironment hostingEnvironment,ResponseModel response) : base(hostingEnvironment)
+        /// <param name="response"></param>
+        public UserIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
             this.response = response;
         }
@@ -38,7 +39,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         private string RenderJavaScript()
         {
             JavaScript js = new JavaScript("index", "Index");
-            Url url = new Url(typeof(UserController), nameof(UserController.GridStateChange));
+            Url url = new Url(nameof(Administration), typeof(UserController), nameof(UserController.GridStateChange));
             js.AddUrlInstance("searchUrl", url);
 
             return $"<script>{js.Render()}</script>";
@@ -62,7 +63,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public override string Render()
         {
-            UserViewConfiguration configuration =new UserViewConfiguration(response);
+            UserViewConfiguration configuration = new UserViewConfiguration(response);
             string table = configuration.Render();
 
             var html = base.Render().Replace("{{Table}}", table);
@@ -76,7 +77,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("用户管理");
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
         }

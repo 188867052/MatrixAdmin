@@ -10,7 +10,7 @@ using Core.Mvc.ViewConfiguration.Home;
 
 namespace Core.Mvc.ViewConfiguration.Button
 {
-    public class Button : IndexBase
+    public class Button : SearchGridPage
     {
         public Button(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {

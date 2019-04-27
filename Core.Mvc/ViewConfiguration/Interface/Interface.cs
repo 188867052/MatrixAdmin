@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Interface
 {
-    public class Interface : IndexBase
+    public class Interface : SearchGridPage
     {
         public Interface(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {

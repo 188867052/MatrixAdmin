@@ -4,7 +4,7 @@ using Core.Mvc.ViewConfiguration.Home;
 
 namespace Core.Mvc.ViewConfiguration.Index
 {
-    public class Index2 : IndexBase
+    public class Index2 : SearchGridPage
     {
         public Index2(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {

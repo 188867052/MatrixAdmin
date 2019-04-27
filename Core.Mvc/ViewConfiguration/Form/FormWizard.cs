@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Form
 {
-    public class FormWizard : IndexBase
+    public class FormWizard : SearchGridPage
     {
         public FormWizard(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {

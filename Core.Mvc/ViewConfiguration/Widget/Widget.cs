@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Widget
 {
-    public class Widget : IndexBase
+    public class Widget : SearchGridPage
     {
         public Widget(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {

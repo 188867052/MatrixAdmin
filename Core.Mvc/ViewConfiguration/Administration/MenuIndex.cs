@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class MenuIndex : IndexBase
+    public class MenuIndex : SearchGridPage
     {
         private readonly ResponseModel response;
 
@@ -67,7 +67,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         private string RenderJavaScript()
         {
             JavaScript js = new JavaScript("index", "Index");
-            Url url = new Url(typeof(MenuController), nameof(MenuController.GridStateChange));
+            Url url = new Url(nameof(Administration), typeof(MenuController), nameof(MenuController.GridStateChange));
             js.AddUrlInstance("searchUrl", url);
 
             return $"<script>{js.Render()}</script>";
