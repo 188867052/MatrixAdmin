@@ -15,7 +15,7 @@
 
         // Public Methods
 
-        search: function (searchUrl, e, successPointer) {
+        gridSearch: function (searchUrl, e, successPointer) {
             var data = new Object;
             data.pageIndex = this.getPageIndex(e);
             data.pageSize = 10;
@@ -26,12 +26,28 @@
                 var value = input.value;
                 data[propertyName] = value;
             }
+            //var onSuccess = $.proxy(this._onRefreshing, this);
             $.post(searchUrl, data, function (response) {
-                successPointer(response);
+                core.setData(response);
+                successPointer();
+                //successPointer(response);
             });
         },
 
         // Private Methods
+
+        _onSearchSuccess: function () {
+            this.setData(response);
+            successPointer();
+        },
+
+        setData: function (response) {
+            $(".widget-content")[0].innerHTML = response.data;
+            $(".pager").replaceWith(response.pager);
+            index._pageSize = response.pageSize;
+            index._currentPage = response.currentPage;
+            $(".page-link").on('click', function () { index.search(event.currentTarget); });
+        },
 
         getPageIndex: function (e) {
             if (e.type === "submit") {
