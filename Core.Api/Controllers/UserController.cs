@@ -28,7 +28,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                return this.StandardResponse(this.DbContext.Menu);
+                return this.StandardResponse(this.DbContext.User);
             }
         }
 

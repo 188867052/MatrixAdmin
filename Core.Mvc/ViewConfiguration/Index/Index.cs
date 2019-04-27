@@ -48,12 +48,6 @@ namespace Core.Mvc.ViewConfiguration.Index
                "/js/matrix.interface.js",
                "/js/matrix.chat.js",
                "/js/jquery.validate.js",
-               "/js/matrix.form_validation.js",
-               "/js/jquery.wizard.js",
-               "/js/jquery.uniform.js",
-               "/js/matrix.popover.js",
-               "/js/matrix.tables.js",
-
             };
         }
 
