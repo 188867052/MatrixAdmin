@@ -34,7 +34,7 @@ namespace Core.Mvc.ViewConfiguration.Home
             error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error500)), SidebarNavigationResource.Error500));
 
             SubMenu manage = new SubMenu("icon icon-user", default, IndexBaseResource.SystemManage, 8);
-            manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.UserManage)), IndexBaseResource.UserManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.Index)), IndexBaseResource.UserManage));
             manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.RoleManage)), IndexBaseResource.RoleManage));
             manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.PermissionManage)), IndexBaseResource.PermissionManage));
             manage.AddLinkButton(new LinkedAnchor(new Url(typeof(MenuController), nameof(MenuController.Index)), IndexBaseResource.MenuManage));

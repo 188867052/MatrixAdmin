@@ -6,6 +6,7 @@ using Core.Mvc.ViewConfiguration.Log;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Core.Mvc.ViewConfiguration.Administration;
 
 namespace Core.Mvc.Controllers
 {
@@ -42,7 +43,7 @@ namespace Core.Mvc.Controllers
         {
             var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Search));
             ResponseModel response = AsyncRequest.PostAsync<IList<Log>, LogPostModel>(url, model).Result;
-            LogGridConfiguration configuration = new LogGridConfiguration(response);
+            UserViewConfiguration configuration = new UserViewConfiguration(response);
 
             return this.GridConfiguration(configuration);
         }

@@ -41,7 +41,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult List(UserPostModel model)
+        public IActionResult Search(UserPostModel model)
         {
             using (this.DbContext)
             {

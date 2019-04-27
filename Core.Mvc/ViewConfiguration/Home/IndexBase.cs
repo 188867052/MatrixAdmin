@@ -4,6 +4,7 @@ using System.Text;
 using Core.Extension;
 using Core.Mvc.Controllers;
 using Core.Web.Html;
+using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
@@ -127,6 +128,19 @@ namespace Core.Mvc.ViewConfiguration.Home
                    $"<a href=\"http://www.taobao.com/\" target=\"_blank\"> My Blog</a>" +
                    $"</div>" +
                    $"</div>";
+        }
+
+        public string Pager()
+        {
+            JavaScriptEvent js = new JavaScriptEvent("index.search", "page-link");
+            string script = $"<script>{js.Render()}</script>";
+            return $"<ul class=\"pager\">" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&laquo;</a></li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">1</a></li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">2</a></li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">3</a></li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&raquo;</a></li>" +
+                   $"</ul>" + script;
         }
     }
 }

@@ -1,7 +1,13 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using Core.Extension;
+using Core.Model.Entity;
+using Core.Model.PostModel;
+using Core.Model.ResponseModels;
 using Core.Mvc.ViewConfiguration.Administration;
+using Core.Mvc.ViewConfiguration.Log;
 
 namespace Core.Mvc.Controllers
 {
@@ -15,10 +21,32 @@ namespace Core.Mvc.Controllers
         {
         }
 
-        public IActionResult UserManage()
+        /// <summary>
+        /// The Index.
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Index()
         {
-            UserIndex index = new UserIndex(this.HostingEnvironment);
-            return Content(index.Render(), "text/html", Encoding.UTF8);
+            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Index));
+            var model = AsyncRequest.GetAsync<IList<User>>(url).Result;
+            UserIndex table = new UserIndex(HostingEnvironment, model);
+
+            return this.ViewConfiguration(table);
+        }
+
+        /// <summary>
+        /// Grid state change.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult GridStateChange(UserPostModel model)
+        {
+            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Search));
+            ResponseModel response = AsyncRequest.PostAsync<IList<User>, UserPostModel>(url, model).Result;
+            LogGridConfiguration configuration = new LogGridConfiguration(response);
+
+            return this.GridConfiguration(configuration);
         }
 
         public IActionResult RoleManage()

@@ -5,6 +5,7 @@ using Core.Model.Entity;
 using Core.Model.ResponseModels;
 using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
+using Core.Mvc.ViewConfiguration.Log;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
@@ -13,17 +14,15 @@ namespace Core.Mvc.ViewConfiguration.Administration
     public class UserIndex : IndexBase
     {
 
-        private readonly List<User> users;
+        private ResponseModel response;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
-        public UserIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
+        public UserIndex(IHostingEnvironment hostingEnvironment,ResponseModel response) : base(hostingEnvironment)
         {
-            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Index));
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<User>>(url);
-            this.users = (List<User>)a.Result.Data;
+            this.response = response;
         }
 
         public override IList<string> Css()
@@ -58,10 +57,14 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public override string Render()
         {
-            UserViewConfiguration configuration =new UserViewConfiguration(new ResponseModel());
+            UserViewConfiguration configuration =new UserViewConfiguration(response);
             string table = configuration.Render();
 
             var html = base.Render().Replace("{{Table}}", table);
+            UserSearchGridFilterConfiguration filter = new UserSearchGridFilterConfiguration();
+            html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
+            html = html.Replace("{{button-group}}", filter.GenerateButton());
+            html = html.Replace("{{Pager}}", this.Pager());
             return html;
         }
 
