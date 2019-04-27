@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Model.ResponseModels;
+using Newtonsoft.Json;
 
 namespace Core.Api.Controllers
 {
@@ -46,21 +47,12 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<User> query = this.DbContext.User.AsQueryable();
-                //if (!string.IsNullOrEmpty(model.KeyWord))
-                //{
-                //    query = query.Where(x => x.LoginName.Contains(model.KeyWord.Trim()) || x.DisplayName.Contains(model.KeyWord.Trim()));
-                //}
-                query = query.AddBooleanFilter(model.IsEnable, nameof(Core.Model.Entity.User.IsEnable));
-                query = query.AddBooleanFilter(model.Status, nameof(Core.Model.Entity.User.Status));
-                var list = query.Paged(out var totalCount, model);
-                //if (model.FirstSort != null)
-                //{
-                //    query = query.OrderBy(model.FirstSort.Field, model.FirstSort.Direct == "DESC");
-                //}
-                //IEnumerable<UserJsonModel> data = list.Select(Mapper.Map<User, UserJsonModel>);
-                ResponseModel response = ResponseModelFactory.CreateResultInstance;
-                response.SetData(list, totalCount);
-                return Ok(response);
+                query = query.AddBooleanFilter(model.IsEnable, nameof(Model.Entity.User.IsEnable));
+                query = query.AddBooleanFilter(model.Status, nameof(Model.Entity.User.Status));
+                query = query.AddStringContainsFilter(model.DisplayName, nameof(Model.Entity.User.DisplayName));
+                var list = query.Paged(out _, model);
+
+                return Ok(new ResponseModel(list, model));
             }
         }
 

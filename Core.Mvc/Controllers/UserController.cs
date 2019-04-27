@@ -44,7 +44,7 @@ namespace Core.Mvc.Controllers
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Search));
             ResponseModel response = AsyncRequest.PostAsync<IList<User>, UserPostModel>(url, model).Result;
-            LogGridConfiguration configuration = new LogGridConfiguration(response);
+            UserViewConfiguration configuration = new UserViewConfiguration(response);
 
             return this.GridConfiguration(configuration);
         }

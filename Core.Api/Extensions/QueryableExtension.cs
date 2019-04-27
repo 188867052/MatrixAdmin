@@ -39,6 +39,8 @@ namespace Core.Api.Extensions
                 throw new Exception("pageSize must lager than 0");
             }
 
+            pager.TotalCount = query.Count();
+
             count = query.Count();
             return query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
         }

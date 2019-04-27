@@ -17,7 +17,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
-        /// <param name="icons"></param>
+        /// <param name="response"></param>
         public IconIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
             this.response = response;
@@ -81,7 +81,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             return $"<script>{js.Render()}</script>";
         }
 
-        public string Pager()
+        public new string Pager()
         {
             JavaScriptEvent js = new JavaScriptEvent("index.search", "page-link");
             string script = $"<script>{js.Render()}</script>";

@@ -6,6 +6,7 @@ using Core.Model.ResponseModels;
 using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Mvc.ViewConfiguration.Log;
+using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
@@ -30,11 +31,19 @@ namespace Core.Mvc.ViewConfiguration.Administration
             return new List<string>
             {
                 "/css/uniform.css",
-                
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
             };
+        }
+
+        private string RenderJavaScript()
+        {
+            JavaScript js = new JavaScript("index", "Index");
+            Url url = new Url(typeof(UserController), nameof(UserController.GridStateChange));
+            js.AddUrlInstance("searchUrl", url);
+
+            return $"<script>{js.Render()}</script>";
         }
 
         protected override string FileName
@@ -49,9 +58,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             return new List<string>
             {
-               "/js/jquery.uniform.js",
-               "/js/matrix.js",
-               "/js/matrix.tables.js"
+               "/js/User/user.js",
             };
         }
 
@@ -65,7 +72,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
             html = html.Replace("{{button-group}}", filter.GenerateButton());
             html = html.Replace("{{Pager}}", this.Pager());
-            return html;
+            return html + RenderJavaScript();
         }
 
         protected override string ContentHeader()
