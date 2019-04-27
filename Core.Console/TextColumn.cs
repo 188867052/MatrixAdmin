@@ -8,14 +8,12 @@ namespace Core.Console
         private readonly Expression<Func<T, string>> _expression;
         public TextColumn(Expression<Func<T, string>> expression)
         {
-            _expression = expression;
+            this._expression = expression;
         }
 
         public string GetValue(T store)
         {
-            var a = _expression.Compile()(store);
-
-            return a;
+            return _expression.Compile()(store);
         }
     }
 }

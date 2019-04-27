@@ -52,11 +52,13 @@ namespace Core.Web.GridFilter
                    $"</div>";
         }
 
-
+        /// <summary>
+        /// Set default options.
+        /// </summary>
         private void SetDefaultOptions()
         {
-            _keyValuePair.Add(new KeyValuePair<bool, string>(true, "是"));
-            _keyValuePair.Add(new KeyValuePair<bool, string>(false, "否"));
+            this._keyValuePair.Add(new KeyValuePair<bool, string>(true, "是"));
+            this._keyValuePair.Add(new KeyValuePair<bool, string>(false, "否"));
         }
     }
 }

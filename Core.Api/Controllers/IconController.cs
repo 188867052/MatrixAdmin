@@ -26,10 +26,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();
-                var list = query.Paged(out var count);
-
-                return Ok(new ResponseModel(list, new Pager()) { TotalCount = count });
+                return this.StandardResponse(this.DbContext.Icon);
             }
         }
 
@@ -76,9 +73,7 @@ namespace Core.Api.Controllers
                 {
                     query = query.Where(x => x.IsEnable == model.IsEnable);
                 }
-                var list = query.Paged(out _, model);
-                ResponseModel response = new ResponseModel(list, model);
-                return Ok(response);
+                return this.StandardResponse(query, model);
             }
         }
 

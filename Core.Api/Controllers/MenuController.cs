@@ -27,9 +27,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Menu> query = this.DbContext.Menu.AsQueryable();
-                var list = query.Paged(out var count);
-                return Ok(new ResponseModel(list, new Pager() { TotalCount = count }));
+                return this.StandardResponse(this.DbContext.Menu);
             }
         }
 
@@ -39,18 +37,16 @@ namespace Core.Api.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        public IActionResult Search(MenuPostModel request)
+        public IActionResult Search(MenuPostModel model)
         {
             using (this.DbContext)
             {
                 IQueryable<Menu> query = this.DbContext.Menu.AsQueryable();
-                query = query.AddBooleanFilter(request.IsEnable, nameof(Menu.IsEnable));
-                query = query.AddBooleanFilter(request.Status, nameof(Menu.Status));
-                query = query.AddGuidEqualsFilter(request.ParentGuid, nameof(Menu.ParentGuid));
-                var list = query.Paged(out var count, request);
+                query = query.AddBooleanFilter(model.IsEnable, nameof(Menu.IsEnable));
+                query = query.AddBooleanFilter(model.Status, nameof(Menu.Status));
+                query = query.AddGuidEqualsFilter(model.ParentGuid, nameof(Menu.ParentGuid));
                 //IEnumerable<MenuJsonModel> data = list.Select(Mapper.Map<Menu, MenuJsonModel>);
-                ResponseModel response = new ResponseModel(list, request);
-                return Ok(response);
+                return this.StandardResponse(query, model);
             }
         }
 

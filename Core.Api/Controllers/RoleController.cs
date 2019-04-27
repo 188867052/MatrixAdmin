@@ -31,11 +31,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Role> query = this.DbContext.Role.AsQueryable();
-                var list = query.ToList();
-                ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(list);
-                return Ok(response);
+                return this.StandardResponse(this.DbContext.Menu);
             }
         }
 
@@ -51,14 +47,7 @@ namespace Core.Api.Controllers
                 IQueryable<Role> query = this.DbContext.Role.AsQueryable();
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Role.IsEnable));
                 query = query.AddBooleanFilter(model.Status, nameof(Role.Status));
-                var list = query.Paged(out _, model);
-
-                ResponseModel response = new ResponseModel(list, model);
-                Log log = new Log { Message = JsonConvert.SerializeObject(response), CreateTime = DateTime.Now };
-                DbContext.Log.Add(log);
-                DbContext.SaveChanges();
-
-                return Ok(response);
+                return this.StandardResponse(query, model);
             }
         }
 

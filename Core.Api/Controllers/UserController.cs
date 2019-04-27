@@ -28,10 +28,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                List<User> list = this.DbContext.User.ToList();
-                ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(list);
-                return Ok(response);
+                return this.StandardResponse(this.DbContext.Menu);
             }
         }
 
@@ -48,9 +45,8 @@ namespace Core.Api.Controllers
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Model.Administration.User.User.IsEnable));
                 query = query.AddBooleanFilter(model.Status, nameof(Model.Administration.User.User.Status));
                 query = query.AddStringContainsFilter(model.DisplayName, nameof(Model.Administration.User.User.DisplayName));
-                var list = query.Paged(out _, model);
 
-                return Ok(new ResponseModel(list, model));
+                return this.StandardResponse(query, model);
             }
         }
 

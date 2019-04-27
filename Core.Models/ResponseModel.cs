@@ -3,6 +3,21 @@
 
     public class Pager
     {
+        public static int DefaultPageSize = 10;
+        public static int DefaultPageIndex = 1;
+
+
+        public static Pager CreateDefaultInstance()
+        {
+            Pager pager = new Pager
+            {
+                PageSize = Pager.DefaultPageSize,
+                PageIndex = Pager.DefaultPageIndex,
+            };
+
+            return pager;
+        }
+
         /// <summary>
         /// 分页大小
         /// </summary>

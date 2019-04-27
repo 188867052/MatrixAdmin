@@ -30,10 +30,7 @@ namespace Core.Api.Controllers
             {
                 IQueryable<Log> query = this.DbContext.Log.AsQueryable();
                 query = query.OrderByDescending(o => o.CreateTime);
-                var list = query.Paged(out var count);
-                ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(list, count);
-                return Ok(response);
+                return this.StandardResponse(query);
             }
         }
 
@@ -60,7 +57,6 @@ namespace Core.Api.Controllers
                 {
                     query = query.Where(o => o.Message.Contains(model.Message));
                 }
-
 
                 return this.StandardResponse(query, model);
             }

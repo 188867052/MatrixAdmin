@@ -30,11 +30,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Permission> query = this.DbContext.Permission.AsQueryable();
-                var list = query.ToList();
-                ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(list);
-                return Ok(response);
+                return this.StandardResponse(this.DbContext.Menu);
             }
         }
 
@@ -55,8 +51,6 @@ namespace Core.Api.Controllers
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Permission.IsEnable));
                 query = query.AddBooleanFilter(model.Status, nameof(Permission.Status));
                 query = query.AddGuidEqualsFilter(model.MenuGuid, nameof(Permission.MenuGuid));
-                var list = query.Paged(out var totalCount, model);
-                var response = new ResponseModel(list, model);
 
                 //var data = list.Select(this.Mapper.Map<Permission, PermissionJsonModel>);
                 /*
@@ -66,7 +60,7 @@ namespace Core.Api.Controllers
                 });
                  */
 
-                return Ok(response);
+                return this.StandardResponse(query, model);
             }
         }
 
