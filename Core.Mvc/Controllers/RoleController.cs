@@ -47,7 +47,7 @@ namespace Core.Mvc.Controllers
             var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Search));
             Task<ResponseModel> response = AsyncRequest.PostAsync<IList<Role>, RolePostModel>(url, model);
             List<Log> logs = (List<Log>)response.Result.Data;
-            LogGridConfiguration configuration = new LogGridConfiguration(logs);
+            LogGridConfiguration configuration = new LogGridConfiguration(logs, 0, 0,0);
 
             return this.GridConfiguration(configuration);
         }

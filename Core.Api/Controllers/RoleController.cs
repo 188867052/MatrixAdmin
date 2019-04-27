@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
-using Core.Api.Models.Response;
 using Core.Api.Utils;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +11,7 @@ using System.Linq;
 using Core.Model;
 using Core.Model.Entity;
 using Core.Model.Enums;
+using Core.Model.ResponseModels;
 
 namespace Core.Api.Controllers
 {

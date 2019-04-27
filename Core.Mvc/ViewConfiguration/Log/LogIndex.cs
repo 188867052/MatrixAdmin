@@ -13,17 +13,21 @@ namespace Core.Mvc.ViewConfiguration.Log
     {
         private readonly List<Model.Entity.Log> _errors;
 
-        public LogIndex(IHostingEnvironment hostingEnvironment, List<Model.Entity.Log> errors) : base(hostingEnvironment)
+        public LogIndex(IHostingEnvironment hostingEnvironment, List<Model.Entity.Log> errors, int total, int pageSize, int pageIndex) : base(hostingEnvironment)
         {
             this._errors = errors;
+
         }
 
+        public int total;
+        public int pageSize;
+        public int pageIndex;
         public override IList<string> Css()
         {
             return new List<string>
             {
                 "/css/uniform.css",
-                
+
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css"
@@ -48,7 +52,7 @@ namespace Core.Mvc.ViewConfiguration.Log
 
         public override string Render()
         {
-            LogGridConfiguration configuration = new LogGridConfiguration(this._errors);
+            LogGridConfiguration configuration = new LogGridConfiguration(this._errors, total, pageSize, pageIndex);
             string table = configuration.Render();
 
             var html = base.Render().Replace("{{Table}}", table);
@@ -65,7 +69,7 @@ namespace Core.Mvc.ViewConfiguration.Log
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader(ErrorResource.Header);
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "Error-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "Error-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
         }

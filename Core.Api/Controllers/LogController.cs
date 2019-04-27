@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.CustomException;
-using Core.Api.Models.Response;
 using Core.Model.Entity;
 using Core.Model.PostModel;
 using Microsoft.AspNetCore.Diagnostics;
@@ -11,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Newtonsoft.Json;
+using Core.Model.ResponseModels;
 
 namespace Core.Api.Controllers
 {
@@ -29,9 +30,12 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Log> query = this.DbContext.Log.AsQueryable();
+                query = query.OrderByDescending(o => o.CreateTime);
+                int count = query.Count();
+                query = query.Paged();
                 var list = query.ToList();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(list);
+                response.SetData(list, count);
                 return Ok(response);
             }
         }
@@ -42,8 +46,20 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Log> query = this.DbContext.Log.AsQueryable();
-                query = query.Where(o => o.Message.Contains(model.Message));
+                Log log = new Log
+                {
+                    Message = JsonConvert.SerializeObject(model),
+                    CreateTime = DateTime.Now
+                };
+                this.DbContext.Log.Add(log);
+                if (!string.IsNullOrEmpty(model.Message))
+                {
+                    query = query.Where(o => o.Message.Contains(model.Message));
+                }
+                this.DbContext.SaveChanges();
+                query = query.Paged(model.CurrentPage, model.PageSize);
                 var list = query.ToList();
+
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(list);
                 return Ok(response);

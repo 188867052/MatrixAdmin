@@ -29,7 +29,8 @@ namespace Core.Mvc.Controllers
             var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Index));
             Task<ResponseModel> model = AsyncRequest.GetAsync<IList<Log>>(url);
             var errors = (List<Log>)model.Result.Data;
-            LogIndex table = new LogIndex(HostingEnvironment, errors);
+            int total = model.Result.TotalCount;
+            LogIndex table = new LogIndex(HostingEnvironment, errors, total, 0, 0);
 
             return this.ViewConfiguration(table);
         }
@@ -37,15 +38,20 @@ namespace Core.Mvc.Controllers
         /// <summary>
         /// Grid state change.
         /// </summary>
-        /// <param name="postModel"></param>
+        /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult GridStateChange(LogPostModel postModel)
+        public IActionResult GridStateChange(LogPostModel model)
         {
+            if (model.CurrentPage == 0)
+            {
+                model.CurrentPage = 1;
+            }
             var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Search));
-            Task<ResponseModel> model = AsyncRequest.PostAsync<IList<Log>, LogPostModel>(url, postModel);
-            List<Log> logs = (List<Log>)model.Result.Data;
-            LogGridConfiguration configuration = new LogGridConfiguration(logs);
+            Task<ResponseModel> response = AsyncRequest.PostAsync<IList<Log>, LogPostModel>(url, model);
+            int count = response.Result.TotalCount;
+            List<Log> logs = (List<Log>)response.Result.Data;
+            LogGridConfiguration configuration = new LogGridConfiguration(logs, count, model.PageSize, model.CurrentPage);
 
             return this.GridConfiguration(configuration);
         }

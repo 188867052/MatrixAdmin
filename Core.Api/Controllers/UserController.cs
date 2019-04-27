@@ -2,7 +2,6 @@
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Api.Extensions.DataAccess;
-using Core.Api.Models.Response;
 using Core.Model;
 using Core.Model.Entity;
 using Core.Model.PostModel;
@@ -12,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Model.ResponseModels;
 
 namespace Core.Api.Controllers
 {

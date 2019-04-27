@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
-using Core.Api.Models.Response;
 using Core.Model.Entity;
 using Core.Model.Enums;
 using Core.Model.QueryModels.Permission;
+using Core.Model.ResponseModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,19 +18,8 @@ namespace Core.Api.Controllers
     /// 账户控制器
     /// </summary>
     [Authorize]
-    public class AccountController : ControllerBase
+    public class AccountController : StandardController
     {
-        private readonly Context _dbContext;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="dbContext"></param>
-        public AccountController(Context dbContext)
-        {
-            this._dbContext = dbContext;
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -38,12 +28,12 @@ namespace Core.Api.Controllers
         public IActionResult Profile()
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
-            using (this._dbContext)
+            using (this.DbContext)
             {
                 Guid guid = AuthContextService.CurrentUser.Guid;
-                User user = this._dbContext.User.FirstOrDefaultAsync(x => x.Guid == guid).Result;
+                User user = this.DbContext.User.FirstOrDefaultAsync(x => x.Guid == guid).Result;
 
-                List<Menu> menus = this._dbContext.Menu.Where(x => !x.IsEnable && x.Status).ToList();
+                List<Menu> menus = this.DbContext.Menu.Where(x => !x.IsEnable && x.Status).ToList();
 
                 //查询当前登录用户拥有的权限集合(非超级管理员)
                 string sqlPermission = @"SELECT P.Code AS PermissionCode,P.ActionCode AS PermissionActionCode,P.Name AS PermissionName,P.Type AS PermissionType,M.Name AS MenuName,M.Guid AS MenuGuid,M.Alias AS MenuAlias,M.IsDefaultRouter FROM RolePermissionMapping AS RPM 
@@ -57,7 +47,7 @@ WHERE P.IsDeleted=0 AND P.Status=1 AND EXISTS (SELECT 1 FROM UserRoleMapping AS 
 INNER JOIN Menu AS M ON M.Guid = P.MenuGuid
 WHERE P.IsDeleted=0 AND P.Status=1";
                 }
-                List<PermissionWithMenu> permissions = this._dbContext.PermissionWithMenu.FromSql(sqlPermission, user.Guid).ToList();
+                List<PermissionWithMenu> permissions = this.DbContext.PermissionWithMenu.FromSql(sqlPermission, user.Guid).ToList();
                 List<string> allowPages = new List<string> { };
 
                 if (user.UserType == UserTypeEnum.SuperAdministrator)
@@ -113,6 +103,10 @@ WHERE P.IsDeleted=0 AND P.Status=1";
             }
 
             return pages.Distinct().ToList();
+        }
+
+        public AccountController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
+        {
         }
     }
 }

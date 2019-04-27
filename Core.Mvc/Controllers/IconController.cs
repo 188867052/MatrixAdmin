@@ -42,6 +42,10 @@ namespace Core.Mvc.Controllers
         [HttpPost]
         public IActionResult GridStateChange(IconPostModel model)
         {
+            if (model.CurrentPage==0)
+            {
+                model.CurrentPage = 1;
+            }
             var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Search));
             Task<ResponseModel> response = AsyncRequest.PostAsync<IList<Icon>, IconPostModel>(url, model);
             List<Icon> icons = (List<Icon>)response.Result.Data;

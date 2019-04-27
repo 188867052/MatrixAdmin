@@ -4,9 +4,9 @@ using System.Linq;
 using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
-using Core.Api.Models.Response;
 using Core.Model.Entity;
 using Core.Model.PostModel;
+using Core.Model.ResponseModels;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
 
@@ -52,10 +52,11 @@ namespace Core.Api.Controllers
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Icon.IsEnable));
                 query = query.AddStringContainsFilter(model.KeyWord, nameof(Icon.Code));
                 query = query.AddBooleanFilter(model.Status, nameof(Icon.Status));
+                int totalCount = query.Count();
+
                 query = query.Paged();
 
                 List<Icon> list = query.ToList();
-                int totalCount = list.Count;
                 IEnumerable<IconJsonModel> data = list.Select(this.Mapper.Map<Icon, IconJsonModel>);
                 ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
                 response.SetData(data, totalCount);
@@ -82,9 +83,10 @@ namespace Core.Api.Controllers
                 {
                     query = query.Where(x => x.IsEnable == model.IsEnable);
                 }
+                int count = query.Count();
                 query = query.Paged();
                 List<Icon> list = query.ToList();
-                response.SetData(list);
+                response.SetData(list, count);
 
                 return Ok(response);
             }
