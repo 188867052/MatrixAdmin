@@ -28,9 +28,8 @@ namespace Core.Mvc.Controllers
         public IActionResult Index()
         {
             var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Index));
-            Task<ResponseModel> model = AsyncRequest.GetAsync<IList<Role>>(url);
-            var errors = (List<Role>)model.Result.Data;
-            RoleIndex table = new RoleIndex(HostingEnvironment);
+            var model = AsyncRequest.GetAsync<IList<Role>>(url).Result;
+            RoleIndex table = new RoleIndex(HostingEnvironment, model);
 
             return this.ViewConfiguration(table);
         }
@@ -44,8 +43,8 @@ namespace Core.Mvc.Controllers
         public IActionResult GridStateChange(RolePostModel model)
         {
             var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Search));
-           var response = AsyncRequest.PostAsync<IList<Role>, RolePostModel>(url, model).Result;
-            LogGridConfiguration configuration = new LogGridConfiguration(response);
+            var response = AsyncRequest.PostAsync<IList<Role>, RolePostModel>(url, model).Result;
+            RoleViewConfiguration configuration = new RoleViewConfiguration(response);
 
             return this.GridConfiguration(configuration);
         }

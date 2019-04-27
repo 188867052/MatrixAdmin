@@ -7,7 +7,6 @@ using Core.Model.Entity;
 using Core.Model.PostModel;
 using Core.Model.ResponseModels;
 using Core.Mvc.ViewConfiguration.Administration;
-using Core.Mvc.ViewConfiguration.Log;
 
 namespace Core.Mvc.Controllers
 {
@@ -49,11 +48,6 @@ namespace Core.Mvc.Controllers
             return this.GridConfiguration(configuration);
         }
 
-        public IActionResult RoleManage()
-        {
-            RoleIndex index = new RoleIndex(this.HostingEnvironment);
-            return Content(index.Render(), "text/html", Encoding.UTF8);
-        }
         public IActionResult PermissionManage()
         {
             PermissionIndex index = new PermissionIndex(this.HostingEnvironment);

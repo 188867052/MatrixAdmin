@@ -29,9 +29,8 @@ namespace Core.Api.Controllers
             {
                 IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();
                 var list = query.Paged(out var count);
-                ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(list, count);
-                return Ok(response);
+
+                return Ok(new ResponseModel(list, new Pager()) { TotalCount = count });
             }
         }
 

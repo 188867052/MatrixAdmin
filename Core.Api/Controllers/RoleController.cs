@@ -12,6 +12,7 @@ using Core.Model;
 using Core.Model.Entity;
 using Core.Model.Enums;
 using Core.Model.ResponseModels;
+using Newtonsoft.Json;
 
 namespace Core.Api.Controllers
 {
@@ -45,15 +46,18 @@ namespace Core.Api.Controllers
         [HttpPost]
         public IActionResult Search(RolePostModel model)
         {
-            ResponseModel response = ResponseModelFactory.CreateResultInstance;
             using (this.DbContext)
             {
                 IQueryable<Role> query = this.DbContext.Role.AsQueryable();
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Role.IsEnable));
                 query = query.AddBooleanFilter(model.Status, nameof(Role.Status));
-                var list = query.Paged(out var totalCount, model);
+                var list = query.Paged(out _, model);
 
-                response.SetData(list, totalCount);
+                ResponseModel response = new ResponseModel(list, model);
+                Log log = new Log { Message = JsonConvert.SerializeObject(response), CreateTime = DateTime.Now };
+                DbContext.Log.Add(log);
+                DbContext.SaveChanges();
+
                 return Ok(response);
             }
         }
