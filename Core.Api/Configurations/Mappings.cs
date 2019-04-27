@@ -25,7 +25,7 @@ namespace Core.Api.Configurations
                     //注册映射
                     Mapper.Initialize(y =>
                     {
-                        y.AddProfiles(type); // Initialise each Profile classe
+                        y.AddMaps(type); // Initialise each Profile classe
                     });
                 }
             }
