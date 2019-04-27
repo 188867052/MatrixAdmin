@@ -62,6 +62,7 @@ namespace Core.Api.Controllers
         /// 搜索
         /// </summary>
         /// <returns></returns>
+        [HttpPost]
         public IActionResult Search(IconPostModel model)
         {
             using (this.DbContext)
