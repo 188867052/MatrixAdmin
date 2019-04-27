@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Core.Extension;
+using System.Collections.Generic;
 using System.Text;
-using Core.Extension;
 
 namespace Core.Web.JavaScript
 {
@@ -39,8 +39,10 @@ namespace Core.Web.JavaScript
             {
                 stringBuilder.Append($"{this.GlobalVariableName}._{keyValuePair.Key}=\"{keyValuePair.Value}\";");
             }
+            string initializeCall = string.Concat(this.GlobalVariableName, ".initialize");
+            string initializeScript = $"if({initializeCall} instanceof Function){{{initializeCall}();}}";
 
-            return $"window.{this.GlobalVariableName} = new {this.ClassName}();{stringBuilder}";
+            return $"window.{this.GlobalVariableName} = new {this.ClassName}();{stringBuilder}{initializeScript}";
         }
     }
 }

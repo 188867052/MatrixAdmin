@@ -64,6 +64,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             html = html.Replace("{{Pager}}", this.Pager());
             return html + RenderJavaScript();
         }
+
         private string RenderJavaScript()
         {
             JavaScript js = new JavaScript("index", "Index");

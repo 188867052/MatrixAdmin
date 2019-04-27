@@ -15,7 +15,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
         }
 
-        public override void GenerateGridColumn()
+        public override void GenerateGridColumn()   
         {
             GridColumn.AddIconColumn(new IconGridColumn<Icon>(o => o.Code, IconResource.Icon));
             GridColumn.AddTextColumn(new TextGridColumn<Icon>(o => o.Code, IconResource.Code));

@@ -25,6 +25,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             this.response = response;
         }
 
+
         public override IList<string> Css()
         {
             return new List<string>
@@ -74,6 +75,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
             return $"<script>{js.Render()}</script>";
         }
+
 
         protected override string ContentHeader()
         {

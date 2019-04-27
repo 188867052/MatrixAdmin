@@ -3,5 +3,6 @@
     public interface IViewInstanceConstruction
     {
         JavaScript InitializeViewInstance();
+        string InstanceClassName { get; }
     }
 }

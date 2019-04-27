@@ -9,7 +9,7 @@ namespace Core.Mvc.ViewConfiguration.Home
 
         }
 
-        protected string InstanceClassName
+        public string InstanceClassName
         {
             get
             {

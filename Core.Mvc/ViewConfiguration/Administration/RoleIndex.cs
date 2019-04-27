@@ -80,5 +80,13 @@ namespace Core.Mvc.ViewConfiguration.Administration
             string html = contentHeader.Render();
             return html;
         }
+
+        protected override IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
+        {
+            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>();
+            constructions.Add(new IndexViewInstance());
+            constructions.Add(new RoleViewInstance());
+            return constructions;
+        }
     }
 }

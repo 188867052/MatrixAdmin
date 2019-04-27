@@ -81,18 +81,5 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
             return $"<script>{js.Render()}</script>";
         }
-
-        public new string Pager()
-        {
-            JavaScriptEvent js = new JavaScriptEvent("index.search", "page-link");
-            string script = $"<script>{js.Render()}</script>";
-            return $"<ul class=\"pager\">" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&laquo;</a></li>" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">1</a></li>" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">2</a></li>" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">3</a></li>" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&raquo;</a></li>" +
-                   $"</ul>" + script;
-        }
     }
 }
