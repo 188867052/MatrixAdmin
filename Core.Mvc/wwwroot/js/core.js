@@ -12,6 +12,7 @@
         _searchUrl: null,
         _currentPage: null,
         _pageSize: null,
+        _successPointer: null,
 
         // Private Event Delegates  
 
@@ -20,31 +21,27 @@
             $(".pager").replaceWith(response.pager);
             this._pageSize = response.pageSize;
             this._currentPage = response.currentPage;
-            $(".page-link").on('click', function () {
-
-                //TODO
-                index.search(event.currentTarget);
-            });
+            this._successPointer();
         },
 
         // Public Properties
 
         // Public Methods
 
-        gridSearch: function (searchUrl, e, successPointer) {
-            var data = this.generateFormData(e);
-            //var onSuccess = $.proxy(this._onRefreshing, this);
-            $.post(searchUrl, data, function (response) {
+        setSuccessPointer: function (pointer) {
+            this._successPointer = pointer;
+        },
 
-                //TODO it is better to use proxy
-                window.core._onGridSearch(response);
-                successPointer();
-            });
+        gridSearch: function (searchUrl) {
+            var data = this.generateFormData();
+            var onSuccess = $.proxy(this._onGridSearch, this);
+            $.post(searchUrl, data, onSuccess);
         },
 
         // Private Methods
 
-        getPageIndex: function (e) {
+        getPageIndex: function () {
+            var e = event.currentTarget;
             if (e.type === "submit") {
                 return 1;
             } else if (e.innerText === "«") {
@@ -55,9 +52,9 @@
             return e.innerText;
         },
 
-        generateFormData: function (e) {
+        generateFormData: function () {
             var data = new Object;
-            data.pageIndex = this.getPageIndex(e);
+            data.pageIndex = this.getPageIndex();
             data.pageSize = 10;
             var list = $(".custom-control-inline");
             for (var i = 0; i < list.length; i++) {

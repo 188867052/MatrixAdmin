@@ -13,15 +13,20 @@
         // Private Event Delegates  
 
         _onSuccess: function () {
-            //do something
+            this.initialize();
         },
 
         // Public Properties
 
         // Public Methods
 
-        search: function (e) {
-            window.core.gridSearch(this._searchUrl, e, $.proxy(this._onSuccess, this));
+        initialize: function () {
+            $(".page-link").on('click', $.proxy(this.search, this));
+        },
+
+        search: function () {
+            window.core.setSuccessPointer($.proxy(this._onSuccess, this));
+            window.core.gridSearch(this._searchUrl);
         }
 
         // Private Methods
