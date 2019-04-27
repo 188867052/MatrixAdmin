@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Core.Extension.Expression;
-using Core.Web.JavaScript;
 
 namespace Core.Web.GridFilter
 {

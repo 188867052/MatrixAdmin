@@ -61,7 +61,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
             LogFilterConfiguration configuration = new LogFilterConfiguration(new ResponseModel());
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
-            html = html.Replace("{{widget-title}}", PermissionIndexResource.WidgetTitle);
             return html;
         }
 

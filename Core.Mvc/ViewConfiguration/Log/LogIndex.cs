@@ -17,7 +17,6 @@ namespace Core.Mvc.ViewConfiguration.Log
         public LogIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
             this.response = response;
-
         }
 
         public override IList<string> Css()
@@ -51,9 +50,7 @@ namespace Core.Mvc.ViewConfiguration.Log
         {
             LogGridConfiguration configuration = new LogGridConfiguration(response);
             string table = configuration.Render();
-
             var html = base.Render().Replace("{{Table}}", table);
-            html = html.Replace("{{widget-title}}", ErrorResource.Header);
 
             LogSearchGridFilterConfiguration filter = new LogSearchGridFilterConfiguration();
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());

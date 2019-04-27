@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
-using Core.Api.Extensions.DataAccess;
 using Core.Model;
 using Core.Model.Entity;
 using Core.Model.PostModel;

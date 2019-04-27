@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Core.Model.Entity;
+﻿using Core.Model.Entity;
 using Core.Model.ResponseModels;
 using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.GridColumn;

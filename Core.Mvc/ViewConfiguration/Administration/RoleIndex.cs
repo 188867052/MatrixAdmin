@@ -60,7 +60,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
             RoleViewConfiguration configuration=new RoleViewConfiguration(new ResponseModel());
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
-            html = html.Replace("{{widget-title}}", "角色管理");
 
             RoleSearchGridFilterConfiguration filter = new RoleSearchGridFilterConfiguration();
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());

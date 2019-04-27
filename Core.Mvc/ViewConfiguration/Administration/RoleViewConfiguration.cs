@@ -2,7 +2,6 @@
 using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
-using System.Collections.Generic;
 using Core.Model.ResponseModels;
 
 namespace Core.Mvc.ViewConfiguration.Administration

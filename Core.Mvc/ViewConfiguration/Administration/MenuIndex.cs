@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 using Core.Extension;
-using Core.Model.Entity;
 using Core.Model.ResponseModels;
 using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
@@ -58,7 +56,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
             MenuViewConfiguration configuration = new MenuViewConfiguration(this.response);
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
-            html = html.Replace("{{widget-title}}", "菜单管理");
             return html;
         }
 

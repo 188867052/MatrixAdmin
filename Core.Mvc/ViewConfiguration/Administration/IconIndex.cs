@@ -1,5 +1,4 @@
 ﻿using Core.Extension;
-using Core.Model.Entity;
 using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Web.JavaScript;
@@ -56,7 +55,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
             IconGridConfiguration configuration = new IconGridConfiguration(this.response);
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
-            html = html.Replace("{{widget-title}}", "图标管理");
 
             IconSearchGridFilterConfiguration filter = new IconSearchGridFilterConfiguration();
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());

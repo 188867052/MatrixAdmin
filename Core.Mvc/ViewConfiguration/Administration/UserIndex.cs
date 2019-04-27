@@ -62,7 +62,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
             string table = configuration.Render();
 
             var html = base.Render().Replace("{{Table}}", table);
-            html = html.Replace("{{widget-title}}", "用户管理");
             return html;
         }
 
