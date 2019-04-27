@@ -26,9 +26,9 @@ namespace Core.Mvc.Controllers
             return this.RenderContent(index);
         }
 
-        protected ContentResult GridConfiguration<T>(GridConfiguration<T> index)
+        protected JsonResult GridConfiguration<T>(GridConfiguration<T> index)
         {
-            return this.RenderContent(index);
+            return new JsonResult(new { data = index.Render(), pageSize = index.PageSize, currentPage = index.CurrentPage });
         }
 
         private ContentResult RenderContent(IRender render)

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using Core.Web.JavaScript;
 
 namespace Core.Web.GridColumn
 {
@@ -55,7 +56,8 @@ namespace Core.Web.GridColumn
             foreach (var entity in EntityList)
             {
                 StringBuilder tr = new StringBuilder();
-                tr.Append($"<td>{(currentPage - 1) * pageSize + EntityList.IndexOf(entity) + 1}</td>");
+                int row = (currentPage - 1) * pageSize + EntityList.IndexOf(entity) + 1;
+                tr.Append($"<td>{row}</td>");
                 foreach (var item in GridColumns)
                 {
                     tr.Append(item.RenderTd(entity));

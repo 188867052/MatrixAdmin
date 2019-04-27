@@ -1,7 +1,8 @@
-(function () {
+﻿(function () {
     'use strict';
 
     window.Index = function () {
+        this._currentPage = 1;
     };
 
     window.Index.prototype = {
@@ -9,6 +10,9 @@
         // Private Fields
 
         _searchUrl: null,
+        _currentPage: null,
+        _count: null,
+        _pageSize: null,
 
         // Public Properties
 
@@ -16,8 +20,8 @@
 
         search: function (e) {
             var data = new Object;
+            data.currentPage = this.getCurrentPage(e);
             data.pageSize = 10;
-            data.currentPage = e.innerText;
             var list = $(".custom-control-inline");
             for (var i = 0; i < list.length; i++) {
                 var input = list[i].lastElementChild;
@@ -26,10 +30,38 @@
                 data[propertyName] = value;
             }
             $.post(this._searchUrl, data, function (response) {
-                $(".widget-content")[0].innerHTML = response;
+                index.setData(response);
             });
-        }
+        },
 
         // Private Methods
+
+        setData: function (response) {
+            $(".widget-content")[0].innerHTML = response.data;
+            index._pageSize = response.pageSize;
+            index._currentPage = response.currentPage;
+        },
+
+        getCurrentPage: function (e) {
+            if (e.type === "submit") {
+                return 1;
+            } else if (e.innerText === "«") {
+                return this._currentPage - 1;
+            } else if (e.innerText === "»") {
+                return this._currentPage + 1;
+            }
+            return e.innerText;
+        },
+
+        getPageIndex: function (e) {
+            if (e.type === "submit") {
+                return 1;
+            } else if (e.innerText === "«") {
+                return this._currentPage - 1;
+            } else if (e.innerText === "»") {
+                return this._currentPage + 1;
+            }
+            return e.innerText;
+        }
     };
 })();

@@ -43,10 +43,6 @@ namespace Core.Mvc.Controllers
         [HttpPost]
         public IActionResult GridStateChange(LogPostModel model)
         {
-            if (model.CurrentPage == 0)
-            {
-                model.CurrentPage = 1;
-            }
             var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Search));
             Task<ResponseModel> response = AsyncRequest.PostAsync<IList<Log>, LogPostModel>(url, model);
             int count = response.Result.TotalCount;
