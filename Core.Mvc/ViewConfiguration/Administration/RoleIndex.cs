@@ -18,7 +18,8 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
-        public RoleIndex(IHostingEnvironment hostingEnvironment,ResponseModel response) : base(hostingEnvironment)
+        /// <param name="response"></param>
+        public RoleIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
             this.response = response;
         }
@@ -52,7 +53,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         public override string Render()
         {
-            RoleViewConfiguration configuration=new RoleViewConfiguration(response);
+            RoleViewConfiguration configuration = new RoleViewConfiguration(response);
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
 
@@ -66,7 +67,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         private string RenderJavaScript()
         {
             JavaScript js = new JavaScript("index", "Index");
-            Url url = new Url(typeof(RoleController), nameof(RoleController.GridStateChange));
+            Url url = new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.GridStateChange));
             js.AddUrlInstance("searchUrl", url);
 
             return $"<script>{js.Render()}</script>";
@@ -75,7 +76,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("角色管理");
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
         }
