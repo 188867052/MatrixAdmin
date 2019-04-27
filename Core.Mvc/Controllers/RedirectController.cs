@@ -29,129 +29,110 @@ namespace Core.Mvc.Controllers
         public IActionResult Index()
         {
             Index index = new Index(this.HostingEnvironment);
-            return Content(index.Render(), "text/html",Encoding.UTF8);
+            return Content(index.Render(), "text/html", Encoding.UTF8);
         }
 
         public IActionResult Index2()
         {
             Index2 file = new Index2(HostingEnvironment);
-            return Content(file.Render(), "text/html",Encoding.UTF8);
+            return Content(file.Render(), "text/html", Encoding.UTF8);
         }
 
         public IActionResult Tables()
         {
             Table table = new Table(HostingEnvironment);
-            return Content(table.Render(), "text/html",Encoding.UTF8);
+            return Content(table.Render(), "text/html", Encoding.UTF8);
         }
 
         public IActionResult Login()
         {
             Login login = new Login(HostingEnvironment);
-            return Content(login.Render(), "text/html",Encoding.UTF8);
+            return Content(login.Render(), "text/html", Encoding.UTF8);
         }
 
         public IActionResult Widgets()
         {
             Widget widget = new Widget(HostingEnvironment);
-            return Content(widget.Render(), "text/html",Encoding.UTF8);
+            return Content(widget.Render(), "text/html", Encoding.UTF8);
         }
 
         public IActionResult Buttons()
         {
             Button button = new Button(HostingEnvironment);
-            return Content(button.Render(), "text/html",Encoding.UTF8);
+            return Content(button.Render(), "text/html", Encoding.UTF8);
         }
 
         public IActionResult Calendar()
         {
             Calendar file = new Calendar(HostingEnvironment);
-            return Content(file.Render(), "text/html",Encoding.UTF8);
+            return Content(file.Render(), "text/html", Encoding.UTF8);
         }
 
         public IActionResult Charts()
         {
             Chart button = new Chart(HostingEnvironment);
-            return Content(button.Render(), "text/html",Encoding.UTF8);
+            return Content(button.Render(), "text/html", Encoding.UTF8);
         }
 
         public IActionResult Chat()
         {
             Chat button = new Chat(HostingEnvironment);
-            return Content(button.Render(), "text/html",Encoding.UTF8);
+            return Content(button.Render(), "text/html", Encoding.UTF8);
         }
 
         public IActionResult Dashboard()
         {
             File file = new File(HostingEnvironment, "dashboard");
-            return Content(file.Render(), "text/html",Encoding.UTF8);
+            return Content(file.Render(), "text/html", Encoding.UTF8);
         }
 
-        public IActionResult Error403()
+        public IActionResult Error(int number)
         {
-            Error error = new Error(HostingEnvironment, 403);
-            return Content(error.Render(), "text/html",Encoding.UTF8);
-        }
-
-        public IActionResult Error404()
-        {
-            Error error = new Error(HostingEnvironment, 404);
-            return Content(error.Render(), "text/html",Encoding.UTF8);
-        }
-
-        public IActionResult Error405()
-        {
-            Error error = new Error(HostingEnvironment, 405);
-            return Content(error.Render(), "text/html",Encoding.UTF8);
-        }
-
-        public IActionResult Error500()
-        {
-            Error error = new Error(HostingEnvironment, 500);
-            return Content(error.Render(), "text/html",Encoding.UTF8);
+            Error error = new Error(HostingEnvironment, number);
+            return Content(error.Render(), "text/html", Encoding.UTF8);
         }
 
         public IActionResult FormCommon()
         {
             BasicForm basicForm = new BasicForm(HostingEnvironment);
-            return Content(basicForm.Render(), "text/html",Encoding.UTF8);
+            return Content(basicForm.Render(), "text/html", Encoding.UTF8);
         }
 
         public IActionResult FormValidation()
         {
             FormValidation basicForm = new FormValidation(HostingEnvironment);
-            return Content(basicForm.Render(), "text/html",Encoding.UTF8);
+            return Content(basicForm.Render(), "text/html", Encoding.UTF8);
         }
 
 
         public IActionResult FormWizard()
         {
             FormWizard basicForm = new FormWizard(HostingEnvironment);
-            return Content(basicForm.Render(), "text/html",Encoding.UTF8);
+            return Content(basicForm.Render(), "text/html", Encoding.UTF8);
         }
 
         public IActionResult Gallery()
         {
             Gallery file = new Gallery(HostingEnvironment);
-            return Content(file.Render(), "text/html",Encoding.UTF8);
+            return Content(file.Render(), "text/html", Encoding.UTF8);
         }
 
         public IActionResult Grid()
         {
             Grid file = new Grid(HostingEnvironment);
-            return Content(file.Render(), "text/html",Encoding.UTF8);
+            return Content(file.Render(), "text/html", Encoding.UTF8);
         }
-
 
         public IActionResult Interface()
         {
             Interface @interface = new Interface(HostingEnvironment);
-            return Content(@interface.Render(), "text/html",Encoding.UTF8);
+            return Content(@interface.Render(), "text/html", Encoding.UTF8);
         }
 
         public IActionResult Invoice()
         {
             Invoice @interface = new Invoice(HostingEnvironment);
-            return Content(@interface.Render(), "text/html",Encoding.UTF8);
+            return Content(@interface.Render(), "text/html", Encoding.UTF8);
         }
     }
 }

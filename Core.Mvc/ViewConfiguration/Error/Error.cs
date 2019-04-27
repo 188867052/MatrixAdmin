@@ -55,7 +55,7 @@ namespace Core.Mvc.ViewConfiguration.Error
         {
             ContentHeader contentHeader = new ContentHeader("Error " + this.errorNumber);
             contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Error403)), "Error", "Go to Error", "icon-info-sign", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Error), "?number=400"), "Error", "Go to Error", "icon-info-sign", "tip-bottom"));
             return contentHeader.Render();
         }
     }
