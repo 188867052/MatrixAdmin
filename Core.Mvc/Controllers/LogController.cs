@@ -44,9 +44,9 @@ namespace Core.Mvc.Controllers
         public IActionResult GridStateChange(LogPostModel model)
         {
             var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Search));
-            Task<ResponseModel> response = AsyncRequest.PostAsync<IList<Log>, LogPostModel>(url, model);
-            int count = response.Result.TotalCount;
-            List<Log> logs = (List<Log>)response.Result.Data;
+            ResponseModel response = AsyncRequest.PostAsync<IList<Log>, LogPostModel>(url, model).Result;
+            int count = response.TotalCount;
+            List<Log> logs = (List<Log>)response.Data;
             LogGridConfiguration configuration = new LogGridConfiguration(logs, count, model.PageSize, model.CurrentPage);
 
             return this.GridConfiguration(configuration);

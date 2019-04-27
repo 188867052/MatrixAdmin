@@ -1,9 +1,25 @@
 ﻿namespace Core.Model.ResponseModels
 {
+
+    public class Pager
+    {
+        /// <summary>
+        /// 分页大小
+        /// </summary>
+        public int PageSize { get; set; }
+
+        /// <summary>
+        /// 当前页码
+        /// </summary>
+        public int CurrentPage { get; set; }
+
+        public int TotalCount { get; set; }
+    }
+
     /// <summary>
     /// 请求响应实体
     /// </summary>
-    public class ResponseModel
+    public class ResponseModel : Pager
     {
         /// <summary>
         /// 请求响应实体类
@@ -13,8 +29,6 @@
             Code = 200;
             Message = "操作成功";
         }
-
-        public int TotalCount { get; set; }
 
         /// <summary>
         /// 响应代码

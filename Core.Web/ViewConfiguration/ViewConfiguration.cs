@@ -1,4 +1,5 @@
-﻿using Core.Web.GridColumn;
+﻿using System;
+using Core.Web.GridColumn;
 using System.Collections.Generic;
 using Core.Web.Html;
 
@@ -39,13 +40,37 @@ namespace Core.Web.ViewConfiguration
 
         public string Pager()
         {
-            return $"<ul class=\"pager\">" +
-                   $"<li class=\"page-item\">共Count:{Count},pageSize:{PageSize},CurrentPage:{CurrentPage}条</li>" +
+            int pageCount = (int)Math.Ceiling((decimal)Count / PageSize);
+            string pageHtml = default;
+            int sideCount = 3;
+            for (int i = 1; i <= pageCount; i++)
+            {
+                string style = (CurrentPage == i ? "style=\"color:red\"" : default);
+                if (pageCount <= 10)
+                {
+                    pageHtml += $"<li class=\"page-item\"><a {style} class=\"page-link\" href=\"#\">{i}</a></li>";
+                }
+                else if (pageCount > 10)
+                {
+                    if (i >= 1 && i <= sideCount)
+                    {
+                        pageHtml += $"<li class=\"page-item\"><a {style} class=\"page-link\" href=\"#\">{i}</a></li>";
+                    }
+                    if (i >= CurrentPage - 1 && i <= CurrentPage + 1 && i > sideCount && i <= pageCount - sideCount)
+                    {
+                        pageHtml += $"<li class=\"page-item\"><a {style} class=\"page-link\" href=\"#\">{i}</a></li>";
+                    }
+                    if (i >= pageCount - 2 && i <= pageCount && i > pageCount - sideCount)
+                    {
+                        pageHtml += $"<li class=\"page-item\"><a {style} class=\"page-link\" href=\"#\">{i}</a></li>";
+                    }
+                }
+            }
+            return
+                   $"<ul class=\"pager\">" +
+                   $"<p>共Count:{Count}条,pageSize:{PageSize},CurrentPage:{CurrentPage},pageCount:{pageCount}</p>" +
                    $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&laquo;</a></li>" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">1</a></li>" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">2</a></li>" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">3</a></li>" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">4</a></li>" +
+                   pageHtml +
                    $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&raquo;</a></li>" +
                    $"</ul>";
         }

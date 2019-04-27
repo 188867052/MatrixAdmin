@@ -1,13 +1,10 @@
 ﻿using System;
+using Core.Model.ResponseModels;
 
 namespace Core.Model.PostModel
 {
-    public class LogPostModel
+    public class LogPostModel : Pager
     {
-        public int CurrentPage { get; set; }
-
-        public int PageSize { get; set; }
-
         public bool? IsEnable { get; set; }
 
         /// <summary>
