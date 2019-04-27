@@ -2,7 +2,6 @@
     'use strict';
 
     window.Index = function () {
-        this._currentPage = 1;
     };
 
     window.Index.prototype = {
@@ -10,8 +9,6 @@
         // Private Fields
 
         _searchUrl: null,
-        _currentPage: null,
-        _pageSize: null,
 
         // Private Event Delegates  
 
