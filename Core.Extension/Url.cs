@@ -21,7 +21,7 @@ namespace Core.Extension
         public string Render()
         {
             string controller = Type.Name.Replace(nameof(Controller), default);
-            return $"/{controller}/{this.Action}/{Parameter}";
+            return $"/{controller}/{this.Action}{(Parameter != default ? "/" + Parameter : default)}";
         }
     }
 }
