@@ -16,7 +16,7 @@
         // Private Event Delegates  
 
         _onSuccess: function () {
-            this._count = "";
+            //do something
         },
 
         // Public Properties
@@ -24,7 +24,7 @@
         // Public Methods
 
         search: function (e) {
-            window.core.search(this._searchUrl, e, $.proxy(this._onSuccess, this));
+            window.core.gridSearch(this._searchUrl, e, $.proxy(this._onSuccess, this));
         }
 
         // Private Methods

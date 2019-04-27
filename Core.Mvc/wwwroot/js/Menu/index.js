@@ -16,7 +16,7 @@
         // Private Event Delegates  
 
         _onSuccess: function () {
-            this._count = "";
+            //do something
         },
 
         // Public Properties
