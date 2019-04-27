@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Core.Extension;
 using Core.Model.Entity;
 using Core.Model.PostModel;
 using Core.Model.ResponseModels;
 using Core.Mvc.ViewConfiguration.Administration;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Core.Mvc.Controllers
+namespace Core.Mvc.Controllers.Administration
 {
+    [Area(nameof(Administration))]
     public class UserController : StandardController
     {
         /// <summary>

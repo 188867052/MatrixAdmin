@@ -16,12 +16,30 @@ namespace Core.Extension
             this.Parameter = parameter;
         }
 
+        public Url(string area, Type type, string action, string parameter = default) : this(type, action, parameter)
+        {
+            this.Area = area;
+        }
+
+        public string Area { get; set; }
+
+
         public string Parameter { get; set; }
 
         public string Render()
         {
             string controller = Type.Name.Replace(nameof(Controller), default);
-            return $"/{controller}/{this.Action}{(Parameter != default ? "/" + Parameter : default)}";
+            string url = default;
+            if (Area != default)
+            {
+                url += $"/{Area}";
+            }
+            string parameter = default;
+            if (Area != default)
+            {
+                parameter += $"/{Parameter}";
+            }
+            return $"{url}/{controller}/{this.Action}{parameter}";
         }
     }
 }

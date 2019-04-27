@@ -1,5 +1,4 @@
 ﻿using Core.Model.Menu;
-using Core.Model.PostModel;
 using Core.Mvc.ViewConfiguration.Log;
 using Core.Resource.ViewConfiguration.Log;
 using Core.Web.Button;

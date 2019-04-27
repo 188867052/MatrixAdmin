@@ -6,7 +6,6 @@ using Core.Mvc.ViewConfiguration.Log;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using Core.Mvc.ViewConfiguration.Administration;
 
 namespace Core.Mvc.Controllers
 {

@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Model.ResponseModels;
-using Newtonsoft.Json;
 
 namespace Core.Api.Controllers
 {

@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Model.ResponseModels;
-using MenuJsonModel = Core.Api.Models.Menu.MenuJsonModel;
 
 namespace Core.Api.Controllers
 {

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 namespace Core.Mvc.Controllers
 {
+    [Area(nameof(Administration))]
     public class IconController : StandardController
     {
         /// <summary>
@@ -25,7 +26,7 @@ namespace Core.Mvc.Controllers
         public IActionResult Index()
         {
             var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Index));
-            var  responseModel = AsyncRequest.GetAsync<IList<Icon>>(url).Result;
+            var responseModel = AsyncRequest.GetAsync<IList<Icon>>(url).Result;
             IconIndex index = new IconIndex(this.HostingEnvironment, responseModel);
 
             return this.ViewConfiguration(index);

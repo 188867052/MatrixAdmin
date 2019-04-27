@@ -1,16 +1,14 @@
-﻿using Core.Extension;
+﻿using System.Collections.Generic;
+using Core.Extension;
+using Core.Model;
 using Core.Model.Entity;
-using Core.Model.ResponseModels;
-using Core.Mvc.ViewConfiguration.Log;
+using Core.Mvc.ViewConfiguration.Administration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Core.Model;
-using Core.Mvc.ViewConfiguration.Administration;
 
-namespace Core.Mvc.Controllers
+namespace Core.Mvc.Controllers.Administration
 {
+    [Area(nameof(Administration))]
     public class RoleController : StandardController
     {
         /// <summary>

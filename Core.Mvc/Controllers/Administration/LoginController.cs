@@ -1,12 +1,13 @@
-﻿using Core.Mvc.Models;
+﻿using System.Diagnostics;
+using Core.Mvc.Models;
 using Core.Web.Dialog;
+using Core.Web.File;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using Core.Web.File;
 
-namespace Core.Mvc.Controllers
+namespace Core.Mvc.Controllers.Administration
 {
+    [Area(nameof(Administration))]
     public class LoginController : StandardController
     {
         /// <summary>

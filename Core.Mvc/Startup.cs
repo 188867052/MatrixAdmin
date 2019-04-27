@@ -53,9 +53,13 @@ namespace Core.Mvc
             app.UseMvc(routes =>
             {
                 string defaultController = nameof(RedirectController).Replace(nameof(Controller), string.Empty);
+                string defaultAction = nameof(RedirectController.Index);
+                routes.MapRoute(
+                    name: "defaultWithArea",
+                    template: "{area:exists}/{controller=Redirect}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=" + defaultController + "}/{action=Index}/{id?}");
+                    template: "{controller=" + defaultController + "}/{action=" + defaultAction + "}/{id?}");
             });
         }
     }
