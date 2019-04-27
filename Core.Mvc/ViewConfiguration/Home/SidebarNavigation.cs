@@ -36,7 +36,7 @@ namespace Core.Mvc.ViewConfiguration.Home
             SubMenu manage = new SubMenu("icon icon-user", default, IndexBaseResource.SystemManage, 8);
             manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.Index)), IndexBaseResource.UserManage));
             manage.AddLinkButton(new LinkedAnchor(new Url(typeof(RoleController), nameof(RoleController.Index)), IndexBaseResource.RoleManage));
-            manage.AddLinkButton(new LinkedAnchor(new Url(typeof(UserController), nameof(UserController.PermissionManage)), IndexBaseResource.PermissionManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(typeof(PermissionController), nameof(PermissionController.Index)), IndexBaseResource.PermissionManage));
             manage.AddLinkButton(new LinkedAnchor(new Url(typeof(MenuController), nameof(MenuController.Index)), IndexBaseResource.MenuManage));
             manage.AddLinkButton(new LinkedAnchor(new Url(typeof(IconController), nameof(IconController.Index)), IndexBaseResource.IconManage));
 

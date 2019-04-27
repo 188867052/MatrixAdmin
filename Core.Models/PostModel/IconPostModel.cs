@@ -1,11 +1,12 @@
 ﻿using System;
+using Core.Model.ResponseModels;
 
 namespace Core.Model.PostModel
 {
     /// <summary>
     /// 图标
     /// </summary>
-    public class IconPostModel : PostModel
+    public class IconPostModel : Pager
     {
         public int? Id { get; set; }
 
@@ -40,7 +41,7 @@ namespace Core.Model.PostModel
         /// <summary>
         /// 是否可用
         /// </summary>
-        public bool IsEnable { get; set; }
+        public bool? IsEnable { get; set; }
 
         /// <summary>
         /// 

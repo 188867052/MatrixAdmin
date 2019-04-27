@@ -6,6 +6,7 @@ using Core.Model.ResponseModels;
 using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Resource.ViewConfiguration.Administration;
+using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
@@ -13,17 +14,15 @@ namespace Core.Mvc.ViewConfiguration.Administration
 {
     public class PermissionIndex : IndexBase
     {
-        private readonly List<Permission> _permissions;
+        private readonly ResponseModel response;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
-        public PermissionIndex(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
+        public PermissionIndex(IHostingEnvironment hostingEnvironment,ResponseModel response) : base(hostingEnvironment)
         {
-            var url = new Url(typeof(Api.Controllers.PermissionController), nameof(Api.Controllers.LogController.Index));
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Permission>>(url);
-            this._permissions = (List<Permission>)a.Result.Data;
+            this.response = response;
         }
 
         public override IList<string> Css()
@@ -31,7 +30,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
             return new List<string>
             {
                 "/css/uniform.css",
-                
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
@@ -50,18 +48,31 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             return new List<string>
             {
-               "/js/jquery.uniform.js",
-               "/js/matrix.js",
-               "/js/matrix.tables.js"
+               "/js/Permission/index.js",
             };
         }
 
         public override string Render()
         {
-            LogFilterConfiguration configuration = new LogFilterConfiguration(new ResponseModel());
+            PermissionGridConfiguration configuration = new PermissionGridConfiguration(response);
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
-            return html;
+
+            PermissionFilterConfiguration filter = new PermissionFilterConfiguration();
+
+            html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
+            html = html.Replace("{{button-group}}", filter.GenerateButton());
+            html = html.Replace("{{Pager}}", this.Pager());
+            return html + RenderJavaScript();
+        }
+
+        private string RenderJavaScript()
+        {
+            JavaScript js = new JavaScript("index", "Index");
+            Url url = new Url(typeof(PermissionController), nameof(PermissionController.GridStateChange));
+            js.AddUrlInstance("searchUrl", url);
+
+            return $"<script>{js.Render()}</script>";
         }
 
         protected override string ContentHeader()

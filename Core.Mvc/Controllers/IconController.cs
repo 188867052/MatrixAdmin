@@ -25,8 +25,8 @@ namespace Core.Mvc.Controllers
         public IActionResult Index()
         {
             var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Index));
-            var  a = AsyncRequest.GetAsync<IList<Icon>>(url).Result;
-            IconIndex index = new IconIndex(this.HostingEnvironment, a);
+            var  responseModel = AsyncRequest.GetAsync<IList<Icon>>(url).Result;
+            IconIndex index = new IconIndex(this.HostingEnvironment, responseModel);
 
             return this.ViewConfiguration(index);
         }
@@ -39,10 +39,6 @@ namespace Core.Mvc.Controllers
         [HttpPost]
         public IActionResult GridStateChange(IconPostModel model)
         {
-            if (model.CurrentPage == 0)
-            {
-                model.CurrentPage = 1;
-            }
             var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Search));
             var response = AsyncRequest.PostAsync<IList<Icon>, IconPostModel>(url, model).Result;
             IconGridConfiguration configuration = new IconGridConfiguration(response);

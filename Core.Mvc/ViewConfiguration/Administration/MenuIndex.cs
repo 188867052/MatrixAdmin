@@ -3,6 +3,7 @@ using Core.Extension;
 using Core.Model.ResponseModels;
 using Core.Mvc.Controllers;
 using Core.Mvc.ViewConfiguration.Home;
+using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
@@ -45,9 +46,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             return new List<string>
             {
-               "/js/jquery.uniform.js",
-               "/js/matrix.js",
-               "/js/matrix.tables.js"
+               "/js/menu/index.js",
             };
         }
 
@@ -56,7 +55,21 @@ namespace Core.Mvc.ViewConfiguration.Administration
             MenuViewConfiguration configuration = new MenuViewConfiguration(this.response);
             string table = configuration.Render();
             var html = base.Render().Replace("{{Table}}", table);
-            return html;
+
+            MenuFilterConfiguration filter = new MenuFilterConfiguration();
+
+            html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
+            html = html.Replace("{{button-group}}", filter.GenerateButton());
+            html = html.Replace("{{Pager}}", this.Pager());
+            return html + RenderJavaScript();
+        }
+        private string RenderJavaScript()
+        {
+            JavaScript js = new JavaScript("index", "Index");
+            Url url = new Url(typeof(MenuController), nameof(MenuController.GridStateChange));
+            js.AddUrlInstance("searchUrl", url);
+
+            return $"<script>{js.Render()}</script>";
         }
 
         protected override string ContentHeader()

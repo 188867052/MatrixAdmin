@@ -1,4 +1,5 @@
-﻿using Core.Model.PostModel;
+﻿using Core.Model.Menu;
+using Core.Model.PostModel;
 using Core.Mvc.ViewConfiguration.Log;
 using Core.Resource.ViewConfiguration.Log;
 using Core.Web.Button;
@@ -7,15 +8,15 @@ using Core.Web.Identifiers;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class PermissionFilterConfiguration : GridFilterConfiguration<PermissionPostModel>
+    public class MenuFilterConfiguration : GridFilterConfiguration<MenuPostModel>
     {
-        public PermissionFilterConfiguration()
+        public MenuFilterConfiguration()
         {
         }
 
         public override string GenerateSearchFilter()
         {
-            GridSearchFilter.AddBooleanFilter(new BooleanGridFilter<PermissionPostModel>(o => o.IsEnable, LogResource.Message));
+            GridSearchFilter.AddBooleanFilter(new BooleanGridFilter<MenuPostModel>(o => o.IsEnable, LogResource.Message));
 
             return GridSearchFilter.Render();
         }

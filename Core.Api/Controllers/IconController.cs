@@ -65,7 +65,6 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         public IActionResult Search(IconPostModel model)
         {
-            ResponseModel response = ResponseModelFactory.CreateResultInstance;
             using (this.DbContext)
             {
                 IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();
@@ -73,13 +72,12 @@ namespace Core.Api.Controllers
                 {
                     query = query.Where(x => x.Code.Contains(model.Code));
                 }
-                //if (postModel.Status)
+                if (model.IsEnable.HasValue)
                 {
                     query = query.Where(x => x.IsEnable == model.IsEnable);
                 }
-                var list = query.Paged(out var count);
-                response.SetData(list, count);
-
+                var list = query.Paged(out _, model);
+                ResponseModel response = new ResponseModel(list, model);
                 return Ok(response);
             }
         }

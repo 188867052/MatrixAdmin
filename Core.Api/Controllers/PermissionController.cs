@@ -44,9 +44,8 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult List(PermissionPostModel model)
+        public IActionResult Search(PermissionPostModel model)
         {
-            ResponseModel response = ResponseModelFactory.CreateResultInstance;
             using (this.DbContext)
             {
                 IQueryable<Permission> query = this.DbContext.Permission.AsQueryable();
@@ -58,9 +57,9 @@ namespace Core.Api.Controllers
                 query = query.AddBooleanFilter(model.Status, nameof(Permission.Status));
                 query = query.AddGuidEqualsFilter(model.MenuGuid, nameof(Permission.MenuGuid));
                 var list = query.Paged(out var totalCount, model);
+                var response = new ResponseModel(list, model);
 
-                //List<Permission> list = query.Include(x => x.Menu).ToList();
-                IEnumerable<PermissionJsonModel> data = list.Select(this.Mapper.Map<Permission, PermissionJsonModel>);
+                //var data = list.Select(this.Mapper.Map<Permission, PermissionJsonModel>);
                 /*
                  * .Select(x => new PermissionJsonModel {
                     MenuName = x.Menu.Name,
@@ -68,7 +67,6 @@ namespace Core.Api.Controllers
                 });
                  */
 
-                response.SetData(data, totalCount);
                 return Ok(response);
             }
         }

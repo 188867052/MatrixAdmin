@@ -30,10 +30,8 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Menu> query = this.DbContext.Menu.AsQueryable();
-                var list = query.ToList();
-                ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(list);
-                return Ok(response);
+                var list = query.Paged(out var count);
+                return Ok(new ResponseModel(list, new Pager() { TotalCount = count }));
             }
         }
 
@@ -52,9 +50,8 @@ namespace Core.Api.Controllers
                 query = query.AddBooleanFilter(request.Status, nameof(Menu.Status));
                 query = query.AddGuidEqualsFilter(request.ParentGuid, nameof(Menu.ParentGuid));
                 var list = query.Paged(out var count, request);
-                IEnumerable<MenuJsonModel> data = list.Select(Mapper.Map<Menu, MenuJsonModel>);
-                ResponseModel response = ResponseModelFactory.CreateResultInstance;
-                response.SetData(data, count);
+                //IEnumerable<MenuJsonModel> data = list.Select(Mapper.Map<Menu, MenuJsonModel>);
+                ResponseModel response = new ResponseModel(list, request);
                 return Ok(response);
             }
         }

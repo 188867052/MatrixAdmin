@@ -5,6 +5,7 @@ using Core.Mvc.ViewConfiguration.Administration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Core.Model.Menu;
 using Core.Mvc.ViewConfiguration.Log;
 
 namespace Core.Mvc.Controllers
@@ -38,15 +39,11 @@ namespace Core.Mvc.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult GridStateChange(IconPostModel model)
+        public IActionResult GridStateChange(MenuPostModel model)
         {
-            if (model.CurrentPage == 0)
-            {
-                model.CurrentPage = 1;
-            }
             var url = new Url(typeof(Api.Controllers.MenuController), nameof(Api.Controllers.MenuController.Search));
-            var response = AsyncRequest.PostAsync<IList<Menu>, IconPostModel>(url, model).Result;
-            LogGridConfiguration configuration = new LogGridConfiguration(response);
+            var response = AsyncRequest.PostAsync<IList<Menu>, MenuPostModel>(url, model).Result;
+            MenuViewConfiguration configuration = new MenuViewConfiguration(response);
 
             return this.GridConfiguration(configuration);
         }

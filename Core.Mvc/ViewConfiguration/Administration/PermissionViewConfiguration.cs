@@ -6,13 +6,13 @@ using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
-    public class LogFilterConfiguration : GridConfiguration<Permission>
+    public class PermissionGridConfiguration : GridConfiguration<Permission>
     {
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="entity"></param>
-        public LogFilterConfiguration(ResponseModel entity) : base(entity)
+        public PermissionGridConfiguration(ResponseModel entity) : base(entity)
         {
         }
 

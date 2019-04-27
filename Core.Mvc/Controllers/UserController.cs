@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
 using Core.Extension;
 using Core.Model.Entity;
 using Core.Model.PostModel;
@@ -46,12 +45,6 @@ namespace Core.Mvc.Controllers
             UserViewConfiguration configuration = new UserViewConfiguration(response);
 
             return this.GridConfiguration(configuration);
-        }
-
-        public IActionResult PermissionManage()
-        {
-            PermissionIndex index = new PermissionIndex(this.HostingEnvironment);
-            return Content(index.Render(), "text/html", Encoding.UTF8);
         }
     }
 }
