@@ -52,9 +52,7 @@ namespace Core.Api.Controllers
                 //query.AddStringContainsFilter(x => x.Name.Contains(model.KeyWord.Trim()) || x.Id.Contains(model.KeyWord.Trim()));
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Role.IsEnable));
                 query = query.AddBooleanFilter(model.Status, nameof(Role.Status));
-                query = query.Paged(model.CurrentPage, model.PageSize);
-                List<Role> list = query.ToList();
-                int totalCount = query.Count();
+                var list = query.Paged(out var totalCount, model.PageSize);
 
                 response.SetData(list, totalCount);
                 return Ok(response);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -22,7 +23,7 @@ namespace Core.Api.Extensions
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
-        public static IQueryable<T> Paged<T>(this IQueryable<T> query, int pageIndex = 1, int pageSize = 10)
+        public static IList<T> Paged<T>(this IQueryable<T> query, out int count, int pageIndex = 1, int pageSize = 10)
         {
             if (pageIndex < 1)
             {
@@ -33,7 +34,8 @@ namespace Core.Api.Extensions
                 throw new Exception("pageSize must lager than 0");
             }
 
-            return query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+            count = query.Count();
+            return query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
         }
 
 

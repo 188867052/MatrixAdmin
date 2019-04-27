@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using Core.Web.JavaScript;
 
 namespace Core.Web.GridColumn
 {

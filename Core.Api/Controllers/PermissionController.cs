@@ -57,10 +57,9 @@ namespace Core.Api.Controllers
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Permission.IsEnable));
                 query = query.AddBooleanFilter(model.Status, nameof(Permission.Status));
                 query = query.AddGuidEqualsFilter(model.MenuGuid, nameof(Permission.MenuGuid));
-                query = query.Paged(model.CurrentPage, model.PageSize);
+                var list = query.Paged(out var totalCount, model.PageSize);
 
-                List<Permission> list = query.Include(x => x.Menu).ToList();
-                int totalCount = query.Count();
+                //List<Permission> list = query.Include(x => x.Menu).ToList();
                 IEnumerable<PermissionJsonModel> data = list.Select(this.Mapper.Map<Permission, PermissionJsonModel>);
                 /*
                  * .Select(x => new PermissionJsonModel {

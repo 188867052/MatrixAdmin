@@ -28,7 +28,13 @@ namespace Core.Mvc.Controllers
 
         protected JsonResult GridConfiguration<T>(GridConfiguration<T> index)
         {
-            return new JsonResult(new { data = index.Render(), pageSize = index.PageSize, currentPage = index.CurrentPage });
+            return new JsonResult(new
+            {
+                data = index.Render(),
+                pageSize = index.PageSize,
+                currentPage = index.CurrentPage,
+                pager= index.Pager()
+            });
         }
 
         private ContentResult RenderContent(IRender render)

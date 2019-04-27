@@ -31,9 +31,7 @@ namespace Core.Api.Controllers
             {
                 IQueryable<Log> query = this.DbContext.Log.AsQueryable();
                 query = query.OrderByDescending(o => o.CreateTime);
-                int count = query.Count();
-                query = query.Paged();
-                var list = query.ToList();
+                var list = query.Paged(out var count);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(list, count);
                 return Ok(response);
@@ -57,15 +55,11 @@ namespace Core.Api.Controllers
                 {
                     query = query.Where(o => o.Message.Contains(model.Message));
                 }
-
                 this.DbContext.SaveChanges();
 
-                query = query.Paged(model.CurrentPage, model.PageSize);
-
-                var list = query.ToList();
-
+                var list = query.Paged(out var count, model.PageSize);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(list);
+                response.SetData(list, count);
                 return Ok(response);
             }
         }

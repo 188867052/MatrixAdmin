@@ -53,16 +53,14 @@ namespace Core.Api.Controllers
                 }
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Core.Model.Entity.User.IsEnable));
                 query = query.AddBooleanFilter(model.Status, nameof(Core.Model.Entity.User.Status));
-                query = query.Paged(model.CurrentPage, model.PageSize);
-                if (model.FirstSort != null)
-                {
-                    query = query.OrderBy(model.FirstSort.Field, model.FirstSort.Direct == "DESC");
-                }
-                List<User> list = query.ToList();
-                int totalCount = query.Count();
-                IEnumerable<UserJsonModel> data = list.Select(Mapper.Map<User, UserJsonModel>);
+                var list = query.Paged(out var totalCount, model.CurrentPage, model.PageSize);
+                //if (model.FirstSort != null)
+                //{
+                //    query = query.OrderBy(model.FirstSort.Field, model.FirstSort.Direct == "DESC");
+                //}
+                //IEnumerable<UserJsonModel> data = list.Select(Mapper.Map<User, UserJsonModel>);
                 ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
-                response.SetData(data, totalCount);
+                response.SetData(list, totalCount);
                 return Ok(response);
             }
         }

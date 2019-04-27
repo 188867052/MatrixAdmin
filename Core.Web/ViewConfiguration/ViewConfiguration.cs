@@ -36,5 +36,18 @@ namespace Core.Web.ViewConfiguration
             this.GenerateGridColumn();
             return GridColumn.Render(Count, PageSize, CurrentPage);
         }
+
+        public string Pager()
+        {
+            return $"<ul class=\"pager\">" +
+                   $"<li class=\"page-item\">共Count:{Count},pageSize:{PageSize},CurrentPage:{CurrentPage}条</li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&laquo;</a></li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">1</a></li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">2</a></li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">3</a></li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">4</a></li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&raquo;</a></li>" +
+                   $"</ul>";
+        }
     }
 }

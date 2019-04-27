@@ -28,10 +28,9 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();
-                query = query.Paged();
-                var list = query.ToList();
+                var list = query.Paged(out var count);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(list);
+                response.SetData(list, count);
                 return Ok(response);
             }
         }
@@ -52,14 +51,10 @@ namespace Core.Api.Controllers
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Icon.IsEnable));
                 query = query.AddStringContainsFilter(model.KeyWord, nameof(Icon.Code));
                 query = query.AddBooleanFilter(model.Status, nameof(Icon.Status));
-                int totalCount = query.Count();
-
-                query = query.Paged();
-
-                List<Icon> list = query.ToList();
+                var list = query.Paged(out var count, model.CurrentPage, model.PageSize);
                 IEnumerable<IconJsonModel> data = list.Select(this.Mapper.Map<Icon, IconJsonModel>);
                 ResponseResultModel response = ResponseModelFactory.CreateResultInstance;
-                response.SetData(data, totalCount);
+                response.SetData(data, count);
 
                 return Ok(response);
             }
@@ -83,9 +78,7 @@ namespace Core.Api.Controllers
                 {
                     query = query.Where(x => x.IsEnable == model.IsEnable);
                 }
-                int count = query.Count();
-                query = query.Paged();
-                List<Icon> list = query.ToList();
+                var list = query.Paged(out var count);
                 response.SetData(list, count);
 
                 return Ok(response);

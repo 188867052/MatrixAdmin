@@ -38,8 +38,10 @@
 
         setData: function (response) {
             $(".widget-content")[0].innerHTML = response.data;
+            $(".pager").replaceWith(response.pager);
             index._pageSize = response.pageSize;
             index._currentPage = response.currentPage;
+            $(".page-link").on('click', function () { index.search(event.currentTarget); });
         },
 
         getCurrentPage: function (e) {
