@@ -13,7 +13,7 @@ namespace Core.Model.PostModel
         /// <summary>
         /// 
         /// </summary>
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
         /// <summary>
         /// 
@@ -28,9 +28,9 @@ namespace Core.Model.PostModel
         /// <summary>
         /// 
         /// </summary>
-        public DateTime StartTime { get; set; }
+        public DateTime? StartTime { get; set; }
 
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
 
         public Person Person { get; set; }
     }

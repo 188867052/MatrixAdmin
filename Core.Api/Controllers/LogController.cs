@@ -46,6 +46,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Log> query = this.DbContext.Log.AsQueryable();
+                query = query.OrderByDescending(o => o.CreateTime);
                 Log log = new Log
                 {
                     Message = JsonConvert.SerializeObject(model),
@@ -56,8 +57,11 @@ namespace Core.Api.Controllers
                 {
                     query = query.Where(o => o.Message.Contains(model.Message));
                 }
+
                 this.DbContext.SaveChanges();
+
                 query = query.Paged(model.CurrentPage, model.PageSize);
+
                 var list = query.ToList();
 
                 ResponseModel response = ResponseModelFactory.CreateInstance;
