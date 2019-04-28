@@ -47,9 +47,9 @@ namespace Core.Mvc.Controllers
         }
 
         //https://localhost:44317/Dialog/FormInLine
-        public IActionResult FormInLine()
+        public IActionResult Dialog()
         {
-            File file = new File(HostingEnvironment, "form_custom_inline");
+            File file = new File(HostingEnvironment, "a_test");
             return Content(file.Render(), "text/html");
         }
     }

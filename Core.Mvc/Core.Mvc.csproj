@@ -14,6 +14,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\html\LargeDialog.html" />
+    <Content Remove="wwwroot\html\SmallDialog.html" />
+    <Content Remove="wwwroot\html\Table.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\html\LargeDialog.html" />
+    <None Include="wwwroot\html\SmallDialog.html" />
+    <None Include="wwwroot\html\Table.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />

@@ -48,7 +48,9 @@ namespace Core.Web.GridFilter
 
             return $"<div class=\"{this.ContainerClass}\">" +
                    $"<label>{base.LabelText}</label>" +
-                   $"<select name=\"{name}\">{options}</select>" +
+                   $"<select name=\"{name}\">" +
+                      $"{options}" +
+                   $"</select>" +
                    $"</div>";
         }
 
