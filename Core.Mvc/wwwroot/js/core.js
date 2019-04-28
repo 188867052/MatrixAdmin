@@ -18,7 +18,7 @@
 
         _onGridSearch: function (response) {
             $(".widget-content")[0].innerHTML = response.data;
-            $(".pager").replaceWith(response.pager);
+            $(".pagination").replaceWith("<p></p>"+response.pager);
             this._pageSize = response.pageSize;
             this._currentPage = response.currentPage;
             this._successPointer();

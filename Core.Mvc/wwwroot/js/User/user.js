@@ -31,7 +31,7 @@
 
         add: function () {
             $.get(this._addUrl, function (response) {
-                $(".pager").replaceWith(response.data);
+                $(".pagination").replaceWith(response.data);
                 $("#" + response.id).modal("show");
             });
         }

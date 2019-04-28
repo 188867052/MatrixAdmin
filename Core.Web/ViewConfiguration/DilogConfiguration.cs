@@ -40,8 +40,7 @@ namespace Core.Web.ViewConfiguration
             html = html.Replace("{{modal-title}}", Title);
             html = html.Replace("{{modal-body}}", Body);
             html = html.Replace("{{modal-footer}}", Footer);
-            string script = $"<script>$(\"#{Identifier.Value}\").modal(\"show\");</script>";
-            return html + script;
+            return html;
         }
     }
 }
