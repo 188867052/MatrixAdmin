@@ -3,6 +3,7 @@ using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
 using Core.Mvc.ViewConfiguration.Administration;
+using Core.Web.ViewConfiguration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,17 +50,15 @@ namespace Core.Mvc.Controllers.Administration
         }
 
         /// <summary>
-        /// The Index.
+        /// The add dialog.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public IActionResult AddDialog()
         {
-            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Index));
-            var model = AsyncRequest.GetAsync<IList<User>>(url).Result;
-            UserIndex table = new UserIndex(HostingEnvironment, model);
+            AddUserDialogConfiguration user = new AddUserDialogConfiguration(null);
 
-            return this.ViewConfiguration(table);
+            return this.Dialog(user);
         }
     }
 }

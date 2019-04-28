@@ -13,7 +13,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
     public class UserIndex : SearchGridPage
     {
 
-        private ResponseModel response;
+        private readonly ResponseModel response;
 
         /// <summary>
         /// 构造函数
@@ -29,7 +29,6 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             return new List<string>
             {
-                
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
@@ -40,7 +39,9 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             JavaScript js = new JavaScript("index", "Index");
             Url url = new Url(nameof(Administration), typeof(UserController), nameof(UserController.GridStateChange));
+            Url addUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.AddDialog));
             js.AddUrlInstance("searchUrl", url);
+            js.AddUrlInstance("addUrl", addUrl);
 
             return $"<script>{js.Render()}</script>";
         }

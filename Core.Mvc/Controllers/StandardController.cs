@@ -3,6 +3,7 @@ using Core.Web.Html;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using Core.Model.Administration.User;
 using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Controllers
@@ -26,6 +27,11 @@ namespace Core.Mvc.Controllers
             return this.RenderContent(index);
         }
 
+        protected IActionResult Dialog<T>(DialogConfiguration<T> index)
+        {
+            return new JsonResult(new { data = index.Render(), id = DialogConfiguration<User>.Identifier.Value });
+        }
+
         protected JsonResult GridConfiguration<T>(GridConfiguration<T> index)
         {
             return new JsonResult(new
@@ -33,7 +39,7 @@ namespace Core.Mvc.Controllers
                 data = index.Render(),
                 pageSize = index.PageSize,
                 currentPage = index.CurrentPage,
-                pager= index.Pager()
+                pager = index.Pager()
             });
         }
 

@@ -9,7 +9,7 @@
         // Private Fields
 
         _searchUrl: null,
-
+        _addUrl: null,
         // Private Event Delegates  
 
         _onSuccess: function () {
@@ -27,8 +27,14 @@
         search: function () {
             window.core.setSuccessPointer($.proxy(this._onSuccess, this));
             window.core.gridSearch(this._searchUrl);
-        }
+        },
 
+        add: function () {
+            $.get(this._addUrl, function (response) {
+                $(".pager").replaceWith(response.data);
+                $("#" + response.id).modal("show");
+            });
+        }
         // Private Methods
     };
 })();

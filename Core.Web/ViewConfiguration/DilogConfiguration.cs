@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Core.Model;
 using Core.Web.GridColumn;
-using System.Collections.Generic;
-using Core.Model;
 using Core.Web.Html;
+using Core.Web.Identifiers;
+using System.Collections.Generic;
 
 namespace Core.Web.ViewConfiguration
 {
@@ -12,16 +12,17 @@ namespace Core.Web.ViewConfiguration
         public abstract string Footer { get; }
 
         public abstract string Body { get; }
+        public static Identifier Identifier { get; } = new Identifier();
 
         /// <summary>
         /// 构造函数
         /// </summary>
         protected DialogConfiguration(ResponseModel model)
         {
-            this.GridColumn = new GridColumn<T>((List<T>)model.Data);
-            this.Count = model.TotalCount;
-            this.PageSize = model.PageSize;
-            this.CurrentPage = model.PageIndex;
+            //this.GridColumn = new GridColumn<T>((List<T>)model.Data);
+            //this.Count = model.TotalCount;
+            //this.PageSize = model.PageSize;
+            //this.CurrentPage = model.PageIndex;
         }
 
         public int CurrentPage { get; set; }
@@ -31,9 +32,16 @@ namespace Core.Web.ViewConfiguration
         public int Count { get; set; }
 
         public GridColumn<T> GridColumn { get; }
-        public string Render()
+
+        public virtual string Render()
         {
-            throw new NotImplementedException();
+            string html = System.IO.File.ReadAllText("C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\wwwroot\\html\\LargeDialog.html");
+            html = html.Replace("{{id}}", Identifier.Value);
+            html = html.Replace("{{modal-title}}", Title);
+            html = html.Replace("{{modal-body}}", Body);
+            html = html.Replace("{{modal-footer}}", Footer);
+            string script = $"<script>$(\"#{Identifier.Value}\").modal(\"show\");</script>";
+            return html + script;
         }
     }
 }

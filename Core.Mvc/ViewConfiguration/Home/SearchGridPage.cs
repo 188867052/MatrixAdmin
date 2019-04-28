@@ -65,7 +65,7 @@ namespace Core.Mvc.ViewConfiguration.Home
                 "/js/jquery.ui.custom.js",
                 "/js/jquery.dataTables.min.js",
                 "/js/bootstrap.min.js",
-                "/js/jquery/dist/jquery.js",
+                "/js/jquery.min.js",
                 "/js/bootstrap-datetimepicker.js",
                 "/js/framework.js",
                 "/js/popper.js",

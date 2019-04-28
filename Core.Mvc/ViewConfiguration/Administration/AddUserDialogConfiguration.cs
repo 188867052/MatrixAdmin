@@ -14,14 +14,9 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
         }
 
-
         public override string Title
         {
-            get
-            {
-                return "添加用户";
-
-            }
+            get { return "添加用户"; }
         }
 
 
@@ -29,8 +24,8 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             get
             {
-                return "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">关闭</button>";
-
+                return "<button type=\"submit\" class=\"btn btn-primary\">提交</button>" +
+              "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">关闭</button>";
             }
         }
 
@@ -39,8 +34,15 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             get
             {
-                return "添加用户";
-
+                string html = "<div class=\"form-group\">" +
+                              "<label for=\"pwd\">登录名:</label>" +
+                              "<input type=\"password\" class=\"form-control\" id=\"pwd\">" +
+                              "</div>";
+                html += "<div class=\"form-group\">" +
+                       "<label for=\"pwd1\">密码:</label>" +
+                       "<input type=\"password\" class=\"form-control\" id=\"pwd1\">" +
+                       "</div>";
+                return html;
             }
         }
     }
