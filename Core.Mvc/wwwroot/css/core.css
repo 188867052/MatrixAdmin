@@ -2,3 +2,8 @@
     margin-right: 1rem;
     float: left;
 }
+
+.label-important, .badge-important {
+    background: #f74d4d;
+    color: white
+}
