@@ -28,7 +28,7 @@ namespace Core.Api
         public void ConfigureServices(IServiceCollection services)
         {
             #region 跨域
-            string[] urls = { new Repository.Config().Url };
+            string[] urls = { "http://localhost:90" };
             services.AddCors(options =>
             options.AddPolicy("AllowSameDomain",
         builder => builder.WithOrigins(urls).AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin().AllowCredentials())
