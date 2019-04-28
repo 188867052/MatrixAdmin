@@ -68,7 +68,7 @@ namespace Core.Mvc.ViewConfiguration.Home
                 "/js/jquery/dist/jquery.js",
                 "/js/bootstrap-datetimepicker.js",
                 "/js/framework.js",
-
+                "/js/popper.js",
                 "/js/core.js"
             };
             list.AddRange(this.Javascript());
@@ -110,6 +110,9 @@ namespace Core.Mvc.ViewConfiguration.Home
 
             string tobHeader = File.ReadAllText(Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\topHeader.html"));
             html = html.Replace("{{tobHeader}}", tobHeader);
+
+            html += File.ReadAllText(Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\LargeDialog.html"));
+
 
             return html + $"<script>{this.RenderJavaScript()}</script>";
         }
