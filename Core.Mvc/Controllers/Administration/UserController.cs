@@ -23,6 +23,7 @@ namespace Core.Mvc.Controllers.Administration
         /// The Index.
         /// </summary>
         /// <returns></returns>
+        [HttpGet]
         public IActionResult Index()
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Index));
@@ -45,6 +46,20 @@ namespace Core.Mvc.Controllers.Administration
             UserViewConfiguration configuration = new UserViewConfiguration(response);
 
             return this.GridConfiguration(configuration);
+        }
+
+        /// <summary>
+        /// The Index.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult AddDialog()
+        {
+            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Index));
+            var model = AsyncRequest.GetAsync<IList<User>>(url).Result;
+            UserIndex table = new UserIndex(HostingEnvironment, model);
+
+            return this.ViewConfiguration(table);
         }
     }
 }
