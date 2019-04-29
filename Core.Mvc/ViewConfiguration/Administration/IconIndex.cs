@@ -41,7 +41,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             }
         }
 
-        protected override IList<string> Javascript()
+        protected override IList<string> JavaScript()
         {
             return new List<string>
             {
@@ -73,8 +73,10 @@ namespace Core.Mvc.ViewConfiguration.Administration
 
         protected override IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
         {
-            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>();
-            constructions.Add(new IconViewInstance());
+            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>
+            {
+                new IconViewInstance()
+            };
             return constructions;
         }
     }

@@ -19,14 +19,8 @@ namespace Core.Mvc.Controllers
 
         public IActionResult Index()
         {
-            LargeDialog largeDialog = new LargeDialog();
-            return Content(largeDialog.Render(), "text/html");
-        }
-
-        public IActionResult SmallDialog()
-        {
-            SmallDialog smallDialog = new SmallDialog();
-            return Content(smallDialog.Render(), "text/html");
+            File file = new File(HostingEnvironment, "a_test");
+            return Content(file.Render(), "text/html");
         }
 
         public IActionResult Carousel()
@@ -44,13 +38,6 @@ namespace Core.Mvc.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        //https://localhost:44317/Dialog/FormInLine
-        public IActionResult Dialog()
-        {
-            File file = new File(HostingEnvironment, "a_test");
-            return Content(file.Render(), "text/html");
         }
     }
 }

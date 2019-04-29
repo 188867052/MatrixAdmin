@@ -2,7 +2,6 @@
 using Core.Extension;
 using Core.Model;
 using Core.Mvc.Controllers;
-using Core.Mvc.Controllers.Administration;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
@@ -18,6 +17,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
+        /// <param name="response"></param>
         public MenuIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
             this.response = response;
@@ -41,7 +41,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             }
         }
 
-        protected override IList<string> Javascript()
+        protected override IList<string> JavaScript()
         {
             return new List<string>
             {
@@ -60,16 +60,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
             html = html.Replace("{{button-group}}", filter.GenerateButton());
             html = html.Replace("{{Pager}}", this.Pager());
-            return html + RenderJavaScript();
-        }
-
-        private string RenderJavaScript()
-        {
-            JavaScript js = new JavaScript("index", "Index");
-            Url url = new Url(nameof(Administration), typeof(MenuController), nameof(MenuController.GridStateChange));
-            js.AddUrlInstance("searchUrl", url);
-
-            return $"<script>{js.Render()}</script>";
+            return html;
         }
 
         protected override string ContentHeader()
@@ -78,6 +69,16 @@ namespace Core.Mvc.ViewConfiguration.Administration
             contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
+        }
+
+        protected override IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
+        {
+            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>
+            {
+                new IndexViewInstance(),
+                new MenuViewInstance()
+            };
+            return constructions;
         }
     }
 }

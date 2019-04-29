@@ -18,12 +18,6 @@ namespace Core.Mvc.Controllers
             return Content(table.Render(), "text/html");
         }
 
-        public IActionResult SmallDialog()
-        {
-            SmallDialog dialog = new SmallDialog();
-            return Content(dialog.Render(), "text/html");
-        }
-
         public IActionResult Carousel()
         {
             Carousel dialog = new Carousel();

@@ -28,7 +28,7 @@ namespace Core.Mvc.ViewConfiguration.Login
             }
         }
 
-        protected override IList<string> Javascript()
+        protected override IList<string> JavaScript()
         {
             return new List<string>
             {

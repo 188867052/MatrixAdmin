@@ -6,13 +6,11 @@ using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using Core.Model;
-using Core.Mvc.Controllers.Administration;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
     public class UserIndex : SearchGridPage
     {
-
         private readonly ResponseModel response;
 
         /// <summary>
@@ -25,6 +23,14 @@ namespace Core.Mvc.ViewConfiguration.Administration
             this.response = response;
         }
 
+        protected override string FileName
+        {
+            get
+            {
+                return "Manage";
+            }
+        }
+
         public override IList<string> Css()
         {
             return new List<string>
@@ -35,26 +41,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             };
         }
 
-        private string RenderJavaScript()
-        {
-            JavaScript js = new JavaScript("index", "Index");
-            Url url = new Url(nameof(Administration), typeof(UserController), nameof(UserController.GridStateChange));
-            Url addUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.AddDialog));
-            js.AddUrlInstance("searchUrl", url);
-            js.AddUrlInstance("addUrl", addUrl);
-
-            return $"<script>{js.Render()}</script>";
-        }
-
-        protected override string FileName
-        {
-            get
-            {
-                return "Manage";
-            }
-        }
-
-        protected override IList<string> Javascript()
+        protected override IList<string> JavaScript()
         {
             return new List<string>
             {
@@ -72,7 +59,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
             html = html.Replace("{{button-group}}", filter.GenerateButton());
             html = html.Replace("{{Pager}}", this.Pager());
-            return html + RenderJavaScript();
+            return html;
         }
 
         protected override string ContentHeader()
@@ -81,6 +68,16 @@ namespace Core.Mvc.ViewConfiguration.Administration
             contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
+        }
+
+        protected override IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
+        {
+            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>
+            {
+                new IndexViewInstance(),
+                new UserViewInstance()
+            };
+            return constructions;
         }
     }
 }

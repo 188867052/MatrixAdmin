@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using Core.Extension.Expression;
+﻿using System.Collections.Generic;
 using Core.Model;
 using Core.Model.Administration.User;
+using Core.Web.TextBox;
 using Core.Web.ViewConfiguration;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
@@ -39,42 +36,20 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             get
             {
-                List<TextBox<UserPostModel>> list = new List<TextBox<UserPostModel>>();
-                list.Add(new TextBox<UserPostModel>(o => o.LoginName, "登录名"));
-                list.Add(new TextBox<UserPostModel>(o => o.DisplayName, "显示名"));
-                list.Add(new TextBox<UserPostModel>(o => o.Password, "密码"));
+                List<LabeledTextBox<UserPostModel>> list = new List<LabeledTextBox<UserPostModel>>
+                {
+                    new LabeledTextBox<UserPostModel>(o => o.LoginName, "登录名"),
+                    new LabeledTextBox<UserPostModel>(o => o.DisplayName, "显示名"),
+                    new LabeledTextBox<UserPostModel>(o => o.Password, "密码")
+                };
 
                 string html = default;
-                foreach (var VARIABLE in list)
+                foreach (var item in list)
                 {
-                    html += VARIABLE.Render();
+                    html += item.Render();
                 }
                 return html;
             }
-        }
-    }
-
-
-
-    public class TextBox<TPostModel>
-    {
-        private readonly Expression<Func<TPostModel, string>> _expression;
-        private string lable;
-
-        public TextBox(Expression<Func<TPostModel, string>> _expression, string label)
-        {
-            this._expression = _expression;
-            this.lable = label;
-        }
-
-        public string Render()
-        {
-            string name = _expression.GetPropertyInfo().Name;
-            string html = $"<div class=\"form-group\">" +
-                          $"<label for=\"pwd\">登录名:</label>" +
-                          $"<input type=\"password\" name=\"{name}\" class=\"form-control\" id=\"pwd\">" +
-                          $"</div>";
-            return html;
         }
     }
 }

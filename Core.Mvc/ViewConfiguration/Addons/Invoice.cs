@@ -32,7 +32,7 @@ namespace Core.Mvc.ViewConfiguration.Addons
             };
         }
 
-        protected override IList<string> Javascript()
+        protected override IList<string> JavaScript()
         {
             return new List<string>
             {

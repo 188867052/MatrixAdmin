@@ -32,12 +32,6 @@ namespace Core.Mvc.Controllers.Administration
             return Content(file.Render(), "text/html");
         }
 
-        public IActionResult SmallDialog()
-        {
-            SmallDialog dialog = new SmallDialog();
-            return Content(dialog.Render(), "text/html");
-        }
-
         public IActionResult Carousel()
         {
             Carousel dialog = new Carousel();

@@ -2,7 +2,6 @@
 using Core.Extension;
 using Core.Model;
 using Core.Mvc.Controllers;
-using Core.Mvc.Controllers.Administration;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Resource.ViewConfiguration.Administration;
 using Core.Web.JavaScript;
@@ -30,7 +29,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
         {
             return new List<string>
             {
-                
+
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
@@ -45,7 +44,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             }
         }
 
-        protected override IList<string> Javascript()
+        protected override IList<string> JavaScript()
         {
             return new List<string>
             {
@@ -64,18 +63,8 @@ namespace Core.Mvc.ViewConfiguration.Administration
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
             html = html.Replace("{{button-group}}", filter.GenerateButton());
             html = html.Replace("{{Pager}}", this.Pager());
-            return html + RenderJavaScript();
+            return html;
         }
-
-        private string RenderJavaScript()
-        {
-            JavaScript js = new JavaScript("index", "Index");
-            Url url = new Url(nameof(Administration), typeof(PermissionController), nameof(PermissionController.GridStateChange));
-            js.AddUrlInstance("searchUrl", url);
-
-            return $"<script>{js.Render()}</script>";
-        }
-
 
         protected override string ContentHeader()
         {
@@ -83,6 +72,16 @@ namespace Core.Mvc.ViewConfiguration.Administration
             contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
+        }
+
+        protected override IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
+        {
+            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>
+            {
+                new IndexViewInstance(),
+                new PermissionViewInstance()
+            };
+            return constructions;
         }
     }
 }

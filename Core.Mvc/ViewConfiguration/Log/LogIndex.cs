@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using Core.Extension;
 using Core.Model;
-using Core.Mvc.Controllers.Log;
 using Core.Resource.ViewConfiguration.Log;
 
 namespace Core.Mvc.ViewConfiguration.Log
@@ -24,7 +23,7 @@ namespace Core.Mvc.ViewConfiguration.Log
         {
             return new List<string>
             {
-                
+
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css"
@@ -39,7 +38,7 @@ namespace Core.Mvc.ViewConfiguration.Log
             }
         }
 
-        protected override IList<string> Javascript()
+        protected override IList<string> JavaScript()
         {
             return new List<string>
             {
@@ -58,7 +57,7 @@ namespace Core.Mvc.ViewConfiguration.Log
             html = html.Replace("{{button-group}}", filter.GenerateButton());
             html = html.Replace("{{Pager}}", this.Pager());
 
-            return html + RenderJavaScript();
+            return html;
         }
 
         protected override string ContentHeader()
@@ -69,13 +68,14 @@ namespace Core.Mvc.ViewConfiguration.Log
             return html;
         }
 
-        private string RenderJavaScript()
+        protected override IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
         {
-            JavaScript js = new JavaScript("index", "Index");
-            Url url = new Url(nameof(Log), typeof(LogController), nameof(LogController.GridStateChange));
-            js.AddUrlInstance("searchUrl", url);
-
-            return $"<script>{js.Render()}</script>";
+            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>
+            {
+                new IndexViewInstance(),
+                new LogViewInstance()
+            };
+            return constructions;
         }
     }
 }

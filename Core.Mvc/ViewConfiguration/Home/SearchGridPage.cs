@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Core.Extension;
 using Core.Mvc.Controllers;
@@ -32,7 +33,7 @@ namespace Core.Mvc.ViewConfiguration.Home
         }
 
         /// <summary>
-        /// Html
+        /// Html文件
         /// </summary>
         /// <returns></returns>
         protected abstract string FileName { get; }
@@ -70,16 +71,16 @@ namespace Core.Mvc.ViewConfiguration.Home
                 "/js/popper.js",
                 "/js/core.js"
             };
-            list.AddRange(this.Javascript());
+            list.AddRange(this.JavaScript());
 
             return list;
         }
 
         /// <summary>
-        /// Javascript文件
+        /// JavaScript文件
         /// </summary>
         /// <returns></returns>
-        protected abstract IList<string> Javascript();
+        protected abstract IList<string> JavaScript();
 
         /// <summary>
         /// 渲染
@@ -109,9 +110,6 @@ namespace Core.Mvc.ViewConfiguration.Home
 
             string tobHeader = File.ReadAllText(Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\topHeader.html"));
             html = html.Replace("{{tobHeader}}", tobHeader);
-
-            html += File.ReadAllText(Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\LargeDialog.html"));
-
 
             return html + $"<script>{this.RenderJavaScript()}</script>";
         }
@@ -146,19 +144,15 @@ namespace Core.Mvc.ViewConfiguration.Home
 
         private string RenderJavaScript()
         {
-            string script = default;
-            foreach (var instance in CreateViewInstanceConstructions())
-            {
-                script += instance.InitializeViewInstance().Render();
-            }
-
-            return script;
+            return CreateViewInstanceConstructions().Aggregate<IViewInstanceConstruction, string>(default, (current, instance) => current + instance.InitializeViewInstance().Render());
         }
 
         protected virtual IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
         {
-            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>();
-            constructions.Add(new IndexViewInstance());
+            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>
+            {
+                new IndexViewInstance()
+            };
             return constructions;
         }
     }
