@@ -6,7 +6,6 @@ using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using Core.Model;
-using Core.Mvc.Controllers.Administration;
 
 namespace Core.Mvc.ViewConfiguration.Administration
 {
@@ -61,7 +60,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
             html = html.Replace("{{button-group}}", filter.GenerateButton());
             html = html.Replace("{{Pager}}", this.Pager());
 
-            return html + RenderJavaScript();
+            return html;
         }
 
         protected override string ContentHeader()
@@ -72,13 +71,11 @@ namespace Core.Mvc.ViewConfiguration.Administration
             return html;
         }
 
-        private string RenderJavaScript()
+        protected override IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
         {
-            JavaScript js = new JavaScript("index", "Index");
-            Url url = new Url(nameof(Administration), typeof(IconController), nameof(IconController.GridStateChange));
-            js.AddUrlInstance("searchUrl", url);
-
-            return $"<script>{js.Render()}</script>";
+            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>();
+            constructions.Add(new IconViewInstance());
+            return constructions;
         }
     }
 }
