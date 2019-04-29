@@ -8,16 +8,30 @@ namespace Core.Mvc.ViewConfiguration
     {
         protected GridFilterConfiguration()
         {
-            this.Buttons = new List<StandardButton>();
             this.GridSearchFilter = new GridSearchFilter<T>();
         }
-        public IList<StandardButton> Buttons { get; set; }
 
-        public GridSearchFilter<T> GridSearchFilter{ get; set; }
+        public GridSearchFilter<T> GridSearchFilter { get; set; }
 
         public abstract string GenerateSearchFilter();
 
-        public abstract string GenerateButton();
+        protected abstract void CreateButton(IList<StandardButton> buttons);
 
+        public string GenerateButton()
+        {
+            IList<StandardButton> buttons = new List<StandardButton>();
+            this.CreateButton(buttons);
+            ;
+            string html = default;
+            string script = default;
+            foreach (var button in buttons)
+            {
+                html += button.Render();
+                script += button.Event.Render();
+            }
+
+            script = $"<script>{script}</script>";
+            return html + script;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Core.Model.Log;
+﻿using System.Collections.Generic;
+using Core.Model.Log;
 using Core.Resource.ViewConfiguration.Log;
 using Core.Web.Button;
 using Core.Web.GridFilter;
@@ -24,22 +25,11 @@ namespace Core.Mvc.ViewConfiguration.Log
             return GridSearchFilter.Render();
         }
 
-        public override string GenerateButton()
+        protected override void CreateButton(IList<StandardButton> buttons)
         {
-            this.Buttons.Add(new StandardButton("搜索", new Identifier(), "index.search"));
-            this.Buttons.Add(new StandardButton("添加"));
-            this.Buttons.Add(new StandardButton("编辑"));
-            string html = default;
-            string script = default;
-
-            foreach (var button in Buttons)
-            {
-                html += button.Render();
-                script += button.Event.Render();
-            }
-
-            script = $"<script>{script}</script>";
-            return html + script;
+            buttons.Add(new StandardButton("搜索", new Identifier(), "index.search"));
+            buttons.Add(new StandardButton("添加"));
+            buttons.Add(new StandardButton("编辑"));
         }
     }
 }
