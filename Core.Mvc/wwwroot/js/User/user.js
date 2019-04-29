@@ -10,6 +10,7 @@
 
         _searchUrl: null,
         _addUrl: null,
+        _editUrl: null,
 
         // Private Event Delegates  
 
@@ -31,10 +32,11 @@
         },
 
         add: function () {
-            $.get(this._addUrl, function (response) {
-                $(".pagination").replaceWith(response.data);
-                $("#" + response.id).modal("show");
-            });
+            window.core.dialog(this._addUrl);
+        },
+
+        edit: function () {
+            window.core.dialog(this._editUrl);
         }
 
         // Private Methods

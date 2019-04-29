@@ -1,4 +1,5 @@
-﻿using Core.Web.JavaScript;
+﻿using System.Net;
+using Core.Web.JavaScript;
 
 namespace Core.Mvc.ViewConfiguration.Home
 {
@@ -20,6 +21,8 @@ namespace Core.Mvc.ViewConfiguration.Home
         public JavaScript InitializeViewInstance()
         {
             JavaScript js = new JavaScript("core", "Core");
+            js.AddStringInstance("leftText", WebUtility.HtmlDecode(SearchGridPage.LeftText));
+            js.AddStringInstance("rightText", WebUtility.HtmlDecode(SearchGridPage.RightText));
             return js;
         }
     }

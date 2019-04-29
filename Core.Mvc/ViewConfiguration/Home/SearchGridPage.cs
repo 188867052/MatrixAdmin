@@ -13,6 +13,9 @@ namespace Core.Mvc.ViewConfiguration.Home
 {
     public abstract class SearchGridPage : IRender
     {
+        public static string LeftText = "&laquo;";
+        public static string RightText = "&raquo;";
+
         protected readonly IHostingEnvironment HostingEnvironment;
 
         protected SearchGridPage(IHostingEnvironment hostingEnvironment)
@@ -134,11 +137,11 @@ namespace Core.Mvc.ViewConfiguration.Home
         public string Pager()
         {
             return $"<ul class=\"pagination pagination-lg\">" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&laquo;</a></li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">{LeftText}</a></li>" +
                    $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">1</a></li>" +
                    $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">2</a></li>" +
                    $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">3</a></li>" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&raquo;</a></li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">{RightText}</a></li>" +
                    $"</ul>";
         }
 

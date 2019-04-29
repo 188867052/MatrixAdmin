@@ -16,12 +16,15 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 
         public JavaScript InitializeViewInstance()
         {
-            JavaScript js = new JavaScript("index", "Index");
+            JavaScript javaScript = new JavaScript("index", "Index");
             Url url = new Url(nameof(Administration), typeof(UserController), nameof(UserController.GridStateChange));
             Url addUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.AddDialog));
-            js.AddUrlInstance("searchUrl", url);
-            js.AddUrlInstance("addUrl", addUrl);
-            return js;
+            Url editUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.EditDialog));
+            javaScript.AddUrlInstance("searchUrl", url);
+            javaScript.AddUrlInstance("addUrl", addUrl);
+            javaScript.AddUrlInstance("editUrl", editUrl);
+
+            return javaScript;
         }
     }
 }

@@ -13,12 +13,14 @@
         _currentPage: null,
         _pageSize: null,
         _successPointer: null,
+        _leftText: null,
+        _rightText: null,
 
         // Private Event Delegates  
 
         _onGridSearch: function (response) {
             $(".widget-content")[0].innerHTML = response.data;
-            $(".pagination").replaceWith("<p></p>"+response.pager);
+            $(".pagination").replaceWith("<p></p>" + response.pager);
             this._pageSize = response.pageSize;
             this._currentPage = response.currentPage;
             this._successPointer();
@@ -38,15 +40,22 @@
             $.post(searchUrl, data, onSuccess);
         },
 
+        dialog: function (url) {
+            $.get(url, function (response) {
+                $(".pagination").replaceWith(response.data);
+                $("#" + response.id).modal("show");
+            });
+        },
+
         // Private Methods
 
         getPageIndex: function () {
             var e = event.currentTarget;
             if (e.type === "submit") {
                 return 1;
-            } else if (e.innerText === "«") {
+            } else if (e.innerText === this._leftText) {
                 return this._currentPage - 1;
-            } else if (e.innerText === "»") {
+            } else if (e.innerText === this._rightText) {
                 return this._currentPage + 1;
             }
             return e.innerText;
