@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Core.Api.Extensions;
 using Core.Api.Extensions.CustomException;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;

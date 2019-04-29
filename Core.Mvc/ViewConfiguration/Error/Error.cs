@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using Core.Extension;
-using Core.Mvc.Controllers;
+using Core.Mvc.Areas;
 using Core.Mvc.ViewConfiguration.Home;
 
 namespace Core.Mvc.ViewConfiguration.Error

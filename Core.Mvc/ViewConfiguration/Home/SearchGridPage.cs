@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Core.Extension;
-using Core.Mvc.Controllers;
+using Core.Mvc.Areas;
 using Core.Web.Html;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;

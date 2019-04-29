@@ -2,7 +2,6 @@
 using Core.Web.GridColumn;
 using Core.Web.Html;
 using Core.Web.Identifiers;
-using System.Collections.Generic;
 
 namespace Core.Web.ViewConfiguration
 {

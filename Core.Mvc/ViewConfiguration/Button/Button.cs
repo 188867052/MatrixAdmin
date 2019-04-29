@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Model;
 using Core.Model.Administration.Icon;
-using Core.Mvc.Controllers;
+using Core.Mvc.Areas;
 using Core.Mvc.ViewConfiguration.Home;
 
 namespace Core.Mvc.ViewConfiguration.Button

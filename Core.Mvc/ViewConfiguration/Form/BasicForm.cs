@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
-using Core.Mvc.Controllers;
+using Core.Mvc.Areas;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;

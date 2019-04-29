@@ -1,7 +1,8 @@
 ﻿using Core.Extension;
-using Core.Mvc.Controllers;
-using Core.Mvc.Controllers.Administration;
-using Core.Mvc.Controllers.Log;
+using Core.Model.Log;
+using Core.Mvc.Areas;
+using Core.Mvc.Areas.Administration.Controllers;
+using Core.Mvc.Areas.Log.Controllers;
 using Core.Resource.ViewConfiguration;
 using Core.Resource.ViewConfiguration.Home;
 using Core.Web.Sidebar;
@@ -36,11 +37,11 @@ namespace Core.Mvc.ViewConfiguration.Home
             error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error), "?number=500"), SidebarNavigationResource.Error500));
 
             SubMenu manage = new SubMenu("icon icon-user", default, IndexBaseResource.SystemManage, 8);
-            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(UserController), nameof(UserController.Index)), IndexBaseResource.UserManage));
-            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.Index)), IndexBaseResource.RoleManage));
-            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(PermissionController), nameof(PermissionController.Index)), IndexBaseResource.PermissionManage));
-            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(MenuController), nameof(MenuController.Index)), IndexBaseResource.MenuManage));
-            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(IconController), nameof(IconController.Index)), IndexBaseResource.IconManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Areas.Administration), typeof(UserController), nameof(UserController.Index)), IndexBaseResource.UserManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Areas.Administration), typeof(RoleController), nameof(RoleController.Index)), IndexBaseResource.RoleManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Areas.Administration), typeof(PermissionController), nameof(PermissionController.Index)), IndexBaseResource.PermissionManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Areas.Administration), typeof(MenuController), nameof(MenuController.Index)), IndexBaseResource.MenuManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Areas.Administration), typeof(IconController), nameof(IconController.Index)), IndexBaseResource.IconManage));
 
             SubMenu log = new SubMenu("icon icon-edit", default, IndexBaseResource.LogManage, 2);
             log.AddLinkButton(new LinkedAnchor(new Url(nameof(Log), typeof(LogController), nameof(LogController.Index)), IndexBaseResource.ErrorLog));

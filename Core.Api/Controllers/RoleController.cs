@@ -11,8 +11,6 @@ using Core.Extension.Dapper;
 using Core.Model;
 using Core.Model.Administration.Role;
 using Core.Model.Enums;
-using Core.Model.Log;
-using Newtonsoft.Json;
 
 namespace Core.Api.Controllers
 {

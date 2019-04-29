@@ -1,6 +1,6 @@
 ﻿using System.Text.Encodings.Web;
 using System.Text.Unicode;
-using Core.Mvc.Controllers;
+using Core.Mvc.Areas;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

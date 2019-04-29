@@ -10,6 +10,7 @@
 
         _searchUrl: null,
         _addUrl: null,
+
         // Private Event Delegates  
 
         _onSuccess: function () {
@@ -35,6 +36,7 @@
                 $("#" + response.id).modal("show");
             });
         }
+
         // Private Methods
     };
 })();
