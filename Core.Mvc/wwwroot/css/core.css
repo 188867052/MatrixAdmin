@@ -7,3 +7,7 @@
     background: #f74d4d;
     color: white
 }
+
+#sidebar > ul > li.open.submenu > a {
+    border-bottom: none !important;
+}
