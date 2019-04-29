@@ -74,7 +74,7 @@ namespace Core.Mvc.ViewConfiguration.Administration
                           $"<label for=\"pwd\">登录名:</label>" +
                           $"<input type=\"password\" name=\"{name}\" class=\"form-control\" id=\"pwd\">" +
                           $"</div>";
-            return "";
+            return html;
         }
     }
 }
