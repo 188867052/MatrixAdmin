@@ -12,7 +12,7 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            var dropDown = new DropDownGridFilter<LogPostModel, LogType>(o => o.Type, "类型");
+            var dropDown = new DropDownGridFilter<LogPostModel, LogType>(o => (LogType)o.Type, "类型");
             dropDown.AddOption(LogType.Error, "错误");
             dropDown.AddOption(LogType.Alert, "警告");
             dropDown.AddOption(LogType.Info, "日志");

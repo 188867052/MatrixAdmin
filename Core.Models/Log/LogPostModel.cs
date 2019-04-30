@@ -19,7 +19,7 @@ namespace Core.Model.Log
         /// <summary>
         /// 
         /// </summary>
-        public LogType Type { get; set; }
+        public LogType? Type { get; set; }
 
         /// <summary>
         /// 
