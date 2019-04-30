@@ -80,9 +80,9 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
+        protected override IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
         {
-            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>
+            IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>
             {
                 new IndexViewInstance(),
                 new UserViewInstance()

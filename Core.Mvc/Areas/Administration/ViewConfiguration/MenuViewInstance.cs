@@ -4,9 +4,9 @@ using Core.Web.JavaScript;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
-    public class MenuViewInstance : IViewInstanceConstruction
+    public class MenuViewInstance : ViewInstanceConstruction
     {
-        public string InstanceClassName
+        protected override string InstanceClassName
         {
             get
             {
@@ -14,12 +14,10 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             }
         }
 
-        public JavaScript InitializeViewInstance()
+        public override void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize)
         {
-            JavaScript js = new JavaScript("index", "Index");
             Url url = new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.GridStateChange));
-            js.AddUrlInstance("searchUrl", url);
-            return js;
+            javaScriptInitialize.AddUrlInstance("searchUrl", url);
         }
     }
 }

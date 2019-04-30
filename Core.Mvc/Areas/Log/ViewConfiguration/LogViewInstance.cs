@@ -1,25 +1,24 @@
 ﻿using Core.Extension;
+using Core.Mvc.Areas.Administration.ViewConfiguration;
 using Core.Mvc.Areas.Log.Controllers;
 using Core.Web.JavaScript;
 
 namespace Core.Mvc.Areas.Log.ViewConfiguration
 {
-    public class LogViewInstance : IViewInstanceConstruction
+    public class LogViewInstance : ViewInstanceConstruction
     {
-        public string InstanceClassName
+        protected  override string InstanceClassName
         {
             get
             {
-                return "Index";
+                return "Log";
             }
         }
 
-        public JavaScript InitializeViewInstance()
+        public override void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize)
         {
-            JavaScript js = new JavaScript("index", "Index");
             Url url = new Url(nameof(Log), typeof(LogController), nameof(LogController.GridStateChange));
-            js.AddUrlInstance("searchUrl", url);
-            return js;
+            javaScriptInitialize.AddUrlInstance("searchUrl", url);
         }
     }
 }

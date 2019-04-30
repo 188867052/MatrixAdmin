@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
 using Core.Mvc.Areas;
+using Core.Mvc.Areas.Administration.ViewConfiguration;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
@@ -60,7 +61,7 @@ namespace Core.Mvc.ViewConfiguration.Form
             return contentHeader.Render();
         }
 
-        protected override IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
+        protected override IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
         {
             throw new System.NotImplementedException();
         }

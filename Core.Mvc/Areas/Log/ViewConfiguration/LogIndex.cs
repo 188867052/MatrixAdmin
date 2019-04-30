@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
 using Core.Model;
+using Core.Mvc.Areas.Administration.ViewConfiguration;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.JavaScript;
@@ -65,9 +66,9 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
             return html;
         }
 
-        protected override IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
+        protected override IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
         {
-            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>
+            IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>
             {
                 new IndexViewInstance(),
                 new LogViewInstance()

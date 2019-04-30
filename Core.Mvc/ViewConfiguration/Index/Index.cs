@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
+using Core.Mvc.Areas.Administration.ViewConfiguration;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 
@@ -51,9 +52,9 @@ namespace Core.Mvc.ViewConfiguration.Index
             };
         }
 
-        protected override IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
+        protected override IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
         {
-            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>
+            IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>
             {
                 new IndexViewInstance()
             };

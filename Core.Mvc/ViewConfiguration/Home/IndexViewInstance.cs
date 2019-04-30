@@ -1,29 +1,23 @@
 ﻿using System.Net;
+using Core.Mvc.Areas.Administration.ViewConfiguration;
 using Core.Web.JavaScript;
 
 namespace Core.Mvc.ViewConfiguration.Home
 {
-    public class IndexViewInstance : IViewInstanceConstruction
+    public class IndexViewInstance : ViewInstanceConstruction
     {
-        public IndexViewInstance()
-        {
-
-        }
-
-        public string InstanceClassName
+        protected override string InstanceClassName
         {
             get
             {
-                return "Core";
+                return "Index";
             }
         }
 
-        public JavaScript InitializeViewInstance()
+        public override void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize)
         {
-            JavaScript js = new JavaScript("core", "Core");
-            js.AddStringInstance("leftText", WebUtility.HtmlDecode(SearchGridPage.LeftText));
-            js.AddStringInstance("rightText", WebUtility.HtmlDecode(SearchGridPage.RightText));
-            return js;
+            javaScriptInitialize.AddStringInstance("leftText", WebUtility.HtmlDecode(SearchGridPage.LeftText));
+            javaScriptInitialize.AddStringInstance("rightText", WebUtility.HtmlDecode(SearchGridPage.RightText));
         }
     }
 }

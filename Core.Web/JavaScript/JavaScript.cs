@@ -7,11 +7,11 @@ namespace Core.Web.JavaScript
     /// <summary>
     /// JavaScript used to initialize a view instance.
     /// </summary>
-    public class JavaScript
+    public class JavaScriptInitialize
     {
         private readonly Dictionary<string, string> _fields;
 
-        public JavaScript(string globalVariableName, string className)
+        public JavaScriptInitialize(string globalVariableName, string className)
         {
             this.GlobalVariableName = globalVariableName;
             this.ClassName = className;

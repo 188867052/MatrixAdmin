@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Core.Extension;
 using Core.Mvc.Areas;
+using Core.Mvc.Areas.Administration.ViewConfiguration;
 using Core.Web.Html;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
@@ -147,12 +148,12 @@ namespace Core.Mvc.ViewConfiguration.Home
 
         private string RenderJavaScript()
         {
-            return CreateViewInstanceConstructions().Aggregate<IViewInstanceConstruction, string>(default, (current, instance) => current + instance.InitializeViewInstance().Render());
+            return CreateViewInstanceConstructions().Aggregate<ViewInstanceConstruction, string>(default, (current, instance) => current + instance.ViewInstance().Render());
         }
 
-        protected virtual IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
+        protected virtual IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
         {
-            IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>
+            IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>
             {
                 new IndexViewInstance()
             };
