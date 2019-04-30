@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace Core.Extension.Expression
 {
@@ -54,7 +55,22 @@ namespace Core.Extension.Expression
 
         public static string GetPropertyName<T, TEnumType>(this Expression<Func<T, TEnumType>> expression) where TEnumType : Enum
         {
-            return ((UnaryExpression)expression.Body).PropertyName();
+            string name = default;
+            switch (expression.Body)
+            {
+                case UnaryExpression unaryExpression:
+                    name = ((MemberExpression)unaryExpression.Operand).Member.Name;
+                    break;
+                case MemberExpression memberExpression:
+                    name = memberExpression.Member.Name;
+                    break;
+                case ParameterExpression parameterExpression:
+                    name = parameterExpression.Type.Name;
+                    break;
+                default:
+                    throw new Exception("不支持的参数");
+            }
+            return name;
         }
 
         private static PropertyInfo PropertyInfo<T>(this MemberExpression expression)
@@ -77,11 +93,6 @@ namespace Core.Extension.Expression
         private static string PropertyName(this MemberExpression expr)
         {
             return expr.Member.Name;
-        }
-
-        private static string PropertyName(this ParameterExpression expr)
-        {
-            return expr.Type.Name;
         }
     }
 }
