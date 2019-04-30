@@ -11,11 +11,9 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
     public class MenuFilterConfiguration : GridFilterConfiguration<MenuPostModel>
     {
-        public override string GenerateSearchFilter()
+        protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            GridSearchFilter.AddBooleanFilter(new BooleanGridFilter<MenuPostModel>(o => o.IsEnable, LogResource.Message));
-
-            return GridSearchFilter.Render();
+            searchFilter.Add(new BooleanGridFilter<MenuPostModel>(o => o.IsEnable, LogResource.Message));
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)

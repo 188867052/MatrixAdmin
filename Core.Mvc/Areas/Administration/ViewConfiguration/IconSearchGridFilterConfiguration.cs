@@ -11,14 +11,13 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
     public class IconSearchGridFilterConfiguration : GridFilterConfiguration<IconPostModel>
     {
-        public override string GenerateSearchFilter()
+        protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            GridSearchFilter.AddTextFilter(new TextGridFilter<IconPostModel>(o => o.Code, IconResource.Code));
+            searchFilter.Add(new TextGridFilter<IconPostModel>(o => o.Code, IconResource.Code));
             var filter = new BooleanGridFilter<IconPostModel>(o => o.IsEnable, IconResource.Status);
             filter.AddOption(true, "可用");
             filter.AddOption(false, "不可用");
-            GridSearchFilter.AddBooleanFilter(filter);
-            return GridSearchFilter.Render();
+            searchFilter.Add(filter);
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)

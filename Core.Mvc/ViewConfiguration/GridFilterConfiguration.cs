@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 
@@ -6,14 +7,20 @@ namespace Core.Mvc.ViewConfiguration
 {
     public abstract class GridFilterConfiguration<T>
     {
-        protected GridFilterConfiguration()
+        public string GenerateSearchFilter()
         {
-            this.GridSearchFilter = new GridSearchFilter<T>();
+            var searchFilter = new List<BaseGridFilter>();
+            this.CreateSearchFilter(searchFilter);
+            StringBuilder filterText = new StringBuilder();
+            foreach (var item in searchFilter)
+            {
+                filterText.Append(item.Render());
+            }
+
+            return filterText.ToString();
         }
 
-        public GridSearchFilter<T> GridSearchFilter { get; set; }
-
-        public abstract string GenerateSearchFilter();
+        protected abstract void CreateSearchFilter(IList<BaseGridFilter> searchFilter);
 
         protected abstract void CreateButton(IList<StandardButton> buttons);
 

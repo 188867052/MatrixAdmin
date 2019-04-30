@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Model.Administration.User;
 using Core.Mvc.ViewConfiguration;
-using Core.Resource;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
@@ -11,13 +10,12 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
     public class UserSearchGridFilterConfiguration : GridFilterConfiguration<UserPostModel>
     {
-        public override string GenerateSearchFilter()
+        protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            GridSearchFilter.AddTextFilter(new TextGridFilter<UserPostModel>(o => o.DisplayName, LogResource.Message));
-            GridSearchFilter.AddDateTimeFilter(new DateTimeGridFilter<UserPostModel>(o => o.CreatedOn, "开始" + LogResource.CreateTime));
-            GridSearchFilter.AddDateTimeFilter(new DateTimeGridFilter<UserPostModel>(o => o.CreatedOn, "结束" + LogResource.CreateTime));
-            GridSearchFilter.AddBooleanFilter(new BooleanGridFilter<UserPostModel>(o => o.IsEnable, "是否启用"));
-            return GridSearchFilter.Render();
+            searchFilter.Add(new TextGridFilter<UserPostModel>(o => o.DisplayName, LogResource.Message));
+            searchFilter.Add(new DateTimeGridFilter<UserPostModel>(o => o.CreatedOn, "开始" + LogResource.CreateTime));
+            searchFilter.Add(new DateTimeGridFilter<UserPostModel>(o => o.CreatedOn, "结束" + LogResource.CreateTime));
+            searchFilter.Add(new BooleanGridFilter<UserPostModel>(o => o.IsEnable, "是否启用"));
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)

@@ -10,11 +10,9 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
     public class PermissionFilterConfiguration : GridFilterConfiguration<PermissionPostModel>
     {
-        public override string GenerateSearchFilter()
+        protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            GridSearchFilter.AddBooleanFilter(new BooleanGridFilter<PermissionPostModel>(o => o.IsEnable, LogResource.Message));
-
-            return GridSearchFilter.Render();
+            searchFilter.Add(new BooleanGridFilter<PermissionPostModel>(o => o.IsEnable, LogResource.Message));
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)
