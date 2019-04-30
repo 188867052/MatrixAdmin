@@ -9,10 +9,10 @@ namespace Core.Web.GridFilter
         public readonly string ContainerClass = "custom-control-inline";
         private readonly string type;
 
-        protected BaseGridFilter(string labelText, PropertyInfo propertyInfo, TextBoxTypeEnum type = default)
+        protected BaseGridFilter(string labelText, string inputName, TextBoxTypeEnum type = default)
         {
             this.LabelText = labelText;
-            this.InputName = propertyInfo.Name;
+            this.InputName = inputName;
             this.type = type.ToString();
         }
 

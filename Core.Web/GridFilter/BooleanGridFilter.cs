@@ -18,7 +18,7 @@ namespace Core.Web.GridFilter
         /// <param name="expression"></param>
         /// <param name="labelText"></param>
         /// <param name="isContainsEmpty"></param>
-        public BooleanGridFilter(Expression<Func<TPostModel, bool?>> expression, string labelText, bool isContainsEmpty = true) : base(labelText)
+        public BooleanGridFilter(Expression<Func<TPostModel, bool?>> expression, string labelText, bool isContainsEmpty = true) : base(labelText, expression.GetPropertyName())
         {
             this._expression = expression;
             this._keyValuePair = new List<KeyValuePair<bool, string>>();
@@ -43,7 +43,7 @@ namespace Core.Web.GridFilter
             }
 
             string options = _isContainsEmpty ? "<option></option>" : default;
-            string name = this._expression.GetPropertyInfo().Name;
+            string name = this._expression.GetPropertyName();
             options = _keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
             return $"<div class=\"{this.ContainerClass}\">" +

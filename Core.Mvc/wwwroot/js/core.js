@@ -74,12 +74,15 @@
             var data = new Object;
             data.pageIndex = this.getPageIndex();
             data.pageSize = 10;
-            var list = $(".custom-control-inline input");
-            for (var i = 0; i < list.length; i++) {
-                var input = list[i];
-                var propertyName = input.getAttribute("name");
-                var value = input.value;
-                data[propertyName] = value;
+            var inputList = $(".custom-control-inline input");
+            for (var i = 0; i < inputList.length; i++) {
+                var input = inputList[i];
+                data[input.getAttribute("name")] = input.value;
+            }
+            var selectList = $(".custom-control-inline select");
+            for (var j = 0; j < selectList.length; j++) {
+                var select = selectList[j];
+                data[select.getAttribute("name")] = select.value;
             }
             return data;
         },

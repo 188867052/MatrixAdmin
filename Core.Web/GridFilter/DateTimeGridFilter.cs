@@ -8,7 +8,7 @@ namespace Core.Web.GridFilter
 {
     public class DateTimeGridFilter<TPostModel> : BaseGridFilter
     {
-        public DateTimeGridFilter(Expression<Func<TPostModel, DateTime?>> expression, string label) : base(label, expression.GetPropertyInfo())
+        public DateTimeGridFilter(Expression<Func<TPostModel, DateTime?>> expression, string label) : base(label, expression.GetPropertyName())
         {
         }
 

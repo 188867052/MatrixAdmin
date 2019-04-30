@@ -21,7 +21,7 @@ namespace Core.Web.GridFilter
         /// <param name="expression"></param>
         /// <param name="labelText"></param>
         /// <param name="isContainsEmpty"></param>
-        public DropDownGridFilter(Expression<Func<TPostModel, TEnumType>> expression, string labelText, bool isContainsEmpty = true) : base(labelText)
+        public DropDownGridFilter(Expression<Func<TPostModel, TEnumType>> expression, string labelText, bool isContainsEmpty = true) : base(labelText, expression.GetPropertyName())
         {
             this._isContainsEmpty = isContainsEmpty;
             this._expression = expression;

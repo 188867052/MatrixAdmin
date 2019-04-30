@@ -7,49 +7,44 @@ namespace Core.Extension.Expression
 {
     public static class Expression
     {
-        public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, int>> expression)
+        public static string GetPropertyName<T>(this Expression<Func<T, int>> expression)
+        {
+            return ((MemberExpression)expression.Body).PropertyInfo<T>().Name;
+        }
+
+        public static PropertyInfo GetPropertyName<T>(this Expression<Func<T, decimal>> expression)
         {
             return ((MemberExpression)expression.Body).PropertyInfo<T>();
         }
 
-        public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, decimal>> expression)
+        public static PropertyInfo GetPropertyName<T>(this Expression<Func<T, decimal?>> expression)
         {
             return ((MemberExpression)expression.Body).PropertyInfo<T>();
         }
 
-        public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, decimal?>> expression)
+        public static string GetPropertyName<T>(this Expression<Func<T, DateTime>> expression)
         {
-            return ((MemberExpression)expression.Body).PropertyInfo<T>();
+            return ((MemberExpression)expression.Body).PropertyInfo<T>().Name;
         }
 
-        public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, DateTime>> expression)
+        public static string GetPropertyName<T>(this Expression<Func<T, DateTime?>> expression)
         {
-            return ((MemberExpression)expression.Body).PropertyInfo<T>();
+            return ((MemberExpression)expression.Body).PropertyInfo<T>().Name;
         }
 
-        public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, DateTime?>> expression)
+        public static string GetPropertyName<T>(this Expression<Func<T, int?>> expression)
         {
-            return ((MemberExpression)expression.Body).PropertyInfo<T>();
+            return ((MemberExpression)expression.Body).PropertyInfo<T>().Name;
         }
 
-        public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, int?>> expression)
+        public static string GetPropertyName<T>(this Expression<Func<T, bool>> expression)
         {
-            return ((MemberExpression)expression.Body).PropertyInfo<T>();
+            return ((MemberExpression)expression.Body).PropertyInfo<T>().Name;
         }
 
-        public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, bool>> expression)
+        public static string GetPropertyName<T>(this Expression<Func<T, bool?>> expression)
         {
-            return ((MemberExpression)expression.Body).PropertyInfo<T>();
-        }
-
-        public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, bool?>> expression)
-        {
-            return ((MemberExpression)expression.Body).PropertyInfo<T>();
-        }
-
-        public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, string>> expression)
-        {
-            return ((MemberExpression)expression.Body).PropertyInfo<T>();
+            return ((MemberExpression)expression.Body).PropertyInfo<T>().Name;
         }
 
         public static string GetPropertyName<T>(this Expression<Func<T, string>> expression)
@@ -59,7 +54,7 @@ namespace Core.Extension.Expression
 
         public static string GetPropertyName<T, TEnumType>(this Expression<Func<T, TEnumType>> expression) where TEnumType : Enum
         {
-            return expression.ReturnType.Name;
+            return ((UnaryExpression)expression.Body).PropertyName();
         }
 
         private static PropertyInfo PropertyInfo<T>(this MemberExpression expression)
@@ -87,24 +82,6 @@ namespace Core.Extension.Expression
         private static string PropertyName(this ParameterExpression expr)
         {
             return expr.Type.Name;
-        }
-
-        public static string GetPropertyName<T>(this Expression<Func<T, Enum>> expr)
-        {
-            var rtn = "";
-            switch (expr.Body)
-            {
-                case UnaryExpression expression:
-                    rtn = ((MemberExpression)expression.Operand).Member.Name;
-                    break;
-                case MemberExpression memberExpression:
-                    rtn = memberExpression.Member.Name;
-                    break;
-                case ParameterExpression parameterExpression:
-                    rtn = parameterExpression.Type.Name;
-                    break;
-            }
-            return rtn;
         }
     }
 }

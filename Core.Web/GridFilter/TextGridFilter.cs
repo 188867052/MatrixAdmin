@@ -11,7 +11,7 @@ namespace Core.Web.GridFilter
         /// </summary>
         /// <param name="expression"></param>
         /// <param name="label"></param>
-        public TextGridFilter(Expression<Func<TPostModel, string>> expression, string label) : base(label, expression.GetPropertyInfo())
+        public TextGridFilter(Expression<Func<TPostModel, string>> expression, string label) : base(label, expression.GetPropertyName())
         {
         }
     }
