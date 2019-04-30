@@ -35,8 +35,7 @@ namespace Core.Web.JavaScript
                     @event = $"$(\".{this._class}\").on('{this._event.EventString()}',function(){{{this._delegate}();}});";
                 }
             }
-
-            return @event;
+            return $"<script>{@event}</script>";
         }
     }
 }

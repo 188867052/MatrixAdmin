@@ -21,7 +21,7 @@ namespace Core.Web.Button
         public string Render()
         {
             string idAttribute = this.id == default ? "" : $"id=\"{this.id.Value}\"";
-            return $"<button {idAttribute} type=\"submit\" class=\"btn btn-primary\">{Text}</button>" + Environment.NewLine;
+            return $"<button {idAttribute} type=\"submit\" class=\"btn btn-primary\">{Text}</button>" + Environment.NewLine + this.Event.Render();
         }
     }
 }

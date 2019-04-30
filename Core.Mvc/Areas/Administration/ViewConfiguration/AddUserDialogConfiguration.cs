@@ -29,10 +29,10 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         {
             get
             {
-                IList<StandardButton> buttons =new List<StandardButton>();
+                IList<StandardButton> buttons = new List<StandardButton>();
                 buttons.Add(new StandardButton("提交", new Identifier(), "index.submit"));
-                return buttons.Aggregate<StandardButton, string>(default, (current, button) => current + button.Render()+ "<script>"+button.Event.Render()+ 
-                                                                                               "</script>")+ "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">关闭</button>"; 
+                return buttons.Aggregate<StandardButton, string>(default, (current, button) => current + button.Render()) +
+                  "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">关闭</button>";
             }
         }
 

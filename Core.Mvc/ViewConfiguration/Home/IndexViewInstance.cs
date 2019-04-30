@@ -1,6 +1,5 @@
-﻿using System.Net;
-using Core.Mvc.Areas.Administration.ViewConfiguration;
-using Core.Web.JavaScript;
+﻿using Core.Web.JavaScript;
+using System.Net;
 
 namespace Core.Mvc.ViewConfiguration.Home
 {
@@ -10,7 +9,7 @@ namespace Core.Mvc.ViewConfiguration.Home
         {
             get
             {
-                return "Index";
+                return "Core";
             }
         }
 

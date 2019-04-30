@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Core.Web.Button;
 using Core.Web.GridFilter;
@@ -28,17 +29,7 @@ namespace Core.Mvc.ViewConfiguration
         {
             IList<StandardButton> buttons = new List<StandardButton>();
             this.CreateButton(buttons);
-            ;
-            string html = default;
-            string script = default;
-            foreach (var button in buttons)
-            {
-                html += button.Render();
-                script += button.Event.Render();
-            }
-
-            script = $"<script>{script}</script>";
-            return html + script;
+            return buttons.Aggregate<StandardButton, string>(default, (current, button) => current + button.Render());
         }
     }
 }
