@@ -48,6 +48,7 @@ namespace Core.Api.Controllers
                     query = query.Where(o => o.Status == model.Status);
                 }
                 query = query.AddStringContainsFilter(model.DisplayName, nameof(Model.Administration.User.User.DisplayName));
+                query = query.AddStringContainsFilter(model.LoginName, nameof(Model.Administration.User.User.LoginName));
 
                 return this.StandardResponse(query, model);
             }

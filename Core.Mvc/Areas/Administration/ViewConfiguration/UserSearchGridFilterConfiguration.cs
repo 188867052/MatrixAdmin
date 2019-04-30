@@ -18,7 +18,8 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             dropDown.AddOption(UserStatusEnum.Forbidden, "已禁用");
             dropDown.AddOption(UserStatusEnum.All, "未指定");
 
-            searchFilter.Add(new TextGridFilter<UserPostModel>(o => o.DisplayName, LogResource.Message));
+            searchFilter.Add(new TextGridFilter<UserPostModel>(o => o.DisplayName, "显示名"));
+            searchFilter.Add(new TextGridFilter<UserPostModel>(o => o.LoginName, "登录名"));
             searchFilter.Add(new DateTimeGridFilter<UserPostModel>(o => o.CreatedOn, "开始" + LogResource.CreateTime));
             searchFilter.Add(new DateTimeGridFilter<UserPostModel>(o => o.CreatedOn, "结束" + LogResource.CreateTime));
             searchFilter.Add(dropDown);
