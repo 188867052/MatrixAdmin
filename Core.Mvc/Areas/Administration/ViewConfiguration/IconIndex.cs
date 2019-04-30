@@ -51,7 +51,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         public override string Render()
         {
             IconGridConfiguration configuration = new IconGridConfiguration(this.response);
-            string table = configuration.Render();
+            string table = configuration.GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 
             IconSearchGridFilterConfiguration filter = new IconSearchGridFilterConfiguration();

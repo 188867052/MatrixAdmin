@@ -22,6 +22,9 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             this.response = response;
         }
 
+        /// <summary>
+        /// File name.
+        /// </summary>
         protected override string FileName
         {
             get
@@ -51,7 +54,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         public override string Render()
         {
             UserViewConfiguration configuration = new UserViewConfiguration(response);
-            string table = configuration.Render();
+            string table = configuration.GenerateGridColumn();
 
             var html = base.Render().Replace("{{Table}}", table);
             UserSearchGridFilterConfiguration filter = new UserSearchGridFilterConfiguration();
@@ -61,6 +64,10 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             return html;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("用户管理");
@@ -69,6 +76,10 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             return html;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         protected override IList<IViewInstanceConstruction> CreateViewInstanceConstructions()
         {
             IList<IViewInstanceConstruction> constructions = new List<IViewInstanceConstruction>

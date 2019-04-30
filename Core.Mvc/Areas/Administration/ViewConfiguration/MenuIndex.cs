@@ -51,7 +51,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         public override string Render()
         {
             MenuViewConfiguration configuration = new MenuViewConfiguration(this.response);
-            string table = configuration.Render();
+            string table = configuration.GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 
             MenuFilterConfiguration filter = new MenuFilterConfiguration();

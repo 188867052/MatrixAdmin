@@ -54,7 +54,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         public override string Render()
         {
             PermissionGridConfiguration configuration = new PermissionGridConfiguration(response);
-            string table = configuration.Render();
+            string table = configuration.GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 
             PermissionFilterConfiguration filter = new PermissionFilterConfiguration();

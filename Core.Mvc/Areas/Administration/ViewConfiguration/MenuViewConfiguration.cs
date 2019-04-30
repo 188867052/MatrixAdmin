@@ -1,4 +1,5 @@
-﻿using Core.Model;
+﻿using System.Collections.Generic;
+using Core.Model;
 using Core.Model.Administration.Menu;
 using Core.Resource;
 using Core.Resource.Areas.Administration.ViewConfiguration;
@@ -16,17 +17,17 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         {
         }
 
-        public override void GenerateGridColumn()
+        public override void CreateGridColumn(IList<BaseGridColumn<Menu>> gridColumns)
         {
-            GridColumn.AddTextColumn(new TextGridColumn<Menu>(o => o.Name, MenuIndexResource.Name));
-            GridColumn.AddTextColumn(new TextGridColumn<Menu>(o => o.Url, MenuIndexResource.Url));
-            GridColumn.AddTextColumn(new TextGridColumn<Menu>(o => o.Alias, MenuIndexResource.Alias));
-            GridColumn.AddTextColumn(new TextGridColumn<Menu>(o => o.ParentName, MenuIndexResource.ParentName));
-            GridColumn.AddIntegerColumn(new IntegerGridColumn<Menu>(o => o.Sort, MenuIndexResource.Sort));
-            GridColumn.AddBooleanColumn(new BooleanGridColumn<Menu>(o => o.Status, MenuIndexResource.Status));
-            GridColumn.AddEnumColumn(new EnumGridColumn<Menu>(o => o.IsDefaultRouter, MenuIndexResource.IsDefaultRouter));
-            GridColumn.AddDateTimeColumn(new DateTimeGridColumn<Menu>(o => o.CreatedOn, MenuIndexResource.CreatedOn));
-            GridColumn.AddTextColumn(new TextGridColumn<Menu>(o => o.CreatedByUserName, MenuIndexResource.CreatedByUserName));
+            gridColumns.Add(new TextGridColumn<Menu>(o => o.Name, MenuIndexResource.Name));
+            gridColumns.Add(new TextGridColumn<Menu>(o => o.Url, MenuIndexResource.Url));
+            gridColumns.Add(new TextGridColumn<Menu>(o => o.Alias, MenuIndexResource.Alias));
+            gridColumns.Add(new TextGridColumn<Menu>(o => o.ParentName, MenuIndexResource.ParentName));
+            gridColumns.Add(new IntegerGridColumn<Menu>(o => o.Sort, MenuIndexResource.Sort));
+            gridColumns.Add(new BooleanGridColumn<Menu>(o => o.Status, MenuIndexResource.Status));
+            gridColumns.Add(new EnumGridColumn<Menu>(o => o.IsDefaultRouter, MenuIndexResource.IsDefaultRouter));
+            gridColumns.Add(new DateTimeGridColumn<Menu>(o => o.CreatedOn, MenuIndexResource.CreatedOn));
+            gridColumns.Add(new TextGridColumn<Menu>(o => o.CreatedByUserName, MenuIndexResource.CreatedByUserName));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Core.Model;
+﻿using System.Collections.Generic;
+using Core.Model;
 using Core.Model.Administration.Icon;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.GridColumn;
@@ -15,16 +16,16 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         {
         }
 
-        public override void GenerateGridColumn()   
+        public override void CreateGridColumn(IList<BaseGridColumn<Icon>> gridColumns)
         {
-            GridColumn.AddIconColumn(new IconGridColumn<Icon>(o => o.Code, IconResource.Icon));
-            GridColumn.AddTextColumn(new TextGridColumn<Icon>(o => o.Code, IconResource.Code));
-            GridColumn.AddTextColumn(new TextGridColumn<Icon>(o => o.Custom, IconResource.Custom));
-            GridColumn.AddTextColumn(new TextGridColumn<Icon>(o => o.Size, IconResource.Size));
-            GridColumn.AddTextColumn(new TextGridColumn<Icon>(o => o.Color, IconResource.Color));
-            GridColumn.AddBooleanColumn(new BooleanGridColumn<Icon>(o => o.IsEnable, IconResource.Status));
-            GridColumn.AddDateTimeColumn(new DateTimeGridColumn<Icon>(o => o.CreatedOn, IconResource.CreatedOn));
-            GridColumn.AddTextColumn(new TextGridColumn<Icon>(o => o.CreatedByUserName, IconResource.CreatedByUserName));
+            gridColumns.Add(new IconGridColumn<Icon>(o => o.Code, IconResource.Icon));
+            gridColumns.Add(new TextGridColumn<Icon>(o => o.Code, IconResource.Code));
+            gridColumns.Add(new TextGridColumn<Icon>(o => o.Custom, IconResource.Custom));
+            gridColumns.Add(new TextGridColumn<Icon>(o => o.Size, IconResource.Size));
+            gridColumns.Add(new TextGridColumn<Icon>(o => o.Color, IconResource.Color));
+            gridColumns.Add(new BooleanGridColumn<Icon>(o => o.IsEnable, IconResource.Status));
+            gridColumns.Add(new DateTimeGridColumn<Icon>(o => o.CreatedOn, IconResource.CreatedOn));
+            gridColumns.Add(new TextGridColumn<Icon>(o => o.CreatedByUserName, IconResource.CreatedByUserName));
         }
     }
 }

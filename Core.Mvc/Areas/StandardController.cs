@@ -36,7 +36,7 @@ namespace Core.Mvc.Areas
         {
             return new JsonResult(new
             {
-                data = index.Render(),
+                data = index.GenerateGridColumn(),
                 pageSize = index.PageSize,
                 currentPage = index.CurrentPage,
                 pager = index.Pager()

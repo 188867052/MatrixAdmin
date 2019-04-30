@@ -52,7 +52,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         public override string Render()
         {
             RoleViewConfiguration configuration = new RoleViewConfiguration(response);
-            string table = configuration.Render();
+            string table = configuration.GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 
             RoleSearchGridFilterConfiguration filter = new RoleSearchGridFilterConfiguration();

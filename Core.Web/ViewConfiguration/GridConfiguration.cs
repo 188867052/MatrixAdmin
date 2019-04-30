@@ -2,22 +2,24 @@
 using Core.Web.GridColumn;
 using System.Collections.Generic;
 using Core.Model;
-using Core.Web.Html;
+using System.Text;
 
 namespace Core.Web.ViewConfiguration
 {
-    public abstract class GridConfiguration<T> : IRender
+    public abstract class GridConfiguration<T>
     {
         /// <summary>
         /// 构造函数
         /// </summary>
         protected GridConfiguration(ResponseModel model)
         {
-            this.GridColumn = new GridColumn<T>((List<T>)model.Data);
+            this.EntityList = (List<T>)model.Data;
             this.Count = model.TotalCount;
             this.PageSize = model.PageSize;
             this.CurrentPage = model.PageIndex;
         }
+
+        public List<T> EntityList { get; set; }
 
         public int CurrentPage { get; set; }
 
@@ -25,15 +27,35 @@ namespace Core.Web.ViewConfiguration
 
         public int Count { get; set; }
 
-        public GridColumn<T> GridColumn { get; }
+        //public GridColumn<T> GridColumn { get; }
 
-        public abstract void GenerateGridColumn();
-
-        public virtual string Render()
+        public string GenerateGridColumn()
         {
-            this.GenerateGridColumn();
-            return GridColumn.Render(Count, PageSize, CurrentPage);
+            IList<BaseGridColumn<T>> gridColumns = new List<BaseGridColumn<T>>();
+            this.CreateGridColumn(gridColumns);
+
+            StringBuilder thead = new StringBuilder();
+            thead.Append("<th>序号</th>");
+            foreach (var item in gridColumns)
+            {
+                thead.Append(item.RenderTh());
+            }
+            StringBuilder tbody = new StringBuilder();
+            foreach (var entity in EntityList)
+            {
+                StringBuilder tr = new StringBuilder();
+                int row = (CurrentPage - 1) * PageSize + EntityList.IndexOf(entity) + 1;
+                tr.Append($"<td>{row}</td>");
+                foreach (var item in gridColumns)
+                {
+                    tr.Append(item.RenderTd(entity));
+                }
+                tbody.Append($"<tr>{tr}</tr>");
+            }
+            return $"<table class=\"table table-bordered data-table\"><thead><tr>{thead}</tr></thead><tbody>{tbody}</tbody></table>";
         }
+
+        public abstract void CreateGridColumn(IList<BaseGridColumn<T>> gridColumns);
 
         public string Pager()
         {

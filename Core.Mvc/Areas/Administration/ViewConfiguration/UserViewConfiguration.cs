@@ -1,4 +1,5 @@
-﻿using Core.Model;
+﻿using System.Collections.Generic;
+using Core.Model;
 using Core.Model.Administration.User;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.GridColumn;
@@ -16,14 +17,14 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         {
         }
 
-        public override void GenerateGridColumn()
+        public override void CreateGridColumn(IList<BaseGridColumn<User>> gridColumns)
         {
-            GridColumn.AddTextColumn(new TextGridColumn<User>(o => o.LoginName, UserIndexResource.LoginName));
-            GridColumn.AddTextColumn(new TextGridColumn<User>(o => o.DisplayName, UserIndexResource.DisplayName));
-            GridColumn.AddEnumColumn(new EnumGridColumn<User>(o => o.UserType, UserIndexResource.UserType));
-            GridColumn.AddEnumColumn(new EnumGridColumn<User>(o => o.Status, UserIndexResource.Status));
-            GridColumn.AddDateTimeColumn(new DateTimeGridColumn<User>(o => o.CreatedOn, UserIndexResource.CreatedOn));
-            GridColumn.AddTextColumn(new TextGridColumn<User>(o => o.CreatedByUserName, UserIndexResource.CreatedByUserName));
+            gridColumns.Add(new TextGridColumn<User>(o => o.LoginName, UserIndexResource.LoginName));
+            gridColumns.Add(new TextGridColumn<User>(o => o.DisplayName, UserIndexResource.DisplayName));
+            gridColumns.Add(new EnumGridColumn<User>(o => o.UserType, UserIndexResource.UserType));
+            gridColumns.Add(new EnumGridColumn<User>(o => o.Status, UserIndexResource.Status));
+            gridColumns.Add(new DateTimeGridColumn<User>(o => o.CreatedOn, UserIndexResource.CreatedOn));
+            gridColumns.Add(new TextGridColumn<User>(o => o.CreatedByUserName, UserIndexResource.CreatedByUserName));
         }
     }
 }
