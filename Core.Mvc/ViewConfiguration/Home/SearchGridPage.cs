@@ -67,7 +67,6 @@ namespace Core.Mvc.ViewConfiguration.Home
             List<string> list = new List<string>
             {
                 "/js/jquery.min.js",
-                "/js/jquery.ui.custom.js",
                 "/js/jquery.dataTables.min.js",
                 "/js/bootstrap.min.js",
                 "/js/bootstrap-datetimepicker.js",
