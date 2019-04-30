@@ -21,10 +21,20 @@ namespace Core.Web.GridFilter
 
         public virtual string Render()
         {
-            string inputClass = this.InputClass == default ? default : $"class=\"{this.InputClass}\"";
+            string inputClass = default; /*this.InputClass == default ? default : $"class=\"{this.InputClass}\"";*/
+            //return $"<div class=\"{this.ContainerClass}\">" +
+            //       "<div class=\"form-group\">"+
+            //          $"<label>{this.LabelText}</label>" +
+            //          $"<input name=\"{this.PropertyInfo.Name}\" type=\"text\" {inputClass}>" +
+            //       $"</div>"+
+            //       $"</div>";
+
+
             return $"<div class=\"{this.ContainerClass}\">" +
-                      $"<label>{this.LabelText}</label>" +
-                      $"<input name=\"{this.PropertyInfo.Name}\" type=\"text\" {inputClass}>" +
+                   $"<div class=\"form-group\">" +
+                   $"<label for=\"email\">{this.LabelText}</label>" +
+                   $"<input {inputClass} type = \"email\" class=\"form-control\" id=\"email\">" +
+                   $"</div>" +
                    $"</div>";
         }
     }

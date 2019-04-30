@@ -45,9 +45,16 @@ namespace Core.Web.GridFilter
             string name = this._expression.GetPropertyInfo().Name;
             options = _keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
+            //return $"<div class=\"{this.ContainerClass}\">" +
+            //       $"<label>{LabelText}</label>" +
+            //       $"<select name=\"{name}\">{options}</select>" +
+            //       $"</div>";
+
             return $"<div class=\"{this.ContainerClass}\">" +
-                   $"<label>{LabelText}</label>" +
-                   $"<select name=\"{name}\">{options}</select>" +
+                   $"<div class=\"form-group\">" +
+                   $"<label for=\"email\">{this.LabelText}</label>" +
+                   $"<select class=\"form-control\" name=\"{name}\">{options}</select>" +
+                   $"</div>" +
                    $"</div>";
         }
     }
