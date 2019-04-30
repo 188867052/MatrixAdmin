@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Core.Model;
 using Core.Model.Administration.User;
+using Core.Web.Button;
+using Core.Web.Identifiers;
 using Core.Web.TextBox;
 using Core.Web.ViewConfiguration;
 
@@ -26,8 +29,10 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         {
             get
             {
-                return "<button type=\"submit\" class=\"btn btn-primary\">提交</button>" +
-                       "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">关闭</button>";
+                IList<StandardButton> buttons =new List<StandardButton>();
+                buttons.Add(new StandardButton("提交", new Identifier(), "index.submit"));
+                return buttons.Aggregate<StandardButton, string>(default, (current, button) => current + button.Render()+ "<script>"+button.Event.Render()+ 
+                                                                                               "</script>")+ "<button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">关闭</button>"; 
             }
         }
 

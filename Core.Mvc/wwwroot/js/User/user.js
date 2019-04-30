@@ -37,6 +37,10 @@
 
         edit: function () {
             window.core.dialog(this._editUrl);
+        },
+
+        submit: function () {
+            alert();
         }
 
         // Private Methods
