@@ -74,9 +74,9 @@
             var data = new Object;
             data.pageIndex = this.getPageIndex();
             data.pageSize = 10;
-            var list = $(".custom-control-inline");
+            var list = $(".custom-control-inline input");
             for (var i = 0; i < list.length; i++) {
-                var input = list[i].lastElementChild;
+                var input = list[i];
                 var propertyName = input.getAttribute("name");
                 var value = input.value;
                 data[propertyName] = value;

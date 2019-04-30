@@ -9,14 +9,14 @@ namespace Core.Web.GridFilter
         public readonly string ContainerClass = "custom-control-inline";
         private readonly string type;
 
-        protected BaseGridFilter(string labelText, PropertyInfo propertyInfo = default, TextBoxTypeEnum type = default)
+        protected BaseGridFilter(string labelText, PropertyInfo propertyInfo, TextBoxTypeEnum type = default)
         {
             this.LabelText = labelText;
-            this.PropertyInfo = propertyInfo;
+            this.InputName = propertyInfo.Name;
             this.type = type.ToString();
         }
 
-        public PropertyInfo PropertyInfo { get; set; }
+        public string InputName { get; set; }
 
         public string LabelText { get; }
 
@@ -26,7 +26,7 @@ namespace Core.Web.GridFilter
             return $"<div class=\"{this.ContainerClass}\">" +
                    $"<div class=\"form-group\">" +
                    $"<label for=\"{id}\">{this.LabelText}</label>" +
-                   $"<input class=\"form-control\" id=\"{id}\" type=\"{type}\">" +
+                   $"<input class=\"form-control\" id=\"{id}\" name=\"{this.InputName}\" type=\"{type}\">" +
                    $"</div>" +
                    $"</div>";
         }
