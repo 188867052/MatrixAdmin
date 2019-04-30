@@ -21,7 +21,7 @@ namespace Core.Model.Administration.User
 
         public string Avatar { get; set; }
 
-        public UserStatusEnum Status { get; set; }
+        public UserStatusEnum? Status { get; set; }
 
         /// <summary>
         /// 创建时间

@@ -9,7 +9,7 @@ namespace Core.Web.GridFilter
     /// <summary>
     /// 构造函数
     /// </summary>
-    public class DropDownGridFilter<TPostModel, TEnumType> : BaseGridFilter
+    public class DropDownGridFilter<TPostModel, TEnumType> : BaseGridFilter where TEnumType : Enum
     {
         private readonly Expression<Func<TPostModel, TEnumType>> _expression;
         private readonly IList<KeyValuePair<int, string>> _keyValuePair;
@@ -37,7 +37,7 @@ namespace Core.Web.GridFilter
         public override string Render()
         {
             string options = _isContainsEmpty ? "<option></option>" : default;
-            string name = this._expression.GetPropertyInfo().Name;
+            string name = this._expression.GetPropertyName();
             options = _keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
             return $"<div class=\"{this.ContainerClass}\">" +

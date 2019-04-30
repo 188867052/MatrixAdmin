@@ -43,7 +43,10 @@ namespace Core.Api.Controllers
             {
                 IQueryable<User> query = this.DbContext.User.AsQueryable();
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Model.Administration.User.User.IsEnable));
-                //query = query.AddBooleanFilter(model.Status, nameof(Model.Administration.User.User.Status));
+                if (model.Status.HasValue)
+                {
+                    query = query.Where(o => o.Status == model.Status);
+                }
                 query = query.AddStringContainsFilter(model.DisplayName, nameof(Model.Administration.User.User.DisplayName));
 
                 return this.StandardResponse(query, model);

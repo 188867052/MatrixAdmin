@@ -42,7 +42,7 @@ namespace Core.Web.GridFilter
                 this.SetDefaultOptions();
             }
 
-            string options = _isContainsEmpty ? default : "<option></option>";
+            string options = _isContainsEmpty ? "<option></option>" : default;
             string name = this._expression.GetPropertyInfo().Name;
             options = _keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
