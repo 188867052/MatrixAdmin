@@ -1,44 +1,58 @@
-﻿using Core.Model.Enums;
+﻿using System;
+using Core.Model.Enums;
 
 namespace Core.Model.Administration.User
 {
     /// <summary>
     /// 
     /// </summary>
-    public class UserCreateViewModel
+    public class UserEditPostModel
     {
         /// <summary>
         /// 
         /// </summary>
+        public Guid Guid { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string LoginName { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public string DisplayName { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public string Password { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public string Avatar { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public UserTypeEnum UserType { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public IsLockedEnum IsLocked { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public UserStatusEnum Status { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
-        public IsDeletedEnum IsDeleted { get; set; }
+        public bool? IsEnable { get; set; }
+
         /// <summary>
         /// 用户描述信息
         /// </summary>

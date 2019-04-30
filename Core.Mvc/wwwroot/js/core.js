@@ -61,6 +61,15 @@
             return e.innerText;
         },
 
+        generateFormDataById: function (id) {
+            var data = new Object;
+            $("#" + id + " input").each(function () {
+                var propertyName = this.getAttribute("name");
+                data[propertyName] = this.value;
+            });
+            return data;
+        },
+
         generateFormData: function () {
             var data = new Object;
             data.pageIndex = this.getPageIndex();
@@ -73,6 +82,11 @@
                 data[propertyName] = value;
             }
             return data;
+        },
+
+        submit: function (url, id) {
+            var data = this.generateFormDataById(id);
+            $.post(url, data);
         }
     };
 })();

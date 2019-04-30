@@ -1,4 +1,6 @@
 ﻿using Core.Extension;
+using Core.Web.Identifiers;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -43,6 +45,11 @@ namespace Core.Web.JavaScript
             string initializeScript = $"if({initializeCall} instanceof Function){{{initializeCall}();}}";
 
             return $"window.{this.GlobalVariableName} = new {this.ClassName}();{stringBuilder}{initializeScript}";
+        }
+
+        public void AddFrameWorkInstance(string key, Identifier identifier)
+        {
+            AddStringInstance(key, identifier.Value);
         }
     }
 }

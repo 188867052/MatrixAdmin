@@ -1,7 +1,8 @@
 ﻿using System.Text;
-using Core.Model.Administration.User;
+using Core.Mvc.Areas.Administration.ViewConfiguration;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Web.Html;
+using Core.Web.Identifiers;
 using Core.Web.ViewConfiguration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,12 @@ namespace Core.Mvc.Areas
 
         protected IActionResult Dialog<T>(DialogConfiguration<T> index)
         {
-            return new JsonResult(new { data = index.Render(), id = DialogConfiguration<User>.Identifier.Value });
+            return new JsonResult(new { data = index.Render(), id = index.Identifier.Value });
+        }
+
+        protected IActionResult Submit<T>()
+        {
+            return new JsonResult(new { success = true });
         }
 
         protected JsonResult GridConfiguration<T>(GridConfiguration<T> index)

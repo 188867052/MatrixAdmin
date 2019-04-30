@@ -11,6 +11,8 @@
         _searchUrl: null,
         _addUrl: null,
         _editUrl: null,
+        _saveUrl: null,
+        _dialogInstance: null,
 
         // Private Event Delegates  
 
@@ -40,7 +42,7 @@
         },
 
         submit: function () {
-            alert();
+            window.core.submit(this._saveUrl, this._dialogInstance);
         }
 
         // Private Methods

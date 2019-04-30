@@ -61,6 +61,19 @@ namespace Core.Mvc.Areas.Administration.Controllers
         }
 
         /// <summary>
+        /// Save.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult Save(UserCreatePostModel model)
+        {
+            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Create));
+            AsyncRequest.SubmitAsync(url, model);
+
+            return this.Submit<UserCreatePostModel>();
+        }
+
+        /// <summary>
         /// The edit dialog.
         /// </summary>
         /// <returns></returns>

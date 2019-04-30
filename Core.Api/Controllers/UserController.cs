@@ -56,8 +56,7 @@ namespace Core.Api.Controllers
         /// <param name="model">用户视图实体</param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(200)]
-        public IActionResult Create(UserCreateViewModel model)
+        public IActionResult Create(UserCreatePostModel model)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
             if (model.LoginName.Trim().Length <= 0)
@@ -72,7 +71,7 @@ namespace Core.Api.Controllers
                     response.SetFailed("登录名已存在");
                     return Ok(response);
                 }
-                User entity = Mapper.Map<UserCreateViewModel, User>(model);
+                User entity = Mapper.Map<UserCreatePostModel, User>(model);
                 entity.CreatedOn = DateTime.Now;
                 entity.Guid = Guid.NewGuid();
                 entity.Status = model.Status;
@@ -97,7 +96,7 @@ namespace Core.Api.Controllers
             {
                 User entity = this.DbContext.User.FirstOrDefault(x => x.Guid == guid);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(Mapper.Map<User, UserEditViewModel>(entity));
+                response.SetData(Mapper.Map<User, UserEditPostModel>(entity));
                 return Ok(response);
             }
         }
@@ -109,7 +108,7 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public IActionResult Edit(UserEditViewModel model)
+        public IActionResult Edit(UserEditPostModel model)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)

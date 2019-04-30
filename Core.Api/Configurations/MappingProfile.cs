@@ -22,8 +22,8 @@ namespace Core.Api.Configurations
         public MappingProfile()
         {
             CreateMap<User, UserJsonModel>();
-            CreateMap<UserCreateViewModel, User>();
-            CreateMap<UserEditViewModel, User>();
+            CreateMap<UserCreatePostModel, User>();
+            CreateMap<UserEditPostModel, User>();
 
             CreateMap<Role, RoleJsonModel>();
             CreateMap<RoleCreateViewModel, Role>();

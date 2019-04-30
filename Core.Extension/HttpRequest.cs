@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Core.Model;
@@ -55,6 +56,20 @@ namespace Core.Extension
             model.Data = JsonConvert.DeserializeObject<TModel>(model.Data.ToString());
 
             return model;
+        }
+
+        public static async void SubmitAsync<TPostModel>(Url url, TPostModel postModel)
+        {
+            HttpResponseMessage httpResponse;
+            using (HttpClient client = new HttpClient())
+            {
+                string postPara = JsonConvert.SerializeObject(postModel);
+                StringContent httpContent = new StringContent(postPara);
+                httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                httpResponse = await client.PostAsync(Host + url.Render(), httpContent);
+            }
+
+            Task<string> json = httpResponse.Content.ReadAsStringAsync();
         }
     }
 }

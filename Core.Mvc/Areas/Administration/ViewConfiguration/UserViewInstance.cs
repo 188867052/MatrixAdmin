@@ -16,12 +16,15 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 
         public override void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize)
         {
-            Url url = new Url(nameof(Administration), typeof(UserController), nameof(UserController.GridStateChange));
+            Url searchUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.GridStateChange));
             Url addUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.AddDialog));
             Url editUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.EditDialog));
-            javaScriptInitialize.AddUrlInstance("searchUrl", url);
+            Url saveUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.Save));
+            javaScriptInitialize.AddUrlInstance("searchUrl", searchUrl);
             javaScriptInitialize.AddUrlInstance("addUrl", addUrl);
             javaScriptInitialize.AddUrlInstance("editUrl", editUrl);
+            javaScriptInitialize.AddUrlInstance("saveUrl", saveUrl);
+            javaScriptInitialize.AddFrameWorkInstance("dialogInstance", AddUserDialogConfiguration.Identifier);
         }
     }
 }
