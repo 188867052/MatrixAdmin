@@ -12,7 +12,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            searchFilter.Add(new BooleanGridFilter<RolePostModel>(o => o.IsEnable, LogResource.Message));
+            searchFilter.Add(new TextGridFilter<RolePostModel>(o => o.RoleName, "角色名称"));
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)

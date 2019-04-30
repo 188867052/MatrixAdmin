@@ -14,5 +14,10 @@
         /// 状态
         /// </summary>
         public bool? Status { get; set; }
+
+        /// <summary>
+        /// 角色名称
+        /// </summary>
+        public string RoleName { get; set; }
     }
 }

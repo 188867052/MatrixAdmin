@@ -13,7 +13,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            searchFilter.Add(new BooleanGridFilter<MenuPostModel>(o => o.IsEnable, LogResource.Message));
+            searchFilter.Add(new BooleanGridFilter<MenuPostModel>(o => o.IsEnable, "角色名"));
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)
