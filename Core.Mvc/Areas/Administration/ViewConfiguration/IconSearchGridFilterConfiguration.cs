@@ -2,7 +2,7 @@
 using Core.Model.Administration.Icon;
 using Core.Mvc.ViewConfiguration;
 using Core.Resource;
-using Core.Resource.ViewConfiguration.Administration;
+using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.Identifiers;

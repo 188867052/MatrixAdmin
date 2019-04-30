@@ -3,8 +3,7 @@ using Core.Model.Log;
 using Core.Mvc.Areas;
 using Core.Mvc.Areas.Administration.Controllers;
 using Core.Mvc.Areas.Log.Controllers;
-using Core.Resource.ViewConfiguration;
-using Core.Resource.ViewConfiguration.Home;
+using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.Sidebar;
 
 namespace Core.Mvc.ViewConfiguration.Home

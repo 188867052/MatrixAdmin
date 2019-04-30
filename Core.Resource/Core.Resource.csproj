@@ -5,17 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ViewConfiguration\Log\**" />
-    <EmbeddedResource Remove="ViewConfiguration\Log\**" />
-    <None Remove="ViewConfiguration\Log\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="ViewConfiguration\Log\ErrorResource.resx" />
-    <EmbeddedResource Include="ViewConfiguration\Log\LogResource.resx" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Resource.Generated.cs">
       <DependentUpon>Resource.Generated.tt</DependentUpon>
       <DesignTime>True</DesignTime>

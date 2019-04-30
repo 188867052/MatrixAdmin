@@ -1,5 +1,4 @@
 ﻿using Core.Model;
-using Core.Web.GridColumn;
 using Core.Web.Html;
 using Core.Web.Identifiers;
 
@@ -18,19 +17,9 @@ namespace Core.Web.ViewConfiguration
         /// </summary>
         protected DialogConfiguration(ResponseModel model)
         {
-            //this.GridColumn = new GridColumn<T>((List<T>)model.Data);
-            //this.Count = model.TotalCount;
-            //this.PageSize = model.PageSize;
-            //this.CurrentPage = model.PageIndex;
         }
 
-        public int CurrentPage { get; set; }
-
-        public int PageSize { get; set; }
-
         public int Count { get; set; }
-
-        public GridColumn<T> GridColumn { get; }
 
         public virtual string Render()
         {

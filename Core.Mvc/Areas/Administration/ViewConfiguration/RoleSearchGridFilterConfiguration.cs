@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Model.Administration.Role;
 using Core.Mvc.ViewConfiguration;
-using Core.Resource;
-using Core.Resource.ViewConfiguration.Log;
+using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.Identifiers;

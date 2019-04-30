@@ -1,7 +1,7 @@
 ﻿using Core.Model;
 using Core.Model.Administration.Menu;
 using Core.Resource;
-using Core.Resource.ViewConfiguration.Administration;
+using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
 

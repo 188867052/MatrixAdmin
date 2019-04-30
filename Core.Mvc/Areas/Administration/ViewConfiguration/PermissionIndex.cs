@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using Core.Extension;
+﻿using Core.Extension;
 using Core.Model;
 using Core.Mvc.ViewConfiguration.Home;
-using Core.Resource;
-using Core.Resource.ViewConfiguration.Administration;
+using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
+using System.Collections.Generic;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
