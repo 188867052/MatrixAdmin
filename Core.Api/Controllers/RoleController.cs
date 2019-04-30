@@ -29,7 +29,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                return this.StandardResponse(this.DbContext.Menu);
+                return this.StandardResponse(this.DbContext.Role);
             }
         }
 
@@ -43,8 +43,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Role> query = this.DbContext.Role.AsQueryable();
-                query = query.AddBooleanFilter(model.IsEnable, nameof(Role.IsEnable));
-                query = query.AddBooleanFilter(model.Status, nameof(Role.Status));
+                query = query.AddStringContainsFilter(model.RoleName, nameof(Role.IsEnable));
                 return this.StandardResponse(query, model);
             }
         }
