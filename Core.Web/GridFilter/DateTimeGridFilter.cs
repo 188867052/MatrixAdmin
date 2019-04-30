@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Linq.Expressions;
 using Core.Extension.Expression;
+using Core.Web.Identifiers;
 using Core.Web.JavaScript;
 
 namespace Core.Web.GridFilter
 {
     public class DateTimeGridFilter<TPostModel> : BaseGridFilter
     {
-        public DateTimeGridFilter(Expression<Func<TPostModel, DateTime?>> expression, string label) : base(label, expression.GetPropertyInfo(), "form_datetime")
+        public DateTimeGridFilter(Expression<Func<TPostModel, DateTime?>> expression, string label) : base(label, expression.GetPropertyInfo())
         {
-            this.Delegate = "alert(this.value)";
-            this.Event = new JavaScriptEvent(Delegate);
         }
 
-        public JavaScriptEvent Event { get; set; }
 
-        public string Delegate { get; set; }
+        public override string Render()
+        {
+            string id = new Identifier().Value;
+            return $"<div class=\"{this.ContainerClass}\">" +
+                   $"<div class=\"form-group\">" +
+                   $"<label for=\"{id}\">{this.LabelText}</label>" +
+                   $"<input class=\"form-control\" type=\"text\" id=\"{id}\">" +
+                   $"</div>" +
+                   $"</div>";
+        }
     }
 }

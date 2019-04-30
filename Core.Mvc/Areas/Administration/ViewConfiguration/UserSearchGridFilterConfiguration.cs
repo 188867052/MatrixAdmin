@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Model.Administration.User;
+using Core.Model.Enums;
+using Core.Model.Log;
 using Core.Mvc.ViewConfiguration;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.Button;
@@ -12,10 +14,15 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
+            var dropDown = new DropDownGridFilter<UserPostModel, UserStatusEnum>(o => o.Status, "状态");
+            dropDown.AddOption(UserStatusEnum.All, "错误");
+            dropDown.AddOption(UserStatusEnum.Forbidden, "警告");
+            dropDown.AddOption(UserStatusEnum.Normal, "日志");
+
             searchFilter.Add(new TextGridFilter<UserPostModel>(o => o.DisplayName, LogResource.Message));
             searchFilter.Add(new DateTimeGridFilter<UserPostModel>(o => o.CreatedOn, "开始" + LogResource.CreateTime));
             searchFilter.Add(new DateTimeGridFilter<UserPostModel>(o => o.CreatedOn, "结束" + LogResource.CreateTime));
-            searchFilter.Add(new BooleanGridFilter<UserPostModel>(o => o.IsEnable, "是否启用"));
+            searchFilter.Add(dropDown);
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)

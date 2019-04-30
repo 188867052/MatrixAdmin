@@ -84,9 +84,11 @@
             return data;
         },
 
-        submit: function (url, id) {
+        submit: function (url, id, onSuccess) {
             var data = this.generateFormDataById(id);
             $.post(url, data);
+            $("#" + id).modal("hide");
+            onSuccess();
         }
     };
 })();

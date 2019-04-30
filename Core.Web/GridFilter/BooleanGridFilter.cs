@@ -17,12 +17,12 @@ namespace Core.Web.GridFilter
         /// </summary>
         /// <param name="expression"></param>
         /// <param name="labelText"></param>
-        /// <param name="isNotContainsEmpty"></param>
-        public BooleanGridFilter(Expression<Func<TPostModel, bool?>> expression, string labelText, bool isNotContainsEmpty = default) : base(labelText)
+        /// <param name="isContainsEmpty"></param>
+        public BooleanGridFilter(Expression<Func<TPostModel, bool?>> expression, string labelText, bool isContainsEmpty = true) : base(labelText)
         {
             this._expression = expression;
             this._keyValuePair = new List<KeyValuePair<bool, string>>();
-            this._isContainsEmpty = isNotContainsEmpty;
+            this._isContainsEmpty = isContainsEmpty;
         }
 
         public void AddOption(Enum key, string value)
@@ -47,10 +47,10 @@ namespace Core.Web.GridFilter
             options = _keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
             return $"<div class=\"{this.ContainerClass}\">" +
-                   $"<label>{base.LabelText}</label>" +
-                   $"<select name=\"{name}\">" +
-                      $"{options}" +
-                   $"</select>" +
+                   $"<div class=\"form-group\">" +
+                   $"<label>{this.LabelText}</label>" +
+                   $"<select class=\"form-control\" style=\"width:204.16px\" name=\"{name}\">{options}</select>" +
+                   $"</div>" +
                    $"</div>";
         }
 

@@ -43,7 +43,7 @@ namespace Core.Api.Controllers
             {
                 IQueryable<User> query = this.DbContext.User.AsQueryable();
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Model.Administration.User.User.IsEnable));
-                query = query.AddBooleanFilter(model.Status, nameof(Model.Administration.User.User.Status));
+                //query = query.AddBooleanFilter(model.Status, nameof(Model.Administration.User.User.Status));
                 query = query.AddStringContainsFilter(model.DisplayName, nameof(Model.Administration.User.User.DisplayName));
 
                 return this.StandardResponse(query, model);
@@ -78,8 +78,7 @@ namespace Core.Api.Controllers
                 this.DbContext.User.Add(entity);
                 this.DbContext.SaveChanges();
 
-                response.SetSuccess();
-                return Ok(response);
+                return this.SubmitResponse(response);
             }
         }
 

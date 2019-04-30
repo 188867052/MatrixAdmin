@@ -57,7 +57,7 @@ namespace Core.Extension.Expression
             return ((MemberExpression)expression.Body).PropertyInfo<T>().Name;
         }
 
-        public static PropertyInfo GetPropertyInfo<T>(this Expression<Func<T, Enum>> expression)
+        public static PropertyInfo GetPropertyInfo<T, TEnumType>(this Expression<Func<T, TEnumType>> expression) where TEnumType : Enum
         {
             return ((UnaryExpression)expression.Body).PropertyInfo<T>();
         }

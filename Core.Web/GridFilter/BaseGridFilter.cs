@@ -1,39 +1,32 @@
 ﻿using System.Reflection;
+using Core.Web.Identifiers;
+using Core.Web.TextBox;
 
 namespace Core.Web.GridFilter
 {
     public abstract class BaseGridFilter
     {
         public readonly string ContainerClass = "custom-control-inline";
+        private readonly string type;
 
-        protected BaseGridFilter(string labelText, PropertyInfo propertyInfo = default, string inputClass = default)
+        protected BaseGridFilter(string labelText, PropertyInfo propertyInfo = default, TextBoxTypeEnum type = default)
         {
             this.LabelText = labelText;
-            this.InputClass = inputClass;
             this.PropertyInfo = propertyInfo;
+            this.type = type.ToString();
         }
 
         public PropertyInfo PropertyInfo { get; set; }
-
-        public string InputClass { get; set; }
 
         public string LabelText { get; }
 
         public virtual string Render()
         {
-            string inputClass = default; /*this.InputClass == default ? default : $"class=\"{this.InputClass}\"";*/
-            //return $"<div class=\"{this.ContainerClass}\">" +
-            //       "<div class=\"form-group\">"+
-            //          $"<label>{this.LabelText}</label>" +
-            //          $"<input name=\"{this.PropertyInfo.Name}\" type=\"text\" {inputClass}>" +
-            //       $"</div>"+
-            //       $"</div>";
-
-
+            string id = new Identifier().Value;
             return $"<div class=\"{this.ContainerClass}\">" +
                    $"<div class=\"form-group\">" +
-                   $"<label for=\"email\">{this.LabelText}</label>" +
-                   $"<input {inputClass} type = \"email\" class=\"form-control\" id=\"email\">" +
+                   $"<label for=\"{id}\">{this.LabelText}</label>" +
+                   $"<input class=\"form-control\" id=\"{id}\" type=\"{type}\">" +
                    $"</div>" +
                    $"</div>";
         }

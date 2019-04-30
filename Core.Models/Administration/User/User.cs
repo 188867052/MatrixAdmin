@@ -37,7 +37,6 @@ namespace Core.Model.Administration.User
 
         public IsLockedEnum IsLocked { get; set; }
 
-        //[EnumDataType(typeof(UserStatus))]
         public UserStatusEnum Status { get; set; }
 
         /// <summary>

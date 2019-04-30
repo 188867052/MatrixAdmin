@@ -12,18 +12,17 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            searchFilter.Add(new IntegerGridFilter<LogPostModel>(o => o.Id, LogResource.ID));
-            searchFilter.Add(new TextGridFilter<LogPostModel>(o => o.Message, LogResource.Message));
-            searchFilter.Add(new DateTimeGridFilter<LogPostModel>(o => o.StartTime, "开始" + LogResource.CreateTime));
-            searchFilter.Add(new DateTimeGridFilter<LogPostModel>(o => o.EndTime, "结束" + LogResource.CreateTime));
-
-            var dropDown = new DropDownGridFilter<LogPostModel>(o => o.Type, "类型", true);
+            var dropDown = new DropDownGridFilter<LogPostModel, LogType>(o => o.Type, "类型");
             dropDown.AddOption(LogType.Error, "错误");
             dropDown.AddOption(LogType.Alert, "警告");
             dropDown.AddOption(LogType.Info, "日志");
             dropDown.AddOption(LogType.Debug, "调试");
+
+            searchFilter.Add(new IntegerGridFilter<LogPostModel>(o => o.Id, LogResource.ID));
+            searchFilter.Add(new TextGridFilter<LogPostModel>(o => o.Message, LogResource.Message));
+            searchFilter.Add(new DateTimeGridFilter<LogPostModel>(o => o.StartTime, "开始" + LogResource.CreateTime));
+            searchFilter.Add(new DateTimeGridFilter<LogPostModel>(o => o.EndTime, "结束" + LogResource.CreateTime));
             searchFilter.Add(dropDown);
-            //return GridSearchFilter.Render();
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)

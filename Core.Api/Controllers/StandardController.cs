@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
+using Core.Api.Extensions;
 using Core.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +52,12 @@ namespace Core.Api.Controllers
             var list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
             ResponseModel response = new ResponseModel(list, pager);
 
+            return Ok(response);
+        }
+
+        protected IActionResult SubmitResponse(ResponseModel response)
+        {
+            response.SetSuccess();
             return Ok(response);
         }
     }

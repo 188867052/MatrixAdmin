@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Model.Enums;
 
 namespace Core.Model.Administration.User
 {
@@ -11,10 +12,6 @@ namespace Core.Model.Administration.User
         /// 是否已被删除
         /// </summary>
         public bool? IsEnable { get; set; }
-        /// <summary>
-        /// 用户状态
-        /// </summary>
-        public bool? Status { get; set; }
 
         public string LoginName { get; set; }
 
@@ -23,6 +20,8 @@ namespace Core.Model.Administration.User
         public string Password { get; set; }
 
         public string Avatar { get; set; }
+
+        public UserStatusEnum Status { get; set; }
 
         /// <summary>
         /// 创建时间

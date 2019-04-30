@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
@@ -56,7 +57,6 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult AddDialog()
         {
             AddUserDialogConfiguration user = new AddUserDialogConfiguration(null);
-
             return this.Dialog(user);
         }
 

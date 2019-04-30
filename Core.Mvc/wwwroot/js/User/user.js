@@ -42,7 +42,7 @@
         },
 
         submit: function () {
-            window.core.submit(this._saveUrl, this._dialogInstance);
+            window.core.submit(this._saveUrl, this._dialogInstance, $.proxy(this.search, this));
         }
 
         // Private Methods
