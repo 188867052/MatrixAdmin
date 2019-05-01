@@ -48,7 +48,7 @@ namespace Core.Web.ViewConfiguration
 
         public virtual string Render()
         {
-            string html = System.IO.File.ReadAllText("C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\wwwroot\\html\\LargeDialog.html");
+            string html = System.IO.File.ReadAllText("C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\wwwroot\\html\\dialog.html");
             html = html.Replace("{{id}}", Identifier.Value);
             html = html.Replace("{{modal-title}}", Title);
             html = html.Replace("{{modal-body}}", this.Body);
