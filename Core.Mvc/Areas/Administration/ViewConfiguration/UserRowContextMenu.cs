@@ -13,8 +13,8 @@
 
         public string Render()
         {
-            string html = $"<a class=\"dropdown-item\" data-method=\"index.edit\" href=\"#\">编辑</a>";
-            html += "<a class=\"dropdown-item\" data-method=\"index.delete\" href=\"#\">删除</a>";
+            string html = $"<a class=\"icon-edit dropdown-item\" data-method=\"index.edit\" href=\"#\">&nbsp;编辑</a>";
+            html += "<a class=\"icon-remove-sign dropdown-item\" data-method=\"index.delete\" href=\"#\">&nbsp;删除</a>";
 
             return html;
         }
