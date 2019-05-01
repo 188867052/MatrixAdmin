@@ -4,7 +4,6 @@ using Core.Extension;
 using Core.Model;
 using Core.Model.Log;
 using Core.Mvc.Areas.Log.ViewConfiguration;
-using Core.Mvc.ViewConfiguration.Index;
 using Core.Web.File;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
