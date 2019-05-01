@@ -4,7 +4,7 @@ using System.Text;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 
-namespace Core.Mvc.ViewConfiguration
+namespace Core.Web.SearchFilterConfiguration
 {
     public abstract class SearchFilterConfiguration<T>
     {

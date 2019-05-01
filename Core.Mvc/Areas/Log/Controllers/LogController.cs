@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Log;
 using Core.Mvc.Areas.Log.ViewConfiguration;
+using Core.Mvc.ViewConfiguration.Index;
+using Core.Web.File;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,6 +33,12 @@ namespace Core.Mvc.Areas.Log.Controllers
             LogIndex table = new LogIndex(HostingEnvironment, model);
 
             return this.ViewConfiguration(table);
+        }
+
+        public IActionResult Test()
+        {
+            File index = new File(this.HostingEnvironment, "a_test");
+            return Content(index.Render(), "text/html", Encoding.UTF8);
         }
 
         /// <summary>
