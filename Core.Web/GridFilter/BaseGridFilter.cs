@@ -1,12 +1,11 @@
-﻿using System.Reflection;
-using Core.Web.Identifiers;
+﻿using Core.Web.Identifiers;
 using Core.Web.TextBox;
 
 namespace Core.Web.GridFilter
 {
     public abstract class BaseGridFilter
     {
-        public readonly string ContainerClass = "custom-control-inline";
+        protected readonly string ContainerClass = "custom-control-inline";
         private readonly string type;
 
         protected BaseGridFilter(string labelText, string inputName, TextBoxTypeEnum type = default)
@@ -16,9 +15,9 @@ namespace Core.Web.GridFilter
             this.type = type.ToString();
         }
 
-        public string InputName { get; set; }
+        protected string InputName { get; set; }
 
-        public string LabelText { get; }
+        protected string LabelText { get; }
 
         public virtual string Render()
         {

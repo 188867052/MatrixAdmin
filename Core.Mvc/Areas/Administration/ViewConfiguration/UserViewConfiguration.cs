@@ -19,6 +19,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 
         public override void CreateGridColumn(IList<BaseGridColumn<User>> gridColumns)
         {
+            gridColumns.Add(new ContextMenuColumn<User>("icon-list-ul", "操作"));
             gridColumns.Add(new TextGridColumn<User>(o => o.LoginName, UserIndexResource.LoginName));
             gridColumns.Add(new TextGridColumn<User>(o => o.DisplayName, UserIndexResource.DisplayName));
             gridColumns.Add(new EnumGridColumn<User>(o => o.UserType, UserIndexResource.UserType));

@@ -75,6 +75,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         {
             IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>
             {
+                new IndexViewInstance(),
                 new IconViewInstance()
             };
             return constructions;

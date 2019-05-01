@@ -12,7 +12,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         /// <summary>
         /// 构造函数
         /// </summary>
-        public IconGridConfiguration(ResponseModel respnse) : base(respnse)
+        public IconGridConfiguration(ResponseModel response) : base(response)
         {
         }
 

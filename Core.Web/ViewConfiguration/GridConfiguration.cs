@@ -19,15 +19,13 @@ namespace Core.Web.ViewConfiguration
             this.CurrentPage = model.PageIndex;
         }
 
-        public List<T> EntityList { get; set; }
+        private List<T> EntityList { get; }
 
         public int CurrentPage { get; set; }
 
         public int PageSize { get; set; }
 
-        public int Count { get; set; }
-
-        //public GridColumn<T> GridColumn { get; }
+        private int Count { get; }
 
         public string GenerateGridColumn()
         {

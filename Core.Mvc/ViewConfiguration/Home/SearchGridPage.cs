@@ -68,10 +68,10 @@ namespace Core.Mvc.ViewConfiguration.Home
             {
                 "/js/jquery.min.js",
                 "/js/jquery.dataTables.min.js",
+                "/js/popper.js",
                 "/js/bootstrap.min.js",
                 "/js/bootstrap-datetimepicker.js",
                 "/js/framework.js",
-                "/js/popper.js",
                 "/js/core.js"
             };
             list.AddRange(this.JavaScript());
