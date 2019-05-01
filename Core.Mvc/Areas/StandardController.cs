@@ -28,7 +28,7 @@ namespace Core.Mvc.Areas
             return this.RenderContent(index);
         }
 
-        protected IActionResult Dialog<T>(DialogConfiguration<T> index)
+        protected IActionResult Dialog<TPostModel, T>(DialogConfiguration<TPostModel, T> index)
         {
             return new JsonResult(new { data = index.Render(), id = index.Identifier.Value });
         }

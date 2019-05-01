@@ -32,4 +32,8 @@
 </html>
 <script type="text/javascript">
     $(".form_datetime").datetimepicker({ format: 'yyyy-mm-dd hh:ii' });
+    $("table .dropdown-toggle").on('click',
+        function () {
+            window.core.rowContextMenu();
+        });
 </script>

@@ -8,8 +8,9 @@ using Core.Web.TextBox;
 
 namespace Core.Web.ViewConfiguration
 {
-    public abstract class DialogConfiguration<T> : IRender
+    public abstract class DialogConfiguration<TPostModel, T> : IRender
     {
+        private T model;
         public abstract string Title { get; }
 
         public Identifier Identifier { get; }
@@ -17,8 +18,9 @@ namespace Core.Web.ViewConfiguration
         /// <summary>
         /// 构造函数
         /// </summary>
-        protected DialogConfiguration(ResponseModel model, Identifier id)
+        protected DialogConfiguration(T model, Identifier id)
         {
+            this.model = model;
             this.Identifier = id;
         }
 
@@ -36,15 +38,15 @@ namespace Core.Web.ViewConfiguration
         {
             get
             {
-                IList<LabeledTextBox<T>> textBoxes = new List<LabeledTextBox<T>>();
+                IList<LabeledTextBox<TPostModel, T>> textBoxes = new List<LabeledTextBox<TPostModel, T>>();
                 this.CreateBody(textBoxes);
-                return textBoxes.Aggregate<LabeledTextBox<T>, string>(default, (current, item) => current + item.Render());
+                return textBoxes.Aggregate<LabeledTextBox<TPostModel, T>, string>(default, (current, item) => current + item.Render(this.model));
             }
         }
 
         protected abstract void CreateButtons(IList<StandardButton> buttons);
 
-        protected abstract void CreateBody(IList<LabeledTextBox<T>> textBoxes);
+        protected abstract void CreateBody(IList<LabeledTextBox<TPostModel, T>> textBoxes);
 
         public virtual string Render()
         {

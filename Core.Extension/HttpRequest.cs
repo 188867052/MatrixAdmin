@@ -32,6 +32,22 @@ namespace Core.Extension
             return model;
         }
 
+        public static async Task<ResponseModel> GetAsync<T>(Url url, string guid)
+        {
+            HttpResponseMessage httpResponse;
+            using (HttpClient client = new HttpClient())
+            {
+                string value = "d7f32600-64c3-484d-a933-2d4a62bda0bc";
+                httpResponse = await client.GetAsync($"{Host}{url.Render()}?{nameof(guid)}={value}");
+            }
+
+            Task<string> json = httpResponse.Content.ReadAsStringAsync();
+            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
+            model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
+
+            return model;
+        }
+
         /// <summary>
         /// PostAsync
         /// </summary>

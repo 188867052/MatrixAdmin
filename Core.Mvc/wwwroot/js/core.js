@@ -8,13 +8,13 @@
     window.Core.prototype = {
 
         // Private Fields
-
         _searchUrl: null,
         _currentPage: null,
         _pageSize: null,
         _successPointer: null,
         _leftText: null,
         _rightText: null,
+        _currentTarget: null,
 
         // Private Event Delegates  
 
@@ -41,13 +41,40 @@
         },
 
         dialog: function (url) {
-            $.get(url, function (response) {
-                $(".pagination").replaceWith(response.data);
-                $("#" + response.id).modal("show");
-            });
+            $.get(url,
+                function (response) {
+                    $(".pagination").replaceWith(response.data);
+                    $("#" + response.id).modal("show");
+                });
+        },
+
+        editDialog: function (url, id) {
+            $.get(url, id,
+                function (response) {
+                    $(".pagination").replaceWith(response.data);
+                    $("#" + response.id).modal("show");
+                });
+        },
+
+        rowContextMenu: function () {
+            var url = event.currentTarget.dataset.url;
+            var id = event.currentTarget.dataset.id;
+            this._currentTarget = event.currentTarget;
+            var onSuccess = $.proxy(this.initializeRowContextMenu, this);
+            $.get(url, id, onSuccess);
         },
 
         // Private Methods
+
+        initializeRowContextMenu: function (response) {
+            this._currentTarget.nextElementSibling.innerHTML = response;
+            $(".dropdown-item").on('click',
+                function () {
+                    var method = event.currentTarget.dataset.method;
+                    var id = event.currentTarget.parentElement.previousElementSibling.dataset.id;
+                    eval(method + "('" + id + "')");
+                });
+        },
 
         getPageIndex: function () {
             var e = event.currentTarget;

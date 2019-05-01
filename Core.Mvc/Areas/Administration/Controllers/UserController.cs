@@ -1,10 +1,12 @@
-﻿using Core.Extension;
+﻿using System;
+using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.ViewConfiguration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Core.Mvc.Areas.Administration.Controllers
 {
@@ -49,13 +51,25 @@ namespace Core.Mvc.Areas.Administration.Controllers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult RowContextMenu(string id)
+        {
+            UserRowContextMenu menu = new UserRowContextMenu(id);
+            return this.Content(menu.Render(), "text/html", Encoding.UTF8);
+        }
+
+        /// <summary>
         /// The add dialog.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public IActionResult AddDialog()
         {
-            AddUserDialogConfiguration user = new AddUserDialogConfiguration(null);
+            AddUserDialogConfiguration user = new AddUserDialogConfiguration();
             return this.Dialog(user);
         }
 
@@ -77,11 +91,14 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult EditDialog()
+        public IActionResult EditDialog(string id)
         {
-            AddUserDialogConfiguration user = new AddUserDialogConfiguration(null);
+            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.FindById));
+            ResponseModel model = AsyncRequest.GetAsync<User>(url, id).Result;
+            User user = (User)model.Data;
+            EditUserDialogConfiguration dialog = new EditUserDialogConfiguration(user);
 
-            return this.Dialog(user);
+            return this.Dialog(dialog);
         }
     }
 }

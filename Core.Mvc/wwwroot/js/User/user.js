@@ -37,8 +37,8 @@
             window.core.dialog(this._addUrl);
         },
 
-        edit: function () {
-            window.core.dialog(this._editUrl);
+        edit: function (id) {
+            window.core.editDialog(this._editUrl, id);
         },
 
         submit: function () {

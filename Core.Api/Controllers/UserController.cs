@@ -91,13 +91,12 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="guid">用户GUID</param>
         /// <returns></returns>
-        [HttpGet("{guid}")]
-        [ProducesResponseType(200)]
-        public IActionResult Edit(Guid guid)
+        [HttpGet]
+        public IActionResult FindById(string guid)
         {
             using (this.DbContext)
             {
-                User entity = this.DbContext.User.FirstOrDefault(x => x.Guid == guid);
+                User entity = this.DbContext.User.FirstOrDefault(x => x.Guid.ToString() == guid);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(Mapper.Map<User, UserEditPostModel>(entity));
                 return Ok(response);

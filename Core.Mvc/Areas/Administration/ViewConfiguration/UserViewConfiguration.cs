@@ -4,6 +4,8 @@ using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
 using System.Collections.Generic;
+using Core.Extension;
+using Core.Mvc.Areas.Administration.Controllers;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
@@ -19,7 +21,8 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 
         public override void CreateGridColumn(IList<BaseGridColumn<User>> gridColumns)
         {
-            gridColumns.Add(new ContextMenuColumn<User>("icon-list-ul", "操作"));
+            Url url = new Url(nameof(Administration), typeof(UserController), nameof(UserController.RowContextMenu));
+            gridColumns.Add(new ContextMenuColumn<User>(o => o.Guid.ToString(), "操作", url));
             gridColumns.Add(new TextGridColumn<User>(o => o.LoginName, UserIndexResource.LoginName));
             gridColumns.Add(new TextGridColumn<User>(o => o.DisplayName, UserIndexResource.DisplayName));
             gridColumns.Add(new EnumGridColumn<User>(o => o.UserType, UserIndexResource.UserType));
