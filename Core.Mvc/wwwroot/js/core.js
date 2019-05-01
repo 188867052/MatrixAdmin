@@ -41,32 +41,32 @@
         },
 
         dialog: function (url) {
-            $.get(url,
-                function (response) {
-                    $(".pagination").replaceWith(response.data);
-                    $("#" + response.id).modal("show");
-                });
+            $.get(url, $.proxy(this._displayDialog, this));
         },
 
         editDialog: function (url, id) {
-            $.get(url, id,
-                function (response) {
-                    $(".pagination").replaceWith(response.data);
-                    $("#" + response.id).modal("show");
-                });
+            $.get(url, id, $.proxy(this._displayDialog, this));
         },
 
         rowContextMenu: function () {
             var url = event.currentTarget.dataset.url;
             var id = event.currentTarget.dataset.id;
             this._currentTarget = event.currentTarget;
-            var onSuccess = $.proxy(this.initializeRowContextMenu, this);
-            $.get(url, id, onSuccess);
+            $.get(url, id, $.proxy(this._initializeRowContextMenu, this));
         },
 
         // Private Methods
 
-        initializeRowContextMenu: function (response) {
+        _displayDialog: function (response) {
+            $(".modalContainer" + response.id).remove();
+            var div = document.createElement("div");
+            div.className = "modalContainer" + response.id;
+            div.innerHTML = response.data;
+            $("body").append(div);
+            $("#" + response.id).modal("show");
+        },
+
+        _initializeRowContextMenu: function (response) {
             this._currentTarget.nextElementSibling.innerHTML = response;
             $(".dropdown-item").on('click',
                 function () {
