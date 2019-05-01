@@ -20,12 +20,14 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             Url addUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.AddDialog));
             Url editUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.EditDialog));
             Url saveUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.Save));
+            Url deleteUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.Delete));
             Url rowContextMenuUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.RowContextMenu));
 
             javaScriptInitialize.AddUrlInstance("searchUrl", searchUrl);
             javaScriptInitialize.AddUrlInstance("addUrl", addUrl);
             javaScriptInitialize.AddUrlInstance("editUrl", editUrl);
             javaScriptInitialize.AddUrlInstance("saveUrl", saveUrl);
+            javaScriptInitialize.AddUrlInstance("deleteUrl", deleteUrl);
             javaScriptInitialize.AddUrlInstance("rowContextMenuUrl", rowContextMenuUrl);
             javaScriptInitialize.AddFrameWorkInstance("dialogInstance", AddUserDialogConfiguration.Identifier);
         }

@@ -11,7 +11,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 
         /// </summary>
-        public Guid Guid { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// 

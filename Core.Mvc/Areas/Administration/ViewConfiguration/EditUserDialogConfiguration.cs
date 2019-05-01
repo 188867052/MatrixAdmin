@@ -25,6 +25,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         {
             textBoxes.Add(new LabeledTextBox<UserEditPostModel, User>("登录名", o => o.LoginName, o => o.LoginName));
             textBoxes.Add(new LabeledTextBox<UserEditPostModel, User>("显示名", o => o.DisplayName, o => o.DisplayName));
+            textBoxes.Add(new LabeledTextBox<UserEditPostModel, User>("显示名", o => o.DisplayName, o => o.DisplayName));
             textBoxes.Add(new LabeledTextBox<UserEditPostModel, User>("密码", o => o.Password, o => o.Password, TextBoxTypeEnum.password));
         }
 

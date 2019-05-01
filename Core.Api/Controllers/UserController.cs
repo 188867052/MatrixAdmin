@@ -77,7 +77,7 @@ namespace Core.Api.Controllers
                 }
                 User entity = Mapper.Map<UserCreatePostModel, User>(model);
                 entity.CreatedOn = DateTime.Now;
-                entity.Guid = Guid.NewGuid();
+                entity.Id = Guid.NewGuid();
                 entity.Status = model.Status;
                 this.DbContext.User.Add(entity);
                 this.DbContext.SaveChanges();
@@ -96,7 +96,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                User entity = this.DbContext.User.FirstOrDefault(x => x.Guid.ToString() == id);
+                User entity = this.DbContext.User.FirstOrDefault(x => x.Id.ToString() == id);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(Mapper.Map<User, UserEditPostModel>(entity));
                 return Ok(response);
@@ -115,7 +115,7 @@ namespace Core.Api.Controllers
             ResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
             {
-                User entity = this.DbContext.User.FirstOrDefault(x => x.Guid == model.Guid);
+                User entity = this.DbContext.User.FirstOrDefault(x => x.Id == model.Id);
                 if (entity == null)
                 {
                     response.SetFailed("用户不存在");
@@ -142,8 +142,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="ids">用户GUID,多个以逗号分隔</param>
         /// <returns></returns>
-        [HttpGet("{ids}")]
-        [ProducesResponseType(200)]
+        [HttpGet]
         public IActionResult Delete(int[] ids)
         {
             ResponseModel response = this.UpdateIsEnable(true, ids);

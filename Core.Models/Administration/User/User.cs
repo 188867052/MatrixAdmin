@@ -18,7 +18,7 @@ namespace Core.Model.Administration.User
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key]
         [DefaultValue("newid()")]
-        public Guid Guid { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [Column(TypeName = "nvarchar(50)", Order = 10)]

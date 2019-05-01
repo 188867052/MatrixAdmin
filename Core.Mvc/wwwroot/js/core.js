@@ -48,6 +48,10 @@
             $.get(url, id, $.proxy(this._displayDialog, this));
         },
 
+        delete: function (url, id, pointer) {
+            $.get(url, id, pointer);
+        },
+
         rowContextMenu: function () {
             var url = event.currentTarget.dataset.url;
             var id = event.currentTarget.dataset.id;

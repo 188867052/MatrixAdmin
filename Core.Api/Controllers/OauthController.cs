@@ -69,12 +69,12 @@ namespace Core.Api.Controllers
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, username),
-                    new Claim("guid",user.Guid.ToString()),
+                    new Claim("guid",user.Id.ToString()),
                     new Claim("avatar",""),
                     new Claim("displayName",user.DisplayName),
                     new Claim("loginName",user.LoginName),
                     new Claim("emailAddress",""),
-                    new Claim("guid",user.Guid.ToString()),
+                    new Claim("guid",user.Id.ToString()),
                     new Claim("userType",((int)user.UserType).ToString())
                 });
             string token = JwtBearerAuthenticationExtension.GetJwtAccessToken(_appSettings, claimsIdentity);

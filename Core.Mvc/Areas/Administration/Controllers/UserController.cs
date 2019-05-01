@@ -1,5 +1,4 @@
-﻿using System;
-using Core.Extension;
+﻿using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.ViewConfiguration;
@@ -92,6 +91,21 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <returns></returns>
         [HttpGet]
         public IActionResult EditDialog(string id)
+        {
+            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.FindById));
+            ResponseModel model = AsyncRequest.GetAsync<User>(url, id).Result;
+            User user = (User)model.Data;
+            EditUserDialogConfiguration dialog = new EditUserDialogConfiguration(user);
+
+            return this.Dialog(dialog);
+        }
+
+        /// <summary>
+        /// The edit dialog.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult Delete(string id)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.FindById));
             ResponseModel model = AsyncRequest.GetAsync<User>(url, id).Result;

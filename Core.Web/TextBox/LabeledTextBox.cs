@@ -5,14 +5,14 @@ using Core.Web.Identifiers;
 
 namespace Core.Web.TextBox
 {
-    public class LabeledTextBox<TPostModel, T>
+    public class LabeledTextBox<TPostModel, TModel>
     {
         private readonly Expression<Func<TPostModel, string>> _expression;
-        private readonly Expression<Func<T, string>> _modelExpression;
+        private readonly Expression<Func<TModel, string>> _modelExpression;
         private readonly string _label;
         private readonly string type;
 
-        public LabeledTextBox(string label, Expression<Func<TPostModel, string>> expression, Expression<Func<T, string>> modelExpression = null, TextBoxTypeEnum type = default)
+        public LabeledTextBox(string label, Expression<Func<TPostModel, string>> expression, Expression<Func<TModel, string>> modelExpression = null, TextBoxTypeEnum type = default)
         {
             this._expression = expression;
             this._modelExpression = modelExpression;
@@ -20,7 +20,7 @@ namespace Core.Web.TextBox
             this.type = type.ToString();
         }
 
-        public string Render(T entity)
+        public string Render(TModel entity)
         {
             string id = new Identifier().Value;
             string value = default;

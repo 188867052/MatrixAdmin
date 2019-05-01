@@ -12,6 +12,7 @@
         _addUrl: null,
         _editUrl: null,
         _saveUrl: null,
+        _delete: null,
         _dialogInstance: null,
 
         // Private Event Delegates  
@@ -43,6 +44,10 @@
 
         submit: function () {
             window.core.submit(this._saveUrl, this._dialogInstance, $.proxy(this.search, this));
+        },
+
+        delete: function (id) {
+            window.core.delete(this._delete, { id: id }, $.proxy(this.search, this));
         }
 
         // Private Methods

@@ -32,7 +32,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 Guid guid = AuthContextService.CurrentUser.Guid;
-                User user = this.DbContext.User.FirstOrDefaultAsync(x => x.Guid == guid).Result;
+                User user = this.DbContext.User.FirstOrDefaultAsync(x => x.Id == guid).Result;
 
                 List<Menu> menus = this.DbContext.Menu.Where(x => !x.IsEnable && x.Status).ToList();
 
@@ -48,7 +48,7 @@ WHERE P.IsDeleted=0 AND P.Status=1 AND EXISTS (SELECT 1 FROM UserRoleMapping AS 
 INNER JOIN Menu AS M ON M.Guid = P.MenuGuid
 WHERE P.IsDeleted=0 AND P.Status=1";
                 }
-                List<PermissionWithMenu> permissions = this.DbContext.PermissionWithMenu.FromSql(sqlPermission, user.Guid).ToList();
+                List<PermissionWithMenu> permissions = this.DbContext.PermissionWithMenu.FromSql(sqlPermission, user.Id).ToList();
                 List<string> allowPages = new List<string> { };
 
                 if (user.UserType == UserTypeEnum.SuperAdministrator)
@@ -71,7 +71,7 @@ WHERE P.IsDeleted=0 AND P.Status=1";
                 {
                     access = new string[] { },
                     avator = user.Avatar,
-                    user_guid = user.Guid,
+                    user_guid = user.Id,
                     user_name = user.DisplayName,
                     user_type = user.UserType,
                     pages, // =new[] { "rbac", "rbac_user_page", "rbac_menu_page", "rbac_role_page", "rbac_permission_page", "rbac_role_permission_page" },
