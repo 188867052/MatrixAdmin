@@ -38,12 +38,6 @@ namespace Core.Mvc.Areas
             return Content(file.Render(), "text/html", Encoding.UTF8);
         }
 
-        public IActionResult Tables()
-        {
-            Table table = new Table(HostingEnvironment);
-            return Content(table.Render(), "text/html", Encoding.UTF8);
-        }
-
         public IActionResult Login()
         {
             Login login = new Login(HostingEnvironment);

@@ -15,14 +15,10 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\html\LargeDialog.html" />
-    <Content Remove="wwwroot\html\SmallDialog.html" />
-    <Content Remove="wwwroot\html\Table.html" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\html\LargeDialog.html" />
-    <None Include="wwwroot\html\SmallDialog.html" />
-    <None Include="wwwroot\html\Table.html" />
   </ItemGroup>
 
   <ItemGroup>

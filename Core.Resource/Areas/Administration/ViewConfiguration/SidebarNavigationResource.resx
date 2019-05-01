@@ -148,7 +148,7 @@
     <value>Error 500</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
-    <value>Error</value>
+    <value>错误页</value>
   </data>
   <data name="FormCommon" xml:space="preserve">
     <value>Basic Form</value>
