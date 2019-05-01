@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
 using Core.Model;
+using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
@@ -54,7 +55,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             string table = configuration.GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 
-            IconSearchGridFilterConfiguration filter = new IconSearchGridFilterConfiguration();
+            IconSearchFilterConfiguration filter = new IconSearchFilterConfiguration();
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
             html = html.Replace("{{button-group}}", filter.GenerateButton());
             html = html.Replace("{{Pager}}", this.Pager());

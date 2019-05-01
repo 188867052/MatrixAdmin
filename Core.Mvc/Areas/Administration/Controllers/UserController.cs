@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Core.Extension;
+﻿using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.ViewConfiguration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Core.Mvc.Areas.Administration.Controllers
 {

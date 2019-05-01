@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using Core.Model.Administration.User;
+﻿using Core.Model.Administration.User;
 using Core.Model.Enums;
 using Core.Mvc.ViewConfiguration;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.Identifiers;
+using System.Collections.Generic;
 
-namespace Core.Mvc.Areas.Administration.ViewConfiguration
+namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 {
-    public class UserSearchGridFilterConfiguration : GridFilterConfiguration<UserPostModel>
+    public class UserSearchGridFilterConfiguration : SearchFilterConfiguration<UserPostModel>
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {

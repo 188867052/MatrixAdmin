@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
-using Core.Model.Administration.Permission;
+using Core.Model.Administration.Role;
 using Core.Mvc.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.Identifiers;
 
-namespace Core.Mvc.Areas.Administration.ViewConfiguration
+namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 {
-    public class PermissionFilterConfiguration : GridFilterConfiguration<PermissionPostModel>
+    public class RoleSearchGridFilterConfiguration : SearchFilterConfiguration<RolePostModel>
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            searchFilter.Add(new BooleanGridFilter<PermissionPostModel>(o => o.IsEnable, "是否已删除"));
+            searchFilter.Add(new TextGridFilter<RolePostModel>(o => o.RoleName, "角色名称"));
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)

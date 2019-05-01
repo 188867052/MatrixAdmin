@@ -1,9 +1,6 @@
-﻿using Core.Web.Sidebar;
+﻿using Core.Mvc.ViewConfiguration.Home;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
-using Core.Extension;
-using Core.Mvc.Areas;
-using Core.Mvc.ViewConfiguration.Home;
 
 namespace Core.Mvc.ViewConfiguration.Error
 {
@@ -48,15 +45,6 @@ namespace Core.Mvc.ViewConfiguration.Error
         {
             string html = base.Render().Replace("{{number}}", this.errorNumber.ToString());
             return html;
-        }
-
-
-        protected override string ContentHeader()
-        {
-            ContentHeader contentHeader = new ContentHeader("Error " + this.errorNumber);
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Error), "?number=400"), "Error", "Go to Error", "icon-info-sign", "tip-bottom"));
-            return contentHeader.Render();
         }
     }
 }

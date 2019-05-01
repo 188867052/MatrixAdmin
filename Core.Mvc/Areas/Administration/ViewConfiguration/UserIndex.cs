@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
 using Core.Model;
+using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;

@@ -14,14 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\html\LargeDialog.html" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\html\LargeDialog.html" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="bootstrap" Version="4.3.1" />

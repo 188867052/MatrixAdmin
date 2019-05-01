@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using Core.Model;
+﻿using Core.Model;
 using Core.Model.Administration.Menu;
-using Core.Resource;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
+using System.Collections.Generic;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {

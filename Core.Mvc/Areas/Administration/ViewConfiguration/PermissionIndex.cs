@@ -1,5 +1,6 @@
 ﻿using Core.Extension;
 using Core.Model;
+using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.JavaScript;
@@ -57,7 +58,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             string table = configuration.GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 
-            PermissionFilterConfiguration filter = new PermissionFilterConfiguration();
+            PermissionSearchFilterConfiguration filter = new PermissionSearchFilterConfiguration();
 
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
             html = html.Replace("{{button-group}}", filter.GenerateButton());

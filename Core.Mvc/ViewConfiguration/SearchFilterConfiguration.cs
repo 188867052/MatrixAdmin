@@ -6,7 +6,7 @@ using Core.Web.GridFilter;
 
 namespace Core.Mvc.ViewConfiguration
 {
-    public abstract class GridFilterConfiguration<T>
+    public abstract class SearchFilterConfiguration<T>
     {
         public string GenerateSearchFilter()
         {

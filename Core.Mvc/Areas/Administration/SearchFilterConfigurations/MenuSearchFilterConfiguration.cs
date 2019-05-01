@@ -1,13 +1,13 @@
-﻿using Core.Model.Administration.Menu;
+﻿using System.Collections.Generic;
+using Core.Model.Administration.Menu;
 using Core.Mvc.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.Identifiers;
-using System.Collections.Generic;
 
-namespace Core.Mvc.Areas.Administration.ViewConfiguration
+namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 {
-    public class MenuFilterConfiguration : GridFilterConfiguration<MenuPostModel>
+    public class MenuSearchFilterConfiguration : SearchFilterConfiguration<MenuPostModel>
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {

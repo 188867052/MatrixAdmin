@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using Core.Extension;
+﻿using Core.Extension;
 using Core.Model;
-using Core.Mvc.Areas.Administration.ViewConfiguration;
+using Core.Mvc.Areas.Log.SearchFilterConfigurations;
 using Core.Mvc.ViewConfiguration.Home;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
+using System.Collections.Generic;
 
 namespace Core.Mvc.Areas.Log.ViewConfiguration
 {
@@ -50,7 +50,7 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
             string table = new LogGridConfiguration(response).GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 
-            LogSearchGridFilterConfiguration filter = new LogSearchGridFilterConfiguration();
+            LogSearchFilterConfiguration filter = new LogSearchFilterConfiguration();
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
             html = html.Replace("{{button-group}}", filter.GenerateButton());
             html = html.Replace("{{Pager}}", this.Pager());
