@@ -1,9 +1,9 @@
 ﻿using Core.Model.Administration.Icon;
-using Core.Mvc.ViewConfiguration;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.Identifiers;
+using Core.Web.SearchFilterConfiguration;
 using System.Collections.Generic;
 
 namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations

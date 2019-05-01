@@ -2,7 +2,6 @@
 using System.Linq.Expressions;
 using Core.Extension.Expression;
 using Core.Web.Identifiers;
-using Core.Web.JavaScript;
 
 namespace Core.Web.GridFilter
 {

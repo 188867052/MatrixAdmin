@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using AutoMapper;
-using Core.Api.Extensions;
 using Core.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

@@ -1,12 +1,14 @@
 ﻿using Core.Extension;
 using Core.Model;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
-using Core.Mvc.ViewConfiguration.Home;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
+using Core.Mvc.Areas.Redirect;
+using Core.Mvc.Areas.Redirect.Controllers;
+using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {

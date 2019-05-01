@@ -1,11 +1,11 @@
 ﻿using Core.Model.Administration.User;
 using Core.Model.Enums;
-using Core.Mvc.ViewConfiguration;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.Identifiers;
 using System.Collections.Generic;
+using Core.Web.SearchFilterConfiguration;
 
 namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 {

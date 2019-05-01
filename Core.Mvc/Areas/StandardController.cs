@@ -1,8 +1,6 @@
 ﻿using System.Text;
-using Core.Mvc.Areas.Administration.ViewConfiguration;
-using Core.Mvc.ViewConfiguration.Home;
+using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.Html;
-using Core.Web.Identifiers;
 using Core.Web.ViewConfiguration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

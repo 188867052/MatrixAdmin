@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Core.Model.Administration.Permission;
-using Core.Mvc.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.Identifiers;
+using Core.Web.SearchFilterConfiguration;
 
 namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 {
