@@ -1,4 +1,5 @@
-﻿using Core.Web.Identifiers;
+﻿using System;
+using Core.Web.Identifiers;
 
 namespace Core.Web.JavaScript
 {
@@ -20,7 +21,6 @@ namespace Core.Web.JavaScript
             this._class = @class;
         }
 
-
         public string Render()
         {
             string @event = default;
@@ -33,6 +33,10 @@ namespace Core.Web.JavaScript
                 else if (this._class != default)
                 {
                     @event = $"$(\".{this._class}\").on('{this._event.EventString()}',function(){{{this._delegate}();}});";
+                }
+                else
+                {
+                    throw new ArgumentException("参数错误");
                 }
             }
             return $"<script>{@event}</script>";
