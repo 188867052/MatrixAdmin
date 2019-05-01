@@ -32,13 +32,12 @@ namespace Core.Extension
             return model;
         }
 
-        public static async Task<ResponseModel> GetAsync<T>(Url url, string guid)
+        public static async Task<ResponseModel> GetAsync<T>(Url url, string id)
         {
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
-                string value = "d7f32600-64c3-484d-a933-2d4a62bda0bc";
-                httpResponse = await client.GetAsync($"{Host}{url.Render()}?{nameof(guid)}={value}");
+                httpResponse = await client.GetAsync($"{Host}{url.Render()}?{nameof(id)}={id}");
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();

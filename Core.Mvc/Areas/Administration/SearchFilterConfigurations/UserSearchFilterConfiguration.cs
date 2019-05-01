@@ -30,7 +30,6 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
         {
             buttons.Add(new StandardButton("搜索", new Identifier(), "index.search"));
             buttons.Add(new StandardButton("添加", new Identifier(), "index.add"));
-            buttons.Add(new StandardButton("编辑", new Identifier(), "index.edit"));
         }
     }
 }

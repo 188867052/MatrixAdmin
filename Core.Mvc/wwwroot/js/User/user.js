@@ -38,7 +38,7 @@
         },
 
         edit: function (id) {
-            window.core.editDialog(this._editUrl, id);
+            window.core.editDialog(this._editUrl, { id: id });
         },
 
         submit: function () {

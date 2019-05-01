@@ -89,14 +89,14 @@ namespace Core.Api.Controllers
         /// <summary>
         /// 编辑用户
         /// </summary>
-        /// <param name="guid">用户GUID</param>
+        /// <param name="id">用户GUID</param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult FindById(string guid)
+        public IActionResult FindById(string id)
         {
             using (this.DbContext)
             {
-                User entity = this.DbContext.User.FirstOrDefault(x => x.Guid.ToString() == guid);
+                User entity = this.DbContext.User.FirstOrDefault(x => x.Guid.ToString() == id);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(Mapper.Map<User, UserEditPostModel>(entity));
                 return Ok(response);

@@ -1,5 +1,4 @@
-﻿using Core.Model;
-using Core.Model.Administration.User;
+﻿using Core.Model.Administration.User;
 using Core.Web.Button;
 using Core.Web.Identifiers;
 using Core.Web.TextBox;
@@ -20,7 +19,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         {
         }
 
-        public override string Title => "添加用户";
+        public override string Title => "编辑用户";
 
         protected override void CreateBody(IList<LabeledTextBox<UserEditPostModel, User>> textBoxes)
         {
