@@ -15,10 +15,10 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 用户GUID
         /// </summary>
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key]
-        [DefaultValue("newid()")]
-        public Guid Id { get; set; }
+        //[DefaultValue("newid()")]
+        public int Id { get; set; }
 
         [Required]
         [Column(TypeName = "nvarchar(50)", Order = 10)]

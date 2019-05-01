@@ -4,6 +4,7 @@ using Core.Web.Identifiers;
 using Core.Web.TextBox;
 using Core.Web.ViewConfiguration;
 using System.Collections.Generic;
+using Core.Web.Html;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
@@ -20,7 +21,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 
         public override string Title => "添加用户";
 
-        protected override void CreateBody(IList<LabeledTextBox<UserCreatePostModel, User>> textBoxes)
+        protected override void CreateBody(IList<ITextRender<UserCreatePostModel, User>> textBoxes)
         {
             textBoxes.Add(new LabeledTextBox<UserCreatePostModel, User>("登录名", o => o.LoginName));
             textBoxes.Add(new LabeledTextBox<UserCreatePostModel, User>("显示名", o => o.DisplayName));

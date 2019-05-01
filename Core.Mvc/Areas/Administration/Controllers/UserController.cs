@@ -90,10 +90,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult EditDialog(string id)
+        public IActionResult EditDialog(int id)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.FindById));
-            ResponseModel model = AsyncRequest.GetAsync<User>(url, id).Result;
+            ResponseModel model = AsyncRequest.GetAsync<User>(url.Render() + "?id=" + id).Result;
             User user = (User)model.Data;
             EditUserDialogConfiguration dialog = new EditUserDialogConfiguration(user);
 
@@ -105,10 +105,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Delete(string id)
+        public IActionResult Delete(int id)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.FindById));
-            ResponseModel model = AsyncRequest.GetAsync<User>(url, id).Result;
+            ResponseModel model = AsyncRequest.GetAsync<User>(url.Render() + "?id=" + id).Result;
             User user = (User)model.Data;
             EditUserDialogConfiguration dialog = new EditUserDialogConfiguration(user);
 

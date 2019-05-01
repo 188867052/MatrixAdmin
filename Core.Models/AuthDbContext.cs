@@ -105,15 +105,15 @@ namespace Core.Model
                     x.RoleCode
                 });
 
-                entity.HasOne(x => x.User)
-                    .WithMany(x => x.UserRoles)
-                    .HasForeignKey(x => x.UserGuid)
-                    .OnDelete(DeleteBehavior.Restrict);
+                //entity.HasOne(x => x.User)
+                //    .WithMany(x => x.UserRoles)
+                //    .HasForeignKey(x => x.UserGuid)
+                //    .OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasOne(x => x.Role)
-                    .WithMany(x => x.UserRoles)
-                    .HasForeignKey(x => x.RoleCode)
-                    .OnDelete(DeleteBehavior.Restrict);
+                //entity.HasOne(x => x.Role)
+                //    .WithMany(x => x.UserRoles)
+                //    .HasForeignKey(x => x.RoleCode)
+                //    .OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<Permission>(entity =>

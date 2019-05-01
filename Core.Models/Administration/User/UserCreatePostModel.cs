@@ -1,4 +1,5 @@
-﻿using Core.Model.Enums;
+﻿using System;
+using Core.Model.Enums;
 
 namespace Core.Model.Administration.User
 {
@@ -7,6 +8,8 @@ namespace Core.Model.Administration.User
     /// </summary>
     public class UserCreatePostModel
     {
+        public int? Id { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

@@ -32,7 +32,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 Guid guid = AuthContextService.CurrentUser.Guid;
-                User user = this.DbContext.User.FirstOrDefaultAsync(x => x.Id == guid).Result;
+                User user = this.DbContext.User.FirstOrDefaultAsync(x => x.Id == 1).Result;
 
                 List<Menu> menus = this.DbContext.Menu.Where(x => !x.IsEnable && x.Status).ToList();
 

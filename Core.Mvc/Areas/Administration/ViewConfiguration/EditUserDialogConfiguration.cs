@@ -4,6 +4,8 @@ using Core.Web.Identifiers;
 using Core.Web.TextBox;
 using Core.Web.ViewConfiguration;
 using System.Collections.Generic;
+using Core.Model.Enums;
+using Core.Web.Html;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
@@ -21,11 +23,15 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 
         public override string Title => "编辑用户";
 
-        protected override void CreateBody(IList<LabeledTextBox<UserEditPostModel, User>> textBoxes)
+        protected override void CreateBody(IList<ITextRender<UserEditPostModel, User>> textBoxes)
         {
             textBoxes.Add(new LabeledTextBox<UserEditPostModel, User>("登录名", o => o.LoginName, o => o.LoginName));
             textBoxes.Add(new LabeledTextBox<UserEditPostModel, User>("显示名", o => o.DisplayName, o => o.DisplayName));
-            textBoxes.Add(new LabeledTextBox<UserEditPostModel, User>("显示名", o => o.DisplayName, o => o.DisplayName));
+
+            var dropDown = new DropDownTextBox<UserEditPostModel, User>("状态");
+            dropDown.AddOption((int)UserStatusEnum.All, "所有");
+            dropDown.AddOption((int)UserStatusEnum.Forbidden, "禁止");
+            textBoxes.Add(dropDown);
             textBoxes.Add(new LabeledTextBox<UserEditPostModel, User>("密码", o => o.Password, o => o.Password, TextBoxTypeEnum.password));
         }
 

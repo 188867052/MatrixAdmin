@@ -8,7 +8,7 @@ using Core.Web.TextBox;
 
 namespace Core.Web.ViewConfiguration
 {
-    public abstract class DialogConfiguration<TPostModel, T> : IRender
+    public abstract class DialogConfiguration<TPostModel, T> : ITextRender<TPostModel, T>
     {
         private T model;
         public abstract string Title { get; }
@@ -38,17 +38,17 @@ namespace Core.Web.ViewConfiguration
         {
             get
             {
-                IList<LabeledTextBox<TPostModel, T>> textBoxes = new List<LabeledTextBox<TPostModel, T>>();
+                IList<ITextRender<TPostModel, T>> textBoxes = new List<ITextRender<TPostModel, T>>();
                 this.CreateBody(textBoxes);
-                return textBoxes.Aggregate<LabeledTextBox<TPostModel, T>, string>(default, (current, item) => current + item.Render(this.model));
+                return textBoxes.Aggregate<ITextRender<TPostModel, T>, string>(default, (current, item) => current + item.Render(this.model));
             }
         }
 
         protected abstract void CreateButtons(IList<StandardButton> buttons);
 
-        protected abstract void CreateBody(IList<LabeledTextBox<TPostModel, T>> textBoxes);
+        protected abstract void CreateBody(IList<ITextRender<TPostModel, T>> textBoxes);
 
-        public virtual string Render()
+        public virtual string Render(T model)
         {
             string html = System.IO.File.ReadAllText("C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\wwwroot\\html\\dialog.html");
             html = html.Replace("{{id}}", Identifier.Value);
