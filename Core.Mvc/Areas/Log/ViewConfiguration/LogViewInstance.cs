@@ -1,5 +1,4 @@
 ﻿using Core.Extension;
-using Core.Mvc.Areas.Administration.ViewConfiguration;
 using Core.Mvc.Areas.Log.Controllers;
 using Core.Web.JavaScript;
 

@@ -1,6 +1,5 @@
 ﻿using Core.Model.Administration.User;
 using Core.Model.Enums;
-using Core.Mvc.ViewConfiguration;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Core.Model.Administration.Role;
-using Core.Mvc.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.Identifiers;
