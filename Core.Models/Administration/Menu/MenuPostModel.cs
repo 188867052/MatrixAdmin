@@ -8,9 +8,9 @@ namespace Core.Model.Administration.Menu
     public class MenuPostModel : Pager
     {
         /// <summary>
-        /// 角色名称
+        /// 菜单名称
         /// </summary>
-        public string RoleName { get; set; }
+        public string MenuName { get; set; }
         /// <summary>
         /// 是否已被删除
         /// </summary>

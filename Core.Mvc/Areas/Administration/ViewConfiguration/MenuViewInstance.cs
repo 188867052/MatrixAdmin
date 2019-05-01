@@ -16,7 +16,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 
         public override void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize)
         {
-            Url url = new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.GridStateChange));
+            Url url = new Url(nameof(Administration), typeof(MenuController), nameof(MenuController.GridStateChange));
             javaScriptInitialize.AddUrlInstance("searchUrl", url);
         }
     }

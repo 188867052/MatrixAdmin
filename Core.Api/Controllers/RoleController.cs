@@ -43,7 +43,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Role> query = this.DbContext.Role.AsQueryable();
-                query = query.AddStringContainsFilter(model.RoleName, nameof(Role.IsEnable));
+                query = query.AddStringContainsFilter(model.RoleName, nameof(Role.Name));
                 return this.StandardResponse(query, model);
             }
         }

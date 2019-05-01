@@ -11,7 +11,7 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
         {
             get
             {
-                return "Log";
+                return "Index";
             }
         }
 

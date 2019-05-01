@@ -49,8 +49,8 @@ namespace Core.Api.Controllers
                 //Filter<Permission> filter = new Filter<Permission>(filter1, filter2, Connector.Or);
                 //query = query.AddFilter(filter);
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Permission.IsEnable));
-                query = query.AddBooleanFilter(model.Status, nameof(Permission.Status));
-                query = query.AddGuidEqualsFilter(model.MenuGuid, nameof(Permission.MenuGuid));
+                //query = query.AddBooleanFilter(model.Status, nameof(Permission.Status));
+                //query = query.AddGuidEqualsFilter(model.MenuGuid, nameof(Permission.MenuGuid));
 
                 //var data = list.Select(this.Mapper.Map<Permission, PermissionJsonModel>);
                 /*

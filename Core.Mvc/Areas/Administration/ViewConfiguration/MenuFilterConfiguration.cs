@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using Core.Model.Administration.Menu;
+﻿using Core.Model.Administration.Menu;
 using Core.Mvc.ViewConfiguration;
-using Core.Resource;
-using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.Identifiers;
+using System.Collections.Generic;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
@@ -13,7 +11,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            searchFilter.Add(new BooleanGridFilter<MenuPostModel>(o => o.IsEnable, "角色名"));
+            searchFilter.Add(new TextGridFilter<MenuPostModel>(o => o.MenuName, "菜单名称"));
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)
