@@ -136,7 +136,7 @@ namespace Core.Mvc.ViewConfiguration.Home
 
         public string Pager()
         {
-            return $"<ul class=\"pagination pagination-lg\">" +
+            return $"<ul class=\"pagination pagination-md\">" +
                    $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">{LeftText}</a></li>" +
                    $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">1</a></li>" +
                    $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">2</a></li>" +

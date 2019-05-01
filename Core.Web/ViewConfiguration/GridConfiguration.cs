@@ -84,7 +84,7 @@ namespace Core.Web.ViewConfiguration
                 }
             }
             return
-                   $"<ul class=\"pagination pagination-lg\">" +
+                   $"<ul class=\"pagination pagination-md\">" +
                    $"<p>共Count:{Count}条,pageSize:{PageSize},CurrentPage:{CurrentPage},pageCount:{pageCount}</p>" +
                    $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&laquo;</a></li>" +
                    pageHtml +

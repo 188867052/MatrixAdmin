@@ -6,7 +6,7 @@ namespace Core.Web.Button
 {
     public class StandardButton
     {
-        private readonly Identifier id;
+        private readonly Identifier id; 
         public StandardButton(string labelText, Identifier id = default, string @event = default)
         {
             this.Text = labelText;
@@ -23,5 +23,11 @@ namespace Core.Web.Button
             string idAttribute = this.id == default ? "" : $"id=\"{this.id.Value}\"";
             return $"<button {idAttribute} type=\"submit\" class=\"btn btn-primary\">{Text}</button>" + Environment.NewLine + this.Event.Render();
         }
+    }
+
+    public enum ButtonIconEnum
+    {
+        Cancle,
+        Submit
     }
 }
