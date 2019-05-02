@@ -46,6 +46,20 @@ namespace Core.Extension
             return model;
         }
 
+        public static async Task<ResponseModel> DeleteAsync(string url)
+        {
+            HttpResponseMessage httpResponse;
+            using (HttpClient client = new HttpClient())
+            {
+                httpResponse = await client.GetAsync(Host + url);
+            }
+
+            Task<string> json = httpResponse.Content.ReadAsStringAsync();
+            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
+
+            return model;
+        }
+
         /// <summary>
         /// PostAsync
         /// </summary>
@@ -72,7 +86,7 @@ namespace Core.Extension
             return model;
         }
 
-        public static async void SubmitAsync<TPostModel>(Url url, TPostModel postModel)
+        public static async Task<ResponseModel> SubmitAsync<TPostModel>(Url url, TPostModel postModel)
         {
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
@@ -84,6 +98,9 @@ namespace Core.Extension
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
+
+            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
+            return model;
         }
     }
 }

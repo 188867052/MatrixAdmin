@@ -5,7 +5,6 @@ using Core.Web.GridFilter;
 using Core.Web.Identifiers;
 using Core.Web.SearchFilterConfiguration;
 using System.Collections.Generic;
-using Core.Web.SearchFilterConfiguration;
 
 namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 {

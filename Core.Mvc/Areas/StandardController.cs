@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Core.Model;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.Html;
 using Core.Web.ViewConfiguration;
@@ -31,9 +32,9 @@ namespace Core.Mvc.Areas
             return new JsonResult(new { data = index.Render(default), id = index.Identifier.Value });
         }
 
-        protected IActionResult Submit<T>()
+        protected IActionResult Submit(ResponseModel model)
         {
-            return new JsonResult(new { success = true });
+            return new JsonResult(model);
         }
 
         protected JsonResult GridConfiguration<T>(GridConfiguration<T> index)

@@ -28,6 +28,10 @@ namespace Core.Api.Controllers
         protected IActionResult StandardResponse<T>(IQueryable<T> query, Pager pager)
         {
             pager.TotalCount = query.Count();
+            if (pager.PageIndex < 1)
+            {
+                pager.PageIndex = 1;
+            }
             var list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
             ResponseModel response = new ResponseModel(list, pager);
 

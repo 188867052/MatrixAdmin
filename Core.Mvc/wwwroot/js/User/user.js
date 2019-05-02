@@ -12,8 +12,9 @@
         _addUrl: null,
         _editUrl: null,
         _saveUrl: null,
-        _delete: null,
+        _deleteUrl: null,
         _dialogInstance: null,
+        _recoverUrl: null,
 
         // Private Event Delegates  
 
@@ -27,6 +28,10 @@
 
         initialize: function () {
             $(".page-link").on('click', $.proxy(this.search, this));
+            $("table .dropdown-toggle").on('click',
+                function () {
+                    window.core.rowContextMenu();
+                });
         },
 
         search: function () {
@@ -47,9 +52,12 @@
         },
 
         delete: function (id) {
-            window.core.delete(this._delete, { id: id }, $.proxy(this.search, this));
-        }
+            window.core.delete(this._deleteUrl, { id: id }, $.proxy(this.search, this));
+        },
 
+        recover: function (id) {
+            window.core.delete(this._recoverUrl, { id: id }, $.proxy(this.search, this));
+        }
         // Private Methods
     };
 })();

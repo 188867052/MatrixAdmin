@@ -98,7 +98,7 @@ namespace Core.Api.Controllers
             {
                 User entity = this.DbContext.User.FirstOrDefault(x => x.Id == id);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(Mapper.Map<User, UserEditPostModel>(entity));
+                response.SetData(entity);
                 return Ok(response);
             }
         }
@@ -145,7 +145,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public IActionResult Delete(int[] ids)
         {
-            ResponseModel response = this.UpdateIsEnable(true, ids);
+            ResponseModel response = this.UpdateIsDeleted(true, ids);
             return Ok(response);
         }
 
@@ -154,11 +154,10 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="ids">用户GUID,多个以逗号分隔</param>
         /// <returns></returns>
-        [HttpGet("{ids}")]
-        [ProducesResponseType(200)]
+        [HttpGet]
         public IActionResult Recover(int[] ids)
         {
-            ResponseModel response = UpdateIsEnable(false, ids);
+            ResponseModel response = UpdateIsDeleted(false, ids);
             return Ok(response);
         }
 
@@ -176,10 +175,10 @@ namespace Core.Api.Controllers
             switch (command)
             {
                 case "delete":
-                    response = UpdateIsEnable(true, ids);
+                    response = UpdateIsDeleted(true, ids);
                     break;
                 case "recover":
-                    response = UpdateIsEnable(false, ids);
+                    response = UpdateIsDeleted(false, ids);
                     break;
                 case "forbidden":
                     response = UpdateStatus(false, ids);
@@ -232,15 +231,15 @@ namespace Core.Api.Controllers
         /// <summary>
         /// 删除用户
         /// </summary>
-        /// <param name="isEnable"></param>
+        /// <param name="isDeleted"></param>
         /// <param name="ids">用户ID字符串,多个以逗号隔开</param>
         /// <returns></returns>
-        private ResponseModel UpdateIsEnable(bool isEnable, int[] ids)
+        private ResponseModel UpdateIsDeleted(bool isDeleted, int[] ids)
         {
             using (this.DbContext)
             {
-                string sql = @"UPDATE User SET IsEnable = @IsEnable WHERE Id IN @Id";
-                this.DbContext.Dapper.Execute(sql, new { IsEnable = isEnable, Id = ids });
+                string sql = @"UPDATE [User] SET IsDeleted = @IsDeleted WHERE Id IN @Id";
+                this.DbContext.Dapper.Execute(sql, new { IsDeleted = isDeleted, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }
@@ -255,7 +254,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                string sql = @"UPDATE User SET IsEnable = @IsEnable WHERE Guid IN @Id";
+                string sql = @"UPDATE [User] SET IsEnable = @IsEnable WHERE Id IN @Id";
                 this.DbContext.Dapper.Execute(sql, new { Status = status, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }

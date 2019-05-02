@@ -55,9 +55,12 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult RowContextMenu(string id)
+        public IActionResult RowContextMenu(int id)
         {
-            UserRowContextMenu menu = new UserRowContextMenu(id);
+            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.FindById));
+            ResponseModel model = AsyncRequest.GetAsync<User>(url.Render() + "?id=" + id).Result;
+            User user = (User)model.Data;
+            UserRowContextMenu menu = new UserRowContextMenu(user);
             return this.Content(menu.Render(), "text/html", Encoding.UTF8);
         }
 
@@ -80,9 +83,9 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult Save(UserCreatePostModel model)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Create));
-            AsyncRequest.SubmitAsync(url, model);
+            var model2 = AsyncRequest.SubmitAsync(url, model).Result;
 
-            return this.Submit<UserCreatePostModel>();
+            return Submit(model2);
         }
 
         /// <summary>
@@ -107,12 +110,24 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.FindById));
-            ResponseModel model = AsyncRequest.GetAsync<User>(url.Render() + "?id=" + id).Result;
-            User user = (User)model.Data;
-            EditUserDialogConfiguration dialog = new EditUserDialogConfiguration(user);
+            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Delete));
+            ResponseModel model = AsyncRequest.DeleteAsync(url.Render() + "?ids=" + id).Result;
 
-            return this.Dialog(dialog);
+            return Submit(model);
+        }
+
+
+        /// <summary>
+        /// The edit dialog.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult Recover(int id)
+        {
+            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Recover));
+            ResponseModel model = AsyncRequest.DeleteAsync(url.Render() + "?ids=" + id).Result;
+
+            return Submit(model);
         }
     }
 }

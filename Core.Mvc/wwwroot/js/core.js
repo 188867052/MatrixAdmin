@@ -56,7 +56,7 @@
             var url = event.currentTarget.dataset.url;
             var id = event.currentTarget.dataset.id;
             this._currentTarget = event.currentTarget;
-            $.get(url, id, $.proxy(this._initializeRowContextMenu, this));
+            $.get(url, { id: id }, $.proxy(this._initializeRowContextMenu, this));
         },
 
         // Private Methods

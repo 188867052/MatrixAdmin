@@ -42,6 +42,11 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 是否可用
         /// </summary>
+        public bool IsDeleted { get; set; }
+
+        /// <summary>
+        /// 是否可用
+        /// </summary>
         public bool IsEnable { get; set; }
 
         /// <summary>
