@@ -89,5 +89,8 @@ namespace Core.Model.Administration.User
         /// 用户的角色集合
         /// </summary>
         public ICollection<UserRoleMapping> UserRoles { get; set; }
+
+        public virtual UserStatus UserStatus { get; set; }
+        public int UserStatusId { get; internal set; }
     }
 }

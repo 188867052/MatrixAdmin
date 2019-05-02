@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using Core.Model.Administration.Icon;
 using Core.Model.Administration.Menu;
@@ -75,6 +76,8 @@ namespace Core.Model
         /// </summary>
         public DbQuery<PermissionWithAssignProperty> PermissionWithAssignProperty { get; set; }
 
+        public virtual DbSet<UserStatus> UserStatus { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
@@ -86,10 +89,16 @@ namespace Core.Model
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
-                .Property(x => x.Status);
-            modelBuilder.Entity<User>()
-                .Property(x => x.IsEnable);
+            modelBuilder.Entity<Role>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasMaxLength(50)
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
 
             modelBuilder.Entity<Role>(entity =>
             {
@@ -143,6 +152,39 @@ namespace Core.Model
                     .WithMany(x => x.Roles)
                     .HasForeignKey(x => x.PermissionCode)
                     .OnDelete(DeleteBehavior.Restrict);
+            });
+
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.Property(e => e.Avatar).HasMaxLength(255);
+
+                entity.Property(e => e.Description).HasMaxLength(800);
+
+                entity.Property(e => e.DisplayName).HasMaxLength(50);
+
+                entity.Property(e => e.LoginName)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Password).HasMaxLength(255);
+
+                entity.Property(e => e.UserStatusId).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.UserStatus);
+                //.WithMany(p => p.User)
+                //.HasForeignKey(d => d.UserStatusId)
+                //.OnDelete(DeleteBehavior.ClientSetNull)
+                //.HasConstraintName("FK__User__UserStatus");
+            });
+
+
+            modelBuilder.Entity<UserStatus>(entity =>
+            {
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             base.OnModelCreating(modelBuilder);

@@ -28,6 +28,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
+                DbContext.Set<UserStatus>().Load();
                 return this.StandardResponse(this.DbContext.User);
             }
         }
@@ -41,6 +42,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
+                DbContext.Set<UserStatus>().Load();
                 IQueryable<User> query = this.DbContext.User.AsQueryable();
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Model.Administration.User.User.IsEnable));
                 if (model.Status.HasValue)
