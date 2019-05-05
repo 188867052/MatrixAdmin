@@ -15,7 +15,7 @@ namespace Core.Web.GridColumn
             this.optionsValuePair = new List<KeyValuePair<bool, string>>();
         }
 
-        private IList<KeyValuePair<bool, string>> optionsValuePair;
+        private readonly IList<KeyValuePair<bool, string>> optionsValuePair;
 
         public void AddOption(bool key, string value)
         {
