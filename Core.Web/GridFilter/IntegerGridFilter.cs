@@ -7,19 +7,19 @@ namespace Core.Web.GridFilter
     public class IntegerGridFilter<TPostModel> : BaseGridFilter
     {
         /// <summary>
-        /// 构造函数
+        /// Initializes a new instance of the <see cref="IntegerGridFilter{TPostModel}"/> class.
         /// </summary>
-        /// <param name="expression"></param>
-        /// <param name="label"></param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="label">The label.</param>
         public IntegerGridFilter(Expression<Func<TPostModel, int?>> expression, string label) : base(label, expression.GetPropertyName())
         {
         }
 
         /// <summary>
-        /// 构造函数
+        /// Initializes a new instance of the <see cref="IntegerGridFilter{TPostModel}"/> class.
         /// </summary>
-        /// <param name="expression"></param>
-        /// <param name="label"></param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="label">The label.</param>
         public IntegerGridFilter(Expression<Func<TPostModel, int>> expression, string label) : base(label, expression.GetPropertyName())
         {
         }

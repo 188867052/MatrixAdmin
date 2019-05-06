@@ -25,4 +25,17 @@
         /// </summary>
         Blur,
     }
+
+    public enum ButtonIconEnum
+    {
+        /// <summary>
+        /// The cancel.
+        /// </summary>
+        Cancel,
+
+        /// <summary>
+        /// The submit.
+        /// </summary>
+        Submit
+    }
 }

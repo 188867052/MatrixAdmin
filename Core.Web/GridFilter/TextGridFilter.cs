@@ -7,10 +7,10 @@ namespace Core.Web.GridFilter
     public class TextGridFilter<TPostModel> : BaseGridFilter
     {
         /// <summary>
-        /// 构造函数[a
+        /// Initializes a new instance of the <see cref="TextGridFilter{TPostModel}"/> class.
         /// </summary>
-        /// <param name="expression"></param>
-        /// <param name="label"></param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="label">The label.</param>
         public TextGridFilter(Expression<Func<TPostModel, string>> expression, string label) : base(label, expression.GetPropertyName())
         {
         }

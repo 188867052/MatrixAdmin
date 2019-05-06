@@ -15,7 +15,7 @@ namespace Core.Web.GridFilter
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="expression"></param>
+        /// <param name="expression">The expression.</param>
         /// <param name="labelText"></param>
         /// <param name="isContainsEmpty"></param>
         public BooleanGridFilter(Expression<Func<TPostModel, bool?>> expression, string labelText, bool isContainsEmpty = true) : base(labelText, expression.GetPropertyName())
