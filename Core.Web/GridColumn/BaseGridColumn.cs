@@ -11,7 +11,7 @@
 
         public virtual string RenderTh()
         {
-            return $"<th>{this.Thead}</th>"; ;
+            return $"<th>{this.Thead}</th>";
         }
 
         public abstract string RenderTd(T entity);

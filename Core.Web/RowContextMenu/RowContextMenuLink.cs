@@ -1,11 +1,10 @@
-﻿using Core.Web.Sidebar;
-
-namespace Core.Web.RowContextMenu
+﻿namespace Core.Web.RowContextMenu
 {
     public class RowContextMenuLink
     {
-        public string labelText;
-        public string method;
+        private readonly string labelText;
+        private readonly string method;
+
         public RowContextMenuLink(string labelText, string method)
         {
             this.labelText = labelText;
@@ -14,7 +13,7 @@ namespace Core.Web.RowContextMenu
 
         public string Render()
         {
-            return $"<a class=\"icon-edit dropdown-item\" data-method=\"{method}\" href=\"#\">&nbsp;{labelText}</a>";
+            return $"<a class=\"icon-edit dropdown-item\" data-method=\"{this.method}\" href=\"#\">&nbsp;{this.labelText}</a>";
         }
     }
 }

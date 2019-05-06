@@ -1,30 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using Core.Extension.Expression;
+using Core.Web.Html;
 
-namespace Core.Web.GridFilter
+namespace Core.Web.TextBox
 {
     /// <summary>
     /// 构造函数.
     /// </summary>
     /// <typeparam name="TPostModel">The post model.</typeparam>
     /// <typeparam name="TEnumType">The enum.</typeparam>
-    public class DropDownGridFilter<TPostModel, TEnumType> : BaseGridFilter where TEnumType : Enum
+    public class DropDownTextBox<TPostModel, TEnumType> : ITextRender<TPostModel, TEnumType>
     {
         private readonly IList<KeyValuePair<int, string>> _keyValuePair;
         private readonly bool _isContainsEmpty;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DropDownGridFilter{TPostModel, TEnumType}"/> class.
+        /// Initializes a new instance of the <see cref="DropDownTextBox{TPostModel, TEnumType}"/> class.
         /// </summary>
-        /// <param name="expression">The expression.</param>
         /// <param name="labelText">The labelText.</param>
         /// <param name="isContainsEmpty">The isContainsEmpty.</param>
-        public DropDownGridFilter(Expression<Func<TPostModel, TEnumType>> expression, string labelText, bool isContainsEmpty = true) : base(labelText, expression.GetPropertyName())
+        public DropDownTextBox(string labelText, bool isContainsEmpty = true)
         {
             this._isContainsEmpty = isContainsEmpty;
+            this.labelText = labelText;
+
             this._keyValuePair = new List<KeyValuePair<int, string>>();
         }
 
@@ -33,20 +33,26 @@ namespace Core.Web.GridFilter
             this._keyValuePair.Add(new KeyValuePair<int, string>((int)Enum.Parse(key.GetType(), key.ToString()), value));
         }
 
+        public void AddOption(int key, string value)
+        {
+            this._keyValuePair.Add(new KeyValuePair<int, string>(key, value));
+        }
 
-        public override string Render()
+        private string InputName = "InputName";
+        private string labelText;
+
+        public string Render(TEnumType model)
         {
             string options = this._isContainsEmpty ? "<option></option>" : default;
             options = this._keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
-            return $"<div class=\"{this.ContainerClass}\">" +
-                   $"<div class=\"form-group\">" +
-                   $"<label>{this.LabelText}</label>" +
-                   $"<select class=\"form-control\" style=\"width:204.16px\" name=\"{this.InputName}\">" +
-                   $"{options}" +
-                   $"</select>" +
-                   $"</div>" +
-                   $"</div>";
+            return
+                $"<div class=\"form-group\">" +
+                $"<label>{this.labelText}</label>" +
+                $"<select class=\"form-control\" name=\"{this.InputName}\">" +
+                $"{options}" +
+                $"</select>" +
+                $"</div>";
         }
     }
 }

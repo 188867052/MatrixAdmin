@@ -25,7 +25,7 @@ namespace Core.Web.GridFilter
             return $"<div class=\"{this.ContainerClass}\">" +
                    $"<div class=\"form-group\">" +
                    $"<label for=\"{id}\">{this.LabelText}</label>" +
-                   $"<input class=\"form-control\" id=\"{id}\" name=\"{this.InputName}\" type=\"{type}\">" +
+                   $"<input class=\"form-control\" id=\"{id}\" name=\"{this.InputName}\" type=\"{this.type}\">" +
                    $"</div>" +
                    $"</div>";
         }

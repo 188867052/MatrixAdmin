@@ -8,13 +8,14 @@
 
         public LinkedButton(string labelText, string method, string @class)
         {
-            _class = @class;
-            _labelText = labelText;
-            _method = method;
+            this._class = @class;
+            this._labelText = labelText;
+            this._method = method;
         }
+
         public string Render()
         {
-            return $"<a class=\"{_class}\" data-method=\"{_method}\" href=\"#\">&nbsp;{_labelText}</a>";
+            return $"<a class=\"{this._class}\" data-method=\"{this._method}\" href=\"#\">&nbsp;{this._labelText}</a>";
         }
     }
 }

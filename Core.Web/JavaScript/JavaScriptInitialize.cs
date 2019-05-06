@@ -1,7 +1,7 @@
-﻿using Core.Extension;
-using Core.Web.Identifiers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
+using Core.Extension;
+using Core.Web.Identifiers;
 
 namespace Core.Web.JavaScript
 {
@@ -28,12 +28,12 @@ namespace Core.Web.JavaScript
 
         public void AddUrlInstance(string key, Url url)
         {
-            AddStringInstance(key, url.Render());
+            this.AddStringInstance(key, url.Render());
         }
 
         public void AddFrameWorkInstance(string key, Identifier identifier)
         {
-            AddStringInstance(key, identifier.Value);
+            this.AddStringInstance(key, identifier.Value);
         }
 
         public string Render()
@@ -43,6 +43,7 @@ namespace Core.Web.JavaScript
             {
                 stringBuilder.Append($"{this._globalVariableName}._{keyValuePair.Key}=\"{keyValuePair.Value}\";");
             }
+
             string initializeCall = string.Concat(this._globalVariableName, ".initialize");
             string initializeScript = $"if({initializeCall} instanceof Function){{{initializeCall}();}}";
 

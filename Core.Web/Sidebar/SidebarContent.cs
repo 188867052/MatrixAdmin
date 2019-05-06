@@ -2,14 +2,6 @@
 {
     public class SidebarContent
     {
-        public string Class { get; set; }
-
-        public string Text { get; set; }
-
-        public double Width { get; set; }
-
-        public string Stat { get; set; }
-
         public SidebarContent(string text, double width, string stat, string @class)
         {
             this.Text = text;
@@ -17,6 +9,14 @@
             this.Stat = stat;
             this.Class = @class;
         }
+
+        public string Class { get; set; }
+
+        public string Text { get; set; }
+
+        public double Width { get; set; }
+
+        public string Stat { get; set; }
 
         public string Render()
         {

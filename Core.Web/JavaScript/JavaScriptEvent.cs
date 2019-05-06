@@ -39,6 +39,7 @@ namespace Core.Web.JavaScript
                     throw new ArgumentException("参数错误");
                 }
             }
+
             return $"<script>{@event}</script>";
         }
     }

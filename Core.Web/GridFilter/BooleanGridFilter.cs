@@ -27,12 +27,12 @@ namespace Core.Web.GridFilter
 
         public void AddOption(Enum key, string value)
         {
-            _keyValuePair.Add(new KeyValuePair<bool, string>((bool)Enum.Parse(key.GetType(), key.ToString()), value));
+            this._keyValuePair.Add(new KeyValuePair<bool, string>((bool)Enum.Parse(key.GetType(), key.ToString()), value));
         }
 
         public void AddOption(bool key, string value)
         {
-            _keyValuePair.Add(new KeyValuePair<bool, string>(key, value));
+            this._keyValuePair.Add(new KeyValuePair<bool, string>(key, value));
         }
 
         public override string Render()
@@ -42,9 +42,9 @@ namespace Core.Web.GridFilter
                 this.SetDefaultOptions();
             }
 
-            string options = _isContainsEmpty ? "<option></option>" : default;
+            string options = this._isContainsEmpty ? "<option></option>" : default;
             string name = this._expression.GetPropertyName();
-            options = _keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
+            options = this._keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
             return $"<div class=\"{this.ContainerClass}\">" +
                    $"<div class=\"form-group\">" +

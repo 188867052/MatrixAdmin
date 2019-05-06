@@ -4,8 +4,8 @@ namespace Core.Web.Sidebar
 {
     public class ContentHeader
     {
-        public IList<Anchor> linkedAnchors;
-        public string currentText;
+        private readonly string currentText;
+        private IList<Anchor> linkedAnchors;
 
         public ContentHeader(string currentText = default)
         {
@@ -14,25 +14,26 @@ namespace Core.Web.Sidebar
 
         public void AddAnchor(Anchor linkedAnchor)
         {
-            if (linkedAnchors == null)
+            if (this.linkedAnchors == null)
             {
-                linkedAnchors = new List<Anchor>();
+                this.linkedAnchors = new List<Anchor>();
             }
-            linkedAnchors.Add(linkedAnchor);
+
+            this.linkedAnchors.Add(linkedAnchor);
         }
 
         public string Render()
         {
             string aa = default;
-            foreach (var str in linkedAnchors)
+            foreach (var str in this.linkedAnchors)
             {
                 aa += str.Render();
             }
 
             string current = default;
-            if (!string.IsNullOrEmpty(currentText))
+            if (!string.IsNullOrEmpty(this.currentText))
             {
-                current = $"<a href=\"#\" class=\"current\">{currentText}</a>";
+                current = $"<a href=\"#\" class=\"current\">{this.currentText}</a>";
             }
 
             return $"<div id=\"content-header\"><div id=\"breadcrumb\">{aa}{current}</div></div>";

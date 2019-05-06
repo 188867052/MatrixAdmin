@@ -1,8 +1,8 @@
 ﻿using System;
-using Core.Web.GridColumn;
 using System.Collections.Generic;
-using Core.Model;
 using System.Text;
+using Core.Model;
+using Core.Web.GridColumn;
 
 namespace Core.Web.ViewConfiguration
 {
@@ -38,18 +38,21 @@ namespace Core.Web.ViewConfiguration
             {
                 thead.Append(item.RenderTh());
             }
+
             StringBuilder tbody = new StringBuilder();
-            foreach (var entity in EntityList)
+            foreach (var entity in this.EntityList)
             {
                 StringBuilder tr = new StringBuilder();
-                int row = (CurrentPage - 1) * PageSize + EntityList.IndexOf(entity) + 1;
+                int row = (this.CurrentPage - 1) * this.PageSize + this.EntityList.IndexOf(entity) + 1;
                 tr.Append($"<td>{row}</td>");
                 foreach (var item in gridColumns)
                 {
                     tr.Append(item.RenderTd(entity));
                 }
+
                 tbody.Append($"<tr>{tr}</tr>");
             }
+
             return $"<table class=\"table table-bordered data-table\"><thead><tr>{thead}</tr></thead><tbody>{tbody}</tbody></table>";
         }
 
@@ -57,12 +60,12 @@ namespace Core.Web.ViewConfiguration
 
         public string Pager()
         {
-            int pageCount = (int)Math.Ceiling((decimal)Count / PageSize);
+            int pageCount = (int)Math.Ceiling((decimal)this.Count / this.PageSize);
             string pageHtml = default;
             int sideCount = 3;
             for (int i = 1; i <= pageCount; i++)
             {
-                string style = (CurrentPage == i ? "style=\"color:red\"" : default);
+                string style = this.CurrentPage == i ? "style=\"color:red\"" : default;
                 if (pageCount <= 10)
                 {
                     pageHtml += $"<li class=\"page-item\"><a {style} class=\"page-link\" href=\"#\">{i}</a></li>";
@@ -73,19 +76,22 @@ namespace Core.Web.ViewConfiguration
                     {
                         pageHtml += $"<li class=\"page-item\"><a {style} class=\"page-link\" href=\"#\">{i}</a></li>";
                     }
-                    if (i >= CurrentPage - 1 && i <= CurrentPage + 1 && i > sideCount && i <= pageCount - sideCount)
+
+                    if (i >= this.CurrentPage - 1 && i <= this.CurrentPage + 1 && i > sideCount && i <= pageCount - sideCount)
                     {
                         pageHtml += $"<li class=\"page-item\"><a {style} class=\"page-link\" href=\"#\">{i}</a></li>";
                     }
+
                     if (i >= pageCount - 2 && i <= pageCount && i > pageCount - sideCount)
                     {
                         pageHtml += $"<li class=\"page-item\"><a {style} class=\"page-link\" href=\"#\">{i}</a></li>";
                     }
                 }
             }
+
             return
                    $"<ul class=\"pagination pagination-md\">" +
-                   $"<p>共Count:{Count}条,pageSize:{PageSize},CurrentPage:{CurrentPage},pageCount:{pageCount}</p>" +
+                   $"<p>共Count:{this.Count}条,pageSize:{this.PageSize},CurrentPage:{this.CurrentPage},pageCount:{pageCount}</p>" +
                    $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&laquo;</a></li>" +
                    pageHtml +
                    $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">&raquo;</a></li>" +

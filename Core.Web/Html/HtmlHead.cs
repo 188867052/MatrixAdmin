@@ -4,8 +4,7 @@
     {
         public string Render()
         {
-
-            return "";
+            return string.Empty;
         }
     }
 }

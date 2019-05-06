@@ -21,7 +21,7 @@ namespace Core.Extension.Dapper
 
             internal LiteralToken(string token, string member)
             {
-                Token = token;
+                this.Token = token;
                 Member = member;
             }
 

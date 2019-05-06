@@ -13,6 +13,7 @@ namespace Core.Web.Sidebar
             {
                 this._subMenus = new List<SubMenu>();
             }
+
             this._subMenus.Add(subMenu);
         }
 
@@ -22,19 +23,20 @@ namespace Core.Web.Sidebar
             {
                 this._subContent = new List<SidebarContent>();
             }
+
             this._subContent.Add(subContent);
         }
 
         public string Render()
         {
             string sidebar = "<div id=\"sidebar\"><a href=\"#\" class=\"visible-phone\"><i class=\"icon icon-home\"></i>Dashboard</a><ul>{0}{1}</ul></div>";
-            string menu = "";
+            string menu = string.Empty;
             foreach (var item in this._subMenus)
             {
                 menu += item.Render();
             }
 
-            string content = "";
+            string content = string.Empty;
             foreach (var item in this._subContent)
             {
                 content += item.Render();

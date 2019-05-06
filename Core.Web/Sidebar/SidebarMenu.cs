@@ -12,6 +12,7 @@ namespace Core.Web.Sidebar
         }
 
         private string Class { get; }
+
         private string InnerText { get; }
 
         private Url Url { get; }

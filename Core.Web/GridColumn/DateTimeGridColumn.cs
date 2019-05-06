@@ -15,7 +15,7 @@ namespace Core.Web.GridColumn
         public override string RenderTd(T entity)
         {
             var value = this.expression.Compile()(entity);
-            return base.RenderTd(value);
+            return this.RenderTd(value);
         }
     }
 }

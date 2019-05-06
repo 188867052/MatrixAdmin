@@ -8,6 +8,7 @@ namespace Core.Web.GridColumn
     public class BooleanGridColumn<T> : BaseGridColumn<T>
     {
         private readonly Expression<Func<T, bool>> expression;
+        private readonly IList<KeyValuePair<bool, string>> optionsValuePair;
 
         public BooleanGridColumn(Expression<Func<T, bool>> expression, string thead) : base(thead)
         {
@@ -15,18 +16,16 @@ namespace Core.Web.GridColumn
             this.optionsValuePair = new List<KeyValuePair<bool, string>>();
         }
 
-        private readonly IList<KeyValuePair<bool, string>> optionsValuePair;
-
         public void AddOption(bool key, string value)
         {
-            optionsValuePair.Add(new KeyValuePair<bool, string>(key, value));
+            this.optionsValuePair.Add(new KeyValuePair<bool, string>(key, value));
         }
 
         public override string RenderTd(T entity)
         {
             var key = this.expression.Compile()(entity);
-            var display = optionsValuePair.FirstOrDefault(o => o.Key == key);
-            return base.RenderTd(display.Value);
+            var display = this.optionsValuePair.FirstOrDefault(o => o.Key == key);
+            return this.RenderTd(display.Value);
         }
     }
 }

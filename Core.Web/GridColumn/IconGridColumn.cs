@@ -17,7 +17,7 @@ namespace Core.Web.GridColumn
         {
             var value = this.expression.Compile()(entity);
             var innerHtml = $"<span class=\"{value}\"></span>";
-            return base.RenderTd(innerHtml);
+            return this.RenderTd(innerHtml);
         }
     }
 }

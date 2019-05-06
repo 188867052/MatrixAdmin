@@ -8,15 +8,15 @@ namespace Core.Web.Sidebar
         {
             this.Class = @class;
             this.DisplayText = displayText;
-
         }
-        public string Class { get; set; }
-        public string DisplayText { get; set; }
 
+        public string Class { get; set; }
+
+        public string DisplayText { get; set; }
 
         public string Render()
         {
-            return $"<a href=\"#\" class=\"{Class}\">{DisplayText}</a>";
+            return $"<a href=\"#\" class=\"{this.Class}\">{this.DisplayText}</a>";
         }
     }
 }
