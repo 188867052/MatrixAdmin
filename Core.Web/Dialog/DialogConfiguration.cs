@@ -4,7 +4,7 @@ using Core.Web.Button;
 using Core.Web.Html;
 using Core.Web.Identifiers;
 
-namespace Core.Web.ViewConfiguration
+namespace Core.Web.Dialog
 {
     public abstract class DialogConfiguration<TPostModel, T> : ITextRender<TPostModel, T>
     {

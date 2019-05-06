@@ -14,6 +14,11 @@ namespace Core.Web.JavaScript
         private readonly string _globalVariableName;
         private readonly string _className;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JavaScriptInitialize"/> class.
+        /// </summary>
+        /// <param name="globalVariableName">The global variable name.</param>
+        /// <param name="className">The class name.</param>
         public JavaScriptInitialize(string globalVariableName, string className)
         {
             this._globalVariableName = globalVariableName;

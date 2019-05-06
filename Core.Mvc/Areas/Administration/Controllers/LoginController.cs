@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using Core.Model.Log;
-using Core.Web.Dialog;
 using Core.Web.File;
 using Core.Web.Login;
 using Microsoft.AspNetCore.Hosting;
@@ -29,12 +28,6 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             File file = new File(this.HostingEnvironment, fileName);
             return this.Content(file.Render(), "text/html");
-        }
-
-        public IActionResult Carousel()
-        {
-            Carousel dialog = new Carousel();
-            return this.Content(dialog.Render(), "text/html");
         }
 
         public IActionResult Privacy()

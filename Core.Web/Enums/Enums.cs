@@ -1,4 +1,4 @@
-﻿namespace Core.Web
+﻿namespace Core.Web.Enums
 {
     public enum TextBoxTypeEnum
     {

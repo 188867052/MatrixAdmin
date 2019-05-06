@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Web
+namespace Core.Web.Enums
 {
     public static class EnumMappings
     {

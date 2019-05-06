@@ -1,4 +1,4 @@
-﻿namespace Core.Web.RowContextMenu
+﻿namespace Core.Web.Button
 {
     public class LinkedButton
     {

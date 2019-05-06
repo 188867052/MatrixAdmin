@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Core.Model.Administration.User;
 using Core.Model.Enums;
-using Core.Web;
 using Core.Web.Button;
+using Core.Web.Dialog;
+using Core.Web.Enums;
 using Core.Web.Html;
 using Core.Web.Identifiers;
 using Core.Web.TextBox;
-using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {

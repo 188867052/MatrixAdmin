@@ -1,5 +1,4 @@
-﻿using System;
-using Core.Model.Enums;
+﻿using Core.Model.Enums;
 
 namespace Core.Model.Administration.User
 {

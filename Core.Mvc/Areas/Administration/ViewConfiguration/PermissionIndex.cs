@@ -69,7 +69,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader(PermissionIndexResource.WidgetTitle);
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "首页", "返回首页", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
         }

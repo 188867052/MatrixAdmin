@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Common;
 using Core.Model.Administration.Icon;
 using Core.Model.Administration.Menu;

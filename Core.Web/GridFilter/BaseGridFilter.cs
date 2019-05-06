@@ -1,10 +1,10 @@
-﻿using Core.Web.Identifiers;
+﻿using Core.Web.Enums;
+using Core.Web.Identifiers;
 
 namespace Core.Web.GridFilter
 {
     public abstract class BaseGridFilter
     {
-        protected readonly string ContainerClass = "custom-control-inline";
         private readonly string type;
 
         protected BaseGridFilter(string labelText, string inputName, TextBoxTypeEnum type = default)
@@ -13,6 +13,8 @@ namespace Core.Web.GridFilter
             this.InputName = inputName;
             this.type = EnumMappings.ToString(type);
         }
+
+        protected string ContainerClass { get; } = "custom-control-inline";
 
         protected string InputName { get; set; }
 

@@ -1,7 +1,5 @@
 ﻿using System.Text.Encodings.Web;
 using System.Text.Unicode;
-using Core.Mvc.Areas;
-using Core.Mvc.Areas.Redirect;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

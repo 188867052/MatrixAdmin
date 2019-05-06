@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Core.Model;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
+using Core.Web.Dialog;
 using Core.Web.Html;
 using Core.Web.ViewConfiguration;
 using Microsoft.AspNetCore.Hosting;

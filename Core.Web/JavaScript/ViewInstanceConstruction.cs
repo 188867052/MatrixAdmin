@@ -4,6 +4,10 @@
     {
         protected abstract string InstanceClassName { get; }
 
+        /// <summary>
+        /// View instance.
+        /// </summary>
+        /// <returns>A JavaScriptInitialize.</returns>
         public JavaScriptInitialize ViewInstance()
         {
             char firstChar = this.InstanceClassName[0];

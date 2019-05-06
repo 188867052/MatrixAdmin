@@ -42,8 +42,4 @@
     <ProjectReference Include="..\Core.Models\Core.Model.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dependency\" />
-  </ItemGroup>
-
 </Project>
