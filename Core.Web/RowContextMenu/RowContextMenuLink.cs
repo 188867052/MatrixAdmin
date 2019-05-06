@@ -1,4 +1,6 @@
-﻿namespace Core.Web.RowContextMenu
+﻿using Core.Web.Sidebar;
+
+namespace Core.Web.RowContextMenu
 {
     public class RowContextMenuLink
     {

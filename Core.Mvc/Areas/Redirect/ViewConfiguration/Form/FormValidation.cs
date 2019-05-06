@@ -26,10 +26,10 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Form
         {
             return new List<string>
             {
-               "/css/uniform.css" ,
-               "/css/matrix-style.css" ,
+               "/css/uniform.css",
+               "/css/matrix-style.css",
                "/css/matrix-media.css",
-               "/font-awesome/css/font-awesome.css" ,
+               "/font-awesome/css/font-awesome.css"
             };
         }
 
@@ -40,13 +40,13 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Form
                "/js/jquery.uniform.js",
                "/js/matrix.js",
                "/js/matrix.form_common.js",
-               "/js/jquery.validate.js",
+               "/js/jquery.validate.js"
             };
         }
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("Form with Validation");
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
         }
     }

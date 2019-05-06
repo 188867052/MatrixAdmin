@@ -61,7 +61,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             return list;
         }
 
-        private IList<string> JavaScriptResource()
+        private IEnumerable<string> JavaScriptResource()
         {
             List<string> list = new List<string>
             {
