@@ -4,6 +4,7 @@ using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.ViewConfiguration;
+using Core.Mvc.Areas.Administration.ViewConfiguration.User;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 

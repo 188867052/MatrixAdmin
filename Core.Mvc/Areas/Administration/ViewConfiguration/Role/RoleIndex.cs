@@ -8,7 +8,7 @@ using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Core.Mvc.Areas.Administration.ViewConfiguration
+namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 {
     public class RoleIndex : SearchGridPage
     {

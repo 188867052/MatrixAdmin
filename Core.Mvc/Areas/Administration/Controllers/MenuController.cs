@@ -2,6 +2,7 @@
 using Core.Extension;
 using Core.Model.Administration.Menu;
 using Core.Mvc.Areas.Administration.ViewConfiguration;
+using Core.Mvc.Areas.Administration.ViewConfiguration.Menu;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 

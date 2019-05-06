@@ -4,27 +4,29 @@ using Core.Model;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
-using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Core.Mvc.Areas.Administration.ViewConfiguration
+namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 {
-    public class PermissionIndex : SearchGridPage
+    public class UserIndex : SearchGridPage
     {
         private readonly ResponseModel response;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PermissionIndex"/> class.
+        /// Initializes a new instance of the <see cref="UserIndex"/> class.
         /// </summary>
-        /// <param name="hostingEnvironment">A hostingEnvironment.</param>
+        /// <param name="hostingEnvironment">The hostingEnvironment.</param>
         /// <param name="response">The response.</param>
-        public PermissionIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
+        public UserIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
             this.response = response;
         }
 
+        /// <summary>
+        /// Gets file name.
+        /// </summary>
         protected override string FileName
         {
             get
@@ -37,7 +39,6 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         {
             return new List<string>
             {
-
                 "/css/matrix-style.css",
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
@@ -46,12 +47,11 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 
         public override string Render()
         {
-            PermissionGridConfiguration configuration = new PermissionGridConfiguration(this.response);
+            UserViewConfiguration configuration = new UserViewConfiguration(this.response);
             string table = configuration.GenerateGridColumn();
+
             var html = base.Render().Replace("{{Table}}", table);
-
-            PermissionSearchFilterConfiguration filter = new PermissionSearchFilterConfiguration();
-
+            UserSearchFilterConfiguration filter = new UserSearchFilterConfiguration();
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
             html = html.Replace("{{button-group}}", filter.GenerateButton());
             html = html.Replace("{{Pager}}", this.Pager());
@@ -62,24 +62,32 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         {
             return new List<string>
             {
-               "/js/Permission/index.js",
+                "/js/User/user.js",
             };
         }
 
+        /// <summary>
+        /// Content header.
+        /// </summary>
+        /// <returns>The string.</returns>
         protected override string ContentHeader()
         {
-            ContentHeader contentHeader = new ContentHeader(PermissionIndexResource.WidgetTitle);
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "首页", "返回首页", "icon-home", "tip-bottom"));
+            ContentHeader contentHeader = new ContentHeader("用户管理");
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
         }
 
+        /// <summary>
+        /// Create view instance constructions.
+        /// </summary>
+        /// <returns>The string.</returns>
         protected override IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
         {
             IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>
             {
                 new IndexViewInstance(),
-                new PermissionViewInstance()
+                new UserViewInstance()
             };
             return constructions;
         }

@@ -2,7 +2,7 @@
 using Core.Mvc.Areas.Administration.Controllers;
 using Core.Web.JavaScript;
 
-namespace Core.Mvc.Areas.Administration.ViewConfiguration
+namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
 {
     public class IconViewInstance : ViewInstanceConstruction
     {
