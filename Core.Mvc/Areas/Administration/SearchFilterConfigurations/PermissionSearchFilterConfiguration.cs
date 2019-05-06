@@ -16,7 +16,7 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 
         protected override void CreateButton(IList<StandardButton> buttons)
         {
-            buttons.Add(new StandardButton("搜索", new Identifier(), "index.search"));
+            buttons.Add(new StandardButton("搜索",  "index.search"));
             buttons.Add(new StandardButton("添加"));
             buttons.Add(new StandardButton("编辑"));
         }

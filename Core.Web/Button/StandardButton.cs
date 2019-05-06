@@ -8,11 +8,11 @@ namespace Core.Web.Button
     {
         private readonly Identifier id;
 
-        public StandardButton(string labelText, Identifier id = default, string @event = default)
+        public StandardButton(string labelText, string @event = default)
         {
             this.Text = labelText;
-            this.id = id;
-            this.Event = new JavaScriptEvent(@event, default, id);
+            this.id = new Identifier();
+            this.Event = new JavaScriptEvent(@event, default, this.id);
         }
 
         public string Text { get; set; }

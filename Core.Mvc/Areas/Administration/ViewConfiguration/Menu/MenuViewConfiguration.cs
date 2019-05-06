@@ -10,7 +10,6 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuViewConfiguration"/> class.
-        /// 构造函数
         /// </summary>
         public MenuViewConfiguration(ResponseModel response) : base(response)
         {

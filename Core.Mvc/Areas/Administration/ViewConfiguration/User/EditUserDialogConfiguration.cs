@@ -38,7 +38,9 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 
         protected override void CreateButtons(IList<StandardButton> buttons)
         {
-            buttons.Add(new StandardButton("提交", new Identifier(), "index.submit"));
+            buttons.Add(new StandardButton("提交", "index.submit"));
+            buttons.Add(new StandardButton("取消", "core.cancel"));
+            //<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
         }
     }
 }
