@@ -12,7 +12,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Form
     {
         public BasicForm(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-
         }
 
         protected override string FileName
@@ -53,6 +52,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Form
                "/js/bootstrap-wysihtml5.js",
             };
         }
+
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("Basic Form");

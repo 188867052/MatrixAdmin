@@ -6,7 +6,7 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
 {
     public class LogViewInstance : ViewInstanceConstruction
     {
-        protected  override string InstanceClassName
+        protected override string InstanceClassName
         {
             get
             {

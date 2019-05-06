@@ -11,7 +11,6 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="IconGridConfiguration"/> class.
-        /// 构造函数
         /// </summary>
         public IconGridConfiguration(ResponseModel response) : base(response)
         {

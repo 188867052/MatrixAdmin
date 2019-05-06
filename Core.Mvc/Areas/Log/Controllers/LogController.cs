@@ -16,7 +16,7 @@ namespace Core.Mvc.Areas.Log.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="LogController"/> class.
         /// </summary>
-        /// <param name="hostingEnvironment"></param>
+        /// <param name="hostingEnvironment">A hostingEnvironment.</param>
         public LogController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
         }
@@ -24,7 +24,7 @@ namespace Core.Mvc.Areas.Log.Controllers
         /// <summary>
         /// The Index.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A IActionResult.</returns>
         public IActionResult Index()
         {
             var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Index));
@@ -43,8 +43,8 @@ namespace Core.Mvc.Areas.Log.Controllers
         /// <summary>
         /// Grid state change.
         /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        /// <param name="model">The model.</param>
+        /// <returns>A IActionResult.</returns>
         [HttpPost]
         public IActionResult GridStateChange(LogPostModel model)
         {

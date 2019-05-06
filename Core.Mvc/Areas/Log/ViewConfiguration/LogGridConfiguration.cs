@@ -6,7 +6,7 @@ using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Log.ViewConfiguration
 {
-    public class LogGridConfiguration: GridConfiguration<Model.Log.Log>
+    public class LogGridConfiguration : GridConfiguration<Model.Log.Log>
     {
         public LogGridConfiguration(ResponseModel response) : base(response)
         {

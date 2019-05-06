@@ -20,7 +20,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormValidation)), SidebarNavigationResource.FormValidation));
             forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormWizard)), SidebarNavigationResource.FormWizard));
 
-
             SubMenu addons = new SubMenu("icon icon-file", default, SidebarNavigationResource.AddonsTitle, 5);
             addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Index2)), SidebarNavigationResource.Index2));
             addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Gallery)), SidebarNavigationResource.Gallery));

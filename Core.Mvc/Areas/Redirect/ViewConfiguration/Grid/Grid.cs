@@ -11,7 +11,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Grid
     {
         public Grid(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-
         }
 
         protected override string FileName

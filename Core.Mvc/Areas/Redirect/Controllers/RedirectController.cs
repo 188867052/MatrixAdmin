@@ -20,10 +20,11 @@ namespace Core.Mvc.Areas.Redirect.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="RedirectController"/> class.
         /// </summary>
-        /// <param name="hostingEnvironment"></param>
+        /// <param name="hostingEnvironment">The hostingEnvironment.</param>
         public RedirectController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
         }
+
         public IActionResult Test()
         {
             File file = new File(this.HostingEnvironment, "a_test");

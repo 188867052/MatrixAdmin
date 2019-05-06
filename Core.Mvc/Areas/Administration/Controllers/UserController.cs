@@ -14,9 +14,8 @@ namespace Core.Mvc.Areas.Administration.Controllers
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UserController"/> class.
-        /// 构造函数
         /// </summary>
-        /// <param name="hostingEnvironment"></param>
+        /// <param name="hostingEnvironment">The hostingEnvironment.</param>
         public UserController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
         }
@@ -24,7 +23,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <summary>
         /// The Index.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A IActionResult.</returns>
         [HttpGet]
         public IActionResult Index()
         {
@@ -38,8 +37,8 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <summary>
         /// Grid state change.
         /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        /// <param name="model">The model.</param>
+        /// <returns>A IActionResult.</returns>
         [HttpPost]
         public IActionResult GridStateChange(UserPostModel model)
         {
@@ -51,10 +50,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         }
 
         /// <summary>
-        /// 
+        /// RowContextMenu.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">The id.</param>
+        /// <returns>The IActionResult.</returns>
         [HttpGet]
         public IActionResult RowContextMenu(int id)
         {
@@ -68,7 +67,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <summary>
         /// The add dialog.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The IActionResult.</returns>
         [HttpGet]
         public IActionResult AddDialog()
         {
@@ -79,7 +78,8 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <summary>
         /// Save.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="model">The model.</param>
+        /// <returns>The IActionResult.</returns>
         [HttpPost]
         public IActionResult Save(UserCreatePostModel model)
         {
@@ -92,7 +92,8 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <summary>
         /// The edit dialog.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="id">The id.</param>
+        /// <returns>The IActionResult.</returns>
         [HttpGet]
         public IActionResult EditDialog(int id)
         {
@@ -107,7 +108,8 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <summary>
         /// The edit dialog.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="id">The id.</param>
+        /// <returns>The IActionResult.</returns>
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -117,11 +119,11 @@ namespace Core.Mvc.Areas.Administration.Controllers
             return this.Submit(model);
         }
 
-
         /// <summary>
         /// The edit dialog.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="id">The id.</param>
+        /// <returns>The IActionResult.</returns>
         [HttpGet]
         public IActionResult Recover(int id)
         {

@@ -4,13 +4,13 @@ using Core.Model;
 using Core.Web.Button;
 using Core.Web.Html;
 using Core.Web.Identifiers;
-using Core.Web.TextBox;
 
 namespace Core.Web.ViewConfiguration
 {
     public abstract class DialogConfiguration<TPostModel, T> : ITextRender<TPostModel, T>
     {
-        private T model;
+        private readonly T model;
+
         public abstract string Title { get; }
 
         public Identifier Identifier { get; }

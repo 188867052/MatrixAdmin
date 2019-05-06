@@ -11,7 +11,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Addons
     {
         public Chat(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-
         }
 
         protected override string FileName

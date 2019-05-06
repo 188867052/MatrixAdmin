@@ -12,15 +12,17 @@ namespace Core.Mvc.Areas
     {
         private readonly Encoding _encoding = Encoding.UTF8;
         private readonly string _contentType = "text/html";
-        protected readonly IHostingEnvironment HostingEnvironment;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StandardController"/> class.
         /// </summary>
+        /// <param name="hostingEnvironment">The hostingEnvironment.</param>
         protected StandardController(IHostingEnvironment hostingEnvironment)
         {
             this.HostingEnvironment = hostingEnvironment;
         }
+
+        protected IHostingEnvironment HostingEnvironment { get; set; }
 
         protected ContentResult ViewConfiguration(SearchGridPage index)
         {
@@ -50,7 +52,7 @@ namespace Core.Mvc.Areas
 
         private ContentResult RenderContent(IRender render)
         {
-            return base.Content(render.Render(), this._contentType, this._encoding);
+            return this.Content(render.Render(), this._contentType, this._encoding);
         }
     }
 }

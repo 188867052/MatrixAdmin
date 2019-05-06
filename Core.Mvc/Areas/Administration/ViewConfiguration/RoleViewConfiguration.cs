@@ -11,9 +11,8 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RoleViewConfiguration"/> class.
-        /// 构造函数
         /// </summary>
-        /// <param name="entity"></param>
+        /// <param name="entity">The entity.</param>
         public RoleViewConfiguration(ResponseModel entity) : base(entity)
         {
         }

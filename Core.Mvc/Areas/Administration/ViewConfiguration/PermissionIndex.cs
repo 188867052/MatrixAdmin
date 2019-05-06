@@ -18,22 +18,11 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         /// <summary>
         /// Initializes a new instance of the <see cref="PermissionIndex"/> class.
         /// </summary>
-        /// <param name="hostingEnvironment"></param>
-        /// <param name="response"></param>
+        /// <param name="hostingEnvironment">A hostingEnvironment.</param>
+        /// <param name="response">The response.</param>
         public PermissionIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
             this.response = response;
-        }
-
-        public override IList<string> Css()
-        {
-            return new List<string>
-            {
-
-                "/css/matrix-style.css",
-                "/css/matrix-media.css",
-                "/font-awesome/css/font-awesome.css",
-            };
         }
 
         protected override string FileName
@@ -44,11 +33,14 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             }
         }
 
-        protected override IList<string> JavaScript()
+        public override IList<string> Css()
         {
             return new List<string>
             {
-               "/js/Permission/index.js",
+
+                "/css/matrix-style.css",
+                "/css/matrix-media.css",
+                "/font-awesome/css/font-awesome.css",
             };
         }
 
@@ -64,6 +56,14 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             html = html.Replace("{{button-group}}", filter.GenerateButton());
             html = html.Replace("{{Pager}}", this.Pager());
             return html;
+        }
+
+        protected override IList<string> JavaScript()
+        {
+            return new List<string>
+            {
+               "/js/Permission/index.js",
+            };
         }
 
         protected override string ContentHeader()

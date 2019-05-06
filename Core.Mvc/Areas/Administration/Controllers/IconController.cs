@@ -12,9 +12,8 @@ namespace Core.Mvc.Areas.Administration.Controllers
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="IconController"/> class.
-        /// 构造函数
         /// </summary>
-        /// <param name="hostingEnvironment"></param>
+        /// <param name="hostingEnvironment">A hostingEnvironment.</param>
         public IconController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
         }
@@ -22,7 +21,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <summary>
         /// The index page.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A IActionResult.</returns>
         public IActionResult Index()
         {
             var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Index));
@@ -35,8 +34,8 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <summary>
         /// Grid state change.
         /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        /// <param name="model">The model.</param>
+        /// <returns>A IActionResult.</returns>
         [HttpPost]
         public IActionResult GridStateChange(IconPostModel model)
         {
@@ -50,7 +49,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <summary>
         /// The add dialog.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A IActionResult.</returns>
         [HttpGet]
         public IActionResult AddDialog()
         {

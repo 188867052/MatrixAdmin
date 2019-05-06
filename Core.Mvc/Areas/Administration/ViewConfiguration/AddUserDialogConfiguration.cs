@@ -17,9 +17,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         {
         }
 
-        public static Identifier Identifier { get; } = new Identifier();
-
-
+        public new static Identifier Identifier { get; } = new Identifier();
 
         public override string Title => "添加用户";
 

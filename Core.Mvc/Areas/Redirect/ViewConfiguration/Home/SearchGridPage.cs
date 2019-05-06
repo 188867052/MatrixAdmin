@@ -16,11 +16,11 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         public static readonly string LeftText = "&laquo;";
         public static readonly string RightText = "&raquo;";
 
-        protected readonly IHostingEnvironment HostingEnvironment;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
         protected SearchGridPage(IHostingEnvironment hostingEnvironment)
         {
-            this.HostingEnvironment = hostingEnvironment;
+            this._hostingEnvironment = hostingEnvironment;
         }
 
         /// <summary>
@@ -47,18 +47,85 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         /// <returns>css list.</returns>
         public abstract IList<string> Css();
 
-        private IList<string> CssResource()
+        /// <summary>
+        /// 渲染.
+        /// </summary>
+        /// <returns>A string.</returns>
+        public virtual string Render()
         {
-            List<string> list = new List<string>
-            {
-                "/css/bootstrap.min.css",
-                "/css/bootstrap-responsive.min.css",
-                "/css/bootstrap-datetimepicker.css",
-                "/css/core.css",
-            };
-            list.AddRange(this.Css());
+            SidebarNavigation sidebarNavigation = new SidebarNavigation();
+            string sidebarMenu = sidebarNavigation.GenerateSidebarMenu();
 
-            return list;
+            string contentHeader = this.ContentHeader();
+            string htmlFormat = File.ReadAllText(Path.Combine(this._hostingEnvironment.WebRootPath, $@"html\{this.FileName}.html"));
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (var item in this.CssResource())
+            {
+                stringBuilder.Append($"<link href=\"{item}\" rel=\"stylesheet\">");
+            }
+
+            foreach (var item in this.JavaScriptResource())
+            {
+                stringBuilder.Append($"<script src=\"{item}\"></script>");
+            }
+
+            string head = $"<head>{stringBuilder}</head>";
+            string html = htmlFormat.Replace("{{head}}", head);
+            html = html.Replace("{{sidebarMenu}}", sidebarMenu);
+            html = html.Replace("{{content-header}}", contentHeader);
+            html = html.Replace("{{Footer}}", this.Footer());
+
+            string tobHeader = File.ReadAllText(Path.Combine(this._hostingEnvironment.WebRootPath, $@"html\topHeader.html"));
+            html = html.Replace("{{tobHeader}}", tobHeader);
+
+            return html + $"<script>{this.RenderJavaScript()}</script>";
+        }
+
+        public string Pager()
+        {
+            return $"<ul class=\"pagination pagination-md\">" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">{LeftText}</a></li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">1</a></li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">2</a></li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">3</a></li>" +
+                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">{RightText}</a></li>" +
+                   $"</ul>";
+        }
+
+        /// <summary>
+        /// JavaScript文件.
+        /// </summary>
+        /// <returns>The list.</returns>
+        protected abstract IList<string> JavaScript();
+
+        protected virtual string ContentHeader()
+        {
+            ContentHeader contentHeader = new ContentHeader();
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            return contentHeader.Render();
+        }
+
+        protected virtual IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
+        {
+            IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>
+            {
+                new IndexViewInstance()
+            };
+            return constructions;
+        }
+
+        private string Footer()
+        {
+            return $"<div class=\"row-fluid\">" +
+                   $"<div id = \"footer\" class=\"span12\"> 2019 &copy;https://github.com/188867052" +
+                   $"<a href=\"http://www.taobao.com/\" target=\"_blank\"> My Blog</a>" +
+                   $"</div>" +
+                   $"</div>";
+        }
+
+        private string RenderJavaScript()
+        {
+            return this.CreateViewInstanceConstructions().Aggregate<ViewInstanceConstruction, string>(default, (current, instance) => current + instance.ViewInstance().Render());
         }
 
         private IEnumerable<string> JavaScriptResource()
@@ -78,86 +145,18 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             return list;
         }
 
-        /// <summary>
-        /// JavaScript文件.
-        /// </summary>
-        /// <returns></returns>
-        protected abstract IList<string> JavaScript();
-
-        /// <summary>
-        /// 渲染.
-        /// </summary>
-        /// <returns>A string.</returns>
-        public virtual string Render()
+        private IList<string> CssResource()
         {
-            SidebarNavigation sidebarNavigation = new SidebarNavigation();
-            string sidebarMenu = sidebarNavigation.GenerateSidebarMenu();
-
-            string contentHeader = this.ContentHeader();
-            string htmlFormat = File.ReadAllText(Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\{this.FileName}.html"));
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach (var item in this.CssResource())
+            List<string> list = new List<string>
             {
-                stringBuilder.Append($"<link href=\"{item}\" rel=\"stylesheet\">");
-            }
-
-            foreach (var item in this.JavaScriptResource())
-            {
-                stringBuilder.Append($"<script src=\"{item}\"></script>");
-            }
-
-            string head = $"<head>{stringBuilder}</head>";
-            string html = htmlFormat.Replace("{{head}}", head);
-            html = html.Replace("{{sidebarMenu}}", sidebarMenu);
-            html = html.Replace("{{content-header}}", contentHeader);
-            html = html.Replace("{{Footer}}", this.Footer());
-
-            string tobHeader = File.ReadAllText(Path.Combine(this.HostingEnvironment.WebRootPath, $@"html\topHeader.html"));
-            html = html.Replace("{{tobHeader}}", tobHeader);
-
-            return html + $"<script>{this.RenderJavaScript()}</script>";
-        }
-
-
-        protected virtual string ContentHeader()
-        {
-            ContentHeader contentHeader = new ContentHeader();
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
-            return contentHeader.Render();
-        }
-
-        private string Footer()
-        {
-            return $"<div class=\"row-fluid\">" +
-                   $"<div id = \"footer\" class=\"span12\"> 2019 &copy;https://github.com/188867052" +
-                   $"<a href=\"http://www.taobao.com/\" target=\"_blank\"> My Blog</a>" +
-                   $"</div>" +
-                   $"</div>";
-        }
-
-        public string Pager()
-        {
-            return $"<ul class=\"pagination pagination-md\">" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">{LeftText}</a></li>" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">1</a></li>" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">2</a></li>" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">3</a></li>" +
-                   $"<li class=\"page-item\"><a class=\"page-link\" href=\"#\">{RightText}</a></li>" +
-                   $"</ul>";
-        }
-
-        private string RenderJavaScript()
-        {
-            return this.CreateViewInstanceConstructions().Aggregate<ViewInstanceConstruction, string>(default, (current, instance) => current + instance.ViewInstance().Render());
-        }
-
-        protected virtual IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
-        {
-            IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>
-            {
-                new IndexViewInstance()
+                "/css/bootstrap.min.css",
+                "/css/bootstrap-responsive.min.css",
+                "/css/bootstrap-datetimepicker.css",
+                "/css/core.css",
             };
-            return constructions;
+            list.AddRange(this.Css());
+
+            return list;
         }
     }
 }

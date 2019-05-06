@@ -9,8 +9,8 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         /// <summary>
         /// Initializes a new instance of the <see cref="UserRowContextMenu"/> class.
         /// </summary>
-        public UserRowContextMenu(User model)
-            : base(model)
+        /// <param name="model">A model.</param>
+        public UserRowContextMenu(User model) : base(model)
         {
         }
 

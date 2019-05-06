@@ -17,8 +17,8 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuIndex"/> class.
         /// </summary>
-        /// <param name="hostingEnvironment"></param>
-        /// <param name="response"></param>
+        /// <param name="hostingEnvironment">A hostingEnvironment.</param>
+        /// <param name="response">The response.</param>
         public MenuIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
             this.response = response;
@@ -42,14 +42,6 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             };
         }
 
-        protected override IList<string> JavaScript()
-        {
-            return new List<string>
-            {
-               "/js/menu/index.js",
-            };
-        }
-
         public override string Render()
         {
             MenuViewConfiguration configuration = new MenuViewConfiguration(this.response);
@@ -62,6 +54,14 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             html = html.Replace("{{button-group}}", filter.GenerateButton());
             html = html.Replace("{{Pager}}", this.Pager());
             return html;
+        }
+
+        protected override IList<string> JavaScript()
+        {
+            return new List<string>
+            {
+                "/js/menu/index.js",
+            };
         }
 
         protected override string ContentHeader()

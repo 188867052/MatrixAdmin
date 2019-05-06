@@ -11,7 +11,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Interface
     {
         public Interface(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-
         }
 
         protected override string FileName

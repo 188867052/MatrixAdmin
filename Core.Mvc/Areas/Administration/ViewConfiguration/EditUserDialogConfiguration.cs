@@ -11,16 +11,15 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
     public class EditUserDialogConfiguration : DialogConfiguration<UserEditPostModel, User>
     {
-        public static Identifier Identifier { get; } = new Identifier();
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EditUserDialogConfiguration"/> class.
-        /// 构造函数
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="user">The user.</param>
         public EditUserDialogConfiguration(User user) : base(user, Identifier)
         {
         }
+
+        public new static Identifier Identifier { get; } = new Identifier();
 
         public override string Title => "编辑用户";
 

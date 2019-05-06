@@ -2,7 +2,6 @@
 using Core.Extension;
 using Core.Model;
 using Core.Mvc.Areas.Log.SearchFilterConfigurations;
-using Core.Mvc.Areas.Redirect;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Resource.Areas.Log.ViewConfiguration;
@@ -13,22 +12,12 @@ using Microsoft.AspNetCore.Hosting;
 namespace Core.Mvc.Areas.Log.ViewConfiguration
 {
     public class LogIndex : SearchGridPage
-    { 
+    {
         private readonly ResponseModel response;
 
         public LogIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
             this.response = response;
-        }
-
-        public override IList<string> Css()
-        {
-            return new List<string>
-            {
-                "/css/matrix-style.css",
-                "/css/matrix-media.css",
-                "/font-awesome/css/font-awesome.css"
-            };
         }
 
         protected override string FileName
@@ -39,11 +28,13 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
             }
         }
 
-        protected override IList<string> JavaScript()
+        public override IList<string> Css()
         {
             return new List<string>
             {
-                "/js/log/index.js",
+                "/css/matrix-style.css",
+                "/css/matrix-media.css",
+                "/font-awesome/css/font-awesome.css"
             };
         }
 
@@ -58,6 +49,14 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
             html = html.Replace("{{Pager}}", this.Pager());
 
             return html;
+        }
+
+        protected override IList<string> JavaScript()
+        {
+            return new List<string>
+            {
+                "/js/log/index.js",
+            };
         }
 
         protected override string ContentHeader()

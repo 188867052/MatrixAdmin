@@ -14,7 +14,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button
     {
         public Button(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-
         }
 
         protected override string FileName
@@ -23,6 +22,20 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button
             {
                 return "buttons";
             }
+        }
+
+        public override string Render()
+        {
+            var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Index));
+            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Icon>>(url);
+            List<Icon> icons = (List<Icon>)a.Result.Data;
+            string iconHtml = default;
+            foreach (var icon in icons)
+            {
+                iconHtml += $"<li><i class=\"{icon.Code}\"></i> {icon.Code}</li>";
+            }
+
+            return base.Render().Replace("{{icon-png}}", iconHtml);
         }
 
         public override IList<string> Css()
@@ -49,19 +62,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button
             ContentHeader contentHeader = new ContentHeader("Buttons & Icons");
             contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
-        }
-
-        public override string Render()
-        {
-            var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Index));
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Icon>>(url);
-            List<Icon> icons = (List<Icon>)a.Result.Data;
-            string iconHtml = default;
-            foreach (var icon in icons)
-            {
-                iconHtml += $"<li><i class=\"{icon.Code}\"></i> {icon.Code}</li>";
-            }
-            return base.Render().Replace("{{icon-png}}", iconHtml);
         }
     }
 }

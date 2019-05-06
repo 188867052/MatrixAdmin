@@ -16,17 +16,16 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserIndex"/> class.
-        /// 构造函数
         /// </summary>
-        /// <param name="hostingEnvironment"></param>
-        /// <param name="response"></param>
+        /// <param name="hostingEnvironment">The hostingEnvironment.</param>
+        /// <param name="response">The response.</param>
         public UserIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
             this.response = response;
         }
 
         /// <summary>
-        /// File name.
+        /// Gets file name.
         /// </summary>
         protected override string FileName
         {
@@ -46,31 +45,31 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             };
         }
 
-        protected override IList<string> JavaScript()
-        {
-            return new List<string>
-            {
-               "/js/User/user.js",
-            };
-        }
-
         public override string Render()
         {
             UserViewConfiguration configuration = new UserViewConfiguration(this.response);
             string table = configuration.GenerateGridColumn();
 
             var html = base.Render().Replace("{{Table}}", table);
-            UserSearchGridFilterConfiguration filter = new UserSearchGridFilterConfiguration();
+            UserSearchFilterConfiguration filter = new UserSearchFilterConfiguration();
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
             html = html.Replace("{{button-group}}", filter.GenerateButton());
             html = html.Replace("{{Pager}}", this.Pager());
             return html;
         }
 
+        protected override IList<string> JavaScript()
+        {
+            return new List<string>
+            {
+                "/js/User/user.js",
+            };
+        }
+
         /// <summary>
-        /// 
+        /// Content header.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The string.</returns>
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("用户管理");
@@ -80,9 +79,9 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         }
 
         /// <summary>
-        /// 
+        /// Create view instance constructions.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The string.</returns>
         protected override IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
         {
             IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>

@@ -8,9 +8,15 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Index
     {
         public Index2(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-
         }
 
+        protected override string FileName
+        {
+            get
+            {
+                return "Index2";
+            }
+        }
 
         public override IList<string> Css()
         {
@@ -21,14 +27,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Index
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
             };
-        }
-
-        protected override string FileName
-        {
-            get
-            {
-                return "Index2";
-            }
         }
 
         protected override IList<string> JavaScript()

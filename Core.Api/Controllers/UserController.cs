@@ -198,7 +198,7 @@ namespace Core.Api.Controllers
         /// <summary>
         /// 保存用户-角色的关系映射数据
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="model">The model.</param>
         /// <returns></returns>
         [HttpPost]
         public IActionResult SaveRoles(SaveUserRolesViewModel model)

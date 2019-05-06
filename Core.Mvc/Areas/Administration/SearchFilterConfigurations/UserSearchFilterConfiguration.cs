@@ -9,7 +9,7 @@ using Core.Web.SearchFilterConfiguration;
 
 namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 {
-    public class UserSearchGridFilterConfiguration : SearchFilterConfiguration<UserPostModel>
+    public class UserSearchFilterConfiguration : SearchFilterConfiguration<UserPostModel>
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {

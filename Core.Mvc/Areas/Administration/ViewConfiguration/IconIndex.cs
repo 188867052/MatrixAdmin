@@ -17,11 +17,20 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         /// <summary>
         /// Initializes a new instance of the <see cref="IconIndex"/> class.
         /// </summary>
-        /// <param name="hostingEnvironment"></param>
-        /// <param name="response"></param>
+        /// <param name="hostingEnvironment">A hostingEnvironment.</param>
+        /// <param name="response">The response.</param>
         public IconIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
             this.response = response;
+        }
+
+        /// <inheritdoc/>
+        protected override string FileName
+        {
+            get
+            {
+                return "Manage";
+            }
         }
 
         /// <inheritdoc/>
@@ -35,25 +44,6 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             };
         }
 
-        /// <inheritdoc/>
-        protected override string FileName
-        {
-            get
-            {
-                return "Manage";
-            }
-        }
-
-        /// <inheritdoc/>
-        protected override IList<string> JavaScript()
-        {
-            return new List<string>
-            {
-                "/js/icon/index.js",
-            };
-        }
-
-        /// <inheritdoc/>
         public override string Render()
         {
             IconGridConfiguration configuration = new IconGridConfiguration(this.response);
@@ -66,6 +56,15 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             html = html.Replace("{{Pager}}", this.Pager());
 
             return html;
+        }
+
+        /// <inheritdoc/>
+        protected override IList<string> JavaScript()
+        {
+            return new List<string>
+            {
+                "/js/icon/index.js",
+            };
         }
 
         /// <inheritdoc/>

@@ -9,9 +9,15 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Index
     {
         public Index(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-
         }
 
+        protected override string FileName
+        {
+            get
+            {
+                return "index";
+            }
+        }
 
         public override IList<string> Css()
         {
@@ -23,14 +29,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Index
                 "/font-awesome/css/font-awesome.css",
                 "/css/jquery.gritter.css",
             };
-        }
-
-        protected override string FileName
-        {
-            get
-            {
-                return "index";
-            }
         }
 
         protected override IList<string> JavaScript()

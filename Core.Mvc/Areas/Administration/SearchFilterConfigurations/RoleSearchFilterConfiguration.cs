@@ -7,7 +7,7 @@ using Core.Web.SearchFilterConfiguration;
 
 namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 {
-    public class RoleSearchGridFilterConfiguration : SearchFilterConfiguration<RolePostModel>
+    public class RoleSearchFilterConfiguration : SearchFilterConfiguration<RolePostModel>
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {

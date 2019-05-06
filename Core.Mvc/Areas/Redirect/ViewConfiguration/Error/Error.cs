@@ -13,6 +13,24 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Error
             this.errorNumber = errorNumber;
         }
 
+        protected override string FileName
+        {
+            get
+            {
+                return "Error";
+            }
+        }
+
+        /// <summary>
+        /// 渲染.
+        /// </summary>
+        /// <returns>The string.</returns>
+        public override string Render()
+        {
+            string html = base.Render().Replace("{{number}}", this.errorNumber.ToString());
+            return html;
+        }
+
         public override IList<string> Css()
         {
             return new List<string>
@@ -23,28 +41,9 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Error
             };
         }
 
-
-        protected override string FileName
-        {
-            get
-            {
-                return "Error";
-            }
-        }
-
         protected override IList<string> JavaScript()
         {
             return new List<string>();
-        }
-
-        /// <summary>
-        /// 渲染
-        /// </summary>
-        /// <returns></returns>
-        public override string Render()
-        {
-            string html = base.Render().Replace("{{number}}", this.errorNumber.ToString());
-            return html;
         }
     }
 }

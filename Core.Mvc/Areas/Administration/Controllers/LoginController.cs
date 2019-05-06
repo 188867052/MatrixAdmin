@@ -13,10 +13,8 @@ namespace Core.Mvc.Areas.Administration.Controllers
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginController"/> class.
-        /// 构造函数
         /// </summary>
-        /// <param name="hostingEnvironment"></param>
-
+        /// <param name="hostingEnvironment">The hostingEnvironment.</param>
         public LoginController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
         }

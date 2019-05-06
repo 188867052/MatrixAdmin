@@ -13,9 +13,8 @@ namespace Core.Mvc.Areas.Administration.Controllers
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuController"/> class.
-        /// 构造函数
         /// </summary>
-        /// <param name="hostingEnvironment"></param>
+        /// <param name="hostingEnvironment">The hostingEnvironment.</param>
         public MenuController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
         }
@@ -23,12 +22,12 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <summary>
         /// The index page.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A IActionResult.</returns>
         public IActionResult Index()
         {
             var url = new Url(typeof(Api.Controllers.MenuController), nameof(Api.Controllers.MenuController.Index));
-            var  a = AsyncRequest.GetAsync<IList<Menu>>(url).Result;
-            MenuIndex index = new MenuIndex(this.HostingEnvironment, a);
+            var response = AsyncRequest.GetAsync<IList<Menu>>(url).Result;
+            MenuIndex index = new MenuIndex(this.HostingEnvironment, response);
 
             return this.ViewConfiguration(index);
         }
@@ -36,8 +35,8 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <summary>
         /// Grid state change.
         /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
+        /// <param name="model">A model.</param>
+        /// <returns>A IActionResult.</returns>
         [HttpPost]
         public IActionResult GridStateChange(MenuPostModel model)
         {
