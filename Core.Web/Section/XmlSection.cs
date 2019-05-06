@@ -24,7 +24,7 @@ namespace Core.Web.Section
             Dictionary<Attribute, string> dictionary = new Dictionary<Attribute, string>
             {
                 { Attribute.v_html, this.Id },
-                { Attribute.id, this.Id}
+                { Attribute.id, this.Id }
             };
             Node childNode = new Node(TagName.code, dictionary, $"{{{this.Id}}}");
             Node node = new Node(TagName.pre);

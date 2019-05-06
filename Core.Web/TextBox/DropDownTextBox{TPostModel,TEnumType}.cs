@@ -38,7 +38,7 @@ namespace Core.Web.TextBox
             this._keyValuePair.Add(new KeyValuePair<int, string>(key, value));
         }
 
-        private string InputName = "InputName";
+        private string inputName = "InputName";
         private string labelText;
 
         public string Render(TEnumType model)
@@ -49,7 +49,7 @@ namespace Core.Web.TextBox
             return
                 $"<div class=\"form-group\">" +
                 $"<label>{this.labelText}</label>" +
-                $"<select class=\"form-control\" name=\"{this.InputName}\">" +
+                $"<select class=\"form-control\" name=\"{this.inputName}\">" +
                 $"{options}" +
                 $"</select>" +
                 $"</div>";

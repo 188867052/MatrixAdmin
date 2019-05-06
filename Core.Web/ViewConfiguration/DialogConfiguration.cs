@@ -25,20 +25,6 @@ namespace Core.Web.ViewConfiguration
 
         public Identifier Identifier { get; }
 
-        public virtual string Render(T model)
-        {
-            string html = System.IO.File.ReadAllText("C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\wwwroot\\html\\dialog.html");
-            html = html.Replace("{{id}}", this.Identifier.Value);
-            html = html.Replace("{{modal-title}}", this.Title);
-            html = html.Replace("{{modal-body}}", this.Body);
-            html = html.Replace("{{modal-footer}}", this.Buttons);
-            return html;
-        }
-
-        protected abstract void CreateButtons(IList<StandardButton> buttons);
-
-        protected abstract void CreateBody(IList<ITextRender<TPostModel, T>> textBoxes);
-
         private string Buttons
         {
             get
@@ -58,5 +44,19 @@ namespace Core.Web.ViewConfiguration
                 return textBoxes.Aggregate<ITextRender<TPostModel, T>, string>(default, (current, item) => current + item.Render(this.model));
             }
         }
+
+        public virtual string Render(T model)
+        {
+            string html = System.IO.File.ReadAllText("C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\wwwroot\\html\\dialog.html");
+            html = html.Replace("{{id}}", this.Identifier.Value);
+            html = html.Replace("{{modal-title}}", this.Title);
+            html = html.Replace("{{modal-body}}", this.Body);
+            html = html.Replace("{{modal-footer}}", this.Buttons);
+            return html;
+        }
+
+        protected abstract void CreateButtons(IList<StandardButton> buttons);
+
+        protected abstract void CreateBody(IList<ITextRender<TPostModel, T>> textBoxes);
     }
 }
