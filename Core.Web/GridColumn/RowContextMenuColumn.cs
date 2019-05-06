@@ -4,11 +4,11 @@ using Core.Extension;
 
 namespace Core.Web.GridColumn
 {
-    public class ContextMenuColumn<T> : BaseGridColumn<T>
+    public class RowContextMenuColumn<T> : BaseGridColumn<T>
     {
         private readonly Expression<Func<T, string>> expression;
 
-        public ContextMenuColumn(Expression<Func<T, string>> expression, string thead, Url url) : base(thead)
+        public RowContextMenuColumn(Expression<Func<T, string>> expression, string thead, Url url) : base(thead)
         {
             this.expression = expression;
             this.Url = url;

@@ -1,6 +1,4 @@
 ﻿using System;
-using Core.Web.JavaScript;
-using Core.Web.TextBox;
 
 namespace Core.Web
 {
@@ -25,8 +23,10 @@ namespace Core.Web
             {
                 case JavaScriptEventEnum.Click:
                     return "click";
+                case JavaScriptEventEnum.Blur:
+                    return "blur";
                 default:
-                    return @event.ToString();
+                    throw new Exception("error type.");
             }
         }
     }
