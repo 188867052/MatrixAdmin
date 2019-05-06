@@ -32,7 +32,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             dropDown.AddOption((int)UserStatusEnum.All, "所有");
             dropDown.AddOption((int)UserStatusEnum.Forbidden, "禁止");
             textBoxes.Add(dropDown);
-            textBoxes.Add(new LabeledTextBox<UserEditPostModel, User>("密码", o => o.Password, o => o.Password, TextBoxTypeEnum.password));
+            textBoxes.Add(new LabeledTextBox<UserEditPostModel, User>("密码", o => o.Password, o => o.Password, TextBoxTypeEnum.Password));
         }
 
         protected override void CreateButtons(IList<StandardButton> buttons)

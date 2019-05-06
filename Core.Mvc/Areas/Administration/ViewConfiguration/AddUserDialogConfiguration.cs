@@ -25,7 +25,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         {
             textBoxes.Add(new LabeledTextBox<UserCreatePostModel, User>("登录名", o => o.LoginName));
             textBoxes.Add(new LabeledTextBox<UserCreatePostModel, User>("显示名", o => o.DisplayName));
-            textBoxes.Add(new LabeledTextBox<UserCreatePostModel, User>("密码", o => o.Password, null, TextBoxTypeEnum.password));
+            textBoxes.Add(new LabeledTextBox<UserCreatePostModel, User>("密码", o => o.Password, null, TextBoxTypeEnum.Password));
         }
 
         protected override void CreateButtons(IList<StandardButton> buttons)

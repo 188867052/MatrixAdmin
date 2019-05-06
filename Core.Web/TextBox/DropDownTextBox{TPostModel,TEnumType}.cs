@@ -14,6 +14,8 @@ namespace Core.Web.TextBox
     {
         private readonly IList<KeyValuePair<int, string>> _keyValuePair;
         private readonly bool _isContainsEmpty;
+        private string inputName = "InputName";
+        private string labelText;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DropDownTextBox{TPostModel, TEnumType}"/> class.
@@ -24,7 +26,6 @@ namespace Core.Web.TextBox
         {
             this._isContainsEmpty = isContainsEmpty;
             this.labelText = labelText;
-
             this._keyValuePair = new List<KeyValuePair<int, string>>();
         }
 
@@ -37,9 +38,6 @@ namespace Core.Web.TextBox
         {
             this._keyValuePair.Add(new KeyValuePair<int, string>(key, value));
         }
-
-        private string inputName = "InputName";
-        private string labelText;
 
         public string Render(TEnumType model)
         {

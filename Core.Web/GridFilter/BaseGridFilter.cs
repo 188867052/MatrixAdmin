@@ -1,5 +1,4 @@
-﻿using Core.Web.Html;
-using Core.Web.Identifiers;
+﻿using Core.Web.Identifiers;
 using Core.Web.TextBox;
 
 namespace Core.Web.GridFilter
@@ -13,7 +12,7 @@ namespace Core.Web.GridFilter
         {
             this.LabelText = labelText;
             this.InputName = inputName;
-            this.type = type.ToString();
+            this.type = EnumMappings.ToString(type);
         }
 
         protected string InputName { get; set; }

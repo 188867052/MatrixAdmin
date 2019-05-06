@@ -8,18 +8,19 @@ namespace Core.Web.ViewConfiguration
 {
     public abstract class GridConfiguration<T>
     {
+        private readonly List<T> _entityList;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GridConfiguration{T}"/> class.
         /// </summary>
+        /// <param name="model">The model.</param>
         protected GridConfiguration(ResponseModel model)
         {
-            this.EntityList = (List<T>)model.Data;
+            this._entityList = (List<T>)model.Data;
             this.Count = model.TotalCount;
             this.PageSize = model.PageSize;
             this.CurrentPage = model.PageIndex;
         }
-
-        private List<T> EntityList { get; }
 
         public int CurrentPage { get; set; }
 
@@ -40,10 +41,10 @@ namespace Core.Web.ViewConfiguration
             }
 
             StringBuilder tbody = new StringBuilder();
-            foreach (var entity in this.EntityList)
+            foreach (var entity in this._entityList)
             {
                 StringBuilder tr = new StringBuilder();
-                int row = (this.CurrentPage - 1) * this.PageSize + this.EntityList.IndexOf(entity) + 1;
+                int row = (this.CurrentPage - 1) * this.PageSize + this._entityList.IndexOf(entity) + 1;
                 tr.Append($"<td>{row}</td>");
                 foreach (var item in gridColumns)
                 {

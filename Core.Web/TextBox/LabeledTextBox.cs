@@ -18,7 +18,7 @@ namespace Core.Web.TextBox
             this._expression = expression;
             this._modelExpression = modelExpression;
             this._label = label;
-            this.type = type.ToString();
+            this.type = EnumMappings.ToString(type);
         }
 
         public string Render(TModel entity)

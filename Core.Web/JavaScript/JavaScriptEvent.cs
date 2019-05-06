@@ -28,11 +28,11 @@ namespace Core.Web.JavaScript
             {
                 if (this._id != default)
                 {
-                    @event = $"$(\"#{this._id.Value}\").on('{this._event.EventString()}',function(){{{this._delegate}();}});";
+                    @event = $"$(\"#{this._id.Value}\").on('{EnumMappings.ToString(this._event)}',function(){{{this._delegate}();}});";
                 }
                 else if (this._class != default)
                 {
-                    @event = $"$(\".{this._class}\").on('{this._event.EventString()}',function(){{{this._delegate}();}});";
+                    @event = $"$(\".{this._class}\").on('{EnumMappings.ToString(this._event)}',function(){{{this._delegate}();}});";
                 }
                 else
                 {

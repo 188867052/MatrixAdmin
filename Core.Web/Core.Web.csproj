@@ -39,4 +39,8 @@
     <ProjectReference Include="..\Core.Models\Core.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Section\" />
+  </ItemGroup>
+
 </Project>
