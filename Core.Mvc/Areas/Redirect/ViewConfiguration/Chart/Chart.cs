@@ -49,7 +49,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Chart
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("Charts");
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
         }
     }

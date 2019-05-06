@@ -13,8 +13,8 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 {
     public abstract class SearchGridPage : IRender
     {
-        public static string LeftText = "&laquo;";
-        public static string RightText = "&raquo;";
+        private static readonly string LeftText = "&laquo;";
+        private static readonly string RightText = "&raquo;";
 
         protected readonly IHostingEnvironment HostingEnvironment;
 
@@ -24,9 +24,9 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         }
 
         /// <summary>
-        /// Title
+        /// Gets title.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A title.</returns>
         protected virtual string Title
         {
             get
@@ -36,15 +36,15 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         }
 
         /// <summary>
-        /// Html文件
+        /// Gets html 文件.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A file name.</returns>
         protected abstract string FileName { get; }
 
         /// <summary>
-        /// Css文件
+        /// Css文件.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>css list.</returns>
         public abstract IList<string> Css();
 
         private IList<string> CssResource()
@@ -71,7 +71,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
                 "/js/bootstrap.min.js",
                 "/js/bootstrap-datetimepicker.js",
                 "/js/framework.js",
-                "/js/core.js"
+                "/js/core.js",
             };
             list.AddRange(this.JavaScript());
 
@@ -79,7 +79,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         }
 
         /// <summary>
-        /// JavaScript文件
+        /// JavaScript文件.
         /// </summary>
         /// <returns></returns>
         protected abstract IList<string> JavaScript();

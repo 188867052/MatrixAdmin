@@ -11,7 +11,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
     public class RoleController : StandardController
     {
         /// <summary>
-        /// 构造函数
+        /// 构造函数.
         /// </summary>
         /// <param name="hostingEnvironment"></param>
         public RoleController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)

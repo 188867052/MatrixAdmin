@@ -45,7 +45,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Form
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("Form with Wizard");
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
         }
     }

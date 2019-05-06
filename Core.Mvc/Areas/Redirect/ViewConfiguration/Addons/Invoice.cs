@@ -43,7 +43,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Addons
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("Invoice");
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
         }
     }

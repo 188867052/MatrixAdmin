@@ -27,13 +27,13 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Form
         {
             return new List<string>
             {
-               "/css/colorpicker.css" ,
-               "/css/datepicker.css" ,
-               "/css/uniform.css" ,
-               "/css/matrix-style.css" ,
+               "/css/colorpicker.css",
+               "/css/datepicker.css",
+               "/css/uniform.css",
+               "/css/matrix-style.css",
                "/css/matrix-media.css",
-               "/css/bootstrap-wysihtml5.css" ,
-               "/font-awesome/css/font-awesome.css" ,
+               "/css/bootstrap-wysihtml5.css",
+               "/font-awesome/css/font-awesome.css"
             };
         }
 
@@ -56,7 +56,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Form
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("Basic Form");
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController),nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
         }
 
