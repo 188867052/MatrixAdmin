@@ -9,7 +9,7 @@ namespace Core.Web.ViewConfiguration
     public abstract class GridConfiguration<T>
     {
         /// <summary>
-        /// 构造函数
+        /// Initializes a new instance of the <see cref="GridConfiguration{T}"/> class.
         /// </summary>
         protected GridConfiguration(ResponseModel model)
         {

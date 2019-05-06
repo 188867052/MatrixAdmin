@@ -8,7 +8,6 @@
         input,
         div,
         @class,
-        datalist,
         p,
         a,
         code,

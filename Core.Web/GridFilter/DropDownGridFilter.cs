@@ -33,7 +33,6 @@ namespace Core.Web.GridFilter
             this._keyValuePair.Add(new KeyValuePair<int, string>((int)Enum.Parse(key.GetType(), key.ToString()), value));
         }
 
-
         public override string Render()
         {
             string options = this._isContainsEmpty ? "<option></option>" : default;

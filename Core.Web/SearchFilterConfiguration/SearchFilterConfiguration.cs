@@ -8,6 +8,10 @@ namespace Core.Web.SearchFilterConfiguration
 {
     public abstract class SearchFilterConfiguration<T>
     {
+        /// <summary>
+        /// Generate search filter.
+        /// </summary>
+        /// <returns>A string.</returns>
         public string GenerateSearchFilter()
         {
             var searchFilter = new List<BaseGridFilter>();
@@ -21,15 +25,27 @@ namespace Core.Web.SearchFilterConfiguration
             return filterText.ToString();
         }
 
-        protected abstract void CreateSearchFilter(IList<BaseGridFilter> searchFilter);
-
-        protected abstract void CreateButton(IList<StandardButton> buttons);
-
+        /// <summary>
+        /// Generate button.
+        /// </summary>
+        /// <returns>A string.</returns>
         public string GenerateButton()
         {
             IList<StandardButton> buttons = new List<StandardButton>();
             this.CreateButton(buttons);
             return buttons.Aggregate<StandardButton, string>(default, (current, button) => current + button.Render());
         }
+
+        /// <summary>
+        /// Create search filter.
+        /// </summary>
+        /// <param name="searchFilter">The searchFilter.</param>
+        protected abstract void CreateSearchFilter(IList<BaseGridFilter> searchFilter);
+
+        /// <summary>
+        /// Create button.
+        /// </summary>
+        /// <param name="buttons">The buttons.</param>
+        protected abstract void CreateButton(IList<StandardButton> buttons);
     }
 }
