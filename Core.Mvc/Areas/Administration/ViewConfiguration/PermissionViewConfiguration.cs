@@ -1,15 +1,16 @@
-﻿using Core.Model;
+﻿using System.Collections.Generic;
+using Core.Model;
 using Core.Model.Administration.Permission;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
-using System.Collections.Generic;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
     public class PermissionGridConfiguration : GridConfiguration<Permission>
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="PermissionGridConfiguration"/> class.
         /// 构造函数
         /// </summary>
         /// <param name="entity"></param>

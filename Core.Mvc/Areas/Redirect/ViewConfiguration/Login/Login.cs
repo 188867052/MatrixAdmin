@@ -8,7 +8,14 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Login
     {
         public Login(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
+        }
 
+        protected override string FileName
+        {
+            get
+            {
+                return "login";
+            }
         }
 
         public override IList<string> Css()
@@ -18,14 +25,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Login
                 "/font-awesome/css/font-awesome.css",
                 "/css/matrix-login.css",
             };
-        }
-
-        protected override string FileName
-        {
-            get
-            {
-                return "login";
-            }
         }
 
         protected override IList<string> JavaScript()

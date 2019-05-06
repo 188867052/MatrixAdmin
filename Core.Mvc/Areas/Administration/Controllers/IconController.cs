@@ -11,6 +11,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
     public class IconController : StandardController
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="IconController"/> class.
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>

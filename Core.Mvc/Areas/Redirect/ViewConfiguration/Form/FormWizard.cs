@@ -11,7 +11,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Form
     {
         public FormWizard(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-
         }
 
         protected override string FileName
@@ -42,6 +41,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Form
                "/js/matrix.wizard.js",
             };
         }
+
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("Form with Wizard");

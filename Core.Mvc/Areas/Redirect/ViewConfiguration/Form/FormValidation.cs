@@ -11,7 +11,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Form
     {
         public FormValidation(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-
         }
 
         protected override string FileName
@@ -43,6 +42,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Form
                "/js/jquery.validate.js"
             };
         }
+
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("Form with Validation");

@@ -12,6 +12,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
     public class PermissionController : StandardController
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="PermissionController"/> class.
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
@@ -27,7 +28,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             var url = new Url(typeof(Api.Controllers.PermissionController), nameof(Api.Controllers.PermissionController.Index));
             var model = AsyncRequest.GetAsync<IList<Permission>>(url).Result;
-            PermissionIndex table = new PermissionIndex(HostingEnvironment, model);
+            PermissionIndex table = new PermissionIndex(this.HostingEnvironment, model);
 
             return this.ViewConfiguration(table);
         }

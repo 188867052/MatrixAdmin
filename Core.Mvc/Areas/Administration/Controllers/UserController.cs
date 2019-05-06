@@ -1,11 +1,11 @@
-﻿using Core.Extension;
+﻿using System.Collections.Generic;
+using System.Text;
+using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.ViewConfiguration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Core.Mvc.Areas.Administration.Controllers
 {
@@ -13,6 +13,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
     public class UserController : StandardController
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="UserController"/> class.
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
@@ -29,7 +30,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Index));
             var model = AsyncRequest.GetAsync<IList<User>>(url).Result;
-            UserIndex table = new UserIndex(HostingEnvironment, model);
+            UserIndex table = new UserIndex(this.HostingEnvironment, model);
 
             return this.ViewConfiguration(table);
         }
@@ -85,7 +86,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Create));
             var model2 = AsyncRequest.SubmitAsync(url, model).Result;
 
-            return Submit(model2);
+            return this.Submit(model2);
         }
 
         /// <summary>
@@ -113,7 +114,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Delete));
             ResponseModel model = AsyncRequest.DeleteAsync(url.Render() + "?ids=" + id).Result;
 
-            return Submit(model);
+            return this.Submit(model);
         }
 
 
@@ -127,7 +128,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Recover));
             ResponseModel model = AsyncRequest.DeleteAsync(url.Render() + "?ids=" + id).Result;
 
-            return Submit(model);
+            return this.Submit(model);
         }
     }
 }

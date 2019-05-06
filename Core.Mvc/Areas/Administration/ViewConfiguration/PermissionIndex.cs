@@ -1,14 +1,13 @@
-﻿using Core.Extension;
+﻿using System.Collections.Generic;
+using Core.Extension;
 using Core.Model;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
+using Core.Mvc.Areas.Redirect.Controllers;
+using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
-using System.Collections.Generic;
-using Core.Mvc.Areas.Redirect;
-using Core.Mvc.Areas.Redirect.Controllers;
-using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
@@ -17,7 +16,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         private readonly ResponseModel response;
 
         /// <summary>
-        /// 构造函数
+        /// Initializes a new instance of the <see cref="PermissionIndex"/> class.
         /// </summary>
         /// <param name="hostingEnvironment"></param>
         /// <param name="response"></param>
@@ -25,7 +24,6 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         {
             this.response = response;
         }
-
 
         public override IList<string> Css()
         {
@@ -56,7 +54,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 
         public override string Render()
         {
-            PermissionGridConfiguration configuration = new PermissionGridConfiguration(response);
+            PermissionGridConfiguration configuration = new PermissionGridConfiguration(this.response);
             string table = configuration.GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 

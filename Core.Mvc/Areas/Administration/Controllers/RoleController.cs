@@ -11,6 +11,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
     public class RoleController : StandardController
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="RoleController"/> class.
         /// 构造函数.
         /// </summary>
         /// <param name="hostingEnvironment"></param>
@@ -26,7 +27,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Index));
             var model = AsyncRequest.GetAsync<IList<Role>>(url).Result;
-            RoleIndex table = new RoleIndex(HostingEnvironment, model);
+            RoleIndex table = new RoleIndex(this.HostingEnvironment, model);
 
             return this.ViewConfiguration(table);
         }

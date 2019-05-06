@@ -1,14 +1,14 @@
-﻿using Core.Extension;
+﻿using System.Collections.Generic;
+using Core.Extension;
 using Core.Model;
 using Core.Mvc.Areas.Log.SearchFilterConfigurations;
+using Core.Mvc.Areas.Redirect;
+using Core.Mvc.Areas.Redirect.Controllers;
+using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
-using System.Collections.Generic;
-using Core.Mvc.Areas.Redirect;
-using Core.Mvc.Areas.Redirect.Controllers;
-using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 
 namespace Core.Mvc.Areas.Log.ViewConfiguration
 {
@@ -49,7 +49,7 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
 
         public override string Render()
         {
-            string table = new LogGridConfiguration(response).GenerateGridColumn();
+            string table = new LogGridConfiguration(this.response).GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 
             LogSearchFilterConfiguration filter = new LogSearchFilterConfiguration();

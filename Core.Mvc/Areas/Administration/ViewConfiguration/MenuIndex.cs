@@ -2,7 +2,6 @@
 using Core.Extension;
 using Core.Model;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
-using Core.Mvc.Areas.Redirect;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
@@ -16,13 +15,21 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         private readonly ResponseModel response;
 
         /// <summary>
-        /// 构造函数
+        /// Initializes a new instance of the <see cref="MenuIndex"/> class.
         /// </summary>
         /// <param name="hostingEnvironment"></param>
         /// <param name="response"></param>
         public MenuIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
             this.response = response;
+        }
+
+        protected override string FileName
+        {
+            get
+            {
+                return "Manage";
+            }
         }
 
         public override IList<string> Css()
@@ -33,14 +40,6 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
                 "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
             };
-        }
-
-        protected override string FileName
-        {
-            get
-            {
-                return "Manage";
-            }
         }
 
         protected override IList<string> JavaScript()

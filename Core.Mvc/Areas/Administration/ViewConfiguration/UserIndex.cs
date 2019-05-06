@@ -1,4 +1,5 @@
-﻿using Core.Extension;
+﻿using System.Collections.Generic;
+using Core.Extension;
 using Core.Model;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.Areas.Redirect.Controllers;
@@ -6,7 +7,6 @@ using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 using Microsoft.AspNetCore.Hosting;
-using System.Collections.Generic;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
@@ -15,6 +15,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         private readonly ResponseModel response;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="UserIndex"/> class.
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
@@ -55,7 +56,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 
         public override string Render()
         {
-            UserViewConfiguration configuration = new UserViewConfiguration(response);
+            UserViewConfiguration configuration = new UserViewConfiguration(this.response);
             string table = configuration.GenerateGridColumn();
 
             var html = base.Render().Replace("{{Table}}", table);

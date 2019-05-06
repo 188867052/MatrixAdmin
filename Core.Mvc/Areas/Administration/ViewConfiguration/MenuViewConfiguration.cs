@@ -1,15 +1,16 @@
-﻿using Core.Model;
+﻿using System.Collections.Generic;
+using Core.Model;
 using Core.Model.Administration.Menu;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
-using System.Collections.Generic;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
     public class MenuViewConfiguration : GridConfiguration<Menu>
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="MenuViewConfiguration"/> class.
         /// 构造函数
         /// </summary>
         public MenuViewConfiguration(ResponseModel response) : base(response)

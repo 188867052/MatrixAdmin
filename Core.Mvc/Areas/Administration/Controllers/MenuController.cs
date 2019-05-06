@@ -12,6 +12,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
     public class MenuController : StandardController
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="MenuController"/> class.
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>

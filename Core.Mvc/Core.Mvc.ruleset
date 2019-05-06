@@ -69,7 +69,12 @@
     <Rule Id="CA2242" Action="Warning" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
-    <Rule Id="SA1001" Action="Error" />
+    <Rule Id="SA1101" Action="Error" />
+    <Rule Id="SA1413" Action="None" />
+    <Rule Id="SA1200" Action="None" />
+    <Rule Id="SA1600" Action="None" />
+    <Rule Id="SA1505" Action="None" />
+    <Rule Id="SA1128" Action="None" />
   </Rules>
   <Rules AnalyzerId="Microsoft.AspNetCore.Mvc.Analyzers" RuleNamespace="Microsoft.AspNetCore.Mvc.Analyzers">
     <Rule Id="MVC1000" Action="Warning" />

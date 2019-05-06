@@ -11,7 +11,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Widget
     {
         public Widget(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
         {
-
         }
 
         protected override string FileName
@@ -40,7 +39,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Widget
                "/js/matrix.js",
             };
         }
-
 
         protected override string ContentHeader()
         {

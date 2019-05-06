@@ -1,17 +1,18 @@
-﻿using Core.Model;
+﻿using System.Collections.Generic;
+using Core.Extension;
+using Core.Model;
 using Core.Model.Administration.User;
+using Core.Mvc.Areas.Administration.Controllers;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
-using System.Collections.Generic;
-using Core.Extension;
-using Core.Mvc.Areas.Administration.Controllers;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
     public class UserViewConfiguration : GridConfiguration<User>
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="UserViewConfiguration"/> class.
         /// 构造函数
         /// </summary>
         /// <param name="entity"></param>

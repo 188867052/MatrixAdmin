@@ -14,7 +14,7 @@ namespace Core.Mvc.Areas.Log.Controllers
     public class LogController : StandardController
     {
         /// <summary>
-        /// 构造函数
+        /// Initializes a new instance of the <see cref="LogController"/> class.
         /// </summary>
         /// <param name="hostingEnvironment"></param>
         public LogController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
@@ -29,7 +29,7 @@ namespace Core.Mvc.Areas.Log.Controllers
         {
             var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Index));
             var model = AsyncRequest.GetAsync<IList<Model.Log.Log>>(url).Result;
-            LogIndex table = new LogIndex(HostingEnvironment, model);
+            LogIndex table = new LogIndex(this.HostingEnvironment, model);
 
             return this.ViewConfiguration(table);
         }
@@ -37,7 +37,7 @@ namespace Core.Mvc.Areas.Log.Controllers
         public IActionResult Test()
         {
             File index = new File(this.HostingEnvironment, "a_test");
-            return Content(index.Render(), "text/html", Encoding.UTF8);
+            return this.Content(index.Render(), "text/html", Encoding.UTF8);
         }
 
         /// <summary>

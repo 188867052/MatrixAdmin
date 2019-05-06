@@ -1,11 +1,11 @@
-﻿using Core.Model.Administration.User;
+﻿using System.Collections.Generic;
+using Core.Model.Administration.User;
+using Core.Model.Enums;
 using Core.Web.Button;
+using Core.Web.Html;
 using Core.Web.Identifiers;
 using Core.Web.TextBox;
 using Core.Web.ViewConfiguration;
-using System.Collections.Generic;
-using Core.Model.Enums;
-using Core.Web.Html;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
@@ -14,6 +14,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         public static Identifier Identifier { get; } = new Identifier();
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="EditUserDialogConfiguration"/> class.
         /// 构造函数
         /// </summary>
         /// <param name="user"></param>

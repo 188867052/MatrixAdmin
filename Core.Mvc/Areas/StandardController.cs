@@ -15,7 +15,7 @@ namespace Core.Mvc.Areas
         protected readonly IHostingEnvironment HostingEnvironment;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="StandardController"/> class.
         /// </summary>
         protected StandardController(IHostingEnvironment hostingEnvironment)
         {

@@ -1,15 +1,16 @@
-﻿using Core.Model;
+﻿using System.Collections.Generic;
+using Core.Model;
 using Core.Model.Administration.Role;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
-using System.Collections.Generic;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
     public class RoleViewConfiguration : GridConfiguration<Role>
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="RoleViewConfiguration"/> class.
         /// 构造函数
         /// </summary>
         /// <param name="entity"></param>

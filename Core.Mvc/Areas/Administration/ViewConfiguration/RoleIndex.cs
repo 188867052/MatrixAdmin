@@ -16,6 +16,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         private readonly ResponseModel response;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="RoleIndex"/> class.
         /// 构造函数
         /// </summary>
         /// <param name="hostingEnvironment"></param>
@@ -54,7 +55,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
 
         public override string Render()
         {
-            RoleViewConfiguration configuration = new RoleViewConfiguration(response);
+            RoleViewConfiguration configuration = new RoleViewConfiguration(this.response);
             string table = configuration.GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 

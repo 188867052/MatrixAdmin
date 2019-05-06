@@ -1,8 +1,8 @@
-﻿using Core.Model;
+﻿using System.Collections.Generic;
+using Core.Model;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
-using System.Collections.Generic;
 
 namespace Core.Mvc.Areas.Log.ViewConfiguration
 {

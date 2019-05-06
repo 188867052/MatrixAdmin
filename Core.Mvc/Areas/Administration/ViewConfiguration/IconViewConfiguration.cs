@@ -1,15 +1,16 @@
-﻿using Core.Model;
+﻿using System.Collections.Generic;
+using Core.Model;
 using Core.Model.Administration.Icon;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
-using System.Collections.Generic;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration
 {
     public class IconGridConfiguration : GridConfiguration<Icon>
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="IconGridConfiguration"/> class.
         /// 构造函数
         /// </summary>
         public IconGridConfiguration(ResponseModel response) : base(response)

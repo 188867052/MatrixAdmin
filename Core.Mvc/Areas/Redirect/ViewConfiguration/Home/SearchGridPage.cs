@@ -13,8 +13,8 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 {
     public abstract class SearchGridPage : IRender
     {
-        private static readonly string LeftText = "&laquo;";
-        private static readonly string RightText = "&raquo;";
+        public static readonly string LeftText = "&laquo;";
+        public static readonly string RightText = "&raquo;";
 
         protected readonly IHostingEnvironment HostingEnvironment;
 
@@ -85,9 +85,9 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         protected abstract IList<string> JavaScript();
 
         /// <summary>
-        /// 渲染
+        /// 渲染.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A string.</returns>
         public virtual string Render()
         {
             SidebarNavigation sidebarNavigation = new SidebarNavigation();
@@ -100,10 +100,12 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             {
                 stringBuilder.Append($"<link href=\"{item}\" rel=\"stylesheet\">");
             }
+
             foreach (var item in this.JavaScriptResource())
             {
                 stringBuilder.Append($"<script src=\"{item}\"></script>");
             }
+
             string head = $"<head>{stringBuilder}</head>";
             string html = htmlFormat.Replace("{{head}}", head);
             html = html.Replace("{{sidebarMenu}}", sidebarMenu);
@@ -146,7 +148,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 
         private string RenderJavaScript()
         {
-            return CreateViewInstanceConstructions().Aggregate<ViewInstanceConstruction, string>(default, (current, instance) => current + instance.ViewInstance().Render());
+            return this.CreateViewInstanceConstructions().Aggregate<ViewInstanceConstruction, string>(default, (current, instance) => current + instance.ViewInstance().Render());
         }
 
         protected virtual IList<ViewInstanceConstruction> CreateViewInstanceConstructions()

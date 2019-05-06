@@ -2,7 +2,6 @@
 using Core.Extension;
 using Core.Model;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
-using Core.Mvc.Areas.Redirect;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
@@ -16,7 +15,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
         private readonly ResponseModel response;
 
         /// <summary>
-        /// 构造函数
+        /// Initializes a new instance of the <see cref="IconIndex"/> class.
         /// </summary>
         /// <param name="hostingEnvironment"></param>
         /// <param name="response"></param>
@@ -25,6 +24,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             this.response = response;
         }
 
+        /// <inheritdoc/>
         public override IList<string> Css()
         {
             return new List<string>
@@ -35,6 +35,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             };
         }
 
+        /// <inheritdoc/>
         protected override string FileName
         {
             get
@@ -43,6 +44,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             }
         }
 
+        /// <inheritdoc/>
         protected override IList<string> JavaScript()
         {
             return new List<string>
@@ -51,6 +53,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             };
         }
 
+        /// <inheritdoc/>
         public override string Render()
         {
             IconGridConfiguration configuration = new IconGridConfiguration(this.response);
@@ -65,6 +68,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             return html;
         }
 
+        /// <inheritdoc/>
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("图标管理");
@@ -73,6 +77,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration
             return html;
         }
 
+        /// <inheritdoc/>
         protected override IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
         {
             IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>
