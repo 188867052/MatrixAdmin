@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Core.Extension;
 using Core.Model;
@@ -8,6 +9,7 @@ using Core.Mvc.Areas.Administration.ViewConfiguration.User;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using static System.String;
 
 namespace Core.Mvc.Areas.Administration.Controllers
 {
@@ -159,8 +161,9 @@ namespace Core.Mvc.Areas.Administration.Controllers
             var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Index));
             ResponseModel model = AsyncRequest.GetAsync<IList<Role>>(url.Render()).Result;
             IList<Role> roles = (IList<Role>)model.Data;
+            string options = roles.Aggregate(Empty, (current, role) => current + $"<option value=\"{role.Name}\"></option>");
 
-            return this.Content(JsonConvert.SerializeObject(roles), "text/html", Encoding.UTF8);
+            return this.Content(options, "text/html", Encoding.UTF8);
         }
     }
 }
