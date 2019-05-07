@@ -29,9 +29,14 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
             textBoxes.Add(new LabeledTextBox<UserCreatePostModel, Model.Administration.User.User>("密码", o => o.Password, null, TextBoxTypeEnum.Password));
         }
 
+        protected override void CreateImmute(IList<ITextRender<UserCreatePostModel, Model.Administration.User.User>> textBoxes)
+        {
+        }
+
         protected override void CreateButtons(IList<StandardButton> buttons)
         {
-            buttons.Add(new StandardButton("提交",  "index.submit"));
+            buttons.Add(new StandardButton("提交", "index.submit"));
+            buttons.Add(new StandardButton("取消", "core.cancel"));
         }
     }
 }

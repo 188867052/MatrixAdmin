@@ -19,7 +19,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
             Url searchUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.GridStateChange));
             Url addUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.AddDialog));
             Url editUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.EditDialog));
-            Url saveUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.Save));
+            Url saveUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.SaveEdit));
             Url deleteUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.Delete));
             Url recoverUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.Recover));
             Url rowContextMenuUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.RowContextMenu));

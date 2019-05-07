@@ -54,7 +54,7 @@ namespace Core.Extension.Expression
 
         public static string GetPropertyName<T, TEnumType>(this Expression<Func<T, TEnumType>> expression) where TEnumType : Enum
         {
-            string name = default;
+            string name;
             switch (expression.Body)
             {
                 case UnaryExpression unaryExpression:

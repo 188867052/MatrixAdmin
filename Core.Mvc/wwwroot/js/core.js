@@ -119,9 +119,9 @@
         },
 
         submit: function (url, id, onSuccess) {
-            var data = this.generateFormDataById(id);
+            var dialogId = this.getDialogId();
+            var data = this.generateFormDataById(dialogId);
             $.post(url, data);
-            var dialogId = $(".modal")[0].id;
             $("#" + dialogId).modal("hide");
             onSuccess();
         },
@@ -129,6 +129,11 @@
         cancel: function () {
             var id = $(".modal")[0].id;
             $("#" + id).modal("hide");
+        },
+
+        getDialogId: function () {
+            var id = $(".modal")[0].id;
+            return id;
         }
     };
 })();

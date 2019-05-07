@@ -3,7 +3,6 @@ using System.Text;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
-using Core.Mvc.Areas.Administration.ViewConfiguration;
 using Core.Mvc.Areas.Administration.ViewConfiguration.User;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -82,12 +81,26 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="model">The model.</param>
         /// <returns>The IActionResult.</returns>
         [HttpPost]
-        public IActionResult Save(UserCreatePostModel model)
+        public IActionResult SaveCreate(UserCreatePostModel model)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Create));
-            var model2 = AsyncRequest.SubmitAsync(url, model).Result;
+            var response = AsyncRequest.SubmitAsync(url, model).Result;
 
-            return this.Submit(model2);
+            return this.Submit(response);
+        }
+
+        /// <summary>
+        /// Save.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>The IActionResult.</returns>
+        [HttpPost]
+        public IActionResult SaveEdit(UserEditPostModel model)
+        {
+            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Edit));
+            var response = AsyncRequest.SubmitAsync(url, model).Result;
+
+            return this.Submit(response);
         }
 
         /// <summary>

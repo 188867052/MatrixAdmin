@@ -124,15 +124,8 @@ namespace Core.Api.Controllers
                     return Ok(response);
                 }
                 entity.DisplayName = model.DisplayName;
-                entity.IsEnable = model.IsEnable.Value;
-                entity.IsLocked = model.IsLocked;
-                entity.ModifiedByUserGuid = AuthContextService.CurrentUser.Guid;
-                entity.ModifiedByUserName = AuthContextService.CurrentUser.DisplayName;
-                entity.ModifiedOn = DateTime.Now;
+                entity.LoginName = model.LoginName;
                 entity.Password = model.Password;
-                entity.Status = model.Status;
-                entity.UserType = model.UserType;
-                entity.Description = model.Description;
                 this.DbContext.SaveChanges();
                 response = ResponseModelFactory.CreateInstance;
                 return Ok(response);

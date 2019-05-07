@@ -10,7 +10,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 
         /// </summary>
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// 

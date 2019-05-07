@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
 using Core.Model.Administration.Role;
-using Core.Mvc.Areas.Administration.ViewConfiguration;
 using Core.Mvc.Areas.Administration.ViewConfiguration.Role;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

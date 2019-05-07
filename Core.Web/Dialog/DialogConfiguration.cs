@@ -8,7 +8,6 @@ namespace Core.Web.Dialog
 {
     public abstract class DialogConfiguration<TPostModel, T> : ITextRender<TPostModel, T>
     {
-        private readonly T model;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DialogConfiguration{TPostModel, T}"/> class.
@@ -17,9 +16,11 @@ namespace Core.Web.Dialog
         /// <param name="id">The id.</param>
         protected DialogConfiguration(T model, Identifier id)
         {
-            this.model = model;
+            this.Model = model;
             this.Identifier = id;
         }
+
+        public T Model { get; }
 
         public abstract string Title { get; }
 
@@ -41,7 +42,8 @@ namespace Core.Web.Dialog
             {
                 IList<ITextRender<TPostModel, T>> textBoxes = new List<ITextRender<TPostModel, T>>();
                 this.CreateBody(textBoxes);
-                return textBoxes.Aggregate<ITextRender<TPostModel, T>, string>(default, (current, item) => current + item.Render(this.model));
+                this.CreateImmute(textBoxes);
+                return textBoxes.Aggregate<ITextRender<TPostModel, T>, string>(default, (current, item) => current + item.Render(this.Model));
             }
         }
 
@@ -58,5 +60,7 @@ namespace Core.Web.Dialog
         protected abstract void CreateButtons(IList<StandardButton> buttons);
 
         protected abstract void CreateBody(IList<ITextRender<TPostModel, T>> textBoxes);
+
+        protected abstract void CreateImmute(IList<ITextRender<TPostModel, T>> textBoxes);
     }
 }

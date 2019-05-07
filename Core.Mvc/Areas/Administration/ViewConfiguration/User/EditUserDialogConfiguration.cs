@@ -24,14 +24,20 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 
         public override string Title => "编辑用户";
 
+        protected override void CreateImmute(IList<ITextRender<UserEditPostModel, Model.Administration.User.User>> textBoxes)
+        {
+            textBoxes.Add(new HiddenTextBox<UserEditPostModel, Model.Administration.User.User>(o => o.Id, this.Model.Id));
+        }
+
         protected override void CreateBody(IList<ITextRender<UserEditPostModel, Model.Administration.User.User>> textBoxes)
         {
             textBoxes.Add(new LabeledTextBox<UserEditPostModel, Model.Administration.User.User>("登录名", o => o.LoginName, o => o.LoginName));
             textBoxes.Add(new LabeledTextBox<UserEditPostModel, Model.Administration.User.User>("显示名", o => o.DisplayName, o => o.DisplayName));
 
-            var dropDown = new DropDownTextBox<UserEditPostModel, Model.Administration.User.User>("状态");
-            dropDown.AddOption((int)UserStatusEnum.All, "所有");
-            dropDown.AddOption((int)UserStatusEnum.Forbidden, "禁止");
+            var dropDown = new DropDownTextBox<UserEditPostModel, Model.Administration.User.User>("角色", o => o.UserType, false);
+            dropDown.AddOption((int)UserTypeEnum.GeneralUser, "一般用户");
+            dropDown.AddOption((int)UserTypeEnum.Admin, "管理员");
+            dropDown.AddOption((int)UserTypeEnum.SuperAdministrator, "超级管理员");
             textBoxes.Add(dropDown);
             textBoxes.Add(new LabeledTextBox<UserEditPostModel, Model.Administration.User.User>("密码", o => o.Password, o => o.Password, TextBoxTypeEnum.Password));
         }
@@ -40,7 +46,6 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
         {
             buttons.Add(new StandardButton("提交", "index.submit"));
             buttons.Add(new StandardButton("取消", "core.cancel"));
-            //<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
         }
     }
 }
