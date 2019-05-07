@@ -42,7 +42,7 @@ namespace Core.Web.Dialog
             {
                 IList<ITextRender<TPostModel, T>> textBoxes = new List<ITextRender<TPostModel, T>>();
                 this.CreateBody(textBoxes);
-                this.CreateImmute(textBoxes);
+                this.CreateHiddenValues(textBoxes);
                 return textBoxes.Aggregate<ITextRender<TPostModel, T>, string>(default, (current, item) => current + item.Render(this.Model));
             }
         }
@@ -61,6 +61,6 @@ namespace Core.Web.Dialog
 
         protected abstract void CreateBody(IList<ITextRender<TPostModel, T>> textBoxes);
 
-        protected abstract void CreateImmute(IList<ITextRender<TPostModel, T>> textBoxes);
+        protected abstract void CreateHiddenValues(IList<ITextRender<TPostModel, T>> textBoxes);
     }
 }

@@ -12,6 +12,8 @@ namespace Core.Web.Enums
                     return "text";
                 case TextBoxTypeEnum.Password:
                     return "password";
+                case TextBoxTypeEnum.Hidden:
+                    return "hidden";
                 default:
                     throw new Exception("error type.");
             }

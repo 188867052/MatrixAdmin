@@ -29,7 +29,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
             textBoxes.Add(new LabeledTextBox<UserCreatePostModel, Model.Administration.User.User>("密码", o => o.Password, null, TextBoxTypeEnum.Password));
         }
 
-        protected override void CreateImmute(IList<ITextRender<UserCreatePostModel, Model.Administration.User.User>> textBoxes)
+        protected override void CreateHiddenValues(IList<ITextRender<UserCreatePostModel, Model.Administration.User.User>> textBoxes)
         {
         }
 

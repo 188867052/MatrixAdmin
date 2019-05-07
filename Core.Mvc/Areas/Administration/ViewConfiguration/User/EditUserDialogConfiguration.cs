@@ -24,7 +24,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 
         public override string Title => "编辑用户";
 
-        protected override void CreateImmute(IList<ITextRender<UserEditPostModel, Model.Administration.User.User>> textBoxes)
+        protected override void CreateHiddenValues(IList<ITextRender<UserEditPostModel, Model.Administration.User.User>> textBoxes)
         {
             textBoxes.Add(new HiddenTextBox<UserEditPostModel, Model.Administration.User.User>(o => o.Id, this.Model.Id));
         }

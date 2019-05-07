@@ -5,12 +5,17 @@
         /// <summary>
         /// The text box.
         /// </summary>
-        Text = 0,
+        Text,
 
         /// <summary>
         /// The password text box.
         /// </summary>
-        Password = 1
+        Password,
+
+        /// <summary>
+        /// The hidden text box.
+        /// </summary>
+        Hidden
     }
 
     public enum JavaScriptEventEnum
