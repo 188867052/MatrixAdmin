@@ -1,4 +1,6 @@
 ﻿using System.Net;
+using Core.Extension;
+using Core.Mvc.Areas.Administration.Controllers;
 using Core.Web.JavaScript;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
@@ -17,6 +19,9 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         {
             javaScriptInitialize.AddStringInstance("leftText", WebUtility.HtmlDecode(SearchGridPage.LeftText));
             javaScriptInitialize.AddStringInstance("rightText", WebUtility.HtmlDecode(SearchGridPage.RightText));
+
+            var url = new Url(nameof(Administration), typeof(UserController), nameof(UserController.GetRoleDataList));
+            javaScriptInitialize.AddUrlInstance("getRoleDataList", url);
         }
     }
 }

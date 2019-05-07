@@ -2,10 +2,12 @@
 using System.Text;
 using Core.Extension;
 using Core.Model;
+using Core.Model.Administration.Role;
 using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.ViewConfiguration.User;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace Core.Mvc.Areas.Administration.Controllers
 {
@@ -145,6 +147,20 @@ namespace Core.Mvc.Areas.Administration.Controllers
             ResponseModel model = AsyncRequest.DeleteAsync(url.Render() + "?ids=" + id).Result;
 
             return this.Submit(model);
+        }
+
+        /// <summary>
+        /// Gets role data list.
+        /// </summary>
+        /// <returns>The IActionResult.</returns>
+        [HttpGet]
+        public IActionResult GetRoleDataList()
+        {
+            var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Index));
+            ResponseModel model = AsyncRequest.GetAsync<IList<Role>>(url.Render()).Result;
+            IList<Role> roles = (IList<Role>)model.Data;
+
+            return this.Content(JsonConvert.SerializeObject(roles), "text/html", Encoding.UTF8);
         }
     }
 }

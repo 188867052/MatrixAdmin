@@ -3,7 +3,10 @@ using Core.Model.Administration.User;
 using Core.Model.Enums;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.Button;
+using Core.Web.Enums;
 using Core.Web.GridFilter;
+using Core.Web.Identifiers;
+using Core.Web.JavaScript;
 using Core.Web.SearchFilterConfiguration;
 
 namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
@@ -17,17 +20,22 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
             dropDown.AddOption(UserStatusEnum.Forbidden, "已禁用");
             dropDown.AddOption(UserStatusEnum.All, "未指定");
 
+            Identifier id = new Identifier();
+            JavaScriptEvent ev = new JavaScriptEvent("core.addOption", id, JavaScriptEventEnum.MouseDown);
+            var dropDown2 = new AdvancedDropDownGridFilter<UserPostModel, UserTypeEnum>(o => (UserTypeEnum)o.UserType, "角色", true, ev.Render(), id);
+
             searchFilter.Add(new TextGridFilter<UserPostModel>(o => o.DisplayName, "显示名"));
             searchFilter.Add(new TextGridFilter<UserPostModel>(o => o.LoginName, "登录名"));
             searchFilter.Add(new DateTimeGridFilter<UserPostModel>(o => o.CreatedOn, "开始" + LogResource.CreateTime));
             searchFilter.Add(new DateTimeGridFilter<UserPostModel>(o => o.CreatedOn, "结束" + LogResource.CreateTime));
             searchFilter.Add(dropDown);
+            searchFilter.Add(dropDown2);
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)
         {
-            buttons.Add(new StandardButton("搜索",  "index.search"));
-            buttons.Add(new StandardButton("添加",  "index.add"));
+            buttons.Add(new StandardButton("搜索", "index.search"));
+            buttons.Add(new StandardButton("添加", "index.add"));
         }
     }
 }

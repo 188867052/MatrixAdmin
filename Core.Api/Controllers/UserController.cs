@@ -126,6 +126,7 @@ namespace Core.Api.Controllers
                 entity.DisplayName = model.DisplayName;
                 entity.LoginName = model.LoginName;
                 entity.Password = model.Password;
+                entity.ModifiedOn = DateTime.Now;
                 this.DbContext.SaveChanges();
                 response = ResponseModelFactory.CreateInstance;
                 return Ok(response);

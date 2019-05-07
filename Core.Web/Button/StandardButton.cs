@@ -12,7 +12,7 @@ namespace Core.Web.Button
         {
             this.Text = labelText;
             this.id = new Identifier();
-            this.Event = new JavaScriptEvent(@event, default, this.id);
+            this.Event = new JavaScriptEvent(@event, this.id);
         }
 
         public string Text { get; set; }

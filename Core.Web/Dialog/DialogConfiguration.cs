@@ -8,7 +8,6 @@ namespace Core.Web.Dialog
 {
     public abstract class DialogConfiguration<TPostModel, T> : ITextRender<TPostModel, T>
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DialogConfiguration{TPostModel, T}"/> class.
         /// </summary>

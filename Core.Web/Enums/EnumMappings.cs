@@ -4,6 +4,11 @@ namespace Core.Web.Enums
 {
     public static class EnumMappings
     {
+        /// <summary>
+        /// Text box type enum.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static string ToString(TextBoxTypeEnum type)
         {
             switch (type)
@@ -19,6 +24,11 @@ namespace Core.Web.Enums
             }
         }
 
+        /// <summary>
+        /// Java script event enum.
+        /// </summary>
+        /// <param name="event"></param>
+        /// <returns></returns>
         public static string ToString(JavaScriptEventEnum @event)
         {
             switch (@event)
@@ -27,6 +37,14 @@ namespace Core.Web.Enums
                     return "click";
                 case JavaScriptEventEnum.Blur:
                     return "blur";
+                case JavaScriptEventEnum.Change:
+                    return "change";
+                case JavaScriptEventEnum.Focus:
+                    return "focus";
+                case JavaScriptEventEnum.Input:
+                    return "input";
+                case JavaScriptEventEnum.MouseDown:
+                    return "mousedown";
                 default:
                     throw new Exception("error type.");
             }

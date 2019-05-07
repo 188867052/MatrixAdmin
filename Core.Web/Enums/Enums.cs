@@ -26,9 +26,29 @@
         Click,
 
         /// <summary>
-        /// The click blur.
+        /// The blur event.
         /// </summary>
         Blur,
+
+        /// <summary>
+        /// The change event.
+        /// </summary>
+        Change,
+
+        /// <summary>
+        /// The focus event.
+        /// </summary>
+        Focus,
+
+        /// <summary>
+        /// The on input event.
+        /// </summary>
+        Input,
+
+        /// <summary>
+        /// The on focus event.
+        /// </summary>
+        MouseDown
     }
 
     public enum ButtonIconEnum

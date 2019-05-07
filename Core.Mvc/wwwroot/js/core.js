@@ -15,6 +15,7 @@
         _leftText: null,
         _rightText: null,
         _currentTarget: null,
+        _getRoleDataList: null,
 
         // Private Event Delegates  
 
@@ -134,6 +135,20 @@
         getDialogId: function () {
             var id = $(".modal")[0].id;
             return id;
+        },
+
+        addOption: function () {
+            var id = event.currentTarget.id;
+            //var onSuccess = $.proxy(this._onGetRoleDataList, this);
+            //$.get(this._getRoleDataList, onSuccess);
+            var html = '<option id=\'11\' value="Internet Explorer 1"></option>';
+            html += '<option value="Internet Explorer 2"></option>';
+            html += '<option value="Internet Explorer 3"></option>';
+            $('#browsers')[0].innerHTML = html;
+        },
+
+        _onGetRoleDataList: function (response) {
+            alert(response);
         }
     };
 })();

@@ -9,31 +9,37 @@ namespace Core.Web.JavaScript
     /// </summary>
     public class JavaScriptEvent
     {
-        private readonly JavaScriptEventEnum _event;
+        private readonly JavaScriptEventEnum _eventType;
         private readonly Identifier _id;
-        private readonly string _delegate;
+        private readonly string _func;
         private readonly string _class;
 
-        public JavaScriptEvent(string @delegate, string @class = default, Identifier id = default, JavaScriptEventEnum @event = default)
+        public JavaScriptEvent(string func, string @class, JavaScriptEventEnum eventType = default)
         {
-            this._event = @event;
-            this._delegate = @delegate;
-            this._id = id;
+            this._eventType = eventType;
+            this._func = func;
             this._class = @class;
+        }
+
+        public JavaScriptEvent(string func, Identifier id, JavaScriptEventEnum eventType = default)
+        {
+            this._eventType = eventType;
+            this._func = func;
+            this._id = id;
         }
 
         public string Render()
         {
-            string @event = default;
-            if (this._delegate != null)
+            string js = default;
+            if (this._func != null)
             {
                 if (this._id != default)
                 {
-                    @event = $"$(\"#{this._id.Value}\").on('{EnumMappings.ToString(this._event)}',function(){{{this._delegate}();}});";
+                    js = $"$(\"#{this._id.Value}\").on('{EnumMappings.ToString(this._eventType)}',function(){{{this._func}();}});";
                 }
                 else if (this._class != default)
                 {
-                    @event = $"$(\".{this._class}\").on('{EnumMappings.ToString(this._event)}',function(){{{this._delegate}();}});";
+                    js = $"$(\".{this._class}\").on('{EnumMappings.ToString(this._eventType)}',function(){{{this._func}();}});";
                 }
                 else
                 {
@@ -41,7 +47,7 @@ namespace Core.Web.JavaScript
                 }
             }
 
-            return $"<script>{@event}</script>";
+            return $"<script>{js}</script>";
         }
     }
 }

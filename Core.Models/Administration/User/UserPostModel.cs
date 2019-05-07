@@ -17,11 +17,11 @@ namespace Core.Model.Administration.User
 
         public string DisplayName { get; set; }
 
-        public string Password { get; set; }
-
         public string Avatar { get; set; }
 
         public UserStatusEnum? Status { get; set; }
+
+        public UserTypeEnum? UserType{ get; set; }
 
         /// <summary>
         /// 创建时间
