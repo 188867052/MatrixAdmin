@@ -21,7 +21,7 @@ namespace Core.Model.Administration.User
 
         public UserStatusEnum? Status { get; set; }
 
-        public UserTypeEnum? UserType{ get; set; }
+        public string UserType{ get; set; }
 
         /// <summary>
         /// 创建时间

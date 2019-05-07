@@ -11,23 +11,19 @@ namespace Core.Web.GridFilter
     /// 构造函数.
     /// </summary>
     /// <typeparam name="TPostModel">The post model.</typeparam>
-    /// <typeparam name="TEnumType">The enum.</typeparam>
-    public class AdvancedDropDownGridFilter<TPostModel, TEnumType> : BaseGridFilter where TEnumType : Enum
+    public class AdvancedDropDownGridFilter<TPostModel> : BaseGridFilter
     {
-        private readonly bool _isContainsEmpty;
         private readonly string _script;
         private readonly Identifier _id;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AdvancedDropDownGridFilter{TPostModel, TEnumType}"/> class.
+        /// Initializes a new instance of the <see cref="AdvancedDropDownGridFilter{TPostModel}"/> class.
         /// </summary>
         /// <param name="expression">The expression.</param>
         /// <param name="labelText">The labelText.</param>
-        /// <param name="isContainsEmpty">The isContainsEmpty.</param>
-        /// <param name="script"></param>
-        public AdvancedDropDownGridFilter(Expression<Func<TPostModel, TEnumType>> expression, string labelText, bool isContainsEmpty, string script, Identifier id) : base(labelText, expression.GetPropertyName())
+        /// <param name="script">The script.</param>
+        public AdvancedDropDownGridFilter(Expression<Func<TPostModel, string>> expression, string labelText, string script, Identifier id) : base(labelText, expression.GetPropertyName())
         {
-            this._isContainsEmpty = isContainsEmpty;
             this._script = script;
             this._id = id;
         }

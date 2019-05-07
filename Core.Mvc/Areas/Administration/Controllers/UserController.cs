@@ -8,8 +8,6 @@ using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.ViewConfiguration.User;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using static System.String;
 
 namespace Core.Mvc.Areas.Administration.Controllers
 {
@@ -161,7 +159,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
             var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Index));
             ResponseModel model = AsyncRequest.GetAsync<IList<Role>>(url.Render()).Result;
             IList<Role> roles = (IList<Role>)model.Data;
-            string options = roles.Aggregate(Empty, (current, role) => current + $"<option value=\"{role.Name}\"></option>");
+            string options = roles.Aggregate(string.Empty, (current, role) => current + $"<option key=\"{role.Id}\" value=\"{role.Name}\"></option>");
 
             return this.Content(options, "text/html", Encoding.UTF8);
         }
