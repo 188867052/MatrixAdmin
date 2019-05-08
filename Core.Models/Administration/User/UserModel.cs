@@ -57,7 +57,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 
         /// </summary>
-        public UserStatusEnum Status { get; set; }
+        public UserIsForbiddenEnum Status { get; set; }
 
         /// <summary>
         /// 

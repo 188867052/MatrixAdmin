@@ -13,10 +13,9 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            var dropDown = new DropDownGridFilter<UserPostModel, UserStatusEnum>(o => (UserStatusEnum)o.Status, "状态");
-            dropDown.AddOption(UserStatusEnum.Normal, "正常");
-            dropDown.AddOption(UserStatusEnum.Forbidden, "已禁用");
-            dropDown.AddOption(UserStatusEnum.All, "未指定");
+            var dropDown = new DropDownGridFilter<UserPostModel, UserIsForbiddenEnum>(o => (UserIsForbiddenEnum)o.Status, "禁用状态");
+            dropDown.AddOption(UserIsForbiddenEnum.Normal, "启用");
+            dropDown.AddOption(UserIsForbiddenEnum.Forbidden, "禁用");
 
             var roleDropDown = new AdvancedDropDownGridFilter<UserPostModel>(o => o.RoleId, "角色", new MethodCall("core.addOption"));
 

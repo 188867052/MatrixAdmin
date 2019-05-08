@@ -1,15 +1,10 @@
 ﻿namespace Core.Entity.Enums
 {
     /// <summary>
-    /// 用户状态枚举
+    /// 用户是否禁用枚举
     /// </summary>
-    public enum UserStatusEnum
+    public enum UserIsForbiddenEnum
     {
-        /// <summary>
-        /// 未指定
-        /// </summary>
-        All = -1,
-
         /// <summary>
         /// 已禁用
         /// </summary>

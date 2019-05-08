@@ -26,7 +26,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 状态
         /// </summary>
-        public UserStatusEnum? Status { get; set; }
+        public UserIsForbiddenEnum? Status { get; set; }
 
         /// <summary>
         /// 角色

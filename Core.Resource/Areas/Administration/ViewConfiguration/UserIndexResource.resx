@@ -130,7 +130,7 @@
     <value>登录名</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>状态</value>
+    <value>禁用状态</value>
   </data>
   <data name="UserType" xml:space="preserve">
     <value>用户类型</value>

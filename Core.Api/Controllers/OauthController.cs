@@ -60,7 +60,7 @@ namespace Core.Api.Controllers
                     response.SetFailed("账号已被锁定");
                     return Ok(response);
                 }
-                if (user.Status == UserStatusEnum.Forbidden)
+                if (user.Status == UserIsForbiddenEnum.Forbidden)
                 {
                     response.SetFailed("账号已被禁用");
                     return Ok(response);

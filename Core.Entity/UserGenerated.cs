@@ -25,7 +25,7 @@ namespace Core.Entity
 
         public IsLockedEnum IsLocked { get; set; }
 
-        public UserStatusEnum Status { get; set; }
+        public UserIsForbiddenEnum Status { get; set; }
 
         /// <summary>
         /// 是否可用
