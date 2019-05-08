@@ -72,7 +72,20 @@ namespace Core.Api.Controllers
                 query = query.AddStringContainsFilter(model.DisplayName, nameof(Model.Administration.User.User.DisplayName));
                 query = query.AddStringContainsFilter(model.LoginName, nameof(Model.Administration.User.User.LoginName));
 
-                return this.StandardResponse(query, model);
+                model.TotalCount = query.Count();
+                if (model.PageIndex < 1)
+                {
+                    model.PageIndex = 1;
+                }
+                var list = query.Skip((model.PageIndex - 1) * model.PageSize).Take(model.PageSize).ToList();
+                //ResponseModel response = new ResponseModel(list, model);
+                IList<UserModel> list2 = new List<UserModel>();
+                foreach (User item in list)
+                {
+                    list2.Add(new UserModel(item));
+                }
+                ResponseModel response = new ResponseModel(list2, model);
+                return Ok(response);
             }
         }
 

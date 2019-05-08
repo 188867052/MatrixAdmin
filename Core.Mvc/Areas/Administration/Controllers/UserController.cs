@@ -45,7 +45,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult GridStateChange(UserPostModel model)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Search));
-            ResponseModel response = AsyncRequest.PostAsync<IList<User>, UserPostModel>(url, model).Result;
+            ResponseModel response = AsyncRequest.PostAsync<IList<UserModel>, UserPostModel>(url, model).Result;
             UserViewConfiguration configuration = new UserViewConfiguration(response);
 
             return this.GridConfiguration(configuration);
