@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Core.Api.Extensions;
-using Core.Api.Extensions.AuthContext;
 using Core.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +47,11 @@ namespace Core.Api.Controllers
                 if (model.Status.HasValue)
                 {
                     query = query.Where(o => o.Status == model.Status);
+                }
+
+                //if (!string.IsNullOrEmpty(model.RoleId))
+                {
+                    query = query.Where(o => o.UserRoles.Any(u => u.Role.Id == model.RoleId));
                 }
                 query = query.AddStringContainsFilter(model.DisplayName, nameof(Model.Administration.User.User.DisplayName));
                 query = query.AddStringContainsFilter(model.LoginName, nameof(Model.Administration.User.User.LoginName));

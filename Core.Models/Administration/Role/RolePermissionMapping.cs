@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Model.Administration.Role
@@ -10,11 +9,14 @@ namespace Core.Model.Administration.Role
     public class RolePermissionMapping
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// 角色编码
         /// </summary>
-        [Required]
-        [Column(TypeName = "nvarchar(50)")]
-        public string RoleCode { get; set; }
+        public int RoleId { get; set; }
 
         /// <summary>
         /// 权限编码

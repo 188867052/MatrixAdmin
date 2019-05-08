@@ -22,7 +22,7 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 
             Identifier id = new Identifier();
             JavaScriptEvent ev = new JavaScriptEvent("core.addOption", id, JavaScriptEventEnum.MouseDown);
-            var dropDown2 = new AdvancedDropDownGridFilter<UserPostModel>(o => o.UserType, "角色", ev.Render(), id);
+            var dropDown2 = new AdvancedDropDownGridFilter<UserPostModel>(o => o.RoleId, "角色", ev.Render(), id);
 
             searchFilter.Add(new TextGridFilter<UserPostModel>(o => o.DisplayName, "显示名"));
             searchFilter.Add(new TextGridFilter<UserPostModel>(o => o.LoginName, "登录名"));

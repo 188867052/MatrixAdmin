@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using Core.Extension.Expression;
 using Core.Web.Identifiers;
@@ -22,7 +20,8 @@ namespace Core.Web.GridFilter
         /// <param name="expression">The expression.</param>
         /// <param name="labelText">The labelText.</param>
         /// <param name="script">The script.</param>
-        public AdvancedDropDownGridFilter(Expression<Func<TPostModel, string>> expression, string labelText, string script, Identifier id) : base(labelText, expression.GetPropertyName())
+        /// <param name="id">The id.</param>
+        public AdvancedDropDownGridFilter(Expression<Func<TPostModel, int>> expression, string labelText, string script, Identifier id) : base(labelText, expression.GetPropertyName())
         {
             this._script = script;
             this._id = id;

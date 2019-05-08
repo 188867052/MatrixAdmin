@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
-using Core.Api.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -72,7 +71,7 @@ namespace Core.Api.Controllers
                 }
                 Role entity = Mapper.Map<RoleCreateViewModel, Role>(model);
                 entity.CreatedOn = DateTime.Now;
-                entity.Id = RandomHelper.GetRandomizer(8, true, false, true, true);
+                //entity.Id = RandomHelper.GetRandomizer(8, true, false, true, true);
                 entity.IsSuperAdministrator = false;
                 entity.IsBuiltin = false;
                 entity.CreatedByUserGuid = AuthContextService.CurrentUser.Guid;
@@ -92,7 +91,7 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         [HttpGet("{code}")]
         [ProducesResponseType(200)]
-        public IActionResult Edit(string code)
+        public IActionResult Edit(int code)
         {
             using (this.DbContext)
             {
@@ -229,7 +228,7 @@ namespace Core.Api.Controllers
                     {
                         CreatedOn = DateTime.Now,
                         PermissionCode = x.Trim(),
-                        RoleCode = payload.RoleCode.Trim()
+                        //RoleCode = payload.RoleCode.Trim()
                     });
                     this.DbContext.RolePermissionMapping.AddRange(permissions);
                     this.DbContext.SaveChanges();
@@ -264,7 +263,7 @@ namespace Core.Api.Controllers
 INNER JOIN DncRole AS R ON R.Code=URM.RoleCode
 WHERE URM.UserGuid={0}";
                 List<Role> query = this.DbContext.Role.FromSql(sql, guid).ToList();
-                List<string> assignedRoles = query.ToList().Select(x => x.Id).ToList();
+                List<int> assignedRoles = query.ToList().Select(x => x.Id).ToList();
                 var roles = this.DbContext.Role.Where(x => !x.IsEnable && x.Status).ToList().Select(x => new { label = x.Name, key = x.Id });
                 response.SetData(new { roles, assignedRoles });
                 return Ok(response);

@@ -138,13 +138,13 @@ namespace Core.Model
             {
                 entity.HasKey(x => new
                 {
-                    x.RoleCode,
+                    RoleId = x.RoleId,
                     x.PermissionCode
                 });
 
                 entity.HasOne(x => x.Role)
                     .WithMany(x => x.Permissions)
-                    .HasForeignKey(x => x.RoleCode)
+                    .HasForeignKey(x => x.RoleId)
                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(x => x.Permission)

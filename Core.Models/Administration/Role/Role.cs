@@ -23,10 +23,8 @@ namespace Core.Model.Administration.Role
         /// <summary>
         /// 
         /// </summary>
-        [Required]
         [Key]
-        [Column(TypeName = "nvarchar(50)")]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// 

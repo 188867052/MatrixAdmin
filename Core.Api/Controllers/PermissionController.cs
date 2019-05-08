@@ -221,7 +221,7 @@ namespace Core.Api.Controllers
         /// <param name="code">角色编码</param>
         /// <returns></returns>
         [HttpGet("/api/v1/rbac/permission/permission_tree/{code}")]
-        public IActionResult PermissionTree(string code)
+        public IActionResult PermissionTree(int code)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)

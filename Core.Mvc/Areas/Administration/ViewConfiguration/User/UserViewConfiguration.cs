@@ -31,6 +31,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
             column.AddOption(true, "已删除");
             gridColumns.Add(column);
             gridColumns.Add(new DateTimeGridColumn<Model.Administration.User.User>(o => o.CreatedOn, UserIndexResource.CreatedOn));
+            gridColumns.Add(new DateTimeGridColumn<Model.Administration.User.User>(o => o.ModifiedOn,"更新时间"));
             gridColumns.Add(new TextGridColumn<Model.Administration.User.User>(o => o.CreatedByUserName, UserIndexResource.CreatedByUserName));
         }
     }
