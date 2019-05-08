@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using ConsoleApp.DataModels2;
+using ConsoleApp.DataModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConsoleApp
@@ -23,9 +23,8 @@ namespace ConsoleApp
             //var list = query.ToList();
 
             userRoleMapping.RoleId = 2;
-
+            userRoleMapping.CreatedTime = DateTime.Now;
             coreApiContext.SaveChanges();
-            Console.WriteLine("Hello World!");
         }
     }
 }

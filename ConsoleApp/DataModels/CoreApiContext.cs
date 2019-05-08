@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace ConsoleApp.DataModels2
+namespace ConsoleApp.DataModels
 {
     public partial class CoreApiContext : DbContext
     {
@@ -34,7 +36,7 @@ namespace ConsoleApp.DataModels2
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("ProductVersion", "2.2.4-servicing-10062");
+            modelBuilder.HasAnnotation("ProductVersion", "3.0.0-preview5.19227.1");
 
             modelBuilder.Entity<Icon>(entity =>
             {
@@ -79,9 +81,7 @@ namespace ConsoleApp.DataModels2
 
             modelBuilder.Entity<Permission>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .HasMaxLength(20)
-                    .ValueGeneratedNever();
+                entity.Property(e => e.Id).HasMaxLength(20);
 
                 entity.Property(e => e.ActionCode)
                     .IsRequired()

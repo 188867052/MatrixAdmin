@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ConsoleApp.DataModels2
+namespace ConsoleApp.DataModels
 {
-    public partial class Permission
+    public partial class Menu
     {
-        public Permission()
+        public Menu()
         {
-            RolePermissionMapping = new HashSet<RolePermissionMapping>();
+            Permission = new HashSet<Permission>();
         }
 
-        public string Id { get; set; }
-        public Guid MenuGuid { get; set; }
+        public Guid Guid { get; set; }
         public string Name { get; set; }
-        public string ActionCode { get; set; }
+        public string Url { get; set; }
+        public string Alias { get; set; }
         public string Icon { get; set; }
+        public Guid? ParentGuid { get; set; }
+        public string ParentName { get; set; }
+        public int Level { get; set; }
         public string Description { get; set; }
-        public int Type { get; set; }
+        public int Sort { get; set; }
+        public int IsDefaultRouter { get; set; }
         public DateTime CreatedOn { get; set; }
         public string CreatedByUserName { get; set; }
         public DateTime? ModifiedOn { get; set; }
@@ -26,7 +30,6 @@ namespace ConsoleApp.DataModels2
         public bool IsEnable { get; set; }
         public bool Status { get; set; }
 
-        public virtual Menu MenuGu { get; set; }
-        public virtual ICollection<RolePermissionMapping> RolePermissionMapping { get; set; }
+        public virtual ICollection<Permission> Permission { get; set; }
     }
 }

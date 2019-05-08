@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
-namespace ConsoleApp.DataModels2
+namespace ConsoleApp.DataModels
 {
     public partial class UserStatus
     {
