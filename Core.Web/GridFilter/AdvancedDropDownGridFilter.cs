@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using Core.Extension.Expression;
 using Core.Web.Identifiers;
+using Core.Web.JavaScript;
 
 namespace Core.Web.GridFilter
 {
@@ -19,12 +20,11 @@ namespace Core.Web.GridFilter
         /// </summary>
         /// <param name="expression">The expression.</param>
         /// <param name="labelText">The labelText.</param>
-        /// <param name="script">The script.</param>
-        /// <param name="id">The id.</param>
-        public AdvancedDropDownGridFilter(Expression<Func<TPostModel, int>> expression, string labelText, string script, Identifier id) : base(labelText, expression.GetPropertyName())
+        /// <param name="event">The event.</param>
+        public AdvancedDropDownGridFilter(Expression<Func<TPostModel, int>> expression, string labelText, JavaScriptEvent @event) : base(labelText, expression.GetPropertyName())
         {
-            this._script = script;
-            this._id = id;
+            this._script = @event.Render();
+            this._id = @event.Id;
         }
 
         public override string Render()

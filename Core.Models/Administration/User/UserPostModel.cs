@@ -4,7 +4,7 @@ using Core.Model.Enums;
 namespace Core.Model.Administration.User
 {
     /// <summary>
-    /// 
+    /// User post model.
     /// </summary>
     public class UserPostModel : Pager
     {
@@ -13,20 +13,35 @@ namespace Core.Model.Administration.User
         /// </summary>
         public bool? IsEnable { get; set; }
 
+        /// <summary>
+        /// 登录名
+        /// </summary>
         public string LoginName { get; set; }
 
+        /// <summary>
+        /// 展示名
+        /// </summary>
         public string DisplayName { get; set; }
 
-        public string Avatar { get; set; }
-
+        /// <summary>
+        /// 状态
+        /// </summary>
         public UserStatusEnum? Status { get; set; }
 
+        /// <summary>
+        /// 角色
+        /// </summary>
         public int RoleId { get; set; }
 
         /// <summary>
-        /// 创建时间
+        /// 开始创建时间
         /// </summary>
-        public DateTime? CreatedOn { get; set; }
+        public DateTime? StartCreateTime { get; set; }
+
+        /// <summary>
+        /// 结束创建时间
+        /// </summary>
+        public DateTime? EndCreateTime { get; set; }
 
         /// <summary>
         /// 创建者姓名
@@ -42,10 +57,5 @@ namespace Core.Model.Administration.User
         /// 最近修改者姓名
         /// </summary>
         public string ModifiedByUserName { get; set; }
-
-        /// <summary>
-        /// 用户描述信息
-        /// </summary>
-        public string Description { get; set; }
     }
 }

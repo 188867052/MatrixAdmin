@@ -20,16 +20,14 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
             dropDown.AddOption(UserStatusEnum.Forbidden, "已禁用");
             dropDown.AddOption(UserStatusEnum.All, "未指定");
 
-            Identifier id = new Identifier();
-            JavaScriptEvent ev = new JavaScriptEvent("core.addOption", id, JavaScriptEventEnum.MouseDown);
-            var dropDown2 = new AdvancedDropDownGridFilter<UserPostModel>(o => o.RoleId, "角色", ev.Render(), id);
+            var roleDropDown = new AdvancedDropDownGridFilter<UserPostModel>(o => o.RoleId, "角色", new JavaScriptEvent("core.addOption"));
 
             searchFilter.Add(new TextGridFilter<UserPostModel>(o => o.DisplayName, "显示名"));
             searchFilter.Add(new TextGridFilter<UserPostModel>(o => o.LoginName, "登录名"));
-            searchFilter.Add(new DateTimeGridFilter<UserPostModel>(o => o.CreatedOn, "开始" + LogResource.CreateTime));
-            searchFilter.Add(new DateTimeGridFilter<UserPostModel>(o => o.CreatedOn, "结束" + LogResource.CreateTime));
+            searchFilter.Add(new DateTimeGridFilter<UserPostModel>(o => o.StartCreateTime, "开始" + LogResource.CreateTime));
+            searchFilter.Add(new DateTimeGridFilter<UserPostModel>(o => o.EndCreateTime, "结束" + LogResource.CreateTime));
             searchFilter.Add(dropDown);
-            searchFilter.Add(dropDown2);
+            searchFilter.Add(roleDropDown);
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)
