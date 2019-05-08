@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Entity.Enums;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
@@ -26,7 +27,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
             gridColumns.Add(new TextGridColumn<UserModel>(o => o.LoginName, UserIndexResource.LoginName));
             gridColumns.Add(new TextGridColumn<UserModel>(o => o.DisplayName, UserIndexResource.DisplayName));
             gridColumns.Add(new TextGridColumn<UserModel>(o => o.RoleName, "角色"));
-            gridColumns.Add(new TextGridColumn<UserModel>(o => o.UserStatus.Name, UserIndexResource.Status));
+            gridColumns.Add(new EnumGridColumn<UserModel>(o => o.Status, UserIndexResource.Status));
             BooleanGridColumn<UserModel> column = new BooleanGridColumn<UserModel>(o => o.IsDeleted, "是否已删除");
             column.AddOption(false, "正常");
             column.AddOption(true, "已删除");

@@ -14,8 +14,9 @@ namespace Core.Web.GridColumn
 
         public override string RenderTd(T entity)
         {
-            var value = this.expression.Compile()(entity);
-            return this.RenderTd(value);
+            Enum value = this.expression.Compile()(entity);
+            string display = EnumMapping.ToString(value);
+            return this.RenderTd(display);
         }
     }
 }

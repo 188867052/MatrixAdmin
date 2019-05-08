@@ -24,6 +24,8 @@ namespace Core.Model.Administration.User
             this.CreateTime = user.CreateTime;
             this.RoleName = user.RoleName;
             this.UserStatus = user.UserStatus;
+            this.Status = user.Status;
+            this.IsDeleted = user.IsDeleted;
             this.CreatedByUserName = user.CreatedByUserName;
         }
 
@@ -55,11 +57,6 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 
         /// </summary>
-        public IsLockedEnum IsLocked { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public UserStatusEnum Status { get; set; }
 
         /// <summary>
@@ -75,27 +72,12 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 
         /// </summary>
-        public Guid CreatedByUserGuid { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public string CreatedByUserName { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public DateTime UpdateTime { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public Guid? ModifiedByUserGuid { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string ModifiedByUserName { get; set; }
 
         public string RoleName { get; set; }
 
