@@ -31,7 +31,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 角色
         /// </summary>
-        public int RoleId { get; set; }
+        public int? RoleId { get; set; }
 
         /// <summary>
         /// 开始创建时间

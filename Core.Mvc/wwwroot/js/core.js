@@ -56,8 +56,7 @@
         rowContextMenu: function () {
             var url = event.currentTarget.dataset.url;
             var id = event.currentTarget.dataset.id;
-            this._currentTarget = event.currentTarget;
-            $.get(url, { id: id }, $.proxy(this._initializeRowContextMenu, this));
+            $.get(url, { id: id }, $.proxy(this._initializeRowContextMenu, this, event.currentTarget));
         },
 
         // Private Methods
@@ -71,8 +70,8 @@
             $("#" + response.id).modal("show");
         },
 
-        _initializeRowContextMenu: function (response) {
-            this._currentTarget.nextElementSibling.innerHTML = response;
+        _initializeRowContextMenu: function (currentTarget, response) {
+            currentTarget.nextElementSibling.innerHTML = response;
             $(".dropdown-item").on('click',
                 function () {
                     var method = event.currentTarget.dataset.method;
@@ -129,7 +128,7 @@
         },
 
         submit: function (url, id, onSuccess) {
-            var dialogId = this.getDialogId();
+            var dialogId = this.getModalDialogId();
             var data = this.generateFormDataById(dialogId);
             $.post(url, data);
             $("#" + dialogId).modal("hide");
@@ -137,11 +136,11 @@
         },
 
         cancel: function () {
-            var id = this.getDialogId;
+            var id = this.getModalDialogId();
             $("#" + id).modal("hide");
         },
 
-        getDialogId: function () {
+        getModalDialogId: function () {
             var id = $(".modal")[0].id;
             return id;
         },

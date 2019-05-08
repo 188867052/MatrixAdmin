@@ -49,7 +49,7 @@ namespace Core.Api.Controllers
                     query = query.Where(o => o.Status == model.Status);
                 }
 
-                //if (!string.IsNullOrEmpty(model.RoleId))
+                if (model.RoleId.HasValue)
                 {
                     query = query.Where(o => o.UserRoles.Any(u => u.Role.Id == model.RoleId));
                 }

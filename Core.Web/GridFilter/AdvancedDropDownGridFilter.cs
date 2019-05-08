@@ -22,7 +22,7 @@ namespace Core.Web.GridFilter
         /// <param name="expression">The expression.</param>
         /// <param name="labelText">The labelText.</param>
         /// <param name="methodCall">The method call.</param>
-        public AdvancedDropDownGridFilter(Expression<Func<TPostModel, int>> expression, string labelText, MethodCall methodCall) : base(labelText, expression.GetPropertyName())
+        public AdvancedDropDownGridFilter(Expression<Func<TPostModel, int?>> expression, string labelText, MethodCall methodCall) : base(labelText, expression.GetPropertyName())
         {
             this._script = new JavaScriptEvent(methodCall.Method, methodCall.Id, JavaScriptEventEnum.MouseDown).Render();
             this._id = methodCall.Id;
