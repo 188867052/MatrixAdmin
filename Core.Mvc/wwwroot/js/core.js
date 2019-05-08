@@ -137,7 +137,7 @@
         },
 
         cancel: function () {
-            var id = $(".modal")[0].id;
+            var id = this.getDialogId;
             $("#" + id).modal("hide");
         },
 
@@ -147,14 +147,14 @@
         },
 
         addOption: function () {
-            var id = event.currentTarget.id;
+            var dataList = event.currentTarget.list;
             $.ajaxSettings.async = false;
-            var onSuccess = $.proxy(this._onGetRoleDataList, this);
+            var onSuccess = $.proxy(this._onGetRoleDataList, this, dataList);
             $.get(this._getRoleDataList, onSuccess);
         },
 
-        _onGetRoleDataList: function (response) {
-            $('#browsers')[0].innerHTML = response;
+        _onGetRoleDataList: function (dataList, response) {
+            dataList.innerHTML = response;
         }
     };
 })();

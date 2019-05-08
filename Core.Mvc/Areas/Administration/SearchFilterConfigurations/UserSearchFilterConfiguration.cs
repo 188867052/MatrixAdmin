@@ -20,7 +20,7 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
             dropDown.AddOption(UserStatusEnum.Forbidden, "已禁用");
             dropDown.AddOption(UserStatusEnum.All, "未指定");
 
-            var roleDropDown = new AdvancedDropDownGridFilter<UserPostModel>(o => o.RoleId, "角色", new JavaScriptEvent("core.addOption"));
+            var roleDropDown = new AdvancedDropDownGridFilter<UserPostModel>(o => o.RoleId, "角色", new MethodCall("core.addOption"));
 
             searchFilter.Add(new TextGridFilter<UserPostModel>(o => o.DisplayName, "显示名"));
             searchFilter.Add(new TextGridFilter<UserPostModel>(o => o.LoginName, "登录名"));
