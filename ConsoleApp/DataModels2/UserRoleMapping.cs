@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace ConsoleApp2.DataModels2
+namespace ConsoleApp.DataModels2
 {
     public partial class UserRoleMapping
     {

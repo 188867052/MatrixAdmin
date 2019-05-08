@@ -1,10 +1,9 @@
-﻿using ConsoleApp2.DataModel1;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Linq;
-using ConsoleApp2.DataModels2;
+using ConsoleApp.DataModels2;
+using Microsoft.EntityFrameworkCore;
 
-namespace ConsoleApp2
+namespace ConsoleApp
 {
     class Program
     {

@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Resource", "Core.Resou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Entity", "Core.Entity\Core.Entity.csproj", "{4E1685F9-6D1E-4CC3-A231-DC204D932345}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp2", "ConsoleApp\ConsoleApp2.csproj", "{7BEC886B-1070-4DB1-85C8-2E0824FF524F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{7BEC886B-1070-4DB1-85C8-2E0824FF524F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

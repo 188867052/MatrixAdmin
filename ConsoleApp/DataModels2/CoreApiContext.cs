@@ -1,8 +1,6 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace ConsoleApp2.DataModels2
+namespace ConsoleApp.DataModels2
 {
     public partial class CoreApiContext : DbContext
     {
