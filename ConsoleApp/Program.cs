@@ -11,14 +11,20 @@ namespace ConsoleApp
         {
             CoreApiContext coreApiContext = new CoreApiContext();
             //coreApiContext.User.Include(o => o.UserStatus);
-            var query = coreApiContext.User.AsQueryable();
+            //var query = coreApiContext.User.AsQueryable();
             //coreApiContext.Set<User>().Include(o => o.UserStatus);
             coreApiContext.Set<UserStatus>().Load();
 
-            query = query.Where(o => o.UserStatus.Name == "正常");
-            var list = query.ToList();
+            //query = query.Where(o => o.Id == 1);
+            //coreApiContext.User.Include(o => o.UserRoleMapping);
+            coreApiContext.Set<UserRoleMapping>().Load();
+            User user = coreApiContext.User.Find(1);
+            var userRoleMapping = user.UserRoleMapping.FirstOrDefault(o => o.UserId == 1);
+            //var list = query.ToList();
 
-            string name = list.First().UserStatus.Name;
+            userRoleMapping.RoleId = 2;
+
+            coreApiContext.SaveChanges();
             Console.WriteLine("Hello World!");
         }
     }
