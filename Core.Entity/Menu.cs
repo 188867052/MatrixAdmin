@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Entity;
 using Core.Entity.Enums;
 
-namespace Core.Model.Administration.Menu
+namespace Core.Entity
 {
     /// <summary>
     /// 菜单实体类

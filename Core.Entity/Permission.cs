@@ -105,7 +105,7 @@ namespace Core.Entity
         /// <summary>
         /// 关联的菜单
         /// </summary>
-        public Model.Administration.Menu.Menu Menu { get; set; }
+        public Menu Menu { get; set; }
 
         /// <summary>
         /// 权限所属的角色集合

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Entity;
 using Core.Extension;
 using Core.Model.Administration.Menu;
 using Core.Mvc.Areas.Administration.ViewConfiguration.Menu;

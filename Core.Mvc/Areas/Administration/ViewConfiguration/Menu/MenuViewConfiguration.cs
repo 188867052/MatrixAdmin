@@ -6,7 +6,7 @@ using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 {
-    public class MenuViewConfiguration : GridConfiguration<Model.Administration.Menu.Menu>
+    public class MenuViewConfiguration : GridConfiguration<Entity.Menu>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuViewConfiguration"/> class.
@@ -16,17 +16,17 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
         {
         }
 
-        public override void CreateGridColumn(IList<BaseGridColumn<Model.Administration.Menu.Menu>> gridColumns)
+        public override void CreateGridColumn(IList<BaseGridColumn<Entity.Menu>> gridColumns)
         {
-            gridColumns.Add(new TextGridColumn<Model.Administration.Menu.Menu>(o => o.Name, MenuIndexResource.Name));
-            gridColumns.Add(new TextGridColumn<Model.Administration.Menu.Menu>(o => o.Url, MenuIndexResource.Url));
-            gridColumns.Add(new TextGridColumn<Model.Administration.Menu.Menu>(o => o.Alias, MenuIndexResource.Alias));
-            gridColumns.Add(new TextGridColumn<Model.Administration.Menu.Menu>(o => o.ParentName, MenuIndexResource.ParentName));
-            gridColumns.Add(new IntegerGridColumn<Model.Administration.Menu.Menu>(o => o.Sort, MenuIndexResource.Sort));
-            gridColumns.Add(new BooleanGridColumn<Model.Administration.Menu.Menu>(o => o.Status, MenuIndexResource.Status));
-            gridColumns.Add(new EnumGridColumn<Model.Administration.Menu.Menu>(o => o.IsDefaultRouter, MenuIndexResource.IsDefaultRouter));
-            gridColumns.Add(new DateTimeGridColumn<Model.Administration.Menu.Menu>(o => o.CreatedOn, MenuIndexResource.CreatedOn));
-            gridColumns.Add(new TextGridColumn<Model.Administration.Menu.Menu>(o => o.CreatedByUserName, MenuIndexResource.CreatedByUserName));
+            gridColumns.Add(new TextGridColumn<Entity.Menu>(o => o.Name, MenuIndexResource.Name));
+            gridColumns.Add(new TextGridColumn<Entity.Menu>(o => o.Url, MenuIndexResource.Url));
+            gridColumns.Add(new TextGridColumn<Entity.Menu>(o => o.Alias, MenuIndexResource.Alias));
+            gridColumns.Add(new TextGridColumn<Entity.Menu>(o => o.ParentName, MenuIndexResource.ParentName));
+            gridColumns.Add(new IntegerGridColumn<Entity.Menu>(o => o.Sort, MenuIndexResource.Sort));
+            gridColumns.Add(new BooleanGridColumn<Entity.Menu>(o => o.Status, MenuIndexResource.Status));
+            gridColumns.Add(new EnumGridColumn<Entity.Menu>(o => o.IsDefaultRouter, MenuIndexResource.IsDefaultRouter));
+            gridColumns.Add(new DateTimeGridColumn<Entity.Menu>(o => o.CreatedOn, MenuIndexResource.CreatedOn));
+            gridColumns.Add(new TextGridColumn<Entity.Menu>(o => o.CreatedByUserName, MenuIndexResource.CreatedByUserName));
         }
     }
 }
