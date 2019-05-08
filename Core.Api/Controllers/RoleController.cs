@@ -70,7 +70,7 @@ namespace Core.Api.Controllers
                     return Ok(response);
                 }
                 Role entity = Mapper.Map<RoleCreateViewModel, Role>(model);
-                entity.CreatedOn = DateTime.Now;
+                entity.CreatedTime = DateTime.Now;
                 //entity.Id = RandomHelper.GetRandomizer(8, true, false, true, true);
                 entity.IsSuperAdministrator = false;
                 entity.IsBuiltin = false;
@@ -132,7 +132,7 @@ namespace Core.Api.Controllers
                 entity.IsEnable = model.IsEnable.Value;
                 entity.ModifiedByUserGuid = AuthContextService.CurrentUser.Guid;
                 entity.ModifiedByUserName = AuthContextService.CurrentUser.DisplayName;
-                entity.ModifiedOn = DateTime.Now;
+                entity.UpdateTime = DateTime.Now;
                 entity.Status = model.Status.Value;
                 entity.Description = model.Description;
                 this.DbContext.SaveChanges();

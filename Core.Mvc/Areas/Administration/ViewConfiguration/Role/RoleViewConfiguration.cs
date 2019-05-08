@@ -22,7 +22,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
             gridColumns.Add(new BooleanGridColumn<Model.Administration.Role.Role>(o => o.Status, RoleIndexResource.Status));
             gridColumns.Add(new BooleanGridColumn<Model.Administration.Role.Role>(o => o.IsBuiltin, RoleIndexResource.IsBuiltin));
             gridColumns.Add(new BooleanGridColumn<Model.Administration.Role.Role>(o => o.IsSuperAdministrator, RoleIndexResource.IsSuperAdministrator));
-            gridColumns.Add(new DateTimeGridColumn<Model.Administration.Role.Role>(o => o.CreatedOn, RoleIndexResource.CreatedOn));
+            gridColumns.Add(new DateTimeGridColumn<Model.Administration.Role.Role>(o => o.CreatedTime, RoleIndexResource.CreatedOn));
             gridColumns.Add(new TextGridColumn<Model.Administration.Role.Role>(o => o.CreatedByUserName, RoleIndexResource.CreatedByUserName));
         }
     }

@@ -41,7 +41,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 创建时间
         /// </summary>
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreateTime { get; set; }
 
         /// <summary>
         /// 创建者ID
@@ -56,7 +56,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 最近修改时间
         /// </summary>
-        public DateTime? ModifiedOn { get; set; }
+        public DateTime? UpdateTime { get; set; }
 
         /// <summary>
         /// 最近修改者ID

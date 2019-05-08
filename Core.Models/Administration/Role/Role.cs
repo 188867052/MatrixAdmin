@@ -29,14 +29,11 @@ namespace Core.Model.Administration.Role
         /// <summary>
         /// 
         /// </summary>
-        [Required]
-        [Column(TypeName = "nvarchar(50)")]
         public string Name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [Column(TypeName = "nvarchar(max)")]
         public string Description { get; set; }
 
         /// <summary>
@@ -52,7 +49,7 @@ namespace Core.Model.Administration.Role
         /// <summary>
         /// 创建时间
         /// </summary>
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedTime { get; set; }
 
         /// <summary>
         /// 创建者ID
@@ -67,7 +64,7 @@ namespace Core.Model.Administration.Role
         /// <summary>
         /// 最近修改时间
         /// </summary>
-        public DateTime? ModifiedOn { get; set; }
+        public DateTime? UpdateTime { get; set; }
 
         /// <summary>
         /// 最近修改者ID

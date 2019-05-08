@@ -82,7 +82,7 @@ namespace Core.Api.Controllers
                     return Ok(response);
                 }
                 User entity = Mapper.Map<UserCreatePostModel, User>(model);
-                entity.CreatedOn = DateTime.Now;
+                entity.CreateTime = DateTime.Now;
                 //entity.Id = Guid.NewGuid();
                 entity.Status = model.Status;
                 this.DbContext.User.Add(entity);
@@ -130,7 +130,7 @@ namespace Core.Api.Controllers
                 entity.DisplayName = model.DisplayName;
                 entity.LoginName = model.LoginName;
                 entity.Password = model.Password;
-                entity.ModifiedOn = DateTime.Now;
+                entity.UpdateTime = DateTime.Now;
                 this.DbContext.SaveChanges();
                 response = ResponseModelFactory.CreateInstance;
                 return Ok(response);

@@ -153,29 +153,6 @@ namespace Core.Model
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-
-            //modelBuilder.Entity<User>(entity =>
-            //{
-            //    entity.Property(e => e.Avatar).HasMaxLength(255);
-
-            //    entity.Property(e => e.Description).HasMaxLength(800);
-
-            //    entity.Property(e => e.DisplayName).HasMaxLength(50);
-
-            //    entity.Property(e => e.LoginName)
-            //        .IsRequired()
-            //        .HasMaxLength(50);
-
-            //    entity.Property(e => e.Password).HasMaxLength(255);
-
-            //    entity.Property(e => e.UserStatusId).HasDefaultValueSql("((1))");
-
-            //    entity.HasOne(d => d.UserStatus);
-            //    //.WithMany(p => p.User)
-            //    //.HasForeignKey(d => d.UserStatusId)
-            //    //.OnDelete(DeleteBehavior.ClientSetNull)
-            //    //.HasConstraintName("FK__User__UserStatus");
-            //});
             Administration.User.User.ModelBuilder(modelBuilder);
 
 
