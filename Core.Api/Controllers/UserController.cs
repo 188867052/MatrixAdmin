@@ -58,6 +58,7 @@ namespace Core.Api.Controllers
             {
                 DbContext.Set<UserStatus>().Load();
                 DbContext.Set<UserRoleMapping>().Load();
+                DbContext.Set<Role>().Load();
                 IQueryable<User> query = this.DbContext.User.AsQueryable();
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Model.Administration.User.User.IsEnable));
                 if (model.Status.HasValue)
