@@ -1,21 +1,21 @@
-﻿namespace Core.Model.Enums
+﻿namespace Core.Entity.Enums
 {
     /// <summary>
-    /// 是否已删
+    /// 用户状态
     /// </summary>
-    public enum IsDeletedEnum
+    public enum StatusEnum
     {
         /// <summary>
-        /// 所有
+        /// 未指定
         /// </summary>
         All = -1,
         /// <summary>
-        /// 否
+        /// 已禁用
         /// </summary>
-        No = 0,
+        Forbidden = 0,
         /// <summary>
-        /// 是
+        /// 正常
         /// </summary>
-        Yes = 1
+        Normal = 1
     }
 }

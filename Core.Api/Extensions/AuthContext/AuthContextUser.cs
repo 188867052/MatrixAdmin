@@ -1,5 +1,5 @@
-﻿using Core.Model.Enums;
-using System;
+﻿using System;
+using Core.Entity.Enums;
 
 namespace Core.Api.Extensions.AuthContext
 {

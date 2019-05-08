@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Core.Entity;
 using Core.Extension;
 using Core.Model;
-using Core.Model.Administration.Role;
 using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.ViewConfiguration.User;
 using Microsoft.AspNetCore.Hosting;

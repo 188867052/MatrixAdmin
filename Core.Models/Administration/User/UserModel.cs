@@ -1,5 +1,6 @@
 ﻿using System;
-using Core.Model.Enums;
+using Core.Entity;
+using Core.Entity.Enums;
 
 namespace Core.Model.Administration.User
 {
@@ -13,7 +14,7 @@ namespace Core.Model.Administration.User
             this.UserStatus = new UserStatus();
         }
 
-        public UserModel(User user)
+        public UserModel(Entity.User user)
         {
             this.Id = user.Id;
             this.LoginName = user.LoginName;

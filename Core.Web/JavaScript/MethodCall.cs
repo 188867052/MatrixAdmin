@@ -1,5 +1,4 @@
-﻿using Core.Web.Enums;
-using Core.Web.Identifiers;
+﻿using Core.Web.Identifiers;
 
 namespace Core.Web.JavaScript
 {

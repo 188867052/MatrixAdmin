@@ -1,7 +1,7 @@
-﻿using Core.Model.Enums;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Security.Claims;
+using Core.Entity.Enums;
 
 namespace Core.Api.Extensions.AuthContext
 {

@@ -7,8 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Core.Entity;
 using Core.Model;
-using Core.Model.Administration.Role;
 using Core.Model.Log;
 
 namespace Core.Api.Controllers

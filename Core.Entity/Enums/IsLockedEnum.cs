@@ -1,4 +1,4 @@
-﻿namespace Core.Model.Enums
+﻿namespace Core.Entity.Enums
 {
     /// <summary>
     /// 是否已被锁定

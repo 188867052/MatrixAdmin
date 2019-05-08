@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Core.Model.Administration.User;
 
-namespace Core.Model.Administration.Role
+namespace Core.Entity
 {
     /// <summary>
     /// 角色实体类

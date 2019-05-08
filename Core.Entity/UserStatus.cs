@@ -1,4 +1,4 @@
-﻿namespace Core.Model.Administration.User
+﻿namespace Core.Entity
 {
     public partial class UserStatus
     {

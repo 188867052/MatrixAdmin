@@ -1,21 +1,23 @@
-﻿namespace Core.Model.Enums
+﻿namespace Core.Entity.Enums
 {
     /// <summary>
-    /// 是否枚举
+    /// 用户状态枚举
     /// </summary>
-    public enum YesOrNoEnum
+    public enum UserStatusEnum
     {
         /// <summary>
-        /// 所有
+        /// 未指定
         /// </summary>
         All = -1,
+
         /// <summary>
-        /// 否
+        /// 已禁用
         /// </summary>
-        No = 0,
+        Forbidden = 0,
+
         /// <summary>
-        /// 是
+        /// 正常
         /// </summary>
-        Yes = 1
+        Normal = 1
     }
 }

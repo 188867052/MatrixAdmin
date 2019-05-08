@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Model.Administration.Role
+namespace Core.Entity
 {
     /// <summary>
     /// 角色权限关系表
@@ -32,7 +32,7 @@ namespace Core.Model.Administration.Role
         /// <summary>
         /// 权限实体
         /// </summary>
-        public Permission.Permission Permission { get; set; }
+        public Permission Permission { get; set; }
 
         /// <summary>
         /// 创建时间

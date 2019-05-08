@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Entity;
 using Core.Extension.Dapper;
 using Core.Model.Administration.Role;
 using Core.Model.Administration.User;
@@ -60,7 +61,7 @@ namespace Core.Api.Controllers
                 DbContext.Set<UserRoleMapping>().Load();
                 DbContext.Set<Role>().Load();
                 IQueryable<User> query = this.DbContext.User.AsQueryable();
-                query = query.AddBooleanFilter(model.IsEnable, nameof(Model.Administration.User.User.IsEnable));
+                query = query.AddBooleanFilter(model.IsEnable, nameof(Entity.User.IsEnable));
                 if (model.Status.HasValue)
                 {
                     query = query.Where(o => o.Status == model.Status);
@@ -70,8 +71,8 @@ namespace Core.Api.Controllers
                 {
                     query = query.Where(o => o.UserRoles.Any(u => u.Role.Id == model.RoleId));
                 }
-                query = query.AddStringContainsFilter(model.DisplayName, nameof(Model.Administration.User.User.DisplayName));
-                query = query.AddStringContainsFilter(model.LoginName, nameof(Model.Administration.User.User.LoginName));
+                query = query.AddStringContainsFilter(model.DisplayName, nameof(Entity.User.DisplayName));
+                query = query.AddStringContainsFilter(model.LoginName, nameof(Entity.User.LoginName));
 
                 model.TotalCount = query.Count();
                 if (model.PageIndex < 1)

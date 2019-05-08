@@ -1,11 +1,9 @@
-﻿using System;
-using System.Data.Common;
-using Core.Model.Administration.Icon;
+﻿using Core.Entity;
 using Core.Model.Administration.Menu;
 using Core.Model.Administration.Permission;
-using Core.Model.Administration.Role;
-using Core.Model.Administration.User;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Data.Common;
 
 namespace Core.Model
 {
@@ -63,7 +61,7 @@ namespace Core.Model
         /// <summary>
         /// 权限
         /// </summary>
-        public DbSet<Permission> Permission { get; set; }
+        public DbSet<Entity.Permission> Permission { get; set; }
 
         /// <summary>
         /// 角色-权限多对多映射
@@ -124,7 +122,7 @@ namespace Core.Model
                 //    .OnDelete(DeleteBehavior.Restrict);
             });
 
-            modelBuilder.Entity<Permission>(entity =>
+            modelBuilder.Entity<Entity.Permission>(entity =>
             {
                 entity.HasIndex(x => x.Id)
                     .IsUnique();
@@ -153,7 +151,7 @@ namespace Core.Model
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            Administration.User.User.ModelBuilder(modelBuilder);
+            Entity.User.ModelBuilder(modelBuilder);
 
 
             modelBuilder.Entity<UserStatus>(entity =>

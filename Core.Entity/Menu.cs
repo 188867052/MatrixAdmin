@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Core.Model.Enums;
+using Core.Entity;
+using Core.Entity.Enums;
 
 namespace Core.Model.Administration.Menu
 {
@@ -118,6 +119,6 @@ namespace Core.Model.Administration.Menu
         /// <summary>
         /// 菜单拥有的权限列表
         /// </summary>
-        public ICollection<Permission.Permission> Permissions { get; set; }
+        public ICollection<Permission> Permissions { get; set; }
     }
 }

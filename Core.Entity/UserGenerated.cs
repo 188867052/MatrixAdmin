@@ -1,10 +1,9 @@
-﻿using Core.Model.Enums;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Core.Entity.Enums;
 
-namespace Core.Model.Administration.User
+namespace Core.Entity
 {
     /// <summary>
     /// 
@@ -79,26 +78,7 @@ namespace Core.Model.Administration.User
         public ICollection<UserRoleMapping> UserRoles { get; set; }
 
         public virtual UserStatus UserStatus { get; set; }
-        public int UserStatusId { get; internal set; }
 
-        public static void ModelBuilder(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.Property(e => e.Avatar).HasMaxLength(255);
-                entity.Property(e => e.Description).HasMaxLength(800);
-                entity.Property(e => e.DisplayName).HasMaxLength(50);
-                entity.Property(e => e.LoginName)
-                    .IsRequired()
-                    .HasMaxLength(50);
-                entity.Property(e => e.Password).HasMaxLength(255);
-                entity.Property(e => e.UserStatusId).HasDefaultValueSql("((1))");
-                entity.HasOne(d => d.UserStatus);
-                //.WithMany(p => p.User)
-                //.HasForeignKey(d => d.UserStatusId)
-                //.OnDelete(DeleteBehavior.ClientSetNull)
-                //.HasConstraintName("FK__User__UserStatus");
-            });
-        }
+        public int UserStatusId { get; internal set; }
     }
 }

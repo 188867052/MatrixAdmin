@@ -4,6 +4,7 @@ using System.Linq;
 using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
+using Core.Entity;
 using Core.Extension.Dapper;
 using Core.Model;
 using Core.Model.Administration.Icon;

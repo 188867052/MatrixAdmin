@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core.Entity\Core.Entity.csproj" />
     <ProjectReference Include="..\Core.Extension\Core.Extension.csproj" />
     <ProjectReference Include="..\Core.Models\Core.Model.csproj" />
     <ProjectReference Include="..\Core.Service\Core.Service.csproj" />

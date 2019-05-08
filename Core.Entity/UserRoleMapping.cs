@@ -1,7 +1,6 @@
 ﻿using System;
-using Newtonsoft.Json;
 
-namespace Core.Model.Administration.User
+namespace Core.Entity
 {
     /// <summary>
     /// 用户-角色映射
@@ -21,7 +20,6 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 用户实体
         /// </summary>
-        [JsonIgnore]
         public User User { get; set; }
 
         /// <summary>
@@ -32,8 +30,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 角色实体
         /// </summary>
-        [JsonIgnore]
-        public Role.Role Role { get; set; }
+        public Role Role { get; set; }
 
         /// <summary>
         /// 创建时间

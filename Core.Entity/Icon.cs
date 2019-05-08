@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Core.Model.Administration.Icon
+namespace Core.Entity
 {
     /// <summary>
     /// 图标实体类

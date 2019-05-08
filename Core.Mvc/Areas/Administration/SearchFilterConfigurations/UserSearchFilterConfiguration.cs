@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Core.Entity.Enums;
 using Core.Model.Administration.User;
-using Core.Model.Enums;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
