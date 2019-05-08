@@ -21,7 +21,7 @@ namespace Core.Entity
 
         public string Avatar { get; set; }
 
-        public UserTypeEnum UserType { get; set; }
+        public UserRoleEnum UserType { get; set; }
 
         public IsLockedEnum IsLocked { get; set; }
 

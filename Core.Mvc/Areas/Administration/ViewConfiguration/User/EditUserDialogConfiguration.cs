@@ -34,10 +34,10 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
             textBoxes.Add(new LabeledTextBox<UserEditPostModel, Entity.User>("登录名", o => o.LoginName, o => o.LoginName));
             textBoxes.Add(new LabeledTextBox<UserEditPostModel, Entity.User>("显示名", o => o.DisplayName, o => o.DisplayName));
 
-            var dropDown = new DropDownTextBox<UserEditPostModel, Entity.User>("角色", o => o.UserType, false);
-            dropDown.AddOption((int)UserTypeEnum.GeneralUser, "一般用户");
-            dropDown.AddOption((int)UserTypeEnum.Admin, "管理员");
-            dropDown.AddOption((int)UserTypeEnum.SuperAdministrator, "超级管理员");
+            var dropDown = new DropDownTextBox<UserEditPostModel, Entity.User>("角色", o => o.UserRole, false);
+            dropDown.AddOption((int)UserRoleEnum.GeneralUser, "一般用户");
+            dropDown.AddOption((int)UserRoleEnum.Admin, "管理员");
+            dropDown.AddOption((int)UserRoleEnum.SuperAdministrator, "超级管理员");
             textBoxes.Add(dropDown);
             textBoxes.Add(new LabeledTextBox<UserEditPostModel, Entity.User>("密码", o => o.Password, o => o.Password, TextBoxTypeEnum.Password));
         }

@@ -3,7 +3,7 @@
     /// <summary>
     /// 用户类型枚举
     /// </summary>
-    public enum UserTypeEnum
+    public enum UserRoleEnum
     {
         /// <summary>
         /// 超级管理员

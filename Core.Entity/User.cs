@@ -12,8 +12,15 @@ namespace Core.Entity
         {
             get
             {
-                UserRoleMapping userRoleMapping = UserRoles?.FirstOrDefault(u => u.User.Id == this.Id);
-                return userRoleMapping?.Role;
+                return UserRoleMapping?.Role;
+            }
+        }
+
+        public UserRoleMapping UserRoleMapping
+        {
+            get
+            {
+               return UserRoles?.FirstOrDefault(u => u.User.Id == this.Id);
             }
         }
 

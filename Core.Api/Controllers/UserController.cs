@@ -152,6 +152,9 @@ namespace Core.Api.Controllers
             ResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
             {
+                DbContext.Set<UserRoleMapping>().Load();
+                DbContext.Set<UserStatus>().Load();
+                DbContext.Set<Role>().Load();
                 User entity = this.DbContext.User.FirstOrDefault(x => x.Id == model.Id);
                 if (entity == null)
                 {
@@ -161,6 +164,14 @@ namespace Core.Api.Controllers
                 entity.DisplayName = model.DisplayName;
                 entity.LoginName = model.LoginName;
                 entity.Password = model.Password;
+                //if (model.UserRole.HasValue)
+                //{
+                //    var userRoleMapping = DbContext.UserRoleMapping.FirstOrDefault(x => x.UserId == model.Id);
+                //    if (userRoleMapping!=null)
+                //    {
+                //        userRoleMapping.RoleId = (int)model.UserRole.Value;
+                //    }
+                //}
                 entity.UpdateTime = DateTime.Now;
                 this.DbContext.SaveChanges();
                 response = ResponseModelFactory.CreateInstance;

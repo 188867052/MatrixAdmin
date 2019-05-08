@@ -31,7 +31,7 @@ namespace Core.Api.Extensions.AuthContext
         /// <summary>
         /// 用户类型
         /// </summary>
-        public UserTypeEnum UserType { get; set; }
+        public UserRoleEnum UserType { get; set; }
 
         /// <summary>
         /// 头像地址

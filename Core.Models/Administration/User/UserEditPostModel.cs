@@ -35,7 +35,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 
         /// </summary>
-        public UserTypeEnum UserType { get; set; }
+        public UserRoleEnum? UserRole { get; set; }
 
         /// <summary>
         /// 

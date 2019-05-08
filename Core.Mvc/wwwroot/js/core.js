@@ -92,9 +92,13 @@
             return e.innerText;
         },
 
-        generateFormDataById: function (id) {
+        generateModalData: function (dialog) {
             var data = new Object;
-            $("#" + id + " input").each(function () {
+            $("#" + dialog.id + " input").each(function () {
+                var propertyName = this.getAttribute("name");
+                data[propertyName] = this.value;
+            });
+            $("#" + dialog.id + " select").each(function () {
                 var propertyName = this.getAttribute("name");
                 data[propertyName] = this.value;
             });
@@ -128,10 +132,10 @@
         },
 
         submit: function (url, id, onSuccess) {
-            var dialogId = this.getModalDialogId();
-            var data = this.generateFormDataById(dialogId);
+            var dialog = this.getModalDialog();
+            var data = this.generateModalData(dialog);
             $.post(url, data);
-            $("#" + dialogId).modal("hide");
+            $("#" + dialog.id).modal("hide");
             onSuccess();
         },
 
@@ -140,9 +144,8 @@
             $("#" + id).modal("hide");
         },
 
-        getModalDialogId: function () {
-            var id = $(".modal")[0].id;
-            return id;
+        getModalDialog: function () {
+            return $(".modal")[0];
         },
 
         addOption: function () {

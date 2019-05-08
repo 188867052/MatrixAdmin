@@ -35,7 +35,7 @@ namespace Core.Api.Extensions.AuthContext
                     LoginName = Current.User.FindFirstValue(ClaimTypes.NameIdentifier),
                     DisplayName = Current.User.FindFirstValue("displayName"),
                     EmailAddress = Current.User.FindFirstValue("emailAddress"),
-                    UserType = (UserTypeEnum)Convert.ToInt32(Current.User.FindFirstValue("userType")),
+                    UserType = (UserRoleEnum)Convert.ToInt32(Current.User.FindFirstValue("userType")),
                     Avator= Current.User.FindFirstValue("avator"),
                     Guid= new Guid(Current.User.FindFirstValue("guid"))
                 };
@@ -61,7 +61,7 @@ namespace Core.Api.Extensions.AuthContext
         {
             get
             {
-                return ((UserTypeEnum)Convert.ToInt32(Current.User.FindFirstValue("userType"))== UserTypeEnum.SuperAdministrator);
+                return ((UserRoleEnum)Convert.ToInt32(Current.User.FindFirstValue("userType"))== UserRoleEnum.SuperAdministrator);
             }
         }
     }

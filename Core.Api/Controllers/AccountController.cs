@@ -41,7 +41,7 @@ namespace Core.Api.Controllers
 LEFT JOIN Permission AS P ON P.Code = RPM.PermissionCode
 INNER JOIN Menu AS M ON M.Guid = P.MenuGuid
 WHERE P.IsDeleted=0 AND P.Status=1 AND EXISTS (SELECT 1 FROM UserRoleMapping AS URM WHERE URM.UserGuid={0} AND URM.RoleCode=RPM.RoleCode)";
-                if (user.UserType == UserTypeEnum.SuperAdministrator)
+                if (user.UserType == UserRoleEnum.SuperAdministrator)
                 {
                     //如果是超级管理员
                     sqlPermission = @"SELECT P.Code AS PermissionCode,P.ActionCode AS PermissionActionCode,P.Name AS PermissionName,P.Type AS PermissionType,M.Name AS MenuName,M.Guid AS MenuGuid,M.Alias AS MenuAlias,M.IsDefaultRouter FROM Permission AS P 
@@ -51,7 +51,7 @@ WHERE P.IsDeleted=0 AND P.Status=1";
                 List<PermissionWithMenu> permissions = this.DbContext.PermissionWithMenu.FromSql(sqlPermission, user.Id).ToList();
                 List<string> allowPages = new List<string> { };
 
-                if (user.UserType == UserTypeEnum.SuperAdministrator)
+                if (user.UserType == UserRoleEnum.SuperAdministrator)
                 {
                     allowPages.AddRange(menus.Select(x => x.Alias));
                 }

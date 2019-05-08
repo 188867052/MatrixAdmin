@@ -52,7 +52,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 
         /// </summary>
-        public UserTypeEnum UserType { get; set; }
+        public UserRoleEnum UserType { get; set; }
 
         /// <summary>
         /// 
