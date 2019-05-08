@@ -8,6 +8,11 @@ namespace Core.Model.Administration.User
     /// </summary>
     public class UserModel
     {
+        public UserModel()
+        {
+            this.UserStatus = new UserStatus();
+        }
+
         public UserModel(User user)
         {
             this.Id = user.Id;
@@ -18,15 +23,19 @@ namespace Core.Model.Administration.User
             this.CreateTime = user.CreateTime;
             this.RoleName = user.RoleName;
             this.UserStatus = user.UserStatus;
+            this.CreatedByUserName = user.CreatedByUserName;
         }
+
         /// <summary>
         /// 
         /// </summary>
         public int Id { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public string LoginName { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
