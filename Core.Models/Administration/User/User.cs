@@ -9,7 +9,7 @@ namespace Core.Model.Administration.User
     /// <summary>
     /// 
     /// </summary>
-    public class User
+    public partial class User
     {
         [Key]
         public int Id { get; set; }

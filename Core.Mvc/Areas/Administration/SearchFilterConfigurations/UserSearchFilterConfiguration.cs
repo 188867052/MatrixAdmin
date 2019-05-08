@@ -3,9 +3,7 @@ using Core.Model.Administration.User;
 using Core.Model.Enums;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.Button;
-using Core.Web.Enums;
 using Core.Web.GridFilter;
-using Core.Web.Identifiers;
 using Core.Web.JavaScript;
 using Core.Web.SearchFilterConfiguration;
 

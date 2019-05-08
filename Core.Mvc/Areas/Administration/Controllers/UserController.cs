@@ -30,7 +30,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult Index()
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Index));
-            var model = AsyncRequest.GetAsync<IList<User>>(url).Result;
+            var model = AsyncRequest.GetAsync<IList<UserModel>>(url).Result;
             UserIndex table = new UserIndex(this.HostingEnvironment, model);
 
             return this.ViewConfiguration(table);

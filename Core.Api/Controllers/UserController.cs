@@ -27,8 +27,23 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
+                DbContext.Set<UserRoleMapping>().Load();
                 DbContext.Set<UserStatus>().Load();
-                return this.StandardResponse(this.DbContext.User);
+                DbContext.Set<Role>().Load();
+                var query = this.DbContext.User;
+
+                Pager pager = Pager.CreateDefaultInstance();
+                pager.TotalCount = query.Count();
+                List<User> list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
+
+                IList<UserModel> list2 = new List<UserModel>();
+                foreach (User item in list)
+                {
+                    list2.Add(new UserModel(item));
+                }
+                ResponseModel response = new ResponseModel(list2, pager);
+
+                return Ok(response);
             }
         }
 
@@ -42,6 +57,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 DbContext.Set<UserStatus>().Load();
+                DbContext.Set<UserRoleMapping>().Load();
                 IQueryable<User> query = this.DbContext.User.AsQueryable();
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Model.Administration.User.User.IsEnable));
                 if (model.Status.HasValue)
@@ -204,9 +220,8 @@ namespace Core.Api.Controllers
             ResponseModel response = ResponseModelFactory.CreateInstance;
             List<UserRoleMapping> roles = model.AssignedRoles.Select(x => new UserRoleMapping
             {
-                UserGuid = model.UserGuid,
-                CreatedOn = DateTime.Now,
-                RoleCode = x.Trim()
+                CreatedTime = DateTime.Now,
+                //RoleId = x.Trim()
             }).ToList();
             this.DbContext.Database.ExecuteSqlCommand("DELETE FROM DncUserRoleMapping WHERE UserGuid={0}", model.UserGuid);
             bool success = true;

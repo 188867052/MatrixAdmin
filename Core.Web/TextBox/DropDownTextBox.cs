@@ -18,6 +18,7 @@ namespace Core.Web.TextBox
         private readonly bool _isContainsEmpty;
         private readonly string labelText;
         private readonly Expression<Func<TPostModel, Enum>> _expression;
+        private int selectedKey;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DropDownTextBox{TPostModel, TEnumType}"/> class.
@@ -33,16 +34,20 @@ namespace Core.Web.TextBox
             this._keyValuePair = new List<KeyValuePair<int, string>>();
         }
 
-        public void AddOption(int key, string value)
+        public void AddOption(int key, string value, bool isSelected = false)
         {
             this._keyValuePair.Add(new KeyValuePair<int, string>(key, value));
+            if (isSelected)
+            {
+                this.selectedKey = key;
+            }
         }
 
         public string Render(TModel model)
         {
             string property = this._expression.GetPropertyName();
             string options = this._isContainsEmpty ? "<option></option>" : default;
-            options = this._keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
+            options = this._keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}' {(this.selectedKey == item.Key ? "selected=\"selected\"" : string.Empty)}>{item.Value}</option>");
 
             return
                 $"<div class=\"form-group\">" +

@@ -6,12 +6,23 @@ namespace Core.Model.Administration.User
     /// <summary>
     /// 
     /// </summary>
-    public class UserJsonModel
+    public class UserModel
     {
+        public UserModel(User user)
+        {
+            this.Id = user.Id;
+            this.LoginName = user.LoginName;
+            this.DisplayName = user.DisplayName;
+            this.Password = user.Password;
+            this.UserType = user.UserType;
+            this.CreateTime = user.CreateTime;
+            this.RoleName = user.RoleName;
+            this.UserStatus = user.UserStatus;
+        }
         /// <summary>
         /// 
         /// </summary>
-        public Guid Guid { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// 
         /// </summary>
@@ -20,53 +31,64 @@ namespace Core.Model.Administration.User
         /// 
         /// </summary>
         public string DisplayName { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public string Password { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Avatar { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public UserTypeEnum UserType { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public IsLockedEnum IsLocked { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public UserStatusEnum Status { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
-        public IsDeletedEnum IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
-        public string CreatedOn { get; set; }
+        public DateTime CreateTime { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public Guid CreatedByUserGuid { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public string CreatedByUserName { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
-        public string ModifiedOn { get; set; }
+        public DateTime UpdateTime { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public Guid? ModifiedByUserGuid { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public string ModifiedByUserName { get; set; }
+
+        public string RoleName { get; set; }
+
+        public UserStatus UserStatus { get; set; }
     }
 }

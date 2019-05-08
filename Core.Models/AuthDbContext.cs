@@ -109,8 +109,8 @@ namespace Core.Model
             {
                 entity.HasKey(x => new
                 {
-                    x.UserGuid,
-                    x.RoleCode
+                    x.UserId,
+                    RoleCode = x.RoleId
                 });
 
                 //entity.HasOne(x => x.User)
