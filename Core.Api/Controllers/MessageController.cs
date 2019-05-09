@@ -35,7 +35,7 @@ namespace Core.Api.Controllers
             ResponseModel response = ResponseModelFactory.CreateInstance;
             object[] unread =
             {
-                new {title="消息1",create_time=DateTime.Now,msg_id=1}
+                new {title="消息1", create_time=DateTime.Now, msg_id=1}
             };
             response.SetData(new { unread });
             return this.Ok(response);

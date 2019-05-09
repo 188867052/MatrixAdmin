@@ -29,47 +29,47 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// The command (sql or a stored-procedure name) to execute.
+        /// Gets the command (sql or a stored-procedure name) to execute.
         /// </summary>
         public string CommandText { get; }
 
         /// <summary>
-        /// The parameters associated with the command.
+        /// Gets the parameters associated with the command.
         /// </summary>
         public object Parameters { get; }
 
         /// <summary>
-        /// The active transaction for the command.
+        /// Gets the active transaction for the command.
         /// </summary>
         public IDbTransaction Transaction { get; }
 
         /// <summary>
-        /// The effective timeout for the command.
+        /// Gets the effective timeout for the command.
         /// </summary>
         public int? CommandTimeout { get; }
 
         /// <summary>
-        /// The type of command that the command-text represents.
+        /// Gets the type of command that the command-text represents.
         /// </summary>
         public CommandType? CommandType { get; }
 
         /// <summary>
-        /// Should data be buffered before returning?.
+        /// Gets a value indicating whether should data be buffered before returning?.
         /// </summary>
         public bool Buffered => (this.Flags & CommandFlags.Buffered) != 0;
 
         /// <summary>
-        /// Should the plan for this query be cached?.
+        /// Gets a value indicating whether should the plan for this query be cached?.
         /// </summary>
         internal bool AddToCache => (this.Flags & CommandFlags.NoCache) == 0;
 
         /// <summary>
-        /// Additional state flags against this command.
+        /// Gets additional state flags against this command.
         /// </summary>
         public CommandFlags Flags { get; }
 
         /// <summary>
-        /// Can async queries be pipelined?.
+        /// Gets a value indicating whether can async queries be pipelined?.
         /// </summary>
         public bool Pipelined => (this.Flags & CommandFlags.Pipelined) != 0;
 
@@ -85,9 +85,8 @@ namespace Core.Extension.Dapper
         /// <param name="flags">The behavior flags for this command.</param>
         /// <param name="cancellationToken">The cancellation token for this command.</param>
         public CommandDefinition(string commandText, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null,
-                                 CommandType? commandType = null, CommandFlags flags = CommandFlags.Buffered
-                                 , CancellationToken cancellationToken = default(CancellationToken)
-            )
+                                 CommandType? commandType = null, CommandFlags flags = CommandFlags.Buffered,
+                                 CancellationToken cancellationToken = default)
         {
             this.CommandText = commandText;
             this.Parameters = parameters;
@@ -104,7 +103,7 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// For asynchronous operations, the cancellation-token.
+        /// Gets for asynchronous operations, the cancellation-token.
         /// </summary>
         public CancellationToken CancellationToken { get; }
 

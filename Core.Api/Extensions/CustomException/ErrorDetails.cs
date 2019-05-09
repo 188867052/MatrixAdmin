@@ -12,7 +12,7 @@ namespace Core.Api.Extensions.CustomException
 
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(this,new JsonSerializerSettings
+            return JsonConvert.SerializeObject(this, new JsonSerializerSettings
             {
                 ContractResolver = new DefaultContractResolver
                 {

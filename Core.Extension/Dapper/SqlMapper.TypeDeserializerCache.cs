@@ -138,8 +138,7 @@ namespace Core.Extension.Dapper
                     {
                         if ((this.names?[i] ?? this.reader?.GetName(this.startBound + i)) != (other.names?[i] ?? other.reader?.GetName(this.startBound + i))
                             ||
-                            (this.types?[i] ?? this.reader?.GetFieldType(this.startBound + i)) != (other.types?[i] ?? other.reader?.GetFieldType(this.startBound + i))
-                            )
+                            (this.types?[i] ?? this.reader?.GetFieldType(this.startBound + i)) != (other.types?[i] ?? other.reader?.GetFieldType(this.startBound + i)))
                         {
                             return false; // different column name or type
                         }

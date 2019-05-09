@@ -12,7 +12,6 @@ namespace Core.Web.JavaScript
         private readonly string _selector;
         private readonly string _func;
 
-
         public JavaScriptEvent(string func, string @class, JavaScriptEventEnum eventType = default) : this(eventType)
         {
             this._func = func;

@@ -550,8 +550,7 @@ namespace Core.Extension.Dapper
             return (param is IEnumerable
                     && !(param is string
                       || param is IEnumerable<KeyValuePair<string, object>>
-                      || param is IDynamicParameters)
-                ) ? (IEnumerable)param : null;
+                      || param is IDynamicParameters)) ? (IEnumerable)param : null;
         }
 
         private static int ExecuteImpl(this IDbConnection cnn, ref CommandDefinition command)
@@ -3466,8 +3465,7 @@ namespace Core.Extension.Dapper
         /// <param name="returnNullIfFirstMissing"></param>
         /// <returns></returns>
         public static Func<IDataReader, object> GetTypeDeserializer(
-            Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnNullIfFirstMissing = false
-        )
+            Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnNullIfFirstMissing = false)
         {
             return TypeDeserializerCache.GetReader(type, reader, startBound, length, returnNullIfFirstMissing);
         }
@@ -3498,8 +3496,7 @@ namespace Core.Extension.Dapper
         }
 
         private static Func<IDataReader, object> GetTypeDeserializerImpl(
-            Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnNullIfFirstMissing = false
-        )
+            Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnNullIfFirstMissing = false)
         {
             var returnType = type.IsValueType() ? typeof(object) : type;
             var dm = new DynamicMethod("Deserialize" + Guid.NewGuid().ToString(), returnType, new[] { typeof(IDataReader) }, type, true);

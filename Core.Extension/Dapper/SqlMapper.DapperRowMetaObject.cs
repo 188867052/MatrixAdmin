@@ -22,8 +22,7 @@ namespace Core.Extension.Dapper
 
             public DapperRowMetaObject(
                 System.Linq.Expressions.Expression expression,
-                System.Dynamic.BindingRestrictions restrictions
-                )
+                System.Dynamic.BindingRestrictions restrictions)
                 : base(expression, restrictions)
             {
             }
@@ -31,24 +30,21 @@ namespace Core.Extension.Dapper
             public DapperRowMetaObject(
                 System.Linq.Expressions.Expression expression,
                 System.Dynamic.BindingRestrictions restrictions,
-                object value
-                )
+                object value)
                 : base(expression, restrictions, value)
             {
             }
 
             private System.Dynamic.DynamicMetaObject CallMethod(
                 MethodInfo method,
-                System.Linq.Expressions.Expression[] parameters
-                )
+                System.Linq.Expressions.Expression[] parameters)
             {
                 var callMethod = new System.Dynamic.DynamicMetaObject(
                     System.Linq.Expressions.Expression.Call(
                         System.Linq.Expressions.Expression.Convert(this.Expression, this.LimitType),
                         method,
                         parameters),
-                    System.Dynamic.BindingRestrictions.GetTypeRestriction(this.Expression, this.LimitType)
-                    );
+                    System.Dynamic.BindingRestrictions.GetTypeRestriction(this.Expression, this.LimitType));
                 return callMethod;
             }
 

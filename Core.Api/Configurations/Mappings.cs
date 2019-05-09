@@ -11,8 +11,8 @@ namespace Core.Api.Configurations
             // 获取所有IProfile实现类
             var allType =
                 Assembly
-                    .GetEntryAssembly()// 获取默认程序集
-                    .GetReferencedAssemblies()// 获取所有引用程序集
+                    .GetEntryAssembly() // 获取默认程序集
+                    .GetReferencedAssemblies() // 获取所有引用程序集
                     .Select(Assembly.Load)
                     .SelectMany(y => y.DefinedTypes)
                     .Where(type => typeof(IProfile).GetTypeInfo().IsAssignableFrom(type.AsType()));
