@@ -14,10 +14,6 @@ using System.Threading;
 using System.Xml;
 using System.Xml.Linq;
 
-#if NETSTANDARD1_3
-using DataException = System.InvalidOperationException;
-#endif
-
 namespace Core.Extension.Dapper
 {
     /// <summary>

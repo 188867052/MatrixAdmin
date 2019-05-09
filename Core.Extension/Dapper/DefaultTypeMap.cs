@@ -40,28 +40,7 @@ namespace Core.Extension.Dapper
         /// </summary>
         public List<PropertyInfo> Properties { get; }
 
-        internal static MethodInfo GetPropertySetter(PropertyInfo propertyInfo, Type type)
-        {
-            if (propertyInfo.DeclaringType == type)
-            {
-                return propertyInfo.GetSetMethod(true);
-            }
-
-            return propertyInfo.DeclaringType.GetProperty(
-                   propertyInfo.Name,
-                   BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
-                   Type.DefaultBinder,
-                   propertyInfo.PropertyType,
-                   propertyInfo.GetIndexParameters().Select(p => p.ParameterType).ToArray(),
-                   null).GetSetMethod(true);
-        }
-
-        internal static List<PropertyInfo> GetSettableProps(Type t)
-        {
-            return t.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                  .Where(p => GetPropertySetter(p, t) != null)
-                  .ToList();
-        }
+     
 
         /// <summary>
         /// Finds best constructor.
@@ -202,6 +181,29 @@ namespace Core.Extension.Dapper
         internal static List<FieldInfo> GetSettableFields(Type t)
         {
             return t.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).ToList();
+        }
+
+        internal static MethodInfo GetPropertySetter(PropertyInfo propertyInfo, Type type)
+        {
+            if (propertyInfo.DeclaringType == type)
+            {
+                return propertyInfo.GetSetMethod(true);
+            }
+
+            return propertyInfo.DeclaringType.GetProperty(
+                propertyInfo.Name,
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
+                Type.DefaultBinder,
+                propertyInfo.PropertyType,
+                propertyInfo.GetIndexParameters().Select(p => p.ParameterType).ToArray(),
+                null).GetSetMethod(true);
+        }
+
+        internal static List<PropertyInfo> GetSettableProps(Type t)
+        {
+            return t.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+                .Where(p => GetPropertySetter(p, t) != null)
+                .ToList();
         }
     }
 }
