@@ -12,7 +12,10 @@ namespace Core.Api.Extensions.CustomException
         /// Initializes a new instance of the <see cref="HttpException"/> class.
         /// </summary>
         /// <param name="statusCode"></param>
-        public HttpException(HttpStatusCode statusCode) { this.StatusCode = statusCode; }
+        public HttpException(HttpStatusCode statusCode)
+        {
+            this.StatusCode = statusCode;
+        }
 
         /// <summary>
         ///

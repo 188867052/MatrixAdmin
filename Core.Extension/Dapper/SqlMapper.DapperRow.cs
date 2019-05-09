@@ -22,7 +22,9 @@ namespace Core.Extension.Dapper
             {
                 public static readonly DeadValue Default = new DeadValue();
 
-                private DeadValue() { /* hiding constructor */ }
+                private DeadValue()
+                { /* hiding constructor */
+                }
             }
 
             int ICollection<KeyValuePair<string, object>>.Count

@@ -13,18 +13,18 @@ namespace Core.Api.Filter
         public Connector Connector { get; set; }
 
         /// <summary>
-		/// Property identifier conventionalized by for the Expression Builder.
-		/// </summary>
+        /// Property identifier conventionalized by for the Expression Builder.
+        /// </summary>
         public string PropertyName { get; set; }
 
         /// <summary>
-		/// Express the interaction between the property and the constant value defined in this filter statement.
-		/// </summary>
+        /// Express the interaction between the property and the constant value defined in this filter statement.
+        /// </summary>
         public IOperation Operation { get; set; }
 
         /// <summary>
-		/// Constant value that will interact with the property defined in this filter statement.
-		/// </summary>
+        /// Constant value that will interact with the property defined in this filter statement.
+        /// </summary>
         public object Value { get; set; }
 
         /// <summary>

@@ -6,7 +6,7 @@ namespace Core.Api.ExpressionBuilder.Generics
     /// <summary>
     /// Connects to FilterStatement together.
     /// </summary>
-	public class FilterStatementConnection : IFilterStatementConnection
+    public class FilterStatementConnection : IFilterStatementConnection
     {
         private readonly IFilter _filter;
         private readonly IFilterInfo _statement;
@@ -23,9 +23,9 @@ namespace Core.Api.ExpressionBuilder.Generics
         }
 
         /// <summary>
-		/// Defines that the last filter statement will connect to the next one using the 'AND' logical operator.
-		/// </summary>
-		public IFilter And
+        /// Defines that the last filter statement will connect to the next one using the 'AND' logical operator.
+        /// </summary>
+        public IFilter And
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// <summary>
         /// Defines that the last filter statement will connect to the next one using the 'OR' logical operator.
         /// </summary>
-		public IFilter Or
+        public IFilter Or
         {
             get
             {

@@ -17,7 +17,7 @@ namespace Core.Api.ExpressionBuilder.Helpers
 
         private readonly Settings _settings;
 
-        private readonly Dictionary<TypeGroup, HashSet<Type>> TypeGroups;
+        private readonly Dictionary<TypeGroup, HashSet<Type>> typeGroups;
 
         static OperationHelper()
         {
@@ -41,7 +41,10 @@ namespace Core.Api.ExpressionBuilder.Helpers
         /// <summary>
         /// List of all operations loaded so far.
         /// </summary>
-        public IEnumerable<IOperation> Operations { get { return _operations.ToArray(); } }
+        public IEnumerable<IOperation> Operations
+        {
+            get { return _operations.ToArray(); }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OperationHelper"/> class.
@@ -50,7 +53,7 @@ namespace Core.Api.ExpressionBuilder.Helpers
         public OperationHelper()
         {
             this._settings = new Settings();
-            this.TypeGroups = new Dictionary<TypeGroup, HashSet<Type>>
+            this.typeGroups = new Dictionary<TypeGroup, HashSet<Type>>
             {
                 { TypeGroup.Text, new HashSet<Type> { typeof(string), typeof(char) } },
                 { TypeGroup.Number, new HashSet<Type> { typeof(int), typeof(uint), typeof(byte), typeof(sbyte), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(Single), typeof(double), typeof(decimal) } },
@@ -77,7 +80,7 @@ namespace Core.Api.ExpressionBuilder.Helpers
             {
                 if (supportedType.Type != null)
                 {
-                    this.TypeGroups[supportedType.TypeGroup].Add(supportedType.Type);
+                    this.typeGroups[supportedType.TypeGroup].Add(supportedType.Type);
                 }
             }
         }
@@ -95,9 +98,9 @@ namespace Core.Api.ExpressionBuilder.Helpers
             }
 
             var typeGroup = TypeGroup.Default;
-            if (this.TypeGroups.Any(i => i.Value.Any(v => v.Name == typeName)))
+            if (this.typeGroups.Any(i => i.Value.Any(v => v.Name == typeName)))
             {
-                typeGroup = this.TypeGroups.FirstOrDefault(i => i.Value.Any(v => v.Name == typeName)).Key;
+                typeGroup = this.typeGroups.FirstOrDefault(i => i.Value.Any(v => v.Name == typeName)).Key;
             }
 
             supportedOperations.AddRange(this.Operations.Where(o => o.TypeGroup.HasFlag(typeGroup) && !o.SupportsLists && o.Active));

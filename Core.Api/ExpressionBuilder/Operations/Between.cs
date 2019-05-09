@@ -10,7 +10,9 @@ namespace Core.Api.ExpressionBuilder.Operations
     {
         /// <inheritdoc />
         public Between()
-            : base("Between", 2, TypeGroup.Number | TypeGroup.Date) { }
+            : base("Between", 2, TypeGroup.Number | TypeGroup.Date)
+        {
+        }
 
         /// <inheritdoc />
         public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)

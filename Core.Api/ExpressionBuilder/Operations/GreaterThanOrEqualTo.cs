@@ -10,7 +10,9 @@ namespace Core.Api.ExpressionBuilder.Operations
     {
         /// <inheritdoc />
         public GreaterThanOrEqualTo()
-            : base("GreaterThanOrEqualTo", 1, TypeGroup.Number | TypeGroup.Date) { }
+            : base("GreaterThanOrEqualTo", 1, TypeGroup.Number | TypeGroup.Date)
+        {
+        }
 
         /// <inheritdoc />
         public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)

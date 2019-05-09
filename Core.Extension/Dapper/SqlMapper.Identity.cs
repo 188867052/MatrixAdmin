@@ -34,7 +34,9 @@ namespace Core.Extension.Dapper
             /// <param name="parametersType"></param>
             /// <param name="otherTypes"></param>
             internal Identity(string sql, CommandType? commandType, IDbConnection connection, Type type, Type parametersType, Type[] otherTypes)
-                : this(sql, commandType, connection.ConnectionString, type, parametersType, otherTypes, 0) { /* base call */ }
+                : this(sql, commandType, connection.ConnectionString, type, parametersType, otherTypes, 0)
+            { /* base call */
+            }
 
             private Identity(string sql, CommandType? commandType, string connectionString, Type type, Type parametersType, Type[] otherTypes, int gridIndex)
             {

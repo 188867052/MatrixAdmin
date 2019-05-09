@@ -10,7 +10,9 @@ namespace Core.Api.ExpressionBuilder.Operations
     {
         /// <inheritdoc />
         public IsNotNull()
-            : base("IsNotNull", 0, TypeGroup.Text | TypeGroup.Nullable) { }
+            : base("IsNotNull", 0, TypeGroup.Text | TypeGroup.Nullable)
+        {
+        }
 
         /// <inheritdoc />
         public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)

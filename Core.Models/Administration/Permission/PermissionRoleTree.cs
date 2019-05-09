@@ -43,7 +43,7 @@ namespace Core.Model.Administration.Permission
         /// </summary>
         public bool DisableCheckbox { get; set; }
         /// <summary>
-        /// 是否选中子节点	.
+        /// 是否选中子节点 .
         /// </summary>
         public bool Selected { get; set; }
         /// <summary>

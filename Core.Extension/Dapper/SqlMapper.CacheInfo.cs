@@ -16,9 +16,15 @@ namespace Core.Extension.Dapper
 
             private int _hitCount;
 
-            public int GetHitCount() { return Interlocked.CompareExchange(ref this._hitCount, 0, 0); }
+            public int GetHitCount()
+            {
+                return Interlocked.CompareExchange(ref this._hitCount, 0, 0);
+            }
 
-            public void RecordHit() { Interlocked.Increment(ref this._hitCount); }
+            public void RecordHit()
+            {
+                Interlocked.Increment(ref this._hitCount);
+            }
         }
     }
 }

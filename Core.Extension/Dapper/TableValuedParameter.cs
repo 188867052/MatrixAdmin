@@ -19,7 +19,9 @@ namespace Core.Extension.Dapper
         /// Create a new instance of <see cref="TableValuedParameter"/>.
         /// </summary>
         /// <param name="table">The <see cref="DataTable"/> to create this parameter for.</param>
-        public TableValuedParameter(DataTable table) : this(table, null) { /* run base */ }
+        public TableValuedParameter(DataTable table) : this(table, null)
+        { /* run base */
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TableValuedParameter"/> class.
@@ -40,8 +42,7 @@ namespace Core.Extension.Dapper
             var prop = typeof(SqlParameter).GetProperty("TypeName", BindingFlags.Instance | BindingFlags.Public);
             if (prop != null && prop.PropertyType == typeof(string) && prop.CanWrite)
             {
-                setTypeName = (Action<SqlParameter, string>)
-                    Delegate.CreateDelegate(typeof(Action<SqlParameter, string>), prop.GetSetMethod());
+                setTypeName = (Action<SqlParameter, string>)Delegate.CreateDelegate(typeof(Action<SqlParameter, string>), prop.GetSetMethod());
             }
         }
 

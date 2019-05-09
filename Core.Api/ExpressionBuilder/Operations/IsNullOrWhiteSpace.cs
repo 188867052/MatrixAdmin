@@ -10,7 +10,9 @@ namespace Core.Api.ExpressionBuilder.Operations
     {
         /// <inheritdoc />
         public IsNullOrWhiteSpace()
-            : base("IsNullOrWhiteSpace", 0, TypeGroup.Text, expectNullValues: true) { }
+            : base("IsNullOrWhiteSpace", 0, TypeGroup.Text, expectNullValues: true)
+        {
+        }
 
         /// <inheritdoc />
         public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)

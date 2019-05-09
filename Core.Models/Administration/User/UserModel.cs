@@ -14,7 +14,7 @@ namespace Core.Model.Administration.User
         /// </summary>
         public UserModel()
         {
-            this.UserStatus=new UserStatusModel();
+            this.UserStatus = new UserStatusModel();
 
         }
 

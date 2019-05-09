@@ -30,24 +30,36 @@ namespace Core.Api.ExpressionBuilder.Resources
         /// <summary>
         /// Gets the number of <see cref="Property" /> contained in the <see cref="PropertyCollection" />.
         /// </summary>
-        public int Count { get { return this.Properties.Count(); } }
+        public int Count
+        {
+            get { return this.Properties.Count(); }
+        }
 
         /// <summary>
         ///
         /// </summary>
-        public object SyncRoot { get { throw new NotImplementedException(); } }
+        public object SyncRoot
+        {
+            get { throw new NotImplementedException(); }
+        }
 
         /// <summary>
         ///
         /// </summary>
-        public bool IsSynchronized { get { throw new NotImplementedException(); } }
+        public bool IsSynchronized
+        {
+            get { throw new NotImplementedException(); }
+        }
 
         /// <summary>
         /// Retrieves a property based on its Id.
         /// </summary>
         /// <param name="propertyId">Property conventionalized <see cref="Property.Id" />.</param>
         /// <returns></returns>
-        public Property this[string propertyId] { get { return this.Properties.FirstOrDefault(p => p.Id.Equals(propertyId)); } }
+        public Property this[string propertyId]
+        {
+            get { return this.Properties.FirstOrDefault(p => p.Id.Equals(propertyId)); }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyCollection"/> class.

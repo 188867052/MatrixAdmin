@@ -111,7 +111,7 @@ namespace Core.Extension.Dapper
                 public override Type PropertyType => this._type;
 
                 public override object GetValue(object component)
-                    => ((DapperRow)component).TryGetValue(this._index, out var val) ? (val ?? DBNull.Value): DBNull.Value;
+                    => ((DapperRow)component).TryGetValue(this._index, out var val) ? (val ?? DBNull.Value) : DBNull.Value;
 
                 public override void SetValue(object component, object value)
                     => ((DapperRow)component).SetValue(this._index, value is DBNull ? null : value);

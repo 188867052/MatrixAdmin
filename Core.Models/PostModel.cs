@@ -57,7 +57,7 @@ namespace Core.Model
         {
             get
             {
-                if (this.Sort == null ||this.Sort.Count == 0)
+                if (this.Sort == null || this.Sort.Count == 0)
                 {
                     return null;
                 }

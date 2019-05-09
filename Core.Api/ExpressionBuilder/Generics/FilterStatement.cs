@@ -10,29 +10,29 @@ using Core.Api.ExpressionBuilder.Interfaces;
 namespace Core.Api.ExpressionBuilder.Generics
 {
     /// <summary>
-	/// Defines how a property should be filtered.
-	/// </summary>
+    /// Defines how a property should be filtered.
+    /// </summary>
     [Serializable]
     public class FilterInfo<TPropertyType> : IFilterInfo
     {
         /// <summary>
-		/// Establishes how this filter statement will connect to the next one.
-		/// </summary>
+        /// Establishes how this filter statement will connect to the next one.
+        /// </summary>
         public Connector Connector { get; set; }
 
         /// <summary>
-		/// Property identifier conventionalized by for the Expression Builder.
-		/// </summary>
+        /// Property identifier conventionalized by for the Expression Builder.
+        /// </summary>
         public string PropertyName { get; set; }
 
         /// <summary>
-		/// Express the interaction between the property and the constant value defined in this filter statement.
-		/// </summary>
+        /// Express the interaction between the property and the constant value defined in this filter statement.
+        /// </summary>
         public IOperation Operation { get; set; }
 
         /// <summary>
-		/// Constant value that will interact with the property defined in this filter statement.
-		/// </summary>
+        /// Constant value that will interact with the property defined in this filter statement.
+        /// </summary>
         public object Value { get; set; }
 
         /// <summary>
@@ -83,7 +83,9 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
         /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
         /// </summary>
-        public FilterInfo() { }
+        public FilterInfo()
+        {
+        }
 
         /// <summary>
         /// Validates the FilterStatement regarding the number of provided values and supported operations.
@@ -128,7 +130,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// String representation of <see cref="FilterInfo{TPropertyType}" />.
         /// </summary>
         /// <returns></returns>
-		public override string ToString()
+        public override string ToString()
         {
             switch (this.Operation.NumberOfValues)
             {

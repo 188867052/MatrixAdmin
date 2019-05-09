@@ -13,7 +13,9 @@ namespace Core.Api.ExpressionBuilder.Operations
 
         /// <inheritdoc />
         public DoesNotContain()
-            : base("DoesNotContain", 1, TypeGroup.Text) { }
+            : base("DoesNotContain", 1, TypeGroup.Text)
+        {
+        }
 
         /// <inheritdoc />
         public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)

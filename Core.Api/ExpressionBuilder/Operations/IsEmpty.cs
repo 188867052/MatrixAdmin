@@ -10,7 +10,9 @@ namespace Core.Api.ExpressionBuilder.Operations
     {
         /// <inheritdoc />
         public IsEmpty()
-            : base("IsEmpty", 0, TypeGroup.Text) { }
+            : base("IsEmpty", 0, TypeGroup.Text)
+        {
+        }
 
         /// <inheritdoc />
         public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)

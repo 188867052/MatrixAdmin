@@ -13,7 +13,9 @@ namespace Core.Api.ExpressionBuilder.Operations
 
         /// <inheritdoc />
         public StartsWith()
-            : base("StartsWith", 1, TypeGroup.Text) { }
+            : base("StartsWith", 1, TypeGroup.Text)
+        {
+        }
 
         /// <inheritdoc />
         public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
