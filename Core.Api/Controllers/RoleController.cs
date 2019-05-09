@@ -248,7 +248,6 @@ namespace Core.Api.Controllers
                     // this.DbContext.RolePermissionMapping.AddRange(permissions);
                     this.DbContext.SaveChanges();
                 }
-
             }
 
             return this.Ok(response);

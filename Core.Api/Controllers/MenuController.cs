@@ -292,7 +292,7 @@ namespace Core.Api.Controllers
                      Guid = x.Guid,
                      ParentGuid = x.ParentGuid,
                      Title = x.Title,
-                     Expand = (x.ParentGuid == null || x.ParentGuid == Guid.Empty),
+                     Expand = x.ParentGuid == null || x.ParentGuid == Guid.Empty,
                      Selected = selectedGuid == x.Guid,
                      Children = build(new Guid(x.Guid)),
                  })

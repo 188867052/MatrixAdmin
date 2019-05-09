@@ -54,7 +54,7 @@ namespace Core.Api.ExpressionBuilder.Operations
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return (this.Name != null ? this.Name.GetHashCode() : 0);
+            return this.Name != null ? this.Name.GetHashCode() : 0;
         }
 
         /// <inheritdoc />

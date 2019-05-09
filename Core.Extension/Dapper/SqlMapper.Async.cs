@@ -200,7 +200,11 @@ namespace Core.Extension.Dapper
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
         public static Task<IEnumerable<object>> QueryAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return QueryAsync<object>(cnn, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.Buffered, default(CancellationToken)));
         }
 
@@ -217,7 +221,11 @@ namespace Core.Extension.Dapper
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
         public static Task<object> QueryFirstAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return QueryRowAsync<object>(cnn, Row.First, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
         }
 
@@ -234,7 +242,11 @@ namespace Core.Extension.Dapper
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
         public static Task<object> QueryFirstOrDefaultAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return QueryRowAsync<object>(cnn, Row.FirstOrDefault, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
         }
 
@@ -251,7 +263,11 @@ namespace Core.Extension.Dapper
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
         public static Task<object> QuerySingleAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return QueryRowAsync<object>(cnn, Row.Single, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
         }
 
@@ -268,7 +284,11 @@ namespace Core.Extension.Dapper
         /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
         public static Task<object> QuerySingleOrDefaultAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return QueryRowAsync<object>(cnn, Row.SingleOrDefault, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
         }
 
@@ -419,7 +439,11 @@ namespace Core.Extension.Dapper
                 DbDataReader reader = null;
                 try
                 {
-                    if (wasClosed) await cnn.TryOpenAsync(cancel).ConfigureAwait(false);
+                    if (wasClosed)
+                    {
+                        await cnn.TryOpenAsync(cancel).ConfigureAwait(false);
+                    }
+
                     reader = await ExecuteReaderWithFlagsFallbackAsync(cmd, wasClosed, CommandBehavior.SequentialAccess | CommandBehavior.SingleResult, cancel).ConfigureAwait(false);
 
                     var tuple = info.Deserializer;
@@ -427,9 +451,15 @@ namespace Core.Extension.Dapper
                     if (tuple.Func == null || tuple.Hash != hash)
                     {
                         if (reader.FieldCount == 0)
+                        {
                             return Enumerable.Empty<T>();
+                        }
+
                         tuple = info.Deserializer = new DeserializerState(hash, GetDeserializer(effectiveType, reader, 0, -1, false));
-                        if (command.AddToCache) SetQueryCache(identity, info);
+                        if (command.AddToCache)
+                        {
+                            SetQueryCache(identity, info);
+                        }
                     }
 
                     var func = tuple.Func;
@@ -467,7 +497,10 @@ namespace Core.Extension.Dapper
                 finally
                 {
                     using (reader) { /* dispose if non-null */ }
-                    if (wasClosed) cnn.Close();
+                    if (wasClosed)
+                    {
+                        cnn.Close();
+                    }
                 }
             }
         }
@@ -484,7 +517,11 @@ namespace Core.Extension.Dapper
                 DbDataReader reader = null;
                 try
                 {
-                    if (wasClosed) await cnn.TryOpenAsync(cancel).ConfigureAwait(false);
+                    if (wasClosed)
+                    {
+                        await cnn.TryOpenAsync(cancel).ConfigureAwait(false);
+                    }
+
                     reader = await ExecuteReaderWithFlagsFallbackAsync(cmd, wasClosed, (row & Row.Single) != 0
                     ? CommandBehavior.SequentialAccess | CommandBehavior.SingleResult // need to allow multiple rows, to check fail condition
                     : CommandBehavior.SequentialAccess | CommandBehavior.SingleResult | CommandBehavior.SingleRow, cancel).ConfigureAwait(false);
@@ -497,7 +534,10 @@ namespace Core.Extension.Dapper
                         if (tuple.Func == null || tuple.Hash != hash)
                         {
                             tuple = info.Deserializer = new DeserializerState(hash, GetDeserializer(effectiveType, reader, 0, -1, false));
-                            if (command.AddToCache) SetQueryCache(identity, info);
+                            if (command.AddToCache)
+                            {
+                                SetQueryCache(identity, info);
+                            }
                         }
 
                         var func = tuple.Func;
@@ -513,7 +553,11 @@ namespace Core.Extension.Dapper
                             result = (T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture);
                         }
 
-                        if ((row & Row.Single) != 0 && await reader.ReadAsync(cancel).ConfigureAwait(false)) ThrowMultipleRows(row);
+                        if ((row & Row.Single) != 0 && await reader.ReadAsync(cancel).ConfigureAwait(false))
+                        {
+                            ThrowMultipleRows(row);
+                        }
+
                         while (await reader.ReadAsync(cancel).ConfigureAwait(false)) { /* ignore rows after the first */ }
                     }
                     else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one
@@ -527,7 +571,10 @@ namespace Core.Extension.Dapper
                 finally
                 {
                     using (reader) { /* dispose if non-null */ }
-                    if (wasClosed) cnn.Close();
+                    if (wasClosed)
+                    {
+                        cnn.Close();
+                    }
                 }
             }
         }
@@ -584,7 +631,10 @@ namespace Core.Extension.Dapper
             bool wasClosed = cnn.State == ConnectionState.Closed;
             try
             {
-                if (wasClosed) await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+                if (wasClosed)
+                {
+                    await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+                }
 
                 CacheInfo info = null;
                 string masterSql = null;
@@ -671,7 +721,10 @@ namespace Core.Extension.Dapper
             }
             finally
             {
-                if (wasClosed) cnn.Close();
+                if (wasClosed)
+                {
+                    cnn.Close();
+                }
             }
 
             return total;
@@ -686,14 +739,21 @@ namespace Core.Extension.Dapper
             {
                 try
                 {
-                    if (wasClosed) await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+                    if (wasClosed)
+                    {
+                        await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+                    }
+
                     var result = await cmd.ExecuteNonQueryAsync(command.CancellationToken).ConfigureAwait(false);
                     command.OnCompleted();
                     return result;
                 }
                 finally
                 {
-                    if (wasClosed) cnn.Close();
+                    if (wasClosed)
+                    {
+                        cnn.Close();
+                    }
                 }
             }
         }
@@ -952,18 +1012,29 @@ namespace Core.Extension.Dapper
             bool wasClosed = cnn.State == ConnectionState.Closed;
             try
             {
-                if (wasClosed) await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+                if (wasClosed)
+                {
+                    await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+                }
+
                 using (var cmd = command.TrySetupAsyncCommand(cnn, info.ParamReader))
                 using (var reader = await ExecuteReaderWithFlagsFallbackAsync(cmd, wasClosed, CommandBehavior.SequentialAccess | CommandBehavior.SingleResult, command.CancellationToken).ConfigureAwait(false))
                 {
-                    if (!command.Buffered) wasClosed = false; // handing back open reader; rely on command-behavior
+                    if (!command.Buffered)
+                    {
+                        wasClosed = false; // handing back open reader; rely on command-behavior
+                    }
+
                     var results = MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(null, CommandDefinition.ForCallback(command.Parameters), map, splitOn, reader, identity, true);
                     return command.Buffered ? results.ToList() : results;
                 }
             }
             finally
             {
-                if (wasClosed) cnn.Close();
+                if (wasClosed)
+                {
+                    cnn.Close();
+                }
             }
         }
 
@@ -1002,7 +1073,11 @@ namespace Core.Extension.Dapper
             bool wasClosed = cnn.State == ConnectionState.Closed;
             try
             {
-                if (wasClosed) await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+                if (wasClosed)
+                {
+                    await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+                }
+
                 using (var cmd = command.TrySetupAsyncCommand(cnn, info.ParamReader))
                 using (var reader = await ExecuteReaderWithFlagsFallbackAsync(cmd, wasClosed, CommandBehavior.SequentialAccess | CommandBehavior.SingleResult, command.CancellationToken).ConfigureAwait(false))
                 {
@@ -1012,7 +1087,10 @@ namespace Core.Extension.Dapper
             }
             finally
             {
-                if (wasClosed) cnn.Close();
+                if (wasClosed)
+                {
+                    cnn.Close();
+                }
             }
         }
 
@@ -1058,7 +1136,11 @@ namespace Core.Extension.Dapper
             bool wasClosed = cnn.State == ConnectionState.Closed;
             try
             {
-                if (wasClosed) await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+                if (wasClosed)
+                {
+                    await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+                }
+
                 cmd = command.TrySetupAsyncCommand(cnn, info.ParamReader);
                 reader = await ExecuteReaderWithFlagsFallbackAsync(cmd, wasClosed, CommandBehavior.SequentialAccess, command.CancellationToken).ConfigureAwait(false);
 
@@ -1086,7 +1168,11 @@ namespace Core.Extension.Dapper
                 }
 
                 cmd?.Dispose();
-                if (wasClosed) cnn.Close();
+                if (wasClosed)
+                {
+                    cnn.Close();
+                }
+
                 throw;
             }
         }
@@ -1155,14 +1241,22 @@ namespace Core.Extension.Dapper
             try
             {
                 cmd = command.TrySetupAsyncCommand(cnn, paramReader);
-                if (wasClosed) await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+                if (wasClosed)
+                {
+                    await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+                }
+
                 var reader = await ExecuteReaderWithFlagsFallbackAsync(cmd, wasClosed, commandBehavior, command.CancellationToken).ConfigureAwait(false);
                 wasClosed = false;
                 return reader;
             }
             finally
             {
-                if (wasClosed) cnn.Close();
+                if (wasClosed)
+                {
+                    cnn.Close();
+                }
+
                 cmd?.Dispose();
             }
         }
@@ -1229,13 +1323,21 @@ namespace Core.Extension.Dapper
             try
             {
                 cmd = command.TrySetupAsyncCommand(cnn, paramReader);
-                if (wasClosed) await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+                if (wasClosed)
+                {
+                    await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+                }
+
                 result = await cmd.ExecuteScalarAsync(command.CancellationToken).ConfigureAwait(false);
                 command.OnCompleted();
             }
             finally
             {
-                if (wasClosed) cnn.Close();
+                if (wasClosed)
+                {
+                    cnn.Close();
+                }
+
                 cmd?.Dispose();
             }
 

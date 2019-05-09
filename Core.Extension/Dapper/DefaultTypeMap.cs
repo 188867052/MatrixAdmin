@@ -21,7 +21,9 @@ namespace Core.Extension.Dapper
         public DefaultTypeMap(Type type)
         {
             if (type == null)
+            {
                 throw new ArgumentNullException(nameof(type));
+            }
 
             this._fields = GetSettableFields(type);
             this.Properties = GetSettableProps(type);
@@ -41,7 +43,10 @@ namespace Core.Extension.Dapper
 #endif
         internal static MethodInfo GetPropertySetter(PropertyInfo propertyInfo, Type type)
         {
-            if (propertyInfo.DeclaringType == type) return propertyInfo.GetSetMethod(true);
+            if (propertyInfo.DeclaringType == type)
+            {
+                return propertyInfo.GetSetMethod(true);
+            }
 #if NETSTANDARD1_3
             return propertyInfo.DeclaringType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
                     .Single(x => x.Name == propertyInfo.Name
@@ -85,18 +90,28 @@ namespace Core.Extension.Dapper
             {
                 ParameterInfo[] ctorParameters = ctor.GetParameters();
                 if (ctorParameters.Length == 0)
+                {
                     return ctor;
+                }
 
                 if (ctorParameters.Length != types.Length)
+                {
                     continue;
+                }
 
                 int i = 0;
                 for (; i < ctorParameters.Length; i++)
                 {
                     if (!string.Equals(ctorParameters[i].Name, names[i], StringComparison.OrdinalIgnoreCase))
+                    {
                         break;
+                    }
+
                     if (types[i] == typeof(byte[]) && ctorParameters[i].ParameterType.FullName == SqlMapper.LinqBinary)
+                    {
                         continue;
+                    }
+
                     var unboxedType = Nullable.GetUnderlyingType(ctorParameters[i].ParameterType) ?? ctorParameters[i].ParameterType;
                     if ((unboxedType != types[i] && !SqlMapper.HasTypeHandler(unboxedType))
                         && !(unboxedType.IsEnum() && Enum.GetUnderlyingType(unboxedType) == types[i])
@@ -108,7 +123,9 @@ namespace Core.Extension.Dapper
                 }
 
                 if (i == ctorParameters.Length)
+                {
                     return ctor;
+                }
             }
 
             return null;
@@ -159,12 +176,14 @@ namespace Core.Extension.Dapper
 
             if (property == null && MatchNamesWithUnderscores)
             {
-                property = this.Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", ""), StringComparison.Ordinal))
-                    ?? this.Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", ""), StringComparison.OrdinalIgnoreCase));
+                property = this.Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", string.Empty), StringComparison.Ordinal))
+                    ?? this.Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", string.Empty), StringComparison.OrdinalIgnoreCase));
             }
 
             if (property != null)
+            {
                 return new SimpleMemberMap(columnName, property);
+            }
 
             // roslyn automatically implemented properties, in particular for get-only properties: <{Name}>k__BackingField;
             var backingFieldName = "<" + columnName + ">k__BackingField";
@@ -178,7 +197,7 @@ namespace Core.Extension.Dapper
 
             if (field == null && MatchNamesWithUnderscores)
             {
-                var effectiveColumnName = columnName.Replace("_", "");
+                var effectiveColumnName = columnName.Replace("_", string.Empty);
                 backingFieldName = "<" + effectiveColumnName + ">k__BackingField";
 
                 field = this._fields.Find(p => string.Equals(p.Name, effectiveColumnName, StringComparison.Ordinal))
@@ -188,7 +207,9 @@ namespace Core.Extension.Dapper
             }
 
             if (field != null)
+            {
                 return new SimpleMemberMap(columnName, field);
+            }
 
             return null;
         }

@@ -23,6 +23,5 @@ namespace Core.Api.Extensions.CustomException
                         .Select(e => e.ErrorMessage));
             }
         }
-
     }
 }

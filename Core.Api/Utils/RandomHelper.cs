@@ -13,15 +13,15 @@ namespace Core.Api.Utils
         /// <param name="intLength">随机字符串长度.</param>
         /// <param name="booNumber">生成的字符串中是否包含数字.</param>
         /// <param name="booSign">生成的字符串中是否包含符号.</param>
-        /// <param name="booSmallword">生成的字符串中是否包含小写字母.</param>
-        /// <param name="booBigword">生成的字符串中是否包含大写字母.</param>
-        /// <returns></returns>
-        public static string GetRandomizer(int intLength, bool booNumber, bool booSign, bool booSmallword, bool booBigword)
+        /// <param name="isSmallWord">生成的字符串中是否包含小写字母.</param>
+        /// <param name="isBigWord">生成的字符串中是否包含大写字母.</param>
+        /// <returns>A string.</returns>
+        public static string GetRandom(int intLength, bool booNumber, bool booSign, bool isSmallWord, bool isBigWord)
         {
             // 定义
             Random ranA = new Random();
             int intResultRound = 0;
-            string strB = "";
+            string strB = string.Empty;
 
             while (intResultRound < intLength)
             {
@@ -36,7 +36,7 @@ namespace Core.Api.Utils
                 if (intA == 1 && booNumber)
                 {
                     intA = ranA.Next(0, 10);
-                    strB = intA.ToString() + strB;
+                    strB = intA + strB;
                     intResultRound = intResultRound + 1;
                     continue;
                 }
@@ -44,7 +44,7 @@ namespace Core.Api.Utils
                 // 如果随机数A=2，则运行生成符号
                 // 生成随机数A，表示生成值域
                 // 1：33-47值域，2：58-64值域，3：91-96值域，4：123-126值域
-                if (intA == 2 && booSign == true)
+                if (intA == 2 && booSign)
                 {
                     intA = ranA.Next(1, 5);
 
@@ -55,7 +55,7 @@ namespace Core.Api.Utils
                     if (intA == 1)
                     {
                         intA = ranA.Next(33, 48);
-                        strB = ((char)intA).ToString() + strB;
+                        strB = (char)intA + strB;
                         intResultRound = intResultRound + 1;
                         continue;
                     }
@@ -67,7 +67,7 @@ namespace Core.Api.Utils
                     if (intA == 2)
                     {
                         intA = ranA.Next(58, 65);
-                        strB = ((char)intA).ToString() + strB;
+                        strB = (char)intA + strB;
                         intResultRound = intResultRound + 1;
                         continue;
                     }
@@ -79,7 +79,7 @@ namespace Core.Api.Utils
                     if (intA == 3)
                     {
                         intA = ranA.Next(91, 97);
-                        strB = ((char)intA).ToString() + strB;
+                        strB = (char)intA + strB;
                         intResultRound = intResultRound + 1;
                         continue;
                     }
@@ -91,7 +91,7 @@ namespace Core.Api.Utils
                     if (intA == 4)
                     {
                         intA = ranA.Next(123, 127);
-                        strB = ((char)intA).ToString() + strB;
+                        strB = (char)intA + strB;
                         intResultRound = intResultRound + 1;
                         continue;
                     }
@@ -101,10 +101,10 @@ namespace Core.Api.Utils
                 // 生成随机数A，范围在97-122
                 // 把随机数A，转成字符
                 // 生成完，位数+1，字符串累加，结束本次循环
-                if (intA == 3 && booSmallword == true)
+                if (intA == 3 && isSmallWord)
                 {
                     intA = ranA.Next(97, 123);
-                    strB = ((char)intA).ToString() + strB;
+                    strB = (char)intA + strB;
                     intResultRound = intResultRound + 1;
                     continue;
                 }
@@ -113,17 +113,16 @@ namespace Core.Api.Utils
                 // 生成随机数A，范围在65-90
                 // 把随机数A，转成字符
                 // 生成完，位数+1，字符串累加，结束本次循环
-                if (intA == 4 && booBigword == true)
+                if (intA == 4 && isBigWord)
                 {
                     intA = ranA.Next(65, 89);
-                    strB = ((char)intA).ToString() + strB;
+                    strB = (char)intA + strB;
                     intResultRound = intResultRound + 1;
                     continue;
                 }
             }
 
             return strB;
-
         }
     }
 }

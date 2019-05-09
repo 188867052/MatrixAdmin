@@ -10,7 +10,6 @@ using Core.Extension.Dapper;
 using Core.Model;
 using Core.Model.Administration.Permission;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Core.Api.Controllers
 {
@@ -96,7 +95,7 @@ namespace Core.Api.Controllers
 
                 Permission entity = this.Mapper.Map<PermissionCreateViewModel, Permission>(model);
                 entity.CreatedOn = DateTime.Now;
-                entity.Id = RandomHelper.GetRandomizer(8, true, false, true, true);
+                entity.Id = RandomHelper.GetRandom(8, true, false, true, true);
                 entity.CreatedByUserGuid = AuthContextService.CurrentUser.Guid;
                 entity.CreatedByUserName = AuthContextService.CurrentUser.DisplayName;
                 this.DbContext.Permission.Add(entity);
@@ -302,7 +301,6 @@ WHERE P.IsDeleted=0 AND P.Status=1";
                 return ResponseModelFactory.CreateInstance;
             }
         }
-
     }
 
     /// <summary>

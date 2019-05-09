@@ -111,7 +111,5 @@ namespace Core.Api.Controllers
 
           return new ObjectResult(null);
         }
-
-
     }
 }

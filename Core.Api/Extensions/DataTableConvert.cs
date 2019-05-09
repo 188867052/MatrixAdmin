@@ -33,7 +33,9 @@ namespace Core.Api.Extensions
         {
             List<T> list = new List<T>();
             if (dt == null)
+            {
                 return list;
+            }
 
             // 声明 委托Load<T>的一个实例rowMap
             Load<T> rowMap = null;
@@ -81,7 +83,10 @@ namespace Core.Api.Extensions
 
             // 遍历 DataTable 的rows集合，调用rowMap把DataRow转换为对象（T）
             foreach (DataRow info in dt.Rows)
+            {
                 list.Add(rowMap(info));
+            }
+
             return list;
         }
     }

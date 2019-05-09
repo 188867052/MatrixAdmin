@@ -105,7 +105,11 @@ namespace Core.Extension.Dapper
                         int index = this.startBound;
                         for (int i = 0; i < this.length; i++)
                         {
-                            if (i != 0) sb.Append(", ");
+                            if (i != 0)
+                            {
+                                sb.Append(", ");
+                            }
+
                             sb.Append(this.reader.GetName(index++));
                         }
 
@@ -147,16 +151,26 @@ namespace Core.Extension.Dapper
 
             private Func<IDataReader, object> GetReader(IDataReader reader, int startBound, int length, bool returnNullIfFirstMissing)
             {
-                if (length < 0) length = reader.FieldCount - startBound;
+                if (length < 0)
+                {
+                    length = reader.FieldCount - startBound;
+                }
+
                 int hash = GetColumnHash(reader, startBound, length);
-                if (returnNullIfFirstMissing) hash *= -27;
+                if (returnNullIfFirstMissing)
+                {
+                    hash *= -27;
+                }
 
                 // get a cheap key first: false means don't copy the values down
                 var key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, false);
                 Func<IDataReader, object> deser;
                 lock (this.readers)
                 {
-                    if (this.readers.TryGetValue(key, out deser)) return deser;
+                    if (this.readers.TryGetValue(key, out deser))
+                    {
+                        return deser;
+                    }
                 }
 
                 deser = GetTypeDeserializerImpl(this.type, reader, startBound, length, returnNullIfFirstMissing);

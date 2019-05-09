@@ -227,7 +227,10 @@ namespace Core.Extension.Dapper
 
             foreach (var param in this.parameters.Values)
             {
-                if (param.CameFromTemplate) continue;
+                if (param.CameFromTemplate)
+                {
+                    continue;
+                }
 
                 var dbType = param.DbType;
                 var val = param.Value;
@@ -283,16 +286,43 @@ namespace Core.Extension.Dapper
                             p.Size = DbString.DefaultLength;
                         }
 
-                        if (param.Size != null) p.Size = param.Size.Value;
-                        if (param.Precision != null) p.Precision = param.Precision.Value;
-                        if (param.Scale != null) p.Scale = param.Scale.Value;
+                        if (param.Size != null)
+                        {
+                            p.Size = param.Size.Value;
+                        }
+
+                        if (param.Precision != null)
+                        {
+                            p.Precision = param.Precision.Value;
+                        }
+
+                        if (param.Scale != null)
+                        {
+                            p.Scale = param.Scale.Value;
+                        }
                     }
                     else
                     {
-                        if (dbType != null) p.DbType = dbType.Value;
-                        if (param.Size != null) p.Size = param.Size.Value;
-                        if (param.Precision != null) p.Precision = param.Precision.Value;
-                        if (param.Scale != null) p.Scale = param.Scale.Value;
+                        if (dbType != null)
+                        {
+                            p.DbType = dbType.Value;
+                        }
+
+                        if (param.Size != null)
+                        {
+                            p.Size = param.Size.Value;
+                        }
+
+                        if (param.Precision != null)
+                        {
+                            p.Precision = param.Precision.Value;
+                        }
+
+                        if (param.Scale != null)
+                        {
+                            p.Scale = param.Scale.Value;
+                        }
+
                         handler.SetValue(p, val ?? DBNull.Value);
                     }
 
@@ -306,7 +336,10 @@ namespace Core.Extension.Dapper
             }
 
             // note: most non-priveleged implementations would use: this.ReplaceLiterals(command);
-            if (literals.Count != 0) SqlMapper.ReplaceLiterals(this, command, literals);
+            if (literals.Count != 0)
+            {
+                SqlMapper.ReplaceLiterals(this, command, literals);
+            }
         }
 
         /// <summary>
@@ -411,7 +444,10 @@ namespace Core.Extension.Dapper
 
             var cache = CachedOutputSetters<T>.Cache;
             var setter = (Action<object, DynamicParameters>)cache[lookup];
-            if (setter != null) goto MAKECALLBACK;
+            if (setter != null)
+            {
+                goto MAKECALLBACK;
+            }
 
             // Come on let's build a method, let's build it, let's build it now!
             var dm = new DynamicMethod("ExpressionParam" + Guid.NewGuid().ToString(), null, new[] { typeof(object), this.GetType() }, true);

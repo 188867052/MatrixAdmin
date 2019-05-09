@@ -19,7 +19,11 @@ namespace Core.Extension.Dapper
         public static FeatureSupport Get(IDbConnection connection)
         {
             string name = connection?.GetType().Name;
-            if (string.Equals(name, "npgsqlconnection", StringComparison.OrdinalIgnoreCase)) return Postgres;
+            if (string.Equals(name, "npgsqlconnection", StringComparison.OrdinalIgnoreCase))
+            {
+                return Postgres;
+            }
+
             return Default;
         }
 

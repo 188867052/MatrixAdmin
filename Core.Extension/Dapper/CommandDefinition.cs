@@ -114,7 +114,10 @@ namespace Core.Extension.Dapper
             var init = GetInit(cmd.GetType());
             init?.Invoke(cmd);
             if (this.Transaction != null)
+            {
                 cmd.Transaction = this.Transaction;
+            }
+
             cmd.CommandText = this.CommandText;
             if (this.CommandTimeout.HasValue)
             {
@@ -126,7 +129,10 @@ namespace Core.Extension.Dapper
             }
 
             if (this.CommandType.HasValue)
+            {
                 cmd.CommandType = this.CommandType.Value;
+            }
+
             paramReader?.Invoke(cmd, this.Parameters);
             return cmd;
         }
@@ -136,7 +142,10 @@ namespace Core.Extension.Dapper
         private static Action<IDbCommand> GetInit(Type commandType)
         {
             if (commandType == null)
+            {
                 return null; // GIGO
+            }
+
             if (SqlMapper.Link<Type, Action<IDbCommand>>.TryGet(commandInitCache, commandType, out Action<IDbCommand> action))
             {
                 return action;

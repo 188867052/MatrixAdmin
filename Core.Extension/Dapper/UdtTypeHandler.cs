@@ -22,7 +22,11 @@ namespace Core.Extension.Dapper
             /// <param name="udtTypeName">The user defined type name.</param>
             public UdtTypeHandler(string udtTypeName)
             {
-                if (string.IsNullOrEmpty(udtTypeName)) throw new ArgumentException("Cannot be null or empty", udtTypeName);
+                if (string.IsNullOrEmpty(udtTypeName))
+                {
+                    throw new ArgumentException("Cannot be null or empty", udtTypeName);
+                }
+
                 this.udtTypeName = udtTypeName;
             }
 

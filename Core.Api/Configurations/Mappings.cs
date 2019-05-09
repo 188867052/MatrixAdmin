@@ -30,6 +30,5 @@ namespace Core.Api.Configurations
                 }
             }
         }
-
     }
 }

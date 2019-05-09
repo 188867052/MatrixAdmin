@@ -106,7 +106,9 @@ namespace Core.Extension.Dapper
             void ICollection<KeyValuePair<string, object>>.Clear()
             { // removes values for **this row**, but doesn't change the fundamental table
                 for (int i = 0; i < this._values.Length; i++)
+                {
                     this._values[i] = DeadValue.Default;
+                }
             }
 
             bool ICollection<KeyValuePair<string, object>>.Contains(KeyValuePair<string, object> item)
@@ -136,7 +138,11 @@ namespace Core.Extension.Dapper
             bool IDictionary<string, object>.ContainsKey(string key)
             {
                 int index = this._table.IndexOfName(key);
-                if (index < 0 || index >= this._values.Length || this._values[index] is DeadValue) return false;
+                if (index < 0 || index >= this._values.Length || this._values[index] is DeadValue)
+                {
+                    return false;
+                }
+
                 return true;
             }
 
@@ -150,7 +156,11 @@ namespace Core.Extension.Dapper
 
             internal bool Remove(int index)
             {
-                if (index < 0 || index >= this._values.Length || this._values[index] is DeadValue) return false;
+                if (index < 0 || index >= this._values.Length || this._values[index] is DeadValue)
+                {
+                    return false;
+                }
+
                 this._values[index] = DeadValue.Default;
                 return true;
             }
@@ -168,7 +178,11 @@ namespace Core.Extension.Dapper
 
             private object SetValue(string key, object value, bool isAdd)
             {
-                if (key == null) throw new ArgumentNullException(nameof(key));
+                if (key == null)
+                {
+                    throw new ArgumentNullException(nameof(key));
+                }
+
                 int index = this._table.IndexOfName(key);
                 if (index < 0)
                 {

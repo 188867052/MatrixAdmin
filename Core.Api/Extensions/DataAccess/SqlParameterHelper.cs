@@ -48,7 +48,6 @@ namespace Core.Api.Extensions.DataAccess
         {
             List<SqlParameter> result = ToSqlParamsList(obj, additionalParams);
             return result.ToArray<object>();
-
         }
 
         public static List<SqlParameter> ToSqlParamsList(this object obj, SqlParameter[] additionalParams = null)
@@ -64,15 +63,21 @@ namespace Core.Api.Extensions.DataAccess
             props.ForEach(p =>
             {
                 if (p.Ignores != null && p.Ignores.Length > 0)
+                {
                     return;
+                }
 
                 QueryParamNameAttribute name = p.Names.FirstOrDefault() as QueryParamNameAttribute;
                 QueryParamInfo pinfo = new QueryParamInfo();
 
                 if (name != null && !String.IsNullOrWhiteSpace(name.Name))
-                    pinfo.Name = name.Name.Replace("@", "");
+                {
+                    pinfo.Name = name.Name.Replace("@", string.Empty);
+                }
                 else
-                    pinfo.Name = p.Property.Name.Replace("@", "");
+                {
+                    pinfo.Name = p.Property.Name.Replace("@", string.Empty);
+                }
 
                 pinfo.Value = p.Property.GetValue(obj) ?? DBNull.Value;
                 SqlParameter sqlParam = new SqlParameter(pinfo.Name, TypeConvertor.ToSqlDbType(p.Property.PropertyType))
@@ -84,10 +89,11 @@ namespace Core.Api.Extensions.DataAccess
             });
 
             if (additionalParams != null && additionalParams.Length > 0)
+            {
                 result.AddRange(additionalParams);
+            }
 
             return result;
-
         }
     }
 
@@ -114,7 +120,6 @@ namespace Core.Api.Extensions.DataAccess
                 this.DbType = dbType;
                 this.SqlDbType = sqlDbType;
             }
-
         }
 ;
 
@@ -171,12 +176,10 @@ namespace Core.Api.Extensions.DataAccess
             dbTypeMapEntry
             = new DbTypeMapEntry(typeof(string), DbType.String, SqlDbType.VarChar);
             _DbTypeList.Add(dbTypeMapEntry);
-
         }
 
         private TypeConvertor()
         {
-
         }
 
         #endregion

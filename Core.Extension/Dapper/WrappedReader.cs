@@ -13,7 +13,11 @@ namespace Core.Extension.Dapper
             get
             {
                 var tmp = this.reader;
-                if (tmp == null) throw new ObjectDisposedException(this.GetType().Name);
+                if (tmp == null)
+                {
+                    throw new ObjectDisposedException(this.GetType().Name);
+                }
+
                 return tmp;
             }
         }
@@ -23,7 +27,11 @@ namespace Core.Extension.Dapper
             get
             {
                 var tmp = this.cmd;
-                if (tmp == null) throw new ObjectDisposedException(this.GetType().Name);
+                if (tmp == null)
+                {
+                    throw new ObjectDisposedException(this.GetType().Name);
+                }
+
                 return tmp;
             }
         }

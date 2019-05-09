@@ -72,10 +72,10 @@ namespace Core.Api.Controllers
                 {
                     new Claim(ClaimTypes.Name, username),
                     new Claim("guid",user.Id.ToString()),
-                    new Claim("avatar",""),
+                    new Claim("avatar",string.Empty),
                     new Claim("displayName",user.DisplayName),
                     new Claim("loginName",user.LoginName),
-                    new Claim("emailAddress",""),
+                    new Claim("emailAddress",string.Empty),
                     new Claim("guid",user.Id.ToString()),
                     new Claim("userType",((int)user.UserType).ToString())
                 });

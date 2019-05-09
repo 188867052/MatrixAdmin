@@ -17,8 +17,14 @@ namespace Core.Extension.Dapper
 
             private static void SetAllowedCommandBehaviors(CommandBehavior behavior, bool enabled)
             {
-                if (enabled) AllowedCommandBehaviors |= behavior;
-                else AllowedCommandBehaviors &= ~behavior;
+                if (enabled)
+                {
+                    AllowedCommandBehaviors |= behavior;
+                }
+                else
+                {
+                    AllowedCommandBehaviors &= ~behavior;
+                }
             }
 
             /// <summary>

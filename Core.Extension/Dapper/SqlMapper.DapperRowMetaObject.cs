@@ -94,7 +94,11 @@ namespace Core.Extension.Dapper
 
             public override IEnumerable<string> GetDynamicMemberNames()
             {
-                if(this.HasValue && this.Value is IDictionary<string, object> lookup) return lookup.Keys;
+                if(this.HasValue && this.Value is IDictionary<string, object> lookup)
+                {
+                    return lookup.Keys;
+                }
+
                 return s_nixKeys;
             }
         }

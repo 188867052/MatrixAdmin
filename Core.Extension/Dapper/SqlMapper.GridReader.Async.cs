@@ -68,7 +68,11 @@ namespace Core.Extension.Dapper
             /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
             public Task<IEnumerable<object>> ReadAsync(Type type, bool buffered = true)
             {
-                if (type == null) throw new ArgumentNullException(nameof(type));
+                if (type == null)
+                {
+                    throw new ArgumentNullException(nameof(type));
+                }
+
                 return this.ReadAsyncImpl<object>(type, buffered);
             }
 
@@ -79,7 +83,11 @@ namespace Core.Extension.Dapper
             /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
             public Task<object> ReadFirstAsync(Type type)
             {
-                if (type == null) throw new ArgumentNullException(nameof(type));
+                if (type == null)
+                {
+                    throw new ArgumentNullException(nameof(type));
+                }
+
                 return this.ReadRowAsyncImpl<object>(type, Row.First);
             }
 
@@ -90,7 +98,11 @@ namespace Core.Extension.Dapper
             /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
             public Task<object> ReadFirstOrDefaultAsync(Type type)
             {
-                if (type == null) throw new ArgumentNullException(nameof(type));
+                if (type == null)
+                {
+                    throw new ArgumentNullException(nameof(type));
+                }
+
                 return this.ReadRowAsyncImpl<object>(type, Row.FirstOrDefault);
             }
 
@@ -101,7 +113,11 @@ namespace Core.Extension.Dapper
             /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
             public Task<object> ReadSingleAsync(Type type)
             {
-                if (type == null) throw new ArgumentNullException(nameof(type));
+                if (type == null)
+                {
+                    throw new ArgumentNullException(nameof(type));
+                }
+
                 return this.ReadRowAsyncImpl<object>(type, Row.Single);
             }
 
@@ -112,7 +128,11 @@ namespace Core.Extension.Dapper
             /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
             public Task<object> ReadSingleOrDefaultAsync(Type type)
             {
-                if (type == null) throw new ArgumentNullException(nameof(type));
+                if (type == null)
+                {
+                    throw new ArgumentNullException(nameof(type));
+                }
+
                 return this.ReadRowAsyncImpl<object>(type, Row.SingleOrDefault);
             }
 
@@ -168,8 +188,16 @@ namespace Core.Extension.Dapper
 
             private Task<IEnumerable<T>> ReadAsyncImpl<T>(Type type, bool buffered)
             {
-                if (this._reader == null) throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
-                if (this.IsConsumed) throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
+                if (this._reader == null)
+                {
+                    throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
+                }
+
+                if (this.IsConsumed)
+                {
+                    throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
+                }
+
                 var typedIdentity = this._identity.ForGrid(type, this._gridIndex);
                 CacheInfo cache = GetCacheInfo(typedIdentity, null, this._addToCache);
                 var deserializer = cache.Deserializer;
@@ -189,14 +217,21 @@ namespace Core.Extension.Dapper
                 else
                 {
                     var result = this.ReadDeferred<T>(this._gridIndex, deserializer.Func, type);
-                    if (buffered) result = result.ToList(); // for the "not a DbDataReader" scenario
+                    if (buffered)
+                    {
+                        result = result.ToList(); // for the "not a DbDataReader" scenario
+                    }
+
                     return Task.FromResult(result);
                 }
             }
 
             private Task<T> ReadRowAsyncImpl<T>(Type type, Row row)
             {
-                if (this._reader is DbDataReader dbReader) return this.ReadRowAsyncImplViaDbReader<T>(dbReader, type, row);
+                if (this._reader is DbDataReader dbReader)
+                {
+                    return this.ReadRowAsyncImplViaDbReader<T>(dbReader, type, row);
+                }
 
                 // no async API available; use non-async and fake it
                 return Task.FromResult(this.ReadRow<T>(type, row));
@@ -204,8 +239,15 @@ namespace Core.Extension.Dapper
 
             private async Task<T> ReadRowAsyncImplViaDbReader<T>(DbDataReader reader, Type type, Row row)
             {
-                if (reader == null) throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
-                if (this.IsConsumed) throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
+                if (reader == null)
+                {
+                    throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
+                }
+
+                if (this.IsConsumed)
+                {
+                    throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
+                }
 
                 this.IsConsumed = true;
                 T result = default;
@@ -223,7 +265,11 @@ namespace Core.Extension.Dapper
                     }
 
                     result = (T)deserializer.Func(reader);
-                    if ((row & Row.Single) != 0 && await reader.ReadAsync(this.cancel).ConfigureAwait(false)) ThrowMultipleRows(row);
+                    if ((row & Row.Single) != 0 && await reader.ReadAsync(this.cancel).ConfigureAwait(false))
+                    {
+                        ThrowMultipleRows(row);
+                    }
+
                     while (await reader.ReadAsync(this.cancel).ConfigureAwait(false)) { /* ignore subsequent rows */ }
                 }
                 else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one

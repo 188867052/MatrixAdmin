@@ -68,7 +68,11 @@ namespace Core.Extension.Dapper
                 internal static PropertyDescriptorCollection GetProperties(DapperTable table, IDictionary<string,object> row = null)
                 {
                     string[] names = table?.FieldNames;
-                    if (names == null || names.Length == 0) return PropertyDescriptorCollection.Empty;
+                    if (names == null || names.Length == 0)
+                    {
+                        return PropertyDescriptorCollection.Empty;
+                    }
+
                     var arr = new PropertyDescriptor[names.Length];
                     for (int i = 0; i < arr.Length; i++)
                     {

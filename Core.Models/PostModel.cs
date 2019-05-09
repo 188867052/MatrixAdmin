@@ -14,7 +14,7 @@ namespace Core.Model
         public PostModel()
         {
             this.Sort = new List<Sort>();
-            this.KeyWord = "";
+            this.KeyWord = string.Empty;
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Core.Model
         {
             get
             {
-                string orderBy = "";
+                string orderBy = string.Empty;
                 List<Sort> sort = this.Sort.Where(x => string.IsNullOrEmpty(x.Field) && string.IsNullOrEmpty(x.Direct)).ToList();
                 if (sort.Count > 0)
                 {

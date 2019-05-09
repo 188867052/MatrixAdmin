@@ -9,7 +9,6 @@ namespace Core.Model.Administration.User
         /// </summary>
         public UserStatusModel()
         {
-
         }
 
         /// <summary>
