@@ -1,24 +1,24 @@
-﻿using AutoMapper;
-using Core.Api.Extensions;
-using Core.Api.Extensions.AuthContext;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
+using Core.Api.Extensions;
+using Core.Api.Extensions.AuthContext;
 using Core.Entity;
 using Core.Entity.Enums;
 using Core.Extension.Dapper;
 using Core.Model;
 using Core.Model.Administration.Role;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RolePermissionMapping = Core.Entity.RolePermissionMapping;
 
 namespace Core.Api.Controllers
 {
     /// <summary>
-    /// 角色控制器
+    /// 角色控制器.
     /// </summary>
-    //[CustomAuthorize]
+    // [CustomAuthorize]
     public class RoleController : StandardController
     {
         public RoleController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
@@ -35,7 +35,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -50,9 +50,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 创建角色
+        /// 创建角色.
         /// </summary>
-        /// <param name="model">角色视图实体</param>
+        /// <param name="model">角色视图实体.</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
@@ -75,7 +75,8 @@ namespace Core.Api.Controllers
 
                 Role entity = this.Mapper.Map<RoleCreateViewModel, Role>(model);
                 entity.CreatedTime = DateTime.Now;
-                //entity.Id = RandomHelper.GetRandomizer(8, true, false, true, true);
+
+                // entity.Id = RandomHelper.GetRandomizer(8, true, false, true, true);
                 entity.IsSuperAdministrator = false;
                 entity.IsBuiltin = false;
                 entity.CreatedByUserGuid = AuthContextService.CurrentUser.Guid;
@@ -89,9 +90,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 编辑角色
+        /// 编辑角色.
         /// </summary>
-        /// <param name="code">角色惟一编码</param>
+        /// <param name="code">角色惟一编码.</param>
         /// <returns></returns>
         [HttpGet("{code}")]
         [ProducesResponseType(200)]
@@ -107,9 +108,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 保存编辑后的角色信息
+        /// 保存编辑后的角色信息.
         /// </summary>
-        /// <param name="model">角色视图实体</param>
+        /// <param name="model">角色视图实体.</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
@@ -145,9 +146,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 删除角色
+        /// 删除角色.
         /// </summary>
-        /// <param name="ids">角色ID,多个以逗号分隔</param>
+        /// <param name="ids">角色ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet("{ids}")]
         [ProducesResponseType(200)]
@@ -158,9 +159,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 恢复角色
+        /// 恢复角色.
         /// </summary>
-        /// <param name="ids">角色ID,多个以逗号分隔</param>
+        /// <param name="ids">角色ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet("{ids}")]
         [ProducesResponseType(200)]
@@ -171,10 +172,10 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 批量操作
+        /// 批量操作.
         /// </summary>
         /// <param name="command"></param>
-        /// <param name="ids">角色ID,多个以逗号分隔</param>
+        /// <param name="ids">角色ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(200)]
@@ -203,9 +204,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 为指定角色分配权限
+        /// 为指定角色分配权限.
         /// </summary>
-        /// <param name="payload">角色分配权限的请求载体类</param>
+        /// <param name="payload">角色分配权限的请求载体类.</param>
         /// <returns></returns>
         [HttpPost("/api/v1/rbac/role/assign_permission")]
         public IActionResult AssignPermission(RoleAssignPermissionPayload payload)
@@ -227,7 +228,7 @@ namespace Core.Api.Controllers
                     return this.Ok(response);
                 }
 
-                //先删除当前角色原来已分配的权限
+                // 先删除当前角色原来已分配的权限
                 this.DbContext.Database.ExecuteSqlCommand("DELETE FROM DncRolePermissionMapping WHERE RoleCode={0}", payload.RoleCode);
                 if (payload.Permissions != null || payload.Permissions.Count > 0)
                 {
@@ -235,9 +236,11 @@ namespace Core.Api.Controllers
                     {
                         CreatedOn = DateTime.Now,
                         PermissionCode = x.Trim(),
-                        //RoleCode = payload.RoleCode.Trim()
+
+                        // RoleCode = payload.RoleCode.Trim()
                     });
-                    //this.DbContext.RolePermissionMapping.AddRange(permissions);
+
+                    // this.DbContext.RolePermissionMapping.AddRange(permissions);
                     this.DbContext.SaveChanges();
                 }
 
@@ -247,9 +250,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 获取指定用户的角色列表
+        /// 获取指定用户的角色列表.
         /// </summary>
-        /// <param name="guid">用户GUID</param>
+        /// <param name="guid">用户GUID.</param>
         /// <returns></returns>
         [HttpGet("/api/v1/rbac/role/find_list_by_user_guid/{guid}")]
         public IActionResult FindListByUserGuid(Guid guid)
@@ -257,16 +260,16 @@ namespace Core.Api.Controllers
             ResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
             {
-                //有N+1次查询的性能问题
-                //var query = this.DbContext.DncUser
+                // 有N+1次查询的性能问题
+                // var query = this.DbContext.DncUser
                 //    .Include(r => r.UserRoles)
                 //    .ThenInclude(x => x.DncRole)
                 //    .Where(x => x.Guid == guid);
-                //var roles = query.FirstOrDefault().UserRoles.Select(x => new
-                //{
+                // var roles = query.FirstOrDefault().UserRoles.Select(x => new
+                // {
                 //    x.DncRole.Code,
                 //    x.DncRole.Name
-                //});
+                // });
                 string sql = @"SELECT R.* FROM DncUserRoleMapping AS URM
 INNER JOIN DncRole AS R ON R.Code=URM.RoleCode
 WHERE URM.UserGuid={0}";
@@ -279,7 +282,7 @@ WHERE URM.UserGuid={0}";
         }
 
         /// <summary>
-        /// 查询所有角色列表(只包含主要的字段信息:name,code)
+        /// 查询所有角色列表(只包含主要的字段信息:name,code).
         /// </summary>
         /// <returns></returns>
         [HttpGet("/api/v1/rbac/role/find_simple_list")]
@@ -298,10 +301,10 @@ WHERE URM.UserGuid={0}";
         #region 私有方法
 
         /// <summary>
-        /// 删除角色
+        /// 删除角色.
         /// </summary>
         /// <param name="isEnable"></param>
-        /// <param name="ids">角色ID字符串,多个以逗号隔开</param>
+        /// <param name="ids">角色ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
         private ResponseModel UpdateIsEnable(bool isEnable, string ids)
         {
@@ -314,10 +317,10 @@ WHERE URM.UserGuid={0}";
         }
 
         /// <summary>
-        /// 删除角色
+        /// 删除角色.
         /// </summary>
-        /// <param name="status">角色状态</param>
-        /// <param name="ids">角色ID字符串,多个以逗号隔开</param>
+        /// <param name="status">角色状态.</param>
+        /// <param name="ids">角色ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
         private ResponseModel UpdateStatus(StatusEnum status, string ids)
         {

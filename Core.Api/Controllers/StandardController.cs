@@ -15,7 +15,7 @@ namespace Core.Api.Controllers
         public readonly IMapper Mapper;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="StandardController"/> class.
         /// </summary>
         /// <param name="dbContext"></param>
         /// <param name="mapper"></param>

@@ -8,11 +8,11 @@ namespace Core.Api.Configurations
     {
         public static void RegisterMappings()
         {
-            //获取所有IProfile实现类
+            // 获取所有IProfile实现类
             var allType =
                 Assembly
-                    .GetEntryAssembly()//获取默认程序集
-                    .GetReferencedAssemblies()//获取所有引用程序集
+                    .GetEntryAssembly()// 获取默认程序集
+                    .GetReferencedAssemblies()// 获取所有引用程序集
                     .Select(Assembly.Load)
                     .SelectMany(y => y.DefinedTypes)
                     .Where(type => typeof(IProfile).GetTypeInfo().IsAssignableFrom(type.AsType()));
@@ -22,7 +22,7 @@ namespace Core.Api.Configurations
                 var type = typeInfo.AsType();
                 if (type == typeof(IProfile))
                 {
-                    //注册映射
+                    // 注册映射
                     Mapper.Initialize(y =>
                     {
                         y.AddMaps(type); // Initialise each Profile classe

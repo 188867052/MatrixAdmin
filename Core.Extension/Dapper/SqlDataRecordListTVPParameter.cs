@@ -5,13 +5,14 @@ using System.Linq;
 namespace Core.Extension.Dapper
 {
     /// <summary>
-    /// Used to pass a IEnumerable&lt;SqlDataRecord&gt; as a SqlDataRecordListTVPParameter
+    /// Used to pass a IEnumerable&lt;SqlDataRecord&gt; as a SqlDataRecordListTVPParameter.
     /// </summary>
     internal sealed class SqlDataRecordListTVPParameter : SqlMapper.ICustomQueryParameter
     {
         private readonly IEnumerable<Microsoft.SqlServer.Server.SqlDataRecord> data;
         private readonly string typeName;
         /// <summary>
+        /// Initializes a new instance of the <see cref="SqlDataRecordListTVPParameter"/> class.
         /// Create a new instance of <see cref="SqlDataRecordListTVPParameter"/>.
         /// </summary>
         /// <param name="data">The data records to convert into TVPs.</param>

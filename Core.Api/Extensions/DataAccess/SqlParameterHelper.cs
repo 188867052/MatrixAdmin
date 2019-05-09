@@ -8,7 +8,7 @@ using System.Linq;
 namespace Core.Api.Extensions.DataAccess
 {
     /// <summary>
-    /// Use for an alternative param name other than the propery name
+    /// Use for an alternative param name other than the propery name.
     /// </summary>
     [System.AttributeUsage(AttributeTargets.Property)]
     public class QueryParamNameAttribute : Attribute
@@ -22,7 +22,7 @@ namespace Core.Api.Extensions.DataAccess
     }
 
     /// <summary>
-    /// Ignore this property
+    /// Ignore this property.
     /// </summary>
     [System.AttributeUsage(AttributeTargets.Property)]
     public class QueryParamIgnoreAttribute : Attribute
@@ -88,12 +88,12 @@ namespace Core.Api.Extensions.DataAccess
     }
 
 
-    //Convert .Net Type to SqlDbType or DbType and vise versa
-    //This class can be useful when you make conversion between types .The class supports conversion between .Net Type , SqlDbType and DbType .
-    //https://gist.github.com/abrahamjp/858392
+    // Convert .Net Type to SqlDbType or DbType and vise versa
+    // This class can be useful when you make conversion between types .The class supports conversion between .Net Type , SqlDbType and DbType .
+    // https://gist.github.com/abrahamjp/858392
 
     /// <summary>
-    /// Convert a base data type to another base data type
+    /// Convert a base data type to another base data type.
     /// </summary>
     public sealed class TypeConvertor
     {
@@ -180,7 +180,7 @@ namespace Core.Api.Extensions.DataAccess
         #region Methods
 
         /// <summary>
-        /// Convert db type to .Net data type
+        /// Convert db type to .Net data type.
         /// </summary>
         /// <param name="dbType"></param>
         /// <returns></returns>
@@ -191,7 +191,7 @@ namespace Core.Api.Extensions.DataAccess
         }
 
         /// <summary>
-        /// Convert TSQL type to .Net data type
+        /// Convert TSQL type to .Net data type.
         /// </summary>
         /// <param name="sqlDbType"></param>
         /// <returns></returns>
@@ -202,7 +202,7 @@ namespace Core.Api.Extensions.DataAccess
         }
 
         /// <summary>
-        /// Convert .Net type to Db type
+        /// Convert .Net type to Db type.
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -213,7 +213,7 @@ namespace Core.Api.Extensions.DataAccess
         }
 
         /// <summary>
-        /// Convert TSQL data type to DbType
+        /// Convert TSQL data type to DbType.
         /// </summary>
         /// <param name="sqlDbType"></param>
         /// <returns></returns>
@@ -224,7 +224,7 @@ namespace Core.Api.Extensions.DataAccess
         }
 
         /// <summary>
-        /// Convert .Net type to TSQL data type
+        /// Convert .Net type to TSQL data type.
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
@@ -235,7 +235,7 @@ namespace Core.Api.Extensions.DataAccess
         }
 
         /// <summary>
-        /// Convert DbType type to TSQL data type
+        /// Convert DbType type to TSQL data type.
         /// </summary>
         /// <param name="dbType"></param>
         /// <returns></returns>

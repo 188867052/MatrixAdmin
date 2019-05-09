@@ -7,7 +7,7 @@ namespace Core.Extension.Dapper
     public static partial class SqlMapper
     {
         /// <summary>
-        /// Not intended for direct usage
+        /// Not intended for direct usage.
         /// </summary>
         /// <typeparam name="T">The type to have a cache for.</typeparam>
         [Obsolete(ObsoleteInternalUsageOnly, false)]

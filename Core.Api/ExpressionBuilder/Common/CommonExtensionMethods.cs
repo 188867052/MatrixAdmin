@@ -10,7 +10,7 @@ namespace Core.Api.ExpressionBuilder.Common
         private static readonly MethodInfo toLowerMethod = typeof(string).GetMethod("ToLower", new Type[0]);
 
         /// <summary>
-        /// Gets a member expression for an specific property
+        /// Gets a member expression for an specific property.
         /// </summary>
         /// <param name="param"></param>
         /// <param name="propertyName"></param>

@@ -4,7 +4,7 @@ using System.Reflection;
 namespace Core.Extension.Dapper
 {
     /// <summary>
-    /// Implements custom property mapping by user provided criteria (usually presence of some custom attribute with column to member mapping)
+    /// Implements custom property mapping by user provided criteria (usually presence of some custom attribute with column to member mapping).
     /// </summary>
     public sealed class CustomPropertyTypeMap : SqlMapper.ITypeMap
     {
@@ -12,10 +12,11 @@ namespace Core.Extension.Dapper
         private readonly Func<Type, string, PropertyInfo> _propertySelector;
 
         /// <summary>
-        /// Creates custom property mapping
+        /// Initializes a new instance of the <see cref="CustomPropertyTypeMap"/> class.
+        /// Creates custom property mapping.
         /// </summary>
-        /// <param name="type">Target entity type</param>
-        /// <param name="propertySelector">Property selector based on target type and DataReader column name</param>
+        /// <param name="type">Target entity type.</param>
+        /// <param name="propertySelector">Property selector based on target type and DataReader column name.</param>
         public CustomPropertyTypeMap(Type type, Func<Type, string, PropertyInfo> propertySelector)
         {
             this._type = type ?? throw new ArgumentNullException(nameof(type));
@@ -23,22 +24,22 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Always returns default constructor
+        /// Always returns default constructor.
         /// </summary>
-        /// <param name="names">DataReader column names</param>
-        /// <param name="types">DataReader column types</param>
-        /// <returns>Default constructor</returns>
+        /// <param name="names">DataReader column names.</param>
+        /// <param name="types">DataReader column types.</param>
+        /// <returns>Default constructor.</returns>
         public ConstructorInfo FindConstructor(string[] names, Type[] types) =>
             this._type.GetConstructor(new Type[0]);
 
         /// <summary>
-        /// Always returns null
+        /// Always returns null.
         /// </summary>
         /// <returns></returns>
         public ConstructorInfo FindExplicitConstructor() => null;
 
         /// <summary>
-        /// Not implemented as far as default constructor used for all cases
+        /// Not implemented as far as default constructor used for all cases.
         /// </summary>
         /// <param name="constructor"></param>
         /// <param name="columnName"></param>
@@ -49,10 +50,10 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Returns property based on selector strategy
+        /// Returns property based on selector strategy.
         /// </summary>
-        /// <param name="columnName">DataReader column name</param>
-        /// <returns>Poperty member map</returns>
+        /// <param name="columnName">DataReader column name.</param>
+        /// <returns>Poperty member map.</returns>
         public SqlMapper.IMemberMap GetMember(string columnName)
         {
             var prop = this._propertySelector(this._type, columnName);

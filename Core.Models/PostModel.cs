@@ -4,12 +4,12 @@ using System.Linq;
 namespace Core.Model
 {
     /// <summary>
-    /// 请求实体
+    /// 请求实体.
     /// </summary>
     public class PostModel
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PostModel"/> class.
         /// </summary>
         public PostModel()
         {
@@ -18,22 +18,22 @@ namespace Core.Model
         }
 
         /// <summary>
-        /// 分页大小
+        /// 分页大小.
         /// </summary>
         public int PageSize { get; set; }
 
         /// <summary>
-        /// 当前页码
+        /// 当前页码.
         /// </summary>
         public int CurrentPage { get; set; }
 
         /// <summary>
-        /// 排序对象集合(支持多个字段排序)
+        /// 排序对象集合(支持多个字段排序).
         /// </summary>
         public List<Sort> Sort { get; set; }
 
         /// <summary>
-        /// 组合后的排序字符串
+        /// 组合后的排序字符串.
         /// </summary>
         public string OrderBy
         {
@@ -51,7 +51,7 @@ namespace Core.Model
         }
 
         /// <summary>
-        /// 第一个排序字段(单个字段排序)
+        /// 第一个排序字段(单个字段排序).
         /// </summary>
         public Sort FirstSort
         {
@@ -78,18 +78,19 @@ namespace Core.Model
         }
 
         /// <summary>
-        /// 搜索关键字
+        /// 搜索关键字.
         /// </summary>
         public string KeyWord { get; set; }
     }
 
     /// <summary>
-    /// 排序实体对象
+    /// 排序实体对象.
     /// </summary>
     public class Sort
     {
         /// <summary>
-        /// 排序实体对象构造函数
+        /// Initializes a new instance of the <see cref="Sort"/> class.
+        /// 排序实体对象构造函数.
         /// </summary>
         public Sort()
         {
@@ -97,12 +98,12 @@ namespace Core.Model
         }
 
         /// <summary>
-        /// 排序字段
+        /// 排序字段.
         /// </summary>
         public string Field { get; set; }
 
         /// <summary>
-        /// 排序方向
+        /// 排序方向.
         /// </summary>
         public string Direct { get; set; }
     }

@@ -1,20 +1,20 @@
-﻿using AutoMapper;
-using Core.Api.Extensions;
-using Core.Model;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using Core.Api.ControllerHelpers;
+using Core.Api.Extensions;
 using Core.Entity;
+using Core.Model;
 using Core.Model.Administration.Role;
 using Core.Model.Administration.User;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Api.Controllers
 {
     /// <summary>
-    /// 用户控制器
+    /// 用户控制器.
     /// </summary>
     public partial class UserController : StandardController
     {
@@ -48,7 +48,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -81,7 +81,8 @@ namespace Core.Api.Controllers
                 }
 
                 var list = query.Skip((model.PageIndex - 1) * model.PageSize).Take(model.PageSize).ToList();
-                //ResponseModel response = new ResponseModel(list, model);
+
+                // ResponseModel response = new ResponseModel(list, model);
                 IList<UserModel> models = new List<UserModel>();
                 foreach (User item in list)
                 {
@@ -94,9 +95,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 创建用户
+        /// 创建用户.
         /// </summary>
-        /// <param name="model">用户视图实体</param>
+        /// <param name="model">用户视图实体.</param>
         /// <returns></returns>
         [HttpPost]
         public IActionResult Create(UserCreatePostModel model)
@@ -118,20 +119,22 @@ namespace Core.Api.Controllers
 
                 User entity = this.Mapper.Map<UserCreatePostModel, User>(model);
                 entity.CreateTime = DateTime.Now;
-                //entity.Id = Guid.NewGuid();
+
+                // entity.Id = Guid.NewGuid();
                 entity.Status = (int)model.Status;
                 this.DbContext.User.Add(entity);
                 this.DbContext.SaveChanges();
 
                 return null;
-                //return this.SubmitResponse(response);
+
+                // return this.SubmitResponse(response);
             }
         }
 
         /// <summary>
-        /// 编辑用户
+        /// 编辑用户.
         /// </summary>
-        /// <param name="id">用户GUID</param>
+        /// <param name="id">用户GUID.</param>
         /// <returns></returns>
         [HttpGet]
         public IActionResult FindById(int id)
@@ -146,9 +149,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 保存编辑后的用户信息
+        /// 保存编辑后的用户信息.
         /// </summary>
-        /// <param name="model">用户视图实体</param>
+        /// <param name="model">用户视图实体.</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
@@ -170,14 +173,15 @@ namespace Core.Api.Controllers
                 entity.DisplayName = model.DisplayName;
                 entity.LoginName = model.LoginName;
                 entity.Password = model.Password;
-                //if (model.UserRole.HasValue)
-                //{
+
+                // if (model.UserRole.HasValue)
+                // {
                 //    var userRoleMapping = DbContext.UserRoleMapping.FirstOrDefault(x => x.UserId == model.Id);
                 //    if (userRoleMapping!=null)
                 //    {
                 //        userRoleMapping.RoleId = (int)model.UserRole.Value;
                 //    }
-                //}
+                // }
                 entity.UpdateTime = DateTime.Now;
                 this.DbContext.SaveChanges();
                 response = ResponseModelFactory.CreateInstance;
@@ -186,9 +190,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 删除用户
+        /// 删除用户.
         /// </summary>
-        /// <param name="ids">用户GUID,多个以逗号分隔</param>
+        /// <param name="ids">用户GUID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet]
         public IActionResult Delete(int[] ids)
@@ -198,9 +202,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 恢复用户
+        /// 恢复用户.
         /// </summary>
-        /// <param name="ids">用户GUID,多个以逗号分隔</param>
+        /// <param name="ids">用户GUID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet]
         public IActionResult Recover(int[] ids)
@@ -211,10 +215,10 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 批量操作
+        /// 批量操作.
         /// </summary>
         /// <param name="command"></param>
-        /// <param name="ids">用户ID,多个以逗号分隔</param>
+        /// <param name="ids">用户ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(200)]
@@ -243,7 +247,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 保存用户-角色的关系映射数据
+        /// 保存用户-角色的关系映射数据.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <returns></returns>
@@ -254,7 +258,8 @@ namespace Core.Api.Controllers
             List<UserRoleMapping> roles = model.AssignedRoles.Select(x => new UserRoleMapping
             {
                 CreatedTime = DateTime.Now,
-                //RoleId = x.Trim()
+
+                // RoleId = x.Trim()
             }).ToList();
             this.DbContext.Database.ExecuteSqlCommand("DELETE FROM DncUserRoleMapping WHERE UserGuid={0}", model.UserGuid);
             bool success = true;

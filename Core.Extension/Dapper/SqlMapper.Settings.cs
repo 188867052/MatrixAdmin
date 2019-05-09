@@ -22,9 +22,9 @@ namespace Core.Extension.Dapper
             }
 
             /// <summary>
-            /// Gets or sets whether Dapper should use the CommandBehavior.SingleResult optimization
+            /// Gets or sets whether Dapper should use the CommandBehavior.SingleResult optimization.
             /// </summary>
-            /// <remarks>Note that a consequence of enabling this option is that errors that happen <b>after</b> the first select may not be reported</remarks>
+            /// <remarks>Note that a consequence of enabling this option is that errors that happen <b>after</b> the first select may not be reported.</remarks>
             public static bool UseSingleResultOptimization
             {
                 get => (AllowedCommandBehaviors & CommandBehavior.SingleResult) != 0;
@@ -32,9 +32,9 @@ namespace Core.Extension.Dapper
             }
 
             /// <summary>
-            /// Gets or sets whether Dapper should use the CommandBehavior.SingleRow optimization
+            /// Gets or sets whether Dapper should use the CommandBehavior.SingleRow optimization.
             /// </summary>
-            /// <remarks>Note that on some DB providers this optimization can have adverse performance impact</remarks>
+            /// <remarks>Note that on some DB providers this optimization can have adverse performance impact.</remarks>
             public static bool UseSingleRowOptimization
             {
                 get { return (AllowedCommandBehaviors & CommandBehavior.SingleRow) != 0; }
@@ -63,7 +63,7 @@ namespace Core.Extension.Dapper
             }
 
             /// <summary>
-            /// Resets all Settings to their default values
+            /// Resets all Settings to their default values.
             /// </summary>
             public static void SetDefaults()
             {
@@ -72,12 +72,12 @@ namespace Core.Extension.Dapper
             }
 
             /// <summary>
-            /// Specifies the default Command Timeout for all Queries
+            /// Specifies the default Command Timeout for all Queries.
             /// </summary>
             public static int? CommandTimeout { get; set; }
 
             /// <summary>
-            /// Indicates whether nulls in data are silently ignored (default) vs actively applied and assigned to members
+            /// Indicates whether nulls in data are silently ignored (default) vs actively applied and assigned to members.
             /// </summary>
             public static bool ApplyNullValues { get; set; }
 
@@ -89,7 +89,7 @@ namespace Core.Extension.Dapper
             /// </summary>
             /// <remarks>
             /// Caution: this should be treated with care if your DB provider (or the specific configuration) allows for null
-            /// equality (aka "ansi nulls off"), as this may change the intent of your query; as such, this is disabled by 
+            /// equality (aka "ansi nulls off"), as this may change the intent of your query; as such, this is disabled by
             /// default and must be enabled.
             /// </remarks>
             public static bool PadListExpansions { get; set; }

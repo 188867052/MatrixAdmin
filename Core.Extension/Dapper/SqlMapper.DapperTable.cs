@@ -17,6 +17,7 @@ namespace Core.Extension.Dapper
                 this._fieldNames = fieldNames ?? throw new ArgumentNullException(nameof(fieldNames));
 
                 this._fieldNameLookup = new Dictionary<string, int>(fieldNames.Length, StringComparer.Ordinal);
+
                 // if there are dups, we want the **first** key to be the "winner" - so iterate backwards
                 for (int i = fieldNames.Length - 1; i >= 0; i--)
                 {

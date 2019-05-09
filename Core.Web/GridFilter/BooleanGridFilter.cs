@@ -13,7 +13,8 @@ namespace Core.Web.GridFilter
         private readonly bool _isContainsEmpty;
 
         /// <summary>
-        /// 构造函数
+        /// Initializes a new instance of the <see cref="BooleanGridFilter{TPostModel}"/> class.
+        /// 构造函数.
         /// </summary>
         /// <param name="expression">The expression.</param>
         /// <param name="labelText"></param>

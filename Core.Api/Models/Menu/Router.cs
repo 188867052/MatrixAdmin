@@ -3,7 +3,7 @@
 namespace Core.Api.Models.Menu
 {
     /// <summary>
-    /// 用于前端的路由对象
+    /// 用于前端的路由对象.
     /// </summary>
     public class Router
     {
@@ -25,7 +25,7 @@ namespace Core.Api.Models.Menu
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class RouterMeta
     {

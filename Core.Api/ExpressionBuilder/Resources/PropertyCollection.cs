@@ -50,6 +50,7 @@ namespace Core.Api.ExpressionBuilder.Resources
         public Property this[string propertyId] { get { return this.Properties.FirstOrDefault(p => p.Id.Equals(propertyId)); } }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyCollection"/> class.
         /// Instantiates a new <see cref="PropertyCollection" />.
         /// </summary>
         /// <param name="type"></param>
@@ -61,6 +62,7 @@ namespace Core.Api.ExpressionBuilder.Resources
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyCollection"/> class.
         /// Instantiates a new <see cref="PropertyCollection" />.
         /// </summary>
         /// <param name="type"></param>

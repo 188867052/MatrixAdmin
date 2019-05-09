@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 namespace Core.Api.Controllers
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [ApiController]
     [Authorize]
     public class MessageController : StandardController
     {
         /// <summary>
-        /// 消息控制器
+        /// 消息控制器.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -26,7 +26,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 初始化消息标题列表
+        /// 初始化消息标题列表.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -42,7 +42,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 获取指定ID的消息内容
+        /// 获取指定ID的消息内容.
         /// </summary>
         /// <returns></returns>
         [HttpGet("{msgid:int}")]
@@ -55,7 +55,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 将消息标为已读
+        /// 将消息标为已读.
         /// </summary>
         /// <returns></returns>
         [HttpGet("/api/v1/message/has_read/{msgid}")]
@@ -66,7 +66,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 删除已读消息
+        /// 删除已读消息.
         /// </summary>
         /// <returns></returns>
         [HttpGet("/api/v1/message/remove_readed/{msgid}")]
@@ -77,7 +77,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 恢复已删消息
+        /// 恢复已删消息.
         /// </summary>
         /// <returns></returns>
         [HttpGet("/api/v1/message/restore/{msgid}")]

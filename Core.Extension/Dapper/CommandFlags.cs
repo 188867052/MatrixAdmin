@@ -3,7 +3,7 @@
 namespace Core.Extension.Dapper
 {
     /// <summary>
-    /// Additional state flags that control command behaviour
+    /// Additional state flags that control command behaviour.
     /// </summary>
     [Flags]
     public enum CommandFlags

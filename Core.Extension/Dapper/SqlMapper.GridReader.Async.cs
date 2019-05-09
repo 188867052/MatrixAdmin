@@ -21,38 +21,38 @@ namespace Core.Extension.Dapper
             }
 
             /// <summary>
-            /// Read the next grid of results, returned as a dynamic object
+            /// Read the next grid of results, returned as a dynamic object.
             /// </summary>
-            /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
+            /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
             /// <param name="buffered">Whether to buffer the results.</param>
             public Task<IEnumerable<dynamic>> ReadAsync(bool buffered = true) => this.ReadAsyncImpl<dynamic>(typeof(DapperRow), buffered);
 
             /// <summary>
-            /// Read an individual row of the next grid of results, returned as a dynamic object
+            /// Read an individual row of the next grid of results, returned as a dynamic object.
             /// </summary>
-            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
+            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
             public Task<dynamic> ReadFirstAsync() => this.ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.First);
 
             /// <summary>
-            /// Read an individual row of the next grid of results, returned as a dynamic object
+            /// Read an individual row of the next grid of results, returned as a dynamic object.
             /// </summary>
-            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
+            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
             public Task<dynamic> ReadFirstOrDefaultAsync() => this.ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.FirstOrDefault);
 
             /// <summary>
-            /// Read an individual row of the next grid of results, returned as a dynamic object
+            /// Read an individual row of the next grid of results, returned as a dynamic object.
             /// </summary>
-            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
+            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
             public Task<dynamic> ReadSingleAsync() => this.ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.Single);
 
             /// <summary>
-            /// Read an individual row of the next grid of results, returned as a dynamic object
+            /// Read an individual row of the next grid of results, returned as a dynamic object.
             /// </summary>
-            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
+            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
             public Task<dynamic> ReadSingleOrDefaultAsync() => this.ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.SingleOrDefault);
 
             /// <summary>
-            /// Read the next grid of results
+            /// Read the next grid of results.
             /// </summary>
             /// <param name="type">The type to read.</param>
             /// <param name="buffered">Whether to buffer the results.</param>
@@ -64,7 +64,7 @@ namespace Core.Extension.Dapper
             }
 
             /// <summary>
-            /// Read an individual row of the next grid of results
+            /// Read an individual row of the next grid of results.
             /// </summary>
             /// <param name="type">The type to read.</param>
             /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>

@@ -8,7 +8,7 @@ namespace Core.Api.Configurations
 {
     /// <summary>
     /// API自定义错误消息处理委托类。
-    /// 用于处理访问不到对应API地址的情况，对错误进行自定义操作。
+    /// 用于处理访问不到对应API地址的情况，对错误进行自定义操作。.
     /// </summary>
     public class CustomErrorMessageDelegatingHandler : DelegatingHandler
     {
@@ -41,7 +41,7 @@ namespace Core.Api.Configurations
             {
                 this._logger.LogInformation("Handling API key for: " + context.Request.Path);
 
-                // do custom stuff here with service      
+                // do custom stuff here with service
 
                 await this._next.Invoke(context);
 

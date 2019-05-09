@@ -70,11 +70,11 @@ namespace Core.Extension.Dapper
         /// Gets the row parser for a specific row on a data reader. This allows for type switching every row based on, for example, a TypeId column.
         /// You could return a collection of the base type but have each more specific.
         /// </summary>
-        /// <param name="reader">The data reader to get the parser for the current row from</param>
-        /// <param name="type">The type to get the parser for</param>
-        /// <param name="startIndex">The start column index of the object (default 0)</param>
-        /// <param name="length">The length of columns to read (default -1 = all fields following startIndex)</param>
-        /// <param name="returnNullIfFirstMissing">Return null if we can't find the first column? (default false)</param>
+        /// <param name="reader">The data reader to get the parser for the current row from.</param>
+        /// <param name="type">The type to get the parser for.</param>
+        /// <param name="startIndex">The start column index of the object (default 0).</param>
+        /// <param name="length">The length of columns to read (default -1 = all fields following startIndex).</param>
+        /// <param name="returnNullIfFirstMissing">Return null if we can't find the first column? (default false).</param>
         /// <returns>A parser for this specific object from this row.</returns>
         public static Func<IDataReader, object> GetRowParser(this IDataReader reader, Type type,
             int startIndex = 0, int length = -1, bool returnNullIfFirstMissing = false)
@@ -119,7 +119,7 @@ namespace Core.Extension.Dapper
         ///         } while (reader.Read());
         ///     }
         /// }
-        ///  
+        ///
         /// abstract class BaseType
         /// {
         ///     public abstract int Type { get; }
@@ -133,7 +133,7 @@ namespace Core.Extension.Dapper
         /// {
         ///     public float Value { get; set; }
         ///     public override int Type =&gt; 2;
-        /// }
+        /// }.
         /// </example>
         public static Func<IDataReader, T> GetRowParser<T>(this IDataReader reader, Type concreteType = null,
             int startIndex = 0, int length = -1, bool returnNullIfFirstMissing = false)

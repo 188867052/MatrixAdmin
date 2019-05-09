@@ -7,7 +7,7 @@ using System.Threading;
 namespace Core.Extension.Dapper
 {
     /// <summary>
-    /// Represents the key aspects of a sql operation
+    /// Represents the key aspects of a sql operation.
     /// </summary>
     public struct CommandDefinition
     {
@@ -29,52 +29,53 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// The command (sql or a stored-procedure name) to execute
+        /// The command (sql or a stored-procedure name) to execute.
         /// </summary>
         public string CommandText { get; }
 
         /// <summary>
-        /// The parameters associated with the command
+        /// The parameters associated with the command.
         /// </summary>
         public object Parameters { get; }
 
         /// <summary>
-        /// The active transaction for the command
+        /// The active transaction for the command.
         /// </summary>
         public IDbTransaction Transaction { get; }
 
         /// <summary>
-        /// The effective timeout for the command
+        /// The effective timeout for the command.
         /// </summary>
         public int? CommandTimeout { get; }
 
         /// <summary>
-        /// The type of command that the command-text represents
+        /// The type of command that the command-text represents.
         /// </summary>
         public CommandType? CommandType { get; }
 
         /// <summary>
-        /// Should data be buffered before returning?
+        /// Should data be buffered before returning?.
         /// </summary>
         public bool Buffered => (this.Flags & CommandFlags.Buffered) != 0;
 
         /// <summary>
-        /// Should the plan for this query be cached?
+        /// Should the plan for this query be cached?.
         /// </summary>
         internal bool AddToCache => (this.Flags & CommandFlags.NoCache) == 0;
 
         /// <summary>
-        /// Additional state flags against this command
+        /// Additional state flags against this command.
         /// </summary>
         public CommandFlags Flags { get; }
 
         /// <summary>
-        /// Can async queries be pipelined?
+        /// Can async queries be pipelined?.
         /// </summary>
         public bool Pipelined => (this.Flags & CommandFlags.Pipelined) != 0;
 
         /// <summary>
-        /// Initialize the command definition
+        /// Initializes a new instance of the <see cref="CommandDefinition"/> struct.
+        /// Initialize the command definition.
         /// </summary>
         /// <param name="commandText">The text for this command.</param>
         /// <param name="parameters">The parameters for this command.</param>
@@ -103,7 +104,7 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// For asynchronous operations, the cancellation-token
+        /// For asynchronous operations, the cancellation-token.
         /// </summary>
         public CancellationToken CancellationToken { get; }
 

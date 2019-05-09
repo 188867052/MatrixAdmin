@@ -11,7 +11,7 @@ namespace Core.Extension
         private static readonly string Host = "https://localhost:44377/api";
 
         /// <summary>
-        /// GetAsync
+        /// GetAsync.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="url"></param>
@@ -61,7 +61,7 @@ namespace Core.Extension
         }
 
         /// <summary>
-        /// PostAsync
+        /// PostAsync.
         /// </summary>
         /// <typeparam name="TModel"></typeparam>
         /// <typeparam name="TPostModel"></typeparam>

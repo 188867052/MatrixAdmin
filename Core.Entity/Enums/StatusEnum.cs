@@ -1,7 +1,7 @@
 ﻿namespace Core.Entity.Enums
 {
     /// <summary>
-    /// 用户状态
+    /// 用户状态.
     /// </summary>
     public enum StatusEnum
     {

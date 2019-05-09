@@ -7,24 +7,24 @@ using System.Reflection.Emit;
 namespace Core.Api.Extensions
 {
     /// <summary>
-    /// 把 DataTable 转换为对象集合列表List&lt;T&gt;
+    /// 把 DataTable 转换为对象集合列表List&lt;T&gt;.
     /// </summary>
     public static class DataTableConvert
     {
-        //把DataRow转换为对象的委托声明
+        // 把DataRow转换为对象的委托声明
         private delegate T Load<T>(DataRow dataRecord);
 
-        //用于构造Emit的DataRow中获取字段的方法信息
+        // 用于构造Emit的DataRow中获取字段的方法信息
         private static readonly MethodInfo getValueMethod = typeof(DataRow).GetMethod("get_Item", new[] { typeof(int) });
 
-        //用于构造Emit的DataRow中判断是否为空行的方法信息
+        // 用于构造Emit的DataRow中判断是否为空行的方法信息
         private static readonly MethodInfo isDBNullMethod = typeof(DataRow).GetMethod("IsNull", new[] { typeof(int) });
 
-        //使用字典存储实体的类型以及与之对应的Emit生成的转换方法
+        // 使用字典存储实体的类型以及与之对应的Emit生成的转换方法
         private static readonly Dictionary<Type, Delegate> rowMapMethods = new Dictionary<Type, Delegate>();
 
         /// <summary>
-        /// 将DataTable转换成泛型对象列表
+        /// 将DataTable转换成泛型对象列表.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="dt"></param>
@@ -35,11 +35,11 @@ namespace Core.Api.Extensions
             if (dt == null)
                 return list;
 
-            //声明 委托Load<T>的一个实例rowMap
+            // 声明 委托Load<T>的一个实例rowMap
             Load<T> rowMap = null;
 
 
-            //从rowMapMethods查找当前T类对应的转换方法，没有则使用Emit构造一个。
+            // 从rowMapMethods查找当前T类对应的转换方法，没有则使用Emit构造一个。
             if (!rowMapMethods.ContainsKey(typeof(T)))
             {
                 DynamicMethod method = new DynamicMethod("DynamicCreateEntity_" + typeof(T).Name, typeof(T), new[] { typeof(DataRow) }, typeof(T), true);
@@ -71,7 +71,7 @@ namespace Core.Api.Extensions
                 generator.Emit(OpCodes.Ldloc, result);
                 generator.Emit(OpCodes.Ret);
 
-                //构造完成以后传给rowMap
+                // 构造完成以后传给rowMap
                 rowMap = (Load<T>)method.CreateDelegate(typeof(Load<T>));
             }
             else
@@ -79,7 +79,7 @@ namespace Core.Api.Extensions
                 rowMap = (Load<T>)rowMapMethods[typeof(T)];
             }
 
-            //遍历 DataTable 的rows集合，调用rowMap把DataRow转换为对象（T）
+            // 遍历 DataTable 的rows集合，调用rowMap把DataRow转换为对象（T）
             foreach (DataRow info in dt.Rows)
                 list.Add(rowMap(info));
             return list;

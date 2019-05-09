@@ -1,7 +1,7 @@
 ﻿namespace Core.Entity.Enums
 {
     /// <summary>
-    /// 用户是否禁用枚举
+    /// 用户是否禁用枚举.
     /// </summary>
     public enum UserIsForbiddenEnum
     {

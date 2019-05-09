@@ -103,10 +103,10 @@ namespace Core.Extension.Dapper
             public override int GetHashCode() => this.hashCode;
 
             /// <summary>
-            /// Compare 2 Identity objects
+            /// Compare 2 Identity objects.
             /// </summary>
             /// <param name="other">The other <see cref="Identity"/> object to compare.</param>
-            /// <returns>Whether the two are equal</returns>
+            /// <returns>Whether the two are equal.</returns>
             public bool Equals(Identity other)
             {
                 return other != null

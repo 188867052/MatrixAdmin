@@ -1,18 +1,18 @@
-﻿using Core.Entity.Enums;
-using System;
+﻿using System;
 using System.Linq;
+using Core.Entity.Enums;
 
 namespace Core.Model.Administration.User
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class UserModel
     {
         public UserModel()
         {
             this.UserStatus=new UserStatusModel();
-                
+
         }
 
         public UserModel(Entity.User user)
@@ -39,52 +39,52 @@ namespace Core.Model.Administration.User
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string LoginName { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string Password { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UserRoleEnum UserType { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public UserIsForbiddenEnum Status { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool IsDeleted { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public DateTime CreateTime { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string CreatedByUserName { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public DateTime UpdateTime { get; set; }
 

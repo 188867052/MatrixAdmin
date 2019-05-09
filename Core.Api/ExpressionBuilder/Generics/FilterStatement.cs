@@ -41,6 +41,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         public object Value2 { get; set; }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
         /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
         /// </summary>
         /// <param name="propertyId"></param>
@@ -79,6 +80,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
         /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
         /// </summary>
         public FilterInfo() { }
@@ -109,7 +111,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         {
             if (typeof(TPropertyType) == typeof(object))
             {
-                //TODO: Issue regarding the TPropertyType that comes from the UI always as 'Object'
+                // TODO: Issue regarding the TPropertyType that comes from the UI always as 'Object'
                 System.Diagnostics.Debug.WriteLine("WARN: Not able to check if the operation is supported or not.");
                 return;
             }

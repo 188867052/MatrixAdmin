@@ -1,16 +1,16 @@
-﻿//using Microsoft.AspNetCore.Mvc.Filters;
-//using System;
-//using System.Net;
-//using System.Net.Http;
-//using System.Web.Http.Filters;
+﻿// using Microsoft.AspNetCore.Mvc.Filters;
+// using System;
+// using System.Net;
+// using System.Net.Http;
+// using System.Web.Http.Filters;
 
-//namespace Core.Api.Configurations
-//{
+// namespace Core.Api.Configurations
+// {
 //    public class WebApiExceptionFilterAttribute : Microsoft.AspNetCore.Mvc.Filters.ExceptionFilterAttribute
 //    {
 
 
-//        //重写基类的异常处理方法
+// //重写基类的异常处理方法
 //        public override void OnException(Microsoft.AspNetCore.Mvc.Filters.HttpActionExecutedContext actionExecutedContext)
 //        {
 //            //1.异常日志记录（正式项目里面一般是用log4net记录异常日志）
@@ -18,7 +18,7 @@
 //                              actionExecutedContext.Exception.GetType().ToString() + "：" + actionExecutedContext.Exception.Message + "——堆栈信息：" +
 //                              actionExecutedContext.Exception.StackTrace);
 
-//            //2.返回调用方具体的异常信息
+// //2.返回调用方具体的异常信息
 //            if (actionExecutedContext.Exception is NotImplementedException)
 //            {
 //                actionExecutedContext.Response = new HttpResponseMessage(HttpStatusCode.NotImplemented);
@@ -33,7 +33,7 @@
 //                actionExecutedContext.Response = new HttpResponseMessage(HttpStatusCode.InternalServerError);
 //            }
 
-//            base.OnException(actionExecutedContext);
+// base.OnException(actionExecutedContext);
 //        }
 //    }
-//}
+// }

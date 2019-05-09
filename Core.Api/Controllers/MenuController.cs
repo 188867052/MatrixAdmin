@@ -1,22 +1,22 @@
-﻿using AutoMapper;
-using Core.Api.Extensions;
-using Core.Api.Extensions.AuthContext;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
+using Core.Api.Extensions;
+using Core.Api.Extensions.AuthContext;
 using Core.Entity;
 using Core.Entity.Enums;
 using Core.Extension.Dapper;
 using Core.Model;
 using Core.Model.Administration.Menu;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Api.Controllers
 {
     /// <summary>
-    /// 菜单
+    /// 菜单.
     /// </summary>
-    //[CustomAuthorize]
+    // [CustomAuthorize]
     public class MenuController : StandardController
     {
         public MenuController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
@@ -33,7 +33,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
 
@@ -44,17 +44,18 @@ namespace Core.Api.Controllers
             {
                 IQueryable<Menu> query = this.DbContext.Menu.AsQueryable();
                 query = query.AddStringContainsFilter(model.MenuName, nameof(Menu.Name));
-                //query = query.AddBooleanFilter(model.Status, nameof(Menu.Status));
-                //query = query.AddGuidEqualsFilter(model.ParentGuid, nameof(Menu.ParentGuid));
-                //IEnumerable<MenuJsonModel> data = list.Select(Mapper.Map<Menu, MenuJsonModel>);
+
+                // query = query.AddBooleanFilter(model.Status, nameof(Menu.Status));
+                // query = query.AddGuidEqualsFilter(model.ParentGuid, nameof(Menu.ParentGuid));
+                // IEnumerable<MenuJsonModel> data = list.Select(Mapper.Map<Menu, MenuJsonModel>);
                 return this.StandardResponse(query, model);
             }
         }
 
         /// <summary>
-        /// 创建菜单
+        /// 创建菜单.
         /// </summary>
-        /// <param name="model">菜单视图实体</param>
+        /// <param name="model">菜单视图实体.</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
@@ -76,9 +77,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 编辑菜单
+        /// 编辑菜单.
         /// </summary>
-        /// <param name="guid">菜单ID</param>
+        /// <param name="guid">菜单ID.</param>
         /// <returns></returns>
         [HttpGet("{guid}")]
         [ProducesResponseType(200)]
@@ -89,14 +90,15 @@ namespace Core.Api.Controllers
                 Menu entity = this.DbContext.Menu.FirstOrDefault(x => x.Guid == guid);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 MenuEditViewModel model = this.Mapper.Map<Menu, MenuEditViewModel>(entity);
-                //if (model.ParentGuid.HasValue)
-                //{
+
+                // if (model.ParentGuid.HasValue)
+                // {
                 //    var parent = this._dbContext.DncMenu.FirstOrDefault(x => x.Guid == entity.ParentGuid);
                 //    if (parent != null)
                 //    {
                 //        model.ParentName = parent.Name;
                 //    }
-                //}
+                // }
                 List<MenuTree> tree = this.LoadMenuTree(model.ParentGuid.ToString());
                 response.SetData(new { model, tree });
                 return this.Ok(response);
@@ -104,9 +106,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 保存编辑后的菜单信息
+        /// 保存编辑后的菜单信息.
         /// </summary>
-        /// <param name="model">菜单视图实体</param>
+        /// <param name="model">菜单视图实体.</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
@@ -129,7 +131,8 @@ namespace Core.Api.Controllers
                 entity.Alias = model.Alias;
                 entity.IsEnable = model.IsEnable.Value;
                 entity.Status = model.Status;
-                //entity.IsDefaultRouter = model.IsDefaultRouter;
+
+                // entity.IsDefaultRouter = model.IsDefaultRouter;
 
                 this.DbContext.SaveChanges();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
@@ -139,7 +142,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 菜单树
+        /// 菜单树.
         /// </summary>
         /// <returns></returns>
         [HttpGet("{selected?}")]
@@ -152,9 +155,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 删除菜单
+        /// 删除菜单.
         /// </summary>
-        /// <param name="ids">菜单ID,多个以逗号分隔</param>
+        /// <param name="ids">菜单ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet("{ids}")]
         [ProducesResponseType(200)]
@@ -165,9 +168,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 恢复菜单
+        /// 恢复菜单.
         /// </summary>
-        /// <param name="ids">菜单ID,多个以逗号分隔</param>
+        /// <param name="ids">菜单ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet("{ids}")]
         [ProducesResponseType(200)]
@@ -178,10 +181,10 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 批量操作
+        /// 批量操作.
         /// </summary>
         /// <param name="command"></param>
-        /// <param name="ids">菜单ID,多个以逗号分隔</param>
+        /// <param name="ids">菜单ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(200)]
@@ -210,10 +213,10 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 删除菜单
+        /// 删除菜单.
         /// </summary>
         /// <param name="isEnable"></param>
-        /// <param name="ids">菜单ID字符串,多个以逗号隔开</param>
+        /// <param name="ids">菜单ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
         private ResponseModel UpdateIsEnable(bool isEnable, int[] ids)
         {
@@ -226,10 +229,10 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 删除菜单
+        /// 删除菜单.
         /// </summary>
-        /// <param name="status">菜单状态</param>
-        /// <param name="ids">菜单ID字符串,多个以逗号隔开</param>
+        /// <param name="status">菜单状态.</param>
+        /// <param name="ids">菜单ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
         private ResponseModel UpdateStatus(StatusEnum status, int[] ids)
         {
@@ -262,12 +265,12 @@ namespace Core.Api.Controllers
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static class MenuTreeHelper
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="menus"></param>
         /// <param name="selectedGuid"></param>

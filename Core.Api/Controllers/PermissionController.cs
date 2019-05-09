@@ -1,23 +1,23 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Api.Utils;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Entity;
 using Core.Extension.Dapper;
 using Core.Model;
 using Core.Model.Administration.Permission;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Api.Controllers
 {
     /// <summary>
-    /// 权限控制器
+    /// 权限控制器.
     /// </summary>
-    //[CustomAuthorize]
+    // [CustomAuthorize]
     public class PermissionController : StandardController
     {
         public PermissionController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
@@ -34,7 +34,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -43,15 +43,17 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Permission> query = this.DbContext.Permission.AsQueryable();
-                //Filter<Permission> filter1 = new Filter<Permission>(nameof(Permission.Name), Operation.EqualTo, model.Status);
-                //Filter<Permission> filter2 = new Filter<Permission>(nameof(Permission.Id), Operation.EqualTo, model.IsEnable);
-                //Filter<Permission> filter = new Filter<Permission>(filter1, filter2, Connector.Or);
-                //query = query.AddFilter(filter);
-                query = query.AddBooleanFilter(model.IsEnable, nameof(Permission.IsEnable));
-                //query = query.AddBooleanFilter(model.Status, nameof(Permission.Status));
-                //query = query.AddGuidEqualsFilter(model.MenuGuid, nameof(Permission.MenuGuid));
 
-                //var data = list.Select(this.Mapper.Map<Permission, PermissionJsonModel>);
+                // Filter<Permission> filter1 = new Filter<Permission>(nameof(Permission.Name), Operation.EqualTo, model.Status);
+                // Filter<Permission> filter2 = new Filter<Permission>(nameof(Permission.Id), Operation.EqualTo, model.IsEnable);
+                // Filter<Permission> filter = new Filter<Permission>(filter1, filter2, Connector.Or);
+                // query = query.AddFilter(filter);
+                query = query.AddBooleanFilter(model.IsEnable, nameof(Permission.IsEnable));
+
+                // query = query.AddBooleanFilter(model.Status, nameof(Permission.Status));
+                // query = query.AddGuidEqualsFilter(model.MenuGuid, nameof(Permission.MenuGuid));
+
+                // var data = list.Select(this.Mapper.Map<Permission, PermissionJsonModel>);
                 /*
                  * .Select(x => new PermissionJsonModel {
                     MenuName = x.Menu.Name,
@@ -64,9 +66,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 创建权限
+        /// 创建权限.
         /// </summary>
-        /// <param name="model">权限视图实体</param>
+        /// <param name="model">权限视图实体.</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
@@ -101,9 +103,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 编辑权限
+        /// 编辑权限.
         /// </summary>
-        /// <param name="code">权限惟一编码</param>
+        /// <param name="code">权限惟一编码.</param>
         /// <returns></returns>
         [HttpGet("{code}")]
         [ProducesResponseType(200)]
@@ -122,9 +124,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 保存编辑后的权限信息
+        /// 保存编辑后的权限信息.
         /// </summary>
-        /// <param name="model">权限视图实体</param>
+        /// <param name="model">权限视图实体.</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
@@ -162,9 +164,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 删除权限
+        /// 删除权限.
         /// </summary>
-        /// <param name="ids">权限ID,多个以逗号分隔</param>
+        /// <param name="ids">权限ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet("{ids}")]
         [ProducesResponseType(200)]
@@ -175,9 +177,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 恢复权限
+        /// 恢复权限.
         /// </summary>
-        /// <param name="ids">权限ID,多个以逗号分隔</param>
+        /// <param name="ids">权限ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet("{ids}")]
         [ProducesResponseType(200)]
@@ -188,10 +190,10 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 批量操作
+        /// 批量操作.
         /// </summary>
         /// <param name="command"></param>
-        /// <param name="ids">权限ID,多个以逗号分隔</param>
+        /// <param name="ids">权限ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(200)]
@@ -220,9 +222,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 角色-权限菜单树
+        /// 角色-权限菜单树.
         /// </summary>
-        /// <param name="code">角色编码</param>
+        /// <param name="code">角色编码.</param>
         /// <returns></returns>
         [HttpGet("/api/v1/rbac/permission/permission_tree/{code}")]
         public IActionResult PermissionTree(int code)
@@ -244,7 +246,8 @@ namespace Core.Api.Controllers
                         ParentGuid = x.ParentGuid,
                         Title = x.Name
                     }).ToList();
-                //DncPermissionWithAssignProperty
+
+                // DncPermissionWithAssignProperty
                 string sql = @"SELECT P.Code,P.MenuGuid,P.Name,P.ActionCode,ISNULL(S.RoleCode,'') AS RoleCode,(CASE WHEN S.PermissionCode IS NOT NULL THEN 1 ELSE 0 END) AS IsAssigned FROM DncPermission AS P 
 LEFT JOIN (SELECT * FROM RolePermissionMapping AS RPM WHERE RPM.RoleCode={0}) AS S 
 ON S.PermissionCode= P.Code
@@ -255,19 +258,19 @@ WHERE P.IsDeleted=0 AND P.Status=1";
 WHERE P.IsDeleted=0 AND P.Status=1";
                 }
 
-                //List<PermissionWithAssignProperty> permissionList = this.DbContext.PermissionWithAssignProperty.FromSql(sql, code).ToList();
-                //List<PermissionMenuTree> tree = menu.FillRecursive(permissionList, Guid.Empty, role.IsSuperAdministrator);
-                //response.SetData(new { tree, selectedPermissions = permissionList.Where(x => x.IsAssigned == 1).Select(x => x.Code) });
+                // List<PermissionWithAssignProperty> permissionList = this.DbContext.PermissionWithAssignProperty.FromSql(sql, code).ToList();
+                // List<PermissionMenuTree> tree = menu.FillRecursive(permissionList, Guid.Empty, role.IsSuperAdministrator);
+                // response.SetData(new { tree, selectedPermissions = permissionList.Where(x => x.IsAssigned == 1).Select(x => x.Code) });
             }
 
             return this.Ok(response);
         }
 
         /// <summary>
-        /// 删除权限
+        /// 删除权限.
         /// </summary>
         /// <param name="isEnable"></param>
-        /// <param name="ids">权限ID字符串,多个以逗号隔开</param>
+        /// <param name="ids">权限ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
         private ResponseModel UpdateIsEnable(bool isEnable, string ids)
         {
@@ -280,10 +283,10 @@ WHERE P.IsDeleted=0 AND P.Status=1";
         }
 
         /// <summary>
-        /// 删除权限
+        /// 删除权限.
         /// </summary>
-        /// <param name="status">权限状态</param>
-        /// <param name="ids">权限ID字符串,多个以逗号隔开</param>
+        /// <param name="status">权限状态.</param>
+        /// <param name="ids">权限ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
         private ResponseModel UpdateStatus(bool status, string ids)
         {
@@ -298,17 +301,17 @@ WHERE P.IsDeleted=0 AND P.Status=1";
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static class PermissionTreeHelper
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        /// <param name="menus">菜单集合</param>
-        /// <param name="permissions">权限集合</param>
-        /// <param name="parentGuid">父级菜单GUID</param>
-        /// <param name="isSuperAdministrator">是否为超级管理员角色</param>
+        /// <param name="menus">菜单集合.</param>
+        /// <param name="permissions">权限集合.</param>
+        /// <param name="parentGuid">父级菜单GUID.</param>
+        /// <param name="isSuperAdministrator">是否为超级管理员角色.</param>
         /// <returns></returns>
         public static List<PermissionMenuTree> FillRecursive(this List<PermissionMenuTree> menus, List<PermissionWithAssignProperty> permissions, Guid? parentGuid, bool isSuperAdministrator = false)
         {
@@ -347,11 +350,11 @@ WHERE P.IsDeleted=0 AND P.Status=1";
             return isAssigned == 1;
         }
 
-        //public static List<PermissionMenuTree> FillRecursive(this List<PermissionMenuTree> menus, List<DncPermissionWithAssignProperty> permissions, Guid? parentGuid)
-        //{
+        // public static List<PermissionMenuTree> FillRecursive(this List<PermissionMenuTree> menus, List<DncPermissionWithAssignProperty> permissions, Guid? parentGuid)
+        // {
         //    List<PermissionMenuTree> recursiveObjects = new List<PermissionMenuTree>();
 
-        //    return recursiveObjects;
-        //}
+        // return recursiveObjects;
+        // }
     }
 }

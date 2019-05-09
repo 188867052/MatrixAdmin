@@ -9,18 +9,18 @@ using Microsoft.IdentityModel.Tokens;
 namespace Core.Api.Auth
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static class JwtBearerAuthenticationExtension
     {
         /// <summary>
-        /// 注册JWT Bearer认证服务的静态扩展方法
+        /// 注册JWT Bearer认证服务的静态扩展方法.
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="appSettings">JWT授权的配置项</param>
+        /// <param name="appSettings">JWT授权的配置项.</param>
         public static void AddJwtBearerAuthentication(this IServiceCollection services, AppAuthenticationSettings appSettings)
         {
-            //使用应用密钥得到一个加密密钥字节数组
+            // 使用应用密钥得到一个加密密钥字节数组
             byte[] key = Encoding.ASCII.GetBytes("secret");
             services.AddAuthentication(x =>
             {

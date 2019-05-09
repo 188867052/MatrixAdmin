@@ -43,6 +43,7 @@ namespace Core.Extension.Dapper
                     }
 
                     var newNode = new Link<TKey, TValue>(key, value, snapshot);
+
                     // did somebody move our cheese?
                     tryAgain = Interlocked.CompareExchange(ref head, newNode, snapshot) != snapshot;
                 } while (tryAgain);

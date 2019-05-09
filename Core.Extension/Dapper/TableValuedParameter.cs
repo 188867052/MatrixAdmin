@@ -7,7 +7,7 @@ using System.Reflection;
 namespace Core.Extension.Dapper
 {
     /// <summary>
-    /// Used to pass a DataTable as a TableValuedParameter
+    /// Used to pass a DataTable as a TableValuedParameter.
     /// </summary>
     internal sealed class TableValuedParameter : SqlMapper.ICustomQueryParameter
     {
@@ -15,12 +15,14 @@ namespace Core.Extension.Dapper
         private readonly string _typeName;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="TableValuedParameter"/> class.
         /// Create a new instance of <see cref="TableValuedParameter"/>.
         /// </summary>
-        /// <param name="table">The <see cref="DataTable"/> to create this parameter for</param>
+        /// <param name="table">The <see cref="DataTable"/> to create this parameter for.</param>
         public TableValuedParameter(DataTable table) : this(table, null) { /* run base */ }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="TableValuedParameter"/> class.
         /// Create a new instance of <see cref="TableValuedParameter"/>.
         /// </summary>
         /// <param name="table">The <see cref="DataTable"/> to create this parameter for.</param>

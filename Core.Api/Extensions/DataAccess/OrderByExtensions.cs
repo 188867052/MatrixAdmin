@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 namespace Core.Api.Extensions.DataAccess
 {
     /// <summary>
-    /// 排序静态扩展类
+    /// 排序静态扩展类.
     /// </summary>
     public static class OrderByExtensions
     {

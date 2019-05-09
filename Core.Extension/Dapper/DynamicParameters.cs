@@ -13,7 +13,7 @@ using ApplicationException = System.InvalidOperationException;
 namespace Core.Extension.Dapper
 {
     /// <summary>
-    /// A bag of parameters that can be passed to the Dapper Query and Execute methods
+    /// A bag of parameters that can be passed to the Dapper Query and Execute methods.
     /// </summary>
     public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper.IParameterLookup, SqlMapper.IParameterCallbacks
     {
@@ -26,7 +26,8 @@ namespace Core.Extension.Dapper
             this.parameters.TryGetValue(name, out ParamInfo param) ? param.Value : null;
 
         /// <summary>
-        /// construct a dynamic parameter bag
+        /// Initializes a new instance of the <see cref="DynamicParameters"/> class.
+        /// construct a dynamic parameter bag.
         /// </summary>
         public DynamicParameters()
         {
@@ -34,9 +35,10 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// construct a dynamic parameter bag
+        /// Initializes a new instance of the <see cref="DynamicParameters"/> class.
+        /// construct a dynamic parameter bag.
         /// </summary>
-        /// <param name="template">can be an anonymous type or a DynamicParameters bag</param>
+        /// <param name="template">can be an anonymous type or a DynamicParameters bag.</param>
         public DynamicParameters(object template)
         {
             this.RemoveUnused = true;
@@ -45,7 +47,7 @@ namespace Core.Extension.Dapper
 
         /// <summary>
         /// Append a whole object full of params to the dynamic
-        /// EG: AddDynamicParams(new {A = 1, B = 2}) // will add property A and B to the dynamic
+        /// EG: AddDynamicParams(new {A = 1, B = 2}) // will add property A and B to the dynamic.
         /// </summary>
         /// <param name="param"></param>
         public void AddDynamicParams(object param)
@@ -158,15 +160,15 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// If true, the command-text is inspected and only values that are clearly used are included on the connection
+        /// If true, the command-text is inspected and only values that are clearly used are included on the connection.
         /// </summary>
         public bool RemoveUnused { get; set; }
 
         /// <summary>
-        /// Add all the parameters needed to the command just before it executes
+        /// Add all the parameters needed to the command just before it executes.
         /// </summary>
-        /// <param name="command">The raw command prior to execution</param>
-        /// <param name="identity">Information about the query</param>
+        /// <param name="command">The raw command prior to execution.</param>
+        /// <param name="identity">Information about the query.</param>
         protected void AddParameters(IDbCommand command, SqlMapper.Identity identity)
         {
             var literals = SqlMapper.GetLiteralTokens(identity.sql);
@@ -308,16 +310,16 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// All the names of the param in the bag, use Get to yank them out
+        /// All the names of the param in the bag, use Get to yank them out.
         /// </summary>
         public IEnumerable<string> ParameterNames => this.parameters.Select(p => p.Key);
 
         /// <summary>
-        /// Get the value of a parameter
+        /// Get the value of a parameter.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="name"></param>
-        /// <returns>The value, note DBNull.Value is not returned, instead the value is returned as null</returns>
+        /// <returns>The value, note DBNull.Value is not returned, instead the value is returned as null.</returns>
         public T Get<T>(string name)
         {
             var paramInfo = this.parameters[Clean(name)];
@@ -345,7 +347,7 @@ namespace Core.Extension.Dapper
         /// <param name="expression">A MemberExpression targeting a property/field of the target (or descendant thereof.)</param>
         /// <param name="dbType"></param>
         /// <param name="size">The size to set on the parameter. Defaults to 0, or DbString.DefaultLength in case of strings.</param>
-        /// <returns>The DynamicParameters instance</returns>
+        /// <returns>The DynamicParameters instance.</returns>
         public DynamicParameters Output<T>(T target, Expression<Func<T, object>> expression, DbType? dbType = null, int? size = null)
         {
             var failMessage = "Expression must be a property/field chain off of a(n) {0} instance";
@@ -374,6 +376,7 @@ namespace Core.Extension.Dapper
 
             // Does the chain consist of MemberExpressions leading to a ParameterExpression of type T?
             MemberExpression diving = lastMemberAccess;
+
             // Retain a list of member names and the member expressions so we can rebuild the chain.
             List<string> names = new List<string>();
             List<MemberExpression> chain = new List<MemberExpression>();

@@ -1,16 +1,16 @@
-﻿using Core.Api.Auth;
-using Core.Api.Extensions;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
+using Core.Api.Auth;
+using Core.Api.Extensions;
 using Core.Entity;
 using Core.Model;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace Core.Api.Controllers
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -20,7 +20,7 @@ namespace Core.Api.Controllers
         private readonly CoreApiContext _dbContext;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="OauthController"/> class.
         /// </summary>
         /// <param name="appSettings"></param>
         /// <param name="dbContext"></param>
@@ -31,7 +31,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="username"></param>
         /// <param name="password"></param>
@@ -56,16 +56,16 @@ namespace Core.Api.Controllers
                     return this.Ok(response);
                 }
 
-                //if (user.IsLocked == IsLockedEnum.Locked)
-                //{
+                // if (user.IsLocked == IsLockedEnum.Locked)
+                // {
                 //    response.SetFailed("账号已被锁定");
                 //    return Ok(response);
-                //}
-                //if (user.Status == UserIsForbiddenEnum.Forbidden)
-                //{
+                // }
+                // if (user.Status == UserIsForbiddenEnum.Forbidden)
+                // {
                 //    response.SetFailed("账号已被禁用");
                 //    return Ok(response);
-                //}
+                // }
             }
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]

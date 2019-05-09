@@ -11,7 +11,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
         /// <summary>
         /// Initializes a new instance of the <see cref="PermissionGridConfiguration"/> class.
         /// </summary>
-        /// <param name="entity">The </param>
+        /// <param name="entity">The. </param>
         public PermissionGridConfiguration(ResponseModel entity) : base(entity)
         {
         }

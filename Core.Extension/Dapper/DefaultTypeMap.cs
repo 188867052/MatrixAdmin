@@ -6,7 +6,7 @@ using System.Reflection;
 namespace Core.Extension.Dapper
 {
     /// <summary>
-    /// Represents default type mapping strategy used by Dapper
+    /// Represents default type mapping strategy used by Dapper.
     /// </summary>
     public sealed class DefaultTypeMap : SqlMapper.ITypeMap
     {
@@ -14,9 +14,10 @@ namespace Core.Extension.Dapper
         private readonly Type _type;
 
         /// <summary>
-        /// Creates default type map
+        /// Initializes a new instance of the <see cref="DefaultTypeMap"/> class.
+        /// Creates default type map.
         /// </summary>
-        /// <param name="type">Entity type</param>
+        /// <param name="type">Entity type.</param>
         public DefaultTypeMap(Type type)
         {
             if (type == null)
@@ -72,11 +73,11 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Finds best constructor
+        /// Finds best constructor.
         /// </summary>
-        /// <param name="names">DataReader column names</param>
-        /// <param name="types">DataReader column types</param>
-        /// <returns>Matching constructor or default one</returns>
+        /// <param name="names">DataReader column names.</param>
+        /// <param name="types">DataReader column types.</param>
+        /// <returns>Matching constructor or default one.</returns>
         public ConstructorInfo FindConstructor(string[] names, Type[] types)
         {
             var constructors = this._type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
@@ -134,11 +135,11 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Gets mapping for constructor parameter
+        /// Gets mapping for constructor parameter.
         /// </summary>
-        /// <param name="constructor">Constructor to resolve</param>
-        /// <param name="columnName">DataReader column name</param>
-        /// <returns>Mapping implementation</returns>
+        /// <param name="constructor">Constructor to resolve.</param>
+        /// <param name="columnName">DataReader column name.</param>
+        /// <returns>Mapping implementation.</returns>
         public SqlMapper.IMemberMap GetConstructorParameter(ConstructorInfo constructor, string columnName)
         {
             var parameters = constructor.GetParameters();
@@ -147,10 +148,10 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Gets member mapping for column
+        /// Gets member mapping for column.
         /// </summary>
-        /// <param name="columnName">DataReader column name</param>
-        /// <returns>Mapping implementation</returns>
+        /// <param name="columnName">DataReader column name.</param>
+        /// <returns>Mapping implementation.</returns>
         public SqlMapper.IMemberMap GetMember(string columnName)
         {
             var property = this.Properties.Find(p => string.Equals(p.Name, columnName, StringComparison.Ordinal))
@@ -193,12 +194,12 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Should column names like User_Id be allowed to match properties/fields like UserId ?
+        /// Should column names like User_Id be allowed to match properties/fields like UserId ?.
         /// </summary>
         public static bool MatchNamesWithUnderscores { get; set; }
 
         /// <summary>
-        /// The settable properties for this typemap
+        /// The settable properties for this typemap.
         /// </summary>
         public List<PropertyInfo> Properties { get; }
     }

@@ -150,6 +150,7 @@ namespace Core.Extension.Dapper
                 if (length < 0) length = reader.FieldCount - startBound;
                 int hash = GetColumnHash(reader, startBound, length);
                 if (returnNullIfFirstMissing) hash *= -27;
+
                 // get a cheap key first: false means don't copy the values down
                 var key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, false);
                 Func<IDataReader, object> deser;
@@ -159,6 +160,7 @@ namespace Core.Extension.Dapper
                 }
 
                 deser = GetTypeDeserializerImpl(this.type, reader, startBound, length, returnNullIfFirstMissing);
+
                 // get a more expensive key: true means copy the values down so it can be used as a key later
                 key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, true);
                 lock (this.readers)

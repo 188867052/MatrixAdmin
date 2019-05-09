@@ -44,6 +44,7 @@ namespace Core.Api.ExpressionBuilder.Helpers
         public IEnumerable<IOperation> Operations { get { return _operations.ToArray(); } }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="OperationHelper"/> class.
         /// Instantiates a new OperationHelper.
         /// </summary>
         public OperationHelper()
@@ -139,7 +140,7 @@ namespace Core.Api.ExpressionBuilder.Helpers
         /// Loads a list of custom operations into the <see cref="Operations"></see> list.
         /// </summary>
         /// <param name="operations">List of operations to load.</param>
-        /// <param name="overloadExisting">Specifies that any matching pre-existing operations should be replaced by the ones from the list. (Useful to overwrite the default operations)</param>
+        /// <param name="overloadExisting">Specifies that any matching pre-existing operations should be replaced by the ones from the list. (Useful to overwrite the default operations).</param>
         public void LoadOperations(List<IOperation> operations, bool overloadExisting)
         {
             foreach (var operation in operations)

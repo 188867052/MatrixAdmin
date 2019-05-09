@@ -36,6 +36,6 @@ namespace Core.Api.Filter
         ///// <summary>
         ///// Validates the FilterStatement regarding the number of provided values and supported operations.
         ///// </summary>
-        //void Validate();
+        // void Validate();
     }
 }

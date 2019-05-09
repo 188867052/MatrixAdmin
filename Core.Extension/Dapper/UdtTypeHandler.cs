@@ -9,12 +9,13 @@ namespace Core.Extension.Dapper
 #if !NETSTANDARD1_3 && !NETSTANDARD2_0
         /// <summary>
         /// A type handler for data-types that are supported by the underlying provider, but which need
-        /// a well-known UdtTypeName to be specified
+        /// a well-known UdtTypeName to be specified.
         /// </summary>
         public class UdtTypeHandler : ITypeHandler
         {
             private readonly string udtTypeName;
             /// <summary>
+            /// Initializes a new instance of the <see cref="UdtTypeHandler"/> class.
             /// Creates a new instance of UdtTypeHandler with the specified <see cref="UdtTypeHandler"/>.
             /// </summary>
             /// <param name="udtTypeName">The user defined type name.</param>

@@ -43,7 +43,7 @@ namespace Core.Api.ExpressionBuilder.Interfaces
         /// <summary>
         /// Returns the expression generated through this operation.
         /// </summary>
-        /// <param name="member">Member access expression</param>
+        /// <param name="member">Member access expression.</param>
         /// <param name="constant1">The operation's first constant value.</param>
         /// <param name="constant2">The operation's second constant value.</param>
         /// <returns></returns>

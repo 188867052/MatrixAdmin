@@ -1,19 +1,19 @@
-﻿//using ExpressionBuilder.Common;
-//using System;
-//using System.Configuration;
+﻿// using ExpressionBuilder.Common;
+// using System;
+// using System.Configuration;
 
-//namespace ExpressionBuilder.Configuration
-//{
+// namespace ExpressionBuilder.Configuration
+// {
 //    internal class ExpressionBuilderConfig : ConfigurationSection
 //    {
 //        public const string SectionName = "ExpressionBuilder";
 
-//        private const string SupportedTypeCollectionName = "SupportedTypes";
+// private const string SupportedTypeCollectionName = "SupportedTypes";
 
-//        [ConfigurationProperty(SupportedTypeCollectionName)]
+// [ConfigurationProperty(SupportedTypeCollectionName)]
 //        public SupportedTypesElementConfiguration SupportedTypes { get { return (SupportedTypesElementConfiguration)base[SupportedTypeCollectionName]; } }
 
-//        public class SupportedTypeElement : ConfigurationElement
+// public class SupportedTypeElement : ConfigurationElement
 //        {
 //            [ConfigurationProperty("type", IsRequired = true, IsKey = true)]
 //            public string Type
@@ -24,7 +24,7 @@
 //                }
 //            }
 
-//            [ConfigurationProperty("typeGroup", IsRequired = true, IsKey = false)]
+// [ConfigurationProperty("typeGroup", IsRequired = true, IsKey = false)]
 //            public TypeGroup TypeGroup
 //            {
 //                get
@@ -34,7 +34,7 @@
 //            }
 //        }
 
-//        [ConfigurationCollection(typeof(SupportedTypesElementConfiguration), AddItemName = "add")]
+// [ConfigurationCollection(typeof(SupportedTypesElementConfiguration), AddItemName = "add")]
 //        public class SupportedTypesElementConfiguration : ConfigurationElementCollection
 //        {
 //            protected override ConfigurationElement CreateNewElement()
@@ -42,15 +42,15 @@
 //                return null;
 //            }
 
-//            protected override object GetElementKey(ConfigurationElement element)
+// protected override object GetElementKey(ConfigurationElement element)
 //            {
 //                if (element == null)
 //                {
 //                    throw new ArgumentNullException("element");
 //                }
 
-//                return ((SupportedTypeElement)element).Type;
+// return ((SupportedTypeElement)element).Type;
 //            }
 //        }
 //    }
-//}
+// }

@@ -1,9 +1,9 @@
-﻿//using System;
-//using Microsoft.EntityFrameworkCore.Metadata;
-//using Microsoft.EntityFrameworkCore.Migrations;
+﻿// using System;
+// using Microsoft.EntityFrameworkCore.Metadata;
+// using Microsoft.EntityFrameworkCore.Migrations;
 
-//namespace Core.Api.Migrations
-//{
+// namespace Core.Api.Migrations
+// {
 //    public partial class Init : Migration
 //    {
 //        protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,7 +33,7 @@
 //                    table.PrimaryKey("PK_DncIcon", x => x.Id);
 //                });
 
-//            migrationBuilder.CreateTable(
+// migrationBuilder.CreateTable(
 //                name: "Menu",
 //                columns: table => new
 //                {
@@ -64,7 +64,7 @@
 //                    table.PrimaryKey("PK_DncMenu", x => x.Guid);
 //                });
 
-//            migrationBuilder.CreateTable(
+// migrationBuilder.CreateTable(
 //                name: "Role",
 //                columns: table => new
 //                {
@@ -89,7 +89,7 @@
 //                    table.PrimaryKey("PK_DncRole", x => x.Code);
 //                });
 
-//            migrationBuilder.CreateTable(
+// migrationBuilder.CreateTable(
 //                name: "User",
 //                columns: table => new
 //                {
@@ -117,7 +117,7 @@
 //                    table.PrimaryKey("PK_DncUser", x => x.Guid);
 //                });
 
-//            migrationBuilder.CreateTable(
+// migrationBuilder.CreateTable(
 //                name: "Permission",
 //                columns: table => new
 //                {
@@ -150,7 +150,7 @@
 //                        onDelete: ReferentialAction.Cascade);
 //                });
 
-//            migrationBuilder.CreateTable(
+// migrationBuilder.CreateTable(
 //                name: "UserRoleMapping",
 //                columns: table => new
 //                {
@@ -175,7 +175,7 @@
 //                        onDelete: ReferentialAction.Restrict);
 //                });
 
-//            migrationBuilder.CreateTable(
+// migrationBuilder.CreateTable(
 //                name: "RolePermissionMapping",
 //                columns: table => new
 //                {
@@ -200,56 +200,56 @@
 //                        onDelete: ReferentialAction.Restrict);
 //                });
 
-//            migrationBuilder.CreateIndex(
+// migrationBuilder.CreateIndex(
 //                name: "IX_Permission_Code",
 //                table: "DncPermission",
 //                column: "Code",
 //                unique: true);
 
-//            migrationBuilder.CreateIndex(
+// migrationBuilder.CreateIndex(
 //                name: "IX_Permission_MenuGuid",
 //                table: "DncPermission",
 //                column: "MenuGuid");
 
-//            migrationBuilder.CreateIndex(
+// migrationBuilder.CreateIndex(
 //                name: "IX_Role_Code",
 //                table: "DncRole",
 //                column: "Code",
 //                unique: true);
 
-//            migrationBuilder.CreateIndex(
+// migrationBuilder.CreateIndex(
 //                name: "IX_RolePermissionMapping_PermissionCode",
 //                table: "RolePermissionMapping",
 //                column: "PermissionCode");
 
-//            migrationBuilder.CreateIndex(
+// migrationBuilder.CreateIndex(
 //                name: "IX_DncUserRoleMapping_RoleCode",
 //                table: "UserRoleMapping",
 //                column: "RoleCode");
 //        }
 
-//        protected override void Down(MigrationBuilder migrationBuilder)
+// protected override void Down(MigrationBuilder migrationBuilder)
 //        {
 //            migrationBuilder.DropTable(
 //                name: "Icon");
 
-//            migrationBuilder.DropTable(
+// migrationBuilder.DropTable(
 //                name: "RolePermissionMapping");
 
-//            migrationBuilder.DropTable(
+// migrationBuilder.DropTable(
 //                name: "UserRoleMapping");
 
-//            migrationBuilder.DropTable(
+// migrationBuilder.DropTable(
 //                name: "Permission");
 
-//            migrationBuilder.DropTable(
+// migrationBuilder.DropTable(
 //                name: "Role");
 
-//            migrationBuilder.DropTable(
+// migrationBuilder.DropTable(
 //                name: "User");
 
-//            migrationBuilder.DropTable(
+// migrationBuilder.DropTable(
 //                name: "Menu");
 //        }
 //    }
-//}
+// }

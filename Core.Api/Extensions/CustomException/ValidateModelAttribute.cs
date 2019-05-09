@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Mvc.Filters;
 namespace Core.Api.Extensions.CustomException
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class ValidateModelAttribute : ActionFilterAttribute
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="actionContext"></param>
         public override void OnActionExecuting(ActionExecutingContext actionContext)
@@ -23,6 +23,6 @@ namespace Core.Api.Extensions.CustomException
                         .Select(e => e.ErrorMessage));
             }
         }
-        
+
     }
 }

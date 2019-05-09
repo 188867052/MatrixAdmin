@@ -32,6 +32,7 @@ namespace Core.Api.Filter
         /// </summary>
         public object Value2 { get; set; }
         /// <summary>
+        /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
         /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
         /// </summary>
         /// <param name="propertyId"></param>
@@ -45,7 +46,8 @@ namespace Core.Api.Filter
             this.Connector = connector;
             this.Operation = operation;
             this.SetValues(value, value2);
-            //Validate();
+
+            // Validate();
         }
 
 

@@ -1,7 +1,7 @@
 ﻿namespace Core.Model
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class RouterMeta
     {

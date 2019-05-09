@@ -1,7 +1,7 @@
 ﻿namespace Core.Entity.Enums
 {
     /// <summary>
-    /// 权限类型
+    /// 权限类型.
     /// </summary>
     public enum PermissionTypeEnum
     {

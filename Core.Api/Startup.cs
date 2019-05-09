@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.ComponentModel;
+using AutoMapper;
+using Core.Entity;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -8,9 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
-using System.ComponentModel;
-using AutoMapper;
-using Core.Entity;
 
 namespace Core.Api
 {
@@ -44,7 +44,7 @@ namespace Core.Api
             services
                 .AddMvc(config =>
                 {
-                    //config.Filters.Add(new ValidateModelAttribute());
+                    // config.Filters.Add(new ValidateModelAttribute());
                 })
                 .AddJsonOptions(options =>
                 {
@@ -54,12 +54,14 @@ namespace Core.Api
             services.AddAutoMapper();
             services.AddDbContext<CoreApiContext>(options =>
             options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"))
-            // 如果使用SQL Server 2008数据库，请添加UseRowNumberForPaging的选项
-            //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),b=>b.UseRowNumberForPaging())
-            );
-            //ApplicationContainer = this.AutofacRegister(services);
 
-            //return new AutofacServiceProvider(ApplicationContainer);
+            // 如果使用SQL Server 2008数据库，请添加UseRowNumberForPaging的选项
+            // options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),b=>b.UseRowNumberForPaging())
+            );
+
+            // ApplicationContainer = this.AutofacRegister(services);
+
+            // return new AutofacServiceProvider(ApplicationContainer);
         }
 
         /// <summary>
@@ -70,8 +72,8 @@ namespace Core.Api
         /// <param name="loggerFactory"></param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment environment, ILoggerFactory loggerFactory)
         {
-            //app.UseMiddleware<CustomErrorMessageDelegatingHandler.ApiKeyMiddleware>();
-            //app.UseMiddleware<CustomErrorMessageDelegatingHandler>();
+            // app.UseMiddleware<CustomErrorMessageDelegatingHandler.ApiKeyMiddleware>();
+            // app.UseMiddleware<CustomErrorMessageDelegatingHandler>();
             this.SwaggerBuilder(app);
             app.UseCors("AllowSameDomain");
 
@@ -81,8 +83,9 @@ namespace Core.Api
             });
 
             app.UseMvcWithDefaultRoute();
-            //app.ConfigureCustomExceptionMiddleware();
-            //Mappings.RegisterMappings();
+
+            // app.ConfigureCustomExceptionMiddleware();
+            // Mappings.RegisterMappings();
         }
 
         private void SwaggerBuilder(IApplicationBuilder app)
@@ -104,14 +107,14 @@ namespace Core.Api
             });
         }
 
-        //private IContainer AutofacRegister(IServiceCollection services)
-        //{
+        // private IContainer AutofacRegister(IServiceCollection services)
+        // {
         //    var builder = new ContainerBuilder();
         //    builder.RegisterAssemblyTypes(Assembly.Load("Core.Repository")).Where(m => typeof(IDependency).IsAssignableFrom(m) && m != typeof(IDependency)).AsImplementedInterfaces().InstancePerLifetimeScope();
         //    builder.RegisterAssemblyTypes(Assembly.Load("Core.Service")).Where(m => typeof(IDependency).IsAssignableFrom(m) && m != typeof(IDependency)).AsImplementedInterfaces().InstancePerLifetimeScope();
         //    builder.Populate(services);
 
-        //    return builder.Build();
-        //}
+        // return builder.Build();
+        // }
     }
 }

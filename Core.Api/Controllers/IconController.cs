@@ -13,9 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace Core.Api.Controllers
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
-    //[CustomAuthorize]
+    // [CustomAuthorize]
     public class IconController : StandardController
     {
         public IconController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
@@ -32,7 +32,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -40,24 +40,25 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                //IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();
+                // IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();
                 ////Filter<Icon> filter = new Filter<Icon>(new FilterInfo<DateTime>(nameof(Icon.CreatedOn), Operation.Between, DateTime.Now, DateTime.Now));
                 ////query = query.AddFilter(filter);
                 ////query = query.ExpressionBuilder(model.Status, nameof(Icon.Status));
-                //query = query.AddBooleanFilter(model.IsEnable, nameof(Icon.IsEnable));
+                // query = query.AddBooleanFilter(model.IsEnable, nameof(Icon.IsEnable));
                 ////query = query.AddStringContainsFilter(model.KeyWord, nameof(Icon.Code));
-                //query = query.AddBooleanFilter(model.Status, nameof(Icon.Status));
-                //var list = query.Paged(out var count, model);
-                //IEnumerable<IconJsonModel> data = list.Select(this.Mapper.Map<Icon, IconJsonModel>);
+                // query = query.AddBooleanFilter(model.Status, nameof(Icon.Status));
+                // var list = query.Paged(out var count, model);
+                // IEnumerable<IconJsonModel> data = list.Select(this.Mapper.Map<Icon, IconJsonModel>);
                 ResponseModel response = ResponseModelFactory.CreateResultInstance;
-                //response.SetData(data, count);
+
+                // response.SetData(data, count);
 
                 return this.Ok(response);
             }
         }
 
         /// <summary>
-        /// 搜索
+        /// 搜索.
         /// </summary>
         /// <returns></returns>
         [HttpPost]
@@ -81,9 +82,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 创建图标
+        /// 创建图标.
         /// </summary>
-        /// <param name="model">图标视图实体</param>
+        /// <param name="model">图标视图实体.</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
@@ -117,9 +118,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 编辑图标
+        /// 编辑图标.
         /// </summary>
-        /// <param name="id">图标ID</param>
+        /// <param name="id">图标ID.</param>
         /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
@@ -135,9 +136,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 保存编辑后的图标信息
+        /// 保存编辑后的图标信息.
         /// </summary>
-        /// <param name="model">图标视图实体</param>
+        /// <param name="model">图标视图实体.</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
@@ -176,9 +177,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 删除图标
+        /// 删除图标.
         /// </summary>
-        /// <param name="ids">图标ID,多个以逗号分隔</param>
+        /// <param name="ids">图标ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet("{ids}")]
         [ProducesResponseType(200)]
@@ -189,9 +190,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 恢复图标
+        /// 恢复图标.
         /// </summary>
-        /// <param name="ids">图标ID,多个以逗号分隔</param>
+        /// <param name="ids">图标ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet("{ids}")]
         [ProducesResponseType(200)]
@@ -202,10 +203,10 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 批量操作
+        /// 批量操作.
         /// </summary>
         /// <param name="command"></param>
-        /// <param name="ids">图标ID,多个以逗号分隔</param>
+        /// <param name="ids">图标ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(200)]
@@ -235,9 +236,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 创建图标
+        /// 创建图标.
         /// </summary>
-        /// <param name="model">多行图标视图</param>
+        /// <param name="model">多行图标视图.</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
@@ -267,10 +268,10 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 修改状态IsEnable
+        /// 修改状态IsEnable.
         /// </summary>
-        /// <param name="isEnable">is enable</param>
-        /// <param name="ids">图标ID字符串,多个以逗号隔开</param>
+        /// <param name="isEnable">is enable.</param>
+        /// <param name="ids">图标ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
         private ResponseModel UpdateIsEnable(bool isEnable, int[] ids)
         {
@@ -283,10 +284,10 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 删除图标
+        /// 删除图标.
         /// </summary>
-        /// <param name="status">图标状态</param>
-        /// <param name="ids">图标ID字符串,多个以逗号隔开</param>
+        /// <param name="status">图标状态.</param>
+        /// <param name="ids">图标ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
         private ResponseModel UpdateStatus(bool status, int[] ids)
         {

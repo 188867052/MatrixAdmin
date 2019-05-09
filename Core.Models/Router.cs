@@ -3,7 +3,7 @@
 namespace Core.Model
 {
     /// <summary>
-    /// 用于前端的路由对象
+    /// 用于前端的路由对象.
     /// </summary>
     public class Router
     {

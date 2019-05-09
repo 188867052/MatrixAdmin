@@ -21,7 +21,7 @@ using DataException = System.InvalidOperationException;
 namespace Core.Extension.Dapper
 {
     /// <summary>
-    /// Dapper, a light weight object mapper for ADO.NET
+    /// Dapper, a light weight object mapper for ADO.NET.
     /// </summary>
     public static partial class SqlMapper
     {
@@ -104,7 +104,7 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Purge the query cache
+        /// Purge the query cache.
         /// </summary>
         public static void PurgeQueryCache()
         {
@@ -125,7 +125,7 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Return a count of all the cached queries by Dapper
+        /// Return a count of all the cached queries by Dapper.
         /// </summary>
         /// <returns></returns>
         public static int GetCachedSQLCount()
@@ -134,7 +134,7 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Return a list of all the queries cached by Dapper
+        /// Return a list of all the queries cached by Dapper.
         /// </summary>
         /// <param name="ignoreHitCountAbove"></param>
         /// <returns></returns>
@@ -147,7 +147,7 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Deep diagnostics only: find any hash collisions in the cache
+        /// Deep diagnostics only: find any hash collisions in the cache.
         /// </summary>
         /// <returns></returns>
         public static IEnumerable<Tuple<int, int>> GetHashCollissions()
@@ -302,6 +302,7 @@ namespace Core.Extension.Dapper
                 if (underlying == null)
                 {
                     secondary = typeof(Nullable<>).MakeGenericType(type); // the Nullable<T>
+
                     // type is already the T
                 }
                 else
@@ -367,7 +368,7 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// OBSOLETE: For internal usage only. Lookup the DbType and handler for a given Type and member
+        /// OBSOLETE: For internal usage only. Lookup the DbType and handler for a given Type and member.
         /// </summary>
         /// <param name="type">The type to lookup.</param>
         /// <param name="name">The name (for error messages).</param>
@@ -444,7 +445,7 @@ namespace Core.Extension.Dapper
         /// <param name="param">The parameters to use for this query.</param>
         /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
-        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <param name="commandType">Is it a stored proc or a batch?.</param>
         /// <returns>The number of rows affected.</returns>
         public static int Execute(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
@@ -468,7 +469,7 @@ namespace Core.Extension.Dapper
         /// <param name="param">The parameters to use for this command.</param>
         /// <param name="transaction">The transaction to use for this command.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
-        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <param name="commandType">Is it a stored proc or a batch?.</param>
         /// <returns>The first cell selected as <see cref="object"/>.</returns>
         public static object ExecuteScalar(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
@@ -485,7 +486,7 @@ namespace Core.Extension.Dapper
         /// <param name="param">The parameters to use for this command.</param>
         /// <param name="transaction">The transaction to use for this command.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
-        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <param name="commandType">Is it a stored proc or a batch?.</param>
         /// <returns>The first cell returned, as <typeparamref name="T"/>.</returns>
         public static T ExecuteScalar<T>(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
@@ -592,7 +593,7 @@ namespace Core.Extension.Dapper
         /// <param name="param">The parameters to use for this command.</param>
         /// <param name="transaction">The transaction to use for this command.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
-        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <param name="commandType">Is it a stored proc or a batch?.</param>
         /// <returns>An <see cref="IDataReader"/> that can be used to iterate over the results of the SQL query.</returns>
         /// <remarks>
         /// This is typically used when the results of a query are not processed by Dapper, for example, used to fill a <see cref="DataTable"/>
@@ -659,7 +660,7 @@ namespace Core.Extension.Dapper
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
+        /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
         public static IEnumerable<dynamic> Query(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null) =>
             Query<DapperRow>(cnn, sql, param as object, transaction, buffered, commandTimeout, commandType);
 
@@ -672,7 +673,7 @@ namespace Core.Extension.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
+        /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
         public static dynamic QueryFirst(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QueryFirst<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
 
@@ -685,7 +686,7 @@ namespace Core.Extension.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
+        /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
         public static dynamic QueryFirstOrDefault(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QueryFirstOrDefault<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
 
@@ -698,7 +699,7 @@ namespace Core.Extension.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
+        /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
         public static dynamic QuerySingle(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QuerySingle<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
 
@@ -711,7 +712,7 @@ namespace Core.Extension.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
+        /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
         public static dynamic QuerySingleOrDefault(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QuerySingleOrDefault<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
 
@@ -1005,7 +1006,7 @@ namespace Core.Extension.Dapper
         /// <param name="param">The parameters to use for this query.</param>
         /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
-        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <param name="commandType">Is it a stored proc or a batch?.</param>
         public static GridReader QueryMultiple(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             var command = new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.Buffered);
@@ -1038,6 +1039,7 @@ namespace Core.Extension.Dapper
                 var result = new GridReader(cmd, reader, identity, command.Parameters as DynamicParameters, command.AddToCache);
                 cmd = null; // now owned by result
                 wasClosed = false; // *if* the connection was closed and we got this far, then we now have a reader
+
                 // with the CloseConnection flag, so the reader will deal with the connection; we
                 // still need something in the "finally" to ensure that broken SQL still results
                 // in the connection closing itself
@@ -1097,6 +1099,7 @@ namespace Core.Extension.Dapper
                 if (wasClosed) cnn.Open();
                 reader = ExecuteReaderWithFlagsFallback(cmd, wasClosed, CommandBehavior.SequentialAccess | CommandBehavior.SingleResult);
                 wasClosed = false; // *if* the connection was closed and we got this far, then we now have a reader
+
                 // with the CloseConnection flag, so the reader will deal with the connection; we
                 // still need something in the "finally" to ensure that broken SQL still results
                 // in the connection closing itself
@@ -1104,7 +1107,7 @@ namespace Core.Extension.Dapper
                 int hash = GetColumnHash(reader);
                 if (tuple.Func == null || tuple.Hash != hash)
                 {
-                    if (reader.FieldCount == 0) //https://code.google.com/p/dapper-dot-net/issues/detail?id=57
+                    if (reader.FieldCount == 0) // https://code.google.com/p/dapper-dot-net/issues/detail?id=57
                         yield break;
                     tuple = info.Deserializer = new DeserializerState(hash, GetDeserializer(effectiveType, reader, 0, -1, false));
                     if (command.AddToCache) SetQueryCache(identity, info);
@@ -1126,6 +1129,7 @@ namespace Core.Extension.Dapper
                 }
 
                 while (reader.NextResult()) { /* ignore subsequent result sets */ }
+
                 // happy path; close the reader cleanly - no
                 // need for "Cancel" etc
                 reader.Dispose();
@@ -1155,7 +1159,7 @@ namespace Core.Extension.Dapper
         internal enum Row
         {
             First = 0,
-            FirstOrDefault = 1, //  & FirstOrDefault != 0: allow zero rows
+            FirstOrDefault = 1, // & FirstOrDefault != 0: allow zero rows
             Single = 2, // & Single != 0: demand at least one row
             SingleOrDefault = 3
         }
@@ -1237,6 +1241,7 @@ namespace Core.Extension.Dapper
                 }
 
                 while (reader.NextResult()) { /* ignore subsequent result sets */ }
+
                 // happy path; close the reader cleanly - no
                 // need for "Cancel" etc
                 reader.Dispose();
@@ -1264,7 +1269,7 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Perform a multi-mapping query with 2 input types. 
+        /// Perform a multi-mapping query with 2 input types.
         /// This returns a single type, combined from the raw types via <paramref name="map"/>.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
@@ -1278,13 +1283,13 @@ namespace Core.Extension.Dapper
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
-        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <param name="commandType">Is it a stored proc or a batch?.</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
             MultiMap<TFirst, TSecond, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
 
         /// <summary>
-        /// Perform a multi-mapping query with 3 input types. 
+        /// Perform a multi-mapping query with 3 input types.
         /// This returns a single type, combined from the raw types via <paramref name="map"/>.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
@@ -1299,13 +1304,13 @@ namespace Core.Extension.Dapper
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
-        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <param name="commandType">Is it a stored proc or a batch?.</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
             MultiMap<TFirst, TSecond, TThird, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
 
         /// <summary>
-        /// Perform a multi-mapping query with 4 input types. 
+        /// Perform a multi-mapping query with 4 input types.
         /// This returns a single type, combined from the raw types via <paramref name="map"/>.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
@@ -1321,13 +1326,13 @@ namespace Core.Extension.Dapper
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
-        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <param name="commandType">Is it a stored proc or a batch?.</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
             MultiMap<TFirst, TSecond, TThird, TFourth, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
 
         /// <summary>
-        /// Perform a multi-mapping query with 5 input types. 
+        /// Perform a multi-mapping query with 5 input types.
         /// This returns a single type, combined from the raw types via <paramref name="map"/>.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
@@ -1344,13 +1349,13 @@ namespace Core.Extension.Dapper
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
-        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <param name="commandType">Is it a stored proc or a batch?.</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
             MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, DontMap, DontMap, TReturn>(cnn, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
 
         /// <summary>
-        /// Perform a multi-mapping query with 6 input types. 
+        /// Perform a multi-mapping query with 6 input types.
         /// This returns a single type, combined from the raw types via <paramref name="map"/>.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
@@ -1368,7 +1373,7 @@ namespace Core.Extension.Dapper
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
-        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <param name="commandType">Is it a stored proc or a batch?.</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
             MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, DontMap, TReturn>(cnn, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
@@ -1393,13 +1398,13 @@ namespace Core.Extension.Dapper
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
-        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <param name="commandType">Is it a stored proc or a batch?.</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
             MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(cnn, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
 
         /// <summary>
-        /// Perform a multi-mapping query with an arbitrary number of input types. 
+        /// Perform a multi-mapping query with an arbitrary number of input types.
         /// This returns a single type, combined from the raw types via <paramref name="map"/>.
         /// </summary>
         /// <typeparam name="TReturn">The combined type to return.</typeparam>
@@ -1412,7 +1417,7 @@ namespace Core.Extension.Dapper
         /// <param name="buffered">Whether to buffer the results in memory.</param>
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
-        /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <param name="commandType">Is it a stored proc or a batch?.</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static IEnumerable<TReturn> Query<TReturn>(this IDbConnection cnn, string sql, Type[] types, Func<object[], TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
@@ -2006,7 +2011,7 @@ namespace Core.Extension.Dapper
         /// </summary>
         /// <param name="command">The command to pack parameters for.</param>
         /// <param name="namePrefix">The name prefix for these parameters.</param>
-        /// <param name="value">The parameter value can be an <see cref="IEnumerable{T}"/></param>
+        /// <param name="value">The parameter value can be an <see cref="IEnumerable{T}"/>.</param>
 #if !NETSTANDARD1_3
         [Browsable(false)]
 #endif
@@ -2511,6 +2516,7 @@ namespace Core.Extension.Dapper
             var ctors = type.GetConstructors();
             ParameterInfo[] ctorParams;
             IEnumerable<PropertyInfo> props = null;
+
             // try to detect tuple patterns, e.g. anon-types, and use that to choose the order
             // otherwise: alphabetical
             if (ctors.Length == 1 && propsList.Count == (ctorParams = ctors[0].GetParameters()).Length)
@@ -2669,6 +2675,7 @@ namespace Core.Extension.Dapper
                         else
                         {
                             checkForNull = false;
+
                             // non-nullable enum; we can do that! just box to the wrong type! (no, really)
                             switch (TypeExtensions.GetTypeCode(Enum.GetUnderlyingType(propType)))
                             {
@@ -2693,6 +2700,7 @@ namespace Core.Extension.Dapper
                     {
                         checkForNull = false; // handled by sanitize
                         il.EmitCall(OpCodes.Call, typeof(SqlMapper).GetMethod(nameof(SanitizeParameterValue)), null);
+
                         // stack is [parameters] [[parameters]] [parameter] [parameter] [boxed-value]
                     }
                 }
@@ -2714,6 +2722,7 @@ namespace Core.Extension.Dapper
                     Label notNull = il.DefineLabel();
                     Label? allDone = (dbType == DbType.String || dbType == DbType.AnsiString) ? il.DefineLabel() : (Label?)null;
                     il.Emit(OpCodes.Brtrue_S, notNull);
+
                     // relative stack [boxed value = null]
                     il.Emit(OpCodes.Pop); // relative stack empty
                     il.Emit(OpCodes.Ldsfld, typeof(DBNull).GetField(nameof(DBNull.Value))); // relative stack [DBNull]
@@ -2747,6 +2756,7 @@ namespace Core.Extension.Dapper
                     }
 
                     if (allDone != null) il.MarkLabel(allDone.Value);
+
                     // relative stack [boxed value or DBNull]
                 }
 
@@ -2764,6 +2774,7 @@ namespace Core.Extension.Dapper
                 if (prop.PropertyType == typeof(string))
                 {
                     var endOfSize = il.DefineLabel();
+
                     // don't set if 0
                     il.Emit(OpCodes.Ldloc_1); // [parameters] [[parameters]] [parameter] [size]
                     il.Emit(OpCodes.Brfalse_S, endOfSize); // [parameters] [[parameters]] [parameter]
@@ -2968,6 +2979,7 @@ namespace Core.Extension.Dapper
                 var reader = ExecuteReaderWithFlagsFallback(cmd, wasClosed, commandBehavior);
                 wasClosed = false; // don't dispose before giving it to them!
                 disposeCommand = false;
+
                 // note: command.FireOutputCallbacks(); would be useless here; parameters come at the **end** of the TDS stream
                 return reader;
             }
@@ -3080,16 +3092,16 @@ namespace Core.Extension.Dapper
                         .Select(p => p.GetGetMethod()).First();
 
         /// <summary>
-        /// Gets type-map for the given type
+        /// Gets type-map for the given type.
         /// </summary>
-        /// <returns>Type map instance, default is to create new instance of DefaultTypeMap</returns>
+        /// <returns>Type map instance, default is to create new instance of DefaultTypeMap.</returns>
         public static Func<Type, ITypeMap> TypeMapProvider = (Type type) => new DefaultTypeMap(type);
 
         /// <summary>
         /// Gets type-map for the given <see cref="Type"/>.
         /// </summary>
         /// <param name="type">The type to get a map for.</param>
-        /// <returns>Type map implementation, DefaultTypeMap instance if no override present</returns>
+        /// <returns>Type map implementation, DefaultTypeMap instance if no override present.</returns>
         public static ITypeMap GetTypeMap(Type type)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
@@ -3116,10 +3128,10 @@ namespace Core.Extension.Dapper
         private static readonly Hashtable _typeMaps = new Hashtable();
 
         /// <summary>
-        /// Set custom mapping for type deserializers
+        /// Set custom mapping for type deserializers.
         /// </summary>
-        /// <param name="type">Entity type to override</param>
-        /// <param name="map">Mapping rules impementation, null to remove custom map</param>
+        /// <param name="type">Entity type to override.</param>
+        /// <param name="map">Mapping rules impementation, null to remove custom map.</param>
         public static void SetTypeMap(Type type, ITypeMap map)
         {
             if (type == null)
@@ -3144,7 +3156,7 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Internal use only
+        /// Internal use only.
         /// </summary>
         /// <param name="type"></param>
         /// <param name="reader"></param>
@@ -3434,6 +3446,7 @@ namespace Core.Extension.Dapper
                     else if (applyNullSetting && (!memberType.IsValueType() || Nullable.GetUnderlyingType(memberType) != null))
                     {
                         il.Emit(OpCodes.Pop); // stack is now [target][target]
+
                         // can load a null with this value
                         if (memberType.IsValueType())
                         { // must be Nullable<T> for some T
@@ -3448,6 +3461,7 @@ namespace Core.Extension.Dapper
                         if (item.Property != null)
                         {
                             il.Emit(type.IsValueType() ? OpCodes.Call : OpCodes.Callvirt, DefaultTypeMap.GetPropertySetter(item.Property, type));
+
                             // stack is now [target]
                         }
                         else
@@ -3685,7 +3699,7 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Throws a data exception, only used internally
+        /// Throws a data exception, only used internally.
         /// </summary>
         /// <param name="ex">The exception to throw.</param>
         /// <param name="index">The index the exception occured at.</param>

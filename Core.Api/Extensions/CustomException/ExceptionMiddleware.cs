@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Http;
 namespace Core.Api.Extensions.CustomException
 {
     /// <summary>
-    /// 异常中间件
+    /// 异常中间件.
     /// </summary>
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ExceptionMiddleware"/> class.
         /// </summary>
         /// <param name="next"></param>
         public ExceptionMiddleware(RequestDelegate next)

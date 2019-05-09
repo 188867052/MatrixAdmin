@@ -29,6 +29,7 @@ namespace Core.Api.ExpressionBuilder.Operations
         public bool ExpectNullValues { get; }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="OperationBase"/> class.
         /// Instantiates a new operation.
         /// </summary>
         /// <param name="name">Operations name.</param>

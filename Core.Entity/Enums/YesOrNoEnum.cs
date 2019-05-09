@@ -1,7 +1,7 @@
 ﻿namespace Core.Entity.Enums
 {
     /// <summary>
-    /// 是否枚举
+    /// 是否枚举.
     /// </summary>
     public enum YesOrNoEnum
     {

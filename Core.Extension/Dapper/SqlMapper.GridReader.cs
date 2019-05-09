@@ -9,7 +9,7 @@ namespace Core.Extension.Dapper
     public static partial class SqlMapper
     {
         /// <summary>
-        /// The grid reader provides interfaces for reading multiple result sets from a Dapper query
+        /// The grid reader provides interfaces for reading multiple result sets from a Dapper query.
         /// </summary>
         public partial class GridReader : IDisposable
         {
@@ -30,31 +30,31 @@ namespace Core.Extension.Dapper
             /// Read the next grid of results, returned as a dynamic object.
             /// </summary>
             /// <param name="buffered">Whether the results should be buffered in memory.</param>
-            /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
+            /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
             public IEnumerable<dynamic> Read(bool buffered = true) => this.ReadImpl<dynamic>(typeof(DapperRow), buffered);
 
             /// <summary>
             /// Read an individual row of the next grid of results, returned as a dynamic object.
             /// </summary>
-            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
+            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
             public dynamic ReadFirst() => this.ReadRow<dynamic>(typeof(DapperRow), Row.First);
 
             /// <summary>
             /// Read an individual row of the next grid of results, returned as a dynamic object.
             /// </summary>
-            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
+            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
             public dynamic ReadFirstOrDefault() => this.ReadRow<dynamic>(typeof(DapperRow), Row.FirstOrDefault);
 
             /// <summary>
             /// Read an individual row of the next grid of results, returned as a dynamic object.
             /// </summary>
-            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
+            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
             public dynamic ReadSingle() => this.ReadRow<dynamic>(typeof(DapperRow), Row.Single);
 
             /// <summary>
             /// Read an individual row of the next grid of results, returned as a dynamic object.
             /// </summary>
-            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
+            /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
             public dynamic ReadSingleOrDefault() => this.ReadRow<dynamic>(typeof(DapperRow), Row.SingleOrDefault);
 
             /// <summary>
@@ -257,7 +257,7 @@ namespace Core.Extension.Dapper
             /// <typeparam name="TSecond">The second type in the record set.</typeparam>
             /// <typeparam name="TReturn">The type to return from the record set.</typeparam>
             /// <param name="func">The mapping function from the read types to the return type.</param>
-            /// <param name="splitOn">The field(s) we should split and read the second object from (defaults to "id")</param>
+            /// <param name="splitOn">The field(s) we should split and read the second object from (defaults to "id").</param>
             /// <param name="buffered">Whether to buffer results in memory.</param>
             public IEnumerable<TReturn> Read<TFirst, TSecond, TReturn>(Func<TFirst, TSecond, TReturn> func, string splitOn = "id", bool buffered = true)
             {
@@ -273,7 +273,7 @@ namespace Core.Extension.Dapper
             /// <typeparam name="TThird">The third type in the record set.</typeparam>
             /// <typeparam name="TReturn">The type to return from the record set.</typeparam>
             /// <param name="func">The mapping function from the read types to the return type.</param>
-            /// <param name="splitOn">The field(s) we should split and read the second object from (defaults to "id")</param>
+            /// <param name="splitOn">The field(s) we should split and read the second object from (defaults to "id").</param>
             /// <param name="buffered">Whether to buffer results in memory.</param>
             public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TReturn>(Func<TFirst, TSecond, TThird, TReturn> func, string splitOn = "id", bool buffered = true)
             {
@@ -282,7 +282,7 @@ namespace Core.Extension.Dapper
             }
 
             /// <summary>
-            /// Read multiple objects from a single record set on the grid
+            /// Read multiple objects from a single record set on the grid.
             /// </summary>
             /// <typeparam name="TFirst">The first type in the record set.</typeparam>
             /// <typeparam name="TSecond">The second type in the record set.</typeparam>
@@ -290,7 +290,7 @@ namespace Core.Extension.Dapper
             /// <typeparam name="TFourth">The fourth type in the record set.</typeparam>
             /// <typeparam name="TReturn">The type to return from the record set.</typeparam>
             /// <param name="func">The mapping function from the read types to the return type.</param>
-            /// <param name="splitOn">The field(s) we should split and read the second object from (defaults to "id")</param>
+            /// <param name="splitOn">The field(s) we should split and read the second object from (defaults to "id").</param>
             /// <param name="buffered">Whether to buffer results in memory.</param>
             public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TFourth, TReturn>(Func<TFirst, TSecond, TThird, TFourth, TReturn> func, string splitOn = "id", bool buffered = true)
             {
@@ -299,7 +299,7 @@ namespace Core.Extension.Dapper
             }
 
             /// <summary>
-            /// Read multiple objects from a single record set on the grid
+            /// Read multiple objects from a single record set on the grid.
             /// </summary>
             /// <typeparam name="TFirst">The first type in the record set.</typeparam>
             /// <typeparam name="TSecond">The second type in the record set.</typeparam>
@@ -308,7 +308,7 @@ namespace Core.Extension.Dapper
             /// <typeparam name="TFifth">The fifth type in the record set.</typeparam>
             /// <typeparam name="TReturn">The type to return from the record set.</typeparam>
             /// <param name="func">The mapping function from the read types to the return type.</param>
-            /// <param name="splitOn">The field(s) we should split and read the second object from (defaults to "id")</param>
+            /// <param name="splitOn">The field(s) we should split and read the second object from (defaults to "id").</param>
             /// <param name="buffered">Whether to buffer results in memory.</param>
             public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> func, string splitOn = "id", bool buffered = true)
             {
@@ -317,7 +317,7 @@ namespace Core.Extension.Dapper
             }
 
             /// <summary>
-            /// Read multiple objects from a single record set on the grid
+            /// Read multiple objects from a single record set on the grid.
             /// </summary>
             /// <typeparam name="TFirst">The first type in the record set.</typeparam>
             /// <typeparam name="TSecond">The second type in the record set.</typeparam>
@@ -327,7 +327,7 @@ namespace Core.Extension.Dapper
             /// <typeparam name="TSixth">The sixth type in the record set.</typeparam>
             /// <typeparam name="TReturn">The type to return from the record set.</typeparam>
             /// <param name="func">The mapping function from the read types to the return type.</param>
-            /// <param name="splitOn">The field(s) we should split and read the second object from (defaults to "id")</param>
+            /// <param name="splitOn">The field(s) we should split and read the second object from (defaults to "id").</param>
             /// <param name="buffered">Whether to buffer results in memory.</param>
             public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> func, string splitOn = "id", bool buffered = true)
             {
@@ -336,7 +336,7 @@ namespace Core.Extension.Dapper
             }
 
             /// <summary>
-            /// Read multiple objects from a single record set on the grid
+            /// Read multiple objects from a single record set on the grid.
             /// </summary>
             /// <typeparam name="TFirst">The first type in the record set.</typeparam>
             /// <typeparam name="TSecond">The second type in the record set.</typeparam>
@@ -347,7 +347,7 @@ namespace Core.Extension.Dapper
             /// <typeparam name="TSeventh">The seventh type in the record set.</typeparam>
             /// <typeparam name="TReturn">The type to return from the record set.</typeparam>
             /// <param name="func">The mapping function from the read types to the return type.</param>
-            /// <param name="splitOn">The field(s) we should split and read the second object from (defaults to "id")</param>
+            /// <param name="splitOn">The field(s) we should split and read the second object from (defaults to "id").</param>
             /// <param name="buffered">Whether to buffer results in memory.</param>
             public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> func, string splitOn = "id", bool buffered = true)
             {
@@ -356,12 +356,12 @@ namespace Core.Extension.Dapper
             }
 
             /// <summary>
-            /// Read multiple objects from a single record set on the grid
+            /// Read multiple objects from a single record set on the grid.
             /// </summary>
             /// <typeparam name="TReturn">The type to return from the record set.</typeparam>
             /// <param name="types">The types to read from the result set.</param>
             /// <param name="map">The mapping function from the read types to the return type.</param>
-            /// <param name="splitOn">The field(s) we should split and read the second object from (defaults to "id")</param>
+            /// <param name="splitOn">The field(s) we should split and read the second object from (defaults to "id").</param>
             /// <param name="buffered">Whether to buffer results in memory.</param>
             public IEnumerable<TReturn> Read<TReturn>(Type[] types, Func<object[], TReturn> map, string splitOn = "id", bool buffered = true)
             {
@@ -400,12 +400,12 @@ namespace Core.Extension.Dapper
             private readonly IParameterCallbacks _callbacks;
 
             /// <summary>
-            /// Has the underlying reader been consumed?
+            /// Has the underlying reader been consumed?.
             /// </summary>
             public bool IsConsumed { get; private set; }
 
             /// <summary>
-            /// The command associated with the reader
+            /// The command associated with the reader.
             /// </summary>
             public IDbCommand Command { get; set; }
 

@@ -10,14 +10,14 @@ using Core.Model;
 namespace Core.Api.Extensions
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static class QueryableExtension
     {
         private const string Key = "o";
 
         /// <summary>
-        /// IQueryable分页
+        /// IQueryable分页.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="query"></param>

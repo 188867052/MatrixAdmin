@@ -4,7 +4,7 @@ using System.Data;
 namespace Core.Extension.Dapper
 {
     /// <summary>
-    /// Handles variances in features per DBMS
+    /// Handles variances in features per DBMS.
     /// </summary>
     internal class FeatureSupport
     {
@@ -13,7 +13,7 @@ namespace Core.Extension.Dapper
             Postgres = new FeatureSupport(true);
 
         /// <summary>
-        /// Gets the feature set based on the passed connection
+        /// Gets the feature set based on the passed connection.
         /// </summary>
         /// <param name="connection">The connection to get supported features for.</param>
         public static FeatureSupport Get(IDbConnection connection)
@@ -29,7 +29,7 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// True if the db supports array columns e.g. Postgresql
+        /// True if the db supports array columns e.g. Postgresql.
         /// </summary>
         public bool Arrays { get; }
     }

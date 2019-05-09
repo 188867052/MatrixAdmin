@@ -1,4 +1,5 @@
-﻿using Core.Entity.Enums;
+﻿using System.Collections.Generic;
+using Core.Entity.Enums;
 using Core.Model.Administration.User;
 using Core.Web.Button;
 using Core.Web.Dialog;
@@ -6,7 +7,6 @@ using Core.Web.Enums;
 using Core.Web.Html;
 using Core.Web.Identifiers;
 using Core.Web.TextBox;
-using System.Collections.Generic;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 {

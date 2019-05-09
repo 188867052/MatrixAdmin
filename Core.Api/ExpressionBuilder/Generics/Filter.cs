@@ -50,15 +50,17 @@ namespace Core.Api.ExpressionBuilder.Generics
         }
 
         /// <summary>
-        /// Instantiates a new <see cref="Filter{TClass}" />
+        /// Initializes a new instance of the <see cref="Filter{TClass}"/> class.
+        /// Instantiates a new <see cref="Filter{TClass}" />.
         /// </summary>
-		public Filter()
+        public Filter()
         {
             this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
         }
 
         /// <summary>
-        /// Instantiates a new <see cref="Filter{TClass}" />
+        /// Initializes a new instance of the <see cref="Filter{TClass}"/> class.
+        /// Instantiates a new <see cref="Filter{TClass}" />.
         /// </summary>
         public Filter(Filter<TClass> f1, Filter<TClass> f2, Connector connector)
         {
@@ -76,7 +78,8 @@ namespace Core.Api.ExpressionBuilder.Generics
         }
 
         /// <summary>
-        /// Instantiates a new <see cref="Filter{TClass}" />
+        /// Initializes a new instance of the <see cref="Filter{TClass}"/> class.
+        /// Instantiates a new <see cref="Filter{TClass}" />.
         /// </summary>
         public Filter(IFilterInfo statement)
         {
@@ -86,7 +89,7 @@ namespace Core.Api.ExpressionBuilder.Generics
 
         /// <summary>
         /// Adds a new <see cref="FilterInfo{TPropertyType}" /> to the <see cref="Filter{TClass}" />.
-        /// (To be used by <see cref="IOperation" /> that need no values)
+        /// (To be used by <see cref="IOperation" /> that need no values).
         /// </summary>
         /// <param name="propertyId">Property identifier conventionalized by for the Expression Builder.</param>
         /// <param name="operation">Operation to be used.</param>
@@ -99,7 +102,7 @@ namespace Core.Api.ExpressionBuilder.Generics
 
         /// <summary>
         /// Adds a new <see cref="FilterInfo{TPropertyType}" /> to the <see cref="Filter{TClass}" />.
-        /// (To be used by <see cref="IOperation" /> that need no values)
+        /// (To be used by <see cref="IOperation" /> that need no values).
         /// </summary>
         /// <param name="propertyId">Property identifier conventionalized by for the Expression Builder.</param>
         /// <param name="operation">Operation to be used.</param>

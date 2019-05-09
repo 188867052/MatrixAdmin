@@ -14,12 +14,12 @@ namespace Core.Api.Configurations
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class MappingProfile : Profile, IProfile
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="MappingProfile"/> class.
         /// </summary>
         public MappingProfile()
         {
@@ -38,8 +38,9 @@ namespace Core.Api.Configurations
             this.CreateMap<IconCreateViewModel, Icon>();
 
             this.CreateMap<Permission, PermissionJsonModel>();
-                //.ForMember(d => d.MenuName, s => s.MapFrom(x => x.Menu.Name))
-                //.ForMember(d => d.PermissionTypeText, s => s.MapFrom(x => x.Type.ToString()));
+
+                // .ForMember(d => d.MenuName, s => s.MapFrom(x => x.Menu.Name))
+                // .ForMember(d => d.PermissionTypeText, s => s.MapFrom(x => x.Type.ToString()));
             this.CreateMap<PermissionCreateViewModel, Permission>();
             this.CreateMap<PermissionEditViewModel, Permission>();
             this.CreateMap<Permission, PermissionEditViewModel>();

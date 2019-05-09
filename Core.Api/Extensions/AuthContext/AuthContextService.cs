@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Security.Claims;
 using Core.Entity.Enums;
+using Microsoft.AspNetCore.Http;
 
 namespace Core.Api.Extensions.AuthContext
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static class AuthContextService
     {
         private static IHttpContextAccessor _context;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="httpContextAccessor"></param>
         public static void Configure(IHttpContextAccessor httpContextAccessor)
@@ -22,12 +22,12 @@ namespace Core.Api.Extensions.AuthContext
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static HttpContext Current => _context.HttpContext;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static AuthContextUser CurrentUser
         {
@@ -47,7 +47,7 @@ namespace Core.Api.Extensions.AuthContext
         }
 
         /// <summary>
-        /// 是否已授权
+        /// 是否已授权.
         /// </summary>
         public static bool IsAuthenticated
         {
@@ -58,7 +58,7 @@ namespace Core.Api.Extensions.AuthContext
         }
 
         /// <summary>
-        /// 是否是超级管理员
+        /// 是否是超级管理员.
         /// </summary>
         public static bool IsSupperAdministrator
         {

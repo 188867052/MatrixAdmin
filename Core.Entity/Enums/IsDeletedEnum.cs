@@ -1,7 +1,7 @@
 ﻿namespace Core.Entity.Enums
 {
     /// <summary>
-    /// 是否已删
+    /// 是否已删.
     /// </summary>
     public enum IsDeletedEnum
     {

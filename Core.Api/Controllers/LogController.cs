@@ -1,18 +1,18 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq;
+using System.Net;
+using AutoMapper;
 using Core.Api.Extensions.CustomException;
+using Core.Entity;
+using Core.Model.Log;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
-using System.Net;
-using Core.Entity;
-using Core.Model.Log;
 
 namespace Core.Api.Controllers
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class LogController : StandardController
     {
@@ -63,7 +63,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
@@ -82,20 +82,22 @@ namespace Core.Api.Controllers
                 StatusCode = code,
                 Message = ex?.ToString()
             };
+
             // 如果是ASP.NET Core Web Api 应用程序，直接返回状态码(不跳转到错误页面，这里假设所有API接口的路径都是以/api/开始的)
             if (this.HttpContext.Features.Get<IHttpRequestFeature>().RawTarget.StartsWith("/api/", StringComparison.Ordinal))
             {
                 parsedCode = (HttpStatusCode)code;
+
                 // error = new ErrorDetails
-                //{
+                // {
                 //    StatusCode = code,
                 //    Message = parsedCode.ToString()
-                //};
+                // };
 
                 return new ObjectResult(error);
             }
             ////IQueryable<Role> query = this.DbContext.Role.AsQueryable();
-            //List<Role> a = query.ToList();
+            // List<Role> a = query.ToList();
             //// error = new ErrorDetails
             ////{
             ////    StatusCode = code,

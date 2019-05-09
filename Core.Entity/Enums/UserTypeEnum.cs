@@ -1,7 +1,7 @@
 ﻿namespace Core.Entity.Enums
 {
     /// <summary>
-    /// 用户类型枚举
+    /// 用户类型枚举.
     /// </summary>
     public enum UserRoleEnum
     {
