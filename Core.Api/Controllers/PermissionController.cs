@@ -22,8 +22,8 @@ namespace Core.Api.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="PermissionController"/> class.
         /// </summary>
-        /// <param name="dbContext"></param>
-        /// <param name="mapper"></param>
+        /// <param name="dbContext">The dbContext.</param>
+        /// <param name="mapper">The mapper.</param>
         public PermissionController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
@@ -38,8 +38,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        ///
+        /// Search.
         /// </summary>
+        /// <param name="model">The model.</param>
         /// <returns></returns>
         [HttpPost]
         public IActionResult Search(PermissionPostModel model)
@@ -309,7 +310,7 @@ WHERE P.IsDeleted=0 AND P.Status=1";
     public static class PermissionTreeHelper
     {
         /// <summary>
-        ///
+        /// Fill recursive.
         /// </summary>
         /// <param name="menus">菜单集合.</param>
         /// <param name="permissions">权限集合.</param>

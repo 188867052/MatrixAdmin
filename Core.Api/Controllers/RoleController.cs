@@ -24,8 +24,8 @@ namespace Core.Api.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="RoleController"/> class.
         /// </summary>
-        /// <param name="dbContext"></param>
-        /// <param name="mapper"></param>
+        /// <param name="dbContext">The dbContext.</param>
+        /// <param name="mapper">The mapper.</param>
         public RoleController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }

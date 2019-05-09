@@ -17,8 +17,8 @@ namespace Core.Api.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="StandardController"/> class.
         /// </summary>
-        /// <param name="dbContext"></param>
-        /// <param name="mapper"></param>
+        /// <param name="dbContext">The dbContext.</param>
+        /// <param name="mapper">The mapper.</param>
         protected StandardController(CoreApiContext dbContext, IMapper mapper)
         {
             this.DbContext = dbContext;

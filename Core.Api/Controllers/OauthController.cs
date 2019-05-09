@@ -23,7 +23,7 @@ namespace Core.Api.Controllers
         /// Initializes a new instance of the <see cref="OauthController"/> class.
         /// </summary>
         /// <param name="appSettings"></param>
-        /// <param name="dbContext"></param>
+        /// <param name="dbContext">The dbContext.</param>
         public OauthController(IOptions<AppAuthenticationSettings> appSettings, CoreApiContext dbContext)
         {
             this._appSettings = appSettings.Value;
