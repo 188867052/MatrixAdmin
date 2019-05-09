@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Api.ControllerHelpers;
 using Core.Entity;
 using Core.Extension.Dapper;
 using Core.Model.Administration.Role;
@@ -16,7 +17,7 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 用户控制器
     /// </summary>
-    public class UserController : StandardController
+    public partial class UserController : StandardController
     {
         public UserController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
@@ -186,7 +187,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public IActionResult Delete(int[] ids)
         {
-            ResponseModel response = this.UpdateIsDeleted(true, ids);
+            ResponseModel response = UserControllerHelper.UpdateIsDeleted(true, ids);
             return Ok(response);
         }
 
@@ -198,7 +199,8 @@ namespace Core.Api.Controllers
         [HttpGet]
         public IActionResult Recover(int[] ids)
         {
-            ResponseModel response = UpdateIsDeleted(false, ids);
+            ResponseModel response = UserControllerHelper.UpdateIsDeleted(false, ids);
+
             return Ok(response);
         }
 
@@ -216,16 +218,16 @@ namespace Core.Api.Controllers
             switch (command)
             {
                 case "delete":
-                    response = UpdateIsDeleted(true, ids);
+                    response = UserControllerHelper.UpdateIsDeleted(true, ids);
                     break;
                 case "recover":
-                    response = UpdateIsDeleted(false, ids);
+                    response = UserControllerHelper.UpdateIsDeleted(false, ids);
                     break;
                 case "forbidden":
-                    response = UpdateStatus(false, ids);
+                    response = UserControllerHelper.UpdateStatus(false, ids);
                     break;
                 case "normal":
-                    response = UpdateStatus(true, ids);
+                    response = UserControllerHelper.UpdateStatus(true, ids);
                     break;
                 default:
                     break;
@@ -233,7 +235,6 @@ namespace Core.Api.Controllers
             return Ok(response);
         }
 
-        #region 用户-角色
         /// <summary>
         /// 保存用户-角色的关系映射数据
         /// </summary>
@@ -265,39 +266,6 @@ namespace Core.Api.Controllers
                 response.SetFailed("保存用户角色数据失败");
             }
             return Ok(response);
-        }
-        #endregion
-
-        /// <summary>
-        /// 删除用户
-        /// </summary>
-        /// <param name="isDeleted"></param>
-        /// <param name="ids">用户ID字符串,多个以逗号隔开</param>
-        /// <returns></returns>
-        private ResponseModel UpdateIsDeleted(bool isDeleted, int[] ids)
-        {
-            using (this.DbContext)
-            {
-                string sql = @"UPDATE [User] SET IsDeleted = @IsDeleted WHERE Id IN @Id";
-                this.DbContext.Dapper.Execute(sql, new { IsDeleted = isDeleted, Id = ids });
-                return ResponseModelFactory.CreateInstance;
-            }
-        }
-
-        /// <summary>
-        /// 删除用户
-        /// </summary>
-        /// <param name="status">用户状态</param>
-        /// <param name="ids">用户ID字符串,多个以逗号隔开</param>
-        /// <returns></returns>
-        private ResponseModel UpdateStatus(bool status, int[] ids)
-        {
-            using (this.DbContext)
-            {
-                string sql = @"UPDATE [User] SET IsEnable = @IsEnable WHERE Id IN @Id";
-                //this.DbContext.Dapper.Execute(sql, new { Status = status, Id = ids });
-                return ResponseModelFactory.CreateInstance;
-            }
         }
     }
 }
