@@ -274,7 +274,7 @@ WHERE P.IsDeleted=0 AND P.Status=1";
         /// <summary>
         /// 删除权限.
         /// </summary>
-        /// <param name="isEnable"></param>
+        /// <param name="isEnable">The isEnable.</param>
         /// <param name="ids">权限ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
         private ResponseModel UpdateIsEnable(bool isEnable, string ids)

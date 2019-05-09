@@ -30,30 +30,23 @@ namespace Core.Extension.Dapper
             this._type = type;
         }
 
-#if NETSTANDARD1_3
-        private static bool IsParameterMatch(ParameterInfo[] x, ParameterInfo[] y)
-        {
-            if (ReferenceEquals(x, y)) return true;
-            if (x == null || y == null) return false;
-            if (x.Length != y.Length) return false;
-            for (int i = 0; i < x.Length; i++)
-                if (x[i].ParameterType != y[i].ParameterType) return false;
-            return true;
-        }
-#endif
+        /// <summary>
+        /// Gets or sets a value indicating whether should column names like User_Id be allowed to match properties/fields like UserId ?.
+        /// </summary>
+        public static bool MatchNamesWithUnderscores { get; set; }
+
+        /// <summary>
+        /// Gets the settable properties for this type map.
+        /// </summary>
+        public List<PropertyInfo> Properties { get; }
+
         internal static MethodInfo GetPropertySetter(PropertyInfo propertyInfo, Type type)
         {
             if (propertyInfo.DeclaringType == type)
             {
                 return propertyInfo.GetSetMethod(true);
             }
-#if NETSTANDARD1_3
-            return propertyInfo.DeclaringType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-                    .Single(x => x.Name == propertyInfo.Name
-                        && x.PropertyType == propertyInfo.PropertyType
-                        && IsParameterMatch(x.GetIndexParameters(), propertyInfo.GetIndexParameters())
-                        ).GetSetMethod(true);
-#else
+
             return propertyInfo.DeclaringType.GetProperty(
                    propertyInfo.Name,
                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
@@ -61,7 +54,6 @@ namespace Core.Extension.Dapper
                    propertyInfo.PropertyType,
                    propertyInfo.GetIndexParameters().Select(p => p.ParameterType).ToArray(),
                    null).GetSetMethod(true);
-#endif
         }
 
         internal static List<PropertyInfo> GetSettableProps(Type t)
@@ -69,11 +61,6 @@ namespace Core.Extension.Dapper
             return t.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
                   .Where(p => GetPropertySetter(p, t) != null)
                   .ToList();
-        }
-
-        internal static List<FieldInfo> GetSettableFields(Type t)
-        {
-            return t.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).ToList();
         }
 
         /// <summary>
@@ -130,6 +117,8 @@ namespace Core.Extension.Dapper
             return null;
         }
 
+      
+
         /// <summary>
         /// Returns the constructor, if any, that has the ExplicitConstructorAttribute on it.
         /// </summary>
@@ -137,11 +126,7 @@ namespace Core.Extension.Dapper
         public ConstructorInfo FindExplicitConstructor()
         {
             var constructors = this._type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-#if NETSTANDARD1_3
-            var withAttr = constructors.Where(c => c.CustomAttributes.Any(x => x.AttributeType == typeof(ExplicitConstructorAttribute))).ToList();
-#else
             var withAttr = constructors.Where(c => c.GetCustomAttributes(typeof(ExplicitConstructorAttribute), true).Length > 0).ToList();
-#endif
 
             if (withAttr.Count == 1)
             {
@@ -214,14 +199,9 @@ namespace Core.Extension.Dapper
             return null;
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether should column names like User_Id be allowed to match properties/fields like UserId ?.
-        /// </summary>
-        public static bool MatchNamesWithUnderscores { get; set; }
-
-        /// <summary>
-        /// Gets the settable properties for this type map.
-        /// </summary>
-        public List<PropertyInfo> Properties { get; }
+        internal static List<FieldInfo> GetSettableFields(Type t)
+        {
+            return t.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).ToList();
+        }
     }
 }

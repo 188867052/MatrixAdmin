@@ -9,11 +9,6 @@ namespace Core.Extension.Dapper
     public sealed class DbString : SqlMapper.ICustomQueryParameter
     {
         /// <summary>
-        /// Default value for IsAnsi.
-        /// </summary>
-        public static bool IsAnsiDefault { get; set; }
-
-        /// <summary>
         /// A value to set the default value of strings
         /// going through Dapper. Default is 4000, any value larger than this
         /// field will not have the default value applied.
@@ -31,22 +26,27 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Ansi vs Unicode.
+        /// Gets or sets a value indicating whether default value for IsAnsi.
+        /// </summary>
+        public static bool IsAnsiDefault { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether ansi vs Unicode.
         /// </summary>
         public bool IsAnsi { get; set; }
 
         /// <summary>
-        /// Fixed length.
+        /// Gets or sets a value indicating whether fixed length.
         /// </summary>
         public bool IsFixedLength { get; set; }
 
         /// <summary>
-        /// Length of the string -1 for max.
+        /// Gets or sets length of the string -1 for max.
         /// </summary>
         public int Length { get; set; }
 
         /// <summary>
-        /// The value of the string.
+        /// Gets or sets the value of the string.
         /// </summary>
         public string Value { get; set; }
 

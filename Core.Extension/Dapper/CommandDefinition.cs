@@ -11,6 +11,8 @@ namespace Core.Extension.Dapper
     /// </summary>
     public struct CommandDefinition
     {
+        private static SqlMapper.Link<Type, Action<IDbCommand>> commandInitCache;
+
         internal static CommandDefinition ForCallback(object parameters)
         {
             if (parameters is DynamicParameters)
@@ -135,8 +137,6 @@ namespace Core.Extension.Dapper
             paramReader?.Invoke(cmd, this.Parameters);
             return cmd;
         }
-
-        private static SqlMapper.Link<Type, Action<IDbCommand>> commandInitCache;
 
         private static Action<IDbCommand> GetInit(Type commandType)
         {
