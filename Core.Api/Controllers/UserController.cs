@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entity;
+using Core.Extension.Dapper;
 using Core.Model.Administration.Role;
 using Core.Model.Administration.User;
 
@@ -278,7 +279,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 string sql = @"UPDATE [User] SET IsDeleted = @IsDeleted WHERE Id IN @Id";
-                //this.DbContext.Dapper.Execute(sql, new { IsDeleted = isDeleted, Id = ids });
+                this.DbContext.Dapper.Execute(sql, new { IsDeleted = isDeleted, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }
