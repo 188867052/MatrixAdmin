@@ -9,10 +9,12 @@
         /// 所有
         /// </summary>
         All = -1,
+
         /// <summary>
         /// 否
         /// </summary>
         No = 0,
+
         /// <summary>
         /// 是
         /// </summary>

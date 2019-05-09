@@ -12,6 +12,7 @@ namespace Core.Model.Administration.Role
         /// 用户GUID.
         /// </summary>
         public Guid UserGuid { get; set; }
+
         /// <summary>
         /// 已获得的角色代码集合.
         /// </summary>

@@ -31,6 +31,7 @@ namespace Core.Api.Filter
         /// Constant value that will interact with the property defined in this filter statement when the operation demands a second value to compare to.
         /// </summary>
         public object Value2 { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
         /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.

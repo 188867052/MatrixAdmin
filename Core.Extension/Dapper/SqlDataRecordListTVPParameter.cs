@@ -11,6 +11,7 @@ namespace Core.Extension.Dapper
     {
         private readonly IEnumerable<Microsoft.SqlServer.Server.SqlDataRecord> data;
         private readonly string typeName;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SqlDataRecordListTVPParameter"/> class.
         /// Create a new instance of <see cref="SqlDataRecordListTVPParameter"/>.

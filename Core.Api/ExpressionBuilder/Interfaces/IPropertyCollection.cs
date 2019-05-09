@@ -15,10 +15,12 @@ namespace Core.Api.ExpressionBuilder.Interfaces
         /// Type from which the properties are loaded.
         /// </summary>
         Type Type { get; }
+
         /// <summary>
         /// ResourceManager which the properties descriptions should be gotten from.
         /// </summary>
         ResourceManager ResourceManager { get; }
+
         /// <summary>
         /// Retrieves a property based on its Id.
         /// </summary>
@@ -30,13 +32,13 @@ namespace Core.Api.ExpressionBuilder.Interfaces
         /// Loads the properties names from the specified ResourceManager.
         /// </summary>
         /// <param name="resourceManager"></param>
-        /// <returns></returns>
+        /// <returns>The LoadProperties.</returns>
         List<Property> LoadProperties(ResourceManager resourceManager);
 
         /// <summary>
         /// Converts the collection into a list.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A list.</returns>
         IList<Property> ToList();
     }
 }

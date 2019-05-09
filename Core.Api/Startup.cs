@@ -16,28 +16,24 @@ namespace Core.Api
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Startup"/> class.
         /// </summary>
-        /// <param name="env"></param>
-        public Startup(IHostingEnvironment env)
+        /// <param name="environment">The environment.</param>
+        public Startup(IHostingEnvironment environment)
         {
-            this.Configuration = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("AppSettings.json").Build();
+            this.Configuration = new ConfigurationBuilder().SetBasePath(environment.ContentRootPath).AddJsonFile("AppSettings.json").Build();
         }
+
+        public IConfiguration Configuration { get; }
 
         public IContainer ApplicationContainer { get; private set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            #region 跨域
             string[] urls = { "http://localhost:90" };
             services.AddCors(options =>
-            options.AddPolicy("AllowSameDomain",
-        builder => builder.WithOrigins(urls).AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin().AllowCredentials())
-            );
-            #endregion
+            options.AddPolicy("AllowSameDomain", builder => builder.WithOrigins(urls).AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin().AllowCredentials()));
 
             this.AddSwaggerGen(services);
 
@@ -57,11 +53,10 @@ namespace Core.Api
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper();
             services.AddDbContext<CoreApiContext>(options =>
-            options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"))
+            options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
             // 如果使用SQL Server 2008数据库，请添加UseRowNumberForPaging的选项
             // options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),b=>b.UseRowNumberForPaging())
-            );
 
             // ApplicationContainer = this.AutofacRegister(services);
 

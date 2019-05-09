@@ -10,9 +10,18 @@ namespace Core.Api.ExpressionBuilder.Exceptions
     public class WrongNumberOfValuesException : Exception
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="WrongNumberOfValuesException" /> class.
+        /// </summary>
+        /// <param name="operation">Operation used.</param>
+        public WrongNumberOfValuesException(IOperation operation)
+        {
+            this.Operation = operation;
+        }
+
+        /// <summary>
         /// Gets the <see cref="Operation" /> attempted to be used.
         /// </summary>
-        public IOperation Operation { get; private set; }
+        public IOperation Operation { get; }
 
         /// <summary>
         /// Gets a message that describes the current exception.
@@ -23,15 +32,6 @@ namespace Core.Api.ExpressionBuilder.Exceptions
             {
                 return string.Format("The operation '{0}' admits exactly '{1}' values (not more neither less than this).", this.Operation.Name, this.Operation.NumberOfValues);
             }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WrongNumberOfValuesException" /> class.
-        /// </summary>
-        /// <param name="operation">Operation used.</param>
-        public WrongNumberOfValuesException(IOperation operation)
-        {
-            this.Operation = operation;
         }
     }
 }

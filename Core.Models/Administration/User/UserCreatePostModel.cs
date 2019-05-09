@@ -48,6 +48,7 @@ namespace Core.Model.Administration.User
         ///
         /// </summary>
         public IsDeletedEnum IsDeleted { get; set; }
+
         /// <summary>
         /// 用户描述信息.
         /// </summary>

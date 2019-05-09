@@ -19,6 +19,7 @@ namespace Core.Model.Administration.Role
         /// 角色编码.
         /// </summary>
         public int RoleCode { get; set; }
+
         /// <summary>
         /// 权限列表.
         /// </summary>

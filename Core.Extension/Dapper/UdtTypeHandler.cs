@@ -14,6 +14,7 @@ namespace Core.Extension.Dapper
         public class UdtTypeHandler : ITypeHandler
         {
             private readonly string udtTypeName;
+
             /// <summary>
             /// Initializes a new instance of the <see cref="UdtTypeHandler"/> class.
             /// Creates a new instance of UdtTypeHandler with the specified <see cref="UdtTypeHandler"/>.

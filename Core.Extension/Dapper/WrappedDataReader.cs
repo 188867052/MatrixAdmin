@@ -12,6 +12,7 @@ namespace Core.Extension.Dapper
         /// Obtain the underlying reader.
         /// </summary>
         IDataReader Reader { get; }
+
         /// <summary>
         /// Obtain the underlying command.
         /// </summary>

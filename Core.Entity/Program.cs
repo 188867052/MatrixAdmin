@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.Entity
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             CoreApiContext coreApiContext = new CoreApiContext();
 
@@ -22,7 +22,6 @@ namespace Core.Entity
             var userRoleMapping = user.UserRoleMapping.FirstOrDefault(o => o.UserId == 1);
 
             // var list = query.ToList();
-
             userRoleMapping.RoleId = 2;
             userRoleMapping.CreatedTime = DateTime.Now;
             coreApiContext.SaveChanges();

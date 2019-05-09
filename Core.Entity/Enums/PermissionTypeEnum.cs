@@ -9,6 +9,7 @@
         /// 菜单
         /// </summary>
         Menu = 0,
+
         /// <summary>
         /// 按钮/操作/功能
         /// </summary>

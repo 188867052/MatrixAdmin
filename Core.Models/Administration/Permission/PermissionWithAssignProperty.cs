@@ -11,6 +11,7 @@ namespace Core.Model.Administration.Permission
         /// 权限编码.
         /// </summary>
         public string Code { get; set; }
+
         /// <summary>
         /// 权限名称.
         /// </summary>
