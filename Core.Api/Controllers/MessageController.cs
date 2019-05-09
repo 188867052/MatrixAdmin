@@ -1,7 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using Core.Api.Extensions;
-using Core.Entity.DataModels;
+using Core.Entity;
 using Core.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

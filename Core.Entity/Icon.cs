@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace Core.Entity.DataModels
+namespace Core.Entity
 {
     public partial class Icon
     {

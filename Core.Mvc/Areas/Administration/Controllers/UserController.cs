@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Core.Entity.DataModels;
+using Core.Entity;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;

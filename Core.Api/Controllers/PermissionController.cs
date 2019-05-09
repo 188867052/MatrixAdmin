@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Entity.DataModels;
+using Core.Entity;
 using Core.Extension.Dapper;
 using Core.Model;
 using Core.Model.Administration.Permission;

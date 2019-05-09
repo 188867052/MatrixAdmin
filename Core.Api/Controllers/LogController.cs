@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
 using System.Net;
-using Core.Entity.DataModels;
+using Core.Entity;
 using Core.Model.Log;
 
 namespace Core.Api.Controllers

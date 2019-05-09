@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Linq;
 using System.Security.Claims;
-using Core.Entity.DataModels;
+using Core.Entity;
 using Core.Model;
 
 namespace Core.Api.Controllers

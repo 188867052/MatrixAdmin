@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Core.Entity.DataModels
+namespace Core.Entity
 {
     public partial class Role
     {
@@ -29,4 +29,3 @@ namespace Core.Entity.DataModels
         public virtual ICollection<UserRoleMapping> UserRoleMapping { get; set; }
     }
 }
-

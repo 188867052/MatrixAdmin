@@ -1,4 +1,4 @@
-﻿using Core.Entity.DataModels;
+﻿using Core.Entity;
 
 namespace Core.Model.Administration.User
 {

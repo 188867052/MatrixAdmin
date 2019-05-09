@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Core.Entity.DataModels;
+using Core.Entity;
 using Core.Extension;
 using Core.Model;
 using Core.Mvc.Areas.Redirect.Controllers;

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Core.Entity.DataModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace ConsoleApp
+namespace Core.Entity
 {
     class Program
     {

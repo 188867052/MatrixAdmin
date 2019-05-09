@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Entity.DataModels;
+using Core.Entity;
 using Core.Model.Administration.Role;
 using Core.Model.Administration.User;
 
@@ -29,7 +29,7 @@ namespace Core.Api.Controllers
                 DbContext.Set<UserRoleMapping>().Load();
                 DbContext.Set<UserStatus>().Load();
                 DbContext.Set<Role>().Load();
-                var query = this.DbContext.User;
+                DbSet<User> query = this.DbContext.User;
                 Pager pager = Pager.CreateDefaultInstance();
                 pager.TotalCount = query.Count();
                 List<User> list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
@@ -58,7 +58,7 @@ namespace Core.Api.Controllers
                 DbContext.Set<UserRoleMapping>().Load();
                 DbContext.Set<Role>().Load();
                 IQueryable<User> query = this.DbContext.User.AsQueryable();
-                query = query.AddBooleanFilter(model.IsEnable, nameof(Entity.DataModels.User.IsEnable));
+                query = query.AddBooleanFilter(model.IsEnable, nameof(Entity.User.IsEnable));
                 if (model.Status.HasValue)
                 {
                     query = query.Where(o => o.Status == (int)model.Status);
@@ -68,8 +68,8 @@ namespace Core.Api.Controllers
                 {
                     query = query.Where(o => o.UserRoleMapping.Any(u => u.Role.Id == model.RoleId));
                 }
-                query = query.AddStringContainsFilter(model.DisplayName, nameof(Entity.DataModels.User.DisplayName));
-                query = query.AddStringContainsFilter(model.LoginName, nameof(Entity.DataModels.User.LoginName));
+                query = query.AddStringContainsFilter(model.DisplayName, nameof(Entity.User.DisplayName));
+                query = query.AddStringContainsFilter(model.LoginName, nameof(Entity.User.LoginName));
 
                 model.TotalCount = query.Count();
                 if (model.PageIndex < 1)
@@ -78,12 +78,12 @@ namespace Core.Api.Controllers
                 }
                 var list = query.Skip((model.PageIndex - 1) * model.PageSize).Take(model.PageSize).ToList();
                 //ResponseModel response = new ResponseModel(list, model);
-                IList<UserModel> list2 = new List<UserModel>();
+                IList<UserModel> models = new List<UserModel>();
                 foreach (User item in list)
                 {
-                    list2.Add(new UserModel(item));
+                    models.Add(new UserModel(item));
                 }
-                ResponseModel response = new ResponseModel(list2, model);
+                ResponseModel response = new ResponseModel(models, model);
                 return Ok(response);
             }
         }
@@ -131,7 +131,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                User entity = this.DbContext.User.FirstOrDefault(x => x.Id == id);
+                User entity = this.DbContext.User.Find(id);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(entity);
                 return Ok(response);

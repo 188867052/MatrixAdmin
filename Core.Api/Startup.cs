@@ -10,7 +10,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using System.ComponentModel;
 using AutoMapper;
-using Core.Entity.DataModels;
+using Core.Entity;
 
 namespace Core.Api
 {

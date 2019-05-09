@@ -15,7 +15,7 @@ namespace Core.Model.Administration.User
                 
         }
 
-        public UserModel(Entity.DataModels.User user)
+        public UserModel(Entity.User user)
         {
             this.Id = user.Id;
             this.LoginName = user.LoginName;

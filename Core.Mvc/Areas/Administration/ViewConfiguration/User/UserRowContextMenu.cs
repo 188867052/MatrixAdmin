@@ -3,13 +3,13 @@ using Core.Web.RowContextMenu;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 {
-    public class UserRowContextMenu : RowContextMenu<Entity.DataModels.User>
+    public class UserRowContextMenu : RowContextMenu<Entity.User>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UserRowContextMenu"/> class.
         /// </summary>
         /// <param name="model">A model.</param>
-        public UserRowContextMenu(Entity.DataModels.User model) : base(model)
+        public UserRowContextMenu(Entity.User model) : base(model)
         {
         }
 

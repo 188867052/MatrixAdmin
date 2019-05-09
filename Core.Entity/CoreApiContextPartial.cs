@@ -1,7 +1,7 @@
 ﻿using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Entity.DataModels
+namespace Core.Entity
 {
     public partial class CoreApiContext
     {
