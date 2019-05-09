@@ -37,7 +37,7 @@ namespace Core.Extension.Dapper
                 if (parameter is SqlParameter sqlParameter && !(value is DBNull))
                 {
                     sqlParameter.SqlDbType = SqlDbType.Udt;
-                    sqlParameter.UdtTypeName = udtTypeName;
+                    sqlParameter.UdtTypeName = this.udtTypeName;
                 }
             }
         }

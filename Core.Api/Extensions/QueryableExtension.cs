@@ -30,10 +30,12 @@ namespace Core.Api.Extensions
             {
                 pager = new Pager {PageSize = 10, PageIndex = 1};
             }
+
             if (pager.PageIndex < 1)
             {
                 throw new Exception("pageIndex must lager than 0");
             }
+
             if (pager.PageSize < 1)
             {
                 throw new Exception("pageSize must lager than 0");
@@ -81,6 +83,7 @@ namespace Core.Api.Extensions
                 var lambda = Expression.Lambda<Func<T, bool>>(predicate, parameter);
                 query = query.Where(lambda);
             }
+
             return query;
         }
 

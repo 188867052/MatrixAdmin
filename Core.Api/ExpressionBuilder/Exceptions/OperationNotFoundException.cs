@@ -18,7 +18,7 @@ namespace Core.Api.ExpressionBuilder.Exceptions
         {
             get
             {
-                return string.Format("Sorry, the operation '{0}' was not found.", OperationName);
+                return string.Format("Sorry, the operation '{0}' was not found.", this.OperationName);
             }
         }
 
@@ -28,7 +28,7 @@ namespace Core.Api.ExpressionBuilder.Exceptions
         /// <param name="operationName">Name of the operation that was intended to be instantiated.</param>
         public OperationNotFoundException(string operationName)
         {
-            OperationName = operationName;
+            this.OperationName = operationName;
         }
     }
 }

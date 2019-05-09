@@ -28,38 +28,47 @@ namespace Core.Model.Administration.Icon
         /// 自定义图标
         /// </summary>
         public string Custom { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public string Description { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public StatusEnum Status { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public IsDeletedEnum IsDeleted { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public string CreatedOn { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public Guid CreatedByUserGuid { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public string CreatedByUserName { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public string ModifiedOn { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public Guid? ModifiedByUserGuid { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

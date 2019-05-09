@@ -11,20 +11,21 @@ namespace Core.Api.Extensions.CustomException
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="next"></param>
         public ExceptionMiddleware(RequestDelegate next)
         {
-            _next = next;
+            this._next = next;
         }
 
         public async Task InvokeAsync(HttpContext httpContext)
         {
             try
             {
-                await _next(httpContext);
+                await this._next(httpContext);
             }
             catch (Exception ex)
             {

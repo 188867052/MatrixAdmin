@@ -14,9 +14,10 @@ namespace Core.Api.Extensions.DataAccess
     public class QueryParamNameAttribute : Attribute
     {
         public string Name { get; set; }
+
         public QueryParamNameAttribute(string name)
         {
-            Name = name;
+            this.Name = name;
         }
     }
 
@@ -33,6 +34,7 @@ namespace Core.Api.Extensions.DataAccess
         private class QueryParamInfo
         {
             public string Name { get; set; }
+
             public object Value { get; set; }
         }
 
@@ -101,6 +103,7 @@ namespace Core.Api.Extensions.DataAccess
             public Type Type;
             public DbType DbType;
             public SqlDbType SqlDbType;
+
             public DbTypeMapEntry(Type type, DbType dbType, SqlDbType sqlDbType)
             {
                 this.Type = type;
@@ -108,7 +111,8 @@ namespace Core.Api.Extensions.DataAccess
                 this.SqlDbType = sqlDbType;
             }
 
-        };
+        }
+;
 
         private static ArrayList _DbTypeList = new ArrayList();
 
@@ -253,6 +257,7 @@ namespace Core.Api.Extensions.DataAccess
                     break;
                 }
             }
+
             if (retObj == null)
             {
                 throw
@@ -274,6 +279,7 @@ namespace Core.Api.Extensions.DataAccess
                     break;
                 }
             }
+
             if (retObj == null)
             {
                 throw
@@ -295,6 +301,7 @@ namespace Core.Api.Extensions.DataAccess
                     break;
                 }
             }
+
             if (retObj == null)
             {
                 throw

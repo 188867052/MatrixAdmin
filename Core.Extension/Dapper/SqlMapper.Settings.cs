@@ -12,12 +12,15 @@ namespace Core.Extension.Dapper
         {
             // disable single result by default; prevents errors AFTER the select being detected properly
             private const CommandBehavior DefaultAllowedCommandBehaviors = ~CommandBehavior.SingleResult;
+
             internal static CommandBehavior AllowedCommandBehaviors { get; private set; } = DefaultAllowedCommandBehaviors;
+
             private static void SetAllowedCommandBehaviors(CommandBehavior behavior, bool enabled)
             {
                 if (enabled) AllowedCommandBehaviors |= behavior;
                 else AllowedCommandBehaviors &= ~behavior;
             }
+
             /// <summary>
             /// Gets or sets whether Dapper should use the CommandBehavior.SingleResult optimization
             /// </summary>
@@ -27,6 +30,7 @@ namespace Core.Extension.Dapper
                 get => (AllowedCommandBehaviors & CommandBehavior.SingleResult) != 0;
                 set => SetAllowedCommandBehaviors(CommandBehavior.SingleResult, value);
             }
+
             /// <summary>
             /// Gets or sets whether Dapper should use the CommandBehavior.SingleRow optimization
             /// </summary>
@@ -49,6 +53,7 @@ namespace Core.Extension.Dapper
                         return true;
                     }
                 }
+
                 return false;
             }
 

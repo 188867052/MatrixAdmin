@@ -14,15 +14,16 @@ namespace Core.Api.Configurations
     {
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
+
         public CustomErrorMessageDelegatingHandler(RequestDelegate next, ILoggerFactory loggerFactory, ILogger logger)
         {
-            _next = next;
-            _logger = logger;
+            this._next = next;
+            this._logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
         {
-            await _next.Invoke(context);
+            await this._next.Invoke(context);
         }
 
         public class ApiKeyMiddleware
@@ -32,22 +33,23 @@ namespace Core.Api.Configurations
 
             public ApiKeyMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
             {
-                _next = next;
-                _logger = loggerFactory.CreateLogger<ApiKeyMiddleware>();
+                this._next = next;
+                this._logger = loggerFactory.CreateLogger<ApiKeyMiddleware>();
             }
 
             public async Task Invoke(HttpContext context)
             {
-                _logger.LogInformation("Handling API key for: " + context.Request.Path);
+                this._logger.LogInformation("Handling API key for: " + context.Request.Path);
 
                 // do custom stuff here with service      
 
-                await _next.Invoke(context);
+                await this._next.Invoke(context);
 
-                _logger.LogInformation("Finished handling api key.");
+                this._logger.LogInformation("Finished handling api key.");
             }
         }
     }
+
     public class ApiKeyHandler : DelegatingHandler
     {
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)

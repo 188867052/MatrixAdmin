@@ -12,8 +12,8 @@ namespace Core.Extension.Dapper
 
             public DeserializerState(int hash, Func<IDataReader, object> func)
             {
-                Hash = hash;
-                Func = func;
+                this.Hash = hash;
+                this.Func = func;
             }
         }
     }

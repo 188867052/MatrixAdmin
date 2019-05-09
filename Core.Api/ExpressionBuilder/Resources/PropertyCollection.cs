@@ -30,7 +30,7 @@ namespace Core.Api.ExpressionBuilder.Resources
         /// <summary>
         /// Gets the number of <see cref="Property" /> contained in the <see cref="PropertyCollection" />.
         /// </summary>
-        public int Count { get { return Properties.Count(); } }
+        public int Count { get { return this.Properties.Count(); } }
 
         /// <summary>
         ///
@@ -47,7 +47,7 @@ namespace Core.Api.ExpressionBuilder.Resources
         /// </summary>
         /// <param name="propertyId">Property conventionalized <see cref="Property.Id" />.</param>
         /// <returns></returns>
-        public Property this[string propertyId] { get { return Properties.FirstOrDefault(p => p.Id.Equals(propertyId)); } }
+        public Property this[string propertyId] { get { return this.Properties.FirstOrDefault(p => p.Id.Equals(propertyId)); } }
 
         /// <summary>
         /// Instantiates a new <see cref="PropertyCollection" />.
@@ -55,9 +55,9 @@ namespace Core.Api.ExpressionBuilder.Resources
         /// <param name="type"></param>
         public PropertyCollection(Type type)
         {
-            Type = type;
-            _visitedTypes = new HashSet<Type>();
-            Properties = LoadProperties(Type);
+            this.Type = type;
+            this._visitedTypes = new HashSet<Type>();
+            this.Properties = this.LoadProperties(this.Type);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Core.Api.ExpressionBuilder.Resources
         /// <param name="resourceManager"></param>
         public PropertyCollection(Type type, ResourceManager resourceManager) : this(type)
         {
-            LoadProperties(resourceManager);
+            this.LoadProperties(resourceManager);
         }
 
         /// <summary>
@@ -77,13 +77,13 @@ namespace Core.Api.ExpressionBuilder.Resources
         /// <returns></returns>
         public List<Property> LoadProperties(ResourceManager resourceManager)
         {
-            ResourceManager = resourceManager;
-            foreach (Property property in Properties)
+            this.ResourceManager = resourceManager;
+            foreach (Property property in this.Properties)
             {
-                property.Name = resourceManager.GetString(GetPropertyResourceName(property.Id)) ?? property.Name;
+                property.Name = resourceManager.GetString(this.GetPropertyResourceName(property.Id)) ?? property.Name;
             }
 
-            return Properties;
+            return this.Properties;
         }
 
         private string GetPropertyResourceName(string propertyConventionName)
@@ -97,19 +97,19 @@ namespace Core.Api.ExpressionBuilder.Resources
         private List<Property> LoadProperties(Type type)
         {
             var list = new List<Property>();
-            if (_visitedTypes.Contains(type))
+            if (this._visitedTypes.Contains(type))
             {
                 return list;
             }
 
-            _visitedTypes.Add(type);
+            this._visitedTypes.Add(type);
 
             const BindingFlags bindingFlags = BindingFlags.Public | BindingFlags.Instance;
             MemberInfo[] members = type.GetFields(bindingFlags).Cast<MemberInfo>()
                                     .Concat(type.GetProperties(bindingFlags)).ToArray();
             foreach (var member in members)
             {
-                list.AddRange(GetProperties(member));
+                list.AddRange(this.GetProperties(member));
             }
 
             return list;
@@ -117,7 +117,7 @@ namespace Core.Api.ExpressionBuilder.Resources
 
         private IEnumerable<Property> GetProperties(MemberInfo member)
         {
-            var memberType = GetMemberType(member);
+            var memberType = this.GetMemberType(member);
 
             if (memberType.IsValueType || memberType == typeof(string))
             {
@@ -126,11 +126,11 @@ namespace Core.Api.ExpressionBuilder.Resources
 
             if (memberType.IsGenericType && typeof(IEnumerable).IsAssignableFrom(memberType))
             {
-                return LoadProperties(memberType.GetGenericArguments()[0])
+                return this.LoadProperties(memberType.GetGenericArguments()[0])
                         .Select(p => new Property(member.Name + "[" + p.Id + "]", p.Name, p.Info));
             }
 
-            return LoadProperties(memberType)
+            return this.LoadProperties(memberType)
                     .Select(p => new Property(member.Name + "." + p.Id, p.Name, p.Info));
         }
 
@@ -150,7 +150,7 @@ namespace Core.Api.ExpressionBuilder.Resources
         /// <param name="index">The zero-based index in array at which copying begins.</param>
         public void CopyTo(Array array, int index)
         {
-            Properties.CopyTo((Property[])array, index);
+            this.Properties.CopyTo((Property[])array, index);
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace Core.Api.ExpressionBuilder.Resources
         /// <returns></returns>
         public IEnumerator GetEnumerator()
         {
-            return Properties.GetEnumerator();
+            return this.Properties.GetEnumerator();
         }
 
         /// <summary>
@@ -168,8 +168,8 @@ namespace Core.Api.ExpressionBuilder.Resources
         /// <returns></returns>
         public IList<Property> ToList()
         {
-            Property[] properties = new Property[Properties.Count];
-            CopyTo(properties, 0);
+            Property[] properties = new Property[this.Properties.Count];
+            this.CopyTo(properties, 0);
             return properties;
         }
     }

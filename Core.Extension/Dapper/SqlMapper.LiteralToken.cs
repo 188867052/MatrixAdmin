@@ -22,7 +22,7 @@ namespace Core.Extension.Dapper
             internal LiteralToken(string token, string member)
             {
                 this.Token = token;
-                Member = member;
+                this.Member = member;
             }
 
             internal static readonly IList<LiteralToken> None = new LiteralToken[0];

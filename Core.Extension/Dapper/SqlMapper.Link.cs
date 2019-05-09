@@ -22,8 +22,10 @@ namespace Core.Extension.Dapper
                         value = link.Value;
                         return true;
                     }
+
                     link = link.Tail;
                 }
+
                 value = default(TValue);
                 return false;
             }
@@ -39,6 +41,7 @@ namespace Core.Extension.Dapper
                         value = found;
                         return false;
                     }
+
                     var newNode = new Link<TKey, TValue>(key, value, snapshot);
                     // did somebody move our cheese?
                     tryAgain = Interlocked.CompareExchange(ref head, newNode, snapshot) != snapshot;
@@ -48,13 +51,15 @@ namespace Core.Extension.Dapper
 
             private Link(TKey key, TValue value, Link<TKey, TValue> tail)
             {
-                Key = key;
-                Value = value;
-                Tail = tail;
+                this.Key = key;
+                this.Value = value;
+                this.Tail = tail;
             }
 
             public TKey Key { get; }
+
             public TValue Value { get; }
+
             public Link<TKey, TValue> Tail { get; }
         }
     }

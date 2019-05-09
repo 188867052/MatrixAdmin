@@ -33,10 +33,11 @@ namespace Core.Api.Controllers
             {
                 pager.PageIndex = 1;
             }
+
             var list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
             ResponseModel response = new ResponseModel(list, pager);
 
-            return Ok(response);
+            return this.Ok(response);
         }
 
         protected IActionResult StandardResponse<T>(IQueryable<T> query)
@@ -46,7 +47,7 @@ namespace Core.Api.Controllers
             var list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
             ResponseModel response = new ResponseModel(list, pager);
 
-            return Ok(response);
+            return this.Ok(response);
         }
 
         protected IActionResult StandardResponse<T>(DbSet<T> query) where T : class
@@ -56,13 +57,13 @@ namespace Core.Api.Controllers
             var list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
             ResponseModel response = new ResponseModel(list, pager);
 
-            return Ok(response);
+            return this.Ok(response);
         }
 
         protected IActionResult SubmitResponse(ResponseModel response)
         {
             response.SetSuccess();
-            return Ok(response);
+            return this.Ok(response);
         }
     }
 }

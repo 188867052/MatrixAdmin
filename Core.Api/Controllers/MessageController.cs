@@ -22,7 +22,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public IActionResult Count()
         {
-            return Ok(1);
+            return this.Ok(1);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Core.Api.Controllers
                 new {title="消息1",create_time=DateTime.Now,msg_id=1}
             };
             response.SetData(new { unread });
-            return Ok(response);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Core.Api.Controllers
             ResponseModel response = ResponseModelFactory.CreateInstance;
 
             response.SetData($"消息[{msgid}]内容");
-            return Ok(response);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Core.Api.Controllers
         public IActionResult HasRead(int msgid)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
-            return Ok(response);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Core.Api.Controllers
         public IActionResult RemoveRead(int msgid)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
-            return Ok(response);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Core.Api.Controllers
         public IActionResult Restore(int msgid)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
-            return Ok(response);
+            return this.Ok(response);
         }
 
         public MessageController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)

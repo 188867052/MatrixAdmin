@@ -6,7 +6,7 @@ namespace Core.Model.Administration.Menu
     {
         public Child()
         {
-            Permission = new List<string>();
+            this.Permission = new List<string>();
         }
 
         public string Path { get; set; }

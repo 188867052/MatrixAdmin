@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Core.Entity
 {
@@ -7,7 +6,7 @@ namespace Core.Entity
     {
         public UserStatus()
         {
-            User = new HashSet<User>();
+            this.User = new HashSet<User>();
         }
 
         public int Id { get; set; }

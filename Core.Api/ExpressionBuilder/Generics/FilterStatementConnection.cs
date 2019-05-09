@@ -13,8 +13,8 @@ namespace Core.Api.ExpressionBuilder.Generics
 
         internal FilterStatementConnection(IFilter filter, IFilterInfo statement)
         {
-            _filter = filter;
-            _statement = statement;
+            this._filter = filter;
+            this._statement = statement;
         }
 
         /// <summary>
@@ -24,8 +24,8 @@ namespace Core.Api.ExpressionBuilder.Generics
         {
             get
             {
-                _statement.Connector = Connector.And;
-                return _filter;
+                this._statement.Connector = Connector.And;
+                return this._filter;
             }
         }
 
@@ -36,8 +36,8 @@ namespace Core.Api.ExpressionBuilder.Generics
         {
             get
             {
-                _statement.Connector = Connector.Or;
-                return _filter;
+                this._statement.Connector = Connector.Or;
+                return this._filter;
             }
         }
     }

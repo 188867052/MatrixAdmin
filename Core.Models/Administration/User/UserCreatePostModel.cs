@@ -13,30 +13,37 @@ namespace Core.Model.Administration.User
         /// 
         /// </summary>
         public string LoginName { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public string DisplayName { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public string Password { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public string Avatar { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public UserRoleEnum UserType { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public IsLockedEnum IsLocked { get; set; }
+
         /// <summary>
         /// 
         /// </summary>
         public UserIsForbiddenEnum Status { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

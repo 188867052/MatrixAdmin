@@ -12,7 +12,8 @@ namespace Core.Api.Extensions.CustomException
         /// 
         /// </summary>
         /// <param name="statusCode"></param>
-        public HttpException(HttpStatusCode statusCode) { StatusCode = statusCode; }
+        public HttpException(HttpStatusCode statusCode) { this.StatusCode = statusCode; }
+
         /// <summary>
         /// 
         /// </summary>

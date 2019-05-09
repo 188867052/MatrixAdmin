@@ -25,7 +25,7 @@ namespace Core.Extension.Dapper
 
         private FeatureSupport(bool arrays)
         {
-            Arrays = arrays;
+            this.Arrays = arrays;
         }
 
         /// <summary>

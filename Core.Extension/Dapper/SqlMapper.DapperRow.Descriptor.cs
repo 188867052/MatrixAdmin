@@ -14,6 +14,7 @@ namespace Core.Extension.Dapper
             {
                 public override ICustomTypeDescriptor GetExtendedTypeDescriptor(object instance)
                     => new DapperRowTypeDescriptor(instance);
+
                 public override ICustomTypeDescriptor GetTypeDescriptor(Type objectType, object instance)
                     => new DapperRowTypeDescriptor(instance);
             }
@@ -37,8 +38,9 @@ namespace Core.Extension.Dapper
             private sealed class DapperRowTypeDescriptor : ICustomTypeDescriptor
             {
                 private readonly DapperRow _row;
+
                 public DapperRowTypeDescriptor(object instance)
-                    => _row = (DapperRow)instance;
+                    => this._row = (DapperRow)instance;
 
                 AttributeCollection ICustomTypeDescriptor.GetAttributes()
                     => AttributeCollection.Empty;
@@ -48,6 +50,7 @@ namespace Core.Extension.Dapper
                 string ICustomTypeDescriptor.GetComponentName() => null;
 
                 private static readonly TypeConverter s_converter = new ExpandableObjectConverter();
+
                 TypeConverter ICustomTypeDescriptor.GetConverter() => s_converter;
 
                 EventDescriptor ICustomTypeDescriptor.GetDefaultEvent() => null;
@@ -61,6 +64,7 @@ namespace Core.Extension.Dapper
                 EventDescriptorCollection ICustomTypeDescriptor.GetEvents(Attribute[] attributes) => EventDescriptorCollection.Empty;
 
                 internal static PropertyDescriptorCollection GetProperties(DapperRow row) => GetProperties(row?._table, row);
+
                 internal static PropertyDescriptorCollection GetProperties(DapperTable table, IDictionary<string,object> row = null)
                 {
                     string[] names = table?.FieldNames;
@@ -72,34 +76,45 @@ namespace Core.Extension.Dapper
                             ? value.GetType() : typeof(object);
                         arr[i] = new RowBoundPropertyDescriptor(type, names[i], i);
                     }
+
                     return new PropertyDescriptorCollection(arr, true);
                 }
-                PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties() => GetProperties(_row);
 
-                PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties(Attribute[] attributes) => GetProperties(_row);
+                PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties() => GetProperties(this._row);
 
-                object ICustomTypeDescriptor.GetPropertyOwner(PropertyDescriptor pd) => _row;
+                PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties(Attribute[] attributes) => GetProperties(this._row);
+
+                object ICustomTypeDescriptor.GetPropertyOwner(PropertyDescriptor pd) => this._row;
             }
 
             private sealed class RowBoundPropertyDescriptor : PropertyDescriptor
             {
                 private readonly Type _type;
                 private readonly int _index;
+
                 public RowBoundPropertyDescriptor(Type type, string name, int index) : base(name, null)
                 {
-                    _type = type;
-                    _index = index;
+                    this._type = type;
+                    this._index = index;
                 }
+
                 public override bool CanResetValue(object component) => true;
-                public override void ResetValue(object component) => ((DapperRow)component).Remove(_index);
+
+                public override void ResetValue(object component) => ((DapperRow)component).Remove(this._index);
+
                 public override bool IsReadOnly => false;
-                public override bool ShouldSerializeValue(object component) => ((DapperRow)component).TryGetValue(_index, out _);
+
+                public override bool ShouldSerializeValue(object component) => ((DapperRow)component).TryGetValue(this._index, out _);
+
                 public override Type ComponentType => typeof(DapperRow);
-                public override Type PropertyType => _type;
+
+                public override Type PropertyType => this._type;
+
                 public override object GetValue(object component)
-                    => ((DapperRow)component).TryGetValue(_index, out var val) ? (val ?? DBNull.Value): DBNull.Value;
+                    => ((DapperRow)component).TryGetValue(this._index, out var val) ? (val ?? DBNull.Value): DBNull.Value;
+
                 public override void SetValue(object component, object value)
-                    => ((DapperRow)component).SetValue(_index, value is DBNull ? null : value);
+                    => ((DapperRow)component).SetValue(this._index, value is DBNull ? null : value);
             }
         }
     }

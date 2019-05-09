@@ -20,6 +20,7 @@ namespace Core.Model.Administration.Permission
         /// 权限名称
         /// </summary>
         public string PermissionName { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

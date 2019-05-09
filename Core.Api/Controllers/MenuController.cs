@@ -62,7 +62,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                Menu entity = Mapper.Map<MenuCreateViewModel, Menu>(model);
+                Menu entity = this.Mapper.Map<MenuCreateViewModel, Menu>(model);
                 entity.CreatedOn = DateTime.Now;
                 entity.Guid = Guid.NewGuid();
                 entity.CreatedByUserGuid = AuthContextService.CurrentUser.Guid;
@@ -71,7 +71,7 @@ namespace Core.Api.Controllers
                 this.DbContext.SaveChanges();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetSuccess();
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -88,7 +88,7 @@ namespace Core.Api.Controllers
             {
                 Menu entity = this.DbContext.Menu.FirstOrDefault(x => x.Guid == guid);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                MenuEditViewModel model = Mapper.Map<Menu, MenuEditViewModel>(entity);
+                MenuEditViewModel model = this.Mapper.Map<Menu, MenuEditViewModel>(entity);
                 //if (model.ParentGuid.HasValue)
                 //{
                 //    var parent = this._dbContext.DncMenu.FirstOrDefault(x => x.Guid == entity.ParentGuid);
@@ -97,9 +97,9 @@ namespace Core.Api.Controllers
                 //        model.ParentName = parent.Name;
                 //    }
                 //}
-                List<MenuTree> tree = LoadMenuTree(model.ParentGuid.ToString());
+                List<MenuTree> tree = this.LoadMenuTree(model.ParentGuid.ToString());
                 response.SetData(new { model, tree });
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -134,7 +134,7 @@ namespace Core.Api.Controllers
                 this.DbContext.SaveChanges();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetSuccess();
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -146,9 +146,9 @@ namespace Core.Api.Controllers
         public IActionResult Tree(string selected)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
-            List<MenuTree> tree = LoadMenuTree(selected);
+            List<MenuTree> tree = this.LoadMenuTree(selected);
             response.SetData(tree);
-            return Ok(response);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -160,8 +160,8 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Delete(int[] ids)
         {
-            ResponseModel response = UpdateIsEnable(true, ids);
-            return Ok(response);
+            ResponseModel response = this.UpdateIsEnable(true, ids);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -173,8 +173,8 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Recover(int[] ids)
         {
-            ResponseModel response = UpdateIsEnable(false, ids);
-            return Ok(response);
+            ResponseModel response = this.UpdateIsEnable(false, ids);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -205,7 +205,8 @@ namespace Core.Api.Controllers
                 default:
                     break;
             }
-            return Ok(response);
+
+            return this.Ok(response);
         }
 
         /// <summary>

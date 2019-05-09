@@ -17,6 +17,7 @@ namespace Core.Extension.Dapper
 
             private static readonly Hashtable byType = new Hashtable();
             private readonly Type type;
+
             internal static void Purge(Type type)
             {
                 lock (byType)
@@ -47,6 +48,7 @@ namespace Core.Extension.Dapper
                         }
                     }
                 }
+
                 return found.GetReader(reader, startBound, length, returnNullIfFirstMissing);
             }
 
@@ -71,69 +73,74 @@ namespace Core.Extension.Dapper
                     if (copyDown)
                     {
                         this.reader = null;
-                        names = new string[length];
-                        types = new Type[length];
+                        this.names = new string[length];
+                        this.types = new Type[length];
                         int index = startBound;
                         for (int i = 0; i < length; i++)
                         {
-                            names[i] = reader.GetName(index);
-                            types[i] = reader.GetFieldType(index++);
+                            this.names[i] = reader.GetName(index);
+                            this.types[i] = reader.GetFieldType(index++);
                         }
                     }
                     else
                     {
                         this.reader = reader;
-                        names = null;
-                        types = null;
+                        this.names = null;
+                        this.types = null;
                     }
                 }
 
-                public override int GetHashCode() => hashCode;
+                public override int GetHashCode() => this.hashCode;
 
                 public override string ToString()
                 { // only used in the debugger
-                    if (names != null)
+                    if (this.names != null)
                     {
-                        return string.Join(", ", names);
+                        return string.Join(", ", this.names);
                     }
-                    if (reader != null)
+
+                    if (this.reader != null)
                     {
                         var sb = new StringBuilder();
-                        int index = startBound;
-                        for (int i = 0; i < length; i++)
+                        int index = this.startBound;
+                        for (int i = 0; i < this.length; i++)
                         {
                             if (i != 0) sb.Append(", ");
-                            sb.Append(reader.GetName(index++));
+                            sb.Append(this.reader.GetName(index++));
                         }
+
                         return sb.ToString();
                     }
+
                     return base.ToString();
                 }
 
                 public override bool Equals(object obj)
                 {
-                    return obj is DeserializerKey && Equals((DeserializerKey)obj);
+                    return obj is DeserializerKey && this.Equals((DeserializerKey)obj);
                 }
 
                 public bool Equals(DeserializerKey other)
                 {
-                    if (hashCode != other.hashCode
-                        || startBound != other.startBound
-                        || length != other.length
-                        || returnNullIfFirstMissing != other.returnNullIfFirstMissing)
+                    if (this.hashCode != other.hashCode
+                        || this.startBound != other.startBound
+                        || this.length != other.length
+                        || this.returnNullIfFirstMissing != other.returnNullIfFirstMissing)
                     {
                         return false; // clearly different
                     }
-                    for (int i = 0; i < length; i++)
+
+                    for (int i = 0; i < this.length; i++)
                     {
-                        if ((names?[i] ?? reader?.GetName(startBound + i)) != (other.names?[i] ?? other.reader?.GetName(startBound + i))
+                        if ((this.names?[i] ?? this.reader?.GetName(this.startBound + i)) != (other.names?[i] ?? other.reader?.GetName(this.startBound + i))
                             ||
-                            (types?[i] ?? reader?.GetFieldType(startBound + i)) != (other.types?[i] ?? other.reader?.GetFieldType(startBound + i))
+                            (this.types?[i] ?? this.reader?.GetFieldType(this.startBound + i)) != (other.types?[i] ?? other.reader?.GetFieldType(this.startBound + i))
                             )
                         {
                             return false; // different column name or type
                         }
                     }
+
                     return true;
                 }
             }
@@ -146,16 +153,17 @@ namespace Core.Extension.Dapper
                 // get a cheap key first: false means don't copy the values down
                 var key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, false);
                 Func<IDataReader, object> deser;
-                lock (readers)
+                lock (this.readers)
                 {
-                    if (readers.TryGetValue(key, out deser)) return deser;
+                    if (this.readers.TryGetValue(key, out deser)) return deser;
                 }
-                deser = GetTypeDeserializerImpl(type, reader, startBound, length, returnNullIfFirstMissing);
+
+                deser = GetTypeDeserializerImpl(this.type, reader, startBound, length, returnNullIfFirstMissing);
                 // get a more expensive key: true means copy the values down so it can be used as a key later
                 key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, true);
-                lock (readers)
+                lock (this.readers)
                 {
-                    return readers[key] = deser;
+                    return this.readers[key] = deser;
                 }
             }
         }

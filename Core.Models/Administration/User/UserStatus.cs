@@ -14,7 +14,9 @@ namespace Core.Model.Administration.User
             this.Id = userStatus.Id;
             this.Name = userStatus.Name;
         }
+
         public int Id { get; set; }
+
         public string Name { get; set; }
     }
 }

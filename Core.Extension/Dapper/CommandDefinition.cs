@@ -25,7 +25,7 @@ namespace Core.Extension.Dapper
 
         internal void OnCompleted()
         {
-            (Parameters as SqlMapper.IParameterCallbacks)?.OnCompleted();
+            (this.Parameters as SqlMapper.IParameterCallbacks)?.OnCompleted();
         }
 
         /// <summary>
@@ -56,12 +56,12 @@ namespace Core.Extension.Dapper
         /// <summary>
         /// Should data be buffered before returning?
         /// </summary>
-        public bool Buffered => (Flags & CommandFlags.Buffered) != 0;
+        public bool Buffered => (this.Flags & CommandFlags.Buffered) != 0;
 
         /// <summary>
         /// Should the plan for this query be cached?
         /// </summary>
-        internal bool AddToCache => (Flags & CommandFlags.NoCache) == 0;
+        internal bool AddToCache => (this.Flags & CommandFlags.NoCache) == 0;
 
         /// <summary>
         /// Additional state flags against this command
@@ -71,7 +71,7 @@ namespace Core.Extension.Dapper
         /// <summary>
         /// Can async queries be pipelined?
         /// </summary>
-        public bool Pipelined => (Flags & CommandFlags.Pipelined) != 0;
+        public bool Pipelined => (this.Flags & CommandFlags.Pipelined) != 0;
 
         /// <summary>
         /// Initialize the command definition
@@ -88,18 +88,18 @@ namespace Core.Extension.Dapper
                                  , CancellationToken cancellationToken = default(CancellationToken)
             )
         {
-            CommandText = commandText;
-            Parameters = parameters;
-            Transaction = transaction;
-            CommandTimeout = commandTimeout;
-            CommandType = commandType;
-            Flags = flags;
-            CancellationToken = cancellationToken;
+            this.CommandText = commandText;
+            this.Parameters = parameters;
+            this.Transaction = transaction;
+            this.CommandTimeout = commandTimeout;
+            this.CommandType = commandType;
+            this.Flags = flags;
+            this.CancellationToken = cancellationToken;
         }
 
         private CommandDefinition(object parameters) : this()
         {
-            Parameters = parameters;
+            this.Parameters = parameters;
         }
 
         /// <summary>
@@ -112,20 +112,21 @@ namespace Core.Extension.Dapper
             var cmd = cnn.CreateCommand();
             var init = GetInit(cmd.GetType());
             init?.Invoke(cmd);
-            if (Transaction != null)
-                cmd.Transaction = Transaction;
-            cmd.CommandText = CommandText;
-            if (CommandTimeout.HasValue)
+            if (this.Transaction != null)
+                cmd.Transaction = this.Transaction;
+            cmd.CommandText = this.CommandText;
+            if (this.CommandTimeout.HasValue)
             {
-                cmd.CommandTimeout = CommandTimeout.Value;
+                cmd.CommandTimeout = this.CommandTimeout.Value;
             }
             else if (SqlMapper.Settings.CommandTimeout.HasValue)
             {
                 cmd.CommandTimeout = SqlMapper.Settings.CommandTimeout.Value;
             }
-            if (CommandType.HasValue)
-                cmd.CommandType = CommandType.Value;
-            paramReader?.Invoke(cmd, Parameters);
+
+            if (this.CommandType.HasValue)
+                cmd.CommandType = this.CommandType.Value;
+            paramReader?.Invoke(cmd, this.Parameters);
             return cmd;
         }
 
@@ -139,6 +140,7 @@ namespace Core.Extension.Dapper
             {
                 return action;
             }
+
             var bindByName = GetBasicPropertySetter(commandType, "BindByName", typeof(bool));
             var initialLongFetchSize = GetBasicPropertySetter(commandType, "InitialLONGFetchSize", typeof(int));
 
@@ -156,6 +158,7 @@ namespace Core.Extension.Dapper
                     il.Emit(OpCodes.Ldc_I4_1);
                     il.EmitCall(OpCodes.Callvirt, bindByName, null);
                 }
+
                 if (initialLongFetchSize != null)
                 {
                     // .InitialLONGFetchSize = -1
@@ -164,9 +167,11 @@ namespace Core.Extension.Dapper
                     il.Emit(OpCodes.Ldc_I4_M1);
                     il.EmitCall(OpCodes.Callvirt, initialLongFetchSize, null);
                 }
+
                 il.Emit(OpCodes.Ret);
                 action = (Action<IDbCommand>)method.CreateDelegate(typeof(Action<IDbCommand>));
             }
+
             // cache it
             SqlMapper.Link<Type, Action<IDbCommand>>.TryAdd(ref commandInitCache, commandType, ref action);
             return action;
@@ -179,6 +184,7 @@ namespace Core.Extension.Dapper
             {
                 return prop.GetSetMethod();
             }
+
             return null;
         }
     }

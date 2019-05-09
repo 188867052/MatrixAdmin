@@ -52,7 +52,7 @@ namespace Core.Api.Controllers
                 ResponseModel response = ResponseModelFactory.CreateResultInstance;
                 //response.SetData(data, count);
 
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -70,10 +70,12 @@ namespace Core.Api.Controllers
                 {
                     query = query.Where(x => x.Code.Contains(model.Code));
                 }
+
                 if (model.IsEnable.HasValue)
                 {
                     query = query.Where(x => x.IsEnable == model.IsEnable);
                 }
+
                 return this.StandardResponse(query, model);
             }
         }
@@ -91,15 +93,17 @@ namespace Core.Api.Controllers
             if (model.Code.Trim().Length <= 0)
             {
                 response.SetFailed("请输入图标名称");
-                return Ok(response);
+                return this.Ok(response);
             }
+
             using (this.DbContext)
             {
                 if (this.DbContext.Icon.Count(x => x.Code == model.Code) > 0)
                 {
                     response.SetFailed("图标已存在");
-                    return Ok(response);
+                    return this.Ok(response);
                 }
+
                 Icon entity = this.Mapper.Map<IconCreateViewModel, Icon>(model);
                 entity.CreatedOn = DateTime.Now;
                 entity.CreatedByUserGuid = AuthContextService.CurrentUser.Guid;
@@ -108,7 +112,7 @@ namespace Core.Api.Controllers
                 this.DbContext.SaveChanges();
                 response.SetSuccess();
 
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -125,8 +129,8 @@ namespace Core.Api.Controllers
             {
                 Icon entity = this.DbContext.Icon.FirstOrDefault(x => x.Id == id);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(Mapper.Map<Icon, IconCreateViewModel>(entity));
-                return Ok(response);
+                response.SetData(this.Mapper.Map<Icon, IconCreateViewModel>(entity));
+                return this.Ok(response);
             }
         }
 
@@ -143,15 +147,17 @@ namespace Core.Api.Controllers
             if (model.Code.Trim().Length <= 0)
             {
                 response.SetFailed("请输入图标名称");
-                return Ok(response);
+                return this.Ok(response);
             }
+
             using (this.DbContext)
             {
                 if (this.DbContext.Icon.Count(x => x.Code == model.Code && x.Id != model.Id) > 0)
                 {
                     response.SetFailed("图标已存在");
-                    return Ok(response);
+                    return this.Ok(response);
                 }
+
                 Icon entity = this.DbContext.Icon.FirstOrDefault(x => x.Id == model.Id);
                 entity.Code = model.Code;
                 entity.Color = model.Color;
@@ -165,7 +171,7 @@ namespace Core.Api.Controllers
                 entity.Description = model.Description;
                 this.DbContext.SaveChanges();
                 response.SetSuccess();
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -178,8 +184,8 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Delete(int[] ids)
         {
-            ResponseModel response = UpdateIsEnable(false, ids);
-            return Ok(response);
+            ResponseModel response = this.UpdateIsEnable(false, ids);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -191,8 +197,8 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Recover(int[] ids)
         {
-            ResponseModel response = UpdateIsEnable(true, ids);
-            return Ok(response);
+            ResponseModel response = this.UpdateIsEnable(true, ids);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -224,7 +230,8 @@ namespace Core.Api.Controllers
                     response = this.UpdateStatus(true, ids);
                     break;
             }
-            return Ok(response);
+
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -240,8 +247,9 @@ namespace Core.Api.Controllers
             if (model.Icons.Trim().Length <= 0)
             {
                 response.SetFailed("没有可用的图标");
-                return Ok(response);
+                return this.Ok(response);
             }
+
             IEnumerable<Icon> models = model.Icons.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries).Select(x => new Icon
             {
                 Code = x.Trim(),
@@ -254,7 +262,7 @@ namespace Core.Api.Controllers
                 this.DbContext.Icon.AddRange(models);
                 this.DbContext.SaveChanges();
                 response.SetSuccess();
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 

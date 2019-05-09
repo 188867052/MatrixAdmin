@@ -42,14 +42,17 @@ namespace Core.Api.Controllers
                 {
                     query = query.Where(o => o.Id == model.Id);
                 }
+
                 if (model.StartTime.HasValue)
                 {
                     query = query.Where(o => o.CreateTime >= model.StartTime);
                 }
+
                 if (model.EndTime.HasValue)
                 {
                     query = query.Where(o => o.CreateTime <= model.EndTime);
                 }
+
                 if (!string.IsNullOrEmpty(model.Message))
                 {
                     query = query.Where(o => o.Message.Contains(model.Message));
@@ -69,9 +72,9 @@ namespace Core.Api.Controllers
         public IActionResult Code(int code)
         {
             // 捕获状态码
-            HttpStatusCode statusCode = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error is HttpException httpEx ?
-                httpEx.StatusCode : (HttpStatusCode)Response.StatusCode;
-            HttpException ex = (HttpException)HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
+            HttpStatusCode statusCode = this.HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error is HttpException httpEx ?
+                httpEx.StatusCode : (HttpStatusCode)this.Response.StatusCode;
+            HttpException ex = (HttpException)this.HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
 
             HttpStatusCode parsedCode = (HttpStatusCode)code;
             ErrorDetails error = new ErrorDetails
@@ -80,7 +83,7 @@ namespace Core.Api.Controllers
                 Message = ex?.ToString()
             };
             // 如果是ASP.NET Core Web Api 应用程序，直接返回状态码(不跳转到错误页面，这里假设所有API接口的路径都是以/api/开始的)
-            if (HttpContext.Features.Get<IHttpRequestFeature>().RawTarget.StartsWith("/api/", StringComparison.Ordinal))
+            if (this.HttpContext.Features.Get<IHttpRequestFeature>().RawTarget.StartsWith("/api/", StringComparison.Ordinal))
             {
                 parsedCode = (HttpStatusCode)code;
                 // error = new ErrorDetails

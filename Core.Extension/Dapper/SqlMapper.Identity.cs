@@ -11,10 +11,10 @@ namespace Core.Extension.Dapper
         public class Identity : IEquatable<Identity>
         {
             internal Identity ForGrid(Type primaryType, int gridIndex) =>
-                new Identity(sql, commandType, connectionString, primaryType, parametersType, null, gridIndex);
+                new Identity(this.sql, this.commandType, this.connectionString, primaryType, this.parametersType, null, gridIndex);
 
             internal Identity ForGrid(Type primaryType, Type[] otherTypes, int gridIndex) =>
-                new Identity(sql, commandType, connectionString, primaryType, parametersType, otherTypes, gridIndex);
+                new Identity(this.sql, this.commandType, this.connectionString, primaryType, this.parametersType, otherTypes, gridIndex);
 
             /// <summary>
             /// Create an identity for use with DynamicParameters, internal use only.
@@ -22,7 +22,7 @@ namespace Core.Extension.Dapper
             /// <param name="type">The parameters type to create an <see cref="Identity"/> for.</param>
             /// <returns></returns>
             public Identity ForDynamicParameters(Type type) =>
-                new Identity(sql, commandType, connectionString, this.type, type, null, -1);
+                new Identity(this.sql, this.commandType, this.connectionString, this.type, type, null, -1);
 
             internal Identity(string sql, CommandType? commandType, IDbConnection connection, Type type, Type parametersType, Type[] otherTypes)
                 : this(sql, commandType, connection.ConnectionString, type, parametersType, otherTypes, 0) { /* base call */ }
@@ -37,20 +37,21 @@ namespace Core.Extension.Dapper
                 this.gridIndex = gridIndex;
                 unchecked
                 {
-                    hashCode = 17; // we *know* we are using this in a dictionary, so pre-compute this
-                    hashCode = hashCode * 23 + commandType.GetHashCode();
-                    hashCode = hashCode * 23 + gridIndex.GetHashCode();
-                    hashCode = hashCode * 23 + (sql?.GetHashCode() ?? 0);
-                    hashCode = hashCode * 23 + (type?.GetHashCode() ?? 0);
+                    this.hashCode = 17; // we *know* we are using this in a dictionary, so pre-compute this
+                    this.hashCode = this.hashCode * 23 + commandType.GetHashCode();
+                    this.hashCode = this.hashCode * 23 + gridIndex.GetHashCode();
+                    this.hashCode = this.hashCode * 23 + (sql?.GetHashCode() ?? 0);
+                    this.hashCode = this.hashCode * 23 + (type?.GetHashCode() ?? 0);
                     if (otherTypes != null)
                     {
                         foreach (var t in otherTypes)
                         {
-                            hashCode = hashCode * 23 + (t?.GetHashCode() ?? 0);
+                            this.hashCode = this.hashCode * 23 + (t?.GetHashCode() ?? 0);
                         }
                     }
-                    hashCode = hashCode * 23 + (connectionString == null ? 0 : connectionStringComparer.GetHashCode(connectionString));
-                    hashCode = hashCode * 23 + (parametersType?.GetHashCode() ?? 0);
+
+                    this.hashCode = this.hashCode * 23 + (connectionString == null ? 0 : connectionStringComparer.GetHashCode(connectionString));
+                    this.hashCode = this.hashCode * 23 + (parametersType?.GetHashCode() ?? 0);
                 }
             }
 
@@ -58,7 +59,7 @@ namespace Core.Extension.Dapper
             /// Whether this <see cref="Identity"/> equals another.
             /// </summary>
             /// <param name="obj">The other <see cref="object"/> to compare to.</param>
-            public override bool Equals(object obj) => Equals(obj as Identity);
+            public override bool Equals(object obj) => this.Equals(obj as Identity);
 
             /// <summary>
             /// The raw SQL command.
@@ -99,7 +100,7 @@ namespace Core.Extension.Dapper
             /// Gets the hash code for this identity.
             /// </summary>
             /// <returns></returns>
-            public override int GetHashCode() => hashCode;
+            public override int GetHashCode() => this.hashCode;
 
             /// <summary>
             /// Compare 2 Identity objects
@@ -109,12 +110,12 @@ namespace Core.Extension.Dapper
             public bool Equals(Identity other)
             {
                 return other != null
-                    && gridIndex == other.gridIndex
-                    && type == other.type
-                    && sql == other.sql
-                    && commandType == other.commandType
-                    && connectionStringComparer.Equals(connectionString, other.connectionString)
-                    && parametersType == other.parametersType;
+                    && this.gridIndex == other.gridIndex
+                    && this.type == other.type
+                    && this.sql == other.sql
+                    && this.commandType == other.commandType
+                    && connectionStringComparer.Equals(this.connectionString, other.connectionString)
+                    && this.parametersType == other.parametersType;
             }
         }
     }

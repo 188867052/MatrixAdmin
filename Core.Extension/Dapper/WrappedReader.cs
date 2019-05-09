@@ -12,8 +12,8 @@ namespace Core.Extension.Dapper
         {
             get
             {
-                var tmp = reader;
-                if (tmp == null) throw new ObjectDisposedException(GetType().Name);
+                var tmp = this.reader;
+                if (tmp == null) throw new ObjectDisposedException(this.GetType().Name);
                 return tmp;
             }
         }
@@ -22,8 +22,8 @@ namespace Core.Extension.Dapper
         {
             get
             {
-                var tmp = cmd;
-                if (tmp == null) throw new ObjectDisposedException(GetType().Name);
+                var tmp = this.cmd;
+                if (tmp == null) throw new ObjectDisposedException(this.GetType().Name);
                 return tmp;
             }
         }
@@ -34,79 +34,79 @@ namespace Core.Extension.Dapper
             this.reader = reader;
         }
 
-        void IDataReader.Close() => reader?.Close();
+        void IDataReader.Close() => this.reader?.Close();
 
-        int IDataReader.Depth => Reader.Depth;
+        int IDataReader.Depth => this.Reader.Depth;
 
-        DataTable IDataReader.GetSchemaTable() => Reader.GetSchemaTable();
+        DataTable IDataReader.GetSchemaTable() => this.Reader.GetSchemaTable();
 
-        bool IDataReader.IsClosed => reader?.IsClosed ?? true;
+        bool IDataReader.IsClosed => this.reader?.IsClosed ?? true;
 
-        bool IDataReader.NextResult() => Reader.NextResult();
+        bool IDataReader.NextResult() => this.Reader.NextResult();
 
-        bool IDataReader.Read() => Reader.Read();
+        bool IDataReader.Read() => this.Reader.Read();
 
-        int IDataReader.RecordsAffected => Reader.RecordsAffected;
+        int IDataReader.RecordsAffected => this.Reader.RecordsAffected;
 
         void IDisposable.Dispose()
         {
-            reader?.Close();
-            reader?.Dispose();
-            reader = null;
-            cmd?.Dispose();
-            cmd = null;
+            this.reader?.Close();
+            this.reader?.Dispose();
+            this.reader = null;
+            this.cmd?.Dispose();
+            this.cmd = null;
         }
 
-        int IDataRecord.FieldCount => Reader.FieldCount;
+        int IDataRecord.FieldCount => this.Reader.FieldCount;
 
-        bool IDataRecord.GetBoolean(int i) => Reader.GetBoolean(i);
+        bool IDataRecord.GetBoolean(int i) => this.Reader.GetBoolean(i);
 
-        byte IDataRecord.GetByte(int i) => Reader.GetByte(i);
+        byte IDataRecord.GetByte(int i) => this.Reader.GetByte(i);
 
         long IDataRecord.GetBytes(int i, long fieldOffset, byte[] buffer, int bufferoffset, int length) =>
-            Reader.GetBytes(i, fieldOffset, buffer, bufferoffset, length);
+            this.Reader.GetBytes(i, fieldOffset, buffer, bufferoffset, length);
 
-        char IDataRecord.GetChar(int i) => Reader.GetChar(i);
+        char IDataRecord.GetChar(int i) => this.Reader.GetChar(i);
 
         long IDataRecord.GetChars(int i, long fieldoffset, char[] buffer, int bufferoffset, int length) =>
-            Reader.GetChars(i, fieldoffset, buffer, bufferoffset, length);
+            this.Reader.GetChars(i, fieldoffset, buffer, bufferoffset, length);
 
-        IDataReader IDataRecord.GetData(int i) => Reader.GetData(i);
+        IDataReader IDataRecord.GetData(int i) => this.Reader.GetData(i);
 
-        string IDataRecord.GetDataTypeName(int i) => Reader.GetDataTypeName(i);
+        string IDataRecord.GetDataTypeName(int i) => this.Reader.GetDataTypeName(i);
 
-        DateTime IDataRecord.GetDateTime(int i) => Reader.GetDateTime(i);
+        DateTime IDataRecord.GetDateTime(int i) => this.Reader.GetDateTime(i);
 
-        decimal IDataRecord.GetDecimal(int i) => Reader.GetDecimal(i);
+        decimal IDataRecord.GetDecimal(int i) => this.Reader.GetDecimal(i);
 
-        double IDataRecord.GetDouble(int i) => Reader.GetDouble(i);
+        double IDataRecord.GetDouble(int i) => this.Reader.GetDouble(i);
 
-        Type IDataRecord.GetFieldType(int i) => Reader.GetFieldType(i);
+        Type IDataRecord.GetFieldType(int i) => this.Reader.GetFieldType(i);
 
-        float IDataRecord.GetFloat(int i) => Reader.GetFloat(i);
+        float IDataRecord.GetFloat(int i) => this.Reader.GetFloat(i);
 
-        Guid IDataRecord.GetGuid(int i) => Reader.GetGuid(i);
+        Guid IDataRecord.GetGuid(int i) => this.Reader.GetGuid(i);
 
-        short IDataRecord.GetInt16(int i) => Reader.GetInt16(i);
+        short IDataRecord.GetInt16(int i) => this.Reader.GetInt16(i);
 
-        int IDataRecord.GetInt32(int i) => Reader.GetInt32(i);
+        int IDataRecord.GetInt32(int i) => this.Reader.GetInt32(i);
 
-        long IDataRecord.GetInt64(int i) => Reader.GetInt64(i);
+        long IDataRecord.GetInt64(int i) => this.Reader.GetInt64(i);
 
-        string IDataRecord.GetName(int i) => Reader.GetName(i);
+        string IDataRecord.GetName(int i) => this.Reader.GetName(i);
 
-        int IDataRecord.GetOrdinal(string name) => Reader.GetOrdinal(name);
+        int IDataRecord.GetOrdinal(string name) => this.Reader.GetOrdinal(name);
 
-        string IDataRecord.GetString(int i) => Reader.GetString(i);
+        string IDataRecord.GetString(int i) => this.Reader.GetString(i);
 
-        object IDataRecord.GetValue(int i) => Reader.GetValue(i);
+        object IDataRecord.GetValue(int i) => this.Reader.GetValue(i);
 
-        int IDataRecord.GetValues(object[] values) => Reader.GetValues(values);
+        int IDataRecord.GetValues(object[] values) => this.Reader.GetValues(values);
 
-        bool IDataRecord.IsDBNull(int i) => Reader.IsDBNull(i);
+        bool IDataRecord.IsDBNull(int i) => this.Reader.IsDBNull(i);
 
-        object IDataRecord.this[string name] => Reader[name];
+        object IDataRecord.this[string name] => this.Reader[name];
 
-        object IDataRecord.this[int i] => Reader[i];
+        object IDataRecord.this[int i] => this.Reader[i];
     }
 }

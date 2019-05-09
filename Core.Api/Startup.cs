@@ -20,7 +20,7 @@ namespace Core.Api
 
         public Startup(IHostingEnvironment env)
         {
-            Configuration = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("AppSettings.json").Build();
+            this.Configuration = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("AppSettings.json").Build();
         }
 
         public IContainer ApplicationContainer { get; private set; }
@@ -53,7 +53,7 @@ namespace Core.Api
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper();
             services.AddDbContext<CoreApiContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"))
             // 如果使用SQL Server 2008数据库，请添加UseRowNumberForPaging的选项
             //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),b=>b.UseRowNumberForPaging())
             );

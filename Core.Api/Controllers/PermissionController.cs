@@ -76,16 +76,18 @@ namespace Core.Api.Controllers
             if (model.Name.Trim().Length <= 0)
             {
                 response.SetFailed("请输入权限名称");
-                return Ok(response);
+                return this.Ok(response);
             }
+
             using (this.DbContext)
             {
                 if (this.DbContext.Permission.Count(x => x.ActionCode == model.ActionCode && x.MenuGuid == model.MenuGuid) > 0)
                 {
                     response.SetFailed("权限操作码已存在");
-                    return Ok(response);
+                    return this.Ok(response);
                 }
-                Permission entity = Mapper.Map<PermissionCreateViewModel, Permission>(model);
+
+                Permission entity = this.Mapper.Map<PermissionCreateViewModel, Permission>(model);
                 entity.CreatedOn = DateTime.Now;
                 entity.Id = RandomHelper.GetRandomizer(8, true, false, true, true);
                 entity.CreatedByUserGuid = AuthContextService.CurrentUser.Guid;
@@ -94,7 +96,7 @@ namespace Core.Api.Controllers
                 this.DbContext.SaveChanges();
 
                 response.SetSuccess();
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -111,11 +113,11 @@ namespace Core.Api.Controllers
             {
                 Permission entity = this.DbContext.Permission.FirstOrDefault(x => x.Id == code);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                PermissionEditViewModel model = Mapper.Map<Permission, PermissionEditViewModel>(entity);
+                PermissionEditViewModel model = this.Mapper.Map<Permission, PermissionEditViewModel>(entity);
                 Menu menu = this.DbContext.Menu.FirstOrDefault(x => x.Guid == entity.MenuGuid);
                 model.MenuName = menu.Name;
                 response.SetData(model);
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -134,14 +136,16 @@ namespace Core.Api.Controllers
                 if (this.DbContext.Permission.Count(x => x.ActionCode == model.ActionCode && x.Id != model.Code) > 0)
                 {
                     response.SetFailed("权限操作码已存在");
-                    return Ok(response);
+                    return this.Ok(response);
                 }
+
                 Permission entity = this.DbContext.Permission.FirstOrDefault(x => x.Id == model.Code);
                 if (entity == null)
                 {
                     response.SetFailed("权限不存在");
-                    return Ok(response);
+                    return this.Ok(response);
                 }
+
                 entity.Name = model.Name;
                 entity.ActionCode = model.ActionCode;
                 entity.MenuGuid = model.MenuGuid;
@@ -153,7 +157,7 @@ namespace Core.Api.Controllers
                 entity.Description = model.Description;
                 this.DbContext.SaveChanges();
                 response.SetSuccess();
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -166,8 +170,8 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Delete(string ids)
         {
-            ResponseModel response = UpdateIsEnable(true, ids);
-            return Ok(response);
+            ResponseModel response = this.UpdateIsEnable(true, ids);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -179,8 +183,8 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Recover(string ids)
         {
-            ResponseModel response = UpdateIsEnable(false, ids);
-            return Ok(response);
+            ResponseModel response = this.UpdateIsEnable(false, ids);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -197,21 +201,22 @@ namespace Core.Api.Controllers
             switch (command)
             {
                 case "delete":
-                    response = UpdateIsEnable(true, ids);
+                    response = this.UpdateIsEnable(true, ids);
                     break;
                 case "recover":
-                    response = UpdateIsEnable(false, ids);
+                    response = this.UpdateIsEnable(false, ids);
                     break;
                 case "forbidden":
-                    response = UpdateStatus(false, ids);
+                    response = this.UpdateStatus(false, ids);
                     break;
                 case "normal":
-                    response = UpdateStatus(true, ids);
+                    response = this.UpdateStatus(true, ids);
                     break;
                 default:
                     break;
             }
-            return Ok(response);
+
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -229,8 +234,9 @@ namespace Core.Api.Controllers
                 if (role == null)
                 {
                     response.SetFailed("角色不存在");
-                    return Ok(response);
+                    return this.Ok(response);
                 }
+
                 List<PermissionMenuTree> menu = this.DbContext.Menu.Where(x => !x.IsEnable && x.Status).OrderBy(x => x.CreatedOn).ThenBy(x => x.Sort)
                     .Select(x => new PermissionMenuTree
                     {
@@ -248,12 +254,13 @@ WHERE P.IsDeleted=0 AND P.Status=1";
                     sql = @"SELECT P.Code,P.MenuGuid,P.Name,P.ActionCode,'SUPERADM' AS RoleCode,(CASE WHEN P.Code IS NOT NULL THEN 1 ELSE 0 END) AS IsAssigned FROM DncPermission AS P 
 WHERE P.IsDeleted=0 AND P.Status=1";
                 }
+
                 //List<PermissionWithAssignProperty> permissionList = this.DbContext.PermissionWithAssignProperty.FromSql(sql, code).ToList();
                 //List<PermissionMenuTree> tree = menu.FillRecursive(permissionList, Guid.Empty, role.IsSuperAdministrator);
                 //response.SetData(new { tree, selectedPermissions = permissionList.Where(x => x.IsAssigned == 1).Select(x => x.Code) });
             }
 
-            return Ok(response);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -326,6 +333,7 @@ WHERE P.IsDeleted=0 AND P.Status=1";
                 };
                 recursiveObjects.Add(children);
             }
+
             return recursiveObjects;
         }
 
@@ -335,6 +343,7 @@ WHERE P.IsDeleted=0 AND P.Status=1";
             {
                 return true;
             }
+
             return isAssigned == 1;
         }
 

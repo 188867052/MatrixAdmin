@@ -13,12 +13,14 @@ namespace Core.Model.Administration.Menu
         /// </summary>
         public MenuTree()
         {
-            Children = new List<MenuTree>();
+            this.Children = new List<MenuTree>();
         }
+
         /// <summary>
         /// GUID
         /// </summary>
         public string Guid { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

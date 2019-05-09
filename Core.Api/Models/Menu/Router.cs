@@ -9,15 +9,21 @@ namespace Core.Api.Models.Menu
     {
         public Router()
         {
-            Meta = new RouterMeta();
-            Children = new List<Router>();
+            this.Meta = new RouterMeta();
+            this.Children = new List<Router>();
         }
+
         public string Path { get; set; }
+
         public string Name { get; set; }
+
         public string Component { get; set; }
+
         public RouterMeta Meta { get; set; }
+
         public List<Router> Children { get; set; }
     }
+
     /// <summary>
     /// 
     /// </summary>

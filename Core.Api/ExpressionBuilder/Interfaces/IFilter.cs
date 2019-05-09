@@ -34,6 +34,7 @@ namespace Core.Api.ExpressionBuilder.Interfaces
         /// <param name="connector">Establishes how this filter statement will connect to the next one.</param>
         /// <returns>A FilterStatementConnection object that defines how this statement will be connected to the next one.</returns>
         IFilterStatementConnection By(string propertyId, IOperation operation, Connector connector);
+
         IFilterStatementConnection By(IFilterInfo s2);
 
         /// <summary>

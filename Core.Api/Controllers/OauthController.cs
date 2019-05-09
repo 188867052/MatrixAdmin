@@ -47,13 +47,15 @@ namespace Core.Api.Controllers
                 if (user == null || user.IsEnable)
                 {
                     response.SetFailed("用户不存在");
-                    return Ok(response);
+                    return this.Ok(response);
                 }
+
                 if (user.Password != password.Trim())
                 {
                     response.SetFailed("密码不正确");
-                    return Ok(response);
+                    return this.Ok(response);
                 }
+
                 //if (user.IsLocked == IsLockedEnum.Locked)
                 //{
                 //    response.SetFailed("账号已被锁定");
@@ -65,6 +67,7 @@ namespace Core.Api.Controllers
                 //    return Ok(response);
                 //}
             }
+
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, username),
@@ -76,10 +79,10 @@ namespace Core.Api.Controllers
                     new Claim("guid",user.Id.ToString()),
                     new Claim("userType",((int)user.UserType).ToString())
                 });
-            string token = JwtBearerAuthenticationExtension.GetJwtAccessToken(_appSettings, claimsIdentity);
+            string token = JwtBearerAuthenticationExtension.GetJwtAccessToken(this._appSettings, claimsIdentity);
 
             response.SetData(token);
-            return Ok(response);
+            return this.Ok(response);
         }
     }
 }

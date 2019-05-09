@@ -25,7 +25,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         {
             get
             {
-                StartGroup();
+                this.StartGroup();
                 return this;
             }
         }
@@ -37,7 +37,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         {
             get
             {
-                return _statements.ToArray();
+                return this._statements.ToArray();
             }
         }
 
@@ -45,7 +45,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         {
             get
             {
-                return _statements.Last();
+                return this._statements.Last();
             }
         }
 
@@ -54,7 +54,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// </summary>
 		public Filter()
         {
-            _statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
+            this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
         }
 
         /// <summary>
@@ -62,16 +62,16 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// </summary>
         public Filter(Filter<TClass> f1, Filter<TClass> f2, Connector connector)
         {
-            _statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
+            this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
             IFilterInfo s1 = f1.CurrentStatementGroup.First();
             IFilterInfo s2 = f2.CurrentStatementGroup.First();
             if (connector == Connector.Or)
             {
-                By(s1).Or.By(s2);
+                this.By(s1).Or.By(s2);
             }
             else
             {
-                By(s1).And.By(s2);
+                this.By(s1).And.By(s2);
             }
         }
 
@@ -80,7 +80,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// </summary>
         public Filter(IFilterInfo statement)
         {
-            _statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
+            this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
             this.By(statement);
         }
 
@@ -94,7 +94,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// <returns></returns>
         public IFilterStatementConnection By(string propertyId, IOperation operation, Connector connector)
         {
-            return By<string>(propertyId, operation, null, null, connector);
+            return this.By<string>(propertyId, operation, null, null, connector);
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// <returns></returns>
         public IFilterStatementConnection By(string propertyId, IOperation operation)
         {
-            return By<string>(propertyId, operation, null, null, Connector.And);
+            return this.By<string>(propertyId, operation, null, null, Connector.And);
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// <returns></returns>
         public IFilterStatementConnection By<TPropertyType>(string propertyId, IOperation operation, TPropertyType value, Connector connector)
         {
-            return By(propertyId, operation, value, default, connector);
+            return this.By(propertyId, operation, value, default, connector);
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// <returns></returns>
         public IFilterStatementConnection By<TPropertyType>(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2)
         {
-            return By(propertyId, operation, value, value2, Connector.And);
+            return this.By(propertyId, operation, value, value2, Connector.And);
         }
 
         /// <summary>
@@ -165,22 +165,24 @@ namespace Core.Api.ExpressionBuilder.Generics
         public IFilterStatementConnection By<TPropertyType>(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector)
         {
             IFilterInfo statement = new FilterInfo<TPropertyType>(propertyId, operation, value, value2, connector);
-            CurrentStatementGroup.Add(statement);
+            this.CurrentStatementGroup.Add(statement);
             return new FilterStatementConnection(this, statement);
         }
+
         public IFilterStatementConnection By(IFilterInfo statement)
         {
-            CurrentStatementGroup.Add(statement);
+            this.CurrentStatementGroup.Add(statement);
             return new FilterStatementConnection(this, statement);
         }
+
         /// <summary>
         /// Starts a new group denoting that every subsequent filter statement should be grouped together (as if using a parenthesis).
         /// </summary>
         public void StartGroup()
         {
-            if (CurrentStatementGroup.Any())
+            if (this.CurrentStatementGroup.Any())
             {
-                _statements.Add(new List<IFilterInfo>());
+                this._statements.Add(new List<IFilterInfo>());
             }
         }
 
@@ -189,8 +191,8 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// </summary>
         public void Clear()
         {
-            _statements.Clear();
-            _statements.Add(new List<IFilterInfo>());
+            this._statements.Clear();
+            this._statements.Add(new List<IFilterInfo>());
         }
 
         /// <summary>
@@ -224,9 +226,9 @@ namespace Core.Api.ExpressionBuilder.Generics
             var result = new StringBuilder();
             Connector lastConector = Connector.And;
 
-            foreach (var statementGroup in _statements)
+            foreach (var statementGroup in this._statements)
             {
-                if (_statements.Count() > 1)
+                if (this._statements.Count() > 1)
                 {
                     result.Append("(");
                 }
@@ -244,7 +246,7 @@ namespace Core.Api.ExpressionBuilder.Generics
                 }
 
                 result.Append(groupResult.ToString().Trim());
-                if (_statements.Count() > 1)
+                if (this._statements.Count() > 1)
                 {
                     result.Append(")");
                 }
@@ -272,7 +274,7 @@ namespace Core.Api.ExpressionBuilder.Generics
             {
                 if (reader.Name.Equals("StatementsGroup") && reader.IsStartElement())
                 {
-                    StartGroup();
+                    this.StartGroup();
                 }
 
                 if (reader.Name.StartsWith("FilterStatementOf"))
@@ -281,7 +283,7 @@ namespace Core.Api.ExpressionBuilder.Generics
                     var filterType = typeof(FilterInfo<>).MakeGenericType(Type.GetType(type));
                     var serializer = new XmlSerializer(filterType);
                     var statement = (IFilterInfo)serializer.Deserialize(reader);
-                    CurrentStatementGroup.Add(statement);
+                    this.CurrentStatementGroup.Add(statement);
                 }
             }
         }
@@ -294,7 +296,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         {
             writer.WriteAttributeString("Type", typeof(TClass).AssemblyQualifiedName);
             writer.WriteStartElement("Statements");
-            foreach (var statementsGroup in _statements)
+            foreach (var statementsGroup in this._statements)
             {
                 writer.WriteStartElement("StatementsGroup");
                 foreach (var statement in statementsGroup)
@@ -302,6 +304,7 @@ namespace Core.Api.ExpressionBuilder.Generics
                     var serializer = new XmlSerializer(statement.GetType());
                     serializer.Serialize(writer, statement);
                 }
+
                 writer.WriteEndElement();
             }
 

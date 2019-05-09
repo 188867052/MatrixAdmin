@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Api.ControllerHelpers;
 using Core.Entity;
-using Core.Extension.Dapper;
 using Core.Model.Administration.Role;
 using Core.Model.Administration.User;
 
@@ -28,9 +27,9 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                DbContext.Set<UserRoleMapping>().Load();
-                DbContext.Set<UserStatus>().Load();
-                DbContext.Set<Role>().Load();
+                this.DbContext.Set<UserRoleMapping>().Load();
+                this.DbContext.Set<UserStatus>().Load();
+                this.DbContext.Set<Role>().Load();
                 DbSet<User> query = this.DbContext.User;
                 Pager pager = Pager.CreateDefaultInstance();
                 pager.TotalCount = query.Count();
@@ -41,9 +40,10 @@ namespace Core.Api.Controllers
                 {
                     models.Add(new UserModel(item));
                 }
+
                 ResponseModel response = new ResponseModel(models, pager);
 
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -56,9 +56,9 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                DbContext.Set<UserStatus>().Load();
-                DbContext.Set<UserRoleMapping>().Load();
-                DbContext.Set<Role>().Load();
+                this.DbContext.Set<UserStatus>().Load();
+                this.DbContext.Set<UserRoleMapping>().Load();
+                this.DbContext.Set<Role>().Load();
                 IQueryable<User> query = this.DbContext.User.AsQueryable();
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Entity.User.IsEnable));
                 if (model.Status.HasValue)
@@ -70,6 +70,7 @@ namespace Core.Api.Controllers
                 {
                     query = query.Where(o => o.UserRoleMapping.Any(u => u.Role.Id == model.RoleId));
                 }
+
                 query = query.AddStringContainsFilter(model.DisplayName, nameof(Entity.User.DisplayName));
                 query = query.AddStringContainsFilter(model.LoginName, nameof(Entity.User.LoginName));
 
@@ -78,6 +79,7 @@ namespace Core.Api.Controllers
                 {
                     model.PageIndex = 1;
                 }
+
                 var list = query.Skip((model.PageIndex - 1) * model.PageSize).Take(model.PageSize).ToList();
                 //ResponseModel response = new ResponseModel(list, model);
                 IList<UserModel> models = new List<UserModel>();
@@ -85,8 +87,9 @@ namespace Core.Api.Controllers
                 {
                     models.Add(new UserModel(item));
                 }
+
                 ResponseModel response = new ResponseModel(models, model);
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -102,16 +105,18 @@ namespace Core.Api.Controllers
             if (model.LoginName.Trim().Length <= 0)
             {
                 response.SetFailed("请输入登录名称");
-                return Ok(response);
+                return this.Ok(response);
             }
+
             using (this.DbContext)
             {
                 if (this.DbContext.User.Count(x => x.LoginName == model.LoginName) > 0)
                 {
                     response.SetFailed("登录名已存在");
-                    return Ok(response);
+                    return this.Ok(response);
                 }
-                User entity = Mapper.Map<UserCreatePostModel, User>(model);
+
+                User entity = this.Mapper.Map<UserCreatePostModel, User>(model);
                 entity.CreateTime = DateTime.Now;
                 //entity.Id = Guid.NewGuid();
                 entity.Status = (int)model.Status;
@@ -136,7 +141,7 @@ namespace Core.Api.Controllers
                 User entity = this.DbContext.User.Find(id);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(entity);
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -152,15 +157,16 @@ namespace Core.Api.Controllers
             ResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
             {
-                DbContext.Set<UserRoleMapping>().Load();
-                DbContext.Set<UserStatus>().Load();
-                DbContext.Set<Role>().Load();
+                this.DbContext.Set<UserRoleMapping>().Load();
+                this.DbContext.Set<UserStatus>().Load();
+                this.DbContext.Set<Role>().Load();
                 User entity = this.DbContext.User.FirstOrDefault(x => x.Id == model.Id);
                 if (entity == null)
                 {
                     response.SetFailed("用户不存在");
-                    return Ok(response);
+                    return this.Ok(response);
                 }
+
                 entity.DisplayName = model.DisplayName;
                 entity.LoginName = model.LoginName;
                 entity.Password = model.Password;
@@ -175,7 +181,7 @@ namespace Core.Api.Controllers
                 entity.UpdateTime = DateTime.Now;
                 this.DbContext.SaveChanges();
                 response = ResponseModelFactory.CreateInstance;
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -188,7 +194,7 @@ namespace Core.Api.Controllers
         public IActionResult Delete(int[] ids)
         {
             ResponseModel response = UserControllerHelper.UpdateIsDeleted(true, ids);
-            return Ok(response);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -201,7 +207,7 @@ namespace Core.Api.Controllers
         {
             ResponseModel response = UserControllerHelper.UpdateIsDeleted(false, ids);
 
-            return Ok(response);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -232,7 +238,8 @@ namespace Core.Api.Controllers
                 default:
                     break;
             }
-            return Ok(response);
+
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -265,7 +272,8 @@ namespace Core.Api.Controllers
             {
                 response.SetFailed("保存用户角色数据失败");
             }
-            return Ok(response);
+
+            return this.Ok(response);
         }
     }
 }

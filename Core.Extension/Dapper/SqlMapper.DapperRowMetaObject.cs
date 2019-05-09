@@ -44,10 +44,10 @@ namespace Core.Extension.Dapper
             {
                 var callMethod = new System.Dynamic.DynamicMetaObject(
                     System.Linq.Expressions.Expression.Call(
-                        System.Linq.Expressions.Expression.Convert(Expression, LimitType),
+                        System.Linq.Expressions.Expression.Convert(this.Expression, this.LimitType),
                         method,
                         parameters),
-                    System.Dynamic.BindingRestrictions.GetTypeRestriction(Expression, LimitType)
+                    System.Dynamic.BindingRestrictions.GetTypeRestriction(this.Expression, this.LimitType)
                     );
                 return callMethod;
             }
@@ -59,7 +59,7 @@ namespace Core.Extension.Dapper
                                          System.Linq.Expressions.Expression.Constant(binder.Name)
                                      };
 
-                var callMethod = CallMethod(getValueMethod, parameters);
+                var callMethod = this.CallMethod(getValueMethod, parameters);
 
                 return callMethod;
             }
@@ -72,7 +72,7 @@ namespace Core.Extension.Dapper
                                          System.Linq.Expressions.Expression.Constant(binder.Name)
                                      };
 
-                var callMethod = CallMethod(getValueMethod, parameters);
+                var callMethod = this.CallMethod(getValueMethod, parameters);
 
                 return callMethod;
             }
@@ -85,15 +85,16 @@ namespace Core.Extension.Dapper
                                          value.Expression,
                                      };
 
-                var callMethod = CallMethod(setValueMethod, parameters);
+                var callMethod = this.CallMethod(setValueMethod, parameters);
 
                 return callMethod;
             }
 
             static readonly string[] s_nixKeys = new string[0];
+
             public override IEnumerable<string> GetDynamicMemberNames()
             {
-                if(HasValue && Value is IDictionary<string, object> lookup) return lookup.Keys;
+                if(this.HasValue && this.Value is IDictionary<string, object> lookup) return lookup.Keys;
                 return s_nixKeys;
             }
         }

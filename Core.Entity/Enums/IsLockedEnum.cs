@@ -1,7 +1,7 @@
 ﻿namespace Core.Entity.Enums
 {
     /// <summary>
-    /// 是否已被锁定
+    /// 是否已被锁定.
     /// </summary>
     public enum IsLockedEnum
     {
@@ -9,6 +9,7 @@
         /// 未锁定
         /// </summary>
         UnLocked = 0,
+
         /// <summary>
         /// 已锁定
         /// </summary>

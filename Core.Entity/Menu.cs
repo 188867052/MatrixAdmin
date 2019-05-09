@@ -7,7 +7,7 @@ namespace Core.Entity
     {
         public Menu()
         {
-            Permission = new HashSet<Permission>();
+            this.Permission = new HashSet<Permission>();
         }
 
         public Guid Guid { get; set; }

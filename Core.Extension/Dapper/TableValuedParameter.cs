@@ -32,6 +32,7 @@ namespace Core.Extension.Dapper
         }
 
         private static readonly Action<SqlParameter, string> setTypeName;
+
         static TableValuedParameter()
         {
             var prop = typeof(SqlParameter).GetProperty("TypeName", BindingFlags.Instance | BindingFlags.Public);
@@ -46,7 +47,7 @@ namespace Core.Extension.Dapper
         {
             var param = command.CreateParameter();
             param.ParameterName = name;
-            Set(param, _table, _typeName);
+            Set(param, this._table, this._typeName);
             command.Parameters.Add(param);
         }
 
@@ -59,6 +60,7 @@ namespace Core.Extension.Dapper
             {
                 typeName = table.GetTypeName();
             }
+
             if (!string.IsNullOrEmpty(typeName) && (parameter is SqlParameter sqlParam))
             {
                 setTypeName?.Invoke(sqlParam, typeName);

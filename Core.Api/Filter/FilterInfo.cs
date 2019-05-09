@@ -41,10 +41,10 @@ namespace Core.Api.Filter
         /// <param name="connector"></param>
         public FilterInfo(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
         {
-            PropertyName = propertyId;
-            Connector = connector;
-            Operation = operation;
-            SetValues(value, value2);
+            this.PropertyName = propertyId;
+            this.Connector = connector;
+            this.Operation = operation;
+            this.SetValues(value, value2);
             //Validate();
         }
 
@@ -53,20 +53,20 @@ namespace Core.Api.Filter
         {
             if (typeof(TPropertyType).IsArray)
             {
-                if (!Operation.SupportsLists)
+                if (!this.Operation.SupportsLists)
                 {
                     throw new ArgumentException("It seems the chosen operation does not support arrays as parameters.");
                 }
 
                 var listType = typeof(List<>);
                 var constructedListType = listType.MakeGenericType(typeof(TPropertyType).GetElementType());
-                Value = value != null ? Activator.CreateInstance(constructedListType, value) : null;
-                Value2 = value2 != null ? Activator.CreateInstance(constructedListType, value2) : null;
+                this.Value = value != null ? Activator.CreateInstance(constructedListType, value) : null;
+                this.Value2 = value2 != null ? Activator.CreateInstance(constructedListType, value2) : null;
             }
             else
             {
-                Value = value;
-                Value2 = value2;
+                this.Value = value;
+                this.Value2 = value2;
             }
         }
     }

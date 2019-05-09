@@ -67,6 +67,7 @@ namespace Core.Api.Extensions
                         generator.MarkLabel(endIfLabel);
                     }
                 }
+
                 generator.Emit(OpCodes.Ldloc, result);
                 generator.Emit(OpCodes.Ret);
 

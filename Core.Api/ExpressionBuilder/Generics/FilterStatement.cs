@@ -50,31 +50,31 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// <param name="connector"></param>
         public FilterInfo(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
         {
-            PropertyName = propertyId;
-            Connector = connector;
-            Operation = operation;
-            SetValues(value, value2);
-            Validate();
+            this.PropertyName = propertyId;
+            this.Connector = connector;
+            this.Operation = operation;
+            this.SetValues(value, value2);
+            this.Validate();
         }
 
         private void SetValues(TPropertyType value, TPropertyType value2)
         {
             if (typeof(TPropertyType).IsArray)
             {
-                if (!Operation.SupportsLists)
+                if (!this.Operation.SupportsLists)
                 {
                     throw new ArgumentException("It seems the chosen operation does not support arrays as parameters.");
                 }
 
                 var listType = typeof(List<>);
                 var constructedListType = listType.MakeGenericType(typeof(TPropertyType).GetElementType());
-                Value = value != null ? Activator.CreateInstance(constructedListType, value) : null;
-                Value2 = value2 != null ? Activator.CreateInstance(constructedListType, value2) : null;
+                this.Value = value != null ? Activator.CreateInstance(constructedListType, value) : null;
+                this.Value2 = value2 != null ? Activator.CreateInstance(constructedListType, value2) : null;
             }
             else
             {
-                Value = value;
-                Value2 = value2;
+                this.Value = value;
+                this.Value2 = value2;
             }
         }
 
@@ -89,19 +89,19 @@ namespace Core.Api.ExpressionBuilder.Generics
         public void Validate()
         {
             var helper = new OperationHelper();
-            ValidateNumberOfValues();
-            ValidateSupportedOperations(helper);
+            this.ValidateNumberOfValues();
+            this.ValidateSupportedOperations(helper);
         }
 
         private void ValidateNumberOfValues()
         {
-            var numberOfValues = Operation.NumberOfValues;
-            var failsForSingleValue = numberOfValues == 1 && !Equals(Value2, default(TPropertyType));
-            var failsForNoValueAtAll = numberOfValues == 0 && (!Equals(Value, default(TPropertyType)) || !Equals(Value2, default(TPropertyType)));
+            var numberOfValues = this.Operation.NumberOfValues;
+            var failsForSingleValue = numberOfValues == 1 && !Equals(this.Value2, default(TPropertyType));
+            var failsForNoValueAtAll = numberOfValues == 0 && (!Equals(this.Value, default(TPropertyType)) || !Equals(this.Value2, default(TPropertyType)));
 
             if (failsForSingleValue || failsForNoValueAtAll)
             {
-                throw new WrongNumberOfValuesException(Operation);
+                throw new WrongNumberOfValuesException(this.Operation);
             }
         }
 
@@ -116,9 +116,9 @@ namespace Core.Api.ExpressionBuilder.Generics
 
             var supportedOperations = helper.SupportedOperations(typeof(TPropertyType));
 
-            if (!supportedOperations.Contains(Operation))
+            if (!supportedOperations.Contains(this.Operation))
             {
-                throw new UnsupportedOperationException(Operation, typeof(TPropertyType).Name);
+                throw new UnsupportedOperationException(this.Operation, typeof(TPropertyType).Name);
             }
         }
 
@@ -128,16 +128,16 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// <returns></returns>
 		public override string ToString()
         {
-            switch (Operation.NumberOfValues)
+            switch (this.Operation.NumberOfValues)
             {
                 case 0:
-                    return string.Format("{0} {1}", PropertyName, Operation);
+                    return string.Format("{0} {1}", this.PropertyName, this.Operation);
 
                 case 2:
-                    return string.Format("{0} {1} {2} And {3}", PropertyName, Operation, Value, Value2);
+                    return string.Format("{0} {1} {2} And {3}", this.PropertyName, this.Operation, this.Value, this.Value2);
 
                 default:
-                    return string.Format("{0} {1} {2}", PropertyName, Operation, Value);
+                    return string.Format("{0} {1} {2}", this.PropertyName, this.Operation, this.Value);
             }
         }
 
@@ -157,18 +157,18 @@ namespace Core.Api.ExpressionBuilder.Generics
         public void ReadXml(XmlReader reader)
         {
             reader.Read();
-            PropertyName = reader.ReadElementContentAsString();
-            Operation = Operations.Operation.ByName(reader.ReadElementContentAsString());
+            this.PropertyName = reader.ReadElementContentAsString();
+            this.Operation = Operations.Operation.ByName(reader.ReadElementContentAsString());
             if (typeof(TPropertyType).IsEnum)
             {
-                Value = Enum.Parse(typeof(TPropertyType), reader.ReadElementContentAsString());
+                this.Value = Enum.Parse(typeof(TPropertyType), reader.ReadElementContentAsString());
             }
             else
             {
-                Value = Convert.ChangeType(reader.ReadElementContentAsString(), typeof(TPropertyType));
+                this.Value = Convert.ChangeType(reader.ReadElementContentAsString(), typeof(TPropertyType));
             }
 
-            Connector = (Connector)Enum.Parse(typeof(Connector), reader.ReadElementContentAsString());
+            this.Connector = (Connector)Enum.Parse(typeof(Connector), reader.ReadElementContentAsString());
         }
 
         /// <summary>
@@ -177,12 +177,12 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// <param name="writer">The System.Xml.XmlWriter stream to which the object is serialized.</param>
         public void WriteXml(XmlWriter writer)
         {
-            var type = Value.GetType();
+            var type = this.Value.GetType();
             writer.WriteAttributeString("Type", type.AssemblyQualifiedName);
-            writer.WriteElementString("PropertyId", PropertyName);
-            writer.WriteElementString("Operation", Operation.Name);
-            writer.WriteElementString("Value", Value.ToString());
-            writer.WriteElementString("Connector", Connector.ToString("d"));
+            writer.WriteElementString("PropertyId", this.PropertyName);
+            writer.WriteElementString("Operation", this.Operation.Name);
+            writer.WriteElementString("Value", this.Value.ToString());
+            writer.WriteElementString("Connector", this.Connector.ToString("d"));
         }
     }
 }

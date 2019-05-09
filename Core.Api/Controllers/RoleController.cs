@@ -62,16 +62,18 @@ namespace Core.Api.Controllers
             if (model.Name.Trim().Length <= 0)
             {
                 response.SetFailed("请输入角色名称");
-                return Ok(response);
+                return this.Ok(response);
             }
+
             using (this.DbContext)
             {
                 if (this.DbContext.Role.Count(x => x.Name == model.Name) > 0)
                 {
                     response.SetFailed("角色已存在");
-                    return Ok(response);
+                    return this.Ok(response);
                 }
-                Role entity = Mapper.Map<RoleCreateViewModel, Role>(model);
+
+                Role entity = this.Mapper.Map<RoleCreateViewModel, Role>(model);
                 entity.CreatedTime = DateTime.Now;
                 //entity.Id = RandomHelper.GetRandomizer(8, true, false, true, true);
                 entity.IsSuperAdministrator = false;
@@ -82,7 +84,7 @@ namespace Core.Api.Controllers
                 this.DbContext.SaveChanges();
 
                 response.SetSuccess();
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -99,8 +101,8 @@ namespace Core.Api.Controllers
             {
                 Role entity = this.DbContext.Role.FirstOrDefault(x => x.Id == code);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(Mapper.Map<Role, RoleCreateViewModel>(entity));
-                return Ok(response);
+                response.SetData(this.Mapper.Map<Role, RoleCreateViewModel>(entity));
+                return this.Ok(response);
             }
         }
 
@@ -119,7 +121,7 @@ namespace Core.Api.Controllers
                 if (this.DbContext.Role.Count(x => x.Name == model.Name && x.Id != model.Code) > 0)
                 {
                     response.SetFailed("角色已存在");
-                    return Ok(response);
+                    return this.Ok(response);
                 }
 
                 Role entity = this.DbContext.Role.FirstOrDefault(x => x.Id == model.Code);
@@ -127,7 +129,7 @@ namespace Core.Api.Controllers
                 if (entity.IsSuperAdministrator && !AuthContextService.IsSupperAdministrator)
                 {
                     response.SetFailed("没有足够的权限");
-                    return Ok(response);
+                    return this.Ok(response);
                 }
 
                 entity.Name = model.Name;
@@ -138,7 +140,7 @@ namespace Core.Api.Controllers
                 entity.Status = model.Status.Value;
                 entity.Description = model.Description;
                 this.DbContext.SaveChanges();
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -151,8 +153,8 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Delete(string ids)
         {
-            ResponseModel response = UpdateIsEnable(true, ids);
-            return Ok(response);
+            ResponseModel response = this.UpdateIsEnable(true, ids);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -164,8 +166,8 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Recover(string ids)
         {
-            ResponseModel response = UpdateIsEnable(false, ids);
-            return Ok(response);
+            ResponseModel response = this.UpdateIsEnable(false, ids);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -182,21 +184,22 @@ namespace Core.Api.Controllers
             switch (command)
             {
                 case "delete":
-                    response = UpdateIsEnable(true, ids);
+                    response = this.UpdateIsEnable(true, ids);
                     break;
                 case "recover":
-                    response = UpdateIsEnable(false, ids);
+                    response = this.UpdateIsEnable(false, ids);
                     break;
                 case "forbidden":
-                    response = UpdateStatus(StatusEnum.Forbidden, ids);
+                    response = this.UpdateStatus(StatusEnum.Forbidden, ids);
                     break;
                 case "normal":
-                    response = UpdateStatus(StatusEnum.Normal, ids);
+                    response = this.UpdateStatus(StatusEnum.Normal, ids);
                     break;
                 default:
                     break;
             }
-            return Ok(response);
+
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -214,14 +217,16 @@ namespace Core.Api.Controllers
                 if (role == null)
                 {
                     response.SetFailed("角色不存在");
-                    return Ok(response);
+                    return this.Ok(response);
                 }
+
                 // 如果是超级管理员，则不写入到角色-权限映射表(在读取时跳过角色权限映射，直接读取系统所有的权限)
                 if (role.IsSuperAdministrator)
                 {
                     response.SetSuccess();
-                    return Ok(response);
+                    return this.Ok(response);
                 }
+
                 //先删除当前角色原来已分配的权限
                 this.DbContext.Database.ExecuteSqlCommand("DELETE FROM DncRolePermissionMapping WHERE RoleCode={0}", payload.RoleCode);
                 if (payload.Permissions != null || payload.Permissions.Count > 0)
@@ -237,7 +242,8 @@ namespace Core.Api.Controllers
                 }
 
             }
-            return Ok(response);
+
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -268,7 +274,7 @@ WHERE URM.UserGuid={0}";
                 List<int> assignedRoles = query.ToList().Select(x => x.Id).ToList();
                 var roles = this.DbContext.Role.Where(x => !x.IsEnable && x.Status).ToList().Select(x => new { label = x.Name, key = x.Id });
                 response.SetData(new { roles, assignedRoles });
-                return Ok(response);
+                return this.Ok(response);
             }
         }
 
@@ -285,7 +291,8 @@ WHERE URM.UserGuid={0}";
                 var roles = this.DbContext.Role.Where(x => !x.IsEnable && x.Status).Select(x => new { x.Name, x.Id }).ToList();
                 response.SetData(roles);
             }
-            return Ok(response);
+
+            return this.Ok(response);
         }
 
         #region 私有方法

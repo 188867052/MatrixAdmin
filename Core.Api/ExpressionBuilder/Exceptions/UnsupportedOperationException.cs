@@ -26,7 +26,7 @@ namespace Core.Api.ExpressionBuilder.Exceptions
         {
             get
             {
-                return string.Format("The type '{0}' does not have support for the operation '{1}'.", TypeName, Operation);
+                return string.Format("The type '{0}' does not have support for the operation '{1}'.", this.TypeName, this.Operation);
             }
         }
 
@@ -37,8 +37,8 @@ namespace Core.Api.ExpressionBuilder.Exceptions
         /// <param name="typeName">Name of the type.</param>
         public UnsupportedOperationException(IOperation operation, String typeName)
         {
-            Operation = operation;
-            TypeName = typeName;
+            this.Operation = operation;
+            this.TypeName = typeName;
         }
     }
 }

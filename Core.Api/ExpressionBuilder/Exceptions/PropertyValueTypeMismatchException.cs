@@ -30,7 +30,7 @@ namespace Core.Api.ExpressionBuilder.Exceptions
         {
             get
             {
-                return string.Format("The type of the member '{0}' ({1}) is different from the type of one of the constants ({2})", MemberName, MemberType, ConstantType);
+                return string.Format("The type of the member '{0}' ({1}) is different from the type of one of the constants ({2})", this.MemberName, this.MemberType, this.ConstantType);
             }
         }
 
@@ -42,9 +42,9 @@ namespace Core.Api.ExpressionBuilder.Exceptions
         /// <param name="constantType">Type of the constant which value tried to be attributed to the property or field.</param>
         public PropertyValueTypeMismatchException(string memberName, string memberType, string constantType)
         {
-            MemberName = memberName;
-            MemberType = memberType;
-            ConstantType = constantType;
+            this.MemberName = memberName;
+            this.MemberType = memberType;
+            this.ConstantType = constantType;
         }
     }
 }

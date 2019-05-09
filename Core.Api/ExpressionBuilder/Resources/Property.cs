@@ -26,15 +26,15 @@ namespace Core.Api.ExpressionBuilder.Resources
         {
             get
             {
-                return Info.MemberType == MemberTypes.Property ? (Info as PropertyInfo).PropertyType : (Info as FieldInfo).FieldType;
+                return this.Info.MemberType == MemberTypes.Property ? (this.Info as PropertyInfo).PropertyType : (this.Info as FieldInfo).FieldType;
             }
         }
 
         internal Property(string id, string name, MemberInfo info)
         {
-            Id = id;
-            Name = name;
-            Info = info;
+            this.Id = id;
+            this.Name = name;
+            this.Info = info;
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Core.Api.ExpressionBuilder.Resources
         /// <returns></returns>
         public override string ToString()
         {
-            return string.Format("{0} ({1})", Name, Id);
+            return string.Format("{0} ({1})", this.Name, this.Id);
         }
     }
 }

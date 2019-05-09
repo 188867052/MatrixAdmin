@@ -28,17 +28,19 @@ namespace Core.Extension
 
         public string Render()
         {
-            string controller = Type.Name.Replace(nameof(Controller), default);
+            string controller = this.Type.Name.Replace(nameof(Controller), default);
             string url = default;
-            if (Area != default)
+            if (this.Area != default)
             {
-                url += $"/{Area}";
+                url += $"/{this.Area}";
             }
+
             string parameter = default;
-            if (Parameter != default)
+            if (this.Parameter != default)
             {
-                parameter += $"/{Parameter}";
+                parameter += $"/{this.Parameter}";
             }
+
             return $"{url}/{controller}/{this.Action}{parameter}";
         }
     }

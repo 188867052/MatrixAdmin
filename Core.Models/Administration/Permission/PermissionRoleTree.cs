@@ -13,13 +13,15 @@ namespace Core.Model.Administration.Permission
         /// </summary>
         public PermissionMenuTree()
         {
-            Permissions = new List<PermissionElement>();
-            Children = new List<PermissionMenuTree>();
+            this.Permissions = new List<PermissionElement>();
+            this.Children = new List<PermissionMenuTree>();
         }
+
         /// <summary>
         /// GUID
         /// </summary>
         public Guid Guid { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

@@ -11,6 +11,7 @@ namespace Core.Api.Extensions.AuthContext
     public static class AuthContextService
     {
         private static IHttpContextAccessor _context;
+
         /// <summary>
         /// 
         /// </summary>
@@ -19,10 +20,12 @@ namespace Core.Api.Extensions.AuthContext
         {
             _context = httpContextAccessor;
         }
+
         /// <summary>
         /// 
         /// </summary>
         public static HttpContext Current => _context.HttpContext;
+
         /// <summary>
         /// 
         /// </summary>

@@ -220,6 +220,7 @@ namespace Core.Extension.Dapper
             if (type == null) throw new ArgumentNullException(nameof(type));
             return QueryRowAsync<object>(cnn, Row.First, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
         }
+
         /// <summary>
         /// Execute a single-row query asynchronously using .NET 4.5 Task.
         /// </summary>
@@ -236,6 +237,7 @@ namespace Core.Extension.Dapper
             if (type == null) throw new ArgumentNullException(nameof(type));
             return QueryRowAsync<object>(cnn, Row.FirstOrDefault, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
         }
+
         /// <summary>
         /// Execute a single-row query asynchronously using .NET 4.5 Task.
         /// </summary>
@@ -252,6 +254,7 @@ namespace Core.Extension.Dapper
             if (type == null) throw new ArgumentNullException(nameof(type));
             return QueryRowAsync<object>(cnn, Row.Single, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
         }
+
         /// <summary>
         /// Execute a single-row query asynchronously using .NET 4.5 Task.
         /// </summary>
@@ -370,6 +373,7 @@ namespace Core.Extension.Dapper
             { // we can retry; this time it will have different flags
                 return cmd.ExecuteReaderAsync(GetBehavior(wasClosed, behavior), cancellationToken);
             }
+
             return task;
         }
 
@@ -446,6 +450,7 @@ namespace Core.Extension.Dapper
                                 buffer.Add((T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture));
                             }
                         }
+
                         while (await reader.NextResultAsync(cancel).ConfigureAwait(false)) { /* ignore subsequent result sets */ }
                         command.OnCompleted();
                         return buffer;
@@ -507,6 +512,7 @@ namespace Core.Extension.Dapper
                             var convertToType = Nullable.GetUnderlyingType(effectiveType) ?? effectiveType;
                             result = (T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture);
                         }
+
                         if ((row & Row.Single) != 0 && await reader.ReadAsync(cancel).ConfigureAwait(false)) ThrowMultipleRows(row);
                         while (await reader.ReadAsync(cancel).ConfigureAwait(false)) { /* ignore rows after the first */ }
                     }
@@ -514,6 +520,7 @@ namespace Core.Extension.Dapper
                     {
                         ThrowZeroRows(row);
                     }
+
                     while (await reader.NextResultAsync(cancel).ConfigureAwait(false)) { /* ignore result sets after the first */ }
                     return result;
                 }
@@ -562,10 +569,11 @@ namespace Core.Extension.Dapper
         {
             public readonly DbCommand Command;
             public readonly Task<int> Task;
+
             public AsyncExecState(DbCommand command, Task<int> task)
             {
-                Command = command;
-                Task = task;
+                this.Command = command;
+                this.Task = task;
             }
         }
 
@@ -609,12 +617,14 @@ namespace Core.Extension.Dapper
                             {
                                 cmd = command.TrySetupAsyncCommand(cnn, null);
                             }
+
                             info.ParamReader(cmd, obj);
 
                             var task = cmd.ExecuteNonQueryAsync(command.CancellationToken);
                             pending.Enqueue(new AsyncExecState(cmd, task));
                             cmd = null; // note the using in the finally: this avoids a double-dispose
                         }
+
                         while (pending.Count != 0)
                         {
                             var pair = pending.Dequeue();
@@ -650,6 +660,7 @@ namespace Core.Extension.Dapper
                                 cmd.CommandText = masterSql; // because we do magic replaces on "in" etc
                                 cmd.Parameters.Clear(); // current code is Add-tastic
                             }
+
                             info.ParamReader(cmd, obj);
                             total += await cmd.ExecuteNonQueryAsync(command.CancellationToken).ConfigureAwait(false);
                         }
@@ -662,6 +673,7 @@ namespace Core.Extension.Dapper
             {
                 if (wasClosed) cnn.Close();
             }
+
             return total;
         }
 
@@ -1012,6 +1024,7 @@ namespace Core.Extension.Dapper
                 {
                     yield return (T)func(reader);
                 }
+
                 while (reader.NextResult()) { /* ignore subsequent result sets */ }
                 (parameters as IParameterCallbacks)?.OnCompleted();
             }
@@ -1067,8 +1080,10 @@ namespace Core.Extension.Dapper
                         { /* don't spoil the existing exception */
                         }
                     }
+
                     reader.Dispose();
                 }
+
                 cmd?.Dispose();
                 if (wasClosed) cnn.Close();
                 throw;
@@ -1222,6 +1237,7 @@ namespace Core.Extension.Dapper
                 if (wasClosed) cnn.Close();
                 cmd?.Dispose();
             }
+
             return Parse<T>(result);
         }
     }

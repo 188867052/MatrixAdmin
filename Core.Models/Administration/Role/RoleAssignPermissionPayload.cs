@@ -12,8 +12,9 @@ namespace Core.Model.Administration.Role
         /// </summary>
         public RoleAssignPermissionPayload()
         {
-            Permissions = new List<string>();
+            this.Permissions = new List<string>();
         }
+
         /// <summary>
         /// 角色编码
         /// </summary>

@@ -50,8 +50,8 @@
         /// </summary>
         public ResponseModel()
         {
-            Code = 200;
-            Message = "操作成功";
+            this.Code = 200;
+            this.Message = "操作成功";
         }
 
         /// <summary>
@@ -75,8 +75,8 @@
         /// <param name="message"></param>
         public void SetSuccess(string message = "成功")
         {
-            Code = 200;
-            Message = message;
+            this.Code = 200;
+            this.Message = message;
         }
 
         /// <summary>
@@ -85,8 +85,8 @@
         /// <param name="message"></param>
         public void SetFailed(string message = "失败")
         {
-            Message = message;
-            Code = 999;
+            this.Message = message;
+            this.Code = 999;
         }
 
         /// <summary>
@@ -95,8 +95,8 @@
         /// <param name="message"></param>
         public void SetError(string message = "错误")
         {
-            Code = 500;
-            Message = message;
+            this.Code = 500;
+            this.Message = message;
         }
 
         /// <summary>
@@ -105,8 +105,8 @@
         /// <param name="message"></param>
         public void SetNotFound(string message = "未知资源")
         {
-            Message = message;
-            Code = 404;
+            this.Message = message;
+            this.Code = 404;
         }
 
         /// <summary>
@@ -115,8 +115,8 @@
         /// <param name="message"></param>
         public void SetNoPermission(string message = "无权限")
         {
-            Message = message;
-            Code = 401;
+            this.Message = message;
+            this.Code = 401;
         }
 
         /// <summary>
@@ -126,7 +126,7 @@
         /// <param name="total"></param>
         public void SetData(object data, int total = 0)
         {
-            Data = data;
+            this.Data = data;
             this.TotalCount = total;
         }
     }

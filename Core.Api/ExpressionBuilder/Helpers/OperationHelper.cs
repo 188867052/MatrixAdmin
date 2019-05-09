@@ -48,8 +48,8 @@ namespace Core.Api.ExpressionBuilder.Helpers
         /// </summary>
         public OperationHelper()
         {
-            _settings = new Settings();
-            TypeGroups = new Dictionary<TypeGroup, HashSet<Type>>
+            this._settings = new Settings();
+            this.TypeGroups = new Dictionary<TypeGroup, HashSet<Type>>
             {
                 { TypeGroup.Text, new HashSet<Type> { typeof(string), typeof(char) } },
                 { TypeGroup.Number, new HashSet<Type> { typeof(int), typeof(uint), typeof(byte), typeof(sbyte), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(Single), typeof(double), typeof(decimal) } },
@@ -66,17 +66,17 @@ namespace Core.Api.ExpressionBuilder.Helpers
         /// <returns></returns>
         public HashSet<IOperation> SupportedOperations(Type type)
         {
-            GetCustomSupportedTypes();
-            return GetSupportedOperations(type);
+            this.GetCustomSupportedTypes();
+            return this.GetSupportedOperations(type);
         }
 
         private void GetCustomSupportedTypes()
         {
-            foreach (var supportedType in _settings.SupportedTypes)
+            foreach (var supportedType in this._settings.SupportedTypes)
             {
                 if (supportedType.Type != null)
                 {
-                    TypeGroups[supportedType.TypeGroup].Add(supportedType.Type);
+                    this.TypeGroups[supportedType.TypeGroup].Add(supportedType.Type);
                 }
             }
         }
@@ -90,20 +90,20 @@ namespace Core.Api.ExpressionBuilder.Helpers
             if (type.IsArray)
             {
                 typeName = type.GetElementType().Name;
-                supportedOperations.AddRange(Operations.Where(o => o.SupportsLists && o.Active));
+                supportedOperations.AddRange(this.Operations.Where(o => o.SupportsLists && o.Active));
             }
 
             var typeGroup = TypeGroup.Default;
-            if (TypeGroups.Any(i => i.Value.Any(v => v.Name == typeName)))
+            if (this.TypeGroups.Any(i => i.Value.Any(v => v.Name == typeName)))
             {
-                typeGroup = TypeGroups.FirstOrDefault(i => i.Value.Any(v => v.Name == typeName)).Key;
+                typeGroup = this.TypeGroups.FirstOrDefault(i => i.Value.Any(v => v.Name == typeName)).Key;
             }
 
-            supportedOperations.AddRange(Operations.Where(o => o.TypeGroup.HasFlag(typeGroup) && !o.SupportsLists && o.Active));
+            supportedOperations.AddRange(this.Operations.Where(o => o.TypeGroup.HasFlag(typeGroup) && !o.SupportsLists && o.Active));
 
             if (underlyingNullableType != null)
             {
-                supportedOperations.AddRange(Operations.Where(o => o.TypeGroup.HasFlag(TypeGroup.Nullable) && !o.SupportsLists && o.Active));
+                supportedOperations.AddRange(this.Operations.Where(o => o.TypeGroup.HasFlag(TypeGroup.Nullable) && !o.SupportsLists && o.Active));
             }
 
             return new HashSet<IOperation>(supportedOperations);
@@ -116,7 +116,7 @@ namespace Core.Api.ExpressionBuilder.Helpers
         /// <returns></returns>
         public IOperation GetOperationByName(string operationName)
         {
-            var operation = Operations.SingleOrDefault(o => o.Name == operationName && o.Active);
+            var operation = this.Operations.SingleOrDefault(o => o.Name == operationName && o.Active);
 
             if (operation == null)
             {
@@ -132,7 +132,7 @@ namespace Core.Api.ExpressionBuilder.Helpers
         /// <param name="operations">List of operations to load.</param>
         public void LoadOperations(List<IOperation> operations)
         {
-            LoadOperations(operations, false);
+            this.LoadOperations(operations, false);
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace Core.Api.ExpressionBuilder.Helpers
         {
             foreach (var operation in operations)
             {
-                DeactivateOperation(operation.Name, overloadExisting);
+                this.DeactivateOperation(operation.Name, overloadExisting);
                 _operations.Add(operation);
             }
         }

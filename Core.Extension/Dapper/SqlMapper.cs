@@ -29,6 +29,7 @@ namespace Core.Extension.Dapper
         {
             public int Compare(PropertyInfo x, PropertyInfo y) => string.CompareOrdinal(x.Name, y.Name);
         }
+
         private static int GetColumnHash(IDataReader reader, int startBound = 0, int length = -1)
         {
             unchecked
@@ -40,6 +41,7 @@ namespace Core.Extension.Dapper
                     object tmp = reader.GetName(i);
                     hash = (-79 * ((hash * 31) + (tmp?.GetHashCode() ?? 0))) + (reader.GetFieldType(i)?.GetHashCode() ?? 0);
                 }
+
                 return hash;
             }
         }
@@ -48,6 +50,7 @@ namespace Core.Extension.Dapper
         /// Called if the query cache is purged via PurgeQueryCache
         /// </summary>
         public static event EventHandler QueryCachePurged;
+
         private static void OnQueryCachePurged()
         {
             var handler = QueryCachePurged;
@@ -55,12 +58,14 @@ namespace Core.Extension.Dapper
         }
 
         private static readonly System.Collections.Concurrent.ConcurrentDictionary<Identity, CacheInfo> _queryCache = new System.Collections.Concurrent.ConcurrentDictionary<Identity, CacheInfo>();
+
         private static void SetQueryCache(Identity key, CacheInfo value)
         {
             if (Interlocked.Increment(ref collect) == COLLECT_PER_ITEMS)
             {
                 CollectCacheGarbage();
             }
+
             _queryCache[key] = value;
         }
 
@@ -85,6 +90,7 @@ namespace Core.Extension.Dapper
 
         private const int COLLECT_PER_ITEMS = 1000, COLLECT_HIT_COUNT_MIN = 0;
         private static int collect;
+
         private static bool TryGetQueryCache(Identity key, out CacheInfo value)
         {
             if (_queryCache.TryGetValue(key, out value))
@@ -92,6 +98,7 @@ namespace Core.Extension.Dapper
                 value.RecordHit();
                 return true;
             }
+
             value = null;
             return false;
         }
@@ -113,6 +120,7 @@ namespace Core.Extension.Dapper
                 if (entry.Key.type == type)
                     _queryCache.TryRemove(entry.Key, out CacheInfo cache);
             }
+
             TypeDeserializerCache.Purge(type);
         }
 
@@ -156,6 +164,7 @@ namespace Core.Extension.Dapper
                     counts[key.hashCode] = count + 1;
                 }
             }
+
             return from pair in counts
                    where pair.Value > 1
                    select Tuple.Create(pair.Key, pair.Value);
@@ -324,6 +333,7 @@ namespace Core.Extension.Dapper
                 newCopy[type] = handler;
                 if (secondary != null) newCopy[secondary] = handler;
             }
+
             typeHandlers = newCopy;
         }
 
@@ -377,18 +387,22 @@ namespace Core.Extension.Dapper
             {
                 type = Enum.GetUnderlyingType(type);
             }
+
             if (typeMap.TryGetValue(type, out DbType dbType))
             {
                 return dbType;
             }
+
             if (type.FullName == LinqBinary)
             {
                 return DbType.Binary;
             }
+
             if (typeHandlers.TryGetValue(type, out handler))
             {
                 return DbType.Object;
             }
+
             if (typeof(IEnumerable).IsAssignableFrom(type))
             {
                 return DynamicParameters.EnumerableMultiParameter;
@@ -520,6 +534,7 @@ namespace Core.Extension.Dapper
                     // this includes all the code for concurrent/overlapped query
                     return ExecuteMultiImplAsync(cnn, command, multiExec).Result;
                 }
+
                 bool isFirst = true;
                 int total = 0;
                 bool wasClosed = cnn.State == ConnectionState.Closed;
@@ -543,16 +558,19 @@ namespace Core.Extension.Dapper
                                 cmd.CommandText = masterSql; // because we do magic replaces on "in" etc
                                 cmd.Parameters.Clear(); // current code is Add-tastic
                             }
+
                             info.ParamReader(cmd, obj);
                             total += cmd.ExecuteNonQuery();
                         }
                     }
+
                     command.OnCompleted();
                 }
                 finally
                 {
                     if (wasClosed) cnn.Close();
                 }
+
                 return total;
             }
 
@@ -562,6 +580,7 @@ namespace Core.Extension.Dapper
                 identity = new Identity(command.CommandText, command.CommandType, cnn, null, param.GetType(), null);
                 info = GetCacheInfo(identity, param, command.AddToCache);
             }
+
             return ExecuteCommand(cnn, ref command, param == null ? null : info.ParamReader);
         }
 
@@ -1033,8 +1052,10 @@ namespace Core.Extension.Dapper
                         try { cmd?.Cancel(); }
                         catch { /* don't spoil the existing exception */ }
                     }
+
                     reader.Dispose();
                 }
+
                 cmd?.Dispose();
                 if (wasClosed) cnn.Close();
                 throw;
@@ -1054,6 +1075,7 @@ namespace Core.Extension.Dapper
                     // we can retry; this time it will have different flags
                     return cmd.ExecuteReader(GetBehavior(wasClosed, behavior));
                 }
+
                 throw;
             }
         }
@@ -1102,6 +1124,7 @@ namespace Core.Extension.Dapper
                         yield return (T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture);
                     }
                 }
+
                 while (reader.NextResult()) { /* ignore subsequent result sets */ }
                 // happy path; close the reader cleanly - no
                 // need for "Cancel" etc
@@ -1119,8 +1142,10 @@ namespace Core.Extension.Dapper
                         try { cmd.Cancel(); }
                         catch { /* don't spoil the existing exception */ }
                     }
+
                     reader.Dispose();
                 }
+
                 if (wasClosed) cnn.Close();
                 cmd?.Dispose();
             }
@@ -1136,6 +1161,7 @@ namespace Core.Extension.Dapper
         }
 
         private static readonly int[] ErrTwoRows = new int[2], ErrZeroRows = new int[0];
+
         private static void ThrowMultipleRows(Row row)
         {
             switch (row)
@@ -1201,6 +1227,7 @@ namespace Core.Extension.Dapper
                         var convertToType = Nullable.GetUnderlyingType(effectiveType) ?? effectiveType;
                         result = (T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture);
                     }
+
                     if ((row & Row.Single) != 0 && reader.Read()) ThrowMultipleRows(row);
                     while (reader.Read()) { /* ignore subsequent rows */ }
                 }
@@ -1208,6 +1235,7 @@ namespace Core.Extension.Dapper
                 {
                     ThrowZeroRows(row);
                 }
+
                 while (reader.NextResult()) { /* ignore subsequent result sets */ }
                 // happy path; close the reader cleanly - no
                 // need for "Cancel" etc
@@ -1226,8 +1254,10 @@ namespace Core.Extension.Dapper
                         try { cmd.Cancel(); }
                         catch { /* don't spoil the existing exception */ }
                     }
+
                     reader.Dispose();
                 }
+
                 if (wasClosed) cnn.Close();
                 cmd?.Dispose();
             }
@@ -1418,6 +1448,7 @@ namespace Core.Extension.Dapper
                     ownedReader = ExecuteReaderWithFlagsFallback(ownedCommand, wasClosed, CommandBehavior.SequentialAccess | CommandBehavior.SingleResult);
                     reader = ownedReader;
                 }
+
                 var deserializer = default(DeserializerState);
                 Func<IDataReader, object>[] otherDeserializers;
 
@@ -1438,6 +1469,7 @@ namespace Core.Extension.Dapper
                     {
                         yield return mapIt(reader);
                     }
+
                     if (finalize)
                     {
                         while (reader.NextResult()) { /* ignore remaining result sets */ }
@@ -1488,6 +1520,7 @@ namespace Core.Extension.Dapper
                     ownedReader = ExecuteReaderWithFlagsFallback(ownedCommand, wasClosed, CommandBehavior.SequentialAccess | CommandBehavior.SingleResult);
                     reader = ownedReader;
                 }
+
                 DeserializerState deserializer;
                 Func<IDataReader, object>[] otherDeserializers;
 
@@ -1508,6 +1541,7 @@ namespace Core.Extension.Dapper
                     {
                         yield return mapIt(reader);
                     }
+
                     if (finalize)
                     {
                         while (reader.NextResult()) { /* ignore subsequent result sets */ }
@@ -1591,6 +1625,7 @@ namespace Core.Extension.Dapper
                     {
                         currentSplit = splits[++splitIdx];
                     }
+
                     deserializers.Add(GetDeserializer(type, reader, currentPos, splitPoint - currentPos, !first));
                     currentPos = splitPoint;
                     first = false;
@@ -1680,6 +1715,7 @@ namespace Core.Extension.Dapper
                 {
                     throw new InvalidOperationException("An enumerable sequence of parameters (arrays, lists, etc) is not allowed in this context");
                 }
+
                 info = new CacheInfo();
                 if (identity.parametersType != null)
                 {
@@ -1701,6 +1737,7 @@ namespace Core.Extension.Dapper
                         var literals = GetLiteralTokens(identity.sql);
                         reader = CreateParamInfoGenerator(identity, false, true, literals);
                     }
+
                     if ((identity.commandType == null || identity.commandType == CommandType.Text) && ShouldPassByPosition(identity.sql))
                     {
                         var tail = reader;
@@ -1710,10 +1747,13 @@ namespace Core.Extension.Dapper
                             PassByPosition(cmd);
                         };
                     }
+
                     info.ParamReader = reader;
                 }
+
                 if (addToCache) SetQueryCache(identity, info);
             }
+
             return info;
         }
 
@@ -1732,6 +1772,7 @@ namespace Core.Extension.Dapper
             {
                 if (!string.IsNullOrEmpty(param.ParameterName)) parameters[param.ParameterName] = param;
             }
+
             HashSet<string> consumed = new HashSet<string>(StringComparer.Ordinal);
             bool firstMatch = true;
             cmd.CommandText = pseudoPositional.Replace(cmd.CommandText, match =>
@@ -1748,6 +1789,7 @@ namespace Core.Extension.Dapper
                         firstMatch = false;
                         cmd.Parameters.Clear(); // only clear if we are pretty positive that we've found this pattern successfully
                     }
+
                     // if found, return the anonymous token "?"
                     cmd.Parameters.Add(param);
                     parameters.Remove(key);
@@ -1769,6 +1811,7 @@ namespace Core.Extension.Dapper
             {
                 return GetDapperRowDeserializer(reader, startBound, length, returnNullIfFirstMissing);
             }
+
             Type underlyingType = null;
             if (!(typeMap.ContainsKey(type) || type.IsEnum() || type.FullName == LinqBinary
                 || (type.IsValueType() && (underlyingType = Nullable.GetUnderlyingType(type)) != null && underlyingType.IsEnum())))
@@ -1777,8 +1820,10 @@ namespace Core.Extension.Dapper
                 {
                     return GetHandlerDeserializer(handler, type, startBound);
                 }
+
                 return GetTypeDeserializer(type, reader, startBound, length, returnNullIfFirstMissing);
             }
+
             return GetStructDeserializer(type, underlyingType ?? type, startBound);
         }
 
@@ -1825,6 +1870,7 @@ namespace Core.Extension.Dapper
                         {
                             names[i] = r.GetName(i + startBound);
                         }
+
                         table = new DapperTable(names);
                     }
 
@@ -1856,9 +1902,11 @@ namespace Core.Extension.Dapper
                             values[iter] = obj is DBNull ? null : obj;
                         }
                     }
+
                     return new DapperRow(table, values);
                 };
         }
+
         /// <summary>
         /// Internal use only.
         /// </summary>
@@ -1917,6 +1965,7 @@ namespace Core.Extension.Dapper
                 result.ParameterName = name;
                 parameters.Add(result);
             }
+
             return result;
         }
 
@@ -1932,6 +1981,7 @@ namespace Core.Extension.Dapper
                 case 5:
                     return 0; // no padding
             }
+
             if (count < 0) return 0;
 
             int padFactor;
@@ -1998,11 +2048,13 @@ namespace Core.Extension.Dapper
                             {
                                 throw new NotSupportedException("The first item in a list-expansion cannot be null");
                             }
+
                             if (!isDbString)
                             {
                                 dbType = LookupDbType(item.GetType(), "", true, out ITypeHandler handler);
                             }
                         }
+
                         var nextName = namePrefix + count.ToString();
                         if (isDbString && item is DbString)
                         {
@@ -2030,9 +2082,11 @@ namespace Core.Extension.Dapper
                             {
                                 listParam.DbType = dbType;
                             }
+
                             command.Parameters.Add(listParam);
                         }
                     }
+
                     if (Settings.PadListExpansions && !isDbString && lastValue != null)
                     {
                         int padCount = GetListPaddingExtraCount(count);
@@ -2091,6 +2145,7 @@ namespace Core.Extension.Dapper
                                 {
                                     sb.Append(',').Append(variableName).Append(i).Append(suffix);
                                 }
+
                                 return sb.__ToStringRecycle();
                             }
                             else
@@ -2102,6 +2157,7 @@ namespace Core.Extension.Dapper
                                     sb.Append(',').Append(variableName);
                                     if (!byPosition) sb.Append(i);
                                 }
+
                                 return sb.Append(')').__ToStringRecycle();
                             }
                         }, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
@@ -2124,6 +2180,7 @@ namespace Core.Extension.Dapper
                 case IEnumerable<byte> l:
                     return TryStringSplit(ref l, splitAt, namePrefix, command, "tinyint", byPosition, (sb, i) => sb.Append(i.ToString(CultureInfo.InvariantCulture)));
             }
+
             return false;
         }
 
@@ -2136,6 +2193,7 @@ namespace Core.Extension.Dapper
                 typed = list.ToList();
                 list = typed; // because we still need to be able to iterate it, even if we fail here
             }
+
             if (typed.Count < splitAt) return false;
 
             string varName = null;
@@ -2172,6 +2230,7 @@ namespace Core.Extension.Dapper
                     {
                         append(sb.Append(','), iter.Current);
                     }
+
                     val = sb.ToString();
                 }
                 else
@@ -2179,6 +2238,7 @@ namespace Core.Extension.Dapper
                     val = "";
                 }
             }
+
             concatenatedParam.Value = val;
             command.Parameters.Add(concatenatedParam);
             return true;
@@ -2203,6 +2263,7 @@ namespace Core.Extension.Dapper
                 {
                     typeCode = TypeExtensions.GetTypeCode(Enum.GetUnderlyingType(value.GetType()));
                 }
+
                 switch (typeCode)
                 {
                     case TypeCode.Byte: return (byte)value;
@@ -2215,6 +2276,7 @@ namespace Core.Extension.Dapper
                     case TypeCode.UInt64: return (ulong)value;
                 }
             }
+
             return value;
         }
 
@@ -2226,6 +2288,7 @@ namespace Core.Extension.Dapper
                 if (Regex.IsMatch(sql, @"[?@:]" + p.Name + @"([^\p{L}\p{N}_]+|$)", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant))
                     list.Add(p);
             }
+
             return list;
         }
 
@@ -2307,8 +2370,10 @@ namespace Core.Extension.Dapper
                                 {
                                     sb.Append(',');
                                 }
+
                                 sb.Append(Format(subval));
                             }
+
                             if (first)
                             {
                                 return "(select null where 1=0)";
@@ -2318,6 +2383,7 @@ namespace Core.Extension.Dapper
                                 return sb.Append(')').__ToStringRecycle();
                             }
                         }
+
                         throw new NotSupportedException($"The type '{value.GetType().Name}' is not supported for SQL literals.");
                 }
             }
@@ -2334,6 +2400,7 @@ namespace Core.Extension.Dapper
 #pragma warning restore 0618
                 sql = sql.Replace(token.Token, text);
             }
+
             command.CommandText = sql;
         }
 
@@ -2353,6 +2420,7 @@ namespace Core.Extension.Dapper
                     list.Add(new LiteralToken(token, match.Groups[1].Value));
                 }
             }
+
             return list.Count == 0 ? LiteralToken.None : list;
         }
 
@@ -2362,8 +2430,11 @@ namespace Core.Extension.Dapper
         /// <param name="identity">The identity of the generator.</param>
         /// <param name="checkForDuplicates">Whether to check for duplicates.</param>
         /// <param name="removeUnused">Whether to remove unused parameters.</param>
-        public static Action<IDbCommand, object> CreateParamInfoGenerator(Identity identity, bool checkForDuplicates, bool removeUnused) =>
-            CreateParamInfoGenerator(identity, checkForDuplicates, removeUnused, GetLiteralTokens(identity.sql));
+        /// <returns>A value.</returns>
+        public static Action<IDbCommand, object> CreateParamInfoGenerator(Identity identity, bool checkForDuplicates, bool removeUnused)
+        {
+            return CreateParamInfoGenerator(identity, checkForDuplicates, removeUnused, GetLiteralTokens(identity.sql));
+        }
 
         private static bool IsValueTuple(Type type) => type?.IsValueType() == true && type.FullName.StartsWith("System.ValueTuple`", StringComparison.Ordinal);
 
@@ -2383,8 +2454,10 @@ namespace Core.Extension.Dapper
                         break;
                     }
                 }
+
                 result.Add(field == null ? null : new SimpleMemberMap(string.IsNullOrWhiteSpace(names[i]) ? name : names[i], field));
             }
+
             return result;
         }
 
@@ -2402,6 +2475,7 @@ namespace Core.Extension.Dapper
             {
                 filterParams = !smellsLikeOleDb.IsMatch(identity.sql);
             }
+
             var dm = new DynamicMethod("ParamInfo" + Guid.NewGuid().ToString(), null, new[] { typeof(IDbCommand), typeof(object) }, type, true);
 
             var il = dm.GetILGenerator();
@@ -2419,6 +2493,7 @@ namespace Core.Extension.Dapper
                 il.DeclareLocal(type); // 0
                 il.Emit(OpCodes.Castclass, type); // stack is now [typed-param]
             }
+
             il.Emit(OpCodes.Stloc_0);// stack is now empty
 
             il.Emit(OpCodes.Ldarg_0); // stack is now [command]
@@ -2450,6 +2525,7 @@ namespace Core.Extension.Dapper
                         break;
                     }
                 }
+
                 if (ok)
                 {
                     // pre-sorted; the reflection gods have smiled upon us
@@ -2462,6 +2538,7 @@ namespace Core.Extension.Dapper
                     {
                         positionByName[param.Name] = param.Position;
                     }
+
                     if (positionByName.Count == propsList.Count)
                     {
                         int[] positions = new int[propsList.Count];
@@ -2473,8 +2550,10 @@ namespace Core.Extension.Dapper
                                 ok = false;
                                 break;
                             }
+
                             positions[i] = pos;
                         }
+
                         if (ok)
                         {
                             props = propsList.ToArray();
@@ -2483,11 +2562,13 @@ namespace Core.Extension.Dapper
                     }
                 }
             }
+
             if (props == null)
             {
                 propsList.Sort(new PropertyInfoByNameComparer());
                 props = propsList;
             }
+
             if (filterParams)
             {
                 props = FilterParameters(props, identity.sql);
@@ -2519,9 +2600,11 @@ namespace Core.Extension.Dapper
                     {
                         il.Emit(OpCodes.Box, prop.PropertyType); // stack is [parameters] [command] [name] [boxed-value]
                     }
+
                     il.EmitCall(OpCodes.Call, typeof(SqlMapper).GetMethod(nameof(SqlMapper.PackListParameters)), null); // stack is [parameters]
                     continue;
                 }
+
                 il.Emit(OpCodes.Dup); // stack is now [parameters] [parameters]
 
                 il.Emit(OpCodes.Ldarg_0); // stack is now [parameters] [parameters] [command]
@@ -2541,6 +2624,7 @@ namespace Core.Extension.Dapper
                     il.Emit(OpCodes.Ldstr, prop.Name); // stack is now [parameters] [parameters] [parameter] [parameter] [name]
                     il.EmitCall(OpCodes.Callvirt, typeof(IDataParameter).GetProperty(nameof(IDataParameter.ParameterName)).GetSetMethod(), null);// stack is now [parameters] [parameters] [parameter]
                 }
+
                 if (dbType != DbType.Time && handler == null) // https://connect.microsoft.com/VisualStudio/feedback/details/381934/sqlparameter-dbtype-dbtype-time-sets-the-parameter-to-sqldbtype-datetime-instead-of-sqldbtype-time
                 {
                     il.Emit(OpCodes.Dup);// stack is now [parameters] [[parameters]] [parameter] [parameter]
@@ -2556,6 +2640,7 @@ namespace Core.Extension.Dapper
                         // constant value; nice and simple
                         EmitInt32(il, (int)dbType);// stack is now [parameters] [[parameters]] [parameter] [parameter] [db-type]
                     }
+
                     il.EmitCall(OpCodes.Callvirt, typeof(IDataParameter).GetProperty(nameof(IDataParameter.DbType)).GetSetMethod(), null);// stack is now [parameters] [[parameters]] [parameter]
                 }
 
@@ -2602,6 +2687,7 @@ namespace Core.Extension.Dapper
                     {
                         checkForNull = nullType != null;
                     }
+
                     il.Emit(OpCodes.Box, propType); // stack is [parameters] [[parameters]] [parameter] [parameter] [boxed-value]
                     if (callSanitize)
                     {
@@ -2614,6 +2700,7 @@ namespace Core.Extension.Dapper
                 {
                     checkForNull = true; // if not a value-type, need to check
                 }
+
                 if (checkForNull)
                 {
                     if ((dbType == DbType.String || dbType == DbType.AnsiString) && !haveInt32Arg1)
@@ -2621,6 +2708,7 @@ namespace Core.Extension.Dapper
                         il.DeclareLocal(typeof(int));
                         haveInt32Arg1 = true;
                     }
+
                     // relative stack: [boxed value]
                     il.Emit(OpCodes.Dup);// relative stack: [boxed value] [boxed value]
                     Label notNull = il.DefineLabel();
@@ -2634,6 +2722,7 @@ namespace Core.Extension.Dapper
                         EmitInt32(il, 0);
                         il.Emit(OpCodes.Stloc_1);
                     }
+
                     if (allDone != null) il.Emit(OpCodes.Br_S, allDone.Value);
                     il.MarkLabel(notNull);
                     if (prop.PropertyType == typeof(string))
@@ -2651,10 +2740,12 @@ namespace Core.Extension.Dapper
                         il.MarkLabel(lenDone);
                         il.Emit(OpCodes.Stloc_1); // [string]
                     }
+
                     if (prop.PropertyType.FullName == LinqBinary)
                     {
                         il.EmitCall(OpCodes.Callvirt, prop.PropertyType.GetMethod("ToArray", BindingFlags.Public | BindingFlags.Instance), null);
                     }
+
                     if (allDone != null) il.MarkLabel(allDone.Value);
                     // relative stack [boxed value or DBNull]
                 }
@@ -2683,6 +2774,7 @@ namespace Core.Extension.Dapper
 
                     il.MarkLabel(endOfSize);
                 }
+
                 if (checkForDuplicates)
                 {
                     // stack is now [parameters] [parameter]
@@ -2726,6 +2818,7 @@ namespace Core.Extension.Dapper
                             }
                         }
                     }
+
                     var prop = exact ?? fallback;
 
                     if (prop != null)
@@ -2771,12 +2864,14 @@ namespace Core.Extension.Dapper
                                     {
                                         if (!locals.TryGetValue(propType, out local)) local = null;
                                     }
+
                                     if (local == null)
                                     {
                                         local = il.DeclareLocal(propType);
                                         locals.Add(propType, local);
                                     }
                                 }
+
                                 il.Emit(OpCodes.Stloc, local); // command, sql
                                 il.Emit(OpCodes.Ldloca, local); // command, sql, ref-to-value
                                 il.EmitCall(OpCodes.Call, InvariantCulture, null); // command, sql, ref-to-value, culture
@@ -2787,9 +2882,11 @@ namespace Core.Extension.Dapper
                                 il.EmitCall(OpCodes.Call, format, null); // command, sql, string value
                                 break;
                         }
+
                         il.EmitCall(OpCodes.Callvirt, StringReplace, null);
                     }
                 }
+
                 il.EmitCall(OpCodes.Callvirt, cmdText.GetSetMethod(), null); // empty
             }
 
@@ -2855,6 +2952,7 @@ namespace Core.Extension.Dapper
                 if (wasClosed) cnn.Close();
                 cmd?.Dispose();
             }
+
             return Parse<T>(result);
         }
 
@@ -2896,6 +2994,7 @@ namespace Core.Extension.Dapper
                 var identity = new Identity(command.CommandText, command.CommandType, cnn, null, param.GetType(), null);
                 info = GetCacheInfo(identity, param, command.AddToCache);
             }
+
             var paramReader = info?.ParamReader;
             return paramReader;
         }
@@ -2908,10 +3007,12 @@ namespace Core.Extension.Dapper
             { // this *does* need special handling, though
                 return r => ReadChar(r.GetValue(index));
             }
+
             if (type == typeof(char?))
             {
                 return r => ReadNullableChar(r.GetValue(index));
             }
+
             if (type.FullName == LinqBinary)
             {
                 return r => Activator.CreateInstance(type, r.GetValue(index));
@@ -2927,9 +3028,11 @@ namespace Core.Extension.Dapper
                     {
                         val = Convert.ChangeType(val, Enum.GetUnderlyingType(effectiveType), CultureInfo.InvariantCulture);
                     }
+
                     return val is DBNull ? null : Enum.ToObject(effectiveType, val);
                 };
             }
+
             if (typeHandlers.TryGetValue(type, out ITypeHandler handler))
             {
                 return r =>
@@ -2938,6 +3041,7 @@ namespace Core.Extension.Dapper
                     return val is DBNull ? null : handler.Parse(type, val);
                 };
             }
+
             return r =>
             {
                 var val = r.GetValue(index);
@@ -2957,12 +3061,15 @@ namespace Core.Extension.Dapper
                 {
                     value = Convert.ChangeType(value, Enum.GetUnderlyingType(type), CultureInfo.InvariantCulture);
                 }
+
                 return (T)Enum.ToObject(type, value);
             }
+
             if (typeHandlers.TryGetValue(type, out ITypeHandler handler))
             {
                 return (T)handler.Parse(type, value);
             }
+
             return (T)Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
         }
 
@@ -3001,6 +3108,7 @@ namespace Core.Extension.Dapper
                     }
                 }
             }
+
             return map;
         }
 
@@ -3060,6 +3168,7 @@ namespace Core.Extension.Dapper
                 found = il.DeclareLocal(type);
                 locals.Add(type, found);
             }
+
             if (initAndLoad)
             {
                 il.Emit(OpCodes.Ldloca, (short)found.LocalIndex);
@@ -3067,6 +3176,7 @@ namespace Core.Extension.Dapper
                 il.Emit(OpCodes.Ldloca, (short)found.LocalIndex);
                 il.Emit(OpCodes.Ldobj, type);
             }
+
             return found;
         }
 
@@ -3236,6 +3346,7 @@ namespace Core.Extension.Dapper
                                 {
                                     enumDeclareLocal = il.DeclareLocal(typeof(string)).LocalIndex;
                                 }
+
                                 il.Emit(OpCodes.Castclass, typeof(string)); // stack is now [target][target][string]
                                 StoreLocal(il, enumDeclareLocal); // stack is now [target][target]
                                 il.Emit(OpCodes.Ldtoken, unboxType); // stack is now [target][target][enum-type-token]
@@ -3288,6 +3399,7 @@ namespace Core.Extension.Dapper
                             }
                         }
                     }
+
                     if (specializedConstructor == null)
                     {
                         // Store the value in the property/field
@@ -3359,9 +3471,11 @@ namespace Core.Extension.Dapper
 
                     il.MarkLabel(finishLabel);
                 }
+
                 first = false;
                 index++;
             }
+
             if (type.IsValueType())
             {
                 il.Emit(OpCodes.Pop);
@@ -3372,6 +3486,7 @@ namespace Core.Extension.Dapper
                 {
                     il.Emit(OpCodes.Newobj, specializedConstructor);
                 }
+
                 il.Emit(OpCodes.Stloc_1); // stack is empty
 #if !NETSTANDARD1_3
                 if (supportInitialize)
@@ -3381,6 +3496,7 @@ namespace Core.Extension.Dapper
                 }
 #endif
             }
+
             il.MarkLabel(allDone);
             il.BeginCatchBlock(typeof(Exception)); // stack is Exception
             il.Emit(OpCodes.Ldloc_0); // stack is Exception, index
@@ -3394,6 +3510,7 @@ namespace Core.Extension.Dapper
             {
                 il.Emit(OpCodes.Box, type);
             }
+
             il.Emit(OpCodes.Ret);
 
             var funcType = System.Linq.Expressions.Expression.GetFuncType(typeof(IDataReader), returnType);
@@ -3458,8 +3575,10 @@ namespace Core.Extension.Dapper
                                 handled = false;
                                 break;
                         }
+
                         break;
                 }
+
                 if (handled)
                 {
                     il.Emit(OpCodes.Unbox_Any, from); // stack is now [target][target][col-typed-value]
@@ -3501,6 +3620,7 @@ namespace Core.Extension.Dapper
                 if (args.Length != 1 || args[0].ParameterType != from) continue;
                 return methods[i];
             }
+
             return null;
         }
 
@@ -3522,6 +3642,7 @@ namespace Core.Extension.Dapper
                     {
                         il.Emit(OpCodes.Ldloc, (short)index);
                     }
+
                     break;
             }
         }
@@ -3544,6 +3665,7 @@ namespace Core.Extension.Dapper
                     {
                         il.Emit(OpCodes.Stloc, (short)index);
                     }
+
                     break;
             }
         }
@@ -3595,12 +3717,14 @@ namespace Core.Extension.Dapper
                         formattedValue = valEx.Message;
                     }
                 }
+
                 toThrow = new DataException($"Error parsing column {index} ({name}={formattedValue})", ex);
             }
             catch
             { // throw the **original** exception, wrapped as DataException
                 toThrow = new DataException(ex.Message, ex);
             }
+
             throw toThrow;
         }
 
@@ -3627,6 +3751,7 @@ namespace Core.Extension.Dapper
                     {
                         il.Emit(OpCodes.Ldc_I4, value);
                     }
+
                     break;
             }
         }
@@ -3694,6 +3819,7 @@ namespace Core.Extension.Dapper
         // one per thread
         [ThreadStatic]
         private static StringBuilder perThreadStringBuilderCache;
+
         private static StringBuilder GetStringBuilder()
         {
             var tmp = perThreadStringBuilderCache;
@@ -3703,6 +3829,7 @@ namespace Core.Extension.Dapper
                 tmp.Length = 0;
                 return tmp;
             }
+
             return new StringBuilder();
         }
 

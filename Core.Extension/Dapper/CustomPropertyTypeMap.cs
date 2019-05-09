@@ -18,8 +18,8 @@ namespace Core.Extension.Dapper
         /// <param name="propertySelector">Property selector based on target type and DataReader column name</param>
         public CustomPropertyTypeMap(Type type, Func<Type, string, PropertyInfo> propertySelector)
         {
-            _type = type ?? throw new ArgumentNullException(nameof(type));
-            _propertySelector = propertySelector ?? throw new ArgumentNullException(nameof(propertySelector));
+            this._type = type ?? throw new ArgumentNullException(nameof(type));
+            this._propertySelector = propertySelector ?? throw new ArgumentNullException(nameof(propertySelector));
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Core.Extension.Dapper
         /// <param name="types">DataReader column types</param>
         /// <returns>Default constructor</returns>
         public ConstructorInfo FindConstructor(string[] names, Type[] types) =>
-            _type.GetConstructor(new Type[0]);
+            this._type.GetConstructor(new Type[0]);
 
         /// <summary>
         /// Always returns null
@@ -55,7 +55,7 @@ namespace Core.Extension.Dapper
         /// <returns>Poperty member map</returns>
         public SqlMapper.IMemberMap GetMember(string columnName)
         {
-            var prop = _propertySelector(_type, columnName);
+            var prop = this._propertySelector(this._type, columnName);
             return prop != null ? new SimpleMemberMap(columnName, prop) : null;
         }
     }

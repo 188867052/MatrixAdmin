@@ -13,8 +13,8 @@ namespace Core.Model
         /// </summary>
         public PostModel()
         {
-            Sort = new List<Sort>();
-            KeyWord = "";
+            this.Sort = new List<Sort>();
+            this.KeyWord = "";
         }
 
         /// <summary>
@@ -40,11 +40,12 @@ namespace Core.Model
             get
             {
                 string orderBy = "";
-                List<Sort> sort = Sort.Where(x => string.IsNullOrEmpty(x.Field) && string.IsNullOrEmpty(x.Direct)).ToList();
+                List<Sort> sort = this.Sort.Where(x => string.IsNullOrEmpty(x.Field) && string.IsNullOrEmpty(x.Direct)).ToList();
                 if (sort.Count > 0)
                 {
                     orderBy = "ORDER BY " + string.Join(",", sort.Select(x => $"{x.Field} {x.Direct}"));
                 }
+
                 return orderBy;
             }
         }
@@ -56,15 +57,17 @@ namespace Core.Model
         {
             get
             {
-                if (Sort == null ||Sort.Count == 0)
+                if (this.Sort == null ||this.Sort.Count == 0)
                 {
                     return null;
                 }
-                Sort fs = Sort[0];
+
+                Sort fs = this.Sort[0];
                 if (fs == null)
                 {
                     return null;
                 }
+
                 Sort sort = new Sort
                 {
                     Direct = fs.Direct.ToUpper(),
@@ -90,8 +93,9 @@ namespace Core.Model
         /// </summary>
         public Sort()
         {
-            Direct = "DESC";
+            this.Direct = "DESC";
         }
+
         /// <summary>
         /// 排序字段
         /// </summary>

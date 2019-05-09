@@ -21,7 +21,7 @@ namespace Core.Api.ExpressionBuilder.Exceptions
         {
             get
             {
-                return string.Format("The operation '{0}' admits exactly '{1}' values (not more neither less than this).", Operation.Name, Operation.NumberOfValues);
+                return string.Format("The operation '{0}' admits exactly '{1}' values (not more neither less than this).", this.Operation.Name, this.Operation.NumberOfValues);
             }
         }
 
@@ -31,7 +31,7 @@ namespace Core.Api.ExpressionBuilder.Exceptions
         /// <param name="operation">Operation used.</param>
         public WrongNumberOfValuesException(IOperation operation)
         {
-            Operation = operation;
+            this.Operation = operation;
         }
     }
 }

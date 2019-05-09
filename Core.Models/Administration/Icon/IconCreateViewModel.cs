@@ -25,6 +25,7 @@
         /// 自定义图标
         /// </summary>
         public string Custom { get; set; }
+
         /// <summary>
         /// 
         /// </summary>

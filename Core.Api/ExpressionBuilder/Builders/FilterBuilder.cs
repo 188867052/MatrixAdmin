@@ -19,9 +19,9 @@ namespace Core.Api.ExpressionBuilder.Builders
             foreach (var statementGroup in filter.Statements)
             {
                 var statementGroupConnector = Connector.And;
-                Expression partialExpr = GetPartialExpression(param, ref statementGroupConnector, statementGroup);
+                Expression partialExpr = this.GetPartialExpression(param, ref statementGroupConnector, statementGroup);
 
-                expression = expression == null ? partialExpr : CombineExpressions(expression, partialExpr, connector);
+                expression = expression == null ? partialExpr : this.CombineExpressions(expression, partialExpr, connector);
                 connector = statementGroupConnector;
             }
 
@@ -36,16 +36,16 @@ namespace Core.Api.ExpressionBuilder.Builders
             foreach (var statement in statementGroup)
             {
                 Expression expr = null;
-                if (IsList(statement))
+                if (this.IsList(statement))
                 {
-                    expr = ProcessListStatement(param, statement);
+                    expr = this.ProcessListStatement(param, statement);
                 }
                 else
                 {
-                    expr = GetExpression(param, statement);
+                    expr = this.GetExpression(param, statement);
                 }
 
-                expression = expression == null ? expr : CombineExpressions(expression, expr, connector);
+                expression = expression == null ? expr : this.CombineExpressions(expression, expr, connector);
                 connector = statement.Connector;
             }
 
@@ -69,7 +69,7 @@ namespace Core.Api.ExpressionBuilder.Builders
 
             var type = param.Type.GetProperty(basePropertyName).PropertyType.GetGenericArguments()[0];
             ParameterExpression listItemParam = Expression.Parameter(type, "i");
-            var lambda = Expression.Lambda(GetExpression(listItemParam, statement, propertyName), listItemParam);
+            var lambda = Expression.Lambda(this.GetExpression(listItemParam, statement, propertyName), listItemParam);
             var member = param.GetMemberExpression(basePropertyName);
             var enumerableType = typeof(Enumerable);
             var anyInfo = enumerableType.GetMethods(BindingFlags.Static | BindingFlags.Public).First(m => m.Name == "Any" && m.GetParameters().Count() == 2);
@@ -92,15 +92,15 @@ namespace Core.Api.ExpressionBuilder.Builders
             var constant1 = Expression.Constant(statement.Value);
             var constant2 = Expression.Constant(statement.Value2);
 
-            CheckPropertyValueMismatch(member, constant1);
+            this.CheckPropertyValueMismatch(member, constant1);
 
             var safeStringExpression = statement.Operation.GetExpression(member, constant1, constant2);
             resultExpr = resultExpr != null ? Expression.AndAlso(resultExpr, safeStringExpression) : safeStringExpression;
-            resultExpr = GetSafePropertyMember(param, memberName, resultExpr);
+            resultExpr = this.GetSafePropertyMember(param, memberName, resultExpr);
 
             if (statement.Operation.ExpectNullValues && memberName.Contains("."))
             {
-                resultExpr = Expression.OrElse(CheckIfParentIsNull(param, memberName), resultExpr);
+                resultExpr = Expression.OrElse(this.CheckIfParentIsNull(param, memberName), resultExpr);
             }
 
             return resultExpr;
@@ -110,7 +110,7 @@ namespace Core.Api.ExpressionBuilder.Builders
         {
             var memberType = member.Member.MemberType == MemberTypes.Property ? (member.Member as PropertyInfo).PropertyType : (member.Member as FieldInfo).FieldType;
 
-            var constant1Type = GetConstantType(constant1);
+            var constant1Type = this.GetConstantType(constant1);
             var nullableType = constant1Type != null ? Nullable.GetUnderlyingType(constant1Type) : null;
 
             var constantValueIsNotNull = constant1.Value != null;
@@ -144,12 +144,12 @@ namespace Core.Api.ExpressionBuilder.Builders
             var parentName = memberName.Substring(0, index);
             var subParam = param.GetMemberExpression(parentName);
             var resultExpr = Expression.AndAlso(Expression.NotEqual(subParam, Expression.Constant(null)), expr);
-            return GetSafePropertyMember(param, parentName, resultExpr);
+            return this.GetSafePropertyMember(param, parentName, resultExpr);
         }
 
         protected Expression CheckIfParentIsNull(ParameterExpression param, string memberName)
         {
-            var parentMember = GetParentMember(param, memberName);
+            var parentMember = this.GetParentMember(param, memberName);
             return Expression.Equal(parentMember, Expression.Constant(null));
         }
 

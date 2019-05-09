@@ -33,13 +33,13 @@ namespace Core.Extension.Dapper
                 }
                 else
                 {
-                    SetValue(parameter, (T)value);
+                    this.SetValue(parameter, (T)value);
                 }
             }
 
             object ITypeHandler.Parse(Type destinationType, object value)
             {
-                return Parse(value);
+                return this.Parse(value);
             }
         }
 
@@ -68,7 +68,7 @@ namespace Core.Extension.Dapper
             /// <param name="value">Parameter value</param>
             public override void SetValue(IDbDataParameter parameter, T value)
             {
-                parameter.Value = value == null ? (object)DBNull.Value : Format(value);
+                parameter.Value = value == null ? (object)DBNull.Value : this.Format(value);
             }
 
             /// <summary>
@@ -79,7 +79,7 @@ namespace Core.Extension.Dapper
             public override T Parse(object value)
             {
                 if (value == null || value is DBNull) return default(T);
-                return Parse((string)value);
+                return this.Parse((string)value);
             }
         }
     }

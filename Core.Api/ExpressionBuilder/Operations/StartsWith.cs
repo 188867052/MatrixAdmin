@@ -20,7 +20,7 @@ namespace Core.Api.ExpressionBuilder.Operations
         {
             Expression constant = constant1.TrimToLower();
 
-            return Expression.Call(member.TrimToLower(), startsWithMethod, constant)
+            return Expression.Call(member.TrimToLower(), this.startsWithMethod, constant)
                    .AddNullCheck(member);
         }
     }

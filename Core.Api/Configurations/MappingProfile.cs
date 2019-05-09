@@ -12,6 +12,7 @@ namespace Core.Api.Configurations
     public interface IProfile
     {
     }
+
     /// <summary>
     /// 
     /// </summary>
@@ -22,26 +23,26 @@ namespace Core.Api.Configurations
         /// </summary>
         public MappingProfile()
         {
-            CreateMap<User, UserModel>();
-            CreateMap<UserCreatePostModel, User>();
-            CreateMap<UserEditPostModel, User>();
+            this.CreateMap<User, UserModel>();
+            this.CreateMap<UserCreatePostModel, User>();
+            this.CreateMap<UserEditPostModel, User>();
 
-            CreateMap<Role, RoleJsonModel>();
-            CreateMap<RoleCreateViewModel, Role>();
+            this.CreateMap<Role, RoleJsonModel>();
+            this.CreateMap<RoleCreateViewModel, Role>();
 
-            CreateMap<Menu, MenuJsonModel>();
-            CreateMap<MenuCreateViewModel, Menu>();
-            CreateMap<MenuEditViewModel, Menu>();
+            this.CreateMap<Menu, MenuJsonModel>();
+            this.CreateMap<MenuCreateViewModel, Menu>();
+            this.CreateMap<MenuEditViewModel, Menu>();
 
-            CreateMap<Icon, IconCreateViewModel>();
-            CreateMap<IconCreateViewModel, Icon>();
+            this.CreateMap<Icon, IconCreateViewModel>();
+            this.CreateMap<IconCreateViewModel, Icon>();
 
-            CreateMap<Permission, PermissionJsonModel>();
+            this.CreateMap<Permission, PermissionJsonModel>();
                 //.ForMember(d => d.MenuName, s => s.MapFrom(x => x.Menu.Name))
                 //.ForMember(d => d.PermissionTypeText, s => s.MapFrom(x => x.Type.ToString()));
-            CreateMap<PermissionCreateViewModel, Permission>();
-            CreateMap<PermissionEditViewModel, Permission>();
-            CreateMap<Permission, PermissionEditViewModel>();
+            this.CreateMap<PermissionCreateViewModel, Permission>();
+            this.CreateMap<PermissionEditViewModel, Permission>();
+            this.CreateMap<Permission, PermissionEditViewModel>();
         }
     }
 }

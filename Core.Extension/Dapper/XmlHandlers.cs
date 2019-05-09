@@ -28,12 +28,14 @@ namespace Core.Extension.Dapper
     internal sealed class XDocumentHandler : XmlTypeHandler<XDocument>
     {
         protected override XDocument Parse(string xml) => XDocument.Parse(xml);
+
         protected override string Format(XDocument xml) => xml.ToString();
     }
 
     internal sealed class XElementHandler : XmlTypeHandler<XElement>
     {
         protected override XElement Parse(string xml) => XElement.Parse(xml);
+
         protected override string Format(XElement xml) => xml.ToString();
     }
 }

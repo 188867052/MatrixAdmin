@@ -7,7 +7,7 @@ namespace Core.Entity
     {
         public User()
         {
-            UserRoleMapping = new HashSet<UserRoleMapping>();
+            this.UserRoleMapping = new HashSet<UserRoleMapping>();
         }
 
         public string LoginName { get; set; }

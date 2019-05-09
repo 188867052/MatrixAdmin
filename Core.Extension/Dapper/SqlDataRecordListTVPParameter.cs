@@ -26,7 +26,7 @@ namespace Core.Extension.Dapper
         {
             var param = command.CreateParameter();
             param.ParameterName = name;
-            Set(param, data, typeName);
+            Set(param, this.data, this.typeName);
             command.Parameters.Add(param);
         }
 

@@ -131,6 +131,7 @@ namespace Core.Api.Utils
                     continue;
                 }
             }
+
             return strB;
 
         }

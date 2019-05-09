@@ -75,7 +75,7 @@ namespace Core.Api.Controllers
 //                });
 //            }
 
-            return Ok(response);
+            return this.Ok(response);
         }
 
         private List<string> FindParentMenuAlias(List<Menu> menus, Guid? parentGuid)
@@ -92,9 +92,10 @@ namespace Core.Api.Controllers
                 {
                     return pages;
                 }
+
                 if (parent.ParentGuid != Guid.Empty)
                 {
-                    pages.AddRange(FindParentMenuAlias(menus, parent.ParentGuid));
+                    pages.AddRange(this.FindParentMenuAlias(menus, parent.ParentGuid));
                 }
             }
 

@@ -15,8 +15,8 @@ namespace Core.Extension.Dapper
         /// <param name="property">Target property</param>
         public SimpleMemberMap(string columnName, PropertyInfo property)
         {
-            ColumnName = columnName ?? throw new ArgumentNullException(nameof(columnName));
-            Property = property ?? throw new ArgumentNullException(nameof(property));
+            this.ColumnName = columnName ?? throw new ArgumentNullException(nameof(columnName));
+            this.Property = property ?? throw new ArgumentNullException(nameof(property));
         }
 
         /// <summary>
@@ -26,8 +26,8 @@ namespace Core.Extension.Dapper
         /// <param name="field">Target property</param>
         public SimpleMemberMap(string columnName, FieldInfo field)
         {
-            ColumnName = columnName ?? throw new ArgumentNullException(nameof(columnName));
-            Field = field ?? throw new ArgumentNullException(nameof(field));
+            this.ColumnName = columnName ?? throw new ArgumentNullException(nameof(columnName));
+            this.Field = field ?? throw new ArgumentNullException(nameof(field));
         }
 
         /// <summary>
@@ -37,8 +37,8 @@ namespace Core.Extension.Dapper
         /// <param name="parameter">Target constructor parameter</param>
         public SimpleMemberMap(string columnName, ParameterInfo parameter)
         {
-            ColumnName = columnName ?? throw new ArgumentNullException(nameof(columnName));
-            Parameter = parameter ?? throw new ArgumentNullException(nameof(parameter));
+            this.ColumnName = columnName ?? throw new ArgumentNullException(nameof(columnName));
+            this.Parameter = parameter ?? throw new ArgumentNullException(nameof(parameter));
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Core.Extension.Dapper
         /// <summary>
         /// Target member type
         /// </summary>
-        public Type MemberType => Field?.FieldType ?? Property?.PropertyType ?? Parameter?.ParameterType;
+        public Type MemberType => this.Field?.FieldType ?? this.Property?.PropertyType ?? this.Parameter?.ParameterType;
 
         /// <summary>
         /// Target property
