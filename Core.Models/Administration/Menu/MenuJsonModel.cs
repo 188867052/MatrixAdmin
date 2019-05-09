@@ -4,6 +4,9 @@ namespace Core.Model.Administration.Menu
 {
     public class MenuJsonModel
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MenuJsonModel"/> class.
+        /// </summary>
         public MenuJsonModel()
         {
             this.Children = new List<Child>();

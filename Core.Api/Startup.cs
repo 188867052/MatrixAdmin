@@ -18,6 +18,10 @@ namespace Core.Api
     {
         public IConfiguration Configuration { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="env"></param>
         public Startup(IHostingEnvironment env)
         {
             this.Configuration = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("AppSettings.json").Build();

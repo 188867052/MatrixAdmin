@@ -4,6 +4,9 @@ namespace Core.Model.Administration.Menu
 {
     public class Child
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Child"/> class.
+        /// </summary>
         public Child()
         {
             this.Permission = new List<string>();

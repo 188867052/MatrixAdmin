@@ -21,6 +21,11 @@ namespace Core.Api.Extensions.CustomException
             this._next = next;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         public async Task InvokeAsync(HttpContext httpContext)
         {
             try

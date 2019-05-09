@@ -11,6 +11,11 @@ namespace Core.Api.ExpressionBuilder.Generics
         private readonly IFilter _filter;
         private readonly IFilterInfo _statement;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FilterStatementConnection"/> class.
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="statement"></param>
         internal FilterStatementConnection(IFilter filter, IFilterInfo statement)
         {
             this._filter = filter;

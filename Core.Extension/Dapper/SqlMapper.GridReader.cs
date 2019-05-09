@@ -17,6 +17,14 @@ namespace Core.Extension.Dapper
             private readonly Identity _identity;
             private readonly bool _addToCache;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="GridReader"/> class.
+            /// </summary>
+            /// <param name="command"></param>
+            /// <param name="reader"></param>
+            /// <param name="identity"></param>
+            /// <param name="callbacks"></param>
+            /// <param name="addToCache"></param>
             internal GridReader(IDbCommand command, IDataReader reader, Identity identity, IParameterCallbacks callbacks, bool addToCache)
             {
                 this.Command = command;

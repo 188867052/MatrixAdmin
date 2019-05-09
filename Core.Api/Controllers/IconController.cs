@@ -18,6 +18,11 @@ namespace Core.Api.Controllers
     // [CustomAuthorize]
     public class IconController : StandardController
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IconController"/> class.
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="mapper"></param>
         public IconController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }

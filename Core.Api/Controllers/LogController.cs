@@ -16,6 +16,11 @@ namespace Core.Api.Controllers
     /// </summary>
     public class LogController : StandardController
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogController"/> class.
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="mapper"></param>
         public LogController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }

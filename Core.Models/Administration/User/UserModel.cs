@@ -9,12 +9,19 @@ namespace Core.Model.Administration.User
     /// </summary>
     public class UserModel
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserModel"/> class.
+        /// </summary>
         public UserModel()
         {
             this.UserStatus=new UserStatusModel();
 
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserModel"/> class.
+        /// </summary>
+        /// <param name="user"></param>
         public UserModel(Entity.User user)
         {
             this.Id = user.Id;

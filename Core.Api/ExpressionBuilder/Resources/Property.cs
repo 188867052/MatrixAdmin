@@ -30,6 +30,12 @@ namespace Core.Api.ExpressionBuilder.Resources
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Property"/> class.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="info"></param>
         internal Property(string id, string name, MemberInfo info)
         {
             this.Id = id;

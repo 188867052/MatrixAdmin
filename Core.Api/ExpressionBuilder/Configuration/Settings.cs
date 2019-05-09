@@ -8,6 +8,9 @@ namespace Core.Api.ExpressionBuilder.Configuration
     {
         public List<SupportedType> SupportedTypes { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Settings"/> class.
+        /// </summary>
         public Settings()
         {
             this.SupportedTypes = new List<SupportedType>

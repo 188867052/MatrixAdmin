@@ -28,6 +28,11 @@ namespace Core.Extension.Dapper
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WrappedReader"/> class.
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="reader"></param>
         public WrappedReader(IDbCommand cmd, IDataReader reader)
         {
             this.cmd = cmd;

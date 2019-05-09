@@ -87,6 +87,11 @@ namespace Core.Api.Controllers
             return this.Ok(response);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageController"/> class.
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="mapper"></param>
         public MessageController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }

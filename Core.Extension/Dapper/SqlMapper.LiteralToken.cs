@@ -19,6 +19,11 @@ namespace Core.Extension.Dapper
             /// </summary>
             public string Member { get; }
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="LiteralToken"/> struct.
+            /// </summary>
+            /// <param name="token"></param>
+            /// <param name="member"></param>
             internal LiteralToken(string token, string member)
             {
                 this.Token = token;

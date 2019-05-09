@@ -14,6 +14,15 @@ namespace Core.Extension.Dapper
         {
             private readonly CancellationToken cancel;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="GridReader"/> class.
+            /// </summary>
+            /// <param name="command"></param>
+            /// <param name="reader"></param>
+            /// <param name="identity"></param>
+            /// <param name="dynamicParams"></param>
+            /// <param name="addToCache"></param>
+            /// <param name="cancel"></param>
             internal GridReader(IDbCommand command, IDataReader reader, Identity identity, DynamicParameters dynamicParams, bool addToCache, CancellationToken cancel)
                 : this(command, reader, identity, dynamicParams, addToCache)
             {

@@ -37,6 +37,11 @@
     public class ResponseModel : Pager
     {
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ResponseModel"/> class.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="pager"></param>
         public ResponseModel(object data, Pager pager) : this()
         {
             this.Data = data;

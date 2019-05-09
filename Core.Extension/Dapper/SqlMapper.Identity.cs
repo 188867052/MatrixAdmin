@@ -24,6 +24,15 @@ namespace Core.Extension.Dapper
             public Identity ForDynamicParameters(Type type) =>
                 new Identity(this.sql, this.commandType, this.connectionString, this.type, type, null, -1);
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Identity"/> class.
+            /// </summary>
+            /// <param name="sql"></param>
+            /// <param name="commandType"></param>
+            /// <param name="connection"></param>
+            /// <param name="type"></param>
+            /// <param name="parametersType"></param>
+            /// <param name="otherTypes"></param>
             internal Identity(string sql, CommandType? commandType, IDbConnection connection, Type type, Type parametersType, Type[] otherTypes)
                 : this(sql, commandType, connection.ConnectionString, type, parametersType, otherTypes, 0) { /* base call */ }
 

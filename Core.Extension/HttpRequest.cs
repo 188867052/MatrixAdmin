@@ -31,6 +31,12 @@ namespace Core.Extension
             return model;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url"></param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public static async Task<ResponseModel> GetAsync<T>(string url)
         {
             HttpResponseMessage httpResponse;
@@ -46,6 +52,11 @@ namespace Core.Extension
             return model;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public static async Task<ResponseModel> DeleteAsync(string url)
         {
             HttpResponseMessage httpResponse;
@@ -86,6 +97,13 @@ namespace Core.Extension
             return model;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <typeparam name="TPostModel"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="postModel"></param>
+        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public static async Task<ResponseModel> SubmitAsync<TPostModel>(Url url, TPostModel postModel)
         {
             HttpResponseMessage httpResponse;

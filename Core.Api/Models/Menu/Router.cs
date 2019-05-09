@@ -7,6 +7,9 @@ namespace Core.Api.Models.Menu
     /// </summary>
     public class Router
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Router"/> class.
+        /// </summary>
         public Router()
         {
             this.Meta = new RouterMeta();

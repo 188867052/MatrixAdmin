@@ -18,6 +18,11 @@ namespace Core.Api.Controllers
     /// </summary>
     public partial class UserController : StandardController
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserController"/> class.
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="mapper"></param>
         public UserController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }

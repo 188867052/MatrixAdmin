@@ -20,6 +20,11 @@ namespace Core.Api.Controllers
     // [CustomAuthorize]
     public class PermissionController : StandardController
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PermissionController"/> class.
+        /// </summary>
+        /// <param name="dbContext"></param>
+        /// <param name="mapper"></param>
         public PermissionController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
