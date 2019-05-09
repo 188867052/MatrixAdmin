@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using ConsoleApp.DataModels;
-using Core.Entity;
 using Core.Model.Administration.Icon;
 using Core.Model.Administration.Menu;
 using Core.Model.Administration.Permission;

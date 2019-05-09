@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ConsoleApp.DataModels;
-using Core.Entity;
 using Core.Entity.Enums;
 using Core.Extension.Dapper;
 using Core.Model;
@@ -20,7 +19,7 @@ namespace Core.Api.Controllers
     //[CustomAuthorize]
     public class MenuController : StandardController
     {
-        public MenuController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
+        public MenuController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 

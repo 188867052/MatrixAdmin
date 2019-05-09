@@ -5,7 +5,6 @@ using AutoMapper;
 using ConsoleApp.DataModels;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
-using Core.Entity;
 using Core.Extension.Dapper;
 using Core.Model;
 using Core.Model.Administration.Icon;
@@ -19,7 +18,7 @@ namespace Core.Api.Controllers
     //[CustomAuthorize]
     public class IconController : StandardController
     {
-        public IconController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
+        public IconController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 

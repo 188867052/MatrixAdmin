@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Text;
 using ConsoleApp.DataModels;
-using Core.Entity;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;

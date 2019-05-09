@@ -10,7 +10,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 using System.ComponentModel;
 using AutoMapper;
-using Core.Model;
+using ConsoleApp.DataModels;
 
 namespace Core.Api
 {
@@ -52,7 +52,7 @@ namespace Core.Api
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper();
-            services.AddDbContext<Context>(options =>
+            services.AddDbContext<CoreApiContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             // 如果使用SQL Server 2008数据库，请添加UseRowNumberForPaging的选项
             //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),b=>b.UseRowNumberForPaging())

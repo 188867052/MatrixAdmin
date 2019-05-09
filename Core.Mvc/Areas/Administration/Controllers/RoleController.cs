@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using ConsoleApp.DataModels;
-using Core.Entity;
 using Core.Extension;
 using Core.Model.Administration.Role;
 using Core.Mvc.Areas.Administration.ViewConfiguration.Role;

@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using ConsoleApp.DataModels;
 using Core.Api.Extensions;
-using Core.Api.Extensions.AuthContext;
-using Core.Entity;
-using Core.Entity.Enums;
 using Core.Model;
-using Core.Model.Administration.Menu;
-using Core.Model.Administration.Permission;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Api.Controllers
 {
@@ -107,7 +101,7 @@ namespace Core.Api.Controllers
             return pages.Distinct().ToList();
         }
 
-        public AccountController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
+        public AccountController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
     }

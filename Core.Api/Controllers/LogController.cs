@@ -7,7 +7,6 @@ using System;
 using System.Linq;
 using System.Net;
 using ConsoleApp.DataModels;
-using Core.Model;
 using Core.Model.Log;
 
 namespace Core.Api.Controllers
@@ -17,7 +16,7 @@ namespace Core.Api.Controllers
     /// </summary>
     public class LogController : StandardController
     {
-        public LogController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
+        public LogController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 

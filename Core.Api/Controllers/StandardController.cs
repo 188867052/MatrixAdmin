@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
+using ConsoleApp.DataModels;
 using Core.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ namespace Core.Api.Controllers
     [ApiController]
     public class StandardController : ControllerBase
     {
-        public readonly Context DbContext;
+        public readonly CoreApiContext DbContext;
         public readonly IMapper Mapper;
 
         /// <summary>
@@ -18,7 +19,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="dbContext"></param>
         /// <param name="mapper"></param>
-        protected StandardController(Context dbContext, IMapper mapper)
+        protected StandardController(CoreApiContext dbContext, IMapper mapper)
         {
             this.DbContext = dbContext;
             this.Mapper = mapper;

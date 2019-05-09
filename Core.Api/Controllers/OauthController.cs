@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Linq;
 using System.Security.Claims;
-using Core.Entity;
-using Core.Entity.Enums;
 using Core.Model;
 using ConsoleApp.DataModels;
 
@@ -19,14 +17,14 @@ namespace Core.Api.Controllers
     public class OauthController : ControllerBase
     {
         private readonly AppAuthenticationSettings _appSettings;
-        private readonly Context _dbContext;
+        private readonly CoreApiContext _dbContext;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="appSettings"></param>
         /// <param name="dbContext"></param>
-        public OauthController(IOptions<AppAuthenticationSettings> appSettings, Context dbContext)
+        public OauthController(IOptions<AppAuthenticationSettings> appSettings, CoreApiContext dbContext)
         {
             this._appSettings = appSettings.Value;
             this._dbContext = dbContext;

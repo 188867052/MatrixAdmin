@@ -21,7 +21,7 @@ namespace Core.Api.Controllers
     //[CustomAuthorize]
     public class RoleController : StandardController
     {
-        public RoleController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
+        public RoleController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 

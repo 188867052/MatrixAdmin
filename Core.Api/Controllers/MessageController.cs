@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using ConsoleApp.DataModels;
 using Core.Api.Extensions;
 using Core.Model;
 using Microsoft.AspNetCore.Authorization;
@@ -86,7 +87,7 @@ namespace Core.Api.Controllers
             return Ok(response);
         }
 
-        public MessageController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
+        public MessageController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
     }

@@ -1,4 +1,4 @@
-﻿using ConsoleApp.DataModels;
+﻿using Core.Entity;
 using Core.Entity.Enums;
 using System;
 
@@ -9,11 +9,6 @@ namespace Core.Model.Administration.User
     /// </summary>
     public class UserModel
     {
-        public UserModel()
-        {
-            this.UserStatus = new UserStatus();
-        }
-
         public UserModel(ConsoleApp.DataModels.User user)
         {
             this.Id = user.Id;
@@ -23,7 +18,7 @@ namespace Core.Model.Administration.User
             //this.UserType = user.UserType;
             this.CreateTime = user.CreateTime;
             //this.RoleName = user.RoleName;
-            this.UserStatus = user.UserStatus;
+            this.UserStatus = new UserStatusModel(user.UserStatus);
             //this.Status = user.Status;
             this.IsDeleted = user.IsDeleted;
             this.CreatedByUserName = user.CreatedByUserName;
@@ -81,6 +76,6 @@ namespace Core.Model.Administration.User
 
         public string RoleName { get; set; }
 
-        public UserStatus UserStatus { get; set; }
+        public UserStatusModel UserStatus { get; set; }
     }
 }

@@ -8,10 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ConsoleApp.DataModels;
-using Core.Entity;
 using Core.Extension.Dapper;
 using Core.Model;
-using Core.Model.Administration.Menu;
 using Core.Model.Administration.Permission;
 
 namespace Core.Api.Controllers
@@ -22,7 +20,7 @@ namespace Core.Api.Controllers
     //[CustomAuthorize]
     public class PermissionController : StandardController
     {
-        public PermissionController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
+        public PermissionController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 
@@ -250,9 +248,9 @@ WHERE P.IsDeleted=0 AND P.Status=1";
                     sql = @"SELECT P.Code,P.MenuGuid,P.Name,P.ActionCode,'SUPERADM' AS RoleCode,(CASE WHEN P.Code IS NOT NULL THEN 1 ELSE 0 END) AS IsAssigned FROM DncPermission AS P 
 WHERE P.IsDeleted=0 AND P.Status=1";
                 }
-                List<PermissionWithAssignProperty> permissionList = this.DbContext.PermissionWithAssignProperty.FromSql(sql, code).ToList();
-                List<PermissionMenuTree> tree = menu.FillRecursive(permissionList, Guid.Empty, role.IsSuperAdministrator);
-                response.SetData(new { tree, selectedPermissions = permissionList.Where(x => x.IsAssigned == 1).Select(x => x.Code) });
+                //List<PermissionWithAssignProperty> permissionList = this.DbContext.PermissionWithAssignProperty.FromSql(sql, code).ToList();
+                //List<PermissionMenuTree> tree = menu.FillRecursive(permissionList, Guid.Empty, role.IsSuperAdministrator);
+                //response.SetData(new { tree, selectedPermissions = permissionList.Where(x => x.IsAssigned == 1).Select(x => x.Code) });
             }
 
             return Ok(response);
