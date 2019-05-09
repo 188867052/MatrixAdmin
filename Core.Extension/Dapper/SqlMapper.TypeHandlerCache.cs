@@ -21,6 +21,7 @@ namespace Core.Extension.Dapper
             /// Not intended for direct usage.
             /// </summary>
             /// <param name="value">The object to parse.</param>
+            /// <returns></returns>
             [Obsolete(ObsoleteInternalUsageOnly, true)]
             public static T Parse(object value) => (T)handler.Parse(typeof(T), value);
 

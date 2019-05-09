@@ -35,7 +35,7 @@ namespace Core.Api.ExpressionBuilder.Exceptions
         /// </summary>
         /// <param name="operation">Operation used.</param>
         /// <param name="typeName">Name of the type.</param>
-        public UnsupportedOperationException(IOperation operation, String typeName)
+        public UnsupportedOperationException(IOperation operation, string typeName)
         {
             this.Operation = operation;
             this.TypeName = typeName;

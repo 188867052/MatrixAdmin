@@ -52,6 +52,7 @@ namespace Core.Api.ExpressionBuilder.Interfaces
         /// <summary>
         /// Returns a string representation of the operation.
         /// </summary>
+        /// <returns></returns>
         string ToString();
     }
 }

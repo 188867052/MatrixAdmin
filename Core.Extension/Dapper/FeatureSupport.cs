@@ -16,6 +16,7 @@ namespace Core.Extension.Dapper
         /// Gets the feature set based on the passed connection.
         /// </summary>
         /// <param name="connection">The connection to get supported features for.</param>
+        /// <returns></returns>
         public static FeatureSupport Get(IDbConnection connection)
         {
             string name = connection?.GetType().Name;

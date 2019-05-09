@@ -56,7 +56,7 @@ namespace Core.Api.ExpressionBuilder.Helpers
             this.typeGroups = new Dictionary<TypeGroup, HashSet<Type>>
             {
                 { TypeGroup.Text, new HashSet<Type> { typeof(string), typeof(char) } },
-                { TypeGroup.Number, new HashSet<Type> { typeof(int), typeof(uint), typeof(byte), typeof(sbyte), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(Single), typeof(double), typeof(decimal) } },
+                { TypeGroup.Number, new HashSet<Type> { typeof(int), typeof(uint), typeof(byte), typeof(sbyte), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(float), typeof(double), typeof(decimal) } },
                 { TypeGroup.Boolean, new HashSet<Type> { typeof(bool) } },
                 { TypeGroup.Date, new HashSet<Type> { typeof(DateTime) } },
                 { TypeGroup.Nullable, new HashSet<Type> { typeof(Nullable<>), typeof(string) } }

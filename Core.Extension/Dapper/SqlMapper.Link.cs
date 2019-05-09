@@ -46,7 +46,8 @@ namespace Core.Extension.Dapper
 
                     // did somebody move our cheese?
                     tryAgain = Interlocked.CompareExchange(ref head, newNode, snapshot) != snapshot;
-                } while (tryAgain);
+                }
+                while (tryAgain);
                 return true;
             }
 

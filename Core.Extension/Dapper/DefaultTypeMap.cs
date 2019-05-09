@@ -66,8 +66,7 @@ namespace Core.Extension.Dapper
 
         internal static List<PropertyInfo> GetSettableProps(Type t)
         {
-            return t
-                  .GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
+            return t.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
                   .Where(p => GetPropertySetter(p, t) != null)
                   .ToList();
         }
@@ -134,6 +133,7 @@ namespace Core.Extension.Dapper
         /// <summary>
         /// Returns the constructor, if any, that has the ExplicitConstructorAttribute on it.
         /// </summary>
+        /// <returns></returns>
         public ConstructorInfo FindExplicitConstructor()
         {
             var constructors = this._type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);

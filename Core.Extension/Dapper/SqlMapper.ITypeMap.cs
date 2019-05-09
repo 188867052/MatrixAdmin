@@ -25,6 +25,7 @@ namespace Core.Extension.Dapper
             ///
             /// Use this class to force object creation away from parameterless constructors you don't control.
             /// </summary>
+            /// <returns></returns>
             ConstructorInfo FindExplicitConstructor();
 
             /// <summary>

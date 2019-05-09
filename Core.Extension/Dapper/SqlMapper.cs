@@ -117,7 +117,7 @@ namespace Core.Extension.Dapper
         {
             foreach (var entry in _queryCache)
             {
-                if (entry.Key.type == type)
+                if (entry.Key.Type == type)
                 {
                     _queryCache.TryRemove(entry.Key, out CacheInfo cache);
                 }
@@ -142,7 +142,7 @@ namespace Core.Extension.Dapper
         /// <returns></returns>
         public static IEnumerable<Tuple<string, string, int>> GetCachedSQL(int ignoreHitCountAbove = int.MaxValue)
         {
-            var data = _queryCache.Select(pair => Tuple.Create(pair.Key.connectionString, pair.Key.sql, pair.Value.GetHitCount()));
+            var data = _queryCache.Select(pair => Tuple.Create(pair.Key.ConnectionString, pair.Key.Sql, pair.Value.GetHitCount()));
             return (ignoreHitCountAbove < int.MaxValue)
                     ? data.Where(tuple => tuple.Item3 <= ignoreHitCountAbove)
                     : data;
@@ -157,13 +157,13 @@ namespace Core.Extension.Dapper
             var counts = new Dictionary<int, int>();
             foreach (var key in _queryCache.Keys)
             {
-                if (!counts.TryGetValue(key.hashCode, out int count))
+                if (!counts.TryGetValue(key.HashCode, out int count))
                 {
-                    counts.Add(key.hashCode, 1);
+                    counts.Add(key.HashCode, 1);
                 }
                 else
                 {
-                    counts[key.hashCode] = count + 1;
+                    counts[key.HashCode] = count + 1;
                 }
             }
 
@@ -234,7 +234,9 @@ namespace Core.Extension.Dapper
             {
                 AddSqlDataRecordsTypeHandler(clone);
             }
-            catch { /* https://github.com/StackExchange/dapper-dot-net/issues/424 */ }
+            catch
+            { /* https://github.com/StackExchange/dapper-dot-net/issues/424 */
+            }
             AddTypeHandlerImpl(typeof(XmlDocument), new XmlDocumentHandler(), clone);
             AddTypeHandlerImpl(typeof(XDocument), new XDocumentHandler(), clone);
             AddTypeHandlerImpl(typeof(XElement), new XElementHandler(), clone);
@@ -375,6 +377,7 @@ namespace Core.Extension.Dapper
         /// Get the DbType that maps to a given value.
         /// </summary>
         /// <param name="value">The object to get a corresponding database type for.</param>
+        /// <returns></returns>
         [Obsolete(ObsoleteInternalUsageOnly, false)]
 #if !NETSTANDARD1_3
         [Browsable(false)]
@@ -397,6 +400,7 @@ namespace Core.Extension.Dapper
         /// <param name="name">The name (for error messages).</param>
         /// <param name="demand">Whether to demand a value (throw if missing).</param>
         /// <param name="handler">The handler for <paramref name="type"/>.</param>
+        /// <returns></returns>
         [Obsolete(ObsoleteInternalUsageOnly, false)]
 #if !NETSTANDARD1_3
         [Browsable(false)]
@@ -461,6 +465,7 @@ namespace Core.Extension.Dapper
         /// </summary>
         /// <typeparam name="T">The type of element in the list.</typeparam>
         /// <param name="source">The enumerable to return as a list.</param>
+        /// <returns>A list.</returns>
         public static List<T> AsList<T>(this IEnumerable<T> source) =>
             (source == null || source is List<T>) ? (List<T>)source : source.ToList();
 
@@ -695,6 +700,7 @@ namespace Core.Extension.Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
+        /// <returns></returns>
         public static IEnumerable<dynamic> Query(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null) =>
             Query<DapperRow>(cnn, sql, param as object, transaction, buffered, commandTimeout, commandType);
 
@@ -708,6 +714,7 @@ namespace Core.Extension.Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
+        /// <returns></returns>
         public static dynamic QueryFirst(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QueryFirst<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
 
@@ -721,6 +728,7 @@ namespace Core.Extension.Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
+        /// <returns></returns>
         public static dynamic QueryFirstOrDefault(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QueryFirstOrDefault<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
 
@@ -734,6 +742,7 @@ namespace Core.Extension.Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
+        /// <returns></returns>
         public static dynamic QuerySingle(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QuerySingle<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
 
@@ -747,6 +756,7 @@ namespace Core.Extension.Dapper
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
+        /// <returns></returns>
         public static dynamic QuerySingleOrDefault(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QuerySingleOrDefault<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
 
@@ -1061,6 +1071,7 @@ namespace Core.Extension.Dapper
         /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?.</param>
+        /// <returns></returns>
         public static GridReader QueryMultiple(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             var command = new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.Buffered);
@@ -1072,6 +1083,7 @@ namespace Core.Extension.Dapper
         /// </summary>
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="command">The command to execute for this query.</param>
+        /// <returns></returns>
         public static GridReader QueryMultiple(this IDbConnection cnn, CommandDefinition command) =>
             QueryMultipleImpl(cnn, ref command);
 
@@ -1109,8 +1121,13 @@ namespace Core.Extension.Dapper
                 {
                     if (!reader.IsClosed)
                     {
-                        try { cmd?.Cancel(); }
-                        catch { /* don't spoil the existing exception */ }
+                        try
+                        {
+                            cmd?.Cancel();
+                        }
+                        catch
+                        { /* don't spoil the existing exception */
+                        }
                     }
 
                     reader.Dispose();
@@ -1200,7 +1217,9 @@ namespace Core.Extension.Dapper
                     }
                 }
 
-                while (reader.NextResult()) { /* ignore subsequent result sets */ }
+                while (reader.NextResult())
+                { /* ignore subsequent result sets */
+                }
 
                 // happy path; close the reader cleanly - no
                 // need for "Cancel" etc
@@ -1215,8 +1234,13 @@ namespace Core.Extension.Dapper
                 {
                     if (!reader.IsClosed)
                     {
-                        try { cmd.Cancel(); }
-                        catch { /* don't spoil the existing exception */ }
+                        try
+                        {
+                            cmd.Cancel();
+                        }
+                        catch
+                        { /* don't spoil the existing exception */
+                        }
                     }
 
                     reader.Dispose();
@@ -1245,7 +1269,7 @@ namespace Core.Extension.Dapper
         private static void ThrowMultipleRows(Row row)
         {
             switch (row)
-            {  // get the standard exception from the runtime
+            { // get the standard exception from the runtime
                 case Row.Single: ErrTwoRows.Single(); break;
                 case Row.SingleOrDefault: ErrTwoRows.SingleOrDefault(); break;
                 default: throw new InvalidOperationException();
@@ -1320,14 +1344,18 @@ namespace Core.Extension.Dapper
                         ThrowMultipleRows(row);
                     }
 
-                    while (reader.Read()) { /* ignore subsequent rows */ }
+                    while (reader.Read())
+                    { /* ignore subsequent rows */
+                    }
                 }
                 else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one
                 {
                     ThrowZeroRows(row);
                 }
 
-                while (reader.NextResult()) { /* ignore subsequent result sets */ }
+                while (reader.NextResult())
+                { /* ignore subsequent result sets */
+                }
 
                 // happy path; close the reader cleanly - no
                 // need for "Cancel" etc
@@ -1343,8 +1371,13 @@ namespace Core.Extension.Dapper
                 {
                     if (!reader.IsClosed)
                     {
-                        try { cmd.Cancel(); }
-                        catch { /* don't spoil the existing exception */ }
+                        try
+                        {
+                            cmd.Cancel();
+                        }
+                        catch
+                        { /* don't spoil the existing exception */
+                        }
                     }
 
                     reader.Dispose();
@@ -1575,7 +1608,9 @@ namespace Core.Extension.Dapper
 
                     if (finalize)
                     {
-                        while (reader.NextResult()) { /* ignore remaining result sets */ }
+                        while (reader.NextResult())
+                        { /* ignore remaining result sets */
+                        }
                         command.OnCompleted();
                     }
                 }
@@ -1654,7 +1689,9 @@ namespace Core.Extension.Dapper
 
                     if (finalize)
                     {
-                        while (reader.NextResult()) { /* ignore subsequent result sets */ }
+                        while (reader.NextResult())
+                        { /* ignore subsequent result sets */
+                        }
                         command.OnCompleted();
                     }
                 }
@@ -1830,7 +1867,7 @@ namespace Core.Extension.Dapper
                 }
 
                 info = new CacheInfo();
-                if (identity.parametersType != null)
+                if (identity.ParametersType != null)
                 {
                     Action<IDbCommand, object> reader;
                     if (exampleParameters is IDynamicParameters)
@@ -1847,11 +1884,11 @@ namespace Core.Extension.Dapper
                     }
                     else
                     {
-                        var literals = GetLiteralTokens(identity.sql);
+                        var literals = GetLiteralTokens(identity.Sql);
                         reader = CreateParamInfoGenerator(identity, false, true, literals);
                     }
 
-                    if ((identity.commandType == null || identity.commandType == CommandType.Text) && ShouldPassByPosition(identity.sql))
+                    if ((identity.CommandType == null || identity.CommandType == CommandType.Text) && ShouldPassByPosition(identity.Sql))
                     {
                         var tail = reader;
                         reader = (cmd, obj) =>
@@ -1957,8 +1994,13 @@ namespace Core.Extension.Dapper
         private static Exception MultiMapException(IDataRecord reader)
         {
             bool hasFields = false;
-            try { hasFields = reader != null && reader.FieldCount != 0; }
-            catch { /* don't throw when trying to throw */ }
+            try
+            {
+                hasFields = reader != null && reader.FieldCount != 0;
+            }
+            catch
+            { /* don't throw when trying to throw */
+            }
             if (hasFields)
             {
                 return new ArgumentException("When using the multi-mapping APIs ensure you set the splitOn param if you have keys other than Id", "splitOn");
@@ -2037,6 +2079,7 @@ namespace Core.Extension.Dapper
         /// Internal use only.
         /// </summary>
         /// <param name="value">The object to convert to a character.</param>
+        /// <returns></returns>
 #if !NETSTANDARD1_3
         [Browsable(false)]
 #endif
@@ -2062,6 +2105,7 @@ namespace Core.Extension.Dapper
         /// Internal use only.
         /// </summary>
         /// <param name="value">The object to convert to a character.</param>
+        /// <returns></returns>
 #if !NETSTANDARD1_3
         [Browsable(false)]
 #endif
@@ -2089,6 +2133,7 @@ namespace Core.Extension.Dapper
         /// <param name="parameters">The parameter collection to search in.</param>
         /// <param name="command">The command for this fetch.</param>
         /// <param name="name">The name of the parameter to get.</param>
+        /// <returns></returns>
 #if !NETSTANDARD1_3
         [Browsable(false)]
 #endif
@@ -2434,6 +2479,7 @@ namespace Core.Extension.Dapper
         /// OBSOLETE: For internal usage only. Sanitizes the paramter value with proper type casting.
         /// </summary>
         /// <param name="value">The value to sanitize.</param>
+        /// <returns></returns>
         [Obsolete(ObsoleteInternalUsageOnly, false)]
         public static object SanitizeParameterValue(object value)
         {
@@ -2509,6 +2555,7 @@ namespace Core.Extension.Dapper
         /// Convert numeric values to their string form for SQL literal purposes.
         /// </summary>
         /// <param name="value">The value to get a string for.</param>
+        /// <returns></returns>
         [Obsolete(ObsoleteInternalUsageOnly)]
         public static string Format(object value)
         {
@@ -2635,7 +2682,7 @@ namespace Core.Extension.Dapper
         /// <returns>A value.</returns>
         public static Action<IDbCommand, object> CreateParamInfoGenerator(Identity identity, bool checkForDuplicates, bool removeUnused)
         {
-            return CreateParamInfoGenerator(identity, checkForDuplicates, removeUnused, GetLiteralTokens(identity.sql));
+            return CreateParamInfoGenerator(identity, checkForDuplicates, removeUnused, GetLiteralTokens(identity.Sql));
         }
 
         private static bool IsValueTuple(Type type) => type?.IsValueType() == true && type.FullName.StartsWith("System.ValueTuple`", StringComparison.Ordinal);
@@ -2665,7 +2712,7 @@ namespace Core.Extension.Dapper
 
         internal static Action<IDbCommand, object> CreateParamInfoGenerator(Identity identity, bool checkForDuplicates, bool removeUnused, IList<LiteralToken> literals)
         {
-            Type type = identity.parametersType;
+            Type type = identity.ParametersType;
 
             if (IsValueTuple(type))
             {
@@ -2673,9 +2720,9 @@ namespace Core.Extension.Dapper
             }
 
             bool filterParams = false;
-            if (removeUnused && identity.commandType.GetValueOrDefault(CommandType.Text) == CommandType.Text)
+            if (removeUnused && identity.CommandType.GetValueOrDefault(CommandType.Text) == CommandType.Text)
             {
-                filterParams = !smellsLikeOleDb.IsMatch(identity.sql);
+                filterParams = !smellsLikeOleDb.IsMatch(identity.Sql);
             }
 
             var dm = new DynamicMethod("ParamInfo" + Guid.NewGuid().ToString(), null, new[] { typeof(IDbCommand), typeof(object) }, type, true);
@@ -2776,7 +2823,7 @@ namespace Core.Extension.Dapper
 
             if (filterParams)
             {
-                props = FilterParameters(props, identity.sql);
+                props = FilterParameters(props, identity.Sql);
             }
 
             var callOpCode = isStruct ? OpCodes.Call : OpCodes.Callvirt;
@@ -3272,7 +3319,7 @@ namespace Core.Extension.Dapper
 #pragma warning restore 618
 
             if (effectiveType.IsEnum())
-            {   // assume the value is returned as the correct type (int/byte/etc), but box back to the typed enum
+            { // assume the value is returned as the correct type (int/byte/etc), but box back to the typed enum
                 return r =>
                 {
                     var val = r.GetValue(index);
@@ -3361,7 +3408,7 @@ namespace Core.Extension.Dapper
             if (map == null)
             {
                 lock (_typeMaps)
-                {   // double-checked; store this to avoid reflection next time we see this type
+                { // double-checked; store this to avoid reflection next time we see this type
                     // since multiple queries commonly use the same domain-entity/DTO/view-model type
                     map = (ITypeMap)_typeMaps[type];
 
@@ -4079,6 +4126,7 @@ namespace Core.Extension.Dapper
         /// </summary>
         /// <param name="table">The <see cref="DataTable"/> to create this parameter for.</param>
         /// <param name="typeName">The name of the type this parameter is for.</param>
+        /// <returns></returns>
         public static ICustomQueryParameter AsTableValuedParameter(this DataTable table, string typeName = null) =>
             new TableValuedParameter(table, typeName);
 
@@ -4106,6 +4154,7 @@ namespace Core.Extension.Dapper
         /// Fetch the type name associated with a <see cref="DataTable"/>.
         /// </summary>
         /// <param name="table">The <see cref="DataTable"/> that has a type name associated with it.</param>
+        /// <returns>The type name.</returns>
         public static string GetTypeName(this DataTable table) =>
             table?.ExtendedProperties[DataTableTypeNameKey] as string;
 #endif
@@ -4115,6 +4164,7 @@ namespace Core.Extension.Dapper
         /// </summary>
         /// <param name="list">The list of records to convert to TVPs.</param>
         /// <param name="typeName">The sql parameter type name.</param>
+        /// <returns></returns>
         public static ICustomQueryParameter AsTableValuedParameter(this IEnumerable<Microsoft.SqlServer.Server.SqlDataRecord> list, string typeName = null) =>
             new SqlDataRecordListTVPParameter(list, typeName);
 

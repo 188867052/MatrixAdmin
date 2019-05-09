@@ -70,7 +70,7 @@ namespace Core.Api.Extensions.DataAccess
                 QueryParamNameAttribute name = p.Names.FirstOrDefault() as QueryParamNameAttribute;
                 QueryParamInfo pinfo = new QueryParamInfo();
 
-                if (name != null && !String.IsNullOrWhiteSpace(name.Name))
+                if (name != null && !string.IsNullOrWhiteSpace(name.Name))
                 {
                     pinfo.Name = name.Name.Replace("@", string.Empty);
                 }
@@ -146,7 +146,7 @@ namespace Core.Api.Extensions.DataAccess
             _DbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(Decimal), DbType.Decimal, SqlDbType.Decimal);
+            = new DbTypeMapEntry(typeof(decimal), DbType.Decimal, SqlDbType.Decimal);
             _DbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
@@ -158,15 +158,15 @@ namespace Core.Api.Extensions.DataAccess
             _DbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(Int16), DbType.Int16, SqlDbType.SmallInt);
+            = new DbTypeMapEntry(typeof(short), DbType.Int16, SqlDbType.SmallInt);
             _DbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(Int32), DbType.Int32, SqlDbType.Int);
+            = new DbTypeMapEntry(typeof(int), DbType.Int32, SqlDbType.Int);
             _DbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
-            = new DbTypeMapEntry(typeof(Int64), DbType.Int64, SqlDbType.BigInt);
+            = new DbTypeMapEntry(typeof(long), DbType.Int64, SqlDbType.BigInt);
             _DbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry

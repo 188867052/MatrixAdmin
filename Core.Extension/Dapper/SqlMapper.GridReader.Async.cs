@@ -34,30 +34,35 @@ namespace Core.Extension.Dapper
             /// </summary>
             /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
             /// <param name="buffered">Whether to buffer the results.</param>
+            /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
             public Task<IEnumerable<dynamic>> ReadAsync(bool buffered = true) => this.ReadAsyncImpl<dynamic>(typeof(DapperRow), buffered);
 
             /// <summary>
             /// Read an individual row of the next grid of results, returned as a dynamic object.
             /// </summary>
             /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
+            /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
             public Task<dynamic> ReadFirstAsync() => this.ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.First);
 
             /// <summary>
             /// Read an individual row of the next grid of results, returned as a dynamic object.
             /// </summary>
             /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
+            /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
             public Task<dynamic> ReadFirstOrDefaultAsync() => this.ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.FirstOrDefault);
 
             /// <summary>
             /// Read an individual row of the next grid of results, returned as a dynamic object.
             /// </summary>
             /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
+            /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
             public Task<dynamic> ReadSingleAsync() => this.ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.Single);
 
             /// <summary>
             /// Read an individual row of the next grid of results, returned as a dynamic object.
             /// </summary>
             /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;.</remarks>
+            /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
             public Task<dynamic> ReadSingleOrDefaultAsync() => this.ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.SingleOrDefault);
 
             /// <summary>
@@ -66,6 +71,7 @@ namespace Core.Extension.Dapper
             /// <param name="type">The type to read.</param>
             /// <param name="buffered">Whether to buffer the results.</param>
             /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
+            /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
             public Task<IEnumerable<object>> ReadAsync(Type type, bool buffered = true)
             {
                 if (type == null)
@@ -81,6 +87,7 @@ namespace Core.Extension.Dapper
             /// </summary>
             /// <param name="type">The type to read.</param>
             /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
+            /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
             public Task<object> ReadFirstAsync(Type type)
             {
                 if (type == null)
@@ -96,6 +103,7 @@ namespace Core.Extension.Dapper
             /// </summary>
             /// <param name="type">The type to read.</param>
             /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
+            /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
             public Task<object> ReadFirstOrDefaultAsync(Type type)
             {
                 if (type == null)
@@ -111,6 +119,7 @@ namespace Core.Extension.Dapper
             /// </summary>
             /// <param name="type">The type to read.</param>
             /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
+            /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
             public Task<object> ReadSingleAsync(Type type)
             {
                 if (type == null)
@@ -126,6 +135,7 @@ namespace Core.Extension.Dapper
             /// </summary>
             /// <param name="type">The type to read.</param>
             /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
+            /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
             public Task<object> ReadSingleOrDefaultAsync(Type type)
             {
                 if (type == null)
@@ -141,30 +151,35 @@ namespace Core.Extension.Dapper
             /// </summary>
             /// <typeparam name="T">The type to read.</typeparam>
             /// <param name="buffered">Whether the results should be buffered in memory.</param>
+            /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
             public Task<IEnumerable<T>> ReadAsync<T>(bool buffered = true) => this.ReadAsyncImpl<T>(typeof(T), buffered);
 
             /// <summary>
             /// Read an individual row of the next grid of results.
             /// </summary>
             /// <typeparam name="T">The type to read.</typeparam>
+            /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
             public Task<T> ReadFirstAsync<T>() => this.ReadRowAsyncImpl<T>(typeof(T), Row.First);
 
             /// <summary>
             /// Read an individual row of the next grid of results.
             /// </summary>
             /// <typeparam name="T">The type to read.</typeparam>
+            /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
             public Task<T> ReadFirstOrDefaultAsync<T>() => this.ReadRowAsyncImpl<T>(typeof(T), Row.FirstOrDefault);
 
             /// <summary>
             /// Read an individual row of the next grid of results.
             /// </summary>
             /// <typeparam name="T">The type to read.</typeparam>
+            /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
             public Task<T> ReadSingleAsync<T>() => this.ReadRowAsyncImpl<T>(typeof(T), Row.Single);
 
             /// <summary>
             /// Read an individual row of the next grid of results.
             /// </summary>
             /// <typeparam name="T">The type to read.</typeparam>
+            /// <returns><placeholder>A <see cref="Task"/> representing the asynchronous operation.</placeholder></returns>
             public Task<T> ReadSingleOrDefaultAsync<T>() => this.ReadRowAsyncImpl<T>(typeof(T), Row.SingleOrDefault);
 
             private async Task NextResultAsync()
@@ -270,7 +285,9 @@ namespace Core.Extension.Dapper
                         ThrowMultipleRows(row);
                     }
 
-                    while (await reader.ReadAsync(this.cancel).ConfigureAwait(false)) { /* ignore subsequent rows */ }
+                    while (await reader.ReadAsync(this.cancel).ConfigureAwait(false))
+                    { /* ignore subsequent rows */
+                    }
                 }
                 else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one
                 {

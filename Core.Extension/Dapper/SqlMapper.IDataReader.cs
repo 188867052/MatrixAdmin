@@ -11,6 +11,7 @@ namespace Core.Extension.Dapper
         /// </summary>
         /// <typeparam name="T">The type to parse from the <paramref name="reader"/>.</typeparam>
         /// <param name="reader">The data reader to parse results from.</param>
+        /// <returns></returns>
         public static IEnumerable<T> Parse<T>(this IDataReader reader)
         {
             if (reader.Read())
@@ -29,7 +30,8 @@ namespace Core.Extension.Dapper
                     {
                         yield return (T)Convert.ChangeType(val, convertToType, System.Globalization.CultureInfo.InvariantCulture);
                     }
-                } while (reader.Read());
+                }
+                while (reader.Read());
             }
         }
 
@@ -38,6 +40,7 @@ namespace Core.Extension.Dapper
         /// </summary>
         /// <param name="reader">The data reader to parse results from.</param>
         /// <param name="type">The type to parse from the <paramref name="reader"/>.</param>
+        /// <returns></returns>
         public static IEnumerable<object> Parse(this IDataReader reader, Type type)
         {
             if (reader.Read())
@@ -46,7 +49,8 @@ namespace Core.Extension.Dapper
                 do
                 {
                     yield return deser(reader);
-                } while (reader.Read());
+                }
+                while (reader.Read());
             }
         }
 
@@ -54,6 +58,7 @@ namespace Core.Extension.Dapper
         /// Parses a data reader to a sequence of dynamic. Used for deserializing a reader without a connection, etc.
         /// </summary>
         /// <param name="reader">The data reader to parse results from.</param>
+        /// <returns></returns>
         public static IEnumerable<dynamic> Parse(this IDataReader reader)
         {
             if (reader.Read())
@@ -62,7 +67,8 @@ namespace Core.Extension.Dapper
                 do
                 {
                     yield return deser(reader);
-                } while (reader.Read());
+                }
+                while (reader.Read());
             }
         }
 

@@ -40,7 +40,8 @@ namespace Core.Api.Extensions.CustomException
 
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            ErrorDetails error = new ErrorDetails {
+            ErrorDetails error = new ErrorDetails
+            {
                 StatusCode = 500,
                 Message = $"资源服务器忙,请稍候再试,原因:{exception.Message}"
             };
