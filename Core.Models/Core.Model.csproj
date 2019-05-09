@@ -33,7 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ConsoleApp\ConsoleApp.csproj" />
     <ProjectReference Include="..\Core.Entity\Core.Entity.csproj" />
   </ItemGroup>
 
