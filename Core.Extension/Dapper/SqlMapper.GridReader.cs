@@ -289,7 +289,7 @@ namespace Core.Extension.Dapper
 
                 try
                 {
-                    foreach (var r in MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(null, default(CommandDefinition), func, splitOn, this._reader, identity, false))
+                    foreach (var r in MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(null, default, func, splitOn, this._reader, identity, false))
                     {
                         yield return r;
                     }
@@ -305,7 +305,7 @@ namespace Core.Extension.Dapper
                 var identity = this._identity.ForGrid(typeof(TReturn), types, this._gridIndex);
                 try
                 {
-                    foreach (var r in MultiMapImpl(null, default(CommandDefinition), types, map, splitOn, this._reader, identity, false))
+                    foreach (var r in MultiMapImpl(null, default, types, map, splitOn, this._reader, identity, false))
                     {
                         yield return r;
                     }

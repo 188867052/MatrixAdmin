@@ -34,7 +34,6 @@ namespace Core.Extension.Dapper
 
             // string ITypedList.GetListName(PropertyDescriptor[] listAccessors) => null;
             // }
-
             private sealed class DapperRowTypeDescriptor : ICustomTypeDescriptor
             {
                 private readonly DapperRow _row;

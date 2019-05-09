@@ -215,12 +215,12 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Should column names like User_Id be allowed to match properties/fields like UserId ?.
+        /// Gets or sets a value indicating whether should column names like User_Id be allowed to match properties/fields like UserId ?.
         /// </summary>
         public static bool MatchNamesWithUnderscores { get; set; }
 
         /// <summary>
-        /// The settable properties for this typemap.
+        /// Gets the settable properties for this type map.
         /// </summary>
         public List<PropertyInfo> Properties { get; }
     }

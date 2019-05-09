@@ -138,7 +138,6 @@ namespace Core.Api.Controllers
                 entity.Status = model.Status;
 
                 // entity.IsDefaultRouter = model.IsDefaultRouter;
-
                 this.DbContext.SaveChanges();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetSuccess();

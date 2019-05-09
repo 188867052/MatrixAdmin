@@ -121,6 +121,7 @@ namespace Core.Api.Extensions.DataAccess
                 this.SqlDbType = sqlDbType;
             }
         }
+
 ;
 
         private static ArrayList _DbTypeList = new ArrayList();

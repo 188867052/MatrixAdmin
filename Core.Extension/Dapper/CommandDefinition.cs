@@ -19,7 +19,7 @@ namespace Core.Extension.Dapper
             }
             else
             {
-                return default(CommandDefinition);
+                return default;
             }
         }
 

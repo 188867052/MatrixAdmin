@@ -63,7 +63,6 @@ namespace Core.Api.Configurations
                 this._logger.LogInformation("Handling API key for: " + context.Request.Path);
 
                 // do custom stuff here with service
-
                 await this._next.Invoke(context);
 
                 this._logger.LogInformation("Finished handling api key.");
@@ -76,7 +75,6 @@ namespace Core.Api.Configurations
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             // do custom stuff here
-
             return base.SendAsync(request, cancellationToken);
         }
     }

@@ -57,7 +57,6 @@ namespace Core.Api.Controllers
                 ResponseModel response = ResponseModelFactory.CreateResultInstance;
 
                 // response.SetData(data, count);
-
                 return this.Ok(response);
             }
         }

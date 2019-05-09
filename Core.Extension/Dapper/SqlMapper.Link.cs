@@ -26,7 +26,7 @@ namespace Core.Extension.Dapper
                     link = link.Tail;
                 }
 
-                value = default(TValue);
+                value = default;
                 return false;
             }
 

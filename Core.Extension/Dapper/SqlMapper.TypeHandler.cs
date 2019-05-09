@@ -82,7 +82,7 @@ namespace Core.Extension.Dapper
             {
                 if (value == null || value is DBNull)
                 {
-                    return default(T);
+                    return default;
                 }
 
                 return this.Parse((string)value);

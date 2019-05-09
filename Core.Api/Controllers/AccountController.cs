@@ -75,7 +75,6 @@ namespace Core.Api.Controllers
 
 // });
 //            }
-
             return this.Ok(response);
         }
 

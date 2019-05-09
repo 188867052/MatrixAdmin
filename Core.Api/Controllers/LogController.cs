@@ -98,7 +98,6 @@ namespace Core.Api.Controllers
                 //    StatusCode = code,
                 //    Message = parsedCode.ToString()
                 // };
-
                 return new ObjectResult(error);
             }
             ////IQueryable<Role> query = this.DbContext.Role.AsQueryable();

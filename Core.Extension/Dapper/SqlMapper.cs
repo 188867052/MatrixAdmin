@@ -237,6 +237,7 @@ namespace Core.Extension.Dapper
             catch
             { /* https://github.com/StackExchange/dapper-dot-net/issues/424 */
             }
+
             AddTypeHandlerImpl(typeof(XmlDocument), new XmlDocumentHandler(), clone);
             AddTypeHandlerImpl(typeof(XDocument), new XDocumentHandler(), clone);
             AddTypeHandlerImpl(typeof(XElement), new XElementHandler(), clone);
@@ -1309,7 +1310,7 @@ namespace Core.Extension.Dapper
                     : CommandBehavior.SequentialAccess | CommandBehavior.SingleResult | CommandBehavior.SingleRow);
                 wasClosed = false; // *if* the connection was closed and we got this far, then we now have a reader
 
-                T result = default(T);
+                T result = default;
                 if (reader.Read() && reader.FieldCount != 0)
                 {
                     // with the CloseConnection flag, so the reader will deal with the connection; we
@@ -1610,6 +1611,7 @@ namespace Core.Extension.Dapper
                         while (reader.NextResult())
                         { /* ignore remaining result sets */
                         }
+
                         command.OnCompleted();
                     }
                 }
@@ -1691,6 +1693,7 @@ namespace Core.Extension.Dapper
                         while (reader.NextResult())
                         { /* ignore subsequent result sets */
                         }
+
                         command.OnCompleted();
                     }
                 }
@@ -2000,6 +2003,7 @@ namespace Core.Extension.Dapper
             catch
             { /* don't throw when trying to throw */
             }
+
             if (hasFields)
             {
                 return new ArgumentException("When using the multi-mapping APIs ensure you set the splitOn param if you have keys other than Id", "splitOn");
@@ -2223,7 +2227,6 @@ namespace Core.Extension.Dapper
         {
             // initially we tried TVP, however it performs quite poorly.
             // keep in mind SQL support up to 2000 params easily in sp_executesql, needing more is rare
-
             if (FeatureSupport.Get(command.Connection).Arrays)
             {
                 var arrayParm = command.CreateParameter();
@@ -3175,7 +3178,7 @@ namespace Core.Extension.Dapper
             return toStrings.TryGetValue(typeCode, out MethodInfo method) ? method : null;
         }
 
-        private static readonly MethodInfo StringReplace = typeof(string).GetPublicInstanceMethod(nameof(string.Replace), new Type[] { typeof(string), typeof(string) }),
+        private static readonly MethodInfo StringReplace = typeof(string).GetPublicInstanceMethod(nameof(string.Replace), new[] { typeof(string), typeof(string) }),
             InvariantCulture = typeof(CultureInfo).GetProperty(nameof(CultureInfo.InvariantCulture), BindingFlags.Public | BindingFlags.Static).GetGetMethod();
 
         private static int ExecuteCommand(IDbConnection cnn, ref CommandDefinition command, Action<IDbCommand, object> paramReader)
@@ -3351,7 +3354,7 @@ namespace Core.Extension.Dapper
         {
             if (value == null || value is DBNull)
             {
-                return default(T);
+                return default;
             }
 
             if (value is T)
@@ -3611,7 +3614,6 @@ namespace Core.Extension.Dapper
                 : names.Select(n => typeMap.GetMember(n))).ToList();
 
             // stack is now [target]
-
             bool first = true;
             var allDone = il.DefineLabel();
             int enumDeclareLocal = -1, valueCopyLocal = il.DeclareLocal(typeof(object)).LocalIndex;
@@ -3650,7 +3652,6 @@ namespace Core.Extension.Dapper
                         il.Emit(OpCodes.Brtrue_S, isDbNullLabel); // stack is now [target][target][value-as-object]
 
                         // unbox nullable enums as the primitive, i.e. byte etc
-
                         var nullUnderlyingType = Nullable.GetUnderlyingType(memberType);
                         var unboxType = nullUnderlyingType?.IsEnum() == true ? nullUnderlyingType : memberType;
 
@@ -3852,7 +3853,7 @@ namespace Core.Extension.Dapper
             else
             {
                 bool handled = false;
-                OpCode opCode = default(OpCode);
+                OpCode opCode = default;
                 switch (TypeExtensions.GetTypeCode(from))
                 {
                     case TypeCode.Boolean:
