@@ -23,9 +23,9 @@ namespace Core.Api.Controllers
     {
         public readonly Context DbContext;
         public readonly IMapper Mapper;
-        public UserController(Context dbContext, IMapper mapper)
+        public UserController(IMapper mapper)
         {
-            DbContext = dbContext;
+            //DbContext = dbContext;
             Mapper = mapper;
         }
 
