@@ -1,6 +1,6 @@
-﻿using Core.Entity;
-using Core.Entity.Enums;
+﻿using Core.Entity.Enums;
 using System;
+using System.Linq;
 
 namespace Core.Model.Administration.User
 {
@@ -9,19 +9,33 @@ namespace Core.Model.Administration.User
     /// </summary>
     public class UserModel
     {
+        public UserModel()
+        {
+            this.UserStatus=new UserStatusModel();
+                
+        }
+
         public UserModel(Entity.DataModels.User user)
         {
             this.Id = user.Id;
             this.LoginName = user.LoginName;
             this.DisplayName = user.DisplayName;
             this.Password = user.Password;
-            //this.UserType = user.UserType;
+            this.UserType = (UserRoleEnum)user.UserType;
             this.CreateTime = user.CreateTime;
-            //this.RoleName = user.RoleName;
-            this.UserStatus = new UserStatusModel(user.UserStatus);
-            //this.Status = user.Status;
+            this.Status = (UserIsForbiddenEnum)user.Status;
             this.IsDeleted = user.IsDeleted;
             this.CreatedByUserName = user.CreatedByUserName;
+
+            if (user.UserStatus != null)
+            {
+                this.UserStatus = new UserStatusModel(user.UserStatus);
+            }
+
+            if (user.UserRoleMapping != null && user.UserRoleMapping.Count > 0)
+            {
+                this.RoleName = user.UserRoleMapping.First().Role.Name;
+            }
         }
 
         /// <summary>

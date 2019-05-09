@@ -15,7 +15,6 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 用户控制器
     /// </summary>
-    //[CustomAuthorize]
     public class UserController : StandardController
     {
         public UserController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
@@ -31,17 +30,16 @@ namespace Core.Api.Controllers
                 DbContext.Set<UserStatus>().Load();
                 DbContext.Set<Role>().Load();
                 var query = this.DbContext.User;
-
                 Pager pager = Pager.CreateDefaultInstance();
                 pager.TotalCount = query.Count();
                 List<User> list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
 
-                IList<UserModel> list2 = new List<UserModel>();
+                IList<UserModel> models = new List<UserModel>();
                 foreach (User item in list)
                 {
-                    list2.Add(new UserModel(item));
+                    models.Add(new UserModel(item));
                 }
-                ResponseModel response = new ResponseModel(list2, pager);
+                ResponseModel response = new ResponseModel(models, pager);
 
                 return Ok(response);
             }

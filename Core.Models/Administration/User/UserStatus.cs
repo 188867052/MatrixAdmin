@@ -4,6 +4,11 @@ namespace Core.Model.Administration.User
 {
     public class UserStatusModel
     {
+        public UserStatusModel()
+        {
+
+        }
+
         public UserStatusModel(UserStatus userStatus)
         {
             this.Id = userStatus.Id;
