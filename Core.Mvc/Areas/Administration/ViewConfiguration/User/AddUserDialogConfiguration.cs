@@ -9,7 +9,7 @@ using Core.Web.TextBox;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 {
-    public class AddUserDialogConfiguration : DialogConfiguration<UserCreatePostModel, ConsoleApp.DataModels.User>
+    public class AddUserDialogConfiguration : DialogConfiguration<UserCreatePostModel, Entity.DataModels.User>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AddUserDialogConfiguration"/> class.
@@ -22,14 +22,14 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 
         public override string Title => "添加用户";
 
-        protected override void CreateBody(IList<ITextRender<UserCreatePostModel, ConsoleApp.DataModels.User>> textBoxes)
+        protected override void CreateBody(IList<ITextRender<UserCreatePostModel, Entity.DataModels.User>> textBoxes)
         {
-            textBoxes.Add(new LabeledTextBox<UserCreatePostModel, ConsoleApp.DataModels.User>("登录名", o => o.LoginName));
-            textBoxes.Add(new LabeledTextBox<UserCreatePostModel, ConsoleApp.DataModels.User>("显示名", o => o.DisplayName));
-            textBoxes.Add(new LabeledTextBox<UserCreatePostModel, ConsoleApp.DataModels.User>("密码", o => o.Password, null, TextBoxTypeEnum.Password));
+            textBoxes.Add(new LabeledTextBox<UserCreatePostModel, Entity.DataModels.User>("登录名", o => o.LoginName));
+            textBoxes.Add(new LabeledTextBox<UserCreatePostModel, Entity.DataModels.User>("显示名", o => o.DisplayName));
+            textBoxes.Add(new LabeledTextBox<UserCreatePostModel, Entity.DataModels.User>("密码", o => o.Password, null, TextBoxTypeEnum.Password));
         }
 
-        protected override void CreateHiddenValues(IList<ITextRender<UserCreatePostModel, ConsoleApp.DataModels.User>> textBoxes)
+        protected override void CreateHiddenValues(IList<ITextRender<UserCreatePostModel, Entity.DataModels.User>> textBoxes)
         {
         }
 

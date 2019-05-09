@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace ConsoleApp.DataModels
+namespace Core.Entity.DataModels
 {
     public partial class CoreApiContext : DbContext
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ConsoleApp.DataModels
+namespace Core.Entity.DataModels
 {
     public partial class Permission
     {
@@ -30,3 +30,4 @@ namespace ConsoleApp.DataModels
         public virtual ICollection<RolePermissionMapping> RolePermissionMapping { get; set; }
     }
 }
+

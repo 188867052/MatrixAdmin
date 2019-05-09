@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ConsoleApp.DataModels
+namespace Core.Entity.DataModels
 {
     public partial class Log
     {

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ConsoleApp.DataModels;
+using Core.Entity.DataModels;
 using Core.Extension;
 using Core.Model.Administration.Menu;
 using Core.Mvc.Areas.Administration.ViewConfiguration.Menu;

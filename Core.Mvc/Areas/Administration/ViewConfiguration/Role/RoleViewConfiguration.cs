@@ -6,7 +6,7 @@ using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 {
-    public class RoleViewConfiguration : GridConfiguration<ConsoleApp.DataModels.Role>
+    public class RoleViewConfiguration : GridConfiguration<Entity.DataModels.Role>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RoleViewConfiguration"/> class.
@@ -16,14 +16,14 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
         {
         }
 
-        public override void CreateGridColumn(IList<BaseGridColumn<ConsoleApp.DataModels.Role>> gridColumns)
+        public override void CreateGridColumn(IList<BaseGridColumn<Entity.DataModels.Role>> gridColumns)
         {
-            gridColumns.Add(new TextGridColumn<ConsoleApp.DataModels.Role>(o => o.Name, RoleIndexResource.Name));
-            gridColumns.Add(new BooleanGridColumn<ConsoleApp.DataModels.Role>(o => o.Status, RoleIndexResource.Status));
-            gridColumns.Add(new BooleanGridColumn<ConsoleApp.DataModels.Role>(o => o.IsBuiltin, RoleIndexResource.IsBuiltin));
-            gridColumns.Add(new BooleanGridColumn<ConsoleApp.DataModels.Role>(o => o.IsSuperAdministrator, RoleIndexResource.IsSuperAdministrator));
-            gridColumns.Add(new DateTimeGridColumn<ConsoleApp.DataModels.Role>(o => o.CreatedTime, RoleIndexResource.CreatedOn));
-            gridColumns.Add(new TextGridColumn<ConsoleApp.DataModels.Role>(o => o.CreatedByUserName, RoleIndexResource.CreatedByUserName));
+            gridColumns.Add(new TextGridColumn<Entity.DataModels.Role>(o => o.Name, RoleIndexResource.Name));
+            gridColumns.Add(new BooleanGridColumn<Entity.DataModels.Role>(o => o.Status, RoleIndexResource.Status));
+            gridColumns.Add(new BooleanGridColumn<Entity.DataModels.Role>(o => o.IsBuiltin, RoleIndexResource.IsBuiltin));
+            gridColumns.Add(new BooleanGridColumn<Entity.DataModels.Role>(o => o.IsSuperAdministrator, RoleIndexResource.IsSuperAdministrator));
+            gridColumns.Add(new DateTimeGridColumn<Entity.DataModels.Role>(o => o.CreatedTime, RoleIndexResource.CreatedOn));
+            gridColumns.Add(new TextGridColumn<Entity.DataModels.Role>(o => o.CreatedByUserName, RoleIndexResource.CreatedByUserName));
         }
     }
 }

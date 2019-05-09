@@ -6,7 +6,7 @@ using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
 {
-    public class PermissionGridConfiguration : GridConfiguration<ConsoleApp.DataModels.Permission>
+    public class PermissionGridConfiguration : GridConfiguration<Entity.DataModels.Permission>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PermissionGridConfiguration"/> class.
@@ -16,14 +16,14 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
         {
         }
 
-        public override void CreateGridColumn(IList<BaseGridColumn<ConsoleApp.DataModels.Permission>> gridColumns)
+        public override void CreateGridColumn(IList<BaseGridColumn<Entity.DataModels.Permission>> gridColumns)
         {
-            gridColumns.Add(new TextGridColumn<ConsoleApp.DataModels.Permission>(o => o.Name, PermissionIndexResource.Name));
-            gridColumns.Add(new BooleanGridColumn<ConsoleApp.DataModels.Permission>(o => o.Status, "关联菜单"));
-            gridColumns.Add(new TextGridColumn<ConsoleApp.DataModels.Permission>(o => o.ActionCode, PermissionIndexResource.ActionCode));
-            gridColumns.Add(new BooleanGridColumn<ConsoleApp.DataModels.Permission>(o => o.Status, PermissionIndexResource.Status));
-            gridColumns.Add(new DateTimeGridColumn<ConsoleApp.DataModels.Permission>(o => o.CreatedOn, PermissionIndexResource.CreatedOn));
-            gridColumns.Add(new TextGridColumn<ConsoleApp.DataModels.Permission>(o => o.CreatedByUserName, PermissionIndexResource.CreatedByUserName));
+            gridColumns.Add(new TextGridColumn<Entity.DataModels.Permission>(o => o.Name, PermissionIndexResource.Name));
+            gridColumns.Add(new BooleanGridColumn<Entity.DataModels.Permission>(o => o.Status, "关联菜单"));
+            gridColumns.Add(new TextGridColumn<Entity.DataModels.Permission>(o => o.ActionCode, PermissionIndexResource.ActionCode));
+            gridColumns.Add(new BooleanGridColumn<Entity.DataModels.Permission>(o => o.Status, PermissionIndexResource.Status));
+            gridColumns.Add(new DateTimeGridColumn<Entity.DataModels.Permission>(o => o.CreatedOn, PermissionIndexResource.CreatedOn));
+            gridColumns.Add(new TextGridColumn<Entity.DataModels.Permission>(o => o.CreatedByUserName, PermissionIndexResource.CreatedByUserName));
         }
     }
 }

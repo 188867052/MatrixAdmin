@@ -1,6 +1,6 @@
-﻿using ConsoleApp.DataModels;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using Core.Entity.DataModels;
 
 namespace Core.Entity
 {

@@ -9,7 +9,7 @@ namespace Core.Model.Administration.User
     /// </summary>
     public class UserModel
     {
-        public UserModel(ConsoleApp.DataModels.User user)
+        public UserModel(Entity.DataModels.User user)
         {
             this.Id = user.Id;
             this.LoginName = user.LoginName;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ConsoleApp.DataModels
+namespace Core.Entity.DataModels
 {
     public partial class Menu
     {
@@ -33,3 +33,4 @@ namespace ConsoleApp.DataModels
         public virtual ICollection<Permission> Permission { get; set; }
     }
 }
+

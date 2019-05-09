@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
-using ConsoleApp.DataModels;
+using Core.Entity.DataModels;
 using Core.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

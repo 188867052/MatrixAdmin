@@ -1,6 +1,6 @@
-﻿using ConsoleApp.DataModels;
+﻿using Core.Entity.DataModels;
 
-namespace Core.Entity
+namespace Core.Model.Administration.User
 {
     public class UserStatusModel
     {

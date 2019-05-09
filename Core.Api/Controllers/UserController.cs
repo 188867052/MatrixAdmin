@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ConsoleApp.DataModels;
+using Core.Entity.DataModels;
 using Core.Model.Administration.Role;
 using Core.Model.Administration.User;
 
@@ -56,11 +56,11 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                DbContext.Set<ConsoleApp.DataModels.UserStatus>().Load();
-                DbContext.Set<ConsoleApp.DataModels.UserRoleMapping>().Load();
+                DbContext.Set<UserStatus>().Load();
+                DbContext.Set<UserRoleMapping>().Load();
                 DbContext.Set<Role>().Load();
                 IQueryable<User> query = this.DbContext.User.AsQueryable();
-                query = query.AddBooleanFilter(model.IsEnable, nameof(ConsoleApp.DataModels.User.IsEnable));
+                query = query.AddBooleanFilter(model.IsEnable, nameof(Entity.DataModels.User.IsEnable));
                 if (model.Status.HasValue)
                 {
                     query = query.Where(o => o.Status == (int)model.Status);
@@ -70,8 +70,8 @@ namespace Core.Api.Controllers
                 {
                     query = query.Where(o => o.UserRoleMapping.Any(u => u.Role.Id == model.RoleId));
                 }
-                query = query.AddStringContainsFilter(model.DisplayName, nameof(ConsoleApp.DataModels.User.DisplayName));
-                query = query.AddStringContainsFilter(model.LoginName, nameof(ConsoleApp.DataModels.User.LoginName));
+                query = query.AddStringContainsFilter(model.DisplayName, nameof(Entity.DataModels.User.DisplayName));
+                query = query.AddStringContainsFilter(model.LoginName, nameof(Entity.DataModels.User.LoginName));
 
                 model.TotalCount = query.Count();
                 if (model.PageIndex < 1)

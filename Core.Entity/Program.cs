@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using ConsoleApp.DataModels;
+using Core.Entity.DataModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace ConsoleApp
