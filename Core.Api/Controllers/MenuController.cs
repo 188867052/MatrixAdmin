@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ConsoleApp.DataModels;
 using Core.Entity;
 using Core.Entity.Enums;
 using Core.Extension.Dapper;
@@ -129,7 +130,7 @@ namespace Core.Api.Controllers
                 entity.Alias = model.Alias;
                 entity.IsEnable = model.IsEnable.Value;
                 entity.Status = model.Status;
-                entity.IsDefaultRouter = model.IsDefaultRouter;
+                //entity.IsDefaultRouter = model.IsDefaultRouter;
 
                 this.DbContext.SaveChanges();
                 ResponseModel response = ResponseModelFactory.CreateInstance;

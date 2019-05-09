@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using ConsoleApp.DataModels;
 using Core.Entity;
 using Core.Extension;
 using Core.Model;

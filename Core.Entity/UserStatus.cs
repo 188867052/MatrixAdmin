@@ -1,8 +1,8 @@
-﻿namespace Core.Entity
-{
-    public class UserStatus
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
-}
+﻿//namespace Core.Entity
+//{
+//    public class UserStatus
+//    {
+//        public int Id { get; set; }
+//        public string Name { get; set; }
+//    }
+//}

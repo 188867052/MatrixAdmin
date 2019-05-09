@@ -1,6 +1,6 @@
-﻿using System;
-using Core.Entity;
+﻿using ConsoleApp.DataModels;
 using Core.Entity.Enums;
+using System;
 
 namespace Core.Model.Administration.User
 {
@@ -14,17 +14,17 @@ namespace Core.Model.Administration.User
             this.UserStatus = new UserStatus();
         }
 
-        public UserModel(Entity.User user)
+        public UserModel(ConsoleApp.DataModels.User user)
         {
             this.Id = user.Id;
             this.LoginName = user.LoginName;
             this.DisplayName = user.DisplayName;
             this.Password = user.Password;
-            this.UserType = user.UserType;
+            //this.UserType = user.UserType;
             this.CreateTime = user.CreateTime;
-            this.RoleName = user.RoleName;
+            //this.RoleName = user.RoleName;
             this.UserStatus = user.UserStatus;
-            this.Status = user.Status;
+            //this.Status = user.Status;
             this.IsDeleted = user.IsDeleted;
             this.CreatedByUserName = user.CreatedByUserName;
         }

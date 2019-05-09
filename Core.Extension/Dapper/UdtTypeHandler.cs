@@ -36,7 +36,7 @@ namespace Core.Extension.Dapper
                 if (parameter is System.Data.SqlClient.SqlParameter && !(value is DBNull))
                 {
                     ((System.Data.SqlClient.SqlParameter)parameter).SqlDbType = SqlDbType.Udt;
-                    ((System.Data.SqlClient.SqlParameter)parameter).UdtTypeName = udtTypeName;
+                    //((System.Data.SqlClient.SqlParameter)parameter).UdtTypeName = udtTypeName;
                 }
             }
         }

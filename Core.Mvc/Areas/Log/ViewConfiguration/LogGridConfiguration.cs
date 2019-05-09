@@ -6,17 +6,17 @@ using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Log.ViewConfiguration
 {
-    public class LogGridConfiguration : GridConfiguration<Model.Log.Log>
+    public class LogGridConfiguration : GridConfiguration<ConsoleApp.DataModels.Log>
     {
         public LogGridConfiguration(ResponseModel response) : base(response)
         {
         }
 
-        public override void CreateGridColumn(IList<BaseGridColumn<Core.Model.Log.Log>> gridColumns)
+        public override void CreateGridColumn(IList<BaseGridColumn<ConsoleApp.DataModels.Log>> gridColumns)
         {
-            gridColumns.Add(new IntegerGridColumn<Model.Log.Log>(o => o.Id, LogResource.ID));
-            gridColumns.Add(new TextGridColumn<Model.Log.Log>(o => o.Message, LogResource.Message));
-            gridColumns.Add(new DateTimeGridColumn<Model.Log.Log>(o => o.CreateTime, LogResource.CreateTime));
+            gridColumns.Add(new IntegerGridColumn<ConsoleApp.DataModels.Log>(o => o.Id, LogResource.ID));
+            gridColumns.Add(new TextGridColumn<ConsoleApp.DataModels.Log>(o => o.Message, LogResource.Message));
+            gridColumns.Add(new DateTimeGridColumn<ConsoleApp.DataModels.Log>(o => o.CreateTime, LogResource.CreateTime));
         }
     }
 }

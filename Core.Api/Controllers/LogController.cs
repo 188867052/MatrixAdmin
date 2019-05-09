@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Core.Entity;
+using ConsoleApp.DataModels;
 using Core.Model;
 using Core.Model.Log;
 
@@ -93,15 +92,15 @@ namespace Core.Api.Controllers
 
                 return new ObjectResult(error);
             }
-            IQueryable<Role> query = this.DbContext.Role.AsQueryable();
-            List<Role> a = query.ToList();
-            // error = new ErrorDetails
-            //{
-            //    StatusCode = code,
-            //    Message = parsedCode.ToString()
-            //};
+            ////IQueryable<Role> query = this.DbContext.Role.AsQueryable();
+            //List<Role> a = query.ToList();
+            //// error = new ErrorDetails
+            ////{
+            ////    StatusCode = code,
+            ////    Message = parsedCode.ToString()
+            ////};
 
-            return new ObjectResult(a);
+          return new ObjectResult(null);
         }
 
 

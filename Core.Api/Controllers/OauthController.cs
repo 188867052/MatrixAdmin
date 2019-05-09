@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Core.Entity;
 using Core.Entity.Enums;
 using Core.Model;
+using ConsoleApp.DataModels;
 
 namespace Core.Api.Controllers
 {
@@ -55,16 +56,16 @@ namespace Core.Api.Controllers
                     response.SetFailed("密码不正确");
                     return Ok(response);
                 }
-                if (user.IsLocked == IsLockedEnum.Locked)
-                {
-                    response.SetFailed("账号已被锁定");
-                    return Ok(response);
-                }
-                if (user.Status == UserIsForbiddenEnum.Forbidden)
-                {
-                    response.SetFailed("账号已被禁用");
-                    return Ok(response);
-                }
+                //if (user.IsLocked == IsLockedEnum.Locked)
+                //{
+                //    response.SetFailed("账号已被锁定");
+                //    return Ok(response);
+                //}
+                //if (user.Status == UserIsForbiddenEnum.Forbidden)
+                //{
+                //    response.SetFailed("账号已被禁用");
+                //    return Ok(response);
+                //}
             }
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]
                 {

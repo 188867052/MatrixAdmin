@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ConsoleApp.DataModels;
 using Core.Entity;
 using Core.Model.Administration.Icon;
 using Core.Model.Administration.Menu;
@@ -36,9 +37,9 @@ namespace Core.Api.Configurations
             CreateMap<Icon, IconCreateViewModel>();
             CreateMap<IconCreateViewModel, Icon>();
 
-            CreateMap<Permission, PermissionJsonModel>()
-                .ForMember(d => d.MenuName, s => s.MapFrom(x => x.Menu.Name))
-                .ForMember(d => d.PermissionTypeText, s => s.MapFrom(x => x.Type.ToString()));
+            CreateMap<Permission, PermissionJsonModel>();
+                //.ForMember(d => d.MenuName, s => s.MapFrom(x => x.Menu.Name))
+                //.ForMember(d => d.PermissionTypeText, s => s.MapFrom(x => x.Type.ToString()));
             CreateMap<PermissionCreateViewModel, Permission>();
             CreateMap<PermissionEditViewModel, Permission>();
             CreateMap<Permission, PermissionEditViewModel>();

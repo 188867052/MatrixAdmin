@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Entity;
+using ConsoleApp.DataModels;
 using Core.Extension.Dapper;
 using Core.Model.Administration.Role;
 using Core.Model.Administration.User;
@@ -17,10 +17,16 @@ namespace Core.Api.Controllers
     /// 用户控制器
     /// </summary>
     //[CustomAuthorize]
-    public class UserController : StandardController
+    [Route("api/[controller]/[action]")]
+    [ApiController]
+    public class UserController : ControllerBase
     {
-        public UserController(Context dbContext, IMapper mapper) : base(dbContext, mapper)
+        public readonly Context DbContext;
+        public readonly IMapper Mapper;
+        public UserController(Context dbContext, IMapper mapper)
         {
+            DbContext = dbContext;
+            Mapper = mapper;
         }
 
         [HttpGet]
@@ -57,22 +63,22 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                DbContext.Set<UserStatus>().Load();
-                DbContext.Set<UserRoleMapping>().Load();
+                DbContext.Set<ConsoleApp.DataModels.UserStatus>().Load();
+                DbContext.Set<ConsoleApp.DataModels.UserRoleMapping>().Load();
                 DbContext.Set<Role>().Load();
                 IQueryable<User> query = this.DbContext.User.AsQueryable();
-                query = query.AddBooleanFilter(model.IsEnable, nameof(Entity.User.IsEnable));
+                query = query.AddBooleanFilter(model.IsEnable, nameof(ConsoleApp.DataModels.User.IsEnable));
                 if (model.Status.HasValue)
                 {
-                    query = query.Where(o => o.Status == model.Status);
+                    query = query.Where(o => o.Status == (int)model.Status);
                 }
 
                 if (model.RoleId.HasValue)
                 {
-                    query = query.Where(o => o.UserRoles.Any(u => u.Role.Id == model.RoleId));
+                    query = query.Where(o => o.UserRoleMapping.Any(u => u.Role.Id == model.RoleId));
                 }
-                query = query.AddStringContainsFilter(model.DisplayName, nameof(Entity.User.DisplayName));
-                query = query.AddStringContainsFilter(model.LoginName, nameof(Entity.User.LoginName));
+                query = query.AddStringContainsFilter(model.DisplayName, nameof(ConsoleApp.DataModels.User.DisplayName));
+                query = query.AddStringContainsFilter(model.LoginName, nameof(ConsoleApp.DataModels.User.LoginName));
 
                 model.TotalCount = query.Count();
                 if (model.PageIndex < 1)
@@ -115,11 +121,12 @@ namespace Core.Api.Controllers
                 User entity = Mapper.Map<UserCreatePostModel, User>(model);
                 entity.CreateTime = DateTime.Now;
                 //entity.Id = Guid.NewGuid();
-                entity.Status = model.Status;
+                entity.Status = (int)model.Status;
                 this.DbContext.User.Add(entity);
                 this.DbContext.SaveChanges();
 
-                return this.SubmitResponse(response);
+                return null;
+                //return this.SubmitResponse(response);
             }
         }
 

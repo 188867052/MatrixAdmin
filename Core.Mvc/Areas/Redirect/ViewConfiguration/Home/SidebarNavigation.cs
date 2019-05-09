@@ -41,7 +41,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Areas.Administration), typeof(IconController), nameof(IconController.Index)), IndexBaseResource.IconManage));
 
             SubMenu log = new SubMenu("icon icon-edit", default, IndexBaseResource.LogManage, 2);
-            log.AddLinkButton(new LinkedAnchor(new Url(nameof(Model.Log.Log), typeof(LogController), nameof(LogController.Index)), IndexBaseResource.ErrorLog));
+            log.AddLinkButton(new LinkedAnchor(new Url(nameof(Log), typeof(LogController), nameof(LogController.Index)), IndexBaseResource.ErrorLog));
 
             Sidebar sidebar = new Sidebar();
             sidebar.AddSubMenu(new SubMenu("icon icon-home", new Url(typeof(RedirectController), nameof(RedirectController.Index)), SidebarNavigationResource.DashboardTitle, 0, true));

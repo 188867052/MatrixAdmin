@@ -6,11 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Entity;
+using ConsoleApp.DataModels;
 using Core.Entity.Enums;
 using Core.Extension.Dapper;
 using Core.Model;
 using Core.Model.Administration.Role;
+using RolePermissionMapping = Core.Entity.RolePermissionMapping;
 
 namespace Core.Api.Controllers
 {
@@ -231,7 +232,7 @@ namespace Core.Api.Controllers
                         PermissionCode = x.Trim(),
                         //RoleCode = payload.RoleCode.Trim()
                     });
-                    this.DbContext.RolePermissionMapping.AddRange(permissions);
+                    //this.DbContext.RolePermissionMapping.AddRange(permissions);
                     this.DbContext.SaveChanges();
                 }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using ConsoleApp.DataModels;
 using Core.Api.Extensions;
 using Core.Api.Extensions.AuthContext;
 using Core.Entity;
@@ -40,17 +41,17 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();
-                //Filter<Icon> filter = new Filter<Icon>(new FilterInfo<DateTime>(nameof(Icon.CreatedOn), Operation.Between, DateTime.Now, DateTime.Now));
-                //query = query.AddFilter(filter);
-                //query = query.ExpressionBuilder(model.Status, nameof(Icon.Status));
-                query = query.AddBooleanFilter(model.IsEnable, nameof(Icon.IsEnable));
-                //query = query.AddStringContainsFilter(model.KeyWord, nameof(Icon.Code));
-                query = query.AddBooleanFilter(model.Status, nameof(Icon.Status));
-                var list = query.Paged(out var count, model);
-                IEnumerable<IconJsonModel> data = list.Select(this.Mapper.Map<Icon, IconJsonModel>);
+                //IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();
+                ////Filter<Icon> filter = new Filter<Icon>(new FilterInfo<DateTime>(nameof(Icon.CreatedOn), Operation.Between, DateTime.Now, DateTime.Now));
+                ////query = query.AddFilter(filter);
+                ////query = query.ExpressionBuilder(model.Status, nameof(Icon.Status));
+                //query = query.AddBooleanFilter(model.IsEnable, nameof(Icon.IsEnable));
+                ////query = query.AddStringContainsFilter(model.KeyWord, nameof(Icon.Code));
+                //query = query.AddBooleanFilter(model.Status, nameof(Icon.Status));
+                //var list = query.Paged(out var count, model);
+                //IEnumerable<IconJsonModel> data = list.Select(this.Mapper.Map<Icon, IconJsonModel>);
                 ResponseModel response = ResponseModelFactory.CreateResultInstance;
-                response.SetData(data, count);
+                //response.SetData(data, count);
 
                 return Ok(response);
             }
