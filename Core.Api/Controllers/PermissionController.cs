@@ -197,7 +197,7 @@ namespace Core.Api.Controllers
         /// <summary>
         /// 批量操作.
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="command">The command.</param>
         /// <param name="ids">权限ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet]

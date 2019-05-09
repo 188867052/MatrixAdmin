@@ -97,7 +97,7 @@ namespace Core.Extension.Dapper
             /// This <see cref="System.Type"/> of this Identity.
             /// </summary>
             public readonly Type Type;
-            style
+
             /// <summary>
             /// The connection string for this Identity.
             /// </summary>
