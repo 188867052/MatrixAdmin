@@ -13,11 +13,13 @@ namespace Core.Api.ExpressionBuilder.Resources
     /// </summary>
     public class PropertyCollection : IPropertyCollection
     {
+        private readonly HashSet<Type> _visitedTypes;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PropertyCollection"/> class.
         /// Instantiates a new <see cref="PropertyCollection" />.
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="type">type.</param>
         public PropertyCollection(Type type)
         {
             this.Type = type;
@@ -29,8 +31,8 @@ namespace Core.Api.ExpressionBuilder.Resources
         /// Initializes a new instance of the <see cref="PropertyCollection"/> class.
         /// Instantiates a new <see cref="PropertyCollection" />.
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="resourceManager"></param>
+        /// <param name="type">type.</param>
+        /// <param name="resourceManager">resourceManager.</param>
         public PropertyCollection(Type type, ResourceManager resourceManager) : this(type)
         {
             this.LoadProperties(resourceManager);
@@ -46,7 +48,6 @@ namespace Core.Api.ExpressionBuilder.Resources
         /// </summary>
         public ResourceManager ResourceManager { get; private set; }
 
-        private readonly HashSet<Type> _visitedTypes;
 
         private List<Property> Properties { get; }
 

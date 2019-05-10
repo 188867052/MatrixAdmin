@@ -7,13 +7,6 @@ namespace Core.Api.Extensions.DataAccess
 {
     public static class SqlParameterExtensions
     {
-        private class QueryParamInfo
-        {
-            public string Name { get; set; }
-
-            public object Value { get; set; }
-        }
-
         public static object[] ToSqlParamsArray(this object obj, SqlParameter[] additionalParams = null)
         {
             List<SqlParameter> result = ToSqlParamsList(obj, additionalParams);
@@ -64,6 +57,13 @@ namespace Core.Api.Extensions.DataAccess
             }
 
             return result;
+        }
+
+        private class QueryParamInfo
+        {
+            public string Name { get; set; }
+
+            public object Value { get; set; }
         }
     }
 }

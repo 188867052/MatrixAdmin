@@ -8,13 +8,14 @@ namespace Core.Extension.Dapper
     {
         private class CacheInfo
         {
+            private int _hitCount;
+
             public DeserializerState Deserializer { get; set; }
 
             public Func<IDataReader, object>[] OtherDeserializers { get; set; }
 
             public Action<IDbCommand, object> ParamReader { get; set; }
 
-            private int _hitCount;
 
             public int GetHitCount()
             {

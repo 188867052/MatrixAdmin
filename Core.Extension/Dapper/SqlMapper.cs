@@ -21,12 +21,55 @@ namespace Core.Extension.Dapper
     /// </summary>
     public static partial class SqlMapper
     {
+        internal const string LinqBinary = "System.Data.Linq.Binary";
         private const int COLLECT_PER_ITEMS = 1000;
         private const int COLLECT_HIT_COUNT_MIN = 0;
         private static Dictionary<Type, ITypeHandler> typeHandlers;
-        public static event EventHandler QueryCachePurged;
         private static int collect;
         private static IEqualityComparer<string> connectionStringComparer = StringComparer.Ordinal;
+        private const string ObsoleteInternalUsageOnly = "This method is for internal use only";
+        private static Dictionary<Type, DbType> typeMap;
+        private static readonly System.Collections.Concurrent.ConcurrentDictionary<Identity, CacheInfo> _queryCache = new System.Collections.Concurrent.ConcurrentDictionary<Identity, CacheInfo>();
+        private static readonly int[] ErrTwoRows = new int[2];
+        private static readonly int[] ErrZeroRows = new int[0];
+        internal static readonly MethodInfo format = typeof(SqlMapper).GetMethod("Format", BindingFlags.Public | BindingFlags.Static);
+
+        // look for ? / @ / : *by itself*
+        private static readonly Regex smellsLikeOleDb = new Regex(@"(?<![\p{L}\p{N}@_])[?@:](?![\p{L}\p{N}@_])", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+
+        // look for ? / @ / : *by itself*
+        private static readonly Regex literalTokens = new Regex(@"(?<![\p{L}\p{N}_])\{=([\p{L}\p{N}_]+)\}", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+
+        // look for ? / @ / : *by itself*
+        private static readonly Regex pseudoPositional = new Regex(@"\?([\p{L}_][\p{L}\p{N}_]*)\?", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+
+        /// <summary>
+        /// Key used to indicate the type name associated with a DataTable.
+        /// </summary>
+        private const string DataTableTypeNameKey = "dapper:TypeName";
+
+        public static event EventHandler QueryCachePurged;
+
+        [Flags]
+        internal enum Row
+        {
+            First = 0,
+            FirstOrDefault = 1, // & FirstOrDefault != 0: allow zero rows
+            Single = 2, // & Single != 0: demand at least one row
+            SingleOrDefault = 3
+        }
+
+        /// <summary>
+        /// Gets or sets how should connection strings be compared for equivalence? Defaults to StringComparer.Ordinal.
+        /// Providing a custom implementation can be useful for allowing multi-tenancy databases with identical
+        /// schema to share strategies. Note that usual equivalence rules apply: any equivalent connection strings
+        /// <b>MUST</b> yield the same hash-code.
+        /// </summary>
+        public static IEqualityComparer<string> ConnectionStringComparer
+        {
+            get { return connectionStringComparer; }
+            set { connectionStringComparer = value ?? StringComparer.Ordinal; }
+        }
 
         private static int GetColumnHash(IDataReader reader, int startBound = 0, int length = -1)
         {
@@ -52,8 +95,6 @@ namespace Core.Extension.Dapper
             var handler = QueryCachePurged;
             handler?.Invoke(null, EventArgs.Empty);
         }
-
-        private static readonly System.Collections.Concurrent.ConcurrentDictionary<Identity, CacheInfo> _queryCache = new System.Collections.Concurrent.ConcurrentDictionary<Identity, CacheInfo>();
 
         private static void SetQueryCache(Identity key, CacheInfo value)
         {
@@ -164,8 +205,6 @@ namespace Core.Extension.Dapper
                    where pair.Value > 1
                    select Tuple.Create(pair.Key, pair.Value);
         }
-
-        private static Dictionary<Type, DbType> typeMap;
 
         static SqlMapper()
         {
@@ -361,19 +400,13 @@ namespace Core.Extension.Dapper
         /// <param name="handler">The handler for the type <typeparamref name="T"/>.</param>
         public static void AddTypeHandler<T>(TypeHandler<T> handler) => AddTypeHandlerImpl(typeof(T), handler, true);
 
-        internal const string LinqBinary = "System.Data.Linq.Binary";
-
-        private const string ObsoleteInternalUsageOnly = "This method is for internal use only";
-
         /// <summary>
         /// Get the DbType that maps to a given value.
         /// </summary>
         /// <param name="value">The object to get a corresponding database type for.</param>
         /// <returns></returns>
         [Obsolete(ObsoleteInternalUsageOnly, false)]
-#if !NETSTANDARD1_3
         [Browsable(false)]
-#endif
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static DbType GetDbType(object value)
         {
@@ -394,9 +427,7 @@ namespace Core.Extension.Dapper
         /// <param name="handler">The handler for <paramref name="type"/>.</param>
         /// <returns></returns>
         [Obsolete(ObsoleteInternalUsageOnly, false)]
-#if !NETSTANDARD1_3
         [Browsable(false)]
-#endif
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static DbType LookupDbType(Type type, string name, bool demand, out ITypeHandler handler)
         {
@@ -1246,17 +1277,7 @@ namespace Core.Extension.Dapper
             }
         }
 
-        [Flags]
-        internal enum Row
-        {
-            First = 0,
-            FirstOrDefault = 1, // & FirstOrDefault != 0: allow zero rows
-            Single = 2, // & Single != 0: demand at least one row
-            SingleOrDefault = 3
-        }
 
-        private static readonly int[] ErrTwoRows = new int[2];
-        private static readonly int[] ErrZeroRows = new int[0];
 
         private static void ThrowMultipleRows(Row row)
         {
@@ -2075,9 +2096,7 @@ namespace Core.Extension.Dapper
         /// </summary>
         /// <param name="value">The object to convert to a character.</param>
         /// <returns></returns>
-#if !NETSTANDARD1_3
         [Browsable(false)]
-#endif
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete(ObsoleteInternalUsageOnly, false)]
         public static char ReadChar(object value)
@@ -2101,9 +2120,7 @@ namespace Core.Extension.Dapper
         /// </summary>
         /// <param name="value">The object to convert to a character.</param>
         /// <returns></returns>
-#if !NETSTANDARD1_3
         [Browsable(false)]
-#endif
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete(ObsoleteInternalUsageOnly, false)]
         public static char? ReadNullableChar(object value)
@@ -2129,9 +2146,7 @@ namespace Core.Extension.Dapper
         /// <param name="command">The command for this fetch.</param>
         /// <param name="name">The name of the parameter to get.</param>
         /// <returns></returns>
-#if !NETSTANDARD1_3
         [Browsable(false)]
-#endif
         [EditorBrowsable(EditorBrowsableState.Never)]
         [Obsolete(ObsoleteInternalUsageOnly, true)]
         public static IDbDataParameter FindOrAddParameter(IDataParameterCollection parameters, IDbCommand command, string name)
@@ -2521,15 +2536,6 @@ namespace Core.Extension.Dapper
             return list;
         }
 
-        // look for ? / @ / : *by itself*
-        private static readonly Regex smellsLikeOleDb = new Regex(@"(?<![\p{L}\p{N}@_])[?@:](?![\p{L}\p{N}@_])", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
-
-        // look for ? / @ / : *by itself*
-        private static readonly Regex literalTokens = new Regex(@"(?<![\p{L}\p{N}_])\{=([\p{L}\p{N}_]+)\}", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
-
-        // look for ? / @ / : *by itself*
-        private static readonly Regex pseudoPositional = new Regex(@"\?([\p{L}_][\p{L}\p{N}_]*)\?", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled);
-
         /// <summary>
         /// Replace all literal tokens with their text form.
         /// </summary>
@@ -2543,8 +2549,6 @@ namespace Core.Extension.Dapper
                 ReplaceLiterals(parameters, command, tokens);
             }
         }
-
-        internal static readonly MethodInfo format = typeof(SqlMapper).GetMethod("Format", BindingFlags.Public | BindingFlags.Static);
 
         /// <summary>
         /// Convert numeric values to their string form for SQL literal purposes.
@@ -4090,23 +4094,6 @@ namespace Core.Extension.Dapper
                     break;
             }
         }
-
-        /// <summary>
-        /// Gets or sets how should connection strings be compared for equivalence? Defaults to StringComparer.Ordinal.
-        /// Providing a custom implementation can be useful for allowing multi-tenancy databases with identical
-        /// schema to share strategies. Note that usual equivalence rules apply: any equivalent connection strings
-        /// <b>MUST</b> yield the same hash-code.
-        /// </summary>
-        public static IEqualityComparer<string> ConnectionStringComparer
-        {
-            get { return connectionStringComparer; }
-            set { connectionStringComparer = value ?? StringComparer.Ordinal; }
-        }
-
-        /// <summary>
-        /// Key used to indicate the type name associated with a DataTable.
-        /// </summary>
-        private const string DataTableTypeNameKey = "dapper:TypeName";
 
         /// <summary>
         /// Used to pass a DataTable as a <see cref="TableValuedParameter"/>.

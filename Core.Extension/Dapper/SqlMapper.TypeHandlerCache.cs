@@ -11,12 +11,12 @@ namespace Core.Extension.Dapper
         /// </summary>
         /// <typeparam name="T">The type to have a cache for.</typeparam>
         [Obsolete(ObsoleteInternalUsageOnly, false)]
-#if !NETSTANDARD1_3
         [Browsable(false)]
-#endif
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static class TypeHandlerCache<T>
         {
+            private static ITypeHandler handler;
+
             /// <summary>
             /// Not intended for direct usage.
             /// </summary>
@@ -35,12 +35,8 @@ namespace Core.Extension.Dapper
 
             internal static void SetHandler(ITypeHandler handler)
             {
-#pragma warning disable 618
                 TypeHandlerCache<T>.handler = handler;
-#pragma warning restore 618
             }
-
-            private static ITypeHandler handler;
         }
     }
 }

@@ -52,19 +52,14 @@ namespace Core.Extension.Dapper
                 }
             }
 
-            internal Identity ForGrid(Type primaryType, int gridIndex) =>
-                new Identity(this.Sql, this.CommandType, this.ConnectionString, primaryType, this.ParametersType, null, gridIndex);
-
-            internal Identity ForGrid(Type primaryType, Type[] otherTypes, int gridIndex) =>
-                new Identity(this.Sql, this.CommandType, this.ConnectionString, primaryType, this.ParametersType, otherTypes, gridIndex);
+        
 
             /// <summary>
             /// Create an identity for use with DynamicParameters, internal use only.
             /// </summary>
             /// <param name="type">The parameters type to create an <see cref="Identity"/> for.</param>
-            /// <returns></returns>
-            public Identity ForDynamicParameters(Type type) =>
-                new Identity(this.Sql, this.CommandType, this.ConnectionString, this.Type, type, null, -1);
+            /// <returns>Identity.</returns>
+            public Identity ForDynamicParameters(Type type) => new Identity(this.Sql, this.CommandType, this.ConnectionString, this.Type, type, null, -1);
 
             /// <summary>
             /// Whether this <see cref="Identity"/> equals another.
@@ -129,6 +124,12 @@ namespace Core.Extension.Dapper
                     && connectionStringComparer.Equals(this.ConnectionString, other.ConnectionString)
                     && this.ParametersType == other.ParametersType;
             }
+
+            internal Identity ForGrid(Type primaryType, int gridIndex) =>
+            new Identity(this.Sql, this.CommandType, this.ConnectionString, primaryType, this.ParametersType, null, gridIndex);
+
+            internal Identity ForGrid(Type primaryType, Type[] otherTypes, int gridIndex) =>
+                new Identity(this.Sql, this.CommandType, this.ConnectionString, primaryType, this.ParametersType, otherTypes, gridIndex);
         }
     }
 }

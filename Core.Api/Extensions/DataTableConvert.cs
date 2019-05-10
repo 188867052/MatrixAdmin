@@ -19,6 +19,7 @@ namespace Core.Api.Extensions
 
         // 使用字典存储实体的类型以及与之对应的Emit生成的转换方法
         private static readonly Dictionary<Type, Delegate> rowMapMethods = new Dictionary<Type, Delegate>();
+
         // 把DataRow转换为对象的委托声明
         private delegate T Load<T>(DataRow dataRecord);
 

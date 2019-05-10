@@ -27,6 +27,8 @@ namespace Core.Extension.Dapper
                 }
             }
 
+            public int FieldCount => this._fieldNames.Length;
+
             internal string[] FieldNames => this._fieldNames;
 
             internal int IndexOfName(string name)
@@ -54,8 +56,6 @@ namespace Core.Extension.Dapper
             }
 
             internal bool FieldExists(string key) => key != null && this._fieldNameLookup.ContainsKey(key);
-
-            public int FieldCount => this._fieldNames.Length;
         }
     }
 }

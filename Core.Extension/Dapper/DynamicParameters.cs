@@ -52,6 +52,7 @@ namespace Core.Extension.Dapper
         /// Gets all the names of the param in the bag, use Get to yank them out.
         /// </summary>
         public IEnumerable<string> ParameterNames => this.parameters.Select(p => p.Key);
+
         object SqlMapper.IParameterLookup.this[string name] =>
             this.parameters.TryGetValue(name, out ParamInfo param) ? param.Value : null;
 

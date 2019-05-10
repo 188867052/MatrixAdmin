@@ -9,6 +9,8 @@ namespace Core.Extension.Dapper
         /// </summary>
         internal struct LiteralToken
         {
+            internal static readonly IList<LiteralToken> None = new LiteralToken[0];
+
             /// <summary>
             /// Initializes a new instance of the <see cref="LiteralToken"/> struct.
             /// </summary>
@@ -29,8 +31,6 @@ namespace Core.Extension.Dapper
             /// Gets the name of the member referred to by the token.
             /// </summary>
             public string Member { get; }
-
-            internal static readonly IList<LiteralToken> None = new LiteralToken[0];
         }
     }
 }

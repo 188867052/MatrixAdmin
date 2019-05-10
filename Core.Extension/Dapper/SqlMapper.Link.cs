@@ -20,6 +20,12 @@ namespace Core.Extension.Dapper
                 this.Tail = tail;
             }
 
+            public TKey Key { get; }
+
+            public TValue Value { get; }
+
+            public Link<TKey, TValue> Tail { get; }
+
             public static bool TryGet(Link<TKey, TValue> link, TKey key, out TValue value)
             {
                 while (link != null)
@@ -58,11 +64,7 @@ namespace Core.Extension.Dapper
                 return true;
             }
 
-            public TKey Key { get; }
-
-            public TValue Value { get; }
-
-            public Link<TKey, TValue> Tail { get; }
+    
         }
     }
 }

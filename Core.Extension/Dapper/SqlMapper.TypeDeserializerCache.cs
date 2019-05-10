@@ -12,6 +12,8 @@ namespace Core.Extension.Dapper
         {
             private static readonly Hashtable byType = new Hashtable();
             private readonly Type type;
+            private readonly Dictionary<DeserializerKey, Func<IDataReader, object>> readers = new Dictionary<DeserializerKey, Func<IDataReader, object>>();
+
             private TypeDeserializerCache(Type type)
             {
                 this.type = type;
@@ -51,7 +53,40 @@ namespace Core.Extension.Dapper
                 return found.GetReader(reader, startBound, length, returnNullIfFirstMissing);
             }
 
-            private readonly Dictionary<DeserializerKey, Func<IDataReader, object>> readers = new Dictionary<DeserializerKey, Func<IDataReader, object>>();
+
+            private Func<IDataReader, object> GetReader(IDataReader reader, int startBound, int length, bool returnNullIfFirstMissing)
+            {
+                if (length < 0)
+                {
+                    length = reader.FieldCount - startBound;
+                }
+
+                int hash = GetColumnHash(reader, startBound, length);
+                if (returnNullIfFirstMissing)
+                {
+                    hash *= -27;
+                }
+
+                // get a cheap key first: false means don't copy the values down
+                var key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, false);
+                Func<IDataReader, object> deser;
+                lock (this.readers)
+                {
+                    if (this.readers.TryGetValue(key, out deser))
+                    {
+                        return deser;
+                    }
+                }
+
+                deser = GetTypeDeserializerImpl(this.type, reader, startBound, length, returnNullIfFirstMissing);
+
+                // get a more expensive key: true means copy the values down so it can be used as a key later
+                key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, true);
+                lock (this.readers)
+                {
+                    return this.readers[key] = deser;
+                }
+            }
 
             private struct DeserializerKey : IEquatable<DeserializerKey>
             {
@@ -148,39 +183,6 @@ namespace Core.Extension.Dapper
                 }
             }
 
-            private Func<IDataReader, object> GetReader(IDataReader reader, int startBound, int length, bool returnNullIfFirstMissing)
-            {
-                if (length < 0)
-                {
-                    length = reader.FieldCount - startBound;
-                }
-
-                int hash = GetColumnHash(reader, startBound, length);
-                if (returnNullIfFirstMissing)
-                {
-                    hash *= -27;
-                }
-
-                // get a cheap key first: false means don't copy the values down
-                var key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, false);
-                Func<IDataReader, object> deser;
-                lock (this.readers)
-                {
-                    if (this.readers.TryGetValue(key, out deser))
-                    {
-                        return deser;
-                    }
-                }
-
-                deser = GetTypeDeserializerImpl(this.type, reader, startBound, length, returnNullIfFirstMissing);
-
-                // get a more expensive key: true means copy the values down so it can be used as a key later
-                key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, true);
-                lock (this.readers)
-                {
-                    return this.readers[key] = deser;
-                }
-            }
         }
     }
 }

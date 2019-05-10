@@ -1,5 +1,4 @@
-﻿#if !NETSTANDARD1_3 // needs the component-model API
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -48,8 +47,6 @@ namespace Core.Extension.Dapper
 
                 string ICustomTypeDescriptor.GetComponentName() => null;
 
-                private static readonly TypeConverter s_converter = new ExpandableObjectConverter();
-
                 TypeConverter ICustomTypeDescriptor.GetConverter() => s_converter;
 
                 EventDescriptor ICustomTypeDescriptor.GetDefaultEvent() => null;
@@ -83,6 +80,8 @@ namespace Core.Extension.Dapper
                     return new PropertyDescriptorCollection(arr, true);
                 }
 
+                private static readonly TypeConverter s_converter = new ExpandableObjectConverter();
+
                 PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties() => GetProperties(this._row);
 
                 PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties(Attribute[] attributes) => GetProperties(this._row);
@@ -101,17 +100,17 @@ namespace Core.Extension.Dapper
                     this._index = index;
                 }
 
-                public override bool CanResetValue(object component) => true;
-
-                public override void ResetValue(object component) => ((DapperRow)component).Remove(this._index);
-
                 public override bool IsReadOnly => false;
-
-                public override bool ShouldSerializeValue(object component) => ((DapperRow)component).TryGetValue(this._index, out _);
 
                 public override Type ComponentType => typeof(DapperRow);
 
                 public override Type PropertyType => this._type;
+
+                public override bool CanResetValue(object component) => true;
+
+                public override bool ShouldSerializeValue(object component) => ((DapperRow)component).TryGetValue(this._index, out _);
+
+                public override void ResetValue(object component) => ((DapperRow)component).Remove(this._index);
 
                 public override object GetValue(object component)
                     => ((DapperRow)component).TryGetValue(this._index, out var val) ? (val ?? DBNull.Value) : DBNull.Value;
@@ -122,4 +121,3 @@ namespace Core.Extension.Dapper
         }
     }
 }
-#endif

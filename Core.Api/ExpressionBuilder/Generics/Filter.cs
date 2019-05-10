@@ -15,7 +15,6 @@ namespace Core.Api.ExpressionBuilder.Generics
     /// <summary>
     /// Aggregates <see cref="FilterInfo{TPropertyType}" /> and build them into a LINQ expression.
     /// </summary>
-    /// <typeparam name="TClass"></typeparam>
     [Serializable]
     public class Filter<TClass> : IFilter, IXmlSerializable where TClass : class
     {
@@ -60,27 +59,8 @@ namespace Core.Api.ExpressionBuilder.Generics
         }
 
         /// <summary>
-        /// Implicitly converts a <see cref="Filter{TClass}" /> into a <see cref="System.Linq.Expressions.Expression{Func{TClass, TResult}}" />.
+        /// Group.
         /// </summary>
-        /// <param name="filter"></param>
-        public static implicit operator Expression<Func<TClass, bool>>(Filter<TClass> filter)
-        {
-            var builder = new FilterBuilder();
-            var expression = builder.GetExpression<TClass>(filter);
-            return expression;
-        }
-
-        /// <summary>
-        /// Implicitly converts a <see cref="Filter{TClass}" /> into a <see cref="Func{TClass, TResult}" />.
-        /// </summary>
-        /// <param name="filter"></param>
-        public static implicit operator Func<TClass, bool>(Filter<TClass> filter)
-        {
-            var builder = new FilterBuilder();
-            var expression = builder.GetExpression<TClass>(filter).Compile();
-            return expression;
-        }
-
         public IFilter Group
         {
             get
@@ -110,13 +90,35 @@ namespace Core.Api.ExpressionBuilder.Generics
         }
 
         /// <summary>
+        /// Implicitly converts a <see cref="Filter{TClass}" /> into a <see cref="System.Linq.Expressions.Expression{Func{TClass, TResult}}" />.
+        /// </summary>
+        /// <param name="filter">filter.</param>
+        public static implicit operator Expression<Func<TClass, bool>>(Filter<TClass> filter)
+        {
+            var builder = new FilterBuilder();
+            var expression = builder.GetExpression<TClass>(filter);
+            return expression;
+        }
+
+        /// <summary>
+        /// Implicitly converts a <see cref="Filter{TClass}" /> into a <see cref="Func{TClass, TResult}" />.
+        /// </summary>
+        /// <param name="filter">filter.</param>
+        public static implicit operator Func<TClass, bool>(Filter<TClass> filter)
+        {
+            var builder = new FilterBuilder();
+            var expression = builder.GetExpression<TClass>(filter).Compile();
+            return expression;
+        }
+
+        /// <summary>
         /// Adds a new <see cref="FilterInfo{TPropertyType}" /> to the <see cref="Filter{TClass}" />.
         /// (To be used by <see cref="IOperation" /> that need no values).
         /// </summary>
         /// <param name="propertyId">Property identifier conventionalized by for the Expression Builder.</param>
         /// <param name="operation">Operation to be used.</param>
-        /// <param name="connector"></param>
-        /// <returns></returns>
+        /// <param name="connector">connector.</param>
+        /// <returns>IFilterStatementConnection.</returns>
         public IFilterStatementConnection By(string propertyId, IOperation operation, Connector connector)
         {
             return this.By<string>(propertyId, operation, null, null, connector);
@@ -128,7 +130,7 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// </summary>
         /// <param name="propertyId">Property identifier conventionalized by for the Expression Builder.</param>
         /// <param name="operation">Operation to be used.</param>
-        /// <returns></returns>
+        /// <returns>IFilterStatementConnection.</returns>
         public IFilterStatementConnection By(string propertyId, IOperation operation)
         {
             return this.By<string>(propertyId, operation, null, null, Connector.And);
@@ -137,12 +139,11 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// <summary>
         /// Adds a new <see cref="FilterInfo{TPropertyType}" /> to the <see cref="Filter{TClass}" />.
         /// </summary>
-        /// <typeparam name="TPropertyType"></typeparam>
+        /// <typeparam name="TPropertyType">TPropertyType.</typeparam>
         /// <param name="propertyId">Property identifier conventionalized by for the Expression Builder.</param>
         /// <param name="operation">Operation to be used.</param>
-        /// <param name="value"></param>
-        /// <param name="value2"></param>
-        /// <returns></returns>
+        /// <param name="value">value.</param>
+        /// <returns>IFilterStatementConnection.</returns>
         public IFilterStatementConnection By<TPropertyType>(string propertyId, IOperation operation, TPropertyType value)
         {
             return this.By(propertyId, operation, value, default(TPropertyType));
@@ -151,13 +152,12 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// <summary>
         /// Adds a new <see cref="FilterInfo{TPropertyType}" /> to the <see cref="Filter{TClass}" />.
         /// </summary>
-        /// <typeparam name="TPropertyType"></typeparam>
+        /// <typeparam name="TPropertyType">TPropertyType.</typeparam>
         /// <param name="propertyId">Property identifier conventionalized by for the Expression Builder.</param>
         /// <param name="operation">Operation to be used.</param>
-        /// <param name="value"></param>
-        /// <param name="value2"></param>
-        /// <param name="connector"></param>
-        /// <returns></returns>
+        /// <param name="value">value.</param>
+        /// <param name="connector">connector.</param>
+        /// <returns>IFilterStatementConnection.</returns>
         public IFilterStatementConnection By<TPropertyType>(string propertyId, IOperation operation, TPropertyType value, Connector connector)
         {
             return this.By(propertyId, operation, value, default, connector);
@@ -166,12 +166,12 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// <summary>
         /// Adds a new <see cref="FilterInfo{TPropertyType}" /> to the <see cref="Filter{TClass}" />.
         /// </summary>
-        /// <typeparam name="TPropertyType"></typeparam>
+        /// <typeparam name="TPropertyType">TPropertyType.</typeparam>
         /// <param name="propertyId">Property identifier conventionalized by for the Expression Builder.</param>
         /// <param name="operation">Operation to be used.</param>
-        /// <param name="value"></param>
-        /// <param name="value2"></param>
-        /// <returns></returns>
+        /// <param name="value">value.</param>
+        /// <param name="value2">value2.</param>
+        /// <returns>IFilterStatementConnection.</returns>
         public IFilterStatementConnection By<TPropertyType>(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2)
         {
             return this.By(propertyId, operation, value, value2, Connector.And);
@@ -180,13 +180,13 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// <summary>
         /// Adds a new <see cref="FilterInfo{TPropertyType}" /> to the <see cref="Filter{TClass}" />.
         /// </summary>
-        /// <typeparam name="TPropertyType"></typeparam>
+        /// <typeparam name="TPropertyType">TPropertyType.</typeparam>
         /// <param name="propertyId">Property identifier conventionalized by for the Expression Builder.</param>
         /// <param name="operation">Operation to be used.</param>
-        /// <param name="value"></param>
-        /// <param name="value2"></param>
-        /// <param name="connector"></param>
-        /// <returns></returns>
+        /// <param name="value">value.</param>
+        /// <param name="value2">value2.</param>
+        /// <param name="connector">connector.</param>
+        /// <returns>IFilterStatementConnection.</returns>
         public IFilterStatementConnection By<TPropertyType>(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector)
         {
             IFilterInfo statement = new FilterInfo<TPropertyType>(propertyId, operation, value, value2, connector);

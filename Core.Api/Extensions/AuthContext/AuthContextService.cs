@@ -6,28 +6,16 @@ using Microsoft.AspNetCore.Http;
 namespace Core.Api.Extensions.AuthContext
 {
     /// <summary>
-    ///
+    /// AuthContextService.
     /// </summary>
     public static class AuthContextService
     {
         private static IHttpContextAccessor _context;
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="httpContextAccessor"></param>
-        public static void Configure(IHttpContextAccessor httpContextAccessor)
-        {
-            _context = httpContextAccessor;
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
         public static HttpContext Current => _context.HttpContext;
 
         /// <summary>
-        ///
+        /// CurrentUser.
         /// </summary>
         public static AuthContextUser CurrentUser
         {
@@ -66,6 +54,15 @@ namespace Core.Api.Extensions.AuthContext
             {
                 return (UserRoleEnum)Convert.ToInt32(Current.User.FindFirstValue("userType")) == UserRoleEnum.SuperAdministrator;
             }
+        }
+
+        /// <summary>
+        /// Configure.
+        /// </summary>
+        /// <param name="httpContextAccessor">httpContextAccessor.</param>
+        public static void Configure(IHttpContextAccessor httpContextAccessor)
+        {
+            _context = httpContextAccessor;
         }
     }
 }

@@ -46,19 +46,25 @@ namespace Core.Extension.Dapper
             }
         }
 
-        void IDataReader.Close() => this.reader?.Close();
+        int IDataRecord.FieldCount => this.Reader.FieldCount;
+
+        int IDataReader.RecordsAffected => this.Reader.RecordsAffected;
 
         int IDataReader.Depth => this.Reader.Depth;
 
-        DataTable IDataReader.GetSchemaTable() => this.Reader.GetSchemaTable();
-
         bool IDataReader.IsClosed => this.reader?.IsClosed ?? true;
+
+        object IDataRecord.this[string name] => this.Reader[name];
+
+        object IDataRecord.this[int i] => this.Reader[i];
+
+        void IDataReader.Close() => this.reader?.Close();
 
         bool IDataReader.NextResult() => this.Reader.NextResult();
 
         bool IDataReader.Read() => this.Reader.Read();
 
-        int IDataReader.RecordsAffected => this.Reader.RecordsAffected;
+        DataTable IDataReader.GetSchemaTable() => this.Reader.GetSchemaTable();
 
         void IDisposable.Dispose()
         {
@@ -68,8 +74,6 @@ namespace Core.Extension.Dapper
             this.cmd?.Dispose();
             this.cmd = null;
         }
-
-        int IDataRecord.FieldCount => this.Reader.FieldCount;
 
         bool IDataRecord.GetBoolean(int i) => this.Reader.GetBoolean(i);
 
@@ -117,8 +121,6 @@ namespace Core.Extension.Dapper
 
         bool IDataRecord.IsDBNull(int i) => this.Reader.IsDBNull(i);
 
-        object IDataRecord.this[string name] => this.Reader[name];
-
-        object IDataRecord.this[int i] => this.Reader[i];
+    
     }
 }

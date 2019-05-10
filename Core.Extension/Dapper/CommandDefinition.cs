@@ -79,11 +79,14 @@ namespace Core.Extension.Dapper
         /// Gets a value indicating whether can async queries be pipelined?.
         /// </summary>
         public bool Pipelined => (this.Flags & CommandFlags.Pipelined) != 0;
-
         /// <summary>
         /// Gets for asynchronous operations, the cancellation-token.
         /// </summary>
         public CancellationToken CancellationToken { get; }
+        /// <summary>
+        /// Gets a value indicating whether should the plan for this query be cached?.
+        /// </summary>
+        internal bool AddToCache => (this.Flags & CommandFlags.NoCache) == 0;
 
         internal static CommandDefinition ForCallback(object parameters)
         {
@@ -96,11 +99,6 @@ namespace Core.Extension.Dapper
                 return default;
             }
         }
-
-        /// <summary>
-        /// Gets a value indicating whether should the plan for this query be cached?.
-        /// </summary>
-        internal bool AddToCache => (this.Flags & CommandFlags.NoCache) == 0;
 
         internal void OnCompleted()
         {

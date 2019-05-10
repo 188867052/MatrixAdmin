@@ -18,44 +18,36 @@ namespace Core.Extension.Dapper
                 this._values = values ?? throw new ArgumentNullException(nameof(values));
             }
 
-            private sealed class DeadValue
-            {
-                public static readonly DeadValue Default = new DeadValue();
+            ICollection<string> IDictionary<string, object>.Keys => this.Select(kv => kv.Key).ToArray();
 
-                private DeadValue()
-                { /* hiding constructor */
-                }
-            }
+            ICollection<object> IDictionary<string, object>.Values => this.Select(kv => kv.Value).ToArray();
 
-            int ICollection<KeyValuePair<string, object>>.Count
+            IEnumerable<string> IReadOnlyDictionary<string, object>.Keys => this.Select(kv => kv.Key);
+
+            int IReadOnlyCollection<KeyValuePair<string, object>>.Count => this._values.Count(t => !(t is DeadValue));
+
+            bool ICollection<KeyValuePair<string, object>>.IsReadOnly => false;
+
+            IEnumerable<object> IReadOnlyDictionary<string, object>.Values => this.Select(kv => kv.Value);
+
+            int ICollection<KeyValuePair<string, object>>.Count => this._values.Count(t => !(t is DeadValue));
+
+            object IDictionary<string, object>.this[string key]
             {
                 get
                 {
-                    return this._values.Count(t => !(t is DeadValue));
+                    this.TryGetValue(key, out object val);
+                    return val;
+                }
+
+                set
+                {
+                    this.SetValue(key, value, false);
                 }
             }
 
             public bool TryGetValue(string key, out object value)
                 => this.TryGetValue(this._table.IndexOfName(key), out value);
-
-            internal bool TryGetValue(int index, out object value)
-            {
-                if (index < 0)
-                { // doesn't exist
-                    value = null;
-                    return false;
-                }
-
-                // exists, **even if** we don't have a value; consider table rows heterogeneous
-                value = index < this._values.Length ? this._values[index] : null;
-                if (value is DeadValue)
-                { // pretend it isn't here
-                    value = null;
-                    return false;
-                }
-
-                return true;
-            }
 
             public override string ToString()
             {
@@ -95,6 +87,7 @@ namespace Core.Extension.Dapper
                 return this.GetEnumerator();
             }
 
+
             void ICollection<KeyValuePair<string, object>>.Add(KeyValuePair<string, object> item)
             {
                 IDictionary<string, object> dic = this;
@@ -128,8 +121,6 @@ namespace Core.Extension.Dapper
                 return dic.Remove(item.Key);
             }
 
-            bool ICollection<KeyValuePair<string, object>>.IsReadOnly => false;
-
             bool IDictionary<string, object>.ContainsKey(string key)
             {
                 int index = this._table.IndexOfName(key);
@@ -149,6 +140,34 @@ namespace Core.Extension.Dapper
             bool IDictionary<string, object>.Remove(string key)
                 => this.Remove(this._table.IndexOfName(key));
 
+            object IReadOnlyDictionary<string, object>.this[string key]
+            {
+                get
+                {
+                    this.TryGetValue(key, out object val);
+                    return val;
+                }
+            }
+
+            internal bool TryGetValue(int index, out object value)
+            {
+                if (index < 0)
+                { // doesn't exist
+                    value = null;
+                    return false;
+                }
+
+                // exists, **even if** we don't have a value; consider table rows heterogeneous
+                value = index < this._values.Length ? this._values[index] : null;
+                if (value is DeadValue)
+                { // pretend it isn't here
+                    value = null;
+                    return false;
+                }
+
+                return true;
+            }
+
             internal bool Remove(int index)
             {
                 if (index < 0 || index >= this._values.Length || this._values[index] is DeadValue)
@@ -160,15 +179,32 @@ namespace Core.Extension.Dapper
                 return true;
             }
 
-            object IDictionary<string, object>.this[string key]
+            bool IReadOnlyDictionary<string, object>.ContainsKey(string key)
             {
-                get { this.TryGetValue(key, out object val); return val; }
-                set { this.SetValue(key, value, false); }
+                int index = this._table.IndexOfName(key);
+                return index >= 0 && index < this._values.Length && !(this._values[index] is DeadValue);
             }
 
             public object SetValue(string key, object value)
             {
                 return this.SetValue(key, value, false);
+            }
+
+            internal object SetValue(int index, object value)
+            {
+                int oldLength = this._values.Length;
+                if (oldLength <= index)
+                {
+                    // we'll assume they're doing lots of things, and
+                    // grow it to the full width of the table
+                    Array.Resize(ref this._values, this._table.FieldCount);
+                    for (int i = oldLength; i < this._values.Length; i++)
+                    {
+                        this._values[i] = DeadValue.Default;
+                    }
+                }
+
+                return this._values[index] = value;
             }
 
             private object SetValue(string key, object value, bool isAdd)
@@ -192,60 +228,13 @@ namespace Core.Extension.Dapper
                 return this.SetValue(index, value);
             }
 
-            internal object SetValue(int index, object value)
+            private sealed class DeadValue
             {
-                int oldLength = this._values.Length;
-                if (oldLength <= index)
-                {
-                    // we'll assume they're doing lots of things, and
-                    // grow it to the full width of the table
-                    Array.Resize(ref this._values, this._table.FieldCount);
-                    for (int i = oldLength; i < this._values.Length; i++)
-                    {
-                        this._values[i] = DeadValue.Default;
-                    }
+                public static readonly DeadValue Default = new DeadValue();
+
+                private DeadValue()
+                { /* hiding constructor */
                 }
-
-                return this._values[index] = value;
-            }
-
-            ICollection<string> IDictionary<string, object>.Keys
-            {
-                get { return this.Select(kv => kv.Key).ToArray(); }
-            }
-
-            ICollection<object> IDictionary<string, object>.Values
-            {
-                get { return this.Select(kv => kv.Value).ToArray(); }
-            }
-
-            int IReadOnlyCollection<KeyValuePair<string, object>>.Count
-            {
-                get
-                {
-                    return this._values.Count(t => !(t is DeadValue));
-                }
-            }
-
-            bool IReadOnlyDictionary<string, object>.ContainsKey(string key)
-            {
-                int index = this._table.IndexOfName(key);
-                return index >= 0 && index < this._values.Length && !(this._values[index] is DeadValue);
-            }
-
-            object IReadOnlyDictionary<string, object>.this[string key]
-            {
-                get { this.TryGetValue(key, out object val); return val; }
-            }
-
-            IEnumerable<string> IReadOnlyDictionary<string, object>.Keys
-            {
-                get { return this.Select(kv => kv.Key); }
-            }
-
-            IEnumerable<object> IReadOnlyDictionary<string, object>.Values
-            {
-                get { return this.Select(kv => kv.Value); }
             }
         }
     }
