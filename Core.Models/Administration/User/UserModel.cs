@@ -5,7 +5,7 @@ using Core.Entity.Enums;
 namespace Core.Model.Administration.User
 {
     /// <summary>
-    ///
+    /// UserModel.
     /// </summary>
     public class UserModel
     {
@@ -20,7 +20,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// Initializes a new instance of the <see cref="UserModel"/> class.
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="user">user.</param>
         public UserModel(Entity.User user)
         {
             this.Id = user.Id;
@@ -90,7 +90,7 @@ namespace Core.Model.Administration.User
         public string CreatedByUserName { get; set; }
 
         /// <summary>
-        ///
+        /// 更新时间.
         /// </summary>
         public DateTime UpdateTime { get; set; }
 

@@ -8,8 +8,8 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="ResponseModel"/> class.
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="pager"></param>
+        /// <param name="data">data.</param>
+        /// <param name="pager">pager.</param>
         public ResponseModel(object data, Pager pager) : this()
         {
             this.Data = data;
@@ -46,7 +46,7 @@
         /// <summary>
         /// 设置响应状态为成功.
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">message.</param>
         public void SetSuccess(string message = "成功")
         {
             this.Code = 200;
@@ -56,7 +56,7 @@
         /// <summary>
         /// 设置响应状态为失败.
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">message.</param>
         public void SetFailed(string message = "失败")
         {
             this.Message = message;
@@ -66,7 +66,7 @@
         /// <summary>
         /// 设置响应状态为错误.
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">message.</param>
         public void SetError(string message = "错误")
         {
             this.Code = 500;
@@ -76,7 +76,7 @@
         /// <summary>
         /// 设置响应状态为未知资源.
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">message.</param>
         public void SetNotFound(string message = "未知资源")
         {
             this.Message = message;
@@ -86,7 +86,7 @@
         /// <summary>
         /// 设置响应状态为无权限.
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">message.</param>
         public void SetNoPermission(string message = "无权限")
         {
             this.Message = message;
@@ -96,8 +96,8 @@
         /// <summary>
         /// 设置响应数据.
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="total"></param>
+        /// <param name="data">data.</param>
+        /// <param name="total">total.</param>
         public void SetData(object data, int total = 0)
         {
             this.Data = data;

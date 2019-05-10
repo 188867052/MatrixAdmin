@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Security.Claims;
 using Core.Api.Auth;
+using Core.Api.Authentication;
 using Core.Api.Extensions;
 using Core.Entity;
 using Core.Model;
@@ -10,7 +11,7 @@ using Microsoft.Extensions.Options;
 namespace Core.Api.Controllers
 {
     /// <summary>
-    ///
+    /// OauthController.
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
@@ -22,7 +23,7 @@ namespace Core.Api.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="OauthController"/> class.
         /// </summary>
-        /// <param name="appSettings"></param>
+        /// <param name="appSettings">appSettings.</param>
         /// <param name="dbContext">The dbContext.</param>
         public OauthController(IOptions<AppAuthenticationSettings> appSettings, CoreApiContext dbContext)
         {
@@ -31,10 +32,10 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        ///
+        /// Auth.
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
+        /// <param name="username">username.</param>
+        /// <param name="password">password.</param>
         /// <returns></returns>
         [HttpGet]
         public IActionResult Auth(string username, string password)

@@ -2,6 +2,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Core.Api.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -9,14 +10,14 @@ using Microsoft.IdentityModel.Tokens;
 namespace Core.Api.Auth
 {
     /// <summary>
-    ///
+    /// JwtBearerAuthenticationExtension.
     /// </summary>
     public static class JwtBearerAuthenticationExtension
     {
         /// <summary>
         /// 注册JWT Bearer认证服务的静态扩展方法.
         /// </summary>
-        /// <param name="services"></param>
+        /// <param name="services">services.</param>
         /// <param name="appSettings">JWT授权的配置项.</param>
         public static void AddJwtBearerAuthentication(this IServiceCollection services, AppAuthenticationSettings appSettings)
         {

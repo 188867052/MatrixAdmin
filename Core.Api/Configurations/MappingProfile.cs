@@ -10,7 +10,7 @@ using MenuJsonModel = Core.Api.Models.Menu.MenuJsonModel;
 namespace Core.Api.Configurations
 {
     /// <summary>
-    ///
+    /// MappingProfile.
     /// </summary>
     public class MappingProfile : Profile, IProfile
     {
