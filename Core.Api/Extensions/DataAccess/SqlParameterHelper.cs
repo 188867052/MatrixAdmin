@@ -42,8 +42,6 @@ namespace Core.Api.Extensions.DataAccess
             public object Value { get; set; }
         }
 
-
-
         public static object[] ToSqlParamsArray(this object obj, SqlParameter[] additionalParams = null)
         {
             List<SqlParameter> result = ToSqlParamsList(obj, additionalParams);
@@ -97,7 +95,6 @@ namespace Core.Api.Extensions.DataAccess
         }
     }
 
-
     // Convert .Net Type to SqlDbType or DbType and vise versa
     // This class can be useful when you make conversion between types .The class supports conversion between .Net Type , SqlDbType and DbType .
     // https://gist.github.com/abrahamjp/858392
@@ -122,11 +119,7 @@ namespace Core.Api.Extensions.DataAccess
             }
         }
 
-;
-
         private static ArrayList _DbTypeList = new ArrayList();
-
-        #region Constructors
 
         static TypeConvertor()
         {
@@ -183,14 +176,10 @@ namespace Core.Api.Extensions.DataAccess
         {
         }
 
-        #endregion
-
-        #region Methods
-
         /// <summary>
         /// Convert db type to .Net data type.
         /// </summary>
-        /// <param name="dbType"></param>
+        /// <param name="dbType">dbType.</param>
         /// <returns></returns>
         public static Type ToNetType(DbType dbType)
         {
@@ -201,7 +190,7 @@ namespace Core.Api.Extensions.DataAccess
         /// <summary>
         /// Convert TSQL type to .Net data type.
         /// </summary>
-        /// <param name="sqlDbType"></param>
+        /// <param name="sqlDbType">sqlDbType.</param>
         /// <returns></returns>
         public static Type ToNetType(SqlDbType sqlDbType)
         {
@@ -212,7 +201,7 @@ namespace Core.Api.Extensions.DataAccess
         /// <summary>
         /// Convert .Net type to Db type.
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="type">type.</param>
         /// <returns></returns>
         public static DbType ToDbType(Type type)
         {
@@ -223,7 +212,7 @@ namespace Core.Api.Extensions.DataAccess
         /// <summary>
         /// Convert TSQL data type to DbType.
         /// </summary>
-        /// <param name="sqlDbType"></param>
+        /// <param name="sqlDbType">sqlDbType.</param>
         /// <returns></returns>
         public static DbType ToDbType(SqlDbType sqlDbType)
         {
@@ -234,7 +223,7 @@ namespace Core.Api.Extensions.DataAccess
         /// <summary>
         /// Convert .Net type to TSQL data type.
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="type">type.</param>
         /// <returns></returns>
         public static SqlDbType ToSqlDbType(Type type)
         {
@@ -245,7 +234,7 @@ namespace Core.Api.Extensions.DataAccess
         /// <summary>
         /// Convert DbType type to TSQL data type.
         /// </summary>
-        /// <param name="dbType"></param>
+        /// <param name="dbType">dbType.</param>
         /// <returns></returns>
         public static SqlDbType ToSqlDbType(DbType dbType)
         {
@@ -318,7 +307,5 @@ namespace Core.Api.Extensions.DataAccess
 
             return (DbTypeMapEntry)retObj;
         }
-
-        #endregion
     }
 }

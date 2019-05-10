@@ -31,14 +31,12 @@ namespace Core.Model.Log
         public Person Person { get; set; }
     }
 
-
     public class Person
     {
         public string Name { get; set; }
 
         public string Sex { get; set; }
     }
-
 
     public enum LogType
     {

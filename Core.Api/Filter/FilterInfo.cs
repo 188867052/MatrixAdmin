@@ -51,7 +51,6 @@ namespace Core.Api.Filter
             // Validate();
         }
 
-
         private void SetValues(TPropertyType value, TPropertyType value2)
         {
             if (typeof(TPropertyType).IsArray)

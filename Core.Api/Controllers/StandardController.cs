@@ -25,7 +25,6 @@ namespace Core.Api.Controllers
             this.Mapper = mapper;
         }
 
-
         protected IActionResult StandardResponse<T>(IQueryable<T> query, Pager pager)
         {
             pager.TotalCount = query.Count();

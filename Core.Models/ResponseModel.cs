@@ -6,7 +6,6 @@
         public static int DefaultPageSize = 10;
         public static int DefaultPageIndex = 1;
 
-
         public static Pager CreateDefaultInstance()
         {
             Pager pager = new Pager

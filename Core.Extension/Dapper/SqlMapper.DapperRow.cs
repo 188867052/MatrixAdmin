@@ -95,8 +95,6 @@ namespace Core.Extension.Dapper
                 return this.GetEnumerator();
             }
 
-            #region Implementation of ICollection<KeyValuePair<string,object>>
-
             void ICollection<KeyValuePair<string, object>>.Add(KeyValuePair<string, object> item)
             {
                 IDictionary<string, object> dic = this;
@@ -131,9 +129,6 @@ namespace Core.Extension.Dapper
             }
 
             bool ICollection<KeyValuePair<string, object>>.IsReadOnly => false;
-            #endregion
-
-            #region Implementation of IDictionary<string,object>
 
             bool IDictionary<string, object>.ContainsKey(string key)
             {
@@ -224,12 +219,6 @@ namespace Core.Extension.Dapper
                 get { return this.Select(kv => kv.Value).ToArray(); }
             }
 
-            #endregion
-
-
-            #region Implementation of IReadOnlyDictionary<string,object>
-
-
             int IReadOnlyCollection<KeyValuePair<string, object>>.Count
             {
                 get
@@ -258,8 +247,6 @@ namespace Core.Extension.Dapper
             {
                 get { return this.Select(kv => kv.Value); }
             }
-
-            #endregion
         }
     }
 }

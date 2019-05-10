@@ -47,7 +47,6 @@ namespace Core.Api.Extensions
             return query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
         }
 
-
         public static IQueryable<T> AddBooleanFilter<T>(this IQueryable<T> query, bool? value, string name)
         {
             if (value.HasValue)

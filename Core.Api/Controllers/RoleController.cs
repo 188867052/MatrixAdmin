@@ -302,8 +302,6 @@ WHERE URM.UserGuid={0}";
             return this.Ok(response);
         }
 
-        #region 私有方法
-
         /// <summary>
         /// 删除角色.
         /// </summary>
@@ -335,6 +333,5 @@ WHERE URM.UserGuid={0}";
                 return ResponseModelFactory.CreateInstance;
             }
         }
-        #endregion
     }
 }

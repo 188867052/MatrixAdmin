@@ -40,8 +40,6 @@ namespace Core.Extension.Dapper
         /// </summary>
         public List<PropertyInfo> Properties { get; }
 
-     
-
         /// <summary>
         /// Finds best constructor.
         /// </summary>
@@ -95,8 +93,6 @@ namespace Core.Extension.Dapper
 
             return null;
         }
-
-      
 
         /// <summary>
         /// Returns the constructor, if any, that has the ExplicitConstructorAttribute on it.

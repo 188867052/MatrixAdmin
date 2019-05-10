@@ -36,7 +36,6 @@ namespace Core.Extension
 
         public string Area { get; set; }
 
-
         public string Parameter { get; set; }
 
         public string Render()
