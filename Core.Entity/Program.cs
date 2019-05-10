@@ -23,7 +23,7 @@ namespace Core.Entity
 
             // var list = query.ToList();
             userRoleMapping.RoleId = 2;
-            userRoleMapping.CreatedTime = DateTime.Now;
+            userRoleMapping.CreateTime = DateTime.Now;
             coreApiContext.SaveChanges();
         }
     }

@@ -11,13 +11,13 @@
         SuperAdministrator = 1,
 
         /// <summary>
-        /// 管理员
+        /// 普通用户
         /// </summary>
-        Admin = 2,
+        GeneralUser = 2,
 
         /// <summary>
-        /// 一般用户
+        /// 管理员
         /// </summary>
-        GeneralUser = 3
+        Admin = 3
     }
 }

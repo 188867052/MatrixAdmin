@@ -147,9 +147,13 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
+                this.DbContext.Set<UserRoleMapping>().Load();
+                this.DbContext.Set<Role>().Load();
                 User entity = this.DbContext.User.Find(id);
+                UserModel model = new UserModel(entity);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(entity);
+                response.SetData(model);
+
                 return this.Ok(response);
             }
         }
@@ -272,7 +276,7 @@ namespace Core.Api.Controllers
             ResponseModel response = ResponseModelFactory.CreateInstance;
             List<UserRoleMapping> roles = model.AssignedRoles.Select(x => new UserRoleMapping
             {
-                CreatedTime = DateTime.Now,
+                CreateTime = DateTime.Now,
 
                 // RoleId = x.Trim()
             }).ToList();

@@ -147,7 +147,9 @@ namespace Core.Entity
 
             modelBuilder.Entity<UserRoleMapping>(entity =>
             {
-                entity.Property(e => e.CreatedTime).HasColumnType("datetime");
+                entity.Property(e => e.CreateTime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.UserRoleMapping)

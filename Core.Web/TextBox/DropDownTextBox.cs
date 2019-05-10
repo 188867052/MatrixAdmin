@@ -16,9 +16,9 @@ namespace Core.Web.TextBox
     {
         private readonly IList<KeyValuePair<int, string>> _keyValuePair;
         private readonly bool _isContainsEmpty;
-        private readonly string labelText;
+        private readonly string _labelText;
         private readonly Expression<Func<TPostModel, Enum>> _expression;
-        private int selectedKey;
+        private int _selectedKey;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DropDownTextBox{TPostModel, TEnumType}"/> class.
@@ -29,7 +29,7 @@ namespace Core.Web.TextBox
         public DropDownTextBox(string labelText, Expression<Func<TPostModel, Enum>> expression, bool isContainsEmpty = true)
         {
             this._isContainsEmpty = isContainsEmpty;
-            this.labelText = labelText;
+            this._labelText = labelText;
             this._expression = expression;
             this._keyValuePair = new List<KeyValuePair<int, string>>();
         }
@@ -39,7 +39,7 @@ namespace Core.Web.TextBox
             this._keyValuePair.Add(new KeyValuePair<int, string>(key, value));
             if (isSelected)
             {
-                this.selectedKey = key;
+                this._selectedKey = key;
             }
         }
 
@@ -47,11 +47,11 @@ namespace Core.Web.TextBox
         {
             string property = this._expression.GetPropertyName();
             string options = this._isContainsEmpty ? "<option></option>" : default;
-            options = this._keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}' {(this.selectedKey == item.Key ? "selected=\"selected\"" : string.Empty)}>{item.Value}</option>");
+            options = this._keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}' {(this._selectedKey == item.Key ? "selected=\"selected\"" : string.Empty)}>{item.Value}</option>");
 
             return
                 $"<div class=\"form-group\">" +
-                $"<label>{this.labelText}</label>" +
+                $"<label>{this._labelText}</label>" +
                 $"<select class=\"form-control\" name=\"{property}\">" +
                 $"{options}" +
                 $"</select>" +

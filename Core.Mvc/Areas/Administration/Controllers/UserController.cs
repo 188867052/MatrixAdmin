@@ -60,8 +60,8 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult RowContextMenu(int id)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.FindById));
-            ResponseModel model = HttpClientAsync.GetAsync<User>(url.Render() + "?id=" + id).Result;
-            User user = (User)model.Data;
+            ResponseModel model = HttpClientAsync.GetAsync<UserModel>(url.Render() + "?id=" + id).Result;
+            UserModel user = (UserModel)model.Data;
             UserRowContextMenu menu = new UserRowContextMenu(user);
             return this.Content(menu.Render(), "text/html", Encoding.UTF8);
         }
@@ -114,8 +114,8 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult EditDialog(int id)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.FindById));
-            ResponseModel model = HttpClientAsync.GetAsync<User>(url.Render() + "?id=" + id).Result;
-            User user = (User)model.Data;
+            ResponseModel model = HttpClientAsync.GetAsync<UserModel>(url.Render() + "?id=" + id).Result;
+            UserModel user = (UserModel)model.Data;
             EditUserDialogConfiguration dialog = new EditUserDialogConfiguration(user);
 
             return this.Dialog(dialog);

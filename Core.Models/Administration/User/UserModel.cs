@@ -27,7 +27,7 @@ namespace Core.Model.Administration.User
             this.LoginName = user.LoginName;
             this.DisplayName = user.DisplayName;
             this.Password = user.Password;
-            this.UserType = (UserRoleEnum)user.UserType;
+            this.UserRole = (UserRoleEnum)user.UserRole;
             this.CreateTime = user.CreateTime;
             this.Status = (UserIsForbiddenEnum)user.Status;
             this.IsDeleted = user.IsDeleted;
@@ -67,7 +67,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         ///
         /// </summary>
-        public UserRoleEnum UserType { get; set; }
+        public UserRoleEnum UserRole { get; set; }
 
         /// <summary>
         ///
