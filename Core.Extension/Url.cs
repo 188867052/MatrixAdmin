@@ -5,10 +5,6 @@ namespace Core.Extension
 {
     public class Url
     {
-        public string Action { get; set; }
-
-        public Type Type { get; set; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Url"/> class.
         /// </summary>
@@ -33,6 +29,10 @@ namespace Core.Extension
         {
             this.Area = area;
         }
+
+        public string Action { get; set; }
+
+        public Type Type { get; set; }
 
         public string Area { get; set; }
 

@@ -10,8 +10,6 @@ namespace Core.Extension.Dapper
             private string[] _fieldNames;
             private readonly Dictionary<string, int> _fieldNameLookup;
 
-            internal string[] FieldNames => this._fieldNames;
-
             public DapperTable(string[] fieldNames)
             {
                 this._fieldNames = fieldNames ?? throw new ArgumentNullException(nameof(fieldNames));
@@ -28,6 +26,8 @@ namespace Core.Extension.Dapper
                     }
                 }
             }
+
+            internal string[] FieldNames => this._fieldNames;
 
             internal int IndexOfName(string name)
             {

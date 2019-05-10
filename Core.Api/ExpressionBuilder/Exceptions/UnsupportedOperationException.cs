@@ -10,14 +10,25 @@ namespace Core.Api.ExpressionBuilder.Exceptions
     public class UnsupportedOperationException : Exception
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="UnsupportedOperationException" /> class.
+        /// </summary>
+        /// <param name="operation">Operation used.</param>
+        /// <param name="typeName">Name of the type.</param>
+        public UnsupportedOperationException(IOperation operation, string typeName)
+        {
+            this.Operation = operation;
+            this.TypeName = typeName;
+        }
+
+        /// <summary>
         /// Gets the <see cref="Operation" /> attempted to be used.
         /// </summary>
-        public IOperation Operation { get; private set; }
+        public IOperation Operation { get; }
 
         /// <summary>
         /// Gets name of the type.
         /// </summary>
-        public string TypeName { get; private set; }
+        public string TypeName { get; }
 
         /// <summary>
         /// Gets a message that describes the current exception.
@@ -30,15 +41,5 @@ namespace Core.Api.ExpressionBuilder.Exceptions
             }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UnsupportedOperationException" /> class.
-        /// </summary>
-        /// <param name="operation">Operation used.</param>
-        /// <param name="typeName">Name of the type.</param>
-        public UnsupportedOperationException(IOperation operation, string typeName)
-        {
-            this.Operation = operation;
-            this.TypeName = typeName;
-        }
     }
 }

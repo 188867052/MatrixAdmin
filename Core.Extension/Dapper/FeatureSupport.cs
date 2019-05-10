@@ -8,10 +8,12 @@ namespace Core.Extension.Dapper
     /// </summary>
     internal class FeatureSupport
     {
-        private static readonly FeatureSupport
-Default = new FeatureSupport(false);
-        private static readonly FeatureSupport
-Postgres = new FeatureSupport(true);
+        private static readonly FeatureSupport Default = new FeatureSupport(false);
+        private static readonly FeatureSupport Postgres = new FeatureSupport(true);
+        private FeatureSupport(bool arrays)
+        {
+            this.Arrays = arrays;
+        }
 
         /// <summary>
         /// Gets the feature set based on the passed connection.
@@ -27,11 +29,6 @@ Postgres = new FeatureSupport(true);
             }
 
             return Default;
-        }
-
-        private FeatureSupport(bool arrays)
-        {
-            this.Arrays = arrays;
         }
 
         /// <summary>

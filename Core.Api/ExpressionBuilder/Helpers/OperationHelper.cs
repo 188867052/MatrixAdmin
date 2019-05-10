@@ -25,6 +25,23 @@ namespace Core.Api.ExpressionBuilder.Helpers
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="OperationHelper"/> class.
+        /// Instantiates a new OperationHelper.
+        /// </summary>
+        public OperationHelper()
+        {
+            this._settings = new Settings();
+            this.typeGroups = new Dictionary<TypeGroup, HashSet<Type>>
+            {
+                { TypeGroup.Text, new HashSet<Type> { typeof(string), typeof(char) } },
+                { TypeGroup.Number, new HashSet<Type> { typeof(int), typeof(uint), typeof(byte), typeof(sbyte), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(float), typeof(double), typeof(decimal) } },
+                { TypeGroup.Boolean, new HashSet<Type> { typeof(bool) } },
+                { TypeGroup.Date, new HashSet<Type> { typeof(DateTime) } },
+                { TypeGroup.Nullable, new HashSet<Type> { typeof(Nullable<>), typeof(string) } }
+            };
+        }
+
+        /// <summary>
         /// Loads the default operations overwriting any previous changes to the <see cref="Operations"></see> list.
         /// </summary>
         public static void LoadDefaultOperations()
@@ -44,23 +61,6 @@ namespace Core.Api.ExpressionBuilder.Helpers
         public IEnumerable<IOperation> Operations
         {
             get { return _operations.ToArray(); }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OperationHelper"/> class.
-        /// Instantiates a new OperationHelper.
-        /// </summary>
-        public OperationHelper()
-        {
-            this._settings = new Settings();
-            this.typeGroups = new Dictionary<TypeGroup, HashSet<Type>>
-            {
-                { TypeGroup.Text, new HashSet<Type> { typeof(string), typeof(char) } },
-                { TypeGroup.Number, new HashSet<Type> { typeof(int), typeof(uint), typeof(byte), typeof(sbyte), typeof(short), typeof(ushort), typeof(long), typeof(ulong), typeof(float), typeof(double), typeof(decimal) } },
-                { TypeGroup.Boolean, new HashSet<Type> { typeof(bool) } },
-                { TypeGroup.Date, new HashSet<Type> { typeof(DateTime) } },
-                { TypeGroup.Nullable, new HashSet<Type> { typeof(Nullable<>), typeof(string) } }
-            };
         }
 
         /// <summary>

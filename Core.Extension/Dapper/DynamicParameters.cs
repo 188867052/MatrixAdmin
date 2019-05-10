@@ -23,8 +23,6 @@ namespace Core.Extension.Dapper
         private List<object> templates;
         private List<Action> outputCallbacks;
 
-
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicParameters"/> class.
         /// construct a dynamic parameter bag.
@@ -170,8 +168,6 @@ namespace Core.Extension.Dapper
         {
             this.AddParameters(command, identity);
         }
-
-
 
         /// <summary>
         /// Add all the parameters needed to the command just before it executes.
@@ -350,8 +346,6 @@ namespace Core.Extension.Dapper
                 SqlMapper.ReplaceLiterals(this, command, literals);
             }
         }
-
-
 
         /// <summary>
         /// Get the value of a parameter.
@@ -540,7 +534,6 @@ namespace Core.Extension.Dapper
 
             return this;
         }
-
 
         void SqlMapper.IParameterCallbacks.OnCompleted()
         {

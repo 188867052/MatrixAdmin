@@ -16,6 +16,15 @@ namespace Core.Api.Controllers
     public class MessageController : StandardController
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="MessageController"/> class.
+        /// </summary>
+        /// <param name="dbContext">The dbContext.</param>
+        /// <param name="mapper">The mapper.</param>
+        public MessageController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        {
+        }
+
+        /// <summary>
         /// 消息控制器.
         /// </summary>
         /// <returns></returns>
@@ -87,13 +96,5 @@ namespace Core.Api.Controllers
             return this.Ok(response);
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MessageController"/> class.
-        /// </summary>
-        /// <param name="dbContext">The dbContext.</param>
-        /// <param name="mapper">The mapper.</param>
-        public MessageController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
-        {
-        }
     }
 }

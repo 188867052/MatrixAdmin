@@ -16,6 +16,32 @@ namespace Core.Api.ExpressionBuilder.Generics
     public class FilterInfo<TPropertyType> : IFilterInfo
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
+        /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
+        /// </summary>
+        public FilterInfo()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
+        /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
+        /// </summary>
+        /// <param name="propertyId"></param>
+        /// <param name="operation"></param>
+        /// <param name="value"></param>
+        /// <param name="value2"></param>
+        /// <param name="connector"></param>
+        public FilterInfo(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
+        {
+            this.PropertyName = propertyId;
+            this.Connector = connector;
+            this.Operation = operation;
+            this.SetValues(value, value2);
+            this.Validate();
+        }
+
+        /// <summary>
         /// Establishes how this filter statement will connect to the next one.
         /// </summary>
         public Connector Connector { get; set; }
@@ -40,24 +66,6 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// </summary>
         public object Value2 { get; set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
-        /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
-        /// </summary>
-        /// <param name="propertyId"></param>
-        /// <param name="operation"></param>
-        /// <param name="value"></param>
-        /// <param name="value2"></param>
-        /// <param name="connector"></param>
-        public FilterInfo(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
-        {
-            this.PropertyName = propertyId;
-            this.Connector = connector;
-            this.Operation = operation;
-            this.SetValues(value, value2);
-            this.Validate();
-        }
-
         private void SetValues(TPropertyType value, TPropertyType value2)
         {
             if (typeof(TPropertyType).IsArray)
@@ -77,14 +85,6 @@ namespace Core.Api.ExpressionBuilder.Generics
                 this.Value = value;
                 this.Value2 = value2;
             }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
-        /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
-        /// </summary>
-        public FilterInfo()
-        {
         }
 
         /// <summary>

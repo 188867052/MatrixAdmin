@@ -361,7 +361,6 @@ namespace Core.Extension.Dapper
         /// <param name="handler">The handler for the type <typeparamref name="T"/>.</param>
         public static void AddTypeHandler<T>(TypeHandler<T> handler) => AddTypeHandlerImpl(typeof(T), handler, true);
 
-
         internal const string LinqBinary = "System.Data.Linq.Binary";
 
         private const string ObsoleteInternalUsageOnly = "This method is for internal use only";
@@ -3375,6 +3374,7 @@ namespace Core.Extension.Dapper
 
             return (T)Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
         }
+
         private static readonly MethodInfo enumParse = typeof(Enum).GetMethod(nameof(Enum.Parse), new[] { typeof(Type), typeof(string), typeof(bool) });
         private static readonly MethodInfo getItem = typeof(IDataRecord).GetProperties(BindingFlags.Instance | BindingFlags.Public)
                         .Where(p => p.GetIndexParameters().Length > 0 && p.GetIndexParameters()[0].ParameterType == typeof(int))
@@ -4103,7 +4103,6 @@ namespace Core.Extension.Dapper
             set { connectionStringComparer = value ?? StringComparer.Ordinal; }
         }
 
-
         /// <summary>
         /// Key used to indicate the type name associated with a DataTable.
         /// </summary>
@@ -4183,6 +4182,7 @@ namespace Core.Extension.Dapper
             perThreadStringBuilderCache = perThreadStringBuilderCache ?? obj;
             return s;
         }
+
         private class PropertyInfoByNameComparer : IComparer<PropertyInfo>
         {
             public int Compare(PropertyInfo x, PropertyInfo y) => string.CompareOrdinal(x.Name, y.Name);

@@ -7,6 +7,16 @@ namespace Core.Extension.Dapper
     {
         private IDataReader reader;
         private IDbCommand cmd;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WrappedReader"/> class.
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="reader"></param>
+        public WrappedReader(IDbCommand cmd, IDataReader reader)
+        {
+            this.cmd = cmd;
+            this.reader = reader;
+        }
 
         public IDataReader Reader
         {
@@ -34,17 +44,6 @@ namespace Core.Extension.Dapper
 
                 return tmp;
             }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WrappedReader"/> class.
-        /// </summary>
-        /// <param name="cmd"></param>
-        /// <param name="reader"></param>
-        public WrappedReader(IDbCommand cmd, IDataReader reader)
-        {
-            this.cmd = cmd;
-            this.reader = reader;
         }
 
         void IDataReader.Close() => this.reader?.Close();

@@ -9,6 +9,19 @@ namespace Core.Api.ExpressionBuilder.Exceptions
     public class PropertyValueTypeMismatchException : Exception
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyValueTypeMismatchException" /> class.
+        /// </summary>
+        /// <param name="memberName">Property or field name.</param>
+        /// <param name="memberType">Property or field type.</param>
+        /// <param name="constantType">Type of the constant which value tried to be attributed to the property or field.</param>
+        public PropertyValueTypeMismatchException(string memberName, string memberType, string constantType)
+        {
+            this.MemberName = memberName;
+            this.MemberType = memberType;
+            this.ConstantType = constantType;
+        }
+
+        /// <summary>
         /// Name of the property or fields.
         /// </summary>
         public string MemberName { get; }
@@ -34,17 +47,5 @@ namespace Core.Api.ExpressionBuilder.Exceptions
             }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PropertyValueTypeMismatchException" /> class.
-        /// </summary>
-        /// <param name="memberName">Property or field name.</param>
-        /// <param name="memberType">Property or field type.</param>
-        /// <param name="constantType">Type of the constant which value tried to be attributed to the property or field.</param>
-        public PropertyValueTypeMismatchException(string memberName, string memberType, string constantType)
-        {
-            this.MemberName = memberName;
-            this.MemberType = memberType;
-            this.ConstantType = constantType;
-        }
     }
 }

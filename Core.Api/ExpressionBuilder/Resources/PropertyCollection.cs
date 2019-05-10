@@ -14,9 +14,32 @@ namespace Core.Api.ExpressionBuilder.Resources
     public class PropertyCollection : IPropertyCollection
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyCollection"/> class.
+        /// Instantiates a new <see cref="PropertyCollection" />.
+        /// </summary>
+        /// <param name="type"></param>
+        public PropertyCollection(Type type)
+        {
+            this.Type = type;
+            this._visitedTypes = new HashSet<Type>();
+            this.Properties = this.LoadProperties(this.Type);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyCollection"/> class.
+        /// Instantiates a new <see cref="PropertyCollection" />.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="resourceManager"></param>
+        public PropertyCollection(Type type, ResourceManager resourceManager) : this(type)
+        {
+            this.LoadProperties(resourceManager);
+        }
+
+        /// <summary>
         /// Type from which the properties are loaded.
         /// </summary>
-        public Type Type { get; private set; }
+        public Type Type { get; }
 
         /// <summary>
         /// ResourceManager which the properties descriptions should be gotten from.
@@ -25,14 +48,14 @@ namespace Core.Api.ExpressionBuilder.Resources
 
         private readonly HashSet<Type> _visitedTypes;
 
-        private List<Property> Properties { get; set; }
+        private List<Property> Properties { get; }
 
         /// <summary>
         /// Gets the number of <see cref="Property" /> contained in the <see cref="PropertyCollection" />.
         /// </summary>
         public int Count
         {
-            get { return this.Properties.Count(); }
+            get { return this.Properties.Count; }
         }
 
         /// <summary>
@@ -59,29 +82,6 @@ namespace Core.Api.ExpressionBuilder.Resources
         public Property this[string propertyId]
         {
             get { return this.Properties.FirstOrDefault(p => p.Id.Equals(propertyId)); }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PropertyCollection"/> class.
-        /// Instantiates a new <see cref="PropertyCollection" />.
-        /// </summary>
-        /// <param name="type"></param>
-        public PropertyCollection(Type type)
-        {
-            this.Type = type;
-            this._visitedTypes = new HashSet<Type>();
-            this.Properties = this.LoadProperties(this.Type);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PropertyCollection"/> class.
-        /// Instantiates a new <see cref="PropertyCollection" />.
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="resourceManager"></param>
-        public PropertyCollection(Type type, ResourceManager resourceManager) : this(type)
-        {
-            this.LoadProperties(resourceManager);
         }
 
         /// <summary>

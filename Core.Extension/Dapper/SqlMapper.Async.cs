@@ -922,8 +922,6 @@ namespace Core.Extension.Dapper
             return Parse<T>(result);
         }
 
-       
-
         private static async Task<int> ExecuteMultiImplAsync(IDbConnection cnn, CommandDefinition command, IEnumerable multiExec)
         {
             bool isFirst = true;

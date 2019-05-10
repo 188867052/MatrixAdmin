@@ -11,9 +11,6 @@ namespace Core.Api.Extensions
     /// </summary>
     public static class DataTableConvert
     {
-        // 把DataRow转换为对象的委托声明
-        private delegate T Load<T>(DataRow dataRecord);
-
         // 用于构造Emit的DataRow中获取字段的方法信息
         private static readonly MethodInfo getValueMethod = typeof(DataRow).GetMethod("get_Item", new[] { typeof(int) });
 
@@ -22,6 +19,8 @@ namespace Core.Api.Extensions
 
         // 使用字典存储实体的类型以及与之对应的Emit生成的转换方法
         private static readonly Dictionary<Type, Delegate> rowMapMethods = new Dictionary<Type, Delegate>();
+        // 把DataRow转换为对象的委托声明
+        private delegate T Load<T>(DataRow dataRecord);
 
         /// <summary>
         /// 将DataTable转换成泛型对象列表.

@@ -34,10 +34,12 @@ namespace Core.Extension.Dapper
             this.Flags = flags;
             this.CancellationToken = cancellationToken;
         }
+
         private CommandDefinition(object parameters) : this()
         {
             this.Parameters = parameters;
         }
+
         /// <summary>
         /// Gets additional state flags against this command.
         /// </summary>
@@ -77,8 +79,6 @@ namespace Core.Extension.Dapper
         /// Gets a value indicating whether can async queries be pipelined?.
         /// </summary>
         public bool Pipelined => (this.Flags & CommandFlags.Pipelined) != 0;
-
-     
 
         /// <summary>
         /// Gets for asynchronous operations, the cancellation-token.
@@ -135,8 +135,6 @@ namespace Core.Extension.Dapper
             paramReader?.Invoke(cmd, this.Parameters);
             return cmd;
         }
-
-     
 
         private static Action<IDbCommand> GetInit(Type commandType)
         {

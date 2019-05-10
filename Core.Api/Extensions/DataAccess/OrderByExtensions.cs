@@ -8,22 +8,6 @@ namespace Core.Api.Extensions.DataAccess
     /// </summary>
     public static class OrderByExtensions
     {
-        private static IOrderedQueryable<T> OrderingHelper<T>(IQueryable<T> source, string propertyName, bool descending, bool anotherLevel)
-        {
-            ParameterExpression param = Expression.Parameter(typeof(T), "p");
-            MemberExpression property = Expression.PropertyOrField(param, propertyName);
-            LambdaExpression sort = Expression.Lambda(property, param);
-
-            MethodCallExpression call = Expression.Call(
-                typeof(System.Linq.Queryable),
-                (!anotherLevel ? "OrderBy" : "ThenBy") + (descending ? "Descending" : string.Empty),
-                new[] { typeof(T), property.Type },
-                source.Expression,
-                Expression.Quote(sort));
-
-            return (IOrderedQueryable<T>)source.Provider.CreateQuery<T>(call);
-        }
-
         public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> source, string propertyName)
         {
             return OrderingHelper(source, propertyName, false, false);
@@ -43,5 +27,22 @@ namespace Core.Api.Extensions.DataAccess
         {
             return OrderingHelper(source, propertyName, descending, true);
         }
+
+        private static IOrderedQueryable<T> OrderingHelper<T>(IQueryable<T> source, string propertyName, bool descending, bool anotherLevel)
+        {
+            ParameterExpression param = Expression.Parameter(typeof(T), "p");
+            MemberExpression property = Expression.PropertyOrField(param, propertyName);
+            LambdaExpression sort = Expression.Lambda(property, param);
+
+            MethodCallExpression call = Expression.Call(
+                typeof(System.Linq.Queryable),
+                (!anotherLevel ? "OrderBy" : "ThenBy") + (descending ? "Descending" : string.Empty),
+                new[] { typeof(T), property.Type },
+                source.Expression,
+                Expression.Quote(sort));
+
+            return (IOrderedQueryable<T>)source.Provider.CreateQuery<T>(call);
+        }
+
     }
 }

@@ -10,24 +10,6 @@ namespace Core.Api.ExpressionBuilder.Operations
     /// </summary>
     public abstract class OperationBase : IOperation, IEquatable<IOperation>
     {
-        /// <inheritdoc />
-        public string Name { get; }
-
-        /// <inheritdoc />
-        public TypeGroup TypeGroup { get; }
-
-        /// <inheritdoc />
-        public int NumberOfValues { get; }
-
-        /// <inheritdoc />
-        public bool Active { get; set; }
-
-        /// <inheritdoc />
-        public bool SupportsLists { get; }
-
-        /// <inheritdoc />
-        public bool ExpectNullValues { get; }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="OperationBase"/> class.
         /// Instantiates a new operation.
@@ -47,6 +29,24 @@ namespace Core.Api.ExpressionBuilder.Operations
             this.SupportsLists = supportsLists;
             this.ExpectNullValues = expectNullValues;
         }
+
+        /// <inheritdoc />
+        public string Name { get; }
+
+        /// <inheritdoc />
+        public TypeGroup TypeGroup { get; }
+
+        /// <inheritdoc />
+        public int NumberOfValues { get; }
+
+        /// <inheritdoc />
+        public bool Active { get; set; }
+
+        /// <inheritdoc />
+        public bool SupportsLists { get; }
+
+        /// <inheritdoc />
+        public bool ExpectNullValues { get; }
 
         /// <inheritdoc />
         public abstract Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2);

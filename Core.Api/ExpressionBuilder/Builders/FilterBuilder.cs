@@ -11,6 +11,20 @@ namespace Core.Api.ExpressionBuilder.Builders
 {
     public class FilterBuilder
     {
+        public Expression GetSafePropertyMember(ParameterExpression param, string memberName, Expression expr)
+        {
+            if (!memberName.Contains("."))
+            {
+                return expr;
+            }
+
+            var index = memberName.LastIndexOf(".", StringComparison.InvariantCulture);
+            var parentName = memberName.Substring(0, index);
+            var subParam = param.GetMemberExpression(parentName);
+            var resultExpr = Expression.AndAlso(Expression.NotEqual(subParam, Expression.Constant(null)), expr);
+            return this.GetSafePropertyMember(param, parentName, resultExpr);
+        }
+
         public Expression<Func<T, bool>> GetExpression<T>(IFilter filter) where T : class
         {
             var param = Expression.Parameter(typeof(T), "x");
@@ -131,20 +145,6 @@ namespace Core.Api.ExpressionBuilder.Builders
             }
 
             return constant != null && constant.Value != null ? constant.Value.GetType() : null;
-        }
-
-        public Expression GetSafePropertyMember(ParameterExpression param, string memberName, Expression expr)
-        {
-            if (!memberName.Contains("."))
-            {
-                return expr;
-            }
-
-            var index = memberName.LastIndexOf(".", StringComparison.InvariantCulture);
-            var parentName = memberName.Substring(0, index);
-            var subParam = param.GetMemberExpression(parentName);
-            var resultExpr = Expression.AndAlso(Expression.NotEqual(subParam, Expression.Constant(null)), expr);
-            return this.GetSafePropertyMember(param, parentName, resultExpr);
         }
 
         protected Expression CheckIfParentIsNull(ParameterExpression param, string memberName)

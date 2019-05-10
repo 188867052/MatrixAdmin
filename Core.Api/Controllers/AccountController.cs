@@ -17,6 +17,15 @@ namespace Core.Api.Controllers
     public class AccountController : StandardController
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="AccountController"/> class.
+        /// </summary>
+        /// <param name="dbContext">The dbContext.</param>
+        /// <param name="mapper">The mapper.</param>
+        public AccountController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        {
+        }
+
+        /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
@@ -102,13 +111,5 @@ namespace Core.Api.Controllers
             return pages.Distinct().ToList();
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AccountController"/> class.
-        /// </summary>
-        /// <param name="dbContext">The dbContext.</param>
-        /// <param name="mapper">The mapper.</param>
-        public AccountController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
-        {
-        }
     }
 }

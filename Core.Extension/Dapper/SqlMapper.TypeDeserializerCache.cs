@@ -10,13 +10,12 @@ namespace Core.Extension.Dapper
     {
         private class TypeDeserializerCache
         {
+            private static readonly Hashtable byType = new Hashtable();
+            private readonly Type type;
             private TypeDeserializerCache(Type type)
             {
                 this.type = type;
             }
-
-            private static readonly Hashtable byType = new Hashtable();
-            private readonly Type type;
 
             internal static void Purge(Type type)
             {

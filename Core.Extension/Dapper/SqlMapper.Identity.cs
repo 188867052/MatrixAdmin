@@ -10,20 +10,6 @@ namespace Core.Extension.Dapper
         /// </summary>
         public class Identity : IEquatable<Identity>
         {
-            internal Identity ForGrid(Type primaryType, int gridIndex) =>
-                new Identity(this.Sql, this.CommandType, this.ConnectionString, primaryType, this.ParametersType, null, gridIndex);
-
-            internal Identity ForGrid(Type primaryType, Type[] otherTypes, int gridIndex) =>
-                new Identity(this.Sql, this.CommandType, this.ConnectionString, primaryType, this.ParametersType, otherTypes, gridIndex);
-
-            /// <summary>
-            /// Create an identity for use with DynamicParameters, internal use only.
-            /// </summary>
-            /// <param name="type">The parameters type to create an <see cref="Identity"/> for.</param>
-            /// <returns></returns>
-            public Identity ForDynamicParameters(Type type) =>
-                new Identity(this.Sql, this.CommandType, this.ConnectionString, this.Type, type, null, -1);
-
             /// <summary>
             /// Initializes a new instance of the <see cref="Identity"/> class.
             /// </summary>
@@ -65,6 +51,20 @@ namespace Core.Extension.Dapper
                     this.HashCode = this.HashCode * 23 + (parametersType?.GetHashCode() ?? 0);
                 }
             }
+
+            internal Identity ForGrid(Type primaryType, int gridIndex) =>
+                new Identity(this.Sql, this.CommandType, this.ConnectionString, primaryType, this.ParametersType, null, gridIndex);
+
+            internal Identity ForGrid(Type primaryType, Type[] otherTypes, int gridIndex) =>
+                new Identity(this.Sql, this.CommandType, this.ConnectionString, primaryType, this.ParametersType, otherTypes, gridIndex);
+
+            /// <summary>
+            /// Create an identity for use with DynamicParameters, internal use only.
+            /// </summary>
+            /// <param name="type">The parameters type to create an <see cref="Identity"/> for.</param>
+            /// <returns></returns>
+            public Identity ForDynamicParameters(Type type) =>
+                new Identity(this.Sql, this.CommandType, this.ConnectionString, this.Type, type, null, -1);
 
             /// <summary>
             /// Whether this <see cref="Identity"/> equals another.

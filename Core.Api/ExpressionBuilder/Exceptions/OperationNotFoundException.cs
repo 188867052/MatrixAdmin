@@ -9,6 +9,15 @@ namespace Core.Api.ExpressionBuilder.Exceptions
     public class OperationNotFoundException : Exception
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="OperationNotFoundException" /> class.
+        /// </summary>
+        /// <param name="operationName">Name of the operation that was intended to be instantiated.</param>
+        public OperationNotFoundException(string operationName)
+        {
+            this.OperationName = operationName;
+        }
+
+        /// <summary>
         /// Name of the operation that was intended to be instantiated.
         /// </summary>
         public string OperationName { get; }
@@ -22,13 +31,5 @@ namespace Core.Api.ExpressionBuilder.Exceptions
             }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OperationNotFoundException" /> class.
-        /// </summary>
-        /// <param name="operationName">Name of the operation that was intended to be instantiated.</param>
-        public OperationNotFoundException(string operationName)
-        {
-            this.OperationName = operationName;
-        }
     }
 }

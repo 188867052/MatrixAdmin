@@ -13,6 +13,7 @@ namespace Core.Extension.Dapper
     {
         private readonly DataTable _table;
         private readonly string _typeName;
+        private static readonly Action<SqlParameter, string> setTypeName;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TableValuedParameter"/> class.
@@ -34,8 +35,6 @@ namespace Core.Extension.Dapper
             this._table = table;
             this._typeName = typeName;
         }
-
-        private static readonly Action<SqlParameter, string> setTypeName;
 
         static TableValuedParameter()
         {

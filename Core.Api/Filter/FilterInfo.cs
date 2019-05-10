@@ -8,6 +8,25 @@ namespace Core.Api.Filter
     public class FilterInfo<TPropertyType>: IFilterInfo
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
+        /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
+        /// </summary>
+        /// <param name="propertyId"></param>
+        /// <param name="operation"></param>
+        /// <param name="value"></param>
+        /// <param name="value2"></param>
+        /// <param name="connector"></param>
+        public FilterInfo(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
+        {
+            this.PropertyName = propertyId;
+            this.Connector = connector;
+            this.Operation = operation;
+            this.SetValues(value, value2);
+
+            // Validate();
+        }
+
+        /// <summary>
         /// Establishes how this filter statement will connect to the next one.
         /// </summary>
         public Connector Connector { get; set; }
@@ -31,25 +50,6 @@ namespace Core.Api.Filter
         /// Constant value that will interact with the property defined in this filter statement when the operation demands a second value to compare to.
         /// </summary>
         public object Value2 { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
-        /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
-        /// </summary>
-        /// <param name="propertyId"></param>
-        /// <param name="operation"></param>
-        /// <param name="value"></param>
-        /// <param name="value2"></param>
-        /// <param name="connector"></param>
-        public FilterInfo(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
-        {
-            this.PropertyName = propertyId;
-            this.Connector = connector;
-            this.Operation = operation;
-            this.SetValues(value, value2);
-
-            // Validate();
-        }
 
         private void SetValues(TPropertyType value, TPropertyType value2)
         {

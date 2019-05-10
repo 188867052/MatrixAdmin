@@ -10,16 +10,6 @@ namespace Core.Extension.Dapper
         internal struct LiteralToken
         {
             /// <summary>
-            /// Gets the text in the original command that should be replaced.
-            /// </summary>
-            public string Token { get; }
-
-            /// <summary>
-            /// Gets the name of the member referred to by the token.
-            /// </summary>
-            public string Member { get; }
-
-            /// <summary>
             /// Initializes a new instance of the <see cref="LiteralToken"/> struct.
             /// </summary>
             /// <param name="token"></param>
@@ -29,6 +19,16 @@ namespace Core.Extension.Dapper
                 this.Token = token;
                 this.Member = member;
             }
+
+            /// <summary>
+            /// Gets the text in the original command that should be replaced.
+            /// </summary>
+            public string Token { get; }
+
+            /// <summary>
+            /// Gets the name of the member referred to by the token.
+            /// </summary>
+            public string Member { get; }
 
             internal static readonly IList<LiteralToken> None = new LiteralToken[0];
         }

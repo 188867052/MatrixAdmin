@@ -8,6 +8,19 @@ namespace Core.Api.ExpressionBuilder.Resources
     public class Property
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="Property"/> class.
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <param name="name">name</param>
+        /// <param name="info">info</param>
+        internal Property(string id, string name, MemberInfo info)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Info = info;
+        }
+
+        /// <summary>
         /// Property identifier conventionalized by the Expression Builder.
         /// </summary>
         public string Id { get; private set; }
@@ -28,19 +41,6 @@ namespace Core.Api.ExpressionBuilder.Resources
             {
                 return this.Info.MemberType == MemberTypes.Property ? (this.Info as PropertyInfo).PropertyType : (this.Info as FieldInfo).FieldType;
             }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Property"/> class.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="name"></param>
-        /// <param name="info"></param>
-        internal Property(string id, string name, MemberInfo info)
-        {
-            this.Id = id;
-            this.Name = name;
-            this.Info = info;
         }
 
         /// <summary>

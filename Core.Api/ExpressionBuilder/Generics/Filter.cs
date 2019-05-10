@@ -21,6 +21,66 @@ namespace Core.Api.ExpressionBuilder.Generics
     {
         private readonly List<List<IFilterInfo>> _statements;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Filter{TClass}"/> class.
+        /// Instantiates a new <see cref="Filter{TClass}" />.
+        /// </summary>
+        public Filter()
+        {
+            this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Filter{TClass}"/> class.
+        /// Instantiates a new <see cref="Filter{TClass}" />.
+        /// </summary>
+        public Filter(IFilterInfo statement)
+        {
+            this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
+            this.By(statement);
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Filter{TClass}"/> class.
+        /// Instantiates a new <see cref="Filter{TClass}" />.
+        /// </summary>
+        public Filter(Filter<TClass> f1, Filter<TClass> f2, Connector connector)
+        {
+            this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
+            IFilterInfo s1 = f1.CurrentStatementGroup.First();
+            IFilterInfo s2 = f2.CurrentStatementGroup.First();
+            if (connector == Connector.Or)
+            {
+                this.By(s1).Or.By(s2);
+            }
+            else
+            {
+                this.By(s1).And.By(s2);
+            }
+        }
+
+        /// <summary>
+        /// Implicitly converts a <see cref="Filter{TClass}" /> into a <see cref="System.Linq.Expressions.Expression{Func{TClass, TResult}}" />.
+        /// </summary>
+        /// <param name="filter"></param>
+        public static implicit operator Expression<Func<TClass, bool>>(Filter<TClass> filter)
+        {
+            var builder = new FilterBuilder();
+            var expression = builder.GetExpression<TClass>(filter);
+            return expression;
+        }
+
+        /// <summary>
+        /// Implicitly converts a <see cref="Filter{TClass}" /> into a <see cref="Func{TClass, TResult}" />.
+        /// </summary>
+        /// <param name="filter"></param>
+        public static implicit operator Func<TClass, bool>(Filter<TClass> filter)
+        {
+            var builder = new FilterBuilder();
+            var expression = builder.GetExpression<TClass>(filter).Compile();
+            return expression;
+        }
+
         public IFilter Group
         {
             get
@@ -47,44 +107,6 @@ namespace Core.Api.ExpressionBuilder.Generics
             {
                 return this._statements.Last();
             }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Filter{TClass}"/> class.
-        /// Instantiates a new <see cref="Filter{TClass}" />.
-        /// </summary>
-        public Filter()
-        {
-            this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Filter{TClass}"/> class.
-        /// Instantiates a new <see cref="Filter{TClass}" />.
-        /// </summary>
-        public Filter(Filter<TClass> f1, Filter<TClass> f2, Connector connector)
-        {
-            this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
-            IFilterInfo s1 = f1.CurrentStatementGroup.First();
-            IFilterInfo s2 = f2.CurrentStatementGroup.First();
-            if (connector == Connector.Or)
-            {
-                this.By(s1).Or.By(s2);
-            }
-            else
-            {
-                this.By(s1).And.By(s2);
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Filter{TClass}"/> class.
-        /// Instantiates a new <see cref="Filter{TClass}" />.
-        /// </summary>
-        public Filter(IFilterInfo statement)
-        {
-            this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
-            this.By(statement);
         }
 
         /// <summary>
@@ -196,28 +218,6 @@ namespace Core.Api.ExpressionBuilder.Generics
         {
             this._statements.Clear();
             this._statements.Add(new List<IFilterInfo>());
-        }
-
-        /// <summary>
-        /// Implicitly converts a <see cref="Filter{TClass}" /> into a <see cref="Func{TClass, TResult}" />.
-        /// </summary>
-        /// <param name="filter"></param>
-        public static implicit operator Func<TClass, bool>(Filter<TClass> filter)
-        {
-            var builder = new FilterBuilder();
-            var expression = builder.GetExpression<TClass>(filter).Compile();
-            return expression;
-        }
-
-        /// <summary>
-        /// Implicitly converts a <see cref="Filter{TClass}" /> into a <see cref="System.Linq.Expressions.Expression{Func{TClass, TResult}}" />.
-        /// </summary>
-        /// <param name="filter"></param>
-        public static implicit operator Expression<Func<TClass, bool>>(Filter<TClass> filter)
-        {
-            var builder = new FilterBuilder();
-            var expression = builder.GetExpression<TClass>(filter);
-            return expression;
         }
 
         /// <summary>
