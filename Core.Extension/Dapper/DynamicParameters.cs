@@ -46,12 +46,12 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// If true, the command-text is inspected and only values that are clearly used are included on the connection.
+        /// Gets or sets a value indicating whether if true, the command-text is inspected and only values that are clearly used are included on the connection.
         /// </summary>
         public bool RemoveUnused { get; set; }
 
         /// <summary>
-        /// All the names of the param in the bag, use Get to yank them out.
+        /// Gets all the names of the param in the bag, use Get to yank them out.
         /// </summary>
         public IEnumerable<string> ParameterNames => this.parameters.Select(p => p.Key);
         object SqlMapper.IParameterLookup.this[string name] =>

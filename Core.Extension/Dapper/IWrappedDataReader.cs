@@ -9,12 +9,12 @@ namespace Core.Extension.Dapper
     public interface IWrappedDataReader : IDataReader
     {
         /// <summary>
-        /// Obtain the underlying reader.
+        /// Gets obtain the underlying reader.
         /// </summary>
         IDataReader Reader { get; }
 
         /// <summary>
-        /// Obtain the underlying command.
+        /// Gets obtain the underlying command.
         /// </summary>
         IDbCommand Command { get; }
     }

@@ -474,12 +474,12 @@ namespace Core.Extension.Dapper
             private readonly IParameterCallbacks _callbacks;
 
             /// <summary>
-            /// Has the underlying reader been consumed?.
+            /// Gets a value indicating whether has the underlying reader been consumed?.
             /// </summary>
             public bool IsConsumed { get; private set; }
 
             /// <summary>
-            /// The command associated with the reader.
+            /// Gets or sets the command associated with the reader.
             /// </summary>
             public IDbCommand Command { get; set; }
 

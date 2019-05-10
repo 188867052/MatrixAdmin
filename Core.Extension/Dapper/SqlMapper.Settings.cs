@@ -28,7 +28,7 @@ namespace Core.Extension.Dapper
             }
 
             /// <summary>
-            /// Gets or sets whether Dapper should use the CommandBehavior.SingleResult optimization.
+            /// Gets or sets a value indicating whether gets or sets whether Dapper should use the CommandBehavior.SingleResult optimization.
             /// </summary>
             /// <remarks>Note that a consequence of enabling this option is that errors that happen <b>after</b> the first select may not be reported.</remarks>
             public static bool UseSingleResultOptimization
@@ -38,7 +38,7 @@ namespace Core.Extension.Dapper
             }
 
             /// <summary>
-            /// Gets or sets whether Dapper should use the CommandBehavior.SingleRow optimization.
+            /// Gets or sets a value indicating whether gets or sets whether Dapper should use the CommandBehavior.SingleRow optimization.
             /// </summary>
             /// <remarks>Note that on some DB providers this optimization can have adverse performance impact.</remarks>
             public static bool UseSingleRowOptimization
@@ -78,17 +78,17 @@ namespace Core.Extension.Dapper
             }
 
             /// <summary>
-            /// Specifies the default Command Timeout for all Queries.
+            /// Gets or sets specifies the default Command Timeout for all Queries.
             /// </summary>
             public static int? CommandTimeout { get; set; }
 
             /// <summary>
-            /// Indicates whether nulls in data are silently ignored (default) vs actively applied and assigned to members.
+            /// Gets or sets a value indicating whether indicates whether nulls in data are silently ignored (default) vs actively applied and assigned to members.
             /// </summary>
             public static bool ApplyNullValues { get; set; }
 
             /// <summary>
-            /// Should list expansions be padded with null-valued parameters, to prevent query-plan saturation? For example,
+            /// Gets or sets a value indicating whether should list expansions be padded with null-valued parameters, to prevent query-plan saturation? For example,
             /// an 'in @foo' expansion with 7, 8 or 9 values will be sent as a list of 10 values, with 3, 2 or 1 of them null.
             /// The padding size is relative to the size of the list; "next 10" under 150, "next 50" under 500,
             /// "next 100" under 1500, etc.
@@ -101,7 +101,7 @@ namespace Core.Extension.Dapper
             public static bool PadListExpansions { get; set; }
 
             /// <summary>
-            /// If set (non-negative), when performing in-list expansions of integer types ("where id in @ids", etc), switch to a string_split based
+            /// Gets or sets if set (non-negative), when performing in-list expansions of integer types ("where id in @ids", etc), switch to a string_split based
             /// operation if there are more than this many elements. Note that this feautre requires SQL Server 2016 / compatibility level 130 (or above).
             /// </summary>
             public static int InListStringSplitCount { get; set; } = -1;

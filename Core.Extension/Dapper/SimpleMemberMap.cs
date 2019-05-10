@@ -45,27 +45,27 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// DataReader column name.
+        /// Gets dataReader column name.
         /// </summary>
         public string ColumnName { get; }
 
         /// <summary>
-        /// Target member type.
+        /// Gets target member type.
         /// </summary>
         public Type MemberType => this.Field?.FieldType ?? this.Property?.PropertyType ?? this.Parameter?.ParameterType;
 
         /// <summary>
-        /// Target property.
+        /// Gets target property.
         /// </summary>
         public PropertyInfo Property { get; }
 
         /// <summary>
-        /// Target field.
+        /// Gets target field.
         /// </summary>
         public FieldInfo Field { get; }
 
         /// <summary>
-        /// Target constructor parameter.
+        /// Gets target constructor parameter.
         /// </summary>
         public ParameterInfo Parameter { get; }
     }

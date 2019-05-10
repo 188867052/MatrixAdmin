@@ -11,27 +11,27 @@ namespace Core.Extension.Dapper
         public interface IMemberMap
         {
             /// <summary>
-            /// Source DataReader column name.
+            /// Gets source DataReader column name.
             /// </summary>
             string ColumnName { get; }
 
             /// <summary>
-            ///  Target member type.
+            ///  Gets target member type.
             /// </summary>
             Type MemberType { get; }
 
             /// <summary>
-            /// Target property.
+            /// Gets target property.
             /// </summary>
             PropertyInfo Property { get; }
 
             /// <summary>
-            /// Target field.
+            /// Gets target field.
             /// </summary>
             FieldInfo Field { get; }
 
             /// <summary>
-            /// Target constructor parameter.
+            /// Gets target constructor parameter.
             /// </summary>
             ParameterInfo Parameter { get; }
         }

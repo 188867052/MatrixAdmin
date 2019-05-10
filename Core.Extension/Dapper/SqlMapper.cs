@@ -4092,7 +4092,7 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// How should connection strings be compared for equivalence? Defaults to StringComparer.Ordinal.
+        /// Gets or sets how should connection strings be compared for equivalence? Defaults to StringComparer.Ordinal.
         /// Providing a custom implementation can be useful for allowing multi-tenancy databases with identical
         /// schema to share strategies. Note that usual equivalence rules apply: any equivalent connection strings
         /// <b>MUST</b> yield the same hash-code.

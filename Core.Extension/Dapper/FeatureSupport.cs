@@ -35,7 +35,7 @@ Postgres = new FeatureSupport(true);
         }
 
         /// <summary>
-        /// True if the db supports array columns e.g. Postgresql.
+        /// Gets a value indicating whether true if the db supports array columns e.g. Postgresql.
         /// </summary>
         public bool Arrays { get; }
     }

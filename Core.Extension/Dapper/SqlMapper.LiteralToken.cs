@@ -10,12 +10,12 @@ namespace Core.Extension.Dapper
         internal struct LiteralToken
         {
             /// <summary>
-            /// The text in the original command that should be replaced.
+            /// Gets the text in the original command that should be replaced.
             /// </summary>
             public string Token { get; }
 
             /// <summary>
-            /// The name of the member referred to by the token.
+            /// Gets the name of the member referred to by the token.
             /// </summary>
             public string Member { get; }
 
