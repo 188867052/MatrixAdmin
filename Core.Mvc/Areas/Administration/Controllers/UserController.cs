@@ -150,6 +150,34 @@ namespace Core.Mvc.Areas.Administration.Controllers
         }
 
         /// <summary>
+        /// The forbidden.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>The IActionResult.</returns>
+        [HttpGet]
+        public IActionResult Forbidden(int id)
+        {
+            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Forbidden));
+            ResponseModel model = HttpClientAsync.DeleteAsync(url.Render() + "?ids=" + id).Result;
+
+            return this.Submit(model);
+        }
+
+        /// <summary>
+        /// The edit dialog.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>The IActionResult.</returns>
+        [HttpGet]
+        public IActionResult Normal(int id)
+        {
+            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Normal));
+            ResponseModel model = HttpClientAsync.DeleteAsync(url.Render() + "?ids=" + id).Result;
+
+            return this.Submit(model);
+        }
+
+        /// <summary>
         /// Gets role data list.
         /// </summary>
         /// <returns>The IActionResult.</returns>

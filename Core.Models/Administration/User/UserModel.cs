@@ -27,7 +27,11 @@ namespace Core.Model.Administration.User
             this.LoginName = user.LoginName;
             this.DisplayName = user.DisplayName;
             this.Password = user.Password;
-            this.UserRole = (UserRoleEnum)user.UserRole;
+            if (user.UserRole != null)
+            {
+                this.UserRole = (UserRoleEnum)user.UserRole;
+            }
+
             this.CreateTime = user.CreateTime;
             this.Status = (UserIsForbiddenEnum)user.Status;
             this.IsDeleted = user.IsDeleted;

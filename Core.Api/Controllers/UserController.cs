@@ -233,34 +233,26 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 批量操作.
+        /// 恢复用户.
         /// </summary>
-        /// <param name="command">command.</param>
         /// <param name="ids">ids.</param>
         /// <returns>IActionResult.</returns>
         [HttpGet]
-        [ProducesResponseType(200)]
-        public IActionResult Batch(string command, int[] ids)
+        public IActionResult Normal(int[] ids)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
-            switch (command)
-            {
-                case "delete":
-                    response = UserControllerHelper.UpdateIsDeleted(true, ids);
-                    break;
-                case "recover":
-                    response = UserControllerHelper.UpdateIsDeleted(false, ids);
-                    break;
-                case "forbidden":
-                    response = UserControllerHelper.UpdateStatus(false, ids);
-                    break;
-                case "normal":
-                    response = UserControllerHelper.UpdateStatus(true, ids);
-                    break;
-                default:
-                    break;
-            }
+            ResponseModel response = UserControllerHelper.UpdateStatus(true, ids);
+            return this.Ok(response);
+        }
 
+        /// <summary>
+        /// 恢复用户.
+        /// </summary>
+        /// <param name="ids">ids.</param>
+        /// <returns>IActionResult.</returns>
+        [HttpGet]
+        public IActionResult Forbidden(int[] ids)
+        {
+            ResponseModel response = UserControllerHelper.UpdateStatus(false, ids);
             return this.Ok(response);
         }
 

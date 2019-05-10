@@ -43,20 +43,28 @@
             window.core.dialog(this._addUrl);
         },
 
-        edit: function (id) {
-            window.core.editDialog(this._editUrl, { id: id });
+        edit: function () {
+            window.core.editDialog();
         },
 
         submit: function () {
             window.core.submit(this._saveUrl, this._dialogInstance, $.proxy(this.search, this));
         },
 
-        delete: function (id) {
-            window.core.delete(this._deleteUrl, { id: id }, $.proxy(this.search, this));
+        delete: function () {
+            window.core.update($.proxy(this.search, this));
         },
 
-        recover: function (id) {
-            window.core.delete(this._recoverUrl, { id: id }, $.proxy(this.search, this));
+        recover: function () {
+            window.core.update($.proxy(this.search, this));
+        },
+
+        forbidden: function () {
+            window.core.update($.proxy(this.search, this));
+        },
+
+        normal: function () {
+            window.core.update($.proxy(this.search, this));
         }
         // Private Methods
     };

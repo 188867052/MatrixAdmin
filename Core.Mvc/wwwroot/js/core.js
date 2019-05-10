@@ -45,12 +45,16 @@
             $.get(url, $.proxy(this._displayDialog, this));
         },
 
-        editDialog: function (url, id) {
-            $.get(url, id, $.proxy(this._displayDialog, this));
+        editDialog: function () {
+            var url = event.currentTarget.dataset.url;
+            var id = event.currentTarget.parentElement.previousElementSibling.dataset.id;
+            $.get(url, { id: id }, $.proxy(this._displayDialog, this));
         },
 
-        delete: function (url, id, pointer) {
-            $.get(url, id, pointer);
+        update: function (pointer) {
+            var url = event.currentTarget.dataset.url;
+            var id = event.currentTarget.parentElement.previousElementSibling.dataset.id;
+            $.get(url, { id: id }, pointer);
         },
 
         rowContextMenu: function () {
@@ -65,7 +69,7 @@
         _displayDialog: function (response) {
             $(".modalContainer").remove();
             var div = document.createElement("div");
-            div.className = "modalContainer" ;
+            div.className = "modalContainer";
             div.innerHTML = response.data;
             $("body").append(div);
             $("#" + response.id).modal("show");
