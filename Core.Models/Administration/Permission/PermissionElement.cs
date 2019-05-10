@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Core.Model.Administration.Permission
 {
-
     /// <summary>
     ///
     /// </summary>

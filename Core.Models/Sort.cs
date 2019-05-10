@@ -3,7 +3,6 @@ using System.Linq;
 
 namespace Core.Model
 {
-
     /// <summary>
     /// 排序实体对象.
     /// </summary>

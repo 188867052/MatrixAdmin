@@ -5,7 +5,6 @@ using Core.Model.Administration.Menu;
 using Core.Model.Administration.Permission;
 using Core.Model.Administration.Role;
 using Core.Model.Administration.User;
-using MenuJsonModel = Core.Api.Models.Menu.MenuJsonModel;
 
 namespace Core.Api.Configurations
 {
