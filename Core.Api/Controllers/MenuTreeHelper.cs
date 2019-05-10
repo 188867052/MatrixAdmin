@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 using Core.Api.Extensions;
-using Core.Api.Extensions.AuthContext;
-using Core.Entity;
-using Core.Entity.Enums;
-using Core.Extension.Dapper;
-using Core.Model;
 using Core.Model.Administration.Menu;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Api.Controllers
 {

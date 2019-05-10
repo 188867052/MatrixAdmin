@@ -1,20 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 using Core.Api.Extensions;
-using Core.Api.Extensions.AuthContext;
-using Core.Api.Utils;
-using Core.Entity;
-using Core.Extension.Dapper;
-using Core.Model;
 using Core.Model.Administration.Permission;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Api.Controllers
 {
     /// <summary>
-    ///
+    /// PermissionTreeHelper.
     /// </summary>
     public static class PermissionTreeHelper
     {

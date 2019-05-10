@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Api.Utils
+namespace Core.Extension
 {
     /// <summary>
     /// 随机数帮助类.

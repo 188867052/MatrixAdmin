@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace Core.Model
+﻿namespace Core.Model
 {
     /// <summary>
     /// 排序实体对象.

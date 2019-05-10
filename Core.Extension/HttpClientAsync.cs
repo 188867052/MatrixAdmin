@@ -11,7 +11,7 @@ namespace Core.Extension
         private static readonly string Host = "https://localhost:44377/api";
 
         /// <summary>
-        ///
+        /// GetAsync.
         /// </summary>
         /// <typeparam name="T">T.</typeparam>
         /// <param name="url">url.</param>
@@ -32,10 +32,10 @@ namespace Core.Extension
         }
 
         /// <summary>
-        ///
+        /// GetAsync.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="url"></param>
+        /// <typeparam name="T">T.</typeparam>
+        /// <param name="url">url.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public static async Task<ResponseModel> GetAsync<T>(string url)
         {
@@ -53,7 +53,7 @@ namespace Core.Extension
         }
 
         /// <summary>
-        ///
+        /// DeleteAsync.
         /// </summary>
         /// <param name="url"></param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
@@ -74,8 +74,8 @@ namespace Core.Extension
         /// <summary>
         /// PostAsync.
         /// </summary>
-        /// <typeparam name="TModel"></typeparam>
-        /// <typeparam name="TPostModel"></typeparam>
+        /// <typeparam name="TModel">TModel.</typeparam>
+        /// <typeparam name="TPostModel">TPostModel.</typeparam>
         /// <param name="url"></param>
         /// <param name="postModel"></param>
         /// <returns></returns>
@@ -98,11 +98,11 @@ namespace Core.Extension
         }
 
         /// <summary>
-        ///
+        /// SubmitAsync.
         /// </summary>
-        /// <typeparam name="TPostModel"></typeparam>
-        /// <param name="url"></param>
-        /// <param name="postModel"></param>
+        /// <typeparam name="TPostModel">TPostModel.</typeparam>
+        /// <param name="url">url.</param>
+        /// <param name="postModel">postModel.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public static async Task<ResponseModel> SubmitAsync<TPostModel>(Url url, TPostModel postModel)
         {
@@ -116,8 +116,8 @@ namespace Core.Extension
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
-
             ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
+
             return model;
         }
     }
