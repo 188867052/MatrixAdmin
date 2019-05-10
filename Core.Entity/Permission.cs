@@ -7,7 +7,7 @@ namespace Core.Entity
     {
         public Permission()
         {
-            this.RolePermissionMapping = new HashSet<RolePermissionMapping>();
+            RolePermissionMapping = new HashSet<RolePermissionMapping>();
         }
 
         public string Id { get; set; }
