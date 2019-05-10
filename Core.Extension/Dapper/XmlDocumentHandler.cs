@@ -2,7 +2,6 @@
 
 namespace Core.Extension.Dapper
 {
-
     internal sealed class XmlDocumentHandler : XmlTypeHandler<XmlDocument>
     {
         protected override XmlDocument Parse(string xml)

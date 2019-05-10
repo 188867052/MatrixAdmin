@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 
 namespace Core.Api.Configurations
 {
-
     public class ApiKeyHandler : DelegatingHandler
     {
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)

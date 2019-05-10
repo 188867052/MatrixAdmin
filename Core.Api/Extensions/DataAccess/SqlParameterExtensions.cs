@@ -5,7 +5,6 @@ using System.Linq;
 
 namespace Core.Api.Extensions.DataAccess
 {
-
     public static class SqlParameterExtensions
     {
         private class QueryParamInfo

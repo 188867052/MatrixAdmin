@@ -2,7 +2,6 @@
 
 namespace Core.Api.Extensions.DataAccess
 {
-
     /// <summary>
     /// Ignore this property.
     /// </summary>

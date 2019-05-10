@@ -2,7 +2,6 @@
 
 namespace Core.Api.Models.Menu
 {
-
     /// <summary>
     ///
     /// </summary>

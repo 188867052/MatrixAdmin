@@ -1,6 +1,5 @@
 ﻿namespace Core.Model
 {
-
     public class Pager
     {
         public static int DefaultPageSize = 10;
@@ -35,7 +34,6 @@
     /// </summary>
     public class ResponseModel : Pager
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ResponseModel"/> class.
         /// </summary>

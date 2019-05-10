@@ -148,6 +148,7 @@ namespace Core.Api.Controllers
         /// <summary>
         /// 菜单树.
         /// </summary>
+        /// <param name="selected">selected.</param>
         /// <returns></returns>
         [HttpGet("{selected?}")]
         public IActionResult Tree(string selected)
@@ -187,7 +188,7 @@ namespace Core.Api.Controllers
         /// <summary>
         /// 批量操作.
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="command">command.</param>
         /// <param name="ids">菜单ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet]
@@ -219,7 +220,7 @@ namespace Core.Api.Controllers
         /// <summary>
         /// 删除菜单.
         /// </summary>
-        /// <param name="isEnable"></param>
+        /// <param name="isEnable">isEnable.</param>
         /// <param name="ids">菜单ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
         private ResponseModel UpdateIsEnable(bool isEnable, int[] ids)

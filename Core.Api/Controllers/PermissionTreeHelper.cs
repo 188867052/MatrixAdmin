@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Api.Controllers
 {
-
     /// <summary>
     ///
     /// </summary>

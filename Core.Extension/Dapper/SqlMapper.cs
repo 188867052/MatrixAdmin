@@ -44,7 +44,7 @@ namespace Core.Extension.Dapper
         }
 
         /// <summary>
-        /// Called if the query cache is purged via PurgeQueryCache
+        /// Called if the query cache is purged via PurgeQueryCache.
         /// </summary>
         private static void OnQueryCachePurged()
         {
