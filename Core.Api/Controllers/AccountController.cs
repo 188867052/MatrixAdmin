@@ -26,9 +26,9 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        ///
+        /// Profile.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>IActionResult.</returns>
         [HttpGet]
         public IActionResult Profile()
         {

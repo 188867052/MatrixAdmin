@@ -6,11 +6,11 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Error
 {
     public class Error : SearchGridPage
     {
-        private readonly int errorNumber;
+        private readonly int _errorNumber;
 
         public Error(IHostingEnvironment hostingEnvironment, int errorNumber) : base(hostingEnvironment)
         {
-            this.errorNumber = errorNumber;
+            this._errorNumber = errorNumber;
         }
 
         protected override string FileName
@@ -27,7 +27,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Error
         /// <returns>The string.</returns>
         public override string Render()
         {
-            string html = base.Render().Replace("{{number}}", this.errorNumber.ToString());
+            string html = base.Render().Replace("{{number}}", this._errorNumber.ToString());
             return html;
         }
 
