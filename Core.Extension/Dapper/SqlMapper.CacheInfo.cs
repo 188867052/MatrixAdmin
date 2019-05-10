@@ -16,7 +16,6 @@ namespace Core.Extension.Dapper
 
             public Action<IDbCommand, object> ParamReader { get; set; }
 
-
             public int GetHitCount()
             {
                 return Interlocked.CompareExchange(ref this._hitCount, 0, 0);

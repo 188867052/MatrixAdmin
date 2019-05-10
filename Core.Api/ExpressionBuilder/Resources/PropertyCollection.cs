@@ -48,7 +48,6 @@ namespace Core.Api.ExpressionBuilder.Resources
         /// </summary>
         public ResourceManager ResourceManager { get; private set; }
 
-
         private List<Property> Properties { get; }
 
         /// <summary>

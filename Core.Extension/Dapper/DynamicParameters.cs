@@ -6,10 +6,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 
-#if NETSTANDARD1_3
-using ApplicationException = System.InvalidOperationException;
-#endif
-
 namespace Core.Extension.Dapper
 {
     /// <summary>
@@ -149,25 +145,205 @@ namespace Core.Extension.Dapper
             };
         }
 
-        private static string Clean(string name)
-        {
-            if (!string.IsNullOrEmpty(name))
-            {
-                switch (name[0])
-                {
-                    case '@':
-                    case ':':
-                    case '?':
-                        return name.Substring(1);
-                }
-            }
-
-            return name;
-        }
-
         void SqlMapper.IDynamicParameters.AddParameters(IDbCommand command, SqlMapper.Identity identity)
         {
             this.AddParameters(command, identity);
+        }
+
+        /// <summary>
+        /// Get the value of a parameter.
+        /// </summary>
+        /// <typeparam name="T">T.</typeparam>
+        /// <param name="name">name.</param>
+        /// <returns>The value, note DBNull.Value is not returned, instead the value is returned as null.</returns>
+        public T Get<T>(string name)
+        {
+            var paramInfo = this.parameters[Clean(name)];
+            var attachedParam = paramInfo.AttachedParam;
+            object val = attachedParam == null ? paramInfo.Value : attachedParam.Value;
+            if (val == DBNull.Value)
+            {
+                if (default(T) != null)
+                {
+                    throw new ApplicationException("Attempting to cast a DBNull to a non nullable type! Note that out/return parameters will not have updated values until the data stream completes (after the 'foreach' for Query(..., buffered: false), or after the GridReader has been disposed for QueryMultiple)");
+                }
+
+                return default;
+            }
+
+            return (T)val;
+        }
+
+        /// <summary>
+        /// Allows you to automatically populate a target property/field from output parameters. It actually
+        /// creates an InputOutput parameter, so you can still pass data in.
+        /// </summary>
+        /// <typeparam name="T">T.</typeparam>
+        /// <param name="target">The object whose property/field you wish to populate.</param>
+        /// <param name="expression">A MemberExpression targeting a property/field of the target (or descendant thereof.)</param>
+        /// <param name="dbType"></param>
+        /// <param name="size">The size to set on the parameter. Defaults to 0, or DbString.DefaultLength in case of strings.</param>
+        /// <returns>The DynamicParameters instance.</returns>
+        public DynamicParameters Output<T>(T target, Expression<Func<T, object>> expression, DbType? dbType = null, int? size = null)
+        {
+            var failMessage = "Expression must be a property/field chain off of a(n) {0} instance";
+            failMessage = string.Format(failMessage, typeof(T).Name);
+            Action @throw = () => throw new InvalidOperationException(failMessage);
+
+            // Is it even a MemberExpression?
+            var lastMemberAccess = expression.Body as MemberExpression;
+
+            if (lastMemberAccess == null
+                || (!(lastMemberAccess.Member is PropertyInfo)
+                    && !(lastMemberAccess.Member is FieldInfo)))
+            {
+                if (expression.Body.NodeType == ExpressionType.Convert
+                    && expression.Body.Type == typeof(object)
+                    && ((UnaryExpression)expression.Body).Operand is MemberExpression)
+                {
+                    // It's got to be unboxed
+                    lastMemberAccess = (MemberExpression)((UnaryExpression)expression.Body).Operand;
+                }
+                else
+                {
+                    @throw();
+                }
+            }
+
+            // Does the chain consist of MemberExpressions leading to a ParameterExpression of type T?
+            MemberExpression diving = lastMemberAccess;
+
+            // Retain a list of member names and the member expressions so we can rebuild the chain.
+            List<string> names = new List<string>();
+            List<MemberExpression> chain = new List<MemberExpression>();
+
+            do
+            {
+                // Insert the names in the right order so expression
+                // "Post.Author.Name" becomes parameter "PostAuthorName"
+                names.Insert(0, diving?.Member.Name);
+                chain.Insert(0, diving);
+
+                var constant = diving?.Expression as ParameterExpression;
+                diving = diving?.Expression as MemberExpression;
+
+                if (constant != null && constant.Type == typeof(T))
+                {
+                    break;
+                }
+                else if (diving == null
+                    || (!(diving.Member is PropertyInfo)
+                        && !(diving.Member is FieldInfo)))
+                {
+                    @throw();
+                }
+            }
+            while (diving != null);
+
+            var dynamicParamName = string.Concat(names.ToArray());
+
+            // Before we get all emitty...
+            var lookup = string.Join("|", names.ToArray());
+
+            var cache = CachedOutputSetters<T>.Cache;
+            var setter = (Action<object, DynamicParameters>)cache[lookup];
+            if (setter != null)
+            {
+                goto MAKECALLBACK;
+            }
+
+            // Come on let's build a method, let's build it, let's build it now!
+            var dm = new DynamicMethod("ExpressionParam" + Guid.NewGuid().ToString(), null, new[] { typeof(object), this.GetType() }, true);
+            var il = dm.GetILGenerator();
+
+            il.Emit(OpCodes.Ldarg_0); // [object]
+            il.Emit(OpCodes.Castclass, typeof(T));    // [T]
+
+            // Count - 1 to skip the last member access
+            var i = 0;
+            for (; i < (chain.Count - 1); i++)
+            {
+                var member = chain[0].Member;
+
+                if (member is PropertyInfo)
+                {
+                    var get = ((PropertyInfo)member).GetGetMethod(true);
+                    il.Emit(OpCodes.Callvirt, get); // [Member{i}]
+                }
+                else // Else it must be a field!
+                {
+                    il.Emit(OpCodes.Ldfld, (FieldInfo)member); // [Member{i}]
+                }
+            }
+
+            var paramGetter = this.GetType().GetMethod("Get", new Type[] { typeof(string) }).MakeGenericMethod(lastMemberAccess.Type);
+
+            il.Emit(OpCodes.Ldarg_1); // [target] [DynamicParameters]
+            il.Emit(OpCodes.Ldstr, dynamicParamName); // [target] [DynamicParameters] [ParamName]
+            il.Emit(OpCodes.Callvirt, paramGetter); // [target] [value], it's already typed thanks to generic method
+
+            // GET READY
+            var lastMember = lastMemberAccess.Member;
+            if (lastMember is PropertyInfo)
+            {
+                var set = ((PropertyInfo)lastMember).GetSetMethod(true);
+                il.Emit(OpCodes.Callvirt, set); // SET
+            }
+            else
+            {
+                il.Emit(OpCodes.Stfld, (FieldInfo)lastMember); // SET
+            }
+
+            il.Emit(OpCodes.Ret); // GO
+
+            setter = (Action<object, DynamicParameters>)dm.CreateDelegate(typeof(Action<object, DynamicParameters>));
+            lock (cache)
+            {
+                cache[lookup] = setter;
+            }
+
+            // Queue the preparation to be fired off when adding parameters to the DbCommand
+            MAKECALLBACK:
+            (this.outputCallbacks ?? (this.outputCallbacks = new List<Action>())).Add(() =>
+            {
+                // Finally, prep the parameter and attach the callback to it
+                var targetMemberType = lastMemberAccess?.Type;
+                int sizeToSet = (!size.HasValue && targetMemberType == typeof(string)) ? DbString.DefaultLength : size ?? 0;
+
+                if (this.parameters.TryGetValue(dynamicParamName, out ParamInfo parameter))
+                {
+                    parameter.ParameterDirection = parameter.AttachedParam.Direction = ParameterDirection.InputOutput;
+
+                    if (parameter.AttachedParam.Size == 0)
+                    {
+                        parameter.Size = parameter.AttachedParam.Size = sizeToSet;
+                    }
+                }
+                else
+                {
+                    dbType = !dbType.HasValue
+                    ? SqlMapper.LookupDbType(targetMemberType, targetMemberType?.Name, true, out SqlMapper.ITypeHandler handler)
+                    : dbType;
+
+                    // CameFromTemplate property would not apply here because this new param
+                    // Still needs to be added to the command
+                    this.Add(dynamicParamName, expression.Compile().Invoke(target), null, ParameterDirection.InputOutput, sizeToSet);
+                }
+
+                parameter = this.parameters[dynamicParamName];
+                parameter.OutputCallback = setter;
+                parameter.OutputTarget = target;
+            });
+
+            return this;
+        }
+
+        void SqlMapper.IParameterCallbacks.OnCompleted()
+        {
+            foreach (var param in from p in this.parameters select p.Value)
+            {
+                param.OutputCallback?.Invoke(param.OutputTarget, this);
+            }
         }
 
         /// <summary>
@@ -348,200 +524,20 @@ namespace Core.Extension.Dapper
             }
         }
 
-        /// <summary>
-        /// Get the value of a parameter.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="name"></param>
-        /// <returns>The value, note DBNull.Value is not returned, instead the value is returned as null.</returns>
-        public T Get<T>(string name)
+        private static string Clean(string name)
         {
-            var paramInfo = this.parameters[Clean(name)];
-            var attachedParam = paramInfo.AttachedParam;
-            object val = attachedParam == null ? paramInfo.Value : attachedParam.Value;
-            if (val == DBNull.Value)
+            if (!string.IsNullOrEmpty(name))
             {
-                if (default(T) != null)
+                switch (name[0])
                 {
-                    throw new ApplicationException("Attempting to cast a DBNull to a non nullable type! Note that out/return parameters will not have updated values until the data stream completes (after the 'foreach' for Query(..., buffered: false), or after the GridReader has been disposed for QueryMultiple)");
-                }
-
-                return default;
-            }
-
-            return (T)val;
-        }
-
-        /// <summary>
-        /// Allows you to automatically populate a target property/field from output parameters. It actually
-        /// creates an InputOutput parameter, so you can still pass data in.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="target">The object whose property/field you wish to populate.</param>
-        /// <param name="expression">A MemberExpression targeting a property/field of the target (or descendant thereof.)</param>
-        /// <param name="dbType"></param>
-        /// <param name="size">The size to set on the parameter. Defaults to 0, or DbString.DefaultLength in case of strings.</param>
-        /// <returns>The DynamicParameters instance.</returns>
-        public DynamicParameters Output<T>(T target, Expression<Func<T, object>> expression, DbType? dbType = null, int? size = null)
-        {
-            var failMessage = "Expression must be a property/field chain off of a(n) {0} instance";
-            failMessage = string.Format(failMessage, typeof(T).Name);
-            Action @throw = () => throw new InvalidOperationException(failMessage);
-
-            // Is it even a MemberExpression?
-            var lastMemberAccess = expression.Body as MemberExpression;
-
-            if (lastMemberAccess == null
-                || (!(lastMemberAccess.Member is PropertyInfo)
-                    && !(lastMemberAccess.Member is FieldInfo)))
-            {
-                if (expression.Body.NodeType == ExpressionType.Convert
-                    && expression.Body.Type == typeof(object)
-                    && ((UnaryExpression)expression.Body).Operand is MemberExpression)
-                {
-                    // It's got to be unboxed
-                    lastMemberAccess = (MemberExpression)((UnaryExpression)expression.Body).Operand;
-                }
-                else
-                {
-                    @throw();
+                    case '@':
+                    case ':':
+                    case '?':
+                        return name.Substring(1);
                 }
             }
 
-            // Does the chain consist of MemberExpressions leading to a ParameterExpression of type T?
-            MemberExpression diving = lastMemberAccess;
-
-            // Retain a list of member names and the member expressions so we can rebuild the chain.
-            List<string> names = new List<string>();
-            List<MemberExpression> chain = new List<MemberExpression>();
-
-            do
-            {
-                // Insert the names in the right order so expression
-                // "Post.Author.Name" becomes parameter "PostAuthorName"
-                names.Insert(0, diving?.Member.Name);
-                chain.Insert(0, diving);
-
-                var constant = diving?.Expression as ParameterExpression;
-                diving = diving?.Expression as MemberExpression;
-
-                if (constant != null && constant.Type == typeof(T))
-                {
-                    break;
-                }
-                else if (diving == null
-                    || (!(diving.Member is PropertyInfo)
-                        && !(diving.Member is FieldInfo)))
-                {
-                    @throw();
-                }
-            }
-            while (diving != null);
-
-            var dynamicParamName = string.Concat(names.ToArray());
-
-            // Before we get all emitty...
-            var lookup = string.Join("|", names.ToArray());
-
-            var cache = CachedOutputSetters<T>.Cache;
-            var setter = (Action<object, DynamicParameters>)cache[lookup];
-            if (setter != null)
-            {
-                goto MAKECALLBACK;
-            }
-
-            // Come on let's build a method, let's build it, let's build it now!
-            var dm = new DynamicMethod("ExpressionParam" + Guid.NewGuid().ToString(), null, new[] { typeof(object), this.GetType() }, true);
-            var il = dm.GetILGenerator();
-
-            il.Emit(OpCodes.Ldarg_0); // [object]
-            il.Emit(OpCodes.Castclass, typeof(T));    // [T]
-
-            // Count - 1 to skip the last member access
-            var i = 0;
-            for (; i < (chain.Count - 1); i++)
-            {
-                var member = chain[0].Member;
-
-                if (member is PropertyInfo)
-                {
-                    var get = ((PropertyInfo)member).GetGetMethod(true);
-                    il.Emit(OpCodes.Callvirt, get); // [Member{i}]
-                }
-                else // Else it must be a field!
-                {
-                    il.Emit(OpCodes.Ldfld, (FieldInfo)member); // [Member{i}]
-                }
-            }
-
-            var paramGetter = this.GetType().GetMethod("Get", new Type[] { typeof(string) }).MakeGenericMethod(lastMemberAccess.Type);
-
-            il.Emit(OpCodes.Ldarg_1); // [target] [DynamicParameters]
-            il.Emit(OpCodes.Ldstr, dynamicParamName); // [target] [DynamicParameters] [ParamName]
-            il.Emit(OpCodes.Callvirt, paramGetter); // [target] [value], it's already typed thanks to generic method
-
-            // GET READY
-            var lastMember = lastMemberAccess.Member;
-            if (lastMember is PropertyInfo)
-            {
-                var set = ((PropertyInfo)lastMember).GetSetMethod(true);
-                il.Emit(OpCodes.Callvirt, set); // SET
-            }
-            else
-            {
-                il.Emit(OpCodes.Stfld, (FieldInfo)lastMember); // SET
-            }
-
-            il.Emit(OpCodes.Ret); // GO
-
-            setter = (Action<object, DynamicParameters>)dm.CreateDelegate(typeof(Action<object, DynamicParameters>));
-            lock (cache)
-            {
-                cache[lookup] = setter;
-            }
-
-            // Queue the preparation to be fired off when adding parameters to the DbCommand
-            MAKECALLBACK:
-            (this.outputCallbacks ?? (this.outputCallbacks = new List<Action>())).Add(() =>
-            {
-                // Finally, prep the parameter and attach the callback to it
-                var targetMemberType = lastMemberAccess?.Type;
-                int sizeToSet = (!size.HasValue && targetMemberType == typeof(string)) ? DbString.DefaultLength : size ?? 0;
-
-                if (this.parameters.TryGetValue(dynamicParamName, out ParamInfo parameter))
-                {
-                    parameter.ParameterDirection = parameter.AttachedParam.Direction = ParameterDirection.InputOutput;
-
-                    if (parameter.AttachedParam.Size == 0)
-                    {
-                        parameter.Size = parameter.AttachedParam.Size = sizeToSet;
-                    }
-                }
-                else
-                {
-                    dbType = !dbType.HasValue
-                    ? SqlMapper.LookupDbType(targetMemberType, targetMemberType?.Name, true, out SqlMapper.ITypeHandler handler)
-                    : dbType;
-
-                    // CameFromTemplate property would not apply here because this new param
-                    // Still needs to be added to the command
-                    this.Add(dynamicParamName, expression.Compile().Invoke(target), null, ParameterDirection.InputOutput, sizeToSet);
-                }
-
-                parameter = this.parameters[dynamicParamName];
-                parameter.OutputCallback = setter;
-                parameter.OutputTarget = target;
-            });
-
-            return this;
-        }
-
-        void SqlMapper.IParameterCallbacks.OnCompleted()
-        {
-            foreach (var param in from p in this.parameters select p.Value)
-            {
-                param.OutputCallback?.Invoke(param.OutputTarget, this);
-            }
+            return name;
         }
     }
 }

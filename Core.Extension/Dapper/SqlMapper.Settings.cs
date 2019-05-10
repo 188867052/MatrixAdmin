@@ -18,7 +18,6 @@ namespace Core.Extension.Dapper
                 SetDefaults();
             }
 
-
             /// <summary>
             /// Gets or sets specifies the default Command Timeout for all Queries.
             /// </summary>
@@ -47,7 +46,6 @@ namespace Core.Extension.Dapper
             /// operation if there are more than this many elements. Note that this feautre requires SQL Server 2016 / compatibility level 130 (or above).
             /// </summary>
             public static int InListStringSplitCount { get; set; } = -1;
-
 
             /// <summary>
             /// Gets or sets a value indicating whether gets or sets whether Dapper should use the CommandBehavior.SingleResult optimization.

@@ -87,7 +87,6 @@ namespace Core.Extension.Dapper
                 return this.GetEnumerator();
             }
 
-
             void ICollection<KeyValuePair<string, object>>.Add(KeyValuePair<string, object> item)
             {
                 IDictionary<string, object> dic = this;

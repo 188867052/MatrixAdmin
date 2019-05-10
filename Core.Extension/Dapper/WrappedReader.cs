@@ -7,6 +7,7 @@ namespace Core.Extension.Dapper
     {
         private IDataReader reader;
         private IDbCommand cmd;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WrappedReader"/> class.
         /// </summary>
@@ -121,6 +122,5 @@ namespace Core.Extension.Dapper
 
         bool IDataRecord.IsDBNull(int i) => this.Reader.IsDBNull(i);
 
-    
     }
 }

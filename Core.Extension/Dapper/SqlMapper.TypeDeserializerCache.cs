@@ -53,7 +53,6 @@ namespace Core.Extension.Dapper
                 return found.GetReader(reader, startBound, length, returnNullIfFirstMissing);
             }
 
-
             private Func<IDataReader, object> GetReader(IDataReader reader, int startBound, int length, bool returnNullIfFirstMissing)
             {
                 if (length < 0)

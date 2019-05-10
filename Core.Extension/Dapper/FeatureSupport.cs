@@ -15,10 +15,12 @@ namespace Core.Extension.Dapper
         {
             this.Arrays = arrays;
         }
+
         /// <summary>
         /// Gets a value indicating whether true if the db supports array columns e.g. Postgresql.
         /// </summary>
         public bool Arrays { get; }
+
         /// <summary>
         /// Gets the feature set based on the passed connection.
         /// </summary>

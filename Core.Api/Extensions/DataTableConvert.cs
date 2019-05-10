@@ -26,9 +26,9 @@ namespace Core.Api.Extensions
         /// <summary>
         /// 将DataTable转换成泛型对象列表.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="dt"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">T.</typeparam>
+        /// <param name="dt">dt.</param>
+        /// <returns>List.</returns>
         public static List<T> ToList<T>(this DataTable dt)
         {
             List<T> list = new List<T>();

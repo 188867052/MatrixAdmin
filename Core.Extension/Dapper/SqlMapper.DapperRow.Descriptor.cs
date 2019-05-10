@@ -36,6 +36,7 @@ namespace Core.Extension.Dapper
             private sealed class DapperRowTypeDescriptor : ICustomTypeDescriptor
             {
                 private readonly DapperRow _row;
+                private static readonly TypeConverter converter = new ExpandableObjectConverter();
 
                 public DapperRowTypeDescriptor(object instance)
                     => this._row = (DapperRow)instance;
@@ -47,7 +48,7 @@ namespace Core.Extension.Dapper
 
                 string ICustomTypeDescriptor.GetComponentName() => null;
 
-                TypeConverter ICustomTypeDescriptor.GetConverter() => s_converter;
+                TypeConverter ICustomTypeDescriptor.GetConverter() => converter;
 
                 EventDescriptor ICustomTypeDescriptor.GetDefaultEvent() => null;
 
@@ -58,6 +59,12 @@ namespace Core.Extension.Dapper
                 EventDescriptorCollection ICustomTypeDescriptor.GetEvents() => EventDescriptorCollection.Empty;
 
                 EventDescriptorCollection ICustomTypeDescriptor.GetEvents(Attribute[] attributes) => EventDescriptorCollection.Empty;
+
+                PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties() => GetProperties(this._row);
+
+                PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties(Attribute[] attributes) => GetProperties(this._row);
+
+                object ICustomTypeDescriptor.GetPropertyOwner(PropertyDescriptor pd) => this._row;
 
                 internal static PropertyDescriptorCollection GetProperties(DapperRow row) => GetProperties(row?._table, row);
 
@@ -79,14 +86,6 @@ namespace Core.Extension.Dapper
 
                     return new PropertyDescriptorCollection(arr, true);
                 }
-
-                private static readonly TypeConverter s_converter = new ExpandableObjectConverter();
-
-                PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties() => GetProperties(this._row);
-
-                PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties(Attribute[] attributes) => GetProperties(this._row);
-
-                object ICustomTypeDescriptor.GetPropertyOwner(PropertyDescriptor pd) => this._row;
             }
 
             private sealed class RowBoundPropertyDescriptor : PropertyDescriptor

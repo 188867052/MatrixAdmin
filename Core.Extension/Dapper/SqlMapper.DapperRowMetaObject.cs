@@ -19,6 +19,7 @@ namespace Core.Extension.Dapper
         {
             private static readonly MethodInfo getValueMethod = typeof(IDictionary<string, object>).GetProperty("Item").GetGetMethod();
             private static readonly MethodInfo setValueMethod = typeof(DapperRow).GetMethod("SetValue", new Type[] { typeof(string), typeof(object) });
+            static readonly string[] s_nixKeys = new string[0];
 
             public DapperRowMetaObject(
                 System.Linq.Expressions.Expression expression,
@@ -85,8 +86,6 @@ namespace Core.Extension.Dapper
 
                 return callMethod;
             }
-
-            static readonly string[] s_nixKeys = new string[0];
 
             public override IEnumerable<string> GetDynamicMemberNames()
             {

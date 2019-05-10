@@ -11,6 +11,41 @@ namespace Core.Extension.Dapper
         public class Identity : IEquatable<Identity>
         {
             /// <summary>
+            /// The raw SQL command.
+            /// </summary>
+            public readonly string Sql;
+
+            /// <summary>
+            /// The SQL command type.
+            /// </summary>
+            public readonly CommandType? CommandType;
+
+            /// <summary>
+            /// The hash code of this Identity.
+            /// </summary>
+            public readonly int HashCode;
+
+            /// <summary>
+            /// The grid index (position in the reader) of this Identity.
+            /// </summary>
+            public readonly int GridIndex;
+
+            /// <summary>
+            /// This <see cref="System.Type"/> of this Identity.
+            /// </summary>
+            public readonly Type Type;
+
+            /// <summary>
+            /// The connection string for this Identity.
+            /// </summary>
+            public readonly string ConnectionString;
+
+            /// <summary>
+            /// The type of the parameters object for this Identity.
+            /// </summary>
+            public readonly Type ParametersType;
+
+            /// <summary>
             /// Initializes a new instance of the <see cref="Identity"/> class.
             /// </summary>
             /// <param name="sql"></param>
@@ -52,8 +87,6 @@ namespace Core.Extension.Dapper
                 }
             }
 
-        
-
             /// <summary>
             /// Create an identity for use with DynamicParameters, internal use only.
             /// </summary>
@@ -67,41 +100,6 @@ namespace Core.Extension.Dapper
             /// <param name="obj">The other <see cref="object"/> to compare to.</param>
             /// <returns></returns>
             public override bool Equals(object obj) => this.Equals(obj as Identity);
-
-            /// <summary>
-            /// The raw SQL command.
-            /// </summary>
-            public readonly string Sql;
-
-            /// <summary>
-            /// The SQL command type.
-            /// </summary>
-            public readonly CommandType? CommandType;
-
-            /// <summary>
-            /// The hash code of this Identity.
-            /// </summary>
-            public readonly int HashCode;
-
-            /// <summary>
-            /// The grid index (position in the reader) of this Identity.
-            /// </summary>
-            public readonly int GridIndex;
-
-            /// <summary>
-            /// This <see cref="System.Type"/> of this Identity.
-            /// </summary>
-            public readonly Type Type;
-
-            /// <summary>
-            /// The connection string for this Identity.
-            /// </summary>
-            public readonly string ConnectionString;
-
-            /// <summary>
-            /// The type of the parameters object for this Identity.
-            /// </summary>
-            public readonly Type ParametersType;
 
             /// <summary>
             /// Gets the hash code for this identity.

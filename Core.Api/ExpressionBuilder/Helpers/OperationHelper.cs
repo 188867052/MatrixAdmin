@@ -42,6 +42,14 @@ namespace Core.Api.ExpressionBuilder.Helpers
         }
 
         /// <summary>
+        /// List of all operations loaded so far.
+        /// </summary>
+        public IEnumerable<IOperation> Operations
+        {
+            get { return _operations.ToArray(); }
+        }
+
+        /// <summary>
         /// Loads the default operations overwriting any previous changes to the <see cref="Operations"></see> list.
         /// </summary>
         public static void LoadDefaultOperations()
@@ -53,14 +61,6 @@ namespace Core.Api.ExpressionBuilder.Helpers
                 .Where(p => @interface.IsAssignableFrom(p) && p.IsClass && !p.IsAbstract)
                 .Select(t => (IOperation)Activator.CreateInstance(t));
             _operations = new HashSet<IOperation>(operationsFound, new OperationEqualityComparer());
-        }
-
-        /// <summary>
-        /// List of all operations loaded so far.
-        /// </summary>
-        public IEnumerable<IOperation> Operations
-        {
-            get { return _operations.ToArray(); }
         }
 
         /// <summary>

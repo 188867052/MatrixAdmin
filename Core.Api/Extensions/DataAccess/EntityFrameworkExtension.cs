@@ -17,18 +17,18 @@ namespace Core.Api.Extensions.DataAccess
         /// <typeparam name="T"></typeparam>
         /// <param name="database">数据库连接上下文.</param>
         /// <param name="sql">SQL语句.</param>
-        /// <param name="parameters">SQL语句需要的参数.</param>
+        /// <param name="parameter">SQL语句需要的参数.</param>
         /// <returns></returns>
-        public static List<T> FromSql<T>(this DatabaseFacade database, string sql, object parameters = null)
+        public static List<T> FromSql<T>(this DatabaseFacade database, string sql, object parameter = null)
         {
             List<T> result;
             using (DbCommand command = database.GetDbConnection().CreateCommand())
             {
                 command.CommandText = sql;
-                if (parameters != null)
+                if (parameter != null)
                 {
-                    object[] _parameters = parameters.ToSqlParamsArray();
-                    command.Parameters.AddRange(_parameters);
+                    object[] parameters = parameter.ToSqlParamsArray();
+                    command.Parameters.AddRange(parameters);
                 }
 
                 database.OpenConnection();
