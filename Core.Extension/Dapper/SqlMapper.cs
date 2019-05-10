@@ -33,6 +33,8 @@ namespace Core.Extension.Dapper
         private static readonly System.Collections.Concurrent.ConcurrentDictionary<Identity, CacheInfo> _queryCache = new System.Collections.Concurrent.ConcurrentDictionary<Identity, CacheInfo>();
         private static readonly int[] ErrTwoRows = new int[2];
         private static readonly int[] ErrZeroRows = new int[0];
+        private static readonly MethodInfo StringReplace = typeof(string).GetPublicInstanceMethod(nameof(string.Replace), new[] { typeof(string), typeof(string) });
+        private static readonly MethodInfo InvariantCulture = typeof(CultureInfo).GetProperty(nameof(CultureInfo.InvariantCulture), BindingFlags.Public | BindingFlags.Static).GetGetMethod();
 
         // use Hashtable to get free lockless reading
         private static readonly Hashtable _typeMaps = new Hashtable();
@@ -59,8 +61,6 @@ namespace Core.Extension.Dapper
             typeof(bool), typeof(sbyte), typeof(byte), typeof(ushort), typeof(short),
             typeof(uint), typeof(int), typeof(ulong), typeof(long), typeof(float), typeof(double), typeof(decimal)
         }.ToDictionary(x => TypeExtensions.GetTypeCode(x), x => x.GetPublicInstanceMethod(nameof(object.ToString), new[] { typeof(IFormatProvider) }));
-
-        public static event EventHandler QueryCachePurged;
 
         static SqlMapper()
         {
@@ -106,6 +106,8 @@ namespace Core.Extension.Dapper
             };
             ResetTypeHandlers(false);
         }
+
+        public static event EventHandler QueryCachePurged;
 
         [Flags]
         internal enum Row
@@ -2625,7 +2627,6 @@ namespace Core.Extension.Dapper
             return list;
         }
 
-
         private static LocalBuilder GetTempLocal(ILGenerator il, ref Dictionary<Type, LocalBuilder> locals, Type type, bool initAndLoad)
         {
             if (type == null)
@@ -2689,7 +2690,7 @@ namespace Core.Extension.Dapper
 
             string varName = null;
             var regexIncludingUnknown = GetInListRegex(namePrefix, byPosition);
-            var sql = Regex.Replace(command.CommandText, regexIncludingUnknown, match =>
+            MatchEvaluator evaluator = match =>
             {
                 var variableName = match.Groups[1].Value;
                 if (match.Groups[2].Success)
@@ -2702,7 +2703,8 @@ namespace Core.Extension.Dapper
                     varName = variableName;
                     return "(select cast([value] as " + colType + ") from string_split(" + variableName + ",','))";
                 }
-            }, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
+            };
+            var sql = Regex.Replace(command.CommandText, regexIncludingUnknown, evaluator, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
             if (varName == null)
             {
                 return false; // couldn't resolve the var!
@@ -3961,8 +3963,7 @@ namespace Core.Extension.Dapper
             return toStrings.TryGetValue(typeCode, out MethodInfo method) ? method : null;
         }
 
-        private static readonly MethodInfo StringReplace = typeof(string).GetPublicInstanceMethod(nameof(string.Replace), new[] { typeof(string), typeof(string) });
-        private static readonly MethodInfo InvariantCulture = typeof(CultureInfo).GetProperty(nameof(CultureInfo.InvariantCulture), BindingFlags.Public | BindingFlags.Static).GetGetMethod();
+   
 
         private static int ExecuteCommand(IDbConnection cnn, ref CommandDefinition command, Action<IDbCommand, object> paramReader)
         {

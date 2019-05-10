@@ -321,9 +321,7 @@ namespace Core.Extension.Dapper
                 }
                 else
                 {
-                    dbType = !dbType.HasValue
-                    ? SqlMapper.LookupDbType(targetMemberType, targetMemberType?.Name, true, out SqlMapper.ITypeHandler handler)
-                    : dbType;
+                    dbType = !dbType.HasValue ? SqlMapper.LookupDbType(targetMemberType, targetMemberType?.Name, true, out SqlMapper.ITypeHandler handler) : dbType;
 
                     // CameFromTemplate property would not apply here because this new param
                     // Still needs to be added to the command

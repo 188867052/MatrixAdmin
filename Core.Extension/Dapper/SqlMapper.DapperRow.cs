@@ -18,6 +18,15 @@ namespace Core.Extension.Dapper
                 this._values = values ?? throw new ArgumentNullException(nameof(values));
             }
 
+            object IReadOnlyDictionary<string, object>.this[string key]
+            {
+                get
+                {
+                    this.TryGetValue(key, out object val);
+                    return val;
+                }
+            }
+
             ICollection<string> IDictionary<string, object>.Keys => this.Select(kv => kv.Key).ToArray();
 
             ICollection<object> IDictionary<string, object>.Values => this.Select(kv => kv.Value).ToArray();
@@ -139,14 +148,7 @@ namespace Core.Extension.Dapper
             bool IDictionary<string, object>.Remove(string key)
                 => this.Remove(this._table.IndexOfName(key));
 
-            object IReadOnlyDictionary<string, object>.this[string key]
-            {
-                get
-                {
-                    this.TryGetValue(key, out object val);
-                    return val;
-                }
-            }
+           
 
             internal bool TryGetValue(int index, out object value)
             {
