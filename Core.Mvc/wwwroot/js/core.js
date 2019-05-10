@@ -56,6 +56,7 @@
         rowContextMenu: function () {
             var url = event.currentTarget.dataset.url;
             var id = event.currentTarget.dataset.id;
+            $.ajaxSettings.async = false;
             $.get(url, { id: id }, $.proxy(this._initializeRowContextMenu, this, event.currentTarget));
         },
 
