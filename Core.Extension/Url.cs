@@ -8,13 +8,13 @@ namespace Core.Extension
         /// <summary>
         /// Initializes a new instance of the <see cref="Url"/> class.
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="controllerType"></param>
         /// <param name="action"></param>
         /// <param name="parameter"></param>
-        public Url(Type type, string action, string parameter = default)
+        public Url(Type controllerType, string action, string parameter = default)
         {
             this.Action = action;
-            this.Type = type;
+            this.ControllerType = controllerType;
             this.Parameter = parameter;
         }
 
@@ -32,7 +32,7 @@ namespace Core.Extension
 
         public string Action { get; set; }
 
-        public Type Type { get; set; }
+        public Type ControllerType { get; set; }
 
         public string Area { get; set; }
 
@@ -40,7 +40,7 @@ namespace Core.Extension
 
         public string Render()
         {
-            string controller = this.Type.Name.Replace(nameof(Controller), default);
+            string controller = this.ControllerType.Name.Replace(nameof(Controller), default);
             string url = default;
             if (this.Area != default)
             {

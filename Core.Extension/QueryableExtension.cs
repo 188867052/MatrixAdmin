@@ -19,7 +19,7 @@ namespace Core.Extension
         /// <summary>
         /// IQueryable分页.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">T.</typeparam>
         /// <param name="query">query.</param>
         /// <param name="count">count.</param>
         /// <param name="pager">pager.</param>

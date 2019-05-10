@@ -60,7 +60,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult RowContextMenu(int id)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.FindById));
-            ResponseModel model = HttpClientAsync.GetAsync<UserModel>(url.Render() + "?id=" + id).Result;
+            ResponseModel model = HttpClientAsync.GetAsync<UserModel>(url, id).Result;
             UserModel user = (UserModel)model.Data;
             UserRowContextMenu menu = new UserRowContextMenu(user);
             return this.Content(menu.Render(), "text/html", Encoding.UTF8);
@@ -114,7 +114,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult EditDialog(int id)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.FindById));
-            ResponseModel model = HttpClientAsync.GetAsync<UserModel>(url.Render() + "?id=" + id).Result;
+            ResponseModel model = HttpClientAsync.GetAsync<UserModel>(url, id).Result;
             UserModel user = (UserModel)model.Data;
             EditUserDialogConfiguration dialog = new EditUserDialogConfiguration(user);
 
@@ -130,7 +130,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult Delete(int id)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Delete));
-            ResponseModel model = HttpClientAsync.DeleteAsync(url.Render() + "?ids=" + id).Result;
+            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
 
             return this.Submit(model);
         }
@@ -144,7 +144,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult Recover(int id)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Recover));
-            ResponseModel model = HttpClientAsync.DeleteAsync(url.Render() + "?ids=" + id).Result;
+            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
 
             return this.Submit(model);
         }
@@ -158,7 +158,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult Forbidden(int id)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Forbidden));
-            ResponseModel model = HttpClientAsync.DeleteAsync(url.Render() + "?ids=" + id).Result;
+            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
 
             return this.Submit(model);
         }
@@ -172,7 +172,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult Normal(int id)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Normal));
-            ResponseModel model = HttpClientAsync.DeleteAsync(url.Render() + "?ids=" + id).Result;
+            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
 
             return this.Submit(model);
         }
