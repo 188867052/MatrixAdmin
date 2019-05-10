@@ -180,14 +180,23 @@ namespace Core.Api.Controllers
                 entity.LoginName = model.LoginName;
                 entity.Password = model.Password;
 
-                // if (model.UserRole.HasValue)
-                // {
-                //    var userRoleMapping = DbContext.UserRoleMapping.FirstOrDefault(x => x.UserId == model.Id);
-                //    if (userRoleMapping!=null)
-                //    {
-                //        userRoleMapping.RoleId = (int)model.UserRole.Value;
-                //    }
-                // }
+                if (model.UserRole.HasValue)
+                {
+                    var userRoleMapping = this.DbContext.UserRoleMapping.FirstOrDefault(x => x.UserId == model.Id);
+                    if (userRoleMapping != null)
+                    {
+                        userRoleMapping.RoleId = (int)model.UserRole.Value;
+                    }
+                    else
+                    {
+                        this.DbContext.UserRoleMapping.Add(new UserRoleMapping
+                        {
+                            UserId = model.Id,
+                            RoleId = (int)model.UserRole
+                        });
+                    }
+                }
+
                 entity.UpdateTime = DateTime.Now;
                 this.DbContext.SaveChanges();
                 response = ResponseModelFactory.CreateInstance;

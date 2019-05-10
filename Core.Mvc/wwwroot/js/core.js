@@ -63,9 +63,9 @@
         // Private Methods
 
         _displayDialog: function (response) {
-            $(".modalContainer" + response.id).remove();
+            $(".modalContainer").remove();
             var div = document.createElement("div");
-            div.className = "modalContainer" + response.id;
+            div.className = "modalContainer" ;
             div.innerHTML = response.data;
             $("body").append(div);
             $("#" + response.id).modal("show");

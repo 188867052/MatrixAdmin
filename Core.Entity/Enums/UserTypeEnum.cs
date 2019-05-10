@@ -8,16 +8,16 @@
         /// <summary>
         /// 超级管理员
         /// </summary>
-        SuperAdministrator = 0,
+        SuperAdministrator = 1,
 
         /// <summary>
         /// 管理员
         /// </summary>
-        Admin = 1,
+        Admin = 2,
 
         /// <summary>
         /// 一般用户
         /// </summary>
-        GeneralUser = 2
+        GeneralUser = 3
     }
 }
