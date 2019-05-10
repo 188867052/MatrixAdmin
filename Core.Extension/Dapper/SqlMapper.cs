@@ -26,6 +26,7 @@ namespace Core.Extension.Dapper
         private static Dictionary<Type, ITypeHandler> typeHandlers;
         public static event EventHandler QueryCachePurged;
         private static int collect;
+        private static IEqualityComparer<string> connectionStringComparer = StringComparer.Ordinal;
 
         private static int GetColumnHash(IDataReader reader, int startBound = 0, int length = -1)
         {
@@ -4102,7 +4103,6 @@ namespace Core.Extension.Dapper
             set { connectionStringComparer = value ?? StringComparer.Ordinal; }
         }
 
-        private static IEqualityComparer<string> connectionStringComparer = StringComparer.Ordinal;
 
         /// <summary>
         /// Key used to indicate the type name associated with a DataTable.

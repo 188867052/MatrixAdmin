@@ -28,7 +28,7 @@ namespace Core.Mvc.Areas.Log.Controllers
         public IActionResult Index()
         {
             var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Index));
-            var model = AsyncRequest.GetAsync<IList<Entity.Log>>(url).Result;
+            var model = HttpClientAsync.GetAsync<IList<Entity.Log>>(url).Result;
             LogIndex table = new LogIndex(this.HostingEnvironment, model);
 
             return this.ViewConfiguration(table);
@@ -49,7 +49,7 @@ namespace Core.Mvc.Areas.Log.Controllers
         public IActionResult GridStateChange(LogPostModel model)
         {
             var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Search));
-            ResponseModel response = AsyncRequest.PostAsync<IList<Entity.Log>, LogPostModel>(url, model).Result;
+            ResponseModel response = HttpClientAsync.PostAsync<IList<Entity.Log>, LogPostModel>(url, model).Result;
             LogGridConfiguration configuration = new LogGridConfiguration(response);
 
             return this.GridConfiguration(configuration);

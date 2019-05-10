@@ -27,7 +27,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button
         public override string Render()
         {
             var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Index));
-            Task<ResponseModel> a = AsyncRequest.GetAsync<IList<Icon>>(url);
+            Task<ResponseModel> a = HttpClientAsync.GetAsync<IList<Icon>>(url);
             List<Icon> icons = (List<Icon>)a.Result.Data;
             string iconHtml = default;
             foreach (var icon in icons)

@@ -9,10 +9,6 @@ using MenuJsonModel = Core.Api.Models.Menu.MenuJsonModel;
 
 namespace Core.Api.Configurations
 {
-    public interface IProfile
-    {
-    }
-
     /// <summary>
     ///
     /// </summary>

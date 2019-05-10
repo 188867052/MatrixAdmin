@@ -27,7 +27,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult Index()
         {
             var url = new Url(typeof(Api.Controllers.MenuController), nameof(Api.Controllers.MenuController.Index));
-            var response = AsyncRequest.GetAsync<IList<Menu>>(url).Result;
+            var response = HttpClientAsync.GetAsync<IList<Menu>>(url).Result;
             MenuIndex index = new MenuIndex(this.HostingEnvironment, response);
 
             return this.ViewConfiguration(index);
@@ -42,7 +42,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult GridStateChange(MenuPostModel model)
         {
             var url = new Url(typeof(Api.Controllers.MenuController), nameof(Api.Controllers.MenuController.Search));
-            var response = AsyncRequest.PostAsync<IList<Menu>, MenuPostModel>(url, model).Result;
+            var response = HttpClientAsync.PostAsync<IList<Menu>, MenuPostModel>(url, model).Result;
             MenuViewConfiguration configuration = new MenuViewConfiguration(response);
 
             return this.GridConfiguration(configuration);

@@ -30,7 +30,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult Index()
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Index));
-            var model = AsyncRequest.GetAsync<IList<UserModel>>(url).Result;
+            var model = HttpClientAsync.GetAsync<IList<UserModel>>(url).Result;
             UserIndex table = new UserIndex(this.HostingEnvironment, model);
 
             return this.ViewConfiguration(table);
@@ -45,7 +45,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult GridStateChange(UserPostModel model)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Search));
-            ResponseModel response = AsyncRequest.PostAsync<IList<UserModel>, UserPostModel>(url, model).Result;
+            ResponseModel response = HttpClientAsync.PostAsync<IList<UserModel>, UserPostModel>(url, model).Result;
             UserViewConfiguration configuration = new UserViewConfiguration(response);
 
             return this.GridConfiguration(configuration);
@@ -60,7 +60,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult RowContextMenu(int id)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.FindById));
-            ResponseModel model = AsyncRequest.GetAsync<User>(url.Render() + "?id=" + id).Result;
+            ResponseModel model = HttpClientAsync.GetAsync<User>(url.Render() + "?id=" + id).Result;
             User user = (User)model.Data;
             UserRowContextMenu menu = new UserRowContextMenu(user);
             return this.Content(menu.Render(), "text/html", Encoding.UTF8);
@@ -86,7 +86,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult SaveCreate(UserCreatePostModel model)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Create));
-            var response = AsyncRequest.SubmitAsync(url, model).Result;
+            var response = HttpClientAsync.SubmitAsync(url, model).Result;
 
             return this.Submit(response);
         }
@@ -100,7 +100,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult SaveEdit(UserEditPostModel model)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Edit));
-            var response = AsyncRequest.SubmitAsync(url, model).Result;
+            var response = HttpClientAsync.SubmitAsync(url, model).Result;
 
             return this.Submit(response);
         }
@@ -114,7 +114,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult EditDialog(int id)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.FindById));
-            ResponseModel model = AsyncRequest.GetAsync<User>(url.Render() + "?id=" + id).Result;
+            ResponseModel model = HttpClientAsync.GetAsync<User>(url.Render() + "?id=" + id).Result;
             User user = (User)model.Data;
             EditUserDialogConfiguration dialog = new EditUserDialogConfiguration(user);
 
@@ -130,7 +130,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult Delete(int id)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Delete));
-            ResponseModel model = AsyncRequest.DeleteAsync(url.Render() + "?ids=" + id).Result;
+            ResponseModel model = HttpClientAsync.DeleteAsync(url.Render() + "?ids=" + id).Result;
 
             return this.Submit(model);
         }
@@ -144,7 +144,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult Recover(int id)
         {
             var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Recover));
-            ResponseModel model = AsyncRequest.DeleteAsync(url.Render() + "?ids=" + id).Result;
+            ResponseModel model = HttpClientAsync.DeleteAsync(url.Render() + "?ids=" + id).Result;
 
             return this.Submit(model);
         }
@@ -157,7 +157,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult GetRoleDataList()
         {
             var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Index));
-            ResponseModel model = AsyncRequest.GetAsync<IList<Role>>(url.Render()).Result;
+            ResponseModel model = HttpClientAsync.GetAsync<IList<Role>>(url.Render()).Result;
             IList<Role> roles = (IList<Role>)model.Data;
             string options = roles.Aggregate(string.Empty, (current, role) => current + $"<option key=\"{role.Id}\" value=\"{role.Name}\"></option>");
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Core.Extension.Expression;
+using Core.Extension;
 using Core.Web.Identifiers;
 
 namespace Core.Web.GridFilter

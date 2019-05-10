@@ -6,16 +6,16 @@ using Newtonsoft.Json;
 
 namespace Core.Extension
 {
-    public static class AsyncRequest
+    public static class HttpClientAsync
     {
         private static readonly string Host = "https://localhost:44377/api";
 
         /// <summary>
-        /// GetAsync.
+        ///
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="url"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">T.</typeparam>
+        /// <param name="url">url.</param>
+        /// <returns>Task.</returns>
         public static async Task<ResponseModel> GetAsync<T>(Url url)
         {
             HttpResponseMessage httpResponse;
