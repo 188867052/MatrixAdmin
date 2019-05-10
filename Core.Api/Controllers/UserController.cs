@@ -66,7 +66,6 @@ namespace Core.Api.Controllers
                 this.DbContext.Set<UserRoleMapping>().Load();
                 this.DbContext.Set<Role>().Load();
                 IQueryable<User> query = this.DbContext.User.AsQueryable();
-                query = query.AddBooleanFilter(model.IsEnable, nameof(Entity.User.IsEnable));
                 if (model.Status.HasValue)
                 {
                     query = query.Where(o => o.Status == (int)model.Status);
@@ -77,6 +76,17 @@ namespace Core.Api.Controllers
                     query = query.Where(o => o.UserRoleMapping.Any(u => u.Role.Id == model.RoleId));
                 }
 
+                if (model.EndCreateTime.HasValue)
+                {
+                    query = query.Where(o => o.CreateTime <= model.EndCreateTime);
+                }
+
+                if (model.StartCreateTime.HasValue)
+                {
+                    query = query.Where(o => o.CreateTime >= model.StartCreateTime);
+                }
+
+                query = query.AddBooleanFilter(model.IsEnable, nameof(Entity.User.IsEnable));
                 query = query.AddStringContainsFilter(model.DisplayName, nameof(Entity.User.DisplayName));
                 query = query.AddStringContainsFilter(model.LoginName, nameof(Entity.User.LoginName));
 
@@ -88,7 +98,6 @@ namespace Core.Api.Controllers
 
                 var list = query.Skip((model.PageIndex - 1) * model.PageSize).Take(model.PageSize).ToList();
 
-                // ResponseModel response = new ResponseModel(list, model);
                 IList<UserModel> models = new List<UserModel>();
                 foreach (User item in list)
                 {

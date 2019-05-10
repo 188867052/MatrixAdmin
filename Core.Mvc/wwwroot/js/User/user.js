@@ -10,11 +10,8 @@
 
         _searchUrl: null,
         _addUrl: null,
-        _editUrl: null,
         _saveUrl: null,
-        _deleteUrl: null,
         _dialogInstance: null,
-        _recoverUrl: null,
 
         // Private Event Delegates  
 
