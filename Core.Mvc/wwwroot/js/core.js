@@ -141,7 +141,7 @@
         },
 
         cancel: function () {
-            var id = this.getModalDialogId();
+            var id = this.getModalDialog().id;
             $("#" + id).modal("hide");
         },
 
