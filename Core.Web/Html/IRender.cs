@@ -4,9 +4,4 @@
     {
         string Render();
     }
-
-    public interface ITextRender<TPostModel, TModel>
-    {
-        string Render(TModel model);
-    }
 }

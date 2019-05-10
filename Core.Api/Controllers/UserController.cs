@@ -6,7 +6,6 @@ using Core.Api.ControllerHelpers;
 using Core.Entity;
 using Core.Extension;
 using Core.Model;
-using Core.Model.Administration.Role;
 using Core.Model.Administration.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -65,7 +64,7 @@ namespace Core.Api.Controllers
                 this.DbContext.Set<UserStatus>().Load();
                 this.DbContext.Set<UserRoleMapping>().Load();
                 this.DbContext.Set<Role>().Load();
-                IQueryable<User> query = this.DbContext.User.AsQueryable();
+                IQueryable<User> query = this.DbContext.User;
                 if (model.Status.HasValue)
                 {
                     query = query.Where(o => o.Status == (int)model.Status);
@@ -134,8 +133,6 @@ namespace Core.Api.Controllers
 
                 User entity = this.Mapper.Map<UserCreatePostModel, User>(model);
                 entity.CreateTime = DateTime.Now;
-
-                // entity.Id = Guid.NewGuid();
                 entity.Status = (int)model.Status;
                 this.DbContext.User.Add(entity);
                 this.DbContext.SaveChanges();
@@ -149,7 +146,7 @@ namespace Core.Api.Controllers
         /// <summary>
         /// 编辑用户.
         /// </summary>
-        /// <param name="id">用户GUID.</param>
+        /// <param name="id">id.</param>
         /// <returns>IActionResult.</returns>
         [HttpGet]
         public IActionResult FindById(int id)
@@ -262,41 +259,6 @@ namespace Core.Api.Controllers
         public IActionResult Forbidden(int[] ids)
         {
             ResponseModel response = UserControllerHelper.UpdateStatus(false, ids);
-            return this.Ok(response);
-        }
-
-        /// <summary>
-        /// 保存用户-角色的关系映射数据.
-        /// </summary>
-        /// <param name="model">The model.</param>
-        /// <returns></returns>
-        [HttpPost]
-        public IActionResult SaveRoles(SaveUserRolesViewModel model)
-        {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
-            List<UserRoleMapping> roles = model.AssignedRoles.Select(x => new UserRoleMapping
-            {
-                CreateTime = DateTime.Now,
-
-                // RoleId = x.Trim()
-            }).ToList();
-            this.DbContext.Database.ExecuteSqlInterpolated($"DELETE FROM DncUserRoleMapping WHERE UserGuid={model.UserGuid}");
-            bool success = true;
-            if (roles.Count > 0)
-            {
-                this.DbContext.UserRoleMapping.AddRange(roles);
-                success = this.DbContext.SaveChanges() > 0;
-            }
-
-            if (success)
-            {
-                response.SetSuccess();
-            }
-            else
-            {
-                response.SetFailed("保存用户角色数据失败");
-            }
-
             return this.Ok(response);
         }
     }

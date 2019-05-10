@@ -85,20 +85,5 @@ namespace Core.Extension
 
             return query;
         }
-
-        public static IQueryable<T> AddGuidEqualsFilter<T>(this IQueryable<T> query, Guid? guid, string name)
-        {
-            if (guid.HasValue)
-            {
-                var parameter = System.Linq.Expressions.Expression.Parameter(typeof(T), Key);
-                var left = System.Linq.Expressions.Expression.Property(parameter, typeof(T).GetProperty(name));
-                var right = System.Linq.Expressions.Expression.Constant(guid.Value);
-                var predicate = System.Linq.Expressions.Expression.Equal(left, right);
-                var lambda = System.Linq.Expressions.Expression.Lambda<Func<T, bool>>(predicate, parameter);
-                query = query.Where(lambda);
-            }
-
-            return query;
-        }
     }
 }
