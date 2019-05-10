@@ -23,10 +23,10 @@ namespace Core.Extension
         /// Initializes a new instance of the <see cref="Url"/> class.
         /// </summary>
         /// <param name="area"></param>
-        /// <param name="type"></param>
+        /// <param name="controllerType"></param>
         /// <param name="action"></param>
         /// <param name="parameter"></param>
-        public Url(string area, Type type, string action, string parameter = default) : this(type, action, parameter)
+        public Url(string area, Type controllerType, string action, string parameter = default) : this(controllerType, action, parameter)
         {
             this.Area = area;
         }

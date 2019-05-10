@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Core.Model;
@@ -66,7 +64,7 @@ namespace Core.Extension
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
-                httpResponse = await client.DeleteAsync(Host + url.Render() + $"?{url.ActionParameterName}=" + data);
+                httpResponse = await client.GetAsync(Host + url.Render() + $"?{url.ActionParameterName}=" + data);
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
@@ -88,8 +86,8 @@ namespace Core.Extension
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
-                string postPara = JsonConvert.SerializeObject(postModel);
-                StringContent httpContent = new StringContent(postPara);
+                string postData = JsonConvert.SerializeObject(postModel);
+                StringContent httpContent = new StringContent(postData);
                 httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 httpResponse = await client.PostAsync(Host + url.Render(), httpContent);
             }
@@ -113,8 +111,8 @@ namespace Core.Extension
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
-                string postPara = JsonConvert.SerializeObject(postModel);
-                StringContent httpContent = new StringContent(postPara);
+                string postData = JsonConvert.SerializeObject(postModel);
+                StringContent httpContent = new StringContent(postData);
                 httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                 httpResponse = await client.PostAsync(Host + url.Render(), httpContent);
             }

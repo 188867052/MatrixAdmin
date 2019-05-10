@@ -12,7 +12,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 {
     public class UserIndex : SearchGridPage
     {
-        private readonly ResponseModel response;
+        private readonly ResponseModel _response;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserIndex"/> class.
@@ -21,7 +21,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
         /// <param name="response">The response.</param>
         public UserIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
-            this.response = response;
+            this._response = response;
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 
         public override string Render()
         {
-            UserViewConfiguration configuration = new UserViewConfiguration(this.response);
+            UserViewConfiguration configuration = new UserViewConfiguration(this._response);
             string table = configuration.GenerateGridColumn();
 
             var html = base.Render().Replace("{{Table}}", table);
