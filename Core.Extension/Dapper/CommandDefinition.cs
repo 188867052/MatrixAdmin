@@ -86,9 +86,7 @@ namespace Core.Extension.Dapper
         /// <param name="commandType">The <see cref="CommandType"/> for this command.</param>
         /// <param name="flags">The behavior flags for this command.</param>
         /// <param name="cancellationToken">The cancellation token for this command.</param>
-        public CommandDefinition(string commandText, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null,
-                                 CommandType? commandType = null, CommandFlags flags = CommandFlags.Buffered,
-                                 CancellationToken cancellationToken = default)
+        public CommandDefinition(string commandText, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null, CommandFlags flags = CommandFlags.Buffered, CancellationToken cancellationToken = default)
         {
             this.CommandText = commandText;
             this.Parameters = parameters;
