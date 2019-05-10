@@ -40,6 +40,5 @@ namespace Core.Api.ExpressionBuilder.Exceptions
                 return string.Format("The type '{0}' does not have support for the operation '{1}'.", this.TypeName, this.Operation);
             }
         }
-
     }
 }

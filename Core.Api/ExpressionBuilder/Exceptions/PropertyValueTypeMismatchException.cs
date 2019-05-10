@@ -46,6 +46,5 @@ namespace Core.Api.ExpressionBuilder.Exceptions
                 return string.Format("The type of the member '{0}' ({1}) is different from the type of one of the constants ({2})", this.MemberName, this.MemberType, this.ConstantType);
             }
         }
-
     }
 }

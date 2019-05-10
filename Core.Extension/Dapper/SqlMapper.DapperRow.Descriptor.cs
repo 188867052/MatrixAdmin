@@ -35,8 +35,8 @@ namespace Core.Extension.Dapper
             // }
             private sealed class DapperRowTypeDescriptor : ICustomTypeDescriptor
             {
-                private readonly DapperRow _row;
                 private static readonly TypeConverter converter = new ExpandableObjectConverter();
+                private readonly DapperRow _row;
 
                 public DapperRowTypeDescriptor(object instance)
                     => this._row = (DapperRow)instance;

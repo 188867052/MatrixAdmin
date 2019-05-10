@@ -53,9 +53,10 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        ///
+        /// Search.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="model">model.</param>
+        /// <returns>IActionResult.</returns>
         [HttpPost]
         public IActionResult Search(UserPostModel model)
         {
@@ -210,7 +211,7 @@ namespace Core.Api.Controllers
         /// 恢复用户.
         /// </summary>
         /// <param name="ids">用户GUID,多个以逗号分隔.</param>
-        /// <returns></returns>
+        /// <returns>IActionResult.</returns>
         [HttpGet]
         public IActionResult Recover(int[] ids)
         {
@@ -222,9 +223,9 @@ namespace Core.Api.Controllers
         /// <summary>
         /// 批量操作.
         /// </summary>
-        /// <param name="command"></param>
-        /// <param name="ids">用户ID,多个以逗号分隔.</param>
-        /// <returns></returns>
+        /// <param name="command">command.</param>
+        /// <param name="ids">ids.</param>
+        /// <returns>IActionResult.</returns>
         [HttpGet]
         [ProducesResponseType(200)]
         public IActionResult Batch(string command, int[] ids)
@@ -266,7 +267,7 @@ namespace Core.Api.Controllers
 
                 // RoleId = x.Trim()
             }).ToList();
-            this.DbContext.Database.ExecuteSqlCommand("DELETE FROM DncUserRoleMapping WHERE UserGuid={0}", model.UserGuid);
+            this.DbContext.Database.ExecuteSqlInterpolated($"DELETE FROM DncUserRoleMapping WHERE UserGuid={model.UserGuid}");
             bool success = true;
             if (roles.Count > 0)
             {

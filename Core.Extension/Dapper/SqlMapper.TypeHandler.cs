@@ -50,20 +50,6 @@ namespace Core.Extension.Dapper
         public abstract class StringTypeHandler<T> : TypeHandler<T>
         {
             /// <summary>
-            /// Parse a string into the expected type (the string will never be null).
-            /// </summary>
-            /// <param name="xml">The string to parse.</param>
-            /// <returns></returns>
-            protected abstract T Parse(string xml);
-
-            /// <summary>
-            /// Format an instace into a string (the instance will never be null).
-            /// </summary>
-            /// <param name="xml">The string to format.</param>
-            /// <returns></returns>
-            protected abstract string Format(T xml);
-
-            /// <summary>
             /// Assign the value of a parameter before a command executes.
             /// </summary>
             /// <param name="parameter">The parameter to configure.</param>
@@ -87,6 +73,20 @@ namespace Core.Extension.Dapper
 
                 return this.Parse((string)value);
             }
+
+            /// <summary>
+            /// Parse a string into the expected type (the string will never be null).
+            /// </summary>
+            /// <param name="xml">The string to parse.</param>
+            /// <returns></returns>
+            protected abstract T Parse(string xml);
+
+            /// <summary>
+            /// Format an instace into a string (the instance will never be null).
+            /// </summary>
+            /// <param name="xml">The string to format.</param>
+            /// <returns></returns>
+            protected abstract string Format(T xml);
         }
     }
 }

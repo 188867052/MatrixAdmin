@@ -63,7 +63,6 @@ namespace Core.Extension.Dapper
                 while (tryAgain);
                 return true;
             }
-
         }
     }
 }

@@ -41,19 +41,16 @@ namespace Core.Api
             services.AddHttpContextAccessor();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
-            services
-                .AddMvc(config =>
-                {
-                    // config.Filters.Add(new ValidateModelAttribute());
-                })
-                .AddJsonOptions(options =>
-                {
-                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                })
+            services.AddMvc(config =>
+            {
+                // config.Filters.Add(new ValidateModelAttribute());
+            }).AddJsonOptions(options =>
+           {
+               options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+           })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper();
-            services.AddDbContext<CoreApiContext>(options =>
-            options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<CoreApiContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
             // 如果使用SQL Server 2008数据库，请添加UseRowNumberForPaging的选项
             // options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),b=>b.UseRowNumberForPaging())
@@ -66,9 +63,9 @@ namespace Core.Api
         /// <summary>
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
-        /// <param name="app"></param>
-        /// <param name="environment"></param>
-        /// <param name="loggerFactory"></param>
+        /// <param name="app">app.</param>
+        /// <param name="environment">environment.</param>
+        /// <param name="loggerFactory">loggerFactory.</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment environment, ILoggerFactory loggerFactory)
         {
             // app.UseMiddleware<CustomErrorMessageDelegatingHandler.ApiKeyMiddleware>();

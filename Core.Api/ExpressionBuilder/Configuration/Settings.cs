@@ -53,6 +53,5 @@ namespace Core.Api.ExpressionBuilder.Configuration
         }
 
         public List<SupportedType> SupportedTypes { get; }
-
     }
 }

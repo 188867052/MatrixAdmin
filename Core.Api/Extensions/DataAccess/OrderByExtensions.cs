@@ -43,6 +43,5 @@ namespace Core.Api.Extensions.DataAccess
 
             return (IOrderedQueryable<T>)source.Provider.CreateQuery<T>(call);
         }
-
     }
 }

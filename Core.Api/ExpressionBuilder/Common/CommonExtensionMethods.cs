@@ -12,24 +12,12 @@ namespace Core.Api.ExpressionBuilder.Common
         /// <summary>
         /// Gets a member expression for an specific property.
         /// </summary>
-        /// <param name="param"></param>
-        /// <param name="propertyName"></param>
+        /// <param name="param">param.</param>
+        /// <param name="propertyName">propertyName.</param>
         /// <returns></returns>
         public static MemberExpression GetMemberExpression(this ParameterExpression param, string propertyName)
         {
             return GetMemberExpression((Expression)param, propertyName);
-        }
-
-        private static MemberExpression GetMemberExpression(Expression param, string propertyName)
-        {
-            if (!propertyName.Contains("."))
-            {
-                return Expression.PropertyOrField(param, propertyName);
-            }
-
-            var index = propertyName.IndexOf(".");
-            var subParam = Expression.PropertyOrField(param, propertyName.Substring(0, index));
-            return GetMemberExpression(subParam, propertyName.Substring(index + 1));
         }
 
         /// <summary>
@@ -75,6 +63,18 @@ namespace Core.Api.ExpressionBuilder.Common
         {
             var oType = o.GetType();
             return oType.IsGenericType && (oType.GetGenericTypeDefinition() == typeof(System.Collections.Generic.List<>));
+        }
+
+        private static MemberExpression GetMemberExpression(Expression param, string propertyName)
+        {
+            if (!propertyName.Contains("."))
+            {
+                return Expression.PropertyOrField(param, propertyName);
+            }
+
+            var index = propertyName.IndexOf(".");
+            var subParam = Expression.PropertyOrField(param, propertyName.Substring(0, index));
+            return GetMemberExpression(subParam, propertyName.Substring(index + 1));
         }
     }
 }

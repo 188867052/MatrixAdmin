@@ -110,6 +110,5 @@ namespace Core.Api.Controllers
 
             return pages.Distinct().ToList();
         }
-
     }
 }

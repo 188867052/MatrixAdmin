@@ -19,15 +19,15 @@ namespace Core.Extension.Dapper
 
             public IDbDataParameter AttachedParam { get; set; }
 
+            public byte? Precision { get; set; }
+
+            public byte? Scale { get; set; }
+
             internal Action<object, DynamicParameters> OutputCallback { get; set; }
 
             internal object OutputTarget { get; set; }
 
             internal bool CameFromTemplate { get; set; }
-
-            public byte? Precision { get; set; }
-
-            public byte? Scale { get; set; }
         }
     }
 }

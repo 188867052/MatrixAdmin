@@ -31,7 +31,7 @@ namespace Core.Api.ExpressionBuilder.Interfaces
         /// <summary>
         /// Loads the properties names from the specified ResourceManager.
         /// </summary>
-        /// <param name="resourceManager"></param>
+        /// <param name="resourceManager">resourceManager.</param>
         /// <returns>The LoadProperties.</returns>
         List<Property> LoadProperties(ResourceManager resourceManager);
 

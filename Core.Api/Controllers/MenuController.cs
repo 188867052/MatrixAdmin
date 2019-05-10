@@ -38,10 +38,10 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        ///
+        /// Search.
         /// </summary>
-        /// <returns></returns>
-
+        /// <param name="model">model.</param>
+        /// <returns>IActionResult.</returns>
         [HttpPost]
         public IActionResult Search(MenuPostModel model)
         {

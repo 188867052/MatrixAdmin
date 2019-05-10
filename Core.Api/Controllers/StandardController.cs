@@ -11,9 +11,6 @@ namespace Core.Api.Controllers
     [ApiController]
     public class StandardController : ControllerBase
     {
-        public readonly CoreApiContext DbContext;
-        public readonly IMapper Mapper;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="StandardController"/> class.
         /// </summary>
@@ -24,6 +21,10 @@ namespace Core.Api.Controllers
             this.DbContext = dbContext;
             this.Mapper = mapper;
         }
+
+        protected CoreApiContext DbContext { get; set; }
+
+        protected IMapper Mapper { get; set; }
 
         protected IActionResult StandardResponse<T>(IQueryable<T> query, Pager pager)
         {

@@ -44,6 +44,12 @@ namespace Core.Api.ExpressionBuilder.Builders
             return Expression.Lambda<Func<T, bool>>(expression, param);
         }
 
+        protected Expression CheckIfParentIsNull(ParameterExpression param, string memberName)
+        {
+            var parentMember = this.GetParentMember(param, memberName);
+            return Expression.Equal(parentMember, Expression.Constant(null));
+        }
+
         private Expression GetPartialExpression(ParameterExpression param, ref Connector connector, IEnumerable<IFilterInfo> statementGroup)
         {
             Expression expression = null;
@@ -145,12 +151,6 @@ namespace Core.Api.ExpressionBuilder.Builders
             }
 
             return constant != null && constant.Value != null ? constant.Value.GetType() : null;
-        }
-
-        protected Expression CheckIfParentIsNull(ParameterExpression param, string memberName)
-        {
-            var parentMember = this.GetParentMember(param, memberName);
-            return Expression.Equal(parentMember, Expression.Constant(null));
         }
 
         private MemberExpression GetParentMember(ParameterExpression param, string memberName)

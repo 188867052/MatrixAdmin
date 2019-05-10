@@ -48,18 +48,13 @@ namespace Core.Api.ExpressionBuilder.Resources
         /// </summary>
         public ResourceManager ResourceManager { get; private set; }
 
-        private List<Property> Properties { get; }
-
         /// <summary>
         /// Gets the number of <see cref="Property" /> contained in the <see cref="PropertyCollection" />.
         /// </summary>
-        public int Count
-        {
-            get { return this.Properties.Count; }
-        }
+        public int Count => this.Properties.Count;
 
         /// <summary>
-        ///
+        /// SyncRoot.
         /// </summary>
         public object SyncRoot
         {
@@ -67,12 +62,14 @@ namespace Core.Api.ExpressionBuilder.Resources
         }
 
         /// <summary>
-        ///
+        /// IsSynchronized.
         /// </summary>
         public bool IsSynchronized
         {
             get { throw new NotImplementedException(); }
         }
+
+        private List<Property> Properties { get; }
 
         /// <summary>
         /// Retrieves a property based on its Id.
@@ -87,8 +84,8 @@ namespace Core.Api.ExpressionBuilder.Resources
         /// <summary>
         /// Loads the properties names from the specified ResourceManager.
         /// </summary>
-        /// <param name="resourceManager"></param>
-        /// <returns></returns>
+        /// <param name="resourceManager">resourceManager.</param>
+        /// <returns>List.</returns>
         public List<Property> LoadProperties(ResourceManager resourceManager)
         {
             this.ResourceManager = resourceManager;
@@ -98,6 +95,40 @@ namespace Core.Api.ExpressionBuilder.Resources
             }
 
             return this.Properties;
+        }
+
+        /// <summary>
+        /// Copies the elements of the <see cref="PropertyCollection" /> to an System.Array,
+        /// starting at a particular System.Array index.
+        /// </summary>
+        /// <param name="array">
+        /// The one-dimensional System.Array that is the destination of the elements copied
+        /// from System.Collections.ICollection. The System.Array must have zero-based indexing.
+        /// </param>
+        /// <param name="index">The zero-based index in array at which copying begins.</param>
+        public void CopyTo(Array array, int index)
+        {
+            this.Properties.CopyTo((Property[])array, index);
+        }
+
+        /// <summary>
+        /// Returns an enumerator that iterates through a collection.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator GetEnumerator()
+        {
+            return this.Properties.GetEnumerator();
+        }
+
+        /// <summary>
+        /// Converts the collection into a list.
+        /// </summary>
+        /// <returns></returns>
+        public IList<Property> ToList()
+        {
+            Property[] properties = new Property[this.Properties.Count];
+            this.CopyTo(properties, 0);
+            return properties;
         }
 
         private string GetPropertyResourceName(string propertyConventionName)
@@ -151,40 +182,6 @@ namespace Core.Api.ExpressionBuilder.Resources
         private Type GetMemberType(MemberInfo member)
         {
             return member.MemberType == MemberTypes.Property ? (member as PropertyInfo).PropertyType : (member as FieldInfo).FieldType;
-        }
-
-        /// <summary>
-        /// Copies the elements of the <see cref="PropertyCollection" /> to an System.Array,
-        /// starting at a particular System.Array index.
-        /// </summary>
-        /// <param name="array">
-        /// The one-dimensional System.Array that is the destination of the elements copied
-        /// from System.Collections.ICollection. The System.Array must have zero-based indexing.
-        /// </param>
-        /// <param name="index">The zero-based index in array at which copying begins.</param>
-        public void CopyTo(Array array, int index)
-        {
-            this.Properties.CopyTo((Property[])array, index);
-        }
-
-        /// <summary>
-        /// Returns an enumerator that iterates through a collection.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerator GetEnumerator()
-        {
-            return this.Properties.GetEnumerator();
-        }
-
-        /// <summary>
-        /// Converts the collection into a list.
-        /// </summary>
-        /// <returns></returns>
-        public IList<Property> ToList()
-        {
-            Property[] properties = new Property[this.Properties.Count];
-            this.CopyTo(properties, 0);
-            return properties;
         }
     }
 }

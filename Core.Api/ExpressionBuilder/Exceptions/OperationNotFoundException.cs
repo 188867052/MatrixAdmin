@@ -30,6 +30,5 @@ namespace Core.Api.ExpressionBuilder.Exceptions
                 return string.Format("Sorry, the operation '{0}' was not found.", this.OperationName);
             }
         }
-
     }
 }

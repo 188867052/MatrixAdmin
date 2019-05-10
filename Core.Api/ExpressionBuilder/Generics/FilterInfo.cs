@@ -12,6 +12,7 @@ namespace Core.Api.ExpressionBuilder.Generics
     /// <summary>
     /// Defines how a property should be filtered.
     /// </summary>
+    /// <typeparam name="TPropertyType">TPropertyType.</typeparam>
     [Serializable]
     public class FilterInfo<TPropertyType> : IFilterInfo
     {
@@ -27,11 +28,11 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
         /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
         /// </summary>
-        /// <param name="propertyId"></param>
-        /// <param name="operation"></param>
-        /// <param name="value"></param>
-        /// <param name="value2"></param>
-        /// <param name="connector"></param>
+        /// <param name="propertyId">propertyId.</param>
+        /// <param name="operation">operation.</param>
+        /// <param name="value">value.</param>
+        /// <param name="value2">value2.</param>
+        /// <param name="connector">connector.</param>
         public FilterInfo(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
         {
             this.PropertyName = propertyId;
@@ -66,25 +67,67 @@ namespace Core.Api.ExpressionBuilder.Generics
         /// </summary>
         public object Value2 { get; set; }
 
-        private void SetValues(TPropertyType value, TPropertyType value2)
+        /// <summary>
+        /// String representation of <see cref="FilterInfo{TPropertyType}" />.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
         {
-            if (typeof(TPropertyType).IsArray)
+            switch (this.Operation.NumberOfValues)
             {
-                if (!this.Operation.SupportsLists)
-                {
-                    throw new ArgumentException("It seems the chosen operation does not support arrays as parameters.");
-                }
+                case 0:
+                    return string.Format("{0} {1}", this.PropertyName, this.Operation);
 
-                var listType = typeof(List<>);
-                var constructedListType = listType.MakeGenericType(typeof(TPropertyType).GetElementType());
-                this.Value = value != null ? Activator.CreateInstance(constructedListType, value) : null;
-                this.Value2 = value2 != null ? Activator.CreateInstance(constructedListType, value2) : null;
+                case 2:
+                    return string.Format("{0} {1} {2} And {3}", this.PropertyName, this.Operation, this.Value, this.Value2);
+
+                default:
+                    return string.Format("{0} {1} {2}", this.PropertyName, this.Operation, this.Value);
+            }
+        }
+
+        /// <summary>
+        /// GetSchema.
+        /// </summary>
+        /// <returns>XmlSchema.</returns>
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        /// <summary>
+        ///  Generates an object from its XML representation.
+        /// </summary>
+        /// <param name="reader">The System.Xml.XmlReader stream from which the object is deserialized.</param>
+        public void ReadXml(XmlReader reader)
+        {
+            reader.Read();
+            this.PropertyName = reader.ReadElementContentAsString();
+            this.Operation = Operations.Operation.ByName(reader.ReadElementContentAsString());
+            if (typeof(TPropertyType).IsEnum)
+            {
+                this.Value = Enum.Parse(typeof(TPropertyType), reader.ReadElementContentAsString());
             }
             else
             {
-                this.Value = value;
-                this.Value2 = value2;
+                this.Value = Convert.ChangeType(reader.ReadElementContentAsString(), typeof(TPropertyType));
             }
+
+            this.Connector = (Connector)Enum.Parse(typeof(Connector), reader.ReadElementContentAsString());
+        }
+
+        /// <summary>
+        /// Converts an object into its XML representation.
+        /// </summary>
+        /// <param name="writer">The System.Xml.XmlWriter stream to which the object is serialized.</param>
+        public void WriteXml(XmlWriter writer)
+        {
+            var type = this.Value.GetType();
+            writer.WriteAttributeString("Type", type.AssemblyQualifiedName);
+            writer.WriteElementString("PropertyId", this.PropertyName);
+            writer.WriteElementString("Operation", this.Operation.Name);
+            writer.WriteElementString("Value", this.Value.ToString());
+            writer.WriteElementString("Connector", this.Connector.ToString("d"));
         }
 
         /// <summary>
@@ -126,67 +169,25 @@ namespace Core.Api.ExpressionBuilder.Generics
             }
         }
 
-        /// <summary>
-        /// String representation of <see cref="FilterInfo{TPropertyType}" />.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
+        private void SetValues(TPropertyType value, TPropertyType value2)
         {
-            switch (this.Operation.NumberOfValues)
+            if (typeof(TPropertyType).IsArray)
             {
-                case 0:
-                    return string.Format("{0} {1}", this.PropertyName, this.Operation);
+                if (!this.Operation.SupportsLists)
+                {
+                    throw new ArgumentException("It seems the chosen operation does not support arrays as parameters.");
+                }
 
-                case 2:
-                    return string.Format("{0} {1} {2} And {3}", this.PropertyName, this.Operation, this.Value, this.Value2);
-
-                default:
-                    return string.Format("{0} {1} {2}", this.PropertyName, this.Operation, this.Value);
-            }
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
-
-        /// <summary>
-        ///  Generates an object from its XML representation.
-        /// </summary>
-        /// <param name="reader">The System.Xml.XmlReader stream from which the object is deserialized.</param>
-        public void ReadXml(XmlReader reader)
-        {
-            reader.Read();
-            this.PropertyName = reader.ReadElementContentAsString();
-            this.Operation = Operations.Operation.ByName(reader.ReadElementContentAsString());
-            if (typeof(TPropertyType).IsEnum)
-            {
-                this.Value = Enum.Parse(typeof(TPropertyType), reader.ReadElementContentAsString());
+                var listType = typeof(List<>);
+                var constructedListType = listType.MakeGenericType(typeof(TPropertyType).GetElementType());
+                this.Value = value != null ? Activator.CreateInstance(constructedListType, value) : null;
+                this.Value2 = value2 != null ? Activator.CreateInstance(constructedListType, value2) : null;
             }
             else
             {
-                this.Value = Convert.ChangeType(reader.ReadElementContentAsString(), typeof(TPropertyType));
+                this.Value = value;
+                this.Value2 = value2;
             }
-
-            this.Connector = (Connector)Enum.Parse(typeof(Connector), reader.ReadElementContentAsString());
-        }
-
-        /// <summary>
-        /// Converts an object into its XML representation.
-        /// </summary>
-        /// <param name="writer">The System.Xml.XmlWriter stream to which the object is serialized.</param>
-        public void WriteXml(XmlWriter writer)
-        {
-            var type = this.Value.GetType();
-            writer.WriteAttributeString("Type", type.AssemblyQualifiedName);
-            writer.WriteElementString("PropertyId", this.PropertyName);
-            writer.WriteElementString("Operation", this.Operation.Name);
-            writer.WriteElementString("Value", this.Value.ToString());
-            writer.WriteElementString("Connector", this.Connector.ToString("d"));
         }
     }
 }

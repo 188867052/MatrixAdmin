@@ -3,7 +3,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 
-#if !NETSTANDARD1_3
 namespace Core.Extension.Dapper
 {
     /// <summary>
@@ -11,9 +10,18 @@ namespace Core.Extension.Dapper
     /// </summary>
     internal sealed class TableValuedParameter : SqlMapper.ICustomQueryParameter
     {
+        private static readonly Action<SqlParameter, string> setTypeName;
         private readonly DataTable _table;
         private readonly string _typeName;
-        private static readonly Action<SqlParameter, string> setTypeName;
+
+        static TableValuedParameter()
+        {
+            var prop = typeof(SqlParameter).GetProperty("TypeName", BindingFlags.Instance | BindingFlags.Public);
+            if (prop != null && prop.PropertyType == typeof(string) && prop.CanWrite)
+            {
+                setTypeName = (Action<SqlParameter, string>)Delegate.CreateDelegate(typeof(Action<SqlParameter, string>), prop.GetSetMethod());
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TableValuedParameter"/> class.
@@ -34,15 +42,6 @@ namespace Core.Extension.Dapper
         {
             this._table = table;
             this._typeName = typeName;
-        }
-
-        static TableValuedParameter()
-        {
-            var prop = typeof(SqlParameter).GetProperty("TypeName", BindingFlags.Instance | BindingFlags.Public);
-            if (prop != null && prop.PropertyType == typeof(string) && prop.CanWrite)
-            {
-                setTypeName = (Action<SqlParameter, string>)Delegate.CreateDelegate(typeof(Action<SqlParameter, string>), prop.GetSetMethod());
-            }
         }
 
         void SqlMapper.ICustomQueryParameter.AddParameter(IDbCommand command, string name)
@@ -71,4 +70,3 @@ namespace Core.Extension.Dapper
         }
     }
 }
-#endif

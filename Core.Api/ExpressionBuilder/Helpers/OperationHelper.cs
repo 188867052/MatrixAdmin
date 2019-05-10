@@ -44,10 +44,7 @@ namespace Core.Api.ExpressionBuilder.Helpers
         /// <summary>
         /// List of all operations loaded so far.
         /// </summary>
-        public IEnumerable<IOperation> Operations
-        {
-            get { return _operations.ToArray(); }
-        }
+        public IEnumerable<IOperation> Operations => _operations.ToArray();
 
         /// <summary>
         /// Loads the default operations overwriting any previous changes to the <see cref="Operations"></see> list.
@@ -61,6 +58,46 @@ namespace Core.Api.ExpressionBuilder.Helpers
                 .Where(p => @interface.IsAssignableFrom(p) && p.IsClass && !p.IsAbstract)
                 .Select(t => (IOperation)Activator.CreateInstance(t));
             _operations = new HashSet<IOperation>(operationsFound, new OperationEqualityComparer());
+        }
+
+        /// <summary>
+        /// Instantiates an IOperation given its name.
+        /// </summary>
+        /// <param name="operationName">Name of the operation to be instantiated.</param>
+        /// <returns></returns>
+        public IOperation GetOperationByName(string operationName)
+        {
+            var operation = this.Operations.SingleOrDefault(o => o.Name == operationName && o.Active);
+
+            if (operation == null)
+            {
+                throw new OperationNotFoundException(operationName);
+            }
+
+            return operation;
+        }
+
+        /// <summary>
+        /// Loads a list of custom operations into the <see cref="Operations"></see> list.
+        /// </summary>
+        /// <param name="operations">List of operations to load.</param>
+        public void LoadOperations(List<IOperation> operations)
+        {
+            this.LoadOperations(operations, false);
+        }
+
+        /// <summary>
+        /// Loads a list of custom operations into the <see cref="Operations"></see> list.
+        /// </summary>
+        /// <param name="operations">List of operations to load.</param>
+        /// <param name="overloadExisting">Specifies that any matching pre-existing operations should be replaced by the ones from the list. (Useful to overwrite the default operations).</param>
+        public void LoadOperations(List<IOperation> operations, bool overloadExisting)
+        {
+            foreach (var operation in operations)
+            {
+                this.DeactivateOperation(operation.Name, overloadExisting);
+                _operations.Add(operation);
+            }
         }
 
         /// <summary>
@@ -111,46 +148,6 @@ namespace Core.Api.ExpressionBuilder.Helpers
             }
 
             return new HashSet<IOperation>(supportedOperations);
-        }
-
-        /// <summary>
-        /// Instantiates an IOperation given its name.
-        /// </summary>
-        /// <param name="operationName">Name of the operation to be instantiated.</param>
-        /// <returns></returns>
-        public IOperation GetOperationByName(string operationName)
-        {
-            var operation = this.Operations.SingleOrDefault(o => o.Name == operationName && o.Active);
-
-            if (operation == null)
-            {
-                throw new OperationNotFoundException(operationName);
-            }
-
-            return operation;
-        }
-
-        /// <summary>
-        /// Loads a list of custom operations into the <see cref="Operations"></see> list.
-        /// </summary>
-        /// <param name="operations">List of operations to load.</param>
-        public void LoadOperations(List<IOperation> operations)
-        {
-            this.LoadOperations(operations, false);
-        }
-
-        /// <summary>
-        /// Loads a list of custom operations into the <see cref="Operations"></see> list.
-        /// </summary>
-        /// <param name="operations">List of operations to load.</param>
-        /// <param name="overloadExisting">Specifies that any matching pre-existing operations should be replaced by the ones from the list. (Useful to overwrite the default operations).</param>
-        public void LoadOperations(List<IOperation> operations, bool overloadExisting)
-        {
-            foreach (var operation in operations)
-            {
-                this.DeactivateOperation(operation.Name, overloadExisting);
-                _operations.Add(operation);
-            }
         }
 
         private void DeactivateOperation(string operationName, bool overloadExisting)

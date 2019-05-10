@@ -16,6 +16,9 @@ namespace Core.Extension.Dapper
             private IDataReader _reader;
             private readonly Identity _identity;
             private readonly bool _addToCache;
+            private int _gridIndex;
+            private int _readCount;
+            private readonly IParameterCallbacks _callbacks;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="GridReader"/> class.
@@ -33,6 +36,16 @@ namespace Core.Extension.Dapper
                 this._callbacks = callbacks;
                 this._addToCache = addToCache;
             }
+
+            /// <summary>
+            /// Gets a value indicating whether has the underlying reader been consumed?.
+            /// </summary>
+            public bool IsConsumed { get; private set; }
+
+            /// <summary>
+            /// Gets or sets the command associated with the reader.
+            /// </summary>
+            public IDbCommand Command { get; set; }
 
             /// <summary>
             /// Read the next grid of results, returned as a dynamic object.
@@ -187,135 +200,6 @@ namespace Core.Extension.Dapper
                 return this.ReadRow<object>(type, Row.SingleOrDefault);
             }
 
-            private IEnumerable<T> ReadImpl<T>(Type type, bool buffered)
-            {
-                if (this._reader == null)
-                {
-                    throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
-                }
-
-                if (this.IsConsumed)
-                {
-                    throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
-                }
-
-                var typedIdentity = this._identity.ForGrid(type, this._gridIndex);
-                CacheInfo cache = GetCacheInfo(typedIdentity, null, this._addToCache);
-                var deserializer = cache.Deserializer;
-
-                int hash = GetColumnHash(this._reader);
-                if (deserializer.Func == null || deserializer.Hash != hash)
-                {
-                    deserializer = new DeserializerState(hash, GetDeserializer(type, this._reader, 0, -1, false));
-                    cache.Deserializer = deserializer;
-                }
-
-                this.IsConsumed = true;
-                var result = this.ReadDeferred<T>(this._gridIndex, deserializer.Func, type);
-                return buffered ? result.ToList() : result;
-            }
-
-            private T ReadRow<T>(Type type, Row row)
-            {
-                if (this._reader == null)
-                {
-                    throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
-                }
-
-                if (this.IsConsumed)
-                {
-                    throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
-                }
-
-                this.IsConsumed = true;
-
-                T result = default;
-                if (this._reader.Read() && this._reader.FieldCount != 0)
-                {
-                    var typedIdentity = this._identity.ForGrid(type, this._gridIndex);
-                    CacheInfo cache = GetCacheInfo(typedIdentity, null, this._addToCache);
-                    var deserializer = cache.Deserializer;
-
-                    int hash = GetColumnHash(this._reader);
-                    if (deserializer.Func == null || deserializer.Hash != hash)
-                    {
-                        deserializer = new DeserializerState(hash, GetDeserializer(type, this._reader, 0, -1, false));
-                        cache.Deserializer = deserializer;
-                    }
-
-                    object val = deserializer.Func(this._reader);
-                    if (val == null || val is T)
-                    {
-                        result = (T)val;
-                    }
-                    else
-                    {
-                        var convertToType = Nullable.GetUnderlyingType(type) ?? type;
-                        result = (T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture);
-                    }
-
-                    if ((row & Row.Single) != 0 && this._reader.Read())
-                    {
-                        ThrowMultipleRows(row);
-                    }
-
-                    while (this._reader.Read())
-                    { /* ignore subsequent rows */
-                    }
-                }
-                else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one
-                {
-                    ThrowZeroRows(row);
-                }
-
-                this.NextResult();
-                return result;
-            }
-
-            private IEnumerable<TReturn> MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(Delegate func, string splitOn)
-            {
-                var identity = this._identity.ForGrid(typeof(TReturn), new[]
-                {
-                    typeof(TFirst),
-                    typeof(TSecond),
-                    typeof(TThird),
-                    typeof(TFourth),
-                    typeof(TFifth),
-                    typeof(TSixth),
-                    typeof(TSeventh)
-                }, this._gridIndex);
-
-                this.IsConsumed = true;
-
-                try
-                {
-                    foreach (var r in MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(null, default, func, splitOn, this._reader, identity, false))
-                    {
-                        yield return r;
-                    }
-                }
-                finally
-                {
-                    this.NextResult();
-                }
-            }
-
-            private IEnumerable<TReturn> MultiReadInternal<TReturn>(Type[] types, Func<object[], TReturn> map, string splitOn)
-            {
-                var identity = this._identity.ForGrid(typeof(TReturn), types, this._gridIndex);
-                try
-                {
-                    foreach (var r in MultiMapImpl(null, default, types, map, splitOn, this._reader, identity, false))
-                    {
-                        yield return r;
-                    }
-                }
-                finally
-                {
-                    this.NextResult();
-                }
-            }
-
             /// <summary>
             /// Read multiple objects from a single record set on the grid.
             /// </summary>
@@ -442,6 +326,29 @@ namespace Core.Extension.Dapper
                 return buffered ? result.ToList() : result;
             }
 
+            /// <summary>
+            /// Dispose the grid, closing and disposing both the underlying reader and command.
+            /// </summary>
+            public void Dispose()
+            {
+                if (this._reader != null)
+                {
+                    if (!this._reader.IsClosed)
+                    {
+                        this.Command?.Cancel();
+                    }
+
+                    this._reader.Dispose();
+                    this._reader = null;
+                }
+
+                if (this.Command != null)
+                {
+                    this.Command.Dispose();
+                    this.Command = null;
+                }
+            }
+
             private IEnumerable<T> ReadDeferred<T>(int index, Func<IDataReader, object> deserializer, Type effectiveType)
             {
                 try
@@ -469,20 +376,6 @@ namespace Core.Extension.Dapper
                 }
             }
 
-            private int _gridIndex;
-            private int _readCount;
-            private readonly IParameterCallbacks _callbacks;
-
-            /// <summary>
-            /// Gets a value indicating whether has the underlying reader been consumed?.
-            /// </summary>
-            public bool IsConsumed { get; private set; }
-
-            /// <summary>
-            /// Gets or sets the command associated with the reader.
-            /// </summary>
-            public IDbCommand Command { get; set; }
-
             private void NextResult()
             {
                 if (this._reader.NextResult())
@@ -502,26 +395,132 @@ namespace Core.Extension.Dapper
                 }
             }
 
-            /// <summary>
-            /// Dispose the grid, closing and disposing both the underlying reader and command.
-            /// </summary>
-            public void Dispose()
+            private IEnumerable<T> ReadImpl<T>(Type type, bool buffered)
             {
-                if (this._reader != null)
+                if (this._reader == null)
                 {
-                    if (!this._reader.IsClosed)
-                    {
-                        this.Command?.Cancel();
-                    }
-
-                    this._reader.Dispose();
-                    this._reader = null;
+                    throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
                 }
 
-                if (this.Command != null)
+                if (this.IsConsumed)
                 {
-                    this.Command.Dispose();
-                    this.Command = null;
+                    throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
+                }
+
+                var typedIdentity = this._identity.ForGrid(type, this._gridIndex);
+                CacheInfo cache = GetCacheInfo(typedIdentity, null, this._addToCache);
+                var deserializer = cache.Deserializer;
+
+                int hash = GetColumnHash(this._reader);
+                if (deserializer.Func == null || deserializer.Hash != hash)
+                {
+                    deserializer = new DeserializerState(hash, GetDeserializer(type, this._reader, 0, -1, false));
+                    cache.Deserializer = deserializer;
+                }
+
+                this.IsConsumed = true;
+                var result = this.ReadDeferred<T>(this._gridIndex, deserializer.Func, type);
+                return buffered ? result.ToList() : result;
+            }
+
+            private T ReadRow<T>(Type type, Row row)
+            {
+                if (this._reader == null)
+                {
+                    throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
+                }
+
+                if (this.IsConsumed)
+                {
+                    throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
+                }
+
+                this.IsConsumed = true;
+
+                T result = default;
+                if (this._reader.Read() && this._reader.FieldCount != 0)
+                {
+                    var typedIdentity = this._identity.ForGrid(type, this._gridIndex);
+                    CacheInfo cache = GetCacheInfo(typedIdentity, null, this._addToCache);
+                    var deserializer = cache.Deserializer;
+
+                    int hash = GetColumnHash(this._reader);
+                    if (deserializer.Func == null || deserializer.Hash != hash)
+                    {
+                        deserializer = new DeserializerState(hash, GetDeserializer(type, this._reader, 0, -1, false));
+                        cache.Deserializer = deserializer;
+                    }
+
+                    object val = deserializer.Func(this._reader);
+                    if (val == null || val is T)
+                    {
+                        result = (T)val;
+                    }
+                    else
+                    {
+                        var convertToType = Nullable.GetUnderlyingType(type) ?? type;
+                        result = (T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture);
+                    }
+
+                    if ((row & Row.Single) != 0 && this._reader.Read())
+                    {
+                        ThrowMultipleRows(row);
+                    }
+
+                    while (this._reader.Read())
+                    { /* ignore subsequent rows */
+                    }
+                }
+                else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one
+                {
+                    ThrowZeroRows(row);
+                }
+
+                this.NextResult();
+                return result;
+            }
+
+            private IEnumerable<TReturn> MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(Delegate func, string splitOn)
+            {
+                var otherTypes = new[]
+                {
+                    typeof(TFirst),
+                    typeof(TSecond),
+                    typeof(TThird),
+                    typeof(TFourth),
+                    typeof(TFifth),
+                    typeof(TSixth),
+                    typeof(TSeventh)
+                };
+                var identity = this._identity.ForGrid(typeof(TReturn), otherTypes, this._gridIndex);
+                this.IsConsumed = true;
+
+                try
+                {
+                    foreach (var r in MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(null, default, func, splitOn, this._reader, identity, false))
+                    {
+                        yield return r;
+                    }
+                }
+                finally
+                {
+                    this.NextResult();
+                }
+            }
+
+            private IEnumerable<TReturn> MultiReadInternal<TReturn>(Type[] types, Func<object[], TReturn> map, string splitOn)
+            {
+                var identity = this._identity.ForGrid(typeof(TReturn), types, this._gridIndex);
+                try
+                {
+                    foreach (var r in MultiMapImpl(null, default, types, map, splitOn, this._reader, identity, false))
+                    {
+                        yield return r;
+                    }
+                }
+                finally
+                {
+                    this.NextResult();
                 }
             }
         }

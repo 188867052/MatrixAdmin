@@ -19,7 +19,7 @@ namespace Core.Extension.Dapper
         {
             private static readonly MethodInfo getValueMethod = typeof(IDictionary<string, object>).GetProperty("Item").GetGetMethod();
             private static readonly MethodInfo setValueMethod = typeof(DapperRow).GetMethod("SetValue", new Type[] { typeof(string), typeof(object) });
-            static readonly string[] s_nixKeys = new string[0];
+            private static readonly string[] nixKeys = new string[0];
 
             public DapperRowMetaObject(
                 System.Linq.Expressions.Expression expression,
@@ -34,19 +34,6 @@ namespace Core.Extension.Dapper
                 object value)
                 : base(expression, restrictions, value)
             {
-            }
-
-            private System.Dynamic.DynamicMetaObject CallMethod(
-                MethodInfo method,
-                System.Linq.Expressions.Expression[] parameters)
-            {
-                var callMethod = new System.Dynamic.DynamicMetaObject(
-                    System.Linq.Expressions.Expression.Call(
-                        System.Linq.Expressions.Expression.Convert(this.Expression, this.LimitType),
-                        method,
-                        parameters),
-                    System.Dynamic.BindingRestrictions.GetTypeRestriction(this.Expression, this.LimitType));
-                return callMethod;
             }
 
             public override System.Dynamic.DynamicMetaObject BindGetMember(System.Dynamic.GetMemberBinder binder)
@@ -89,12 +76,23 @@ namespace Core.Extension.Dapper
 
             public override IEnumerable<string> GetDynamicMemberNames()
             {
-                if(this.HasValue && this.Value is IDictionary<string, object> lookup)
+                if (this.HasValue && this.Value is IDictionary<string, object> lookup)
                 {
                     return lookup.Keys;
                 }
 
-                return s_nixKeys;
+                return nixKeys;
+            }
+
+            private System.Dynamic.DynamicMetaObject CallMethod(MethodInfo method, System.Linq.Expressions.Expression[] parameters)
+            {
+                var callMethod = new System.Dynamic.DynamicMetaObject(
+                    System.Linq.Expressions.Expression.Call(
+                        System.Linq.Expressions.Expression.Convert(this.Expression, this.LimitType),
+                        method,
+                        parameters),
+                    System.Dynamic.BindingRestrictions.GetTypeRestriction(this.Expression, this.LimitType));
+                return callMethod;
             }
         }
     }

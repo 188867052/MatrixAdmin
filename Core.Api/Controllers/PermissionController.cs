@@ -251,16 +251,8 @@ namespace Core.Api.Controllers
                         ParentGuid = x.ParentGuid,
                         Title = x.Name
                     }).ToList();
-
-                // DncPermissionWithAssignProperty
-                string sql = @"SELECT P.Code,P.MenuGuid,P.Name,P.ActionCode,ISNULL(S.RoleCode,'') AS RoleCode,(CASE WHEN S.PermissionCode IS NOT NULL THEN 1 ELSE 0 END) AS IsAssigned FROM DncPermission AS P 
-LEFT JOIN (SELECT * FROM RolePermissionMapping AS RPM WHERE RPM.RoleCode={0}) AS S 
-ON S.PermissionCode= P.Code
-WHERE P.IsDeleted=0 AND P.Status=1";
                 if (role.IsSuperAdministrator)
                 {
-                    sql = @"SELECT P.Code,P.MenuGuid,P.Name,P.ActionCode,'SUPERADM' AS RoleCode,(CASE WHEN P.Code IS NOT NULL THEN 1 ELSE 0 END) AS IsAssigned FROM DncPermission AS P 
-WHERE P.IsDeleted=0 AND P.Status=1";
                 }
 
                 // List<PermissionWithAssignProperty> permissionList = this.DbContext.PermissionWithAssignProperty.FromSql(sql, code).ToList();

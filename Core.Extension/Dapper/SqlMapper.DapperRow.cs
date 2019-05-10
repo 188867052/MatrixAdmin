@@ -18,15 +18,6 @@ namespace Core.Extension.Dapper
                 this._values = values ?? throw new ArgumentNullException(nameof(values));
             }
 
-            object IReadOnlyDictionary<string, object>.this[string key]
-            {
-                get
-                {
-                    this.TryGetValue(key, out object val);
-                    return val;
-                }
-            }
-
             ICollection<string> IDictionary<string, object>.Keys => this.Select(kv => kv.Key).ToArray();
 
             ICollection<object> IDictionary<string, object>.Values => this.Select(kv => kv.Value).ToArray();
@@ -40,6 +31,15 @@ namespace Core.Extension.Dapper
             IEnumerable<object> IReadOnlyDictionary<string, object>.Values => this.Select(kv => kv.Value);
 
             int ICollection<KeyValuePair<string, object>>.Count => this._values.Count(t => !(t is DeadValue));
+
+            object IReadOnlyDictionary<string, object>.this[string key]
+            {
+                get
+                {
+                    this.TryGetValue(key, out object val);
+                    return val;
+                }
+            }
 
             object IDictionary<string, object>.this[string key]
             {
@@ -75,7 +75,7 @@ namespace Core.Extension.Dapper
                     }
                 }
 
-                return sb.Append('}').__ToStringRecycle();
+                return sb.Append('}').ToStringRecycle();
             }
 
             public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
@@ -140,15 +140,31 @@ namespace Core.Extension.Dapper
                 return true;
             }
 
-            void IDictionary<string, object>.Add(string key, object value)
+            void IDictionary<string, object>.Add(string key, object value) => this.SetValue(key, value, true);
+
+            bool IDictionary<string, object>.Remove(string key) => this.Remove(this._table.IndexOfName(key));
+
+            bool IReadOnlyDictionary<string, object>.ContainsKey(string key)
             {
-                this.SetValue(key, value, true);
+                int index = this._table.IndexOfName(key);
+                return index >= 0 && index < this._values.Length && !(this._values[index] is DeadValue);
             }
 
-            bool IDictionary<string, object>.Remove(string key)
-                => this.Remove(this._table.IndexOfName(key));
+            public object SetValue(string key, object value)
+            {
+                return this.SetValue(key, value, false);
+            }
 
-           
+            internal bool Remove(int index)
+            {
+                if (index < 0 || index >= this._values.Length || this._values[index] is DeadValue)
+                {
+                    return false;
+                }
+
+                this._values[index] = DeadValue.Default;
+                return true;
+            }
 
             internal bool TryGetValue(int index, out object value)
             {
@@ -167,28 +183,6 @@ namespace Core.Extension.Dapper
                 }
 
                 return true;
-            }
-
-            internal bool Remove(int index)
-            {
-                if (index < 0 || index >= this._values.Length || this._values[index] is DeadValue)
-                {
-                    return false;
-                }
-
-                this._values[index] = DeadValue.Default;
-                return true;
-            }
-
-            bool IReadOnlyDictionary<string, object>.ContainsKey(string key)
-            {
-                int index = this._table.IndexOfName(key);
-                return index >= 0 && index < this._values.Length && !(this._values[index] is DeadValue);
-            }
-
-            public object SetValue(string key, object value)
-            {
-                return this.SetValue(key, value, false);
             }
 
             internal object SetValue(int index, object value)

@@ -121,6 +121,5 @@ namespace Core.Extension.Dapper
         int IDataRecord.GetValues(object[] values) => this.Reader.GetValues(values);
 
         bool IDataRecord.IsDBNull(int i) => this.Reader.IsDBNull(i);
-
     }
 }

@@ -5,17 +5,17 @@ using Core.Api.ExpressionBuilder.Interfaces;
 
 namespace Core.Api.Filter
 {
-    public class FilterInfo<TPropertyType>: IFilterInfo
+    public class FilterInfo<TPropertyType> : IFilterInfo
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
         /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
         /// </summary>
-        /// <param name="propertyId"></param>
-        /// <param name="operation"></param>
-        /// <param name="value"></param>
-        /// <param name="value2"></param>
-        /// <param name="connector"></param>
+        /// <param name="propertyId">propertyId.</param>
+        /// <param name="operation">operation.</param>
+        /// <param name="value">value.</param>
+        /// <param name="value2">value2.</param>
+        /// <param name="connector">connector.</param>
         public FilterInfo(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
         {
             this.PropertyName = propertyId;

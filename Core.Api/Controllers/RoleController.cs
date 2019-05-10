@@ -40,9 +40,10 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        ///
+        /// Search.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="model">model.</param>
+        /// <returns>IActionResult.</returns>
         [HttpPost]
         public IActionResult Search(RolePostModel model)
         {
@@ -168,7 +169,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="ids">角色ID,多个以逗号分隔.</param>
         /// <returns></returns>
-        [HttpGet("{ids}")]
+        [HttpGet]
         [ProducesResponseType(200)]
         public IActionResult Recover(string ids)
         {
@@ -179,7 +180,7 @@ namespace Core.Api.Controllers
         /// <summary>
         /// 批量操作.
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="command">command.</param>
         /// <param name="ids">角色ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet]
@@ -234,7 +235,7 @@ namespace Core.Api.Controllers
                 }
 
                 // 先删除当前角色原来已分配的权限
-                this.DbContext.Database.ExecuteSqlCommand("DELETE FROM DncRolePermissionMapping WHERE RoleCode={0}", payload.RoleCode);
+                this.DbContext.Database.ExecuteSqlInterpolated($"DELETE FROM DncRolePermissionMapping WHERE RoleCode={payload.RoleCode}");
                 if (payload.Permissions != null || payload.Permissions.Count > 0)
                 {
                     IEnumerable<RolePermissionMapping> permissions = payload.Permissions.Select(x => new RolePermissionMapping
@@ -277,7 +278,7 @@ namespace Core.Api.Controllers
                 string sql = @"SELECT R.* FROM DncUserRoleMapping AS URM
 INNER JOIN DncRole AS R ON R.Code=URM.RoleCode
 WHERE URM.UserGuid={0}";
-                List<Role> query = this.DbContext.Role.FromSql(sql, guid).ToList();
+                List<Role> query = this.DbContext.Role.FromSqlRaw(sql, guid).ToList();
                 List<int> assignedRoles = query.ToList().Select(x => x.Id).ToList();
                 var roles = this.DbContext.Role.Where(x => !x.IsEnable && x.Status).ToList().Select(x => new { label = x.Name, key = x.Id });
                 response.SetData(new { roles, assignedRoles });
@@ -289,7 +290,7 @@ WHERE URM.UserGuid={0}";
         /// 查询所有角色列表(只包含主要的字段信息:name,code).
         /// </summary>
         /// <returns></returns>
-        [HttpGet("/api/v1/rbac/role/find_simple_list")]
+        [HttpGet]
         public IActionResult FindSimpleList()
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
@@ -305,9 +306,9 @@ WHERE URM.UserGuid={0}";
         /// <summary>
         /// 删除角色.
         /// </summary>
-        /// <param name="isEnable"></param>
-        /// <param name="ids">角色ID字符串,多个以逗号隔开.</param>
-        /// <returns></returns>
+        /// <param name="isEnable">The isEnable.</param>
+        /// <param name="ids">ids.</param>
+        /// <returns>ResponseModel.</returns>
         private ResponseModel UpdateIsEnable(bool isEnable, string ids)
         {
             using (this.DbContext)

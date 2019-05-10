@@ -11,9 +11,7 @@ namespace Core.Api.ExpressionBuilder.Operations
     /// </summary>
     public class In : OperationBase
     {
-        /// <inheritdoc />
-        public In()
-            : base("In", 1, TypeGroup.Default | TypeGroup.Boolean | TypeGroup.Date | TypeGroup.Number | TypeGroup.Text, true, true)
+        public In() : base("In", 1, TypeGroup.Default | TypeGroup.Boolean | TypeGroup.Date | TypeGroup.Number | TypeGroup.Text, true, true)
         {
         }
 
@@ -31,8 +29,7 @@ namespace Core.Api.ExpressionBuilder.Operations
             return this.GetExpressionHandlingNullables(member, constant1, type, inInfo) ?? Expression.Call(constant1, inInfo, member);
         }
 
-        private Expression GetExpressionHandlingNullables(MemberExpression member, ConstantExpression constant1, Type type,
-            MethodInfo inInfo)
+        private Expression GetExpressionHandlingNullables(MemberExpression member, ConstantExpression constant1, Type type, MethodInfo inInfo)
         {
             var listUnderlyingType = Nullable.GetUnderlyingType(type.GetGenericArguments()[0]);
             var memberUnderlingType = Nullable.GetUnderlyingType(member.Type);

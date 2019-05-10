@@ -21,10 +21,15 @@ namespace Core.Extension.Dapper
     /// </summary>
     public static partial class SqlMapper
     {
+        /// <summary>
+        /// Gets type-map for the given type.
+        /// </summary>
+        /// <returns>Type map instance, default is to create new instance of DefaultTypeMap.</returns>
+        public static Func<Type, ITypeMap> TypeMapProvider = (Type type) => new DefaultTypeMap(type);
         internal const string LinqBinary = "System.Data.Linq.Binary";
         internal static readonly MethodInfo format = typeof(SqlMapper).GetMethod("Format", BindingFlags.Public | BindingFlags.Static);
-        private const int COLLECT_PER_ITEMS = 1000;
-        private const int COLLECT_HIT_COUNT_MIN = 0;
+        private const int COLLECTPERITEMS = 1000;
+        private const int COLLECTHITCOUNTMIN = 0;
         private static Dictionary<Type, ITypeHandler> typeHandlers;
         private static int collect;
         private static IEqualityComparer<string> connectionStringComparer = StringComparer.Ordinal;
@@ -35,6 +40,8 @@ namespace Core.Extension.Dapper
         private static readonly int[] ErrZeroRows = new int[0];
         private static readonly MethodInfo StringReplace = typeof(string).GetPublicInstanceMethod(nameof(string.Replace), new[] { typeof(string), typeof(string) });
         private static readonly MethodInfo InvariantCulture = typeof(CultureInfo).GetProperty(nameof(CultureInfo.InvariantCulture), BindingFlags.Public | BindingFlags.Static).GetGetMethod();
+        private static readonly MethodInfo enumParse = typeof(Enum).GetMethod(nameof(Enum.Parse), new[] { typeof(Type), typeof(string), typeof(bool) });
+        private static readonly MethodInfo getItem = typeof(IDataRecord).GetProperties(BindingFlags.Instance | BindingFlags.Public).Where(p => p.GetIndexParameters().Length > 0 && p.GetIndexParameters()[0].ParameterType == typeof(int)).Select(p => p.GetGetMethod()).First();
 
         // use Hashtable to get free lockless reading
         private static readonly Hashtable _typeMaps = new Hashtable();
@@ -235,7 +242,6 @@ namespace Core.Extension.Dapper
         /// <param name="type">The type to handle.</param>
         /// <param name="handler">The handler to process the <paramref name="type"/>.</param>
         public static void AddTypeHandler(Type type, ITypeHandler handler) => AddTypeHandlerImpl(type, handler, true);
-
 
         /// <summary>
         /// Configure the specified type to be processed by a custom handler.
@@ -1114,7 +1120,7 @@ namespace Core.Extension.Dapper
                                      sb.Append(',').Append(variableName).Append(i).Append(suffix);
                                  }
 
-                                 return sb.__ToStringRecycle();
+                                 return sb.ToStringRecycle();
                              }
                              else
                              {
@@ -1133,7 +1139,7 @@ namespace Core.Extension.Dapper
                                      }
                                  }
 
-                                 return sb.Append(')').__ToStringRecycle();
+                                 return sb.Append(')').ToStringRecycle();
                              }
                          };
                         command.CommandText = Regex.Replace(command.CommandText, regexIncludingUnknown, evaluator, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
@@ -1268,7 +1274,7 @@ namespace Core.Extension.Dapper
                             }
                             else
                             {
-                                return sb.Append(')').__ToStringRecycle();
+                                return sb.Append(')').ToStringRecycle();
                             }
                         }
 
@@ -1586,14 +1592,8 @@ namespace Core.Extension.Dapper
         /// <param name="list">The list of records to convert to TVPs.</param>
         /// <param name="typeName">The sql parameter type name.</param>
         /// <returns></returns>
-        public static ICustomQueryParameter AsTableValuedParameter(this IEnumerable<Microsoft.SqlServer.Server.SqlDataRecord> list, string typeName = null) =>
-            new SqlDataRecordListTVPParameter(list, typeName);
+        public static ICustomQueryParameter AsTableValuedParameter(this IEnumerable<Microsoft.SqlServer.Server.SqlDataRecord> list, string typeName = null) => new SqlDataRecordListTVPParameter(list, typeName);
 
-        /// <summary>
-        /// Gets type-map for the given type.
-        /// </summary>
-        /// <returns>Type map instance, default is to create new instance of DefaultTypeMap.</returns>
-        public static Func<Type, ITypeMap> TypeMapProvider = (Type type) => new DefaultTypeMap(type);
         /// <summary>
         /// Set custom mapping for type deserializers.
         /// </summary>
@@ -1668,6 +1668,461 @@ namespace Core.Extension.Dapper
             }
 
             return map;
+        }
+
+        internal static Action<IDbCommand, object> CreateParamInfoGenerator(Identity identity, bool checkForDuplicates, bool removeUnused, IList<LiteralToken> literals)
+        {
+            Type type = identity.ParametersType;
+
+            if (IsValueTuple(type))
+            {
+                throw new NotSupportedException("ValueTuple should not be used for parameters - the language-level names are not available to use as parameter names, and it adds unnecessary boxing");
+            }
+
+            bool filterParams = false;
+            if (removeUnused && identity.CommandType.GetValueOrDefault(CommandType.Text) == CommandType.Text)
+            {
+                filterParams = !smellsLikeOleDb.IsMatch(identity.Sql);
+            }
+
+            var dm = new DynamicMethod("ParamInfo" + Guid.NewGuid().ToString(), null, new[] { typeof(IDbCommand), typeof(object) }, type, true);
+
+            var il = dm.GetILGenerator();
+
+            bool isStruct = type.IsValueType();
+            bool haveInt32Arg1 = false;
+            il.Emit(OpCodes.Ldarg_1); // stack is now [untyped-param]
+            if (isStruct)
+            {
+                il.DeclareLocal(type.MakeByRefType()); // note: ref-local
+                il.Emit(OpCodes.Unbox, type); // stack is now [typed-param]
+            }
+            else
+            {
+                il.DeclareLocal(type); // 0
+                il.Emit(OpCodes.Castclass, type); // stack is now [typed-param]
+            }
+
+            il.Emit(OpCodes.Stloc_0); // stack is now empty
+
+            il.Emit(OpCodes.Ldarg_0); // stack is now [command]
+            il.EmitCall(OpCodes.Callvirt, typeof(IDbCommand).GetProperty(nameof(IDbCommand.Parameters)).GetGetMethod(), null); // stack is now [parameters]
+
+            var allTypeProps = type.GetProperties();
+            var propsList = new List<PropertyInfo>(allTypeProps.Length);
+            for (int i = 0; i < allTypeProps.Length; ++i)
+            {
+                var p = allTypeProps[i];
+                if (p.GetIndexParameters().Length == 0)
+                {
+                    propsList.Add(p);
+                }
+            }
+
+            var ctors = type.GetConstructors();
+            ParameterInfo[] ctorParams;
+            IEnumerable<PropertyInfo> props = null;
+
+            // try to detect tuple patterns, e.g. anon-types, and use that to choose the order
+            // otherwise: alphabetical
+            if (ctors.Length == 1 && propsList.Count == (ctorParams = ctors[0].GetParameters()).Length)
+            {
+                // check if reflection was kind enough to put everything in the right order for us
+                bool ok = true;
+                for (int i = 0; i < propsList.Count; i++)
+                {
+                    if (!string.Equals(propsList[i].Name, ctorParams[i].Name, StringComparison.OrdinalIgnoreCase))
+                    {
+                        ok = false;
+                        break;
+                    }
+                }
+
+                if (ok)
+                {
+                    // pre-sorted; the reflection gods have smiled upon us
+                    props = propsList;
+                }
+                else
+                { // might still all be accounted for; check the hard way
+                    var positionByName = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+                    foreach (var param in ctorParams)
+                    {
+                        positionByName[param.Name] = param.Position;
+                    }
+
+                    if (positionByName.Count == propsList.Count)
+                    {
+                        int[] positions = new int[propsList.Count];
+                        ok = true;
+                        for (int i = 0; i < propsList.Count; i++)
+                        {
+                            if (!positionByName.TryGetValue(propsList[i].Name, out int pos))
+                            {
+                                ok = false;
+                                break;
+                            }
+
+                            positions[i] = pos;
+                        }
+
+                        if (ok)
+                        {
+                            props = propsList.ToArray();
+                            Array.Sort(positions, (PropertyInfo[])props);
+                        }
+                    }
+                }
+            }
+
+            if (props == null)
+            {
+                propsList.Sort(new PropertyInfoByNameComparer());
+                props = propsList;
+            }
+
+            if (filterParams)
+            {
+                props = FilterParameters(props, identity.Sql);
+            }
+
+            var callOpCode = isStruct ? OpCodes.Call : OpCodes.Callvirt;
+            foreach (var prop in props)
+            {
+                if (typeof(ICustomQueryParameter).IsAssignableFrom(prop.PropertyType))
+                {
+                    il.Emit(OpCodes.Ldloc_0); // stack is now [parameters] [typed-param]
+                    il.Emit(callOpCode, prop.GetGetMethod()); // stack is [parameters] [custom]
+                    il.Emit(OpCodes.Ldarg_0); // stack is now [parameters] [custom] [command]
+                    il.Emit(OpCodes.Ldstr, prop.Name); // stack is now [parameters] [custom] [command] [name]
+                    il.EmitCall(OpCodes.Callvirt, prop.PropertyType.GetMethod(nameof(ICustomQueryParameter.AddParameter)), null); // stack is now [parameters]
+                    continue;
+                }
+#pragma warning disable 618
+                DbType dbType = LookupDbType(prop.PropertyType, prop.Name, true, out ITypeHandler handler);
+#pragma warning restore 618
+                if (dbType == DynamicParameters.EnumerableMultiParameter)
+                {
+                    // this actually represents special handling for list types;
+                    il.Emit(OpCodes.Ldarg_0); // stack is now [parameters] [command]
+                    il.Emit(OpCodes.Ldstr, prop.Name); // stack is now [parameters] [command] [name]
+                    il.Emit(OpCodes.Ldloc_0); // stack is now [parameters] [command] [name] [typed-param]
+                    il.Emit(callOpCode, prop.GetGetMethod()); // stack is [parameters] [command] [name] [typed-value]
+                    if (prop.PropertyType.IsValueType())
+                    {
+                        il.Emit(OpCodes.Box, prop.PropertyType); // stack is [parameters] [command] [name] [boxed-value]
+                    }
+
+                    il.EmitCall(OpCodes.Call, typeof(SqlMapper).GetMethod(nameof(SqlMapper.PackListParameters)), null); // stack is [parameters]
+                    continue;
+                }
+
+                il.Emit(OpCodes.Dup); // stack is now [parameters] [parameters]
+
+                il.Emit(OpCodes.Ldarg_0); // stack is now [parameters] [parameters] [command]
+
+                if (checkForDuplicates)
+                {
+                    // need to be a little careful about adding; use a utility method
+                    il.Emit(OpCodes.Ldstr, prop.Name); // stack is now [parameters] [parameters] [command] [name]
+                    il.EmitCall(OpCodes.Call, typeof(SqlMapper).GetMethod(nameof(SqlMapper.FindOrAddParameter)), null); // stack is [parameters] [parameter]
+                }
+                else
+                {
+                    // no risk of duplicates; just blindly add
+                    il.EmitCall(OpCodes.Callvirt, typeof(IDbCommand).GetMethod(nameof(IDbCommand.CreateParameter)), null); // stack is now [parameters] [parameters] [parameter]
+
+                    il.Emit(OpCodes.Dup); // stack is now [parameters] [parameters] [parameter] [parameter]
+                    il.Emit(OpCodes.Ldstr, prop.Name); // stack is now [parameters] [parameters] [parameter] [parameter] [name]
+                    il.EmitCall(OpCodes.Callvirt, typeof(IDataParameter).GetProperty(nameof(IDataParameter.ParameterName)).GetSetMethod(), null); // stack is now [parameters] [parameters] [parameter]
+                }
+
+                if (dbType != DbType.Time && handler == null) // https://connect.microsoft.com/VisualStudio/feedback/details/381934/sqlparameter-dbtype-dbtype-time-sets-the-parameter-to-sqldbtype-datetime-instead-of-sqldbtype-time
+                {
+                    il.Emit(OpCodes.Dup); // stack is now [parameters] [[parameters]] [parameter] [parameter]
+                    if (dbType == DbType.Object && prop.PropertyType == typeof(object)) // includes dynamic
+                    {
+                        // look it up from the param value
+                        il.Emit(OpCodes.Ldloc_0); // stack is now [parameters] [[parameters]] [parameter] [parameter] [typed-param]
+                        il.Emit(callOpCode, prop.GetGetMethod()); // stack is [parameters] [[parameters]] [parameter] [parameter] [object-value]
+                        il.Emit(OpCodes.Call, typeof(SqlMapper).GetMethod(nameof(SqlMapper.GetDbType), BindingFlags.Static | BindingFlags.Public)); // stack is now [parameters] [[parameters]] [parameter] [parameter] [db-type]
+                    }
+                    else
+                    {
+                        // constant value; nice and simple
+                        EmitInt32(il, (int)dbType); // stack is now [parameters] [[parameters]] [parameter] [parameter] [db-type]
+                    }
+
+                    il.EmitCall(OpCodes.Callvirt, typeof(IDataParameter).GetProperty(nameof(IDataParameter.DbType)).GetSetMethod(), null); // stack is now [parameters] [[parameters]] [parameter]
+                }
+
+                il.Emit(OpCodes.Dup); // stack is now [parameters] [[parameters]] [parameter] [parameter]
+                EmitInt32(il, (int)ParameterDirection.Input); // stack is now [parameters] [[parameters]] [parameter] [parameter] [dir]
+                il.EmitCall(OpCodes.Callvirt, typeof(IDataParameter).GetProperty(nameof(IDataParameter.Direction)).GetSetMethod(), null); // stack is now [parameters] [[parameters]] [parameter]
+
+                il.Emit(OpCodes.Dup); // stack is now [parameters] [[parameters]] [parameter] [parameter]
+                il.Emit(OpCodes.Ldloc_0); // stack is now [parameters] [[parameters]] [parameter] [parameter] [typed-param]
+                il.Emit(callOpCode, prop.GetGetMethod()); // stack is [parameters] [[parameters]] [parameter] [parameter] [typed-value]
+                bool checkForNull;
+                if (prop.PropertyType.IsValueType())
+                {
+                    var propType = prop.PropertyType;
+                    var nullType = Nullable.GetUnderlyingType(propType);
+                    bool callSanitize = false;
+
+                    if ((nullType ?? propType).IsEnum())
+                    {
+                        if (nullType != null)
+                        {
+                            // Nullable<SomeEnum>; we want to box as the underlying type; that's just *hard*; for
+                            // simplicity, box as Nullable<SomeEnum> and call SanitizeParameterValue
+                            callSanitize = checkForNull = true;
+                        }
+                        else
+                        {
+                            checkForNull = false;
+
+                            // non-nullable enum; we can do that! just box to the wrong type! (no, really)
+                            switch (TypeExtensions.GetTypeCode(Enum.GetUnderlyingType(propType)))
+                            {
+                                case TypeCode.Byte: propType = typeof(byte); break;
+                                case TypeCode.SByte: propType = typeof(sbyte); break;
+                                case TypeCode.Int16: propType = typeof(short); break;
+                                case TypeCode.Int32: propType = typeof(int); break;
+                                case TypeCode.Int64: propType = typeof(long); break;
+                                case TypeCode.UInt16: propType = typeof(ushort); break;
+                                case TypeCode.UInt32: propType = typeof(uint); break;
+                                case TypeCode.UInt64: propType = typeof(ulong); break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        checkForNull = nullType != null;
+                    }
+
+                    il.Emit(OpCodes.Box, propType); // stack is [parameters] [[parameters]] [parameter] [parameter] [boxed-value]
+                    if (callSanitize)
+                    {
+                        checkForNull = false; // handled by sanitize
+                        il.EmitCall(OpCodes.Call, typeof(SqlMapper).GetMethod(nameof(SanitizeParameterValue)), null);
+
+                        // stack is [parameters] [[parameters]] [parameter] [parameter] [boxed-value]
+                    }
+                }
+                else
+                {
+                    checkForNull = true; // if not a value-type, need to check
+                }
+
+                if (checkForNull)
+                {
+                    if ((dbType == DbType.String || dbType == DbType.AnsiString) && !haveInt32Arg1)
+                    {
+                        il.DeclareLocal(typeof(int));
+                        haveInt32Arg1 = true;
+                    }
+
+                    // relative stack: [boxed value]
+                    il.Emit(OpCodes.Dup); // relative stack: [boxed value] [boxed value]
+                    Label notNull = il.DefineLabel();
+                    Label? allDone = (dbType == DbType.String || dbType == DbType.AnsiString) ? il.DefineLabel() : (Label?)null;
+                    il.Emit(OpCodes.Brtrue_S, notNull);
+
+                    // relative stack [boxed value = null]
+                    il.Emit(OpCodes.Pop); // relative stack empty
+                    il.Emit(OpCodes.Ldsfld, typeof(DBNull).GetField(nameof(DBNull.Value))); // relative stack [DBNull]
+                    if (dbType == DbType.String || dbType == DbType.AnsiString)
+                    {
+                        EmitInt32(il, 0);
+                        il.Emit(OpCodes.Stloc_1);
+                    }
+
+                    if (allDone != null)
+                    {
+                        il.Emit(OpCodes.Br_S, allDone.Value);
+                    }
+
+                    il.MarkLabel(notNull);
+                    if (prop.PropertyType == typeof(string))
+                    {
+                        il.Emit(OpCodes.Dup); // [string] [string]
+                        il.EmitCall(OpCodes.Callvirt, typeof(string).GetProperty(nameof(string.Length)).GetGetMethod(), null); // [string] [length]
+                        EmitInt32(il, DbString.DefaultLength); // [string] [length] [4000]
+                        il.Emit(OpCodes.Cgt); // [string] [0 or 1]
+                        Label isLong = il.DefineLabel(), lenDone = il.DefineLabel();
+                        il.Emit(OpCodes.Brtrue_S, isLong);
+                        EmitInt32(il, DbString.DefaultLength); // [string] [4000]
+                        il.Emit(OpCodes.Br_S, lenDone);
+                        il.MarkLabel(isLong);
+                        EmitInt32(il, -1); // [string] [-1]
+                        il.MarkLabel(lenDone);
+                        il.Emit(OpCodes.Stloc_1); // [string]
+                    }
+
+                    if (prop.PropertyType.FullName == LinqBinary)
+                    {
+                        il.EmitCall(OpCodes.Callvirt, prop.PropertyType.GetMethod("ToArray", BindingFlags.Public | BindingFlags.Instance), null);
+                    }
+
+                    if (allDone != null)
+                    {
+                        il.MarkLabel(allDone.Value);
+                    }
+
+                    // relative stack [boxed value or DBNull]
+                }
+
+                if (handler != null)
+                {
+#pragma warning disable 618
+                    il.Emit(OpCodes.Call, typeof(TypeHandlerCache<>).MakeGenericType(prop.PropertyType).GetMethod(nameof(TypeHandlerCache<int>.SetValue))); // stack is now [parameters] [[parameters]] [parameter]
+#pragma warning restore 618
+                }
+                else
+                {
+                    il.EmitCall(OpCodes.Callvirt, typeof(IDataParameter).GetProperty(nameof(IDataParameter.Value)).GetSetMethod(), null); // stack is now [parameters] [[parameters]] [parameter]
+                }
+
+                if (prop.PropertyType == typeof(string))
+                {
+                    var endOfSize = il.DefineLabel();
+
+                    // don't set if 0
+                    il.Emit(OpCodes.Ldloc_1); // [parameters] [[parameters]] [parameter] [size]
+                    il.Emit(OpCodes.Brfalse_S, endOfSize); // [parameters] [[parameters]] [parameter]
+
+                    il.Emit(OpCodes.Dup); // stack is now [parameters] [[parameters]] [parameter] [parameter]
+                    il.Emit(OpCodes.Ldloc_1); // stack is now [parameters] [[parameters]] [parameter] [parameter] [size]
+                    il.EmitCall(OpCodes.Callvirt, typeof(IDbDataParameter).GetProperty(nameof(IDbDataParameter.Size)).GetSetMethod(), null); // stack is now [parameters] [[parameters]] [parameter]
+
+                    il.MarkLabel(endOfSize);
+                }
+
+                if (checkForDuplicates)
+                {
+                    // stack is now [parameters] [parameter]
+                    il.Emit(OpCodes.Pop); // don't need parameter any more
+                }
+                else
+                {
+                    // stack is now [parameters] [parameters] [parameter]
+                    // blindly add
+                    il.EmitCall(OpCodes.Callvirt, typeof(IList).GetMethod(nameof(IList.Add)), null); // stack is now [parameters]
+                    il.Emit(OpCodes.Pop); // IList.Add returns the new index (int); we don't care
+                }
+            }
+
+            // stack is currently [parameters]
+            il.Emit(OpCodes.Pop); // stack is now empty
+
+            if (literals.Count != 0 && propsList != null)
+            {
+                il.Emit(OpCodes.Ldarg_0); // command
+                il.Emit(OpCodes.Ldarg_0); // command, command
+                var cmdText = typeof(IDbCommand).GetProperty(nameof(IDbCommand.CommandText));
+                il.EmitCall(OpCodes.Callvirt, cmdText.GetGetMethod(), null); // command, sql
+                Dictionary<Type, LocalBuilder> locals = null;
+                LocalBuilder local = null;
+                foreach (var literal in literals)
+                {
+                    // find the best member, preferring case-sensitive
+                    PropertyInfo exact = null, fallback = null;
+                    string huntName = literal.Member;
+                    for (int i = 0; i < propsList.Count; i++)
+                    {
+                        string thisName = propsList[i].Name;
+                        if (string.Equals(thisName, huntName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            fallback = propsList[i];
+                            if (string.Equals(thisName, huntName, StringComparison.Ordinal))
+                            {
+                                exact = fallback;
+                                break;
+                            }
+                        }
+                    }
+
+                    var prop = exact ?? fallback;
+
+                    if (prop != null)
+                    {
+                        il.Emit(OpCodes.Ldstr, literal.Token);
+                        il.Emit(OpCodes.Ldloc_0); // command, sql, typed parameter
+                        il.EmitCall(callOpCode, prop.GetGetMethod(), null); // command, sql, typed value
+                        Type propType = prop.PropertyType;
+                        var typeCode = TypeExtensions.GetTypeCode(propType);
+                        switch (typeCode)
+                        {
+                            case TypeCode.Boolean:
+                                Label ifTrue = il.DefineLabel(), allDone = il.DefineLabel();
+                                il.Emit(OpCodes.Brtrue_S, ifTrue);
+                                il.Emit(OpCodes.Ldstr, "0");
+                                il.Emit(OpCodes.Br_S, allDone);
+                                il.MarkLabel(ifTrue);
+                                il.Emit(OpCodes.Ldstr, "1");
+                                il.MarkLabel(allDone);
+                                break;
+                            case TypeCode.Byte:
+                            case TypeCode.SByte:
+                            case TypeCode.UInt16:
+                            case TypeCode.Int16:
+                            case TypeCode.UInt32:
+                            case TypeCode.Int32:
+                            case TypeCode.UInt64:
+                            case TypeCode.Int64:
+                            case TypeCode.Single:
+                            case TypeCode.Double:
+                            case TypeCode.Decimal:
+                                // need to stloc, ldloca, call
+                                // re-use existing locals (both the last known, and via a dictionary)
+                                var convert = GetToString(typeCode);
+                                if (local == null || local.LocalType != propType)
+                                {
+                                    if (locals == null)
+                                    {
+                                        locals = new Dictionary<Type, LocalBuilder>();
+                                        local = null;
+                                    }
+                                    else
+                                    {
+                                        if (!locals.TryGetValue(propType, out local))
+                                        {
+                                            local = null;
+                                        }
+                                    }
+
+                                    if (local == null)
+                                    {
+                                        local = il.DeclareLocal(propType);
+                                        locals.Add(propType, local);
+                                    }
+                                }
+
+                                il.Emit(OpCodes.Stloc, local); // command, sql
+                                il.Emit(OpCodes.Ldloca, local); // command, sql, ref-to-value
+                                il.EmitCall(OpCodes.Call, InvariantCulture, null); // command, sql, ref-to-value, culture
+                                il.EmitCall(OpCodes.Call, convert, null); // command, sql, string value
+                                break;
+                            default:
+                                if (propType.IsValueType())
+                                {
+                                    il.Emit(OpCodes.Box, propType); // command, sql, object value
+                                }
+
+                                il.EmitCall(OpCodes.Call, format, null); // command, sql, string value
+                                break;
+                        }
+
+                        il.EmitCall(OpCodes.Callvirt, StringReplace, null);
+                    }
+                }
+
+                il.EmitCall(OpCodes.Callvirt, cmdText.GetSetMethod(), null); // empty
+            }
+
+            il.Emit(OpCodes.Ret);
+            return (Action<IDbCommand, object>)dm.CreateDelegate(typeof(Action<IDbCommand, object>));
         }
 
         internal static bool HasTypeHandler(Type type) => typeHandlers.ContainsKey(type);
@@ -2062,9 +2517,10 @@ namespace Core.Extension.Dapper
                     cnn.Open();
                 }
 
-                reader = ExecuteReaderWithFlagsFallback(cmd, wasClosed, (row & Row.Single) != 0
+                CommandBehavior behavior = (row & Row.Single) != 0
                     ? CommandBehavior.SequentialAccess | CommandBehavior.SingleResult // need to allow multiple rows, to check fail condition
-                    : CommandBehavior.SequentialAccess | CommandBehavior.SingleResult | CommandBehavior.SingleRow);
+                    : CommandBehavior.SequentialAccess | CommandBehavior.SingleResult | CommandBehavior.SingleRow;
+                reader = ExecuteReaderWithFlagsFallback(cmd, wasClosed, behavior);
                 wasClosed = false; // *if* the connection was closed and we got this far, then we now have a reader
 
                 T result = default;
@@ -2740,8 +3196,7 @@ namespace Core.Extension.Dapper
             return true;
         }
 
-        private static Func<IDataReader, object> GetTypeDeserializerImpl(
-            Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnNullIfFirstMissing = false)
+        private static Func<IDataReader, object> GetTypeDeserializerImpl(Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnNullIfFirstMissing = false)
         {
             var returnType = type.IsValueType() ? typeof(object) : type;
             var dm = new DynamicMethod("Deserialize" + Guid.NewGuid().ToString(), returnType, new[] { typeof(IDataReader) }, type, true);
@@ -2884,8 +3339,7 @@ namespace Core.Extension.Dapper
 
                     if (memberType == typeof(char) || memberType == typeof(char?))
                     {
-                        il.EmitCall(OpCodes.Call, typeof(SqlMapper).GetMethod(
-                            memberType == typeof(char) ? nameof(SqlMapper.ReadChar) : nameof(SqlMapper.ReadNullableChar), BindingFlags.Static | BindingFlags.Public), null); // stack is now [target][target][typed-value]
+                        il.EmitCall(OpCodes.Call, typeof(SqlMapper).GetMethod(memberType == typeof(char) ? nameof(SqlMapper.ReadChar) : nameof(SqlMapper.ReadNullableChar), BindingFlags.Static | BindingFlags.Public), null); // stack is now [target][target][typed-value]
                     }
                     else
                     {
@@ -3282,7 +3736,7 @@ namespace Core.Extension.Dapper
             return new StringBuilder();
         }
 
-        private static string __ToStringRecycle(this StringBuilder obj)
+        private static string ToStringRecycle(this StringBuilder obj)
         {
             if (obj == null)
             {
@@ -3292,11 +3746,6 @@ namespace Core.Extension.Dapper
             var s = obj.ToString();
             perThreadStringBuilderCache = perThreadStringBuilderCache ?? obj;
             return s;
-        }
-
-        private class PropertyInfoByNameComparer : IComparer<PropertyInfo>
-        {
-            public int Compare(PropertyInfo x, PropertyInfo y) => string.CompareOrdinal(x.Name, y.Name);
         }
 
         private static int GetColumnHash(IDataReader reader, int startBound = 0, int length = -1)
@@ -3326,7 +3775,7 @@ namespace Core.Extension.Dapper
 
         private static void SetQueryCache(Identity key, CacheInfo value)
         {
-            if (Interlocked.Increment(ref collect) == COLLECT_PER_ITEMS)
+            if (Interlocked.Increment(ref collect) == COLLECTPERITEMS)
             {
                 CollectCacheGarbage();
             }
@@ -3340,7 +3789,7 @@ namespace Core.Extension.Dapper
             {
                 foreach (var pair in _queryCache)
                 {
-                    if (pair.Value.GetHitCount() <= COLLECT_HIT_COUNT_MIN)
+                    if (pair.Value.GetHitCount() <= COLLECTHITCOUNTMIN)
                     {
                         _queryCache.TryRemove(pair.Key, out CacheInfo cache);
                     }
@@ -3503,467 +3952,10 @@ namespace Core.Extension.Dapper
             return result;
         }
 
-        internal static Action<IDbCommand, object> CreateParamInfoGenerator(Identity identity, bool checkForDuplicates, bool removeUnused, IList<LiteralToken> literals)
-        {
-            Type type = identity.ParametersType;
-
-            if (IsValueTuple(type))
-            {
-                throw new NotSupportedException("ValueTuple should not be used for parameters - the language-level names are not available to use as parameter names, and it adds unnecessary boxing");
-            }
-
-            bool filterParams = false;
-            if (removeUnused && identity.CommandType.GetValueOrDefault(CommandType.Text) == CommandType.Text)
-            {
-                filterParams = !smellsLikeOleDb.IsMatch(identity.Sql);
-            }
-
-            var dm = new DynamicMethod("ParamInfo" + Guid.NewGuid().ToString(), null, new[] { typeof(IDbCommand), typeof(object) }, type, true);
-
-            var il = dm.GetILGenerator();
-
-            bool isStruct = type.IsValueType();
-            bool haveInt32Arg1 = false;
-            il.Emit(OpCodes.Ldarg_1); // stack is now [untyped-param]
-            if (isStruct)
-            {
-                il.DeclareLocal(type.MakeByRefType()); // note: ref-local
-                il.Emit(OpCodes.Unbox, type); // stack is now [typed-param]
-            }
-            else
-            {
-                il.DeclareLocal(type); // 0
-                il.Emit(OpCodes.Castclass, type); // stack is now [typed-param]
-            }
-
-            il.Emit(OpCodes.Stloc_0); // stack is now empty
-
-            il.Emit(OpCodes.Ldarg_0); // stack is now [command]
-            il.EmitCall(OpCodes.Callvirt, typeof(IDbCommand).GetProperty(nameof(IDbCommand.Parameters)).GetGetMethod(), null); // stack is now [parameters]
-
-            var allTypeProps = type.GetProperties();
-            var propsList = new List<PropertyInfo>(allTypeProps.Length);
-            for (int i = 0; i < allTypeProps.Length; ++i)
-            {
-                var p = allTypeProps[i];
-                if (p.GetIndexParameters().Length == 0)
-                {
-                    propsList.Add(p);
-                }
-            }
-
-            var ctors = type.GetConstructors();
-            ParameterInfo[] ctorParams;
-            IEnumerable<PropertyInfo> props = null;
-
-            // try to detect tuple patterns, e.g. anon-types, and use that to choose the order
-            // otherwise: alphabetical
-            if (ctors.Length == 1 && propsList.Count == (ctorParams = ctors[0].GetParameters()).Length)
-            {
-                // check if reflection was kind enough to put everything in the right order for us
-                bool ok = true;
-                for (int i = 0; i < propsList.Count; i++)
-                {
-                    if (!string.Equals(propsList[i].Name, ctorParams[i].Name, StringComparison.OrdinalIgnoreCase))
-                    {
-                        ok = false;
-                        break;
-                    }
-                }
-
-                if (ok)
-                {
-                    // pre-sorted; the reflection gods have smiled upon us
-                    props = propsList;
-                }
-                else
-                { // might still all be accounted for; check the hard way
-                    var positionByName = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-                    foreach (var param in ctorParams)
-                    {
-                        positionByName[param.Name] = param.Position;
-                    }
-
-                    if (positionByName.Count == propsList.Count)
-                    {
-                        int[] positions = new int[propsList.Count];
-                        ok = true;
-                        for (int i = 0; i < propsList.Count; i++)
-                        {
-                            if (!positionByName.TryGetValue(propsList[i].Name, out int pos))
-                            {
-                                ok = false;
-                                break;
-                            }
-
-                            positions[i] = pos;
-                        }
-
-                        if (ok)
-                        {
-                            props = propsList.ToArray();
-                            Array.Sort(positions, (PropertyInfo[])props);
-                        }
-                    }
-                }
-            }
-
-            if (props == null)
-            {
-                propsList.Sort(new PropertyInfoByNameComparer());
-                props = propsList;
-            }
-
-            if (filterParams)
-            {
-                props = FilterParameters(props, identity.Sql);
-            }
-
-            var callOpCode = isStruct ? OpCodes.Call : OpCodes.Callvirt;
-            foreach (var prop in props)
-            {
-                if (typeof(ICustomQueryParameter).IsAssignableFrom(prop.PropertyType))
-                {
-                    il.Emit(OpCodes.Ldloc_0); // stack is now [parameters] [typed-param]
-                    il.Emit(callOpCode, prop.GetGetMethod()); // stack is [parameters] [custom]
-                    il.Emit(OpCodes.Ldarg_0); // stack is now [parameters] [custom] [command]
-                    il.Emit(OpCodes.Ldstr, prop.Name); // stack is now [parameters] [custom] [command] [name]
-                    il.EmitCall(OpCodes.Callvirt, prop.PropertyType.GetMethod(nameof(ICustomQueryParameter.AddParameter)), null); // stack is now [parameters]
-                    continue;
-                }
-#pragma warning disable 618
-                DbType dbType = LookupDbType(prop.PropertyType, prop.Name, true, out ITypeHandler handler);
-#pragma warning restore 618
-                if (dbType == DynamicParameters.EnumerableMultiParameter)
-                {
-                    // this actually represents special handling for list types;
-                    il.Emit(OpCodes.Ldarg_0); // stack is now [parameters] [command]
-                    il.Emit(OpCodes.Ldstr, prop.Name); // stack is now [parameters] [command] [name]
-                    il.Emit(OpCodes.Ldloc_0); // stack is now [parameters] [command] [name] [typed-param]
-                    il.Emit(callOpCode, prop.GetGetMethod()); // stack is [parameters] [command] [name] [typed-value]
-                    if (prop.PropertyType.IsValueType())
-                    {
-                        il.Emit(OpCodes.Box, prop.PropertyType); // stack is [parameters] [command] [name] [boxed-value]
-                    }
-
-                    il.EmitCall(OpCodes.Call, typeof(SqlMapper).GetMethod(nameof(SqlMapper.PackListParameters)), null); // stack is [parameters]
-                    continue;
-                }
-
-                il.Emit(OpCodes.Dup); // stack is now [parameters] [parameters]
-
-                il.Emit(OpCodes.Ldarg_0); // stack is now [parameters] [parameters] [command]
-
-                if (checkForDuplicates)
-                {
-                    // need to be a little careful about adding; use a utility method
-                    il.Emit(OpCodes.Ldstr, prop.Name); // stack is now [parameters] [parameters] [command] [name]
-                    il.EmitCall(OpCodes.Call, typeof(SqlMapper).GetMethod(nameof(SqlMapper.FindOrAddParameter)), null); // stack is [parameters] [parameter]
-                }
-                else
-                {
-                    // no risk of duplicates; just blindly add
-                    il.EmitCall(OpCodes.Callvirt, typeof(IDbCommand).GetMethod(nameof(IDbCommand.CreateParameter)), null); // stack is now [parameters] [parameters] [parameter]
-
-                    il.Emit(OpCodes.Dup); // stack is now [parameters] [parameters] [parameter] [parameter]
-                    il.Emit(OpCodes.Ldstr, prop.Name); // stack is now [parameters] [parameters] [parameter] [parameter] [name]
-                    il.EmitCall(OpCodes.Callvirt, typeof(IDataParameter).GetProperty(nameof(IDataParameter.ParameterName)).GetSetMethod(), null); // stack is now [parameters] [parameters] [parameter]
-                }
-
-                if (dbType != DbType.Time && handler == null) // https://connect.microsoft.com/VisualStudio/feedback/details/381934/sqlparameter-dbtype-dbtype-time-sets-the-parameter-to-sqldbtype-datetime-instead-of-sqldbtype-time
-                {
-                    il.Emit(OpCodes.Dup); // stack is now [parameters] [[parameters]] [parameter] [parameter]
-                    if (dbType == DbType.Object && prop.PropertyType == typeof(object)) // includes dynamic
-                    {
-                        // look it up from the param value
-                        il.Emit(OpCodes.Ldloc_0); // stack is now [parameters] [[parameters]] [parameter] [parameter] [typed-param]
-                        il.Emit(callOpCode, prop.GetGetMethod()); // stack is [parameters] [[parameters]] [parameter] [parameter] [object-value]
-                        il.Emit(OpCodes.Call, typeof(SqlMapper).GetMethod(nameof(SqlMapper.GetDbType), BindingFlags.Static | BindingFlags.Public)); // stack is now [parameters] [[parameters]] [parameter] [parameter] [db-type]
-                    }
-                    else
-                    {
-                        // constant value; nice and simple
-                        EmitInt32(il, (int)dbType); // stack is now [parameters] [[parameters]] [parameter] [parameter] [db-type]
-                    }
-
-                    il.EmitCall(OpCodes.Callvirt, typeof(IDataParameter).GetProperty(nameof(IDataParameter.DbType)).GetSetMethod(), null); // stack is now [parameters] [[parameters]] [parameter]
-                }
-
-                il.Emit(OpCodes.Dup); // stack is now [parameters] [[parameters]] [parameter] [parameter]
-                EmitInt32(il, (int)ParameterDirection.Input); // stack is now [parameters] [[parameters]] [parameter] [parameter] [dir]
-                il.EmitCall(OpCodes.Callvirt, typeof(IDataParameter).GetProperty(nameof(IDataParameter.Direction)).GetSetMethod(), null); // stack is now [parameters] [[parameters]] [parameter]
-
-                il.Emit(OpCodes.Dup); // stack is now [parameters] [[parameters]] [parameter] [parameter]
-                il.Emit(OpCodes.Ldloc_0); // stack is now [parameters] [[parameters]] [parameter] [parameter] [typed-param]
-                il.Emit(callOpCode, prop.GetGetMethod()); // stack is [parameters] [[parameters]] [parameter] [parameter] [typed-value]
-                bool checkForNull;
-                if (prop.PropertyType.IsValueType())
-                {
-                    var propType = prop.PropertyType;
-                    var nullType = Nullable.GetUnderlyingType(propType);
-                    bool callSanitize = false;
-
-                    if ((nullType ?? propType).IsEnum())
-                    {
-                        if (nullType != null)
-                        {
-                            // Nullable<SomeEnum>; we want to box as the underlying type; that's just *hard*; for
-                            // simplicity, box as Nullable<SomeEnum> and call SanitizeParameterValue
-                            callSanitize = checkForNull = true;
-                        }
-                        else
-                        {
-                            checkForNull = false;
-
-                            // non-nullable enum; we can do that! just box to the wrong type! (no, really)
-                            switch (TypeExtensions.GetTypeCode(Enum.GetUnderlyingType(propType)))
-                            {
-                                case TypeCode.Byte: propType = typeof(byte); break;
-                                case TypeCode.SByte: propType = typeof(sbyte); break;
-                                case TypeCode.Int16: propType = typeof(short); break;
-                                case TypeCode.Int32: propType = typeof(int); break;
-                                case TypeCode.Int64: propType = typeof(long); break;
-                                case TypeCode.UInt16: propType = typeof(ushort); break;
-                                case TypeCode.UInt32: propType = typeof(uint); break;
-                                case TypeCode.UInt64: propType = typeof(ulong); break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        checkForNull = nullType != null;
-                    }
-
-                    il.Emit(OpCodes.Box, propType); // stack is [parameters] [[parameters]] [parameter] [parameter] [boxed-value]
-                    if (callSanitize)
-                    {
-                        checkForNull = false; // handled by sanitize
-                        il.EmitCall(OpCodes.Call, typeof(SqlMapper).GetMethod(nameof(SanitizeParameterValue)), null);
-
-                        // stack is [parameters] [[parameters]] [parameter] [parameter] [boxed-value]
-                    }
-                }
-                else
-                {
-                    checkForNull = true; // if not a value-type, need to check
-                }
-
-                if (checkForNull)
-                {
-                    if ((dbType == DbType.String || dbType == DbType.AnsiString) && !haveInt32Arg1)
-                    {
-                        il.DeclareLocal(typeof(int));
-                        haveInt32Arg1 = true;
-                    }
-
-                    // relative stack: [boxed value]
-                    il.Emit(OpCodes.Dup); // relative stack: [boxed value] [boxed value]
-                    Label notNull = il.DefineLabel();
-                    Label? allDone = (dbType == DbType.String || dbType == DbType.AnsiString) ? il.DefineLabel() : (Label?)null;
-                    il.Emit(OpCodes.Brtrue_S, notNull);
-
-                    // relative stack [boxed value = null]
-                    il.Emit(OpCodes.Pop); // relative stack empty
-                    il.Emit(OpCodes.Ldsfld, typeof(DBNull).GetField(nameof(DBNull.Value))); // relative stack [DBNull]
-                    if (dbType == DbType.String || dbType == DbType.AnsiString)
-                    {
-                        EmitInt32(il, 0);
-                        il.Emit(OpCodes.Stloc_1);
-                    }
-
-                    if (allDone != null)
-                    {
-                        il.Emit(OpCodes.Br_S, allDone.Value);
-                    }
-
-                    il.MarkLabel(notNull);
-                    if (prop.PropertyType == typeof(string))
-                    {
-                        il.Emit(OpCodes.Dup); // [string] [string]
-                        il.EmitCall(OpCodes.Callvirt, typeof(string).GetProperty(nameof(string.Length)).GetGetMethod(), null); // [string] [length]
-                        EmitInt32(il, DbString.DefaultLength); // [string] [length] [4000]
-                        il.Emit(OpCodes.Cgt); // [string] [0 or 1]
-                        Label isLong = il.DefineLabel(), lenDone = il.DefineLabel();
-                        il.Emit(OpCodes.Brtrue_S, isLong);
-                        EmitInt32(il, DbString.DefaultLength); // [string] [4000]
-                        il.Emit(OpCodes.Br_S, lenDone);
-                        il.MarkLabel(isLong);
-                        EmitInt32(il, -1); // [string] [-1]
-                        il.MarkLabel(lenDone);
-                        il.Emit(OpCodes.Stloc_1); // [string]
-                    }
-
-                    if (prop.PropertyType.FullName == LinqBinary)
-                    {
-                        il.EmitCall(OpCodes.Callvirt, prop.PropertyType.GetMethod("ToArray", BindingFlags.Public | BindingFlags.Instance), null);
-                    }
-
-                    if (allDone != null)
-                    {
-                        il.MarkLabel(allDone.Value);
-                    }
-
-                    // relative stack [boxed value or DBNull]
-                }
-
-                if (handler != null)
-                {
-#pragma warning disable 618
-                    il.Emit(OpCodes.Call, typeof(TypeHandlerCache<>).MakeGenericType(prop.PropertyType).GetMethod(nameof(TypeHandlerCache<int>.SetValue))); // stack is now [parameters] [[parameters]] [parameter]
-#pragma warning restore 618
-                }
-                else
-                {
-                    il.EmitCall(OpCodes.Callvirt, typeof(IDataParameter).GetProperty(nameof(IDataParameter.Value)).GetSetMethod(), null); // stack is now [parameters] [[parameters]] [parameter]
-                }
-
-                if (prop.PropertyType == typeof(string))
-                {
-                    var endOfSize = il.DefineLabel();
-
-                    // don't set if 0
-                    il.Emit(OpCodes.Ldloc_1); // [parameters] [[parameters]] [parameter] [size]
-                    il.Emit(OpCodes.Brfalse_S, endOfSize); // [parameters] [[parameters]] [parameter]
-
-                    il.Emit(OpCodes.Dup); // stack is now [parameters] [[parameters]] [parameter] [parameter]
-                    il.Emit(OpCodes.Ldloc_1); // stack is now [parameters] [[parameters]] [parameter] [parameter] [size]
-                    il.EmitCall(OpCodes.Callvirt, typeof(IDbDataParameter).GetProperty(nameof(IDbDataParameter.Size)).GetSetMethod(), null); // stack is now [parameters] [[parameters]] [parameter]
-
-                    il.MarkLabel(endOfSize);
-                }
-
-                if (checkForDuplicates)
-                {
-                    // stack is now [parameters] [parameter]
-                    il.Emit(OpCodes.Pop); // don't need parameter any more
-                }
-                else
-                {
-                    // stack is now [parameters] [parameters] [parameter]
-                    // blindly add
-                    il.EmitCall(OpCodes.Callvirt, typeof(IList).GetMethod(nameof(IList.Add)), null); // stack is now [parameters]
-                    il.Emit(OpCodes.Pop); // IList.Add returns the new index (int); we don't care
-                }
-            }
-
-            // stack is currently [parameters]
-            il.Emit(OpCodes.Pop); // stack is now empty
-
-            if (literals.Count != 0 && propsList != null)
-            {
-                il.Emit(OpCodes.Ldarg_0); // command
-                il.Emit(OpCodes.Ldarg_0); // command, command
-                var cmdText = typeof(IDbCommand).GetProperty(nameof(IDbCommand.CommandText));
-                il.EmitCall(OpCodes.Callvirt, cmdText.GetGetMethod(), null); // command, sql
-                Dictionary<Type, LocalBuilder> locals = null;
-                LocalBuilder local = null;
-                foreach (var literal in literals)
-                {
-                    // find the best member, preferring case-sensitive
-                    PropertyInfo exact = null, fallback = null;
-                    string huntName = literal.Member;
-                    for (int i = 0; i < propsList.Count; i++)
-                    {
-                        string thisName = propsList[i].Name;
-                        if (string.Equals(thisName, huntName, StringComparison.OrdinalIgnoreCase))
-                        {
-                            fallback = propsList[i];
-                            if (string.Equals(thisName, huntName, StringComparison.Ordinal))
-                            {
-                                exact = fallback;
-                                break;
-                            }
-                        }
-                    }
-
-                    var prop = exact ?? fallback;
-
-                    if (prop != null)
-                    {
-                        il.Emit(OpCodes.Ldstr, literal.Token);
-                        il.Emit(OpCodes.Ldloc_0); // command, sql, typed parameter
-                        il.EmitCall(callOpCode, prop.GetGetMethod(), null); // command, sql, typed value
-                        Type propType = prop.PropertyType;
-                        var typeCode = TypeExtensions.GetTypeCode(propType);
-                        switch (typeCode)
-                        {
-                            case TypeCode.Boolean:
-                                Label ifTrue = il.DefineLabel(), allDone = il.DefineLabel();
-                                il.Emit(OpCodes.Brtrue_S, ifTrue);
-                                il.Emit(OpCodes.Ldstr, "0");
-                                il.Emit(OpCodes.Br_S, allDone);
-                                il.MarkLabel(ifTrue);
-                                il.Emit(OpCodes.Ldstr, "1");
-                                il.MarkLabel(allDone);
-                                break;
-                            case TypeCode.Byte:
-                            case TypeCode.SByte:
-                            case TypeCode.UInt16:
-                            case TypeCode.Int16:
-                            case TypeCode.UInt32:
-                            case TypeCode.Int32:
-                            case TypeCode.UInt64:
-                            case TypeCode.Int64:
-                            case TypeCode.Single:
-                            case TypeCode.Double:
-                            case TypeCode.Decimal:
-                                // need to stloc, ldloca, call
-                                // re-use existing locals (both the last known, and via a dictionary)
-                                var convert = GetToString(typeCode);
-                                if (local == null || local.LocalType != propType)
-                                {
-                                    if (locals == null)
-                                    {
-                                        locals = new Dictionary<Type, LocalBuilder>();
-                                        local = null;
-                                    }
-                                    else
-                                    {
-                                        if (!locals.TryGetValue(propType, out local))
-                                        {
-                                            local = null;
-                                        }
-                                    }
-
-                                    if (local == null)
-                                    {
-                                        local = il.DeclareLocal(propType);
-                                        locals.Add(propType, local);
-                                    }
-                                }
-
-                                il.Emit(OpCodes.Stloc, local); // command, sql
-                                il.Emit(OpCodes.Ldloca, local); // command, sql, ref-to-value
-                                il.EmitCall(OpCodes.Call, InvariantCulture, null); // command, sql, ref-to-value, culture
-                                il.EmitCall(OpCodes.Call, convert, null); // command, sql, string value
-                                break;
-                            default:
-                                if (propType.IsValueType())
-                                {
-                                    il.Emit(OpCodes.Box, propType); // command, sql, object value
-                                }
-
-                                il.EmitCall(OpCodes.Call, format, null); // command, sql, string value
-                                break;
-                        }
-
-                        il.EmitCall(OpCodes.Callvirt, StringReplace, null);
-                    }
-                }
-
-                il.EmitCall(OpCodes.Callvirt, cmdText.GetSetMethod(), null); // empty
-            }
-
-            il.Emit(OpCodes.Ret);
-            return (Action<IDbCommand, object>)dm.CreateDelegate(typeof(Action<IDbCommand, object>));
-        }
-
         private static MethodInfo GetToString(TypeCode typeCode)
         {
             return toStrings.TryGetValue(typeCode, out MethodInfo method) ? method : null;
         }
-
-   
 
         private static int ExecuteCommand(IDbConnection cnn, ref CommandDefinition command, Action<IDbCommand, object> paramReader)
         {
@@ -4170,9 +4162,9 @@ namespace Core.Extension.Dapper
             return (T)Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
         }
 
-        private static readonly MethodInfo enumParse = typeof(Enum).GetMethod(nameof(Enum.Parse), new[] { typeof(Type), typeof(string), typeof(bool) });
-        private static readonly MethodInfo getItem = typeof(IDataRecord).GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                        .Where(p => p.GetIndexParameters().Length > 0 && p.GetIndexParameters()[0].ParameterType == typeof(int))
-                        .Select(p => p.GetGetMethod()).First();
+        private class PropertyInfoByNameComparer : IComparer<PropertyInfo>
+        {
+            public int Compare(PropertyInfo x, PropertyInfo y) => string.CompareOrdinal(x.Name, y.Name);
+        }
     }
 }

@@ -36,6 +36,5 @@ namespace Core.Extension.Dapper
 
             return Default;
         }
-
     }
 }

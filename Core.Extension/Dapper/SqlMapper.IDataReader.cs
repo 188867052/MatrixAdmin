@@ -82,8 +82,7 @@ namespace Core.Extension.Dapper
         /// <param name="length">The length of columns to read (default -1 = all fields following startIndex).</param>
         /// <param name="returnNullIfFirstMissing">Return null if we can't find the first column? (default false).</param>
         /// <returns>A parser for this specific object from this row.</returns>
-        public static Func<IDataReader, object> GetRowParser(this IDataReader reader, Type type,
-            int startIndex = 0, int length = -1, bool returnNullIfFirstMissing = false)
+        public static Func<IDataReader, object> GetRowParser(this IDataReader reader, Type type, int startIndex = 0, int length = -1, bool returnNullIfFirstMissing = false)
         {
             return GetDeserializer(type, reader, startIndex, length, returnNullIfFirstMissing);
         }
@@ -141,8 +140,7 @@ namespace Core.Extension.Dapper
         ///     public override int Type =&gt; 2;
         /// }.
         /// </example>
-        public static Func<IDataReader, T> GetRowParser<T>(this IDataReader reader, Type concreteType = null,
-            int startIndex = 0, int length = -1, bool returnNullIfFirstMissing = false)
+        public static Func<IDataReader, T> GetRowParser<T>(this IDataReader reader, Type concreteType = null, int startIndex = 0, int length = -1, bool returnNullIfFirstMissing = false)
         {
             concreteType = concreteType ?? typeof(T);
             var func = GetDeserializer(concreteType, reader, startIndex, length, returnNullIfFirstMissing);

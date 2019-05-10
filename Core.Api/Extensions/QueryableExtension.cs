@@ -10,7 +10,7 @@ using Core.Model;
 namespace Core.Api.Extensions
 {
     /// <summary>
-    ///
+    /// QueryableExtension.
     /// </summary>
     public static class QueryableExtension
     {
@@ -20,15 +20,15 @@ namespace Core.Api.Extensions
         /// IQueryable分页.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="query"></param>
-        /// <param name="count"></param>
-        /// <param name="pager"></param>
+        /// <param name="query">query.</param>
+        /// <param name="count">count.</param>
+        /// <param name="pager">pager.</param>
         /// <returns></returns>
         public static IList<T> Paged<T>(this IQueryable<T> query, out int count, Pager pager = default)
         {
             if (pager == default)
             {
-                pager = new Pager {PageSize = 10, PageIndex = 1};
+                pager = new Pager { PageSize = 10, PageIndex = 1 };
             }
 
             if (pager.PageIndex < 1)
@@ -77,7 +77,7 @@ namespace Core.Api.Extensions
                 var parameter = Expression.Parameter(typeof(T), Key);
                 var left = Expression.Property(parameter, typeof(T).GetProperty(name));
                 var right = Expression.Constant(value.Trim());
-                MethodInfo method = typeof(string).GetMethod(nameof(System.String.Contains), new[] { typeof(string) });
+                MethodInfo method = typeof(string).GetMethod(nameof(string.Contains), new[] { typeof(string) });
                 var predicate = Expression.Call(left, method, right);
                 var lambda = Expression.Lambda<Func<T, bool>>(predicate, parameter);
                 query = query.Where(lambda);

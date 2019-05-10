@@ -181,7 +181,6 @@ namespace Core.Extension.Dapper
                     return true;
                 }
             }
-
         }
     }
 }
