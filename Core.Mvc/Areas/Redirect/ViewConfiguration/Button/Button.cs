@@ -43,8 +43,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button
             return new List<string>
             {
                 "/css/fullcalendar.css",
-                "/css/matrix-style.css",
-                "/css/matrix-media.css",
                 "/font-awesome/css/font-awesome.css",
             };
         }

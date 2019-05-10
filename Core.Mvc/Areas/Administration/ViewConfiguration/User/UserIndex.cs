@@ -27,20 +27,11 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
         /// <summary>
         /// Gets file name.
         /// </summary>
-        protected override string FileName
-        {
-            get
-            {
-                return "Manage";
-            }
-        }
+        protected override string FileName => "Manage";
 
         public override IList<string> Css()
         {
-            return new List<string>
-            {
-                "/font-awesome/css/font-awesome.css",
-            };
+            return new List<string>();
         }
 
         public override string Render()

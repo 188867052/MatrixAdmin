@@ -25,9 +25,9 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Chart
         {
             return new List<string>
             {
-                "/css/matrix-style.css",
+
                 "/css/fullcalendar.css",
-                "/css/matrix-media.css",
+
                 "/font-awesome/css/font-awesome.css",
             };
         }

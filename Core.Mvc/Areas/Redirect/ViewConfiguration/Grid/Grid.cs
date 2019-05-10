@@ -25,8 +25,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Grid
         {
             return new List<string>
             {
-                "/css/matrix-style.css",
-                "/css/matrix-media.css",
+
                 "/font-awesome/css/font-awesome.css",
             };
         }

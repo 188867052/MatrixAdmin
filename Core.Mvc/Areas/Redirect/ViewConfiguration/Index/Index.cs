@@ -24,8 +24,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Index
             return new List<string>
             {
                 "/css/fullcalendar.css",
-                "/css/matrix-style.css",
-                "/css/matrix-media.css",
+
                 "/font-awesome/css/font-awesome.css",
                 "/css/jquery.gritter.css",
             };

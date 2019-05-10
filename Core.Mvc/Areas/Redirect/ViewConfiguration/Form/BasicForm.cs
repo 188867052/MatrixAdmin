@@ -29,8 +29,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Form
                "/css/colorpicker.css",
                "/css/datepicker.css",
                "/css/uniform.css",
-               "/css/matrix-style.css",
-               "/css/matrix-media.css",
                "/css/bootstrap-wysihtml5.css",
                "/font-awesome/css/font-awesome.css"
             };

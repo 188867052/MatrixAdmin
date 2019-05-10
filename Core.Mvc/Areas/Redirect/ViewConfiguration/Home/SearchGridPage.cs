@@ -27,13 +27,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         /// Gets title.
         /// </summary>
         /// <returns>A title.</returns>
-        protected virtual string Title
-        {
-            get
-            {
-                return "My Web";
-            }
-        }
+        protected virtual string Title { get; } = "My Web";
 
         /// <summary>
         /// Gets html 文件.
@@ -153,6 +147,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
                 "/css/bootstrap-responsive.min.css",
                 "/css/bootstrap-datetimepicker.css",
                 "/css/core.css",
+                "/font-awesome/css/font-awesome.css",
             };
             list.AddRange(this.Css());
 

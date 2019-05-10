@@ -26,8 +26,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Interface
             return new List<string>
             {
                 "/css/jquery.gritter.css",
-                "/css/matrix-style.css",
-                "/css/matrix-media.css",
+
                 "/font-awesome/css/font-awesome.css",
             };
         }
