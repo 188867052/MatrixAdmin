@@ -34,6 +34,9 @@ namespace Core.Extension.Dapper
         private static readonly int[] ErrTwoRows = new int[2];
         private static readonly int[] ErrZeroRows = new int[0];
 
+        // use Hashtable to get free lockless reading
+        private static readonly Hashtable _typeMaps = new Hashtable();
+
         // one per thread
         [ThreadStatic]
         private static StringBuilder perThreadStringBuilderCache;
@@ -231,7 +234,6 @@ namespace Core.Extension.Dapper
         /// <param name="handler">The handler to process the <paramref name="type"/>.</param>
         public static void AddTypeHandler(Type type, ITypeHandler handler) => AddTypeHandlerImpl(type, handler, true);
 
-        internal static bool HasTypeHandler(Type type) => typeHandlers.ContainsKey(type);
 
         /// <summary>
         /// Configure the specified type to be processed by a custom handler.
@@ -368,7 +370,6 @@ namespace Core.Extension.Dapper
                 return DynamicParameters.EnumerableMultiParameter;
             }
 
-#if !NETSTANDARD1_3 && !NETSTANDARD2_0
             switch (type.FullName)
             {
                 case "Microsoft.SqlServer.Types.SqlGeography":
@@ -381,9 +382,12 @@ namespace Core.Extension.Dapper
                     AddTypeHandler(type, handler = new UdtTypeHandler("hierarchyid"));
                     return DbType.Object;
             }
-#endif
+
             if (demand)
+            {
                 throw new NotSupportedException($"The member {name} of type {type.FullName} cannot be used as a parameter value");
+            }
+
             return DbType.Object;
         }
 
@@ -958,6 +962,7 @@ namespace Core.Extension.Dapper
 
             return s[0];
         }
+
         /// <summary>
         /// Internal use only.
         /// </summary>
@@ -1072,7 +1077,7 @@ namespace Core.Extension.Dapper
                     var regexIncludingUnknown = GetInListRegex(namePrefix, byPosition);
                     if (count == 0)
                     {
-                        command.CommandText = Regex.Replace(command.CommandText, regexIncludingUnknown, match =>
+                        MatchEvaluator matchEvaluator = match =>
                         {
                             var variableName = match.Groups[1].Value;
                             if (match.Groups[2].Success)
@@ -1084,7 +1089,8 @@ namespace Core.Extension.Dapper
                             {
                                 return "(SELECT " + variableName + " WHERE 1 = 0)";
                             }
-                        }, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
+                        };
+                        command.CommandText = Regex.Replace(command.CommandText, regexIncludingUnknown, matchEvaluator, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
                         var dummyParam = command.CreateParameter();
                         dummyParam.ParameterName = namePrefix;
                         dummyParam.Value = DBNull.Value;
@@ -1092,42 +1098,43 @@ namespace Core.Extension.Dapper
                     }
                     else
                     {
-                        command.CommandText = Regex.Replace(command.CommandText, regexIncludingUnknown, match =>
-                        {
-                            var variableName = match.Groups[1].Value;
-                            if (match.Groups[2].Success)
-                            {
-                                // looks like an optimize hint; expand it
-                                var suffix = match.Groups[2].Value;
+                        MatchEvaluator evaluator = match =>
+                         {
+                             var variableName = match.Groups[1].Value;
+                             if (match.Groups[2].Success)
+                             {
+                                 // looks like an optimize hint; expand it
+                                 var suffix = match.Groups[2].Value;
 
-                                var sb = GetStringBuilder().Append(variableName).Append(1).Append(suffix);
-                                for (int i = 2; i <= count; i++)
-                                {
-                                    sb.Append(',').Append(variableName).Append(i).Append(suffix);
-                                }
+                                 var sb = GetStringBuilder().Append(variableName).Append(1).Append(suffix);
+                                 for (int i = 2; i <= count; i++)
+                                 {
+                                     sb.Append(',').Append(variableName).Append(i).Append(suffix);
+                                 }
 
-                                return sb.__ToStringRecycle();
-                            }
-                            else
-                            {
-                                var sb = GetStringBuilder().Append('(').Append(variableName);
-                                if (!byPosition)
-                                {
-                                    sb.Append(1);
-                                }
+                                 return sb.__ToStringRecycle();
+                             }
+                             else
+                             {
+                                 var sb = GetStringBuilder().Append('(').Append(variableName);
+                                 if (!byPosition)
+                                 {
+                                     sb.Append(1);
+                                 }
 
-                                for (int i = 2; i <= count; i++)
-                                {
-                                    sb.Append(',').Append(variableName);
-                                    if (!byPosition)
-                                    {
-                                        sb.Append(i);
-                                    }
-                                }
+                                 for (int i = 2; i <= count; i++)
+                                 {
+                                     sb.Append(',').Append(variableName);
+                                     if (!byPosition)
+                                     {
+                                         sb.Append(i);
+                                     }
+                                 }
 
-                                return sb.Append(')').__ToStringRecycle();
-                            }
-                        }, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
+                                 return sb.Append(')').__ToStringRecycle();
+                             }
+                         };
+                        command.CommandText = Regex.Replace(command.CommandText, regexIncludingUnknown, evaluator, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
                     }
                 }
             }
@@ -1267,6 +1274,7 @@ namespace Core.Extension.Dapper
                 }
             }
         }
+
         /// <summary>
         /// Internal use only.
         /// </summary>
@@ -1476,6 +1484,7 @@ namespace Core.Extension.Dapper
             var results = MultiMapImpl(cnn, command, types, map, splitOn, null, null, true);
             return buffered ? results.ToList() : results;
         }
+
         /// <summary>
         /// Internal use only.
         /// </summary>
@@ -1487,6 +1496,7 @@ namespace Core.Extension.Dapper
         {
             return CreateParamInfoGenerator(identity, checkForDuplicates, removeUnused, GetLiteralTokens(identity.Sql));
         }
+
         /// <summary>
         /// Throws a data exception, only used internally.
         /// </summary>
@@ -1529,34 +1539,6 @@ namespace Core.Extension.Dapper
             }
 
             throw toThrow;
-        }
-
-        private static void EmitInt32(ILGenerator il, int value)
-        {
-            switch (value)
-            {
-                case -1: il.Emit(OpCodes.Ldc_I4_M1); break;
-                case 0: il.Emit(OpCodes.Ldc_I4_0); break;
-                case 1: il.Emit(OpCodes.Ldc_I4_1); break;
-                case 2: il.Emit(OpCodes.Ldc_I4_2); break;
-                case 3: il.Emit(OpCodes.Ldc_I4_3); break;
-                case 4: il.Emit(OpCodes.Ldc_I4_4); break;
-                case 5: il.Emit(OpCodes.Ldc_I4_5); break;
-                case 6: il.Emit(OpCodes.Ldc_I4_6); break;
-                case 7: il.Emit(OpCodes.Ldc_I4_7); break;
-                case 8: il.Emit(OpCodes.Ldc_I4_8); break;
-                default:
-                    if (value >= -128 && value <= 127)
-                    {
-                        il.Emit(OpCodes.Ldc_I4_S, (sbyte)value);
-                    }
-                    else
-                    {
-                        il.Emit(OpCodes.Ldc_I4, value);
-                    }
-
-                    break;
-            }
         }
 
         /// <summary>
@@ -1654,6 +1636,7 @@ namespace Core.Extension.Dapper
         {
             return TypeDeserializerCache.GetReader(type, reader, startBound, length, returnNullIfFirstMissing);
         }
+
         /// <summary>
         /// Gets type-map for the given <see cref="Type"/>.
         /// </summary>
@@ -1684,6 +1667,8 @@ namespace Core.Extension.Dapper
 
             return map;
         }
+
+        internal static bool HasTypeHandler(Type type) => typeHandlers.ContainsKey(type);
 
         internal static Func<IDataReader, object> GetDapperRowDeserializer(IDataRecord reader, int startBound, int length, bool returnNullIfFirstMissing)
         {
@@ -1838,6 +1823,34 @@ namespace Core.Extension.Dapper
             }
 
             return list.Count == 0 ? LiteralToken.None : list;
+        }
+
+        private static void EmitInt32(ILGenerator il, int value)
+        {
+            switch (value)
+            {
+                case -1: il.Emit(OpCodes.Ldc_I4_M1); break;
+                case 0: il.Emit(OpCodes.Ldc_I4_0); break;
+                case 1: il.Emit(OpCodes.Ldc_I4_1); break;
+                case 2: il.Emit(OpCodes.Ldc_I4_2); break;
+                case 3: il.Emit(OpCodes.Ldc_I4_3); break;
+                case 4: il.Emit(OpCodes.Ldc_I4_4); break;
+                case 5: il.Emit(OpCodes.Ldc_I4_5); break;
+                case 6: il.Emit(OpCodes.Ldc_I4_6); break;
+                case 7: il.Emit(OpCodes.Ldc_I4_7); break;
+                case 8: il.Emit(OpCodes.Ldc_I4_8); break;
+                default:
+                    if (value >= -128 && value <= 127)
+                    {
+                        il.Emit(OpCodes.Ldc_I4_S, (sbyte)value);
+                    }
+                    else
+                    {
+                        il.Emit(OpCodes.Ldc_I4, value);
+                    }
+
+                    break;
+            }
         }
 
         private static GridReader QueryMultipleImpl(this IDbConnection cnn, ref CommandDefinition command)
@@ -2612,8 +2625,6 @@ namespace Core.Extension.Dapper
             return list;
         }
 
-        // use Hashtable to get free lockless reading
-        private static readonly Hashtable _typeMaps = new Hashtable();
 
         private static LocalBuilder GetTempLocal(ILGenerator il, ref Dictionary<Type, LocalBuilder> locals, Type type, bool initAndLoad)
         {
