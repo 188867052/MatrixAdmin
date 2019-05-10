@@ -51,7 +51,9 @@ namespace Core.Api
                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
            })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+#pragma warning disable 618
             services.AddAutoMapper();
+#pragma warning disable 618
             services.AddDbContext<CoreApiContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
         }
 

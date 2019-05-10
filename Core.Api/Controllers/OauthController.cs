@@ -1,9 +1,8 @@
 ﻿using System.Linq;
 using System.Security.Claims;
-using Core.Api.Auth;
 using Core.Api.Authentication;
-using Core.Api.Extensions;
 using Core.Entity;
+using Core.Extension;
 using Core.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

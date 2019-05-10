@@ -12,7 +12,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         /// <summary>
         /// Generate sidebar menu.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>string.</returns>
         public string GenerateSidebarMenu()
         {
             SubMenu forms = new SubMenu("icon icon-th-list", default, SidebarNavigationResource.FormsTitle, 3);

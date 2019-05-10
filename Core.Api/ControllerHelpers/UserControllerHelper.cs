@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 using System.Data.SqlClient;
-using Core.Api.Extensions;
+using Core.Extension;
 using Core.Extension.Dapper;
 using Core.Model;
 

@@ -242,7 +242,7 @@ namespace Core.Extension.Dapper
             var setter = (Action<object, DynamicParameters>)cache[lookup];
             if (setter != null)
             {
-                goto MAKECALLBACK;
+                goto MakeCallBack;
             }
 
             // Come on let's build a method, let's build it, let's build it now!
@@ -296,7 +296,7 @@ namespace Core.Extension.Dapper
             }
 
             // Queue the preparation to be fired off when adding parameters to the DbCommand
-            MAKECALLBACK:
+            MakeCallBack:
             (this.outputCallbacks ?? (this.outputCallbacks = new List<Action>())).Add(() =>
             {
                 // Finally, prep the parameter and attach the callback to it
@@ -314,7 +314,9 @@ namespace Core.Extension.Dapper
                 }
                 else
                 {
+#pragma warning disable 618
                     dbType = !dbType.HasValue ? SqlMapper.LookupDbType(targetMemberType, targetMemberType?.Name, true, out SqlMapper.ITypeHandler handler) : dbType;
+#pragma warning disable 618
 
                     // CameFromTemplate property would not apply here because this new param
                     // Still needs to be added to the command
@@ -415,7 +417,7 @@ namespace Core.Extension.Dapper
                 {
 #pragma warning disable 618
                     dbType = SqlMapper.LookupDbType(val.GetType(), name, true, out handler);
-#pragma warning disable 618
+#pragma warning restore 618
                 }
 
                 if (isCustomQueryParameter)
@@ -424,9 +426,9 @@ namespace Core.Extension.Dapper
                 }
                 else if (dbType == EnumerableMultiParameter)
                 {
-#pragma warning disable 612, 618
+#pragma warning disable 618
                     SqlMapper.PackListParameters(command, name, val);
-#pragma warning restore 612, 618
+#pragma warning restore 618
                 }
                 else
                 {
@@ -445,9 +447,9 @@ namespace Core.Extension.Dapper
                     p.Direction = param.ParameterDirection;
                     if (handler == null)
                     {
-#pragma warning disable 0618
+#pragma warning disable 618
                         p.Value = SqlMapper.SanitizeParameterValue(val);
-#pragma warning restore 0618
+#pragma warning restore 618
                         if (dbType != null && p.DbType != dbType)
                         {
                             p.DbType = dbType.Value;

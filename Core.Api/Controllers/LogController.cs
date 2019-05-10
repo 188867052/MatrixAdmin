@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Net;
 using AutoMapper;
-using Core.Api.Extensions.CustomException;
 using Core.Entity;
+using Core.Extension.CustomException;
 using Core.Model.Log;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
