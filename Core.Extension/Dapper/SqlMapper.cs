@@ -938,8 +938,7 @@ namespace Core.Extension.Dapper
                 throw new ArgumentNullException(nameof(value));
             }
 
-            var s = value as string;
-            if (s == null || s.Length != 1)
+            if (!(value is string s) || s.Length != 1)
             {
                 throw new ArgumentException("A single-character was expected", nameof(value));
             }
@@ -962,8 +961,7 @@ namespace Core.Extension.Dapper
                 return null;
             }
 
-            var s = value as string;
-            if (s == null || s.Length != 1)
+            if (!(value is string s) || s.Length != 1)
             {
                 throw new ArgumentException("A single-character was expected", nameof(value));
             }
@@ -1085,7 +1083,7 @@ namespace Core.Extension.Dapper
                     var regexIncludingUnknown = GetInListRegex(namePrefix, byPosition);
                     if (count == 0)
                     {
-                        MatchEvaluator matchEvaluator = match =>
+                        string Evaluator(Match match)
                         {
                             var variableName = match.Groups[1].Value;
                             if (match.Groups[2].Success)
@@ -1097,8 +1095,9 @@ namespace Core.Extension.Dapper
                             {
                                 return "(SELECT " + variableName + " WHERE 1 = 0)";
                             }
-                        };
-                        command.CommandText = Regex.Replace(command.CommandText, regexIncludingUnknown, matchEvaluator, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
+                        }
+
+                        command.CommandText = Regex.Replace(command.CommandText, regexIncludingUnknown, Evaluator, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
                         var dummyParam = command.CreateParameter();
                         dummyParam.ParameterName = namePrefix;
                         dummyParam.Value = DBNull.Value;
@@ -1106,43 +1105,44 @@ namespace Core.Extension.Dapper
                     }
                     else
                     {
-                        MatchEvaluator evaluator = match =>
-                         {
-                             var variableName = match.Groups[1].Value;
-                             if (match.Groups[2].Success)
-                             {
-                                 // looks like an optimize hint; expand it
-                                 var suffix = match.Groups[2].Value;
+                        string MatchEvaluator(Match match)
+                        {
+                            var variableName = match.Groups[1].Value;
+                            if (match.Groups[2].Success)
+                            {
+                                // looks like an optimize hint; expand it
+                                var suffix = match.Groups[2].Value;
 
-                                 var sb = GetStringBuilder().Append(variableName).Append(1).Append(suffix);
-                                 for (int i = 2; i <= count; i++)
-                                 {
-                                     sb.Append(',').Append(variableName).Append(i).Append(suffix);
-                                 }
+                                var sb = GetStringBuilder().Append(variableName).Append(1).Append(suffix);
+                                for (int i = 2; i <= count; i++)
+                                {
+                                    sb.Append(',').Append(variableName).Append(i).Append(suffix);
+                                }
 
-                                 return sb.ToStringRecycle();
-                             }
-                             else
-                             {
-                                 var sb = GetStringBuilder().Append('(').Append(variableName);
-                                 if (!byPosition)
-                                 {
-                                     sb.Append(1);
-                                 }
+                                return sb.ToStringRecycle();
+                            }
+                            else
+                            {
+                                var sb = GetStringBuilder().Append('(').Append(variableName);
+                                if (!byPosition)
+                                {
+                                    sb.Append(1);
+                                }
 
-                                 for (int i = 2; i <= count; i++)
-                                 {
-                                     sb.Append(',').Append(variableName);
-                                     if (!byPosition)
-                                     {
-                                         sb.Append(i);
-                                     }
-                                 }
+                                for (int i = 2; i <= count; i++)
+                                {
+                                    sb.Append(',').Append(variableName);
+                                    if (!byPosition)
+                                    {
+                                        sb.Append(i);
+                                    }
+                                }
 
-                                 return sb.Append(')').ToStringRecycle();
-                             }
-                         };
-                        command.CommandText = Regex.Replace(command.CommandText, regexIncludingUnknown, evaluator, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
+                                return sb.Append(')').ToStringRecycle();
+                            }
+                        }
+
+                        command.CommandText = Regex.Replace(command.CommandText, regexIncludingUnknown, MatchEvaluator, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
                     }
                 }
             }
@@ -3132,8 +3132,7 @@ namespace Core.Extension.Dapper
 
         private static bool TryStringSplit<T>(ref IEnumerable<T> list, int splitAt, string namePrefix, IDbCommand command, string colType, bool byPosition, Action<StringBuilder, T> append)
         {
-            var typed = list as ICollection<T>;
-            if (typed == null)
+            if (!(list is ICollection<T> typed))
             {
                 typed = list.ToList();
                 list = typed; // because we still need to be able to iterate it, even if we fail here
@@ -3146,7 +3145,7 @@ namespace Core.Extension.Dapper
 
             string varName = null;
             var regexIncludingUnknown = GetInListRegex(namePrefix, byPosition);
-            MatchEvaluator evaluator = match =>
+            string Evaluator(Match match)
             {
                 var variableName = match.Groups[1].Value;
                 if (match.Groups[2].Success)
@@ -3159,8 +3158,9 @@ namespace Core.Extension.Dapper
                     varName = variableName;
                     return "(select cast([value] as " + colType + ") from string_split(" + variableName + ",','))";
                 }
-            };
-            var sql = Regex.Replace(command.CommandText, regexIncludingUnknown, evaluator, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
+            }
+
+            var sql = Regex.Replace(command.CommandText, regexIncludingUnknown, Evaluator, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant);
             if (varName == null)
             {
                 return false; // couldn't resolve the var!

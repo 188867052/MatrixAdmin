@@ -62,11 +62,9 @@ namespace Core.Extension.Dapper
             var obj = param;
             if (obj != null)
             {
-                var subDynamic = obj as DynamicParameters;
-                if (subDynamic == null)
+                if (!(obj is DynamicParameters subDynamic))
                 {
-                    var dictionary = obj as IEnumerable<KeyValuePair<string, object>>;
-                    if (dictionary == null)
+                    if (!(obj is IEnumerable<KeyValuePair<string, object>> dictionary))
                     {
                         this.templates = this.templates ?? new List<object>();
                         this.templates.Add(obj);
@@ -188,14 +186,10 @@ namespace Core.Extension.Dapper
         {
             var failMessage = "Expression must be a property/field chain off of a(n) {0} instance";
             failMessage = string.Format(failMessage, typeof(T).Name);
-            Action @throw = () => throw new InvalidOperationException(failMessage);
+            void Throw() => throw new InvalidOperationException(failMessage);
 
             // Is it even a MemberExpression?
-            var lastMemberAccess = expression.Body as MemberExpression;
-
-            if (lastMemberAccess == null
-                || (!(lastMemberAccess.Member is PropertyInfo)
-                    && !(lastMemberAccess.Member is FieldInfo)))
+            if (!(expression.Body is MemberExpression lastMemberAccess) || (!(lastMemberAccess.Member is PropertyInfo) && !(lastMemberAccess.Member is FieldInfo)))
             {
                 if (expression.Body.NodeType == ExpressionType.Convert
                     && expression.Body.Type == typeof(object)
@@ -206,7 +200,7 @@ namespace Core.Extension.Dapper
                 }
                 else
                 {
-                    @throw();
+                    Throw();
                 }
             }
 
@@ -224,10 +218,9 @@ namespace Core.Extension.Dapper
                 names.Insert(0, diving?.Member.Name);
                 chain.Insert(0, diving);
 
-                var constant = diving?.Expression as ParameterExpression;
                 diving = diving?.Expression as MemberExpression;
 
-                if (constant != null && constant.Type == typeof(T))
+                if (diving?.Expression is ParameterExpression constant && constant.Type == typeof(T))
                 {
                     break;
                 }
@@ -235,7 +228,7 @@ namespace Core.Extension.Dapper
                     || (!(diving.Member is PropertyInfo)
                         && !(diving.Member is FieldInfo)))
                 {
-                    @throw();
+                    Throw();
                 }
             }
             while (diving != null);

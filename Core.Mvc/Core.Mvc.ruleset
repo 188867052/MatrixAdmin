@@ -78,6 +78,7 @@
     <Rule Id="SA1633" Action="None" />
     <Rule Id="SA1309" Action="None" />
     <Rule Id="SA1206" Action="None" />
+    <Rule Id="SA0001" Action="None" />
   </Rules>
   <Rules AnalyzerId="Microsoft.AspNetCore.Mvc.Analyzers" RuleNamespace="Microsoft.AspNetCore.Mvc.Analyzers">
     <Rule Id="MVC1000" Action="Warning" />

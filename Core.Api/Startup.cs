@@ -14,6 +14,9 @@ using Newtonsoft.Json.Serialization;
 
 namespace Core.Api
 {
+    /// <summary>
+    /// The startup.
+    /// </summary>
     public class Startup
     {
         /// <summary>
@@ -43,7 +46,6 @@ namespace Core.Api
 
             services.AddMvc(config =>
             {
-                // config.Filters.Add(new ValidateModelAttribute());
             }).AddJsonOptions(options =>
            {
                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
@@ -51,13 +53,6 @@ namespace Core.Api
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper();
             services.AddDbContext<CoreApiContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
-
-            // 如果使用SQL Server 2008数据库，请添加UseRowNumberForPaging的选项
-            // options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),b=>b.UseRowNumberForPaging())
-
-            // ApplicationContainer = this.AutofacRegister(services);
-
-            // return new AutofacServiceProvider(ApplicationContainer);
         }
 
         /// <summary>
@@ -68,8 +63,6 @@ namespace Core.Api
         /// <param name="loggerFactory">loggerFactory.</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment environment, ILoggerFactory loggerFactory)
         {
-            // app.UseMiddleware<CustomErrorMessageDelegatingHandler.ApiKeyMiddleware>();
-            // app.UseMiddleware<CustomErrorMessageDelegatingHandler>();
             this.SwaggerBuilder(app);
             app.UseCors("AllowSameDomain");
 
@@ -79,9 +72,6 @@ namespace Core.Api
             });
 
             app.UseMvcWithDefaultRoute();
-
-            // app.ConfigureCustomExceptionMiddleware();
-            // Mappings.RegisterMappings();
         }
 
         private void SwaggerBuilder(IApplicationBuilder app)
@@ -102,15 +92,5 @@ namespace Core.Api
                 c.SwaggerDoc("v2", new OpenApiInfo { Title = "Core Api V2", Version = "v2" });
             });
         }
-
-        // private IContainer AutofacRegister(IServiceCollection services)
-        // {
-        //    var builder = new ContainerBuilder();
-        //    builder.RegisterAssemblyTypes(Assembly.Load("Core.Repository")).Where(m => typeof(IDependency).IsAssignableFrom(m) && m != typeof(IDependency)).AsImplementedInterfaces().InstancePerLifetimeScope();
-        //    builder.RegisterAssemblyTypes(Assembly.Load("Core.Service")).Where(m => typeof(IDependency).IsAssignableFrom(m) && m != typeof(IDependency)).AsImplementedInterfaces().InstancePerLifetimeScope();
-        //    builder.Populate(services);
-
-        // return builder.Build();
-        // }
     }
 }
