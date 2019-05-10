@@ -16,7 +16,7 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 用户控制器.
     /// </summary>
-    public partial class UserController : StandardController
+    public class UserController : StandardController
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UserController"/> class.
@@ -104,7 +104,7 @@ namespace Core.Api.Controllers
         /// 创建用户.
         /// </summary>
         /// <param name="model">用户视图实体.</param>
-        /// <returns></returns>
+        /// <returns>IActionResult.</returns>
         [HttpPost]
         public IActionResult Create(UserCreatePostModel model)
         {
@@ -141,7 +141,7 @@ namespace Core.Api.Controllers
         /// 编辑用户.
         /// </summary>
         /// <param name="id">用户GUID.</param>
-        /// <returns></returns>
+        /// <returns>IActionResult.</returns>
         [HttpGet]
         public IActionResult FindById(int id)
         {
@@ -162,7 +162,7 @@ namespace Core.Api.Controllers
         /// 保存编辑后的用户信息.
         /// </summary>
         /// <param name="model">用户视图实体.</param>
-        /// <returns></returns>
+        /// <returns>IActionResult.</returns>
         [HttpPost]
         [ProducesResponseType(200)]
         public IActionResult Edit(UserEditPostModel model)
@@ -173,7 +173,7 @@ namespace Core.Api.Controllers
                 this.DbContext.Set<UserRoleMapping>().Load();
                 this.DbContext.Set<UserStatus>().Load();
                 this.DbContext.Set<Role>().Load();
-                User entity = this.DbContext.User.FirstOrDefault(x => x.Id == model.Id);
+                User entity = this.DbContext.User.Find(model.Id);
                 if (entity == null)
                 {
                     response.SetFailed("用户不存在");
@@ -183,6 +183,7 @@ namespace Core.Api.Controllers
                 entity.DisplayName = model.DisplayName;
                 entity.LoginName = model.LoginName;
                 entity.Password = model.Password;
+                entity.UpdateTime = DateTime.Now;
 
                 if (model.UserRole.HasValue)
                 {
@@ -201,7 +202,6 @@ namespace Core.Api.Controllers
                     }
                 }
 
-                entity.UpdateTime = DateTime.Now;
                 this.DbContext.SaveChanges();
                 response = ResponseModelFactory.CreateInstance;
                 return this.Ok(response);
@@ -211,8 +211,8 @@ namespace Core.Api.Controllers
         /// <summary>
         /// 删除用户.
         /// </summary>
-        /// <param name="ids">用户GUID,多个以逗号分隔.</param>
-        /// <returns></returns>
+        /// <param name="ids">ids.</param>
+        /// <returns>IActionResult.</returns>
         [HttpGet]
         public IActionResult Delete(int[] ids)
         {
@@ -223,13 +223,12 @@ namespace Core.Api.Controllers
         /// <summary>
         /// 恢复用户.
         /// </summary>
-        /// <param name="ids">用户GUID,多个以逗号分隔.</param>
+        /// <param name="ids">ids.</param>
         /// <returns>IActionResult.</returns>
         [HttpGet]
         public IActionResult Recover(int[] ids)
         {
             ResponseModel response = UserControllerHelper.UpdateIsDeleted(false, ids);
-
             return this.Ok(response);
         }
 

@@ -32,6 +32,7 @@ namespace Core.Model.Administration.User
             this.Status = (UserIsForbiddenEnum)user.Status;
             this.IsDeleted = user.IsDeleted;
             this.CreatedByUserName = user.CreatedByUserName;
+            this.UpdateTime = user.UpdateTime;
 
             if (user.UserStatus != null)
             {
@@ -65,7 +66,7 @@ namespace Core.Model.Administration.User
         public string Password { get; set; }
 
         /// <summary>
-        ///
+        /// 用户角色.
         /// </summary>
         public UserRoleEnum UserRole { get; set; }
 

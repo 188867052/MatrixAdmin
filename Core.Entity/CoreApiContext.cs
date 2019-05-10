@@ -136,6 +136,8 @@ namespace Core.Entity
 
                 entity.Property(e => e.Password).HasMaxLength(255);
 
+                entity.Property(e => e.UpdateTime).HasColumnType("datetime");
+
                 entity.Property(e => e.UserStatusId).HasDefaultValueSql("((1))");
 
                 entity.HasOne(d => d.UserStatus)

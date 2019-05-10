@@ -19,7 +19,7 @@ namespace Core.Entity
         public int Status { get; set; }
         public DateTime CreateTime { get; set; }
         public string CreatedByUserName { get; set; }
-        public DateTime? UpdateTime { get; set; }
+        public DateTime UpdateTime { get; set; }
         public string ModifiedByUserName { get; set; }
         public string Description { get; set; }
         public Guid CreatedByUserGuid { get; set; }
