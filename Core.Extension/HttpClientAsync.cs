@@ -38,41 +38,14 @@ namespace Core.Extension
         /// </summary>
         /// <typeparam name="T">T.</typeparam>
         /// <param name="url">url.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        public static async Task<ResponseModel> GetAsync<T>(string url)
-        {
-            HttpResponseMessage httpResponse;
-            using (HttpClient client = new HttpClient())
-            {
-                httpResponse = await client.GetAsync(Host + url);
-            }
-
-            Task<string> json = httpResponse.Content.ReadAsStringAsync();
-            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
-            model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
-
-            return model;
-        }
-
-        /// <summary>
-        /// GetAsync.
-        /// </summary>
-        /// <typeparam name="T">T.</typeparam>
-        /// <param name="url">url.</param>
         /// <param name="data">data.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public static async Task<ResponseModel> GetAsync<T>(Url url, object data)
         {
             HttpResponseMessage httpResponse;
-            var parameter = url.ControllerType.GetMethod(url.Action).GetParameters().FirstOrDefault();
-            if (parameter == null)
-            {
-                throw new Exception($"Action:[{url.Action}]没有参数.");
-            }
-
             using (HttpClient client = new HttpClient())
             {
-                httpResponse = await client.GetAsync(Host + url.Render() + $"?{parameter.Name}=" + data);
+                httpResponse = await client.GetAsync(Host + url.Render() + $"?{url.ActionParameterName}=" + data);
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
@@ -91,15 +64,9 @@ namespace Core.Extension
         public static async Task<ResponseModel> DeleteAsync(Url url, object data)
         {
             HttpResponseMessage httpResponse;
-            var parameter = url.ControllerType.GetMethod(url.Action).GetParameters().FirstOrDefault();
-            if (parameter == null)
-            {
-                throw new Exception($"Action:[{url.Action}]没有参数.");
-            }
-
             using (HttpClient client = new HttpClient())
             {
-                httpResponse = await client.GetAsync(Host + url.Render() + $"?{parameter.Name}=" + data);
+                httpResponse = await client.DeleteAsync(Host + url.Render() + $"?{url.ActionParameterName}=" + data);
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();

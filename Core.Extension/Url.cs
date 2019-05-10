@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Extension
@@ -37,6 +38,20 @@ namespace Core.Extension
         public string Area { get; set; }
 
         public string Parameter { get; set; }
+
+        public string ActionParameterName
+        {
+            get
+            {
+                var parameter = this.ControllerType.GetMethod(this.Action).GetParameters().FirstOrDefault();
+                if (parameter == null)
+                {
+                    throw new Exception($"Action:[{this.Action}]没有参数.");
+                }
+
+                return parameter.Name;
+            }
+        }
 
         public string Render()
         {
