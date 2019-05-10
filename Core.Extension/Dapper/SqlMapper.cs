@@ -21,10 +21,11 @@ namespace Core.Extension.Dapper
     /// </summary>
     public static partial class SqlMapper
     {
-        private class PropertyInfoByNameComparer : IComparer<PropertyInfo>
-        {
-            public int Compare(PropertyInfo x, PropertyInfo y) => string.CompareOrdinal(x.Name, y.Name);
-        }
+        private const int COLLECT_PER_ITEMS = 1000;
+        private const int COLLECT_HIT_COUNT_MIN = 0;
+        private static Dictionary<Type, ITypeHandler> typeHandlers;
+        public static event EventHandler QueryCachePurged;
+        private static int collect;
 
         private static int GetColumnHash(IDataReader reader, int startBound = 0, int length = -1)
         {
@@ -45,8 +46,6 @@ namespace Core.Extension.Dapper
         /// <summary>
         /// Called if the query cache is purged via PurgeQueryCache
         /// </summary>
-        public static event EventHandler QueryCachePurged;
-
         private static void OnQueryCachePurged()
         {
             var handler = QueryCachePurged;
@@ -83,9 +82,6 @@ namespace Core.Extension.Dapper
                 Interlocked.Exchange(ref collect, 0);
             }
         }
-
-        private const int COLLECT_PER_ITEMS = 1000, COLLECT_HIT_COUNT_MIN = 0;
-        private static int collect;
 
         private static bool TryGetQueryCache(Identity key, out CacheInfo value)
         {
@@ -364,7 +360,6 @@ namespace Core.Extension.Dapper
         /// <param name="handler">The handler for the type <typeparamref name="T"/>.</param>
         public static void AddTypeHandler<T>(TypeHandler<T> handler) => AddTypeHandlerImpl(typeof(T), handler, true);
 
-        private static Dictionary<Type, ITypeHandler> typeHandlers;
 
         internal const string LinqBinary = "System.Data.Linq.Binary";
 
@@ -1260,7 +1255,8 @@ namespace Core.Extension.Dapper
             SingleOrDefault = 3
         }
 
-        private static readonly int[] ErrTwoRows = new int[2], ErrZeroRows = new int[0];
+        private static readonly int[] ErrTwoRows = new int[2];
+        private static readonly int[] ErrZeroRows = new int[0];
 
         private static void ThrowMultipleRows(Row row)
         {
@@ -2526,9 +2522,13 @@ namespace Core.Extension.Dapper
         }
 
         // look for ? / @ / : *by itself*
-        private static readonly Regex smellsLikeOleDb = new Regex(@"(?<![\p{L}\p{N}@_])[?@:](?![\p{L}\p{N}@_])", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled),
-            literalTokens = new Regex(@"(?<![\p{L}\p{N}_])\{=([\p{L}\p{N}_]+)\}", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled),
-            pseudoPositional = new Regex(@"\?([\p{L}_][\p{L}\p{N}_]*)\?", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+        private static readonly Regex smellsLikeOleDb = new Regex(@"(?<![\p{L}\p{N}@_])[?@:](?![\p{L}\p{N}@_])", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+
+        // look for ? / @ / : *by itself*
+        private static readonly Regex literalTokens = new Regex(@"(?<![\p{L}\p{N}_])\{=([\p{L}\p{N}_]+)\}", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+
+        // look for ? / @ / : *by itself*
+        private static readonly Regex pseudoPositional = new Regex(@"\?([\p{L}_][\p{L}\p{N}_]*)\?", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled);
 
         /// <summary>
         /// Replace all literal tokens with their text form.
@@ -3171,8 +3171,8 @@ namespace Core.Extension.Dapper
             return toStrings.TryGetValue(typeCode, out MethodInfo method) ? method : null;
         }
 
-        private static readonly MethodInfo StringReplace = typeof(string).GetPublicInstanceMethod(nameof(string.Replace), new[] { typeof(string), typeof(string) }),
-            InvariantCulture = typeof(CultureInfo).GetProperty(nameof(CultureInfo.InvariantCulture), BindingFlags.Public | BindingFlags.Static).GetGetMethod();
+        private static readonly MethodInfo StringReplace = typeof(string).GetPublicInstanceMethod(nameof(string.Replace), new[] { typeof(string), typeof(string) });
+        private static readonly MethodInfo InvariantCulture = typeof(CultureInfo).GetProperty(nameof(CultureInfo.InvariantCulture), BindingFlags.Public | BindingFlags.Static).GetGetMethod();
 
         private static int ExecuteCommand(IDbConnection cnn, ref CommandDefinition command, Action<IDbCommand, object> paramReader)
         {
@@ -3374,10 +3374,8 @@ namespace Core.Extension.Dapper
 
             return (T)Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
         }
-
-        private static readonly MethodInfo
-                    enumParse = typeof(Enum).GetMethod(nameof(Enum.Parse), new[] { typeof(Type), typeof(string), typeof(bool) }),
-                    getItem = typeof(IDataRecord).GetProperties(BindingFlags.Instance | BindingFlags.Public)
+        private static readonly MethodInfo enumParse = typeof(Enum).GetMethod(nameof(Enum.Parse), new[] { typeof(Type), typeof(string), typeof(bool) });
+        private static readonly MethodInfo getItem = typeof(IDataRecord).GetProperties(BindingFlags.Instance | BindingFlags.Public)
                         .Where(p => p.GetIndexParameters().Length > 0 && p.GetIndexParameters()[0].ParameterType == typeof(int))
                         .Select(p => p.GetGetMethod()).First();
 
@@ -4184,6 +4182,10 @@ namespace Core.Extension.Dapper
             var s = obj.ToString();
             perThreadStringBuilderCache = perThreadStringBuilderCache ?? obj;
             return s;
+        }
+        private class PropertyInfoByNameComparer : IComparer<PropertyInfo>
+        {
+            public int Compare(PropertyInfo x, PropertyInfo y) => string.CompareOrdinal(x.Name, y.Name);
         }
     }
 }

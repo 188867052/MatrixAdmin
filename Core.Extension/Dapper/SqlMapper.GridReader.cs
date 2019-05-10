@@ -469,7 +469,8 @@ namespace Core.Extension.Dapper
                 }
             }
 
-            private int _gridIndex, _readCount;
+            private int _gridIndex;
+            private int _readCount;
             private readonly IParameterCallbacks _callbacks;
 
             /// <summary>

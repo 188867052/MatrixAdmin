@@ -465,8 +465,7 @@ namespace Core.Extension.Dapper
         /// <param name="commandType">Is it a stored proc or a batch?.</param>
         /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
         public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
-            MultiMapAsync<TFirst, TSecond, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn,
-                new CommandDefinition(sql, param, transaction, commandTimeout, commandType, buffered ? CommandFlags.Buffered : CommandFlags.None, default), map, splitOn);
+            MultiMapAsync<TFirst, TSecond, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn,  new CommandDefinition(sql, param, transaction, commandTimeout, commandType, buffered ? CommandFlags.Buffered : CommandFlags.None, default), map, splitOn);
 
         /// <summary>
         /// Perform a asynchronous multi-mapping query with 2 input types.
@@ -923,17 +922,7 @@ namespace Core.Extension.Dapper
             return Parse<T>(result);
         }
 
-        private struct AsyncExecState
-        {
-            public readonly DbCommand Command;
-            public readonly Task<int> Task;
-
-            public AsyncExecState(DbCommand command, Task<int> task)
-            {
-                this.Command = command;
-                this.Task = task;
-            }
-        }
+       
 
         private static async Task<int> ExecuteMultiImplAsync(IDbConnection cnn, CommandDefinition command, IEnumerable multiExec)
         {
@@ -1394,6 +1383,18 @@ namespace Core.Extension.Dapper
                 }
 
                 cmd?.Dispose();
+            }
+        }
+
+        private struct AsyncExecState
+        {
+            public readonly DbCommand Command;
+            public readonly Task<int> Task;
+
+            public AsyncExecState(DbCommand command, Task<int> task)
+            {
+                this.Command = command;
+                this.Task = task;
             }
         }
     }

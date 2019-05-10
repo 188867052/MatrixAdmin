@@ -9,8 +9,9 @@ namespace Core.Extension.Dapper
     internal class FeatureSupport
     {
         private static readonly FeatureSupport
-            Default = new FeatureSupport(false),
-            Postgres = new FeatureSupport(true);
+Default = new FeatureSupport(false);
+        private static readonly FeatureSupport
+Postgres = new FeatureSupport(true);
 
         /// <summary>
         /// Gets the feature set based on the passed connection.

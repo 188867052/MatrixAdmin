@@ -2,14 +2,15 @@
 
 namespace Core.Api.Models.Menu
 {
-    public class MenuJsonModel
+
+    public class Child
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MenuJsonModel"/> class.
+        /// Initializes a new instance of the <see cref="Child"/> class.
         /// </summary>
-        public MenuJsonModel()
+        public Child()
         {
-            this.Children = new List<Child>();
+            this.Permission = new List<string>();
         }
 
         public string Path { get; set; }
@@ -22,6 +23,6 @@ namespace Core.Api.Models.Menu
 
         public string Component { get; set; }
 
-        public List<Child> Children { get; set; }
+        public List<string> Permission { get; set; }
     }
 }

@@ -13,22 +13,35 @@ namespace Core.Extension.Dapper
     {
         private static SqlMapper.Link<Type, Action<IDbCommand>> commandInitCache;
 
-        internal static CommandDefinition ForCallback(object parameters)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommandDefinition"/> struct.
+        /// Initialize the command definition.
+        /// </summary>
+        /// <param name="commandText">The text for this command.</param>
+        /// <param name="parameters">The parameters for this command.</param>
+        /// <param name="transaction">The transaction for this command to participate in.</param>
+        /// <param name="commandTimeout">The timeout (in seconds) for this command.</param>
+        /// <param name="commandType">The <see cref="CommandType"/> for this command.</param>
+        /// <param name="flags">The behavior flags for this command.</param>
+        /// <param name="cancellationToken">The cancellation token for this command.</param>
+        public CommandDefinition(string commandText, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null, CommandFlags flags = CommandFlags.Buffered, CancellationToken cancellationToken = default)
         {
-            if (parameters is DynamicParameters)
-            {
-                return new CommandDefinition(parameters);
-            }
-            else
-            {
-                return default;
-            }
+            this.CommandText = commandText;
+            this.Parameters = parameters;
+            this.Transaction = transaction;
+            this.CommandTimeout = commandTimeout;
+            this.CommandType = commandType;
+            this.Flags = flags;
+            this.CancellationToken = cancellationToken;
         }
-
-        internal void OnCompleted()
+        private CommandDefinition(object parameters) : this()
         {
-            (this.Parameters as SqlMapper.IParameterCallbacks)?.OnCompleted();
+            this.Parameters = parameters;
         }
+        /// <summary>
+        /// Gets additional state flags against this command.
+        /// </summary>
+        public CommandFlags Flags { get; }
 
         /// <summary>
         /// Gets the command (sql or a stored-procedure name) to execute.
@@ -61,51 +74,38 @@ namespace Core.Extension.Dapper
         public bool Buffered => (this.Flags & CommandFlags.Buffered) != 0;
 
         /// <summary>
-        /// Gets a value indicating whether should the plan for this query be cached?.
-        /// </summary>
-        internal bool AddToCache => (this.Flags & CommandFlags.NoCache) == 0;
-
-        /// <summary>
-        /// Gets additional state flags against this command.
-        /// </summary>
-        public CommandFlags Flags { get; }
-
-        /// <summary>
         /// Gets a value indicating whether can async queries be pipelined?.
         /// </summary>
         public bool Pipelined => (this.Flags & CommandFlags.Pipelined) != 0;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CommandDefinition"/> struct.
-        /// Initialize the command definition.
-        /// </summary>
-        /// <param name="commandText">The text for this command.</param>
-        /// <param name="parameters">The parameters for this command.</param>
-        /// <param name="transaction">The transaction for this command to participate in.</param>
-        /// <param name="commandTimeout">The timeout (in seconds) for this command.</param>
-        /// <param name="commandType">The <see cref="CommandType"/> for this command.</param>
-        /// <param name="flags">The behavior flags for this command.</param>
-        /// <param name="cancellationToken">The cancellation token for this command.</param>
-        public CommandDefinition(string commandText, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null, CommandFlags flags = CommandFlags.Buffered, CancellationToken cancellationToken = default)
-        {
-            this.CommandText = commandText;
-            this.Parameters = parameters;
-            this.Transaction = transaction;
-            this.CommandTimeout = commandTimeout;
-            this.CommandType = commandType;
-            this.Flags = flags;
-            this.CancellationToken = cancellationToken;
-        }
-
-        private CommandDefinition(object parameters) : this()
-        {
-            this.Parameters = parameters;
-        }
+     
 
         /// <summary>
         /// Gets for asynchronous operations, the cancellation-token.
         /// </summary>
         public CancellationToken CancellationToken { get; }
+
+        internal static CommandDefinition ForCallback(object parameters)
+        {
+            if (parameters is DynamicParameters)
+            {
+                return new CommandDefinition(parameters);
+            }
+            else
+            {
+                return default;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether should the plan for this query be cached?.
+        /// </summary>
+        internal bool AddToCache => (this.Flags & CommandFlags.NoCache) == 0;
+
+        internal void OnCompleted()
+        {
+            (this.Parameters as SqlMapper.IParameterCallbacks)?.OnCompleted();
+        }
 
         internal IDbCommand SetupCommand(IDbConnection cnn, Action<IDbCommand, object> paramReader)
         {
@@ -135,6 +135,8 @@ namespace Core.Extension.Dapper
             paramReader?.Invoke(cmd, this.Parameters);
             return cmd;
         }
+
+     
 
         private static Action<IDbCommand> GetInit(Type commandType)
         {

@@ -56,7 +56,8 @@ namespace Core.Extension.Dapper
 
             private struct DeserializerKey : IEquatable<DeserializerKey>
             {
-                private readonly int startBound, length;
+                private readonly int startBound;
+                private readonly int length;
                 private readonly bool returnNullIfFirstMissing;
                 private readonly IDataReader reader;
                 private readonly string[] names;

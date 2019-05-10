@@ -21,9 +21,9 @@ namespace Core.Extension.Dapper
         private static readonly Dictionary<SqlMapper.Identity, Action<IDbCommand, object>> paramReaderCache = new Dictionary<SqlMapper.Identity, Action<IDbCommand, object>>();
         private readonly Dictionary<string, ParamInfo> parameters = new Dictionary<string, ParamInfo>();
         private List<object> templates;
+        private List<Action> outputCallbacks;
 
-        object SqlMapper.IParameterLookup.this[string name] =>
-            this.parameters.TryGetValue(name, out ParamInfo param) ? param.Value : null;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicParameters"/> class.
@@ -44,6 +44,18 @@ namespace Core.Extension.Dapper
             this.RemoveUnused = true;
             this.AddDynamicParams(template);
         }
+
+        /// <summary>
+        /// If true, the command-text is inspected and only values that are clearly used are included on the connection.
+        /// </summary>
+        public bool RemoveUnused { get; set; }
+
+        /// <summary>
+        /// All the names of the param in the bag, use Get to yank them out.
+        /// </summary>
+        public IEnumerable<string> ParameterNames => this.parameters.Select(p => p.Key);
+        object SqlMapper.IParameterLookup.this[string name] =>
+            this.parameters.TryGetValue(name, out ParamInfo param) ? param.Value : null;
 
         /// <summary>
         /// Append a whole object full of params to the dynamic
@@ -159,10 +171,7 @@ namespace Core.Extension.Dapper
             this.AddParameters(command, identity);
         }
 
-        /// <summary>
-        /// If true, the command-text is inspected and only values that are clearly used are included on the connection.
-        /// </summary>
-        public bool RemoveUnused { get; set; }
+
 
         /// <summary>
         /// Add all the parameters needed to the command just before it executes.
@@ -342,10 +351,7 @@ namespace Core.Extension.Dapper
             }
         }
 
-        /// <summary>
-        /// All the names of the param in the bag, use Get to yank them out.
-        /// </summary>
-        public IEnumerable<string> ParameterNames => this.parameters.Select(p => p.Key);
+
 
         /// <summary>
         /// Get the value of a parameter.
@@ -518,10 +524,8 @@ namespace Core.Extension.Dapper
                 }
                 else
                 {
-                    dbType = (!dbType.HasValue)
-#pragma warning disable 618
+                    dbType = !dbType.HasValue
                     ? SqlMapper.LookupDbType(targetMemberType, targetMemberType?.Name, true, out SqlMapper.ITypeHandler handler)
-#pragma warning restore 618
                     : dbType;
 
                     // CameFromTemplate property would not apply here because this new param
@@ -537,7 +541,6 @@ namespace Core.Extension.Dapper
             return this;
         }
 
-        private List<Action> outputCallbacks;
 
         void SqlMapper.IParameterCallbacks.OnCompleted()
         {
