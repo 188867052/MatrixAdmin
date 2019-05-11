@@ -57,5 +57,19 @@ namespace Core.Mvc.Areas.Administration.Controllers
 
             return this.GridConfiguration(configuration);
         }
+
+        /// <summary>
+        /// Save.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>The IActionResult.</returns>
+        [HttpPost]
+        public IActionResult SaveCreate(RoleCreatePostModel model)
+        {
+            var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Create));
+            var response = HttpClientAsync.SubmitAsync(url, model).Result;
+
+            return this.Submit(response);
+        }
     }
 }

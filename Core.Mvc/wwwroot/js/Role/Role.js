@@ -32,6 +32,11 @@
             window.core.editDialog();
         },
 
+        submit: function () {
+            var url = event.currentTarget.dataset.url;
+            window.core.submit(url, this._dialogInstance, $.proxy(this.search, this));
+        },
+
         search: function () {
             window.core.setSuccessPointer($.proxy(this._onSuccess, this));
             window.core.gridSearch(this._searchUrl);

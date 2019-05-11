@@ -34,7 +34,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 
         protected override void CreateButtons(IList<StandardButton> buttons)
         {
-            Url saveCreateUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.SaveCreate));
+            Url saveCreateUrl = new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.SaveCreate));
 
             buttons.Add(new StandardButton("提交", "index.submit", saveCreateUrl));
             buttons.Add(new StandardButton("取消", "core.cancel"));

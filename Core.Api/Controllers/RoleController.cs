@@ -62,7 +62,7 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public IActionResult Create(RoleCreateModel model)
+        public IActionResult Create(RoleCreatePostModel model)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
             if (model.Name.Trim().Length <= 0)
@@ -79,14 +79,13 @@ namespace Core.Api.Controllers
                     return this.Ok(response);
                 }
 
-                Role entity = this.Mapper.Map<RoleCreateModel, Role>(model);
+                Role entity = this.Mapper.Map<RoleCreatePostModel, Role>(model);
                 entity.CreatedTime = DateTime.Now;
-
-                // entity.Id = RandomHelper.GetRandomizer(8, true, false, true, true);
                 entity.IsSuperAdministrator = false;
                 entity.IsBuiltin = false;
-                entity.CreatedByUserGuid = AuthContextService.CurrentUser.Guid;
-                entity.CreatedByUserName = AuthContextService.CurrentUser.DisplayName;
+                entity.CreatedByUserId = Guid.NewGuid();
+                entity.CreatedByUserName ="System";
+
                 this.DbContext.Role.Add(entity);
                 this.DbContext.SaveChanges();
 
@@ -141,7 +140,7 @@ namespace Core.Api.Controllers
 
                 entity.Name = model.Name;
                 entity.IsEnable = model.IsEnable.Value;
-                entity.ModifiedByUserGuid = AuthContextService.CurrentUser.Guid;
+                entity.ModifiedByUserId = AuthContextService.CurrentUser.Guid;
                 entity.ModifiedByUserName = AuthContextService.CurrentUser.DisplayName;
                 entity.UpdateTime = DateTime.Now;
                 entity.Status = model.Status.Value;
