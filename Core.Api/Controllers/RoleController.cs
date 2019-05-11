@@ -4,10 +4,8 @@ using System.Linq;
 using AutoMapper;
 using Core.Api.ControllerHelpers;
 using Core.Entity;
-using Core.Entity.Enums;
 using Core.Extension;
 using Core.Extension.AuthContext;
-using Core.Extension.Dapper;
 using Core.Model;
 using Core.Model.Administration.Role;
 using Microsoft.AspNetCore.Mvc;
@@ -84,6 +82,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Role> query = this.DbContext.Role;
+                query = query.OrderByDescending(o => o.CreateTime);
                 query = query.AddStringContainsFilter(model.RoleName, nameof(Role.Name));
                 if (model.PageIndex < 1)
                 {
@@ -238,7 +237,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public IActionResult Normal(int[] ids)
         {
-            ResponseModel response = RoleControllerHelper.UpdateStatus(false, ids);
+            ResponseModel response = RoleControllerHelper.UpdateIsForbidden(false, ids);
             return this.Ok(response);
         }
 
@@ -250,7 +249,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public IActionResult Forbidden(int[] ids)
         {
-            ResponseModel response = RoleControllerHelper.UpdateStatus(true, ids);
+            ResponseModel response = RoleControllerHelper.UpdateIsForbidden(true, ids);
             return this.Ok(response);
         }
 
@@ -346,38 +345,6 @@ WHERE URM.UserGuid={0}";
             }
 
             return this.Ok(response);
-        }
-
-        /// <summary>
-        /// 删除角色.
-        /// </summary>
-        /// <param name="isEnable">The isEnable.</param>
-        /// <param name="ids">ids.</param>
-        /// <returns>ResponseModel.</returns>
-        private ResponseModel UpdateIsEnable(bool isEnable, int[] ids)
-        {
-            using (this.DbContext)
-            {
-                string sql = @"UPDATE Role SET IsEnable = @IsEnable WHERE Id IN @Ids";
-                this.DbContext.Dapper.Execute(sql, new { IsEnable = isEnable, Ids = ids });
-                return ResponseModelFactory.CreateInstance;
-            }
-        }
-
-        /// <summary>
-        /// 删除角色.
-        /// </summary>
-        /// <param name="status">角色状态.</param>
-        /// <param name="ids">角色ID字符串,多个以逗号隔开.</param>
-        /// <returns></returns>
-        private ResponseModel UpdateStatus(StatusEnum status, int[] ids)
-        {
-            using (this.DbContext)
-            {
-                string sql = @"UPDATE Role SET Status = @Status WHERE Id IN @Ids";
-                this.DbContext.Dapper.Execute(sql, new { Status = status, Ids = ids });
-                return ResponseModelFactory.CreateInstance;
-            }
         }
     }
 }

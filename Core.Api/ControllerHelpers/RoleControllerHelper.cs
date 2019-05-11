@@ -30,7 +30,7 @@ namespace Core.Api.ControllerHelpers
         /// <param name="isForbidden">status.</param>
         /// <param name="ids">ids.</param>
         /// <returns>A ResponseModel.</returns>
-        public static ResponseModel UpdateStatus(bool isForbidden, int[] ids)
+        public static ResponseModel UpdateIsForbidden(bool isForbidden, int[] ids)
         {
             string sql = $"UPDATE [Role] SET {nameof(Role.IsForbidden)} = @IsForbidden WHERE Id IN @Id";
             dapper.Execute(sql, new { IsForbidden = isForbidden, Id = ids });

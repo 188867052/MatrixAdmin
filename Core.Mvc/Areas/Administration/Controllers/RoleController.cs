@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using Core.Entity;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.Role;
@@ -156,7 +155,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Normal(int id)
         {
-            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.RoleController.Normal));
+            var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Normal));
             ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
 
             return this.Submit(model);
