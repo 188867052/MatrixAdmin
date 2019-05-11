@@ -103,6 +103,18 @@ namespace Core.Entity
                     .HasMaxLength(50);
 
                 entity.Property(e => e.UpdateTime).HasColumnType("datetime");
+
+                entity.HasOne(d => d.CreateByUser)
+                    .WithMany(p => p.RoleCreateByUser)
+                    .HasForeignKey(d => d.CreateByUserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Role_User_CreateBy");
+
+                entity.HasOne(d => d.ModifiedByUser)
+                    .WithMany(p => p.RoleModifiedByUser)
+                    .HasForeignKey(d => d.ModifiedByUserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Role_User_ModifiedBy");
             });
 
             modelBuilder.Entity<RolePermissionMapping>(entity =>

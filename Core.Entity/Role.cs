@@ -19,12 +19,14 @@ namespace Core.Entity
         public string ModifiedByUserName { get; set; }
         public bool IsSuperAdministrator { get; set; }
         public bool IsBuiltin { get; set; }
-        public Guid CreateByUserId { get; set; }
-        public Guid? ModifiedByUserId { get; set; }
         public bool IsEnable { get; set; }
         public bool IsForbidden { get; set; }
         public int Id { get; set; }
+        public int ModifiedByUserId { get; set; }
+        public int CreateByUserId { get; set; }
 
+        public virtual User CreateByUser { get; set; }
+        public virtual User ModifiedByUser { get; set; }
         public virtual ICollection<RolePermissionMapping> RolePermissionMapping { get; set; }
         public virtual ICollection<UserRoleMapping> UserRoleMapping { get; set; }
     }

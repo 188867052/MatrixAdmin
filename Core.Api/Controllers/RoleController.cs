@@ -130,7 +130,7 @@ namespace Core.Api.Controllers
                 entity.CreateTime = DateTime.Now;
                 entity.IsSuperAdministrator = false;
                 entity.IsBuiltin = false;
-                entity.CreateByUserId = Guid.NewGuid();
+                entity.CreateByUserId = 1;
                 entity.CreatedByUserName = "System";
 
                 this.DbContext.Role.Add(entity);
@@ -191,7 +191,7 @@ namespace Core.Api.Controllers
                     entity.IsEnable = model.IsEnable.Value;
                 }
 
-                entity.ModifiedByUserId = AuthContextService.CurrentUser.Guid;
+                entity.ModifiedByUserId = 1/* AuthContextService.CurrentUser.Guid*/;
                 entity.ModifiedByUserName = AuthContextService.CurrentUser.DisplayName;
                 entity.UpdateTime = DateTime.Now;
                 if (model.IsForbidden.HasValue)

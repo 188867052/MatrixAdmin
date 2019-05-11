@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using AutoMapper;
+using Core.Api.Configurations;
 using Core.Entity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -68,6 +69,8 @@ namespace Core.Api
             this.SwaggerBuilder(app);
             app.UseCors("AllowSameDomain");
 
+            //异常处理中间件
+            app.UseMiddleware(typeof(ExceptionHandlerMiddleWare));
             app.UseStaticFiles().UseMvc(routes =>
             {
                 routes.MapRoute(name: "default", template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");

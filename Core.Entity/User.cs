@@ -7,6 +7,8 @@ namespace Core.Entity
     {
         public User()
         {
+            RoleCreateByUser = new HashSet<Role>();
+            RoleModifiedByUser = new HashSet<Role>();
             UserRoleMapping = new HashSet<UserRoleMapping>();
         }
 
@@ -30,6 +32,8 @@ namespace Core.Entity
         public int UserStatusId { get; set; }
 
         public virtual UserStatus UserStatus { get; set; }
+        public virtual ICollection<Role> RoleCreateByUser { get; set; }
+        public virtual ICollection<Role> RoleModifiedByUser { get; set; }
         public virtual ICollection<UserRoleMapping> UserRoleMapping { get; set; }
     }
 }
