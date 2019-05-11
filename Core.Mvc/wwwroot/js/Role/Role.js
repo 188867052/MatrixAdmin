@@ -22,6 +22,10 @@
 
         initialize: function () {
             $(".page-link").on('click', $.proxy(this.search, this));
+            $("table .dropdown-toggle").on('click',
+                function () {
+                    window.core.rowContextMenu();
+                });
         },
 
         add: function () {
@@ -40,8 +44,23 @@
         search: function () {
             window.core.setSuccessPointer($.proxy(this._onSuccess, this));
             window.core.gridSearch(this._searchUrl);
-        }
+        },
 
+        delete: function () {
+            window.core.update($.proxy(this.search, this));
+        },
+
+        recover: function () {
+            window.core.update($.proxy(this.search, this));
+        },
+
+        forbidden: function () {
+            window.core.update($.proxy(this.search, this));
+        },
+
+        normal: function () {
+            window.core.update($.proxy(this.search, this));
+        }
         // Private Methods
     };
 })();

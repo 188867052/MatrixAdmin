@@ -28,7 +28,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
             links.Add(this.Model.IsDeleted
                 ? new RowContextMenuLink("恢复", "index.recover", recoverUrl)
                 : new RowContextMenuLink("删除", "index.delete", deleteUrl));
-            links.Add(this.Model.Status == UserIsForbiddenEnum.Normal
+            links.Add(this.Model.Status == IsForbiddenEnum.Normal
                 ? new RowContextMenuLink("禁用", "index.forbidden", forbiddenUrl)
                 : new RowContextMenuLink("启用", "index.normal", normalUrl));
         }

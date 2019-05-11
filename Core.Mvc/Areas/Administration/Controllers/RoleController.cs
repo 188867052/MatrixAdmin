@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using Core.Entity;
 using Core.Extension;
+using Core.Model;
 using Core.Model.Administration.Role;
+using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.ViewConfiguration.Role;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +29,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult Index()
         {
             var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Index));
-            var model = HttpClientAsync.GetAsync<IList<Role>>(url).Result;
+            var model = HttpClientAsync.GetAsync<IList<RoleModel>>(url).Result;
             RoleIndex table = new RoleIndex(this.HostingEnvironment, model);
 
             return this.ViewConfiguration(table);
@@ -44,6 +47,21 @@ namespace Core.Mvc.Areas.Administration.Controllers
         }
 
         /// <summary>
+        /// RowContextMenu.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>The IActionResult.</returns>
+        [HttpGet]
+        public IActionResult RowContextMenu(int id)
+        {
+            var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.FindById));
+            ResponseModel model = HttpClientAsync.GetAsync<RoleModel>(url, id).Result;
+            RoleModel user = (RoleModel)model.Data;
+            RoleRowContextMenu menu = new RoleRowContextMenu(user);
+            return this.Content(menu.Render(), "text/html", Encoding.UTF8);
+        }
+
+        /// <summary>
         /// Grid state change.
         /// </summary>
         /// <param name="model">The model.</param>
@@ -52,10 +70,96 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public IActionResult GridStateChange(RolePostModel model)
         {
             var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Search));
-            var response = HttpClientAsync.PostAsync<IList<Role>, RolePostModel>(url, model).Result;
+            var response = HttpClientAsync.PostAsync<IList<RoleModel>, RolePostModel>(url, model).Result;
             RoleViewConfiguration configuration = new RoleViewConfiguration(response);
 
             return this.GridConfiguration(configuration);
+        }
+
+        /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>The IActionResult.</returns>
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Delete));
+            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
+
+            return this.Submit(model);
+        }
+
+        /// <summary>
+        /// The edit dialog.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>The IActionResult.</returns>
+        [HttpGet]
+        public IActionResult EditDialog(int id)
+        {
+            var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.FindById));
+            ResponseModel model = HttpClientAsync.GetAsync<RoleModel>(url, id).Result;
+            RoleModel user = (RoleModel)model.Data;
+            EditRoleDialogConfiguration dialog = new EditRoleDialogConfiguration(user);
+
+            return this.Dialog(dialog);
+        }
+
+        /// <summary>
+        /// Save.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns>The IActionResult.</returns>
+        [HttpPost]
+        public IActionResult SaveEdit(UserEditPostModel model)
+        {
+            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Edit));
+            var response = HttpClientAsync.SubmitAsync(url, model).Result;
+
+            return this.Submit(response);
+        }
+
+        /// <summary>
+        /// The recover.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>The IActionResult.</returns>
+        [HttpGet]
+        public IActionResult Recover(int id)
+        {
+            var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Recover));
+            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
+
+            return this.Submit(model);
+        }
+
+        /// <summary>
+        /// The forbidden.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>The IActionResult.</returns>
+        [HttpGet]
+        public IActionResult Forbidden(int id)
+        {
+            var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Forbidden));
+            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
+
+            return this.Submit(model);
+        }
+
+        /// <summary>
+        /// The normal.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        /// <returns>The IActionResult.</returns>
+        [HttpGet]
+        public IActionResult Normal(int id)
+        {
+            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.RoleController.Normal));
+            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
+
+            return this.Submit(model);
         }
 
         /// <summary>

@@ -35,7 +35,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         ///
         /// </summary>
-        public UserIsForbiddenEnum? Status { get; set; }
+        public IsForbiddenEnum? Status { get; set; }
 
         /// <summary>
         /// 用户描述信息.

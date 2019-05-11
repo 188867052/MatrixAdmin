@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
+using Core.Extension;
 using Core.Model;
+using Core.Model.Administration.Role;
+using Core.Mvc.Areas.Administration.Controllers;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 {
-    public class RoleViewConfiguration : GridConfiguration<Entity.Role>
+    public class RoleViewConfiguration : GridConfiguration<RoleModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RoleViewConfiguration"/> class.
@@ -16,14 +19,17 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
         {
         }
 
-        public override void CreateGridColumn(IList<BaseGridColumn<Entity.Role>> gridColumns)
+        public override void CreateGridColumn(IList<BaseGridColumn<RoleModel>> gridColumns)
         {
-            gridColumns.Add(new TextGridColumn<Entity.Role>(o => o.Name, RoleIndexResource.Name));
-            gridColumns.Add(new BooleanGridColumn<Entity.Role>(o => o.Status, RoleIndexResource.Status));
-            gridColumns.Add(new BooleanGridColumn<Entity.Role>(o => o.IsBuiltin, RoleIndexResource.IsBuiltin));
-            gridColumns.Add(new BooleanGridColumn<Entity.Role>(o => o.IsSuperAdministrator, RoleIndexResource.IsSuperAdministrator));
-            gridColumns.Add(new DateTimeGridColumn<Entity.Role>(o => o.CreatedTime, RoleIndexResource.CreatedOn));
-            gridColumns.Add(new TextGridColumn<Entity.Role>(o => o.CreatedByUserName, RoleIndexResource.CreatedByUserName));
+            Url url = new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.RowContextMenu));
+            gridColumns.Add(new RowContextMenuColumn<RoleModel>(o => o.Id.ToString(), "操作", url));
+            gridColumns.Add(new TextGridColumn<RoleModel>(o => o.Name, RoleIndexResource.Name));
+            gridColumns.Add(new EnumGridColumn<RoleModel>(o => o.IsForbidden, "禁用状态"));
+            gridColumns.Add(new BooleanGridColumn<RoleModel>(o => o.IsBuiltin, RoleIndexResource.IsBuiltin));
+            gridColumns.Add(new BooleanGridColumn<RoleModel>(o => o.IsSuperAdministrator, RoleIndexResource.IsSuperAdministrator));
+            gridColumns.Add(new DateTimeGridColumn<RoleModel>(o => o.CreateTime, RoleIndexResource.CreatedOn));
+            gridColumns.Add(new TextGridColumn<RoleModel>(o => o.CreatedByUserName, RoleIndexResource.CreatedByUserName));
+            gridColumns.Add(new DateTimeGridColumn<RoleModel>(o => o.UpdateTime, "更新时间"));
         }
     }
 }

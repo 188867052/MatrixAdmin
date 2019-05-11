@@ -107,6 +107,24 @@
                 var propertyName = this.getAttribute("name");
                 data[propertyName] = this.value;
             });
+
+            $("#" + dialog.id + " input[list]").each(function () {
+                var propertyName = this.name;
+                var key = $("#" + this.list.id + " option[value = '" + this.value + "']");
+                if (key.length > 0) {
+                    data[this.name] = key[0].getAttribute("key");
+                }
+                data[propertyName] = this.value;
+            });
+            var datalist = $("input[list]");
+            for (var k = 0; k < datalist.length; k++) {
+                var list = datalist[k];
+                var key = $("datalist[id = '" + list.list.id + "'] option[value = '" + list.value + "']");
+                if (key.length > 0) {
+                    data[list.getAttribute("name")] = key[0].getAttribute("key");
+                }
+            }
+
             return data;
         },
 

@@ -153,7 +153,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 编辑用户.
+        /// 根据id查询.
         /// </summary>
         /// <param name="id">id.</param>
         /// <returns>IActionResult.</returns>

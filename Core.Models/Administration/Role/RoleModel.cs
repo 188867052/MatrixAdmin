@@ -8,25 +8,37 @@ namespace Core.Model.Administration.Role
     /// </summary>
     public class RoleModel
     {
-        public int Id { get; set; }
+        public RoleModel()
+        {
+        }
 
-        public string Code { get; set; }
+        public RoleModel(Entity.Role role)
+        {
+            this.Name = role.Name;
+            this.Id = role.Id;
+            this.IsForbidden = role.IsForbidden ? IsForbiddenEnum.Forbidden : IsForbiddenEnum.Normal;
+            this.CreateTime = role.CreateTime;
+            this.UpdateTime = role.UpdateTime;
+            this.CreatedByUserName = role.CreatedByUserName;
+        }
+
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public StatusEnum Status { get; set; }
+        public IsForbiddenEnum IsForbidden { get; set; }
 
-        public IsDeletedEnum IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
 
-        public string CreatedOn { get; set; }
+        public DateTime CreateTime { get; set; }
 
         public Guid CreatedByUserGuid { get; set; }
 
         public string CreatedByUserName { get; set; }
 
-        public string ModifiedOn { get; set; }
+        public DateTime UpdateTime { get; set; }
 
         public Guid? ModifiedByUserGuid { get; set; }
 

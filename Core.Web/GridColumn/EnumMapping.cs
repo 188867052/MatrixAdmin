@@ -9,9 +9,9 @@ namespace Core.Web.GridColumn
         {
             switch (value)
             {
-                case UserIsForbiddenEnum.Forbidden:
+                case IsForbiddenEnum.Forbidden:
                     return "已禁用";
-                case UserIsForbiddenEnum.Normal:
+                case IsForbiddenEnum.Normal:
                     return "已启用";
                 case YesOrNoEnum.All:
                     return "正常";

@@ -101,6 +101,8 @@ namespace Core.Entity
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.UpdateTime).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<RolePermissionMapping>(entity =>

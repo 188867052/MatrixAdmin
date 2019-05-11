@@ -8,6 +8,7 @@ using Core.Web.Dialog;
 using Core.Web.Enums;
 using Core.Web.Html;
 using Core.Web.Identifiers;
+using Core.Web.JavaScript;
 using Core.Web.TextBox;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
@@ -29,11 +30,8 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
         {
             textBoxes.Add(new LabeledTextBox<UserCreatePostModel, UserModel>("登录名", o => o.LoginName));
             textBoxes.Add(new LabeledTextBox<UserCreatePostModel, UserModel>("显示名", o => o.DisplayName));
-            var dropDown = new DropDownTextBox<UserCreatePostModel, UserModel>("角色", o => o.UserRole, false);
-            dropDown.AddOption((int)UserRoleEnum.GeneralUser, "普通用户", true);
-            dropDown.AddOption((int)UserRoleEnum.Admin, "管理员");
-            dropDown.AddOption((int)UserRoleEnum.SuperAdministrator, "超级管理员");
-            textBoxes.Add(dropDown);
+            var roleDropDown = new AdvancedDropDown<UserCreatePostModel, UserModel>(o => o.UserRole, "角色", new MethodCall("core.addOption"));
+            textBoxes.Add(roleDropDown);
             textBoxes.Add(new LabeledTextBox<UserCreatePostModel, UserModel>("密码", o => o.Password, null, TextBoxTypeEnum.Password));
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Core.Api.ControllerHelpers;
 using Core.Entity;
 using Core.Entity.Enums;
 using Core.Extension;
@@ -35,7 +36,40 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                return this.StandardResponse(this.DbContext.Role);
+                IQueryable<Role> query = this.DbContext.Role;
+                query = query.OrderByDescending(o => o.CreateTime);
+                Pager pager = Pager.CreateDefaultInstance();
+                pager.TotalCount = query.Count();
+                List<Role> list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
+
+                IList<RoleModel> models = new List<RoleModel>();
+                foreach (Role item in list)
+                {
+                    models.Add(new RoleModel(item));
+                }
+
+                ResponseModel response = new ResponseModel(models, pager);
+
+                return this.Ok(response);
+            }
+        }
+
+        /// <summary>
+        /// 根据id查询.
+        /// </summary>
+        /// <param name="id">id.</param>
+        /// <returns>IActionResult.</returns>
+        [HttpGet]
+        public IActionResult FindById(int id)
+        {
+            using (this.DbContext)
+            {
+                Role entity = this.DbContext.Role.Find(id);
+                RoleModel model = new RoleModel(entity);
+                ResponseModel response = ResponseModelFactory.CreateInstance;
+                response.SetData(model);
+
+                return this.Ok(response);
             }
         }
 
@@ -49,9 +83,23 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Role> query = this.DbContext.Role.AsQueryable();
+                IQueryable<Role> query = this.DbContext.Role;
                 query = query.AddStringContainsFilter(model.RoleName, nameof(Role.Name));
-                return this.StandardResponse(query, model);
+                if (model.PageIndex < 1)
+                {
+                    model.PageIndex = 1;
+                }
+
+                var list = query.Skip((model.PageIndex - 1) * model.PageSize).Take(model.PageSize).ToList();
+
+                IList<RoleModel> models = new List<RoleModel>();
+                foreach (Role item in list)
+                {
+                    models.Add(new RoleModel(item));
+                }
+
+                ResponseModel response = new ResponseModel(models, model);
+                return this.Ok(response);
             }
         }
 
@@ -80,11 +128,11 @@ namespace Core.Api.Controllers
                 }
 
                 Role entity = this.Mapper.Map<RoleCreatePostModel, Role>(model);
-                entity.CreatedTime = DateTime.Now;
+                entity.CreateTime = DateTime.Now;
                 entity.IsSuperAdministrator = false;
                 entity.IsBuiltin = false;
-                entity.CreatedByUserId = Guid.NewGuid();
-                entity.CreatedByUserName ="System";
+                entity.CreateByUserId = Guid.NewGuid();
+                entity.CreatedByUserName = "System";
 
                 this.DbContext.Role.Add(entity);
                 this.DbContext.SaveChanges();
@@ -139,11 +187,19 @@ namespace Core.Api.Controllers
                 }
 
                 entity.Name = model.Name;
-                entity.IsEnable = model.IsEnable.Value;
+                if (model.IsEnable.HasValue)
+                {
+                    entity.IsEnable = model.IsEnable.Value;
+                }
+
                 entity.ModifiedByUserId = AuthContextService.CurrentUser.Guid;
                 entity.ModifiedByUserName = AuthContextService.CurrentUser.DisplayName;
                 entity.UpdateTime = DateTime.Now;
-                entity.Status = model.Status.Value;
+                if (model.IsForbidden.HasValue)
+                {
+                    entity.IsForbidden = model.IsForbidden.Value;
+                }
+
                 entity.Description = model.Description;
                 this.DbContext.SaveChanges();
                 return this.Ok(response);
@@ -151,60 +207,50 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 删除角色.
+        /// 删除用户.
         /// </summary>
-        /// <param name="ids">角色ID,多个以逗号分隔.</param>
-        /// <returns></returns>
-        [HttpGet("{ids}")]
-        [ProducesResponseType(200)]
-        public IActionResult Delete(string ids)
+        /// <param name="ids">ids.</param>
+        /// <returns>IActionResult.</returns>
+        [HttpGet]
+        public IActionResult Delete(int[] ids)
         {
-            ResponseModel response = this.UpdateIsEnable(true, ids);
+            ResponseModel response = RoleControllerHelper.UpdateIsDeleted(true, ids);
             return this.Ok(response);
         }
 
         /// <summary>
-        /// 恢复角色.
+        /// 恢复用户.
         /// </summary>
-        /// <param name="ids">角色ID,多个以逗号分隔.</param>
-        /// <returns></returns>
+        /// <param name="ids">ids.</param>
+        /// <returns>IActionResult.</returns>
         [HttpGet]
-        [ProducesResponseType(200)]
-        public IActionResult Recover(string ids)
+        public IActionResult Recover(int[] ids)
         {
-            ResponseModel response = this.UpdateIsEnable(false, ids);
+            ResponseModel response = RoleControllerHelper.UpdateIsDeleted(false, ids);
             return this.Ok(response);
         }
 
         /// <summary>
-        /// 批量操作.
+        /// 启用用户.
         /// </summary>
-        /// <param name="command">command.</param>
-        /// <param name="ids">角色ID,多个以逗号分隔.</param>
-        /// <returns></returns>
+        /// <param name="ids">ids.</param>
+        /// <returns>IActionResult.</returns>
         [HttpGet]
-        [ProducesResponseType(200)]
-        public IActionResult Batch(string command, string ids)
+        public IActionResult Normal(int[] ids)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
-            switch (command)
-            {
-                case "delete":
-                    response = this.UpdateIsEnable(true, ids);
-                    break;
-                case "recover":
-                    response = this.UpdateIsEnable(false, ids);
-                    break;
-                case "forbidden":
-                    response = this.UpdateStatus(StatusEnum.Forbidden, ids);
-                    break;
-                case "normal":
-                    response = this.UpdateStatus(StatusEnum.Normal, ids);
-                    break;
-                default:
-                    break;
-            }
+            ResponseModel response = RoleControllerHelper.UpdateStatus(false, ids);
+            return this.Ok(response);
+        }
 
+        /// <summary>
+        /// 禁止用户.
+        /// </summary>
+        /// <param name="ids">ids.</param>
+        /// <returns>IActionResult.</returns>
+        [HttpGet]
+        public IActionResult Forbidden(int[] ids)
+        {
+            ResponseModel response = RoleControllerHelper.UpdateStatus(true, ids);
             return this.Ok(response);
         }
 
@@ -279,7 +325,7 @@ INNER JOIN DncRole AS R ON R.Code=URM.RoleCode
 WHERE URM.UserGuid={0}";
                 List<Role> query = this.DbContext.Role.FromSqlRaw(sql, guid).ToList();
                 List<int> assignedRoles = query.ToList().Select(x => x.Id).ToList();
-                var roles = this.DbContext.Role.Where(x => !x.IsEnable && x.Status).ToList().Select(x => new { label = x.Name, key = x.Id });
+                var roles = this.DbContext.Role.Where(x => !x.IsEnable && x.IsForbidden).ToList().Select(x => new { label = x.Name, key = x.Id });
                 response.SetData(new { roles, assignedRoles });
                 return this.Ok(response);
             }
@@ -295,7 +341,7 @@ WHERE URM.UserGuid={0}";
             ResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
             {
-                var roles = this.DbContext.Role.Where(x => !x.IsEnable && x.Status).Select(x => new { x.Name, x.Id }).ToList();
+                var roles = this.DbContext.Role.Where(x => !x.IsEnable && x.IsForbidden).Select(x => new { x.Name, x.Id }).ToList();
                 response.SetData(roles);
             }
 
@@ -308,7 +354,7 @@ WHERE URM.UserGuid={0}";
         /// <param name="isEnable">The isEnable.</param>
         /// <param name="ids">ids.</param>
         /// <returns>ResponseModel.</returns>
-        private ResponseModel UpdateIsEnable(bool isEnable, string ids)
+        private ResponseModel UpdateIsEnable(bool isEnable, int[] ids)
         {
             using (this.DbContext)
             {
@@ -324,7 +370,7 @@ WHERE URM.UserGuid={0}";
         /// <param name="status">角色状态.</param>
         /// <param name="ids">角色ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
-        private ResponseModel UpdateStatus(StatusEnum status, string ids)
+        private ResponseModel UpdateStatus(StatusEnum status, int[] ids)
         {
             using (this.DbContext)
             {
