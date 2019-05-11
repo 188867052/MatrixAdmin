@@ -34,7 +34,8 @@ namespace Core.Api.Controllers
                 this.DbContext.Set<UserRoleMapping>().Load();
                 this.DbContext.Set<UserStatus>().Load();
                 this.DbContext.Set<Role>().Load();
-                DbSet<User> query = this.DbContext.User;
+                IQueryable<User> query = this.DbContext.User;
+                query = query.OrderByDescending(o => o.CreateTime);
                 Pager pager = Pager.CreateDefaultInstance();
                 pager.TotalCount = query.Count();
                 List<User> list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
@@ -88,6 +89,7 @@ namespace Core.Api.Controllers
                 query = query.AddBooleanFilter(model.IsEnable, nameof(Entity.User.IsEnable));
                 query = query.AddStringContainsFilter(model.DisplayName, nameof(Entity.User.DisplayName));
                 query = query.AddStringContainsFilter(model.LoginName, nameof(Entity.User.LoginName));
+                query = query.OrderByDescending(o => o.CreateTime);
 
                 model.TotalCount = query.Count();
                 if (model.PageIndex < 1)
@@ -133,13 +135,20 @@ namespace Core.Api.Controllers
 
                 User entity = this.Mapper.Map<UserCreatePostModel, User>(model);
                 entity.CreateTime = DateTime.Now;
-                entity.Status = (int)model.Status;
+                entity.UpdateTime = DateTime.Now;
+                if (model.UserRole.HasValue)
+                {
+                    entity.UserRoleMapping.Add(new UserRoleMapping
+                    {
+                        UserId = entity.Id,
+                        RoleId = (int)model.UserRole
+                    });
+                }
+
                 this.DbContext.User.Add(entity);
                 this.DbContext.SaveChanges();
 
-                return null;
-
-                // return this.SubmitResponse(response);
+                return this.SubmitResponse(response);
             }
         }
 
@@ -193,14 +202,13 @@ namespace Core.Api.Controllers
 
                 if (model.UserRole.HasValue)
                 {
-                    var userRoleMapping = this.DbContext.UserRoleMapping.FirstOrDefault(x => x.UserId == model.Id);
-                    if (userRoleMapping != null)
+                    if (entity.RoleMapping != null)
                     {
-                        userRoleMapping.RoleId = (int)model.UserRole.Value;
+                        entity.RoleMapping.RoleId = (int)model.UserRole.Value;
                     }
                     else
                     {
-                        this.DbContext.UserRoleMapping.Add(new UserRoleMapping
+                        entity.UserRoleMapping.Add(new UserRoleMapping
                         {
                             UserId = model.Id,
                             RoleId = (int)model.UserRole

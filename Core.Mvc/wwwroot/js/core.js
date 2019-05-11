@@ -8,13 +8,11 @@
     window.Core.prototype = {
 
         // Private Fields
-        _searchUrl: null,
         _currentPage: null,
         _pageSize: null,
         _successPointer: null,
         _leftText: null,
         _rightText: null,
-        _currentTarget: null,
         _getRoleDataList: null,
 
         // Private Event Delegates  
@@ -35,13 +33,15 @@
             this._successPointer = pointer;
         },
 
-        gridSearch: function (searchUrl) {
+        gridSearch: function () {
             var data = this.generateFormData();
             var onSuccess = $.proxy(this._onGridSearch, this);
-            $.post(searchUrl, data, onSuccess);
+            var url = $(".btn-primary")[0].dataset.url;
+            $.post(url, data, onSuccess);
         },
 
-        dialog: function (url) {
+        dialog: function () {
+            var url = event.currentTarget.dataset.url;
             $.get(url, $.proxy(this._displayDialog, this));
         },
 

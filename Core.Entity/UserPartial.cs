@@ -5,7 +5,9 @@ namespace Core.Entity
 {
     public partial class User
     {
-        public Role Role => this.UserRoleMapping?.FirstOrDefault(o => o.UserId == this.Id)?.Role;
+        public Role Role => this.RoleMapping?.Role;
+
+        public UserRoleMapping RoleMapping => this.UserRoleMapping?.FirstOrDefault(o => o.UserId == this.Id);
 
         public string RoleName => this.Role?.Name;
 

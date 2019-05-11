@@ -73,8 +73,8 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult AddDialog()
         {
-            AddUserDialogConfiguration user = new AddUserDialogConfiguration();
-            return this.Dialog(user);
+            AddUserDialogConfiguration dialog = new AddUserDialogConfiguration();
+            return this.Dialog(dialog);
         }
 
         /// <summary>

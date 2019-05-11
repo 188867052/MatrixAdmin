@@ -7,8 +7,6 @@ namespace Core.Model.Administration.User
     /// </summary>
     public class UserCreatePostModel
     {
-        public int? Id { get; set; }
-
         /// <summary>
         ///
         /// </summary>
@@ -32,22 +30,12 @@ namespace Core.Model.Administration.User
         /// <summary>
         ///
         /// </summary>
-        public UserRoleEnum UserType { get; set; }
+        public UserRoleEnum? UserRole { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        public IsLockedEnum IsLocked { get; set; }
-
-        /// <summary>
-        ///
-        /// </summary>
-        public UserIsForbiddenEnum Status { get; set; }
-
-        /// <summary>
-        ///
-        /// </summary>
-        public IsDeletedEnum IsDeleted { get; set; }
+        public UserIsForbiddenEnum? Status { get; set; }
 
         /// <summary>
         /// 用户描述信息.

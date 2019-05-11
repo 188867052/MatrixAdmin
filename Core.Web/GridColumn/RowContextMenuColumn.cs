@@ -6,11 +6,11 @@ namespace Core.Web.GridColumn
 {
     public class RowContextMenuColumn<T> : BaseGridColumn<T>
     {
-        private readonly Expression<Func<T, string>> expression;
+        private readonly Expression<Func<T, string>> _expression;
 
         public RowContextMenuColumn(Expression<Func<T, string>> expression, string thead, Url url) : base(thead)
         {
-            this.expression = expression;
+            this._expression = expression;
             this.Url = url;
         }
 
@@ -18,7 +18,7 @@ namespace Core.Web.GridColumn
 
         public override string RenderTd(T entity)
         {
-            var value = this.expression.Compile()(entity);
+            var value = this._expression.Compile()(entity);
             string innerHtml = $"<span class=\"icon-list dropdown-toggle\" data-url=\"{this.Url.Render()}\" data-id=\"{value}\" data-toggle=\"dropdown\"></span>" +
                                $"<div class=\"dropdown-menu\"></div>";
             return this.RenderTd(innerHtml);

@@ -8,9 +8,6 @@
 
         // Private Fields
 
-        _searchUrl: null,
-        _addUrl: null,
-        _saveUrl: null,
         _dialogInstance: null,
 
         // Private Event Delegates  
@@ -33,11 +30,11 @@
 
         search: function () {
             window.core.setSuccessPointer($.proxy(this._onSuccess, this));
-            window.core.gridSearch(this._searchUrl);
+            window.core.gridSearch();
         },
 
         add: function () {
-            window.core.dialog(this._addUrl);
+            window.core.dialog();
         },
 
         edit: function () {
@@ -45,7 +42,8 @@
         },
 
         submit: function () {
-            window.core.submit(this._saveUrl, this._dialogInstance, $.proxy(this.search, this));
+            var url = event.currentTarget.dataset.url;
+            window.core.submit(url, this._dialogInstance, $.proxy(this.search, this));
         },
 
         delete: function () {

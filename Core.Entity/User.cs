@@ -22,8 +22,8 @@ namespace Core.Entity
         public DateTime UpdateTime { get; set; }
         public string ModifiedByUserName { get; set; }
         public string Description { get; set; }
-        public Guid CreatedByUserGuid { get; set; }
-        public Guid? ModifiedByUserGuid { get; set; }
+        public Guid CreatedByUserId { get; set; }
+        public Guid? ModifiedByUserId { get; set; }
         public bool IsEnable { get; set; }
         public int Id { get; set; }
         public bool IsDeleted { get; set; }

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Core.Entity.Enums;
+using Core.Extension;
 using Core.Model.Administration.User;
+using Core.Mvc.Areas.Administration.Controllers;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
@@ -29,8 +31,11 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 
         protected override void CreateButton(IList<StandardButton> buttons)
         {
-            buttons.Add(new StandardButton("搜索", "index.search"));
-            buttons.Add(new StandardButton("添加", "index.add"));
+            Url searchUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.GridStateChange));
+            Url addDialogUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.AddDialog));
+
+            buttons.Add(new StandardButton("搜索", "index.search", searchUrl));
+            buttons.Add(new StandardButton("添加", "index.add", addDialogUrl));
         }
     }
 }
