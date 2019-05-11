@@ -33,6 +33,17 @@ namespace Core.Mvc.Areas.Administration.Controllers
         }
 
         /// <summary>
+        /// The add dialog.
+        /// </summary>
+        /// <returns>The IActionResult.</returns>
+        [HttpGet]
+        public IActionResult AddDialog()
+        {
+            AddRoleDialogConfiguration dialog = new AddRoleDialogConfiguration();
+            return this.Dialog(dialog);
+        }
+
+        /// <summary>
         /// Grid state change.
         /// </summary>
         /// <param name="model">The model.</param>

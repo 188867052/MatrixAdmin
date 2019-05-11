@@ -122,7 +122,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         }
 
         /// <summary>
-        /// The edit dialog.
+        /// The delete.
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns>The IActionResult.</returns>
@@ -136,7 +136,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         }
 
         /// <summary>
-        /// The edit dialog.
+        /// The recover.
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns>The IActionResult.</returns>
@@ -164,7 +164,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         }
 
         /// <summary>
-        /// The edit dialog.
+        /// The normal.
         /// </summary>
         /// <param name="id">The id.</param>
         /// <returns>The IActionResult.</returns>

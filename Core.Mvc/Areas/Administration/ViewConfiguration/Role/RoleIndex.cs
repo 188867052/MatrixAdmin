@@ -12,7 +12,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 {
     public class RoleIndex : SearchGridPage
     {
-        private readonly ResponseModel response;
+        private readonly ResponseModel _response;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RoleIndex"/> class.
@@ -21,29 +21,22 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
         /// <param name="response">The response.</param>
         public RoleIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
-            this.response = response;
+            this._response = response;
         }
 
-        protected override string FileName
-        {
-            get
-            {
-                return "Manage";
-            }
-        }
+        protected override string FileName { get; } = "Manage";
 
         public override IList<string> Css()
         {
             return new List<string>
             {
-
                 "/font-awesome/css/font-awesome.css",
             };
         }
 
         public override string Render()
         {
-            RoleViewConfiguration configuration = new RoleViewConfiguration(this.response);
+            RoleViewConfiguration configuration = new RoleViewConfiguration(this._response);
             string table = configuration.GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 

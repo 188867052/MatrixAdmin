@@ -19,8 +19,8 @@ namespace Core.Entity
         public string ModifiedByUserName { get; set; }
         public bool IsSuperAdministrator { get; set; }
         public bool IsBuiltin { get; set; }
-        public Guid CreatedByUserGuid { get; set; }
-        public Guid? ModifiedByUserGuid { get; set; }
+        public Guid CreatedByUserId { get; set; }
+        public Guid? ModifiedByUserId { get; set; }
         public bool IsEnable { get; set; }
         public bool Status { get; set; }
         public int Id { get; set; }

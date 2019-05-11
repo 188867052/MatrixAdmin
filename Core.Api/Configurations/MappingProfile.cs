@@ -22,8 +22,8 @@ namespace Core.Api.Configurations
             this.CreateMap<UserCreatePostModel, User>();
             this.CreateMap<UserEditPostModel, User>();
 
-            this.CreateMap<Role, RoleJsonModel>();
-            this.CreateMap<RoleCreateViewModel, Role>();
+            this.CreateMap<Role, RoleModel>();
+            this.CreateMap<RoleCreateModel, Role>();
 
             this.CreateMap<Menu, MenuJsonModel>();
             this.CreateMap<MenuCreateViewModel, Menu>();

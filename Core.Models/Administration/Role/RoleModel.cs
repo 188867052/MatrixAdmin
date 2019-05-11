@@ -6,7 +6,7 @@ namespace Core.Model.Administration.Role
     /// <summary>
     ///
     /// </summary>
-    public class RoleJsonModel
+    public class RoleModel
     {
         public int Id { get; set; }
 

@@ -3,7 +3,7 @@
     /// <summary>
     ///
     /// </summary>
-    public class RoleCreateViewModel
+    public class RoleCreateModel
     {
         public int Code { get; set; }
 

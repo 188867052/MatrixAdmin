@@ -24,6 +24,14 @@
             $(".page-link").on('click', $.proxy(this.search, this));
         },
 
+        add: function () {
+            window.core.dialog();
+        },
+
+        edit: function () {
+            window.core.editDialog();
+        },
+
         search: function () {
             window.core.setSuccessPointer($.proxy(this._onSuccess, this));
             window.core.gridSearch(this._searchUrl);

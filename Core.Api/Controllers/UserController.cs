@@ -247,7 +247,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 恢复用户.
+        /// 启用用户.
         /// </summary>
         /// <param name="ids">ids.</param>
         /// <returns>IActionResult.</returns>
@@ -259,7 +259,7 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 恢复用户.
+        /// 禁止用户.
         /// </summary>
         /// <param name="ids">ids.</param>
         /// <returns>IActionResult.</returns>

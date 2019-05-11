@@ -62,7 +62,7 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public IActionResult Create(RoleCreateViewModel model)
+        public IActionResult Create(RoleCreateModel model)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
             if (model.Name.Trim().Length <= 0)
@@ -79,7 +79,7 @@ namespace Core.Api.Controllers
                     return this.Ok(response);
                 }
 
-                Role entity = this.Mapper.Map<RoleCreateViewModel, Role>(model);
+                Role entity = this.Mapper.Map<RoleCreateModel, Role>(model);
                 entity.CreatedTime = DateTime.Now;
 
                 // entity.Id = RandomHelper.GetRandomizer(8, true, false, true, true);
@@ -108,7 +108,7 @@ namespace Core.Api.Controllers
             {
                 Role entity = this.DbContext.Role.FirstOrDefault(x => x.Id == code);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(this.Mapper.Map<Role, RoleCreateViewModel>(entity));
+                response.SetData(this.Mapper.Map<Role, RoleCreateModel>(entity));
                 return this.Ok(response);
             }
         }
@@ -120,7 +120,7 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public IActionResult Edit(RoleCreateViewModel model)
+        public IActionResult Edit(RoleCreateModel model)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
