@@ -42,7 +42,12 @@
         /// 返回的响应数据.
         /// </summary>
         public object Data { get; set; }
+
         public string InnerExceptionMessage { get; set; }
+
+        public string StackTrace { get; set; }
+
+        public string InnerExceptionStackTrace { get; set; }
 
         /// <summary>
         /// 设置响应状态为成功.

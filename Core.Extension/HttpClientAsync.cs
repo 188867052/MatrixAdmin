@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -120,14 +119,11 @@ namespace Core.Extension
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
-            if (httpResponse.StatusCode != HttpStatusCode.OK)
-            {
-            }
             ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
 
             if (model.Code != 200)
             {
-                throw new Exception(model.InnerExceptionMessage);
+                throw new Exception(model.InnerExceptionMessage + "," + model.StackTrace);
             }
             return model;
         }

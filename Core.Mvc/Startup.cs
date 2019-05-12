@@ -38,7 +38,7 @@ namespace Core.Mvc
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseMyDeveloperExceptionPage();
             }
             else
             {
