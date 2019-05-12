@@ -186,38 +186,6 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 批量操作.
-        /// </summary>
-        /// <param name="command">command.</param>
-        /// <param name="ids">菜单ID,多个以逗号分隔.</param>
-        /// <returns></returns>
-        [HttpGet]
-        [ProducesResponseType(200)]
-        public IActionResult Batch(string command, int[] ids)
-        {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
-            switch (command)
-            {
-                case "delete":
-                    response = this.UpdateIsEnable(true, ids);
-                    break;
-                case "recover":
-                    response = this.UpdateIsEnable(false, ids);
-                    break;
-                case "forbidden":
-                    response = this.UpdateStatus(StatusEnum.Forbidden, ids);
-                    break;
-                case "normal":
-                    response = this.UpdateStatus(StatusEnum.Normal, ids);
-                    break;
-                default:
-                    break;
-            }
-
-            return this.Ok(response);
-        }
-
-        /// <summary>
         /// 删除菜单.
         /// </summary>
         /// <param name="isEnable">isEnable.</param>

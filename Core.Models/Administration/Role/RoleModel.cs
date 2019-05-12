@@ -49,5 +49,10 @@ namespace Core.Model.Administration.Role
         /// 是否是超级管理员(超级管理员拥有系统的所有权限).
         /// </summary>
         public bool IsSuperAdministrator { get; set; }
+
+        public static RoleModel Convert(Entity.Role arg)
+        {
+           return new RoleModel(arg);
+        }
     }
 }

@@ -36,18 +36,8 @@ namespace Core.Api.Controllers
                 IQueryable<Role> query = this.DbContext.Role;
                 query = query.OrderBy(o => o.IsForbidden).ThenByDescending(o => o.CreateTime);
                 Pager pager = Pager.CreateDefaultInstance();
-                pager.TotalCount = query.Count();
-                List<Role> list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
 
-                IList<RoleModel> models = new List<RoleModel>();
-                foreach (Role item in list)
-                {
-                    models.Add(new RoleModel(item));
-                }
-
-                ResponseModel response = new ResponseModel(models, pager);
-
-                return this.Ok(response);
+                return this.StandardSearchResponse(query, pager, RoleModel.Convert);
             }
         }
 
@@ -60,18 +50,8 @@ namespace Core.Api.Controllers
                 query = query.OrderByDescending(o => o.CreateTime);
                 query = query.Where(o => !o.IsForbidden);
                 Pager pager = Pager.CreateDefaultInstance();
-                pager.TotalCount = query.Count();
-                List<Role> list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
 
-                IList<RoleModel> models = new List<RoleModel>();
-                foreach (Role item in list)
-                {
-                    models.Add(new RoleModel(item));
-                }
-
-                ResponseModel response = new ResponseModel(models, pager);
-
-                return this.Ok(response);
+                return this.StandardSearchResponse(query, pager, RoleModel.Convert);
             }
         }
 
@@ -112,16 +92,7 @@ namespace Core.Api.Controllers
                     model.PageIndex = 1;
                 }
 
-                var list = query.Skip((model.PageIndex - 1) * model.PageSize).Take(model.PageSize).ToList();
-
-                IList<RoleModel> models = new List<RoleModel>();
-                foreach (Role item in list)
-                {
-                    models.Add(new RoleModel(item));
-                }
-
-                ResponseModel response = new ResponseModel(models, model);
-                return this.Ok(response);
+                return this.StandardSearchResponse(query, model, RoleModel.Convert);
             }
         }
 

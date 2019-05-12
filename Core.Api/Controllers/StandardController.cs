@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using Core.Entity;
 using Core.Model;
@@ -28,26 +30,28 @@ namespace Core.Api.Controllers
 
         protected IActionResult StandardResponse<T>(IQueryable<T> query, Pager pager)
         {
-            pager.TotalCount = query.Count();
             if (pager.PageIndex < 1)
             {
                 pager.PageIndex = 1;
             }
 
-            var list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
+            var list = query.ToPagedList(pager);
             ResponseModel response = new ResponseModel(list, pager);
 
             return this.Ok(response);
         }
 
-      
-
+        protected IActionResult StandardSearchResponse<T, TResponse>(IQueryable<T> query, Pager pager, Func<T, TResponse> convert)
+        {
+            IList<TResponse> models = query.ToPagedList(pager).Select(convert).ToList();
+            ResponseModel response = new ResponseModel(models, pager);
+            return this.Ok(response);
+        }
 
         protected IActionResult StandardResponse<T>(IQueryable<T> query)
         {
             Pager pager = Pager.CreateDefaultInstance();
-            pager.TotalCount = query.Count();
-            var list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
+            var list = query.ToPagedList(pager);
             ResponseModel response = new ResponseModel(list, pager);
 
             return this.Ok(response);
@@ -56,8 +60,7 @@ namespace Core.Api.Controllers
         protected IActionResult StandardResponse<T>(DbSet<T> query) where T : class
         {
             Pager pager = Pager.CreateDefaultInstance();
-            pager.TotalCount = query.Count();
-            var list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
+            var list = query.ToPagedList(pager);
             ResponseModel response = new ResponseModel(list, pager);
 
             return this.Ok(response);

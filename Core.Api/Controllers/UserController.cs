@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Core.Api.ControllerHelpers;
@@ -67,13 +65,6 @@ namespace Core.Api.Controllers
             }
         }
 
-        private IActionResult StandardSearchResponse<T, TResponse>(IQueryable<T> query, Pager pager, Func<T, TResponse> convert)
-        {
-            IList<TResponse> models = query.ToPagedList(pager).Select(convert).ToList();
-            ResponseModel response = new ResponseModel(models, pager);
-            return this.Ok(response);
-        }
-
         /// <summary>
         /// 创建用户.
         /// </summary>
@@ -83,7 +74,7 @@ namespace Core.Api.Controllers
         public IActionResult Create(UserCreatePostModel model)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
-            if (model.LoginName.Trim().Length <= 0)
+            if (model.LoginName.Length <= 0)
             {
                 response.SetFailed("请输入登录名称");
                 return this.Ok(response);
