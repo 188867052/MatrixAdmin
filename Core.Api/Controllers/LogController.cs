@@ -32,7 +32,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Log> query = this.DbContext.Log.AsQueryable();
+                IQueryable<Log> query = this.DbContext.Log;
                 query = query.OrderByDescending(o => o.CreateTime);
                 return this.StandardResponse(query);
             }
@@ -43,7 +43,12 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Log> query = this.DbContext.Log.AsQueryable();
+                IQueryable<Log> query = this.DbContext.Log;
+                if (model.LogLevel.HasValue)
+                {
+                    query = query.Where(o => o.LogLevel == (int)model.LogLevel.Value);
+                }
+
                 query = query.OrderByDescending(o => o.CreateTime);
                 if (model.Id.HasValue)
                 {

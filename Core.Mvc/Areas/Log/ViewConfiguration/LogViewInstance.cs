@@ -1,6 +1,4 @@
-﻿using Core.Extension;
-using Core.Mvc.Areas.Log.Controllers;
-using Core.Web.JavaScript;
+﻿using Core.Web.JavaScript;
 
 namespace Core.Mvc.Areas.Log.ViewConfiguration
 {
@@ -10,8 +8,6 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
 
         public override void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize)
         {
-            Url url = new Url(nameof(Log), typeof(LogController), nameof(LogController.GridStateChange));
-            javaScriptInitialize.AddUrlInstance("searchUrl", url);
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using System;
+using Microsoft.Extensions.Logging;
 
 namespace Core.Model.Log
 {
     public class LogPostModel : Pager
     {
-        public bool? IsEnable { get; set; }
-
         /// <summary>
         ///
         /// </summary>
@@ -19,7 +18,7 @@ namespace Core.Model.Log
         /// <summary>
         ///
         /// </summary>
-        public LogType? Type { get; set; }
+        public LogLevel? LogLevel { get; set; }
 
         /// <summary>
         ///

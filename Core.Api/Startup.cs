@@ -55,7 +55,12 @@ namespace Core.Api
 #pragma warning disable 618
             services.AddAutoMapper();
 #pragma warning disable 618
-            services.AddDbContext<CoreApiContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<CoreApiContext>(options =>
+            {
+                var loggerFactory = new LoggerFactory();
+                loggerFactory.AddProvider(new EntityFrameworkLoggerProvider());
+                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")).UseLoggerFactory(loggerFactory); ;
+            });
         }
 
         /// <summary>
@@ -69,7 +74,6 @@ namespace Core.Api
             this.SwaggerBuilder(app);
             app.UseCors("AllowSameDomain");
 
-            //异常处理中间件
             app.UseMiddleware(typeof(ExceptionHandlerMiddleWare));
             app.UseStaticFiles().UseMvc(routes =>
             {
