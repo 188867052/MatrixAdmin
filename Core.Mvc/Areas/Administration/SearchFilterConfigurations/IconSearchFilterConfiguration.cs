@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using Core.Extension;
 using Core.Model.Administration.Icon;
+using Core.Mvc.Areas.Administration.Controllers;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
@@ -20,9 +22,8 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 
         protected override void CreateButton(IList<StandardButton> buttons)
         {
-            buttons.Add(new StandardButton("搜索", "index.search"));
-            buttons.Add(new StandardButton("添加"));
-            buttons.Add(new StandardButton("编辑"));
+            Url searchUrl = new Url(nameof(Administration), typeof(IconController), nameof(IconController.GridStateChange));
+            buttons.Add(new StandardButton("搜索", "index.search", searchUrl));
         }
     }
 }

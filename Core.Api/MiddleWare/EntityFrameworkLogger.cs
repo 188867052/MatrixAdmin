@@ -2,7 +2,6 @@
 using System.Text.RegularExpressions;
 using Core.Entity;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.ProjectModel;
 
 namespace Core.Api.MiddleWare
 {
@@ -16,7 +15,7 @@ namespace Core.Api.MiddleWare
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            if (this._categoryName == "Microsoft.EntityFrameworkCore.Database.Command" /*&& logLevel == LogLevel.Information*/)
+            if (this._categoryName == "Microsoft.EntityFrameworkCore.Database.Command")
             {
                 var logContent = formatter(state, exception);
                 if (logContent != "A data reader was disposed." && !logContent.Contains("[Log]"))
@@ -40,8 +39,8 @@ namespace Core.Api.MiddleWare
             string sql = Regex.Match(content, "(SELECT|UPDATE|INSERT|DELETE)+(.|\\n)+").Value;
 
             string pare = Regex.Match(content, "Parameters[^\\]]+").Value.Replace("Parameters=[", string.Empty);
-            MatchCollection mahces = Regex.Matches(pare, "@[^ ]+");
-            foreach (Match item in mahces)
+            MatchCollection matches = Regex.Matches(pare, "@[^ ]+");
+            foreach (Match item in matches)
             {
                 string key = item.Value.Split('=')[0];
                 string value = item.Value.Split('=')[1].Replace(",", string.Empty);
