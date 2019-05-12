@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using Core.Entity.Enums;
+using Core.Extension;
 
 namespace Core.Model.Administration.User
 {
@@ -57,5 +59,22 @@ namespace Core.Model.Administration.User
         /// 最近修改者姓名.
         /// </summary>
         public string ModifiedByUserName { get; set; }
+
+        public IQueryable<Entity.User> GenerateQuery(IQueryable<Entity.User> query)
+        {
+            if (this.RoleId.HasValue)
+            {
+                query = query.Where(o => o.UserRoleMapping.Any(u => u.Role.Id == this.RoleId));
+            }
+
+            query = query.AddIntegerEqualFilter((int?)this.Status, o => o.Status);
+            query = query.AddDateTimeBetweenFilter(this.StartCreateTime, this.EndCreateTime, o => o.CreateTime);
+            query = query.AddBooleanFilter(this.IsEnable, o => o.IsEnable);
+            query = query.AddStringContainsFilter(this.DisplayName, o => o.DisplayName);
+            query = query.AddStringContainsFilter(this.LoginName, o => o.LoginName);
+            query = query.OrderByDescending(o => o.CreateTime);
+
+            return query;
+        }
     }
 }

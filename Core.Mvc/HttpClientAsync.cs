@@ -1,10 +1,11 @@
 ﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Core.Extension;
 using Core.Model;
 using Newtonsoft.Json;
 
-namespace Core.Extension
+namespace Core.Mvc
 {
     public static class HttpClientAsync
     {

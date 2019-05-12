@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Extension.CustomException
+namespace Core.Api.CustomException
 {
     public class UnauthorizeException : Exception
     {

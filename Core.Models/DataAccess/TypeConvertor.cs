@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Data;
 
-namespace Core.Extension.DataAccess
+namespace Core.Model.DataAccess
 {
     // Convert .Net Type to SqlDbType or DbType and vise versa
     // This class can be useful when you make conversion between types .The class supports conversion between .Net Type , SqlDbType and DbType .

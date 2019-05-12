@@ -1,7 +1,7 @@
 ﻿using System;
 using Core.Entity.Enums;
 
-namespace Core.Extension.AuthContext
+namespace Core.Api.AuthContext
 {
     /// <summary>
     /// 登录用户上下文.

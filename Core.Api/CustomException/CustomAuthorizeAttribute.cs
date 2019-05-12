@@ -3,7 +3,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Core.Extension.CustomException
+namespace Core.Api.CustomException
 {
     /// <summary>
     /// CustomAuthorizeAttribute.

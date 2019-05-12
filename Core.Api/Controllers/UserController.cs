@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Core.Api.ControllerHelpers;
 using Core.Entity;
-using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
 using Microsoft.AspNetCore.Mvc;
@@ -37,18 +37,8 @@ namespace Core.Api.Controllers
                 IQueryable<User> query = this.DbContext.User;
                 query = query.OrderByDescending(o => o.CreateTime);
                 Pager pager = Pager.CreateDefaultInstance();
-                pager.TotalCount = query.Count();
-                List<User> list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
 
-                IList<UserModel> models = new List<UserModel>();
-                foreach (User item in list)
-                {
-                    models.Add(new UserModel(item));
-                }
-
-                ResponseModel response = new ResponseModel(models, pager);
-
-                return this.Ok(response);
+                return this.StandardSearchResponse(query, pager, UserModel.Convert);
             }
         }
 
@@ -66,35 +56,22 @@ namespace Core.Api.Controllers
                 this.DbContext.Set<UserRoleMapping>().Load();
                 this.DbContext.Set<Role>().Load();
                 IQueryable<User> query = this.DbContext.User;
-                if (model.RoleId.HasValue)
-                {
-                    query = query.Where(o => o.UserRoleMapping.Any(u => u.Role.Id == model.RoleId));
-                }
+                query = model.GenerateQuery(query);
 
-                query = query.AddIntegerEqualFilter((int?)model.Status, o => o.Status);
-                query = query.AddDateTimeBetweenFilter(model.StartCreateTime, model.EndCreateTime, o => o.CreateTime);
-                query = query.AddBooleanFilter(model.IsEnable, o => o.IsEnable);
-                query = query.AddStringContainsFilter(model.DisplayName, o => o.DisplayName);
-                query = query.AddStringContainsFilter(model.LoginName, o => o.LoginName);
-                query = query.OrderByDescending(o => o.CreateTime);
-
-                model.TotalCount = query.Count();
                 if (model.PageIndex < 1)
                 {
                     model.PageIndex = 1;
                 }
 
-                var list = query.Skip((model.PageIndex - 1) * model.PageSize).Take(model.PageSize).ToList();
-
-                IList<UserModel> models = new List<UserModel>();
-                foreach (User item in list)
-                {
-                    models.Add(new UserModel(item));
-                }
-
-                ResponseModel response = new ResponseModel(models, model);
-                return this.Ok(response);
+                return this.StandardSearchResponse(query, model, UserModel.Convert);
             }
+        }
+
+        private IActionResult StandardSearchResponse<T, TResponse>(IQueryable<T> query, Pager pager, Func<T, TResponse> convert)
+        {
+            IList<TResponse> models = query.ToPagedList(pager).Select(convert).ToList();
+            ResponseModel response = new ResponseModel(models, pager);
+            return this.Ok(response);
         }
 
         /// <summary>
@@ -121,8 +98,6 @@ namespace Core.Api.Controllers
                 }
 
                 User entity = this.Mapper.Map<UserCreatePostModel, User>(model);
-                entity.CreateTime = DateTime.Now;
-                entity.UpdateTime = DateTime.Now;
                 if (model.UserRole.HasValue)
                 {
                     entity.UserRoleMapping.Add(new UserRoleMapping

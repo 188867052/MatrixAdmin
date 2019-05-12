@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Core.Extension.CustomException
+namespace Core.Api.CustomException
 {
     /// <summary>
     ///

@@ -102,5 +102,10 @@ namespace Core.Model.Administration.User
         public string RoleName { get; set; }
 
         public UserStatusModel UserStatus { get; set; }
+
+        public static UserModel Convert(Entity.User item)
+        {
+            return new UserModel(item);
+        }
     }
 }

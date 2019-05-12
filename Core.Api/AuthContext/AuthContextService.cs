@@ -3,7 +3,7 @@ using System.Security.Claims;
 using Core.Entity.Enums;
 using Microsoft.AspNetCore.Http;
 
-namespace Core.Extension.AuthContext
+namespace Core.Api.AuthContext
 {
     /// <summary>
     /// AuthContextService.

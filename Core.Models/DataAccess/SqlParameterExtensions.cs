@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace Core.Extension.DataAccess
+namespace Core.Model.DataAccess
 {
     public static class SqlParameterExtensions
     {

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Core.Extension.CustomException
+namespace Core.Api.CustomException
 {
     public class ErrorDetails
     {

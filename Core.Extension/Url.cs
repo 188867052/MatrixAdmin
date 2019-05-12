@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Extension
 {
@@ -55,7 +54,7 @@ namespace Core.Extension
 
         public string Render()
         {
-            string controller = this.ControllerType.Name.Replace(nameof(Controller), default);
+            string controller = this.ControllerType.Name.Replace("Controller", default);
             string url = default;
             if (this.Area != default)
             {

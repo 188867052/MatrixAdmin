@@ -1,6 +1,4 @@
-﻿using Core.Model;
-
-namespace Core.Extension
+﻿namespace Core.Model
 {
     /// <summary>
     /// /.

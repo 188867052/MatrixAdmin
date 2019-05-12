@@ -4,7 +4,7 @@ using System.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace Core.Extension.DataAccess
+namespace Core.Model.DataAccess
 {
     /// <summary>
     /// EntityFrameworkExtension.

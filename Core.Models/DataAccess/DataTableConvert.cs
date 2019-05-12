@@ -4,7 +4,7 @@ using System.Data;
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace Core.Extension
+namespace Core.Model.DataAccess
 {
     /// <summary>
     /// 把 DataTable 转换为对象集合列表List&lt;T&gt;.

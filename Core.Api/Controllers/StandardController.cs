@@ -40,6 +40,9 @@ namespace Core.Api.Controllers
             return this.Ok(response);
         }
 
+      
+
+
         protected IActionResult StandardResponse<T>(IQueryable<T> query)
         {
             Pager pager = Pager.CreateDefaultInstance();

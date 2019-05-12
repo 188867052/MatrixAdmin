@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Core.Api.AuthContext;
 using Core.Entity;
 using Core.Extension;
-using Core.Extension.AuthContext;
 using Core.Extension.Dapper;
 using Core.Model;
 using Core.Model.Administration.Icon;

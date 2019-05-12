@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Extension.DataAccess
+namespace Core.Model.DataAccess
 {
     /// <summary>
     /// Use for an alternative param name other than the property name.

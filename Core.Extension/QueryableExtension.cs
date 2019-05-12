@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Core.Extension.ExpressionBuilder.Builders;
 using Core.Extension.ExpressionBuilder.Generics;
-using Core.Model;
 
 namespace Core.Extension
 {
@@ -17,20 +16,7 @@ namespace Core.Extension
         private static readonly string key = "o";
         private static readonly MethodInfo StringContainsMethod = typeof(string).GetMethod(nameof(string.Contains), new[] { typeof(string) });
 
-        /// <summary>
-        /// IQueryable分页.
-        /// </summary>
-        /// <typeparam name="T">T.</typeparam>
-        /// <param name="query">query.</param>
-        /// <param name="count">count.</param>
-        /// <param name="pager">pager.</param>
-        /// <returns></returns>
-        public static IList<T> ToPagedList<T>(this IQueryable<T> query, out int count, Pager pager)
-        {
-            pager.TotalCount = query.Count();
-            count = query.Count();
-            return query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
-        }
+       
 
         public static IQueryable<T> AddDateTimeLessThanOrEqualFilter<T>(this IQueryable<T> query, DateTime? value, Expression<Func<T, DateTime?>> expression)
         {
