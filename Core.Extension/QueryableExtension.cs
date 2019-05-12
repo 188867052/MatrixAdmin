@@ -15,6 +15,7 @@ namespace Core.Extension
     public static class QueryableExtension
     {
         private static readonly string key = "o";
+        private static readonly MethodInfo StringContainsMethod = typeof(string).GetMethod(nameof(string.Contains), new[] { typeof(string) });
 
         /// <summary>
         /// IQueryable分页.
@@ -36,14 +37,17 @@ namespace Core.Extension
             if (value.HasValue)
             {
                 string name = expression.GetPropertyName();
-                var parameter = System.Linq.Expressions.Expression.Parameter(typeof(T), key);
-                var left = System.Linq.Expressions.Expression.Property(parameter, typeof(T).GetProperty(name));
-                var right = System.Linq.Expressions.Expression.Constant(value);
-                var predicate = System.Linq.Expressions.Expression.LessThanOrEqual(left, right);
-                var lambda = System.Linq.Expressions.Expression.Lambda<Func<T, bool>>(predicate, parameter);
-                query = query.Where(lambda);
+                BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.LessThanOrEqual(a, b);
+                query = query.Build(value, name, Predicate);
             }
 
+            return query;
+        }
+
+        public static IQueryable<T> AddDateTimeBetweenFilter<T>(this IQueryable<T> query, DateTime? starTime, DateTime? endTime, Expression<Func<T, DateTime?>> expression)
+        {
+            query = query.AddDateTimeGreaterThanOrEqualFilter(starTime, expression);
+            query = query.AddDateTimeLessThanOrEqualFilter(endTime, expression);
             return query;
         }
 
@@ -52,12 +56,8 @@ namespace Core.Extension
             if (value.HasValue)
             {
                 string name = expression.GetPropertyName();
-                var parameter = System.Linq.Expressions.Expression.Parameter(typeof(T), key);
-                var left = System.Linq.Expressions.Expression.Property(parameter, typeof(T).GetProperty(name));
-                var right = System.Linq.Expressions.Expression.Constant(value);
-                var predicate = System.Linq.Expressions.Expression.GreaterThanOrEqual(left, right);
-                var lambda = System.Linq.Expressions.Expression.Lambda<Func<T, bool>>(predicate, parameter);
-                query = query.Where(lambda);
+                BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.GreaterThanOrEqual(a, b);
+                query = query.Build(value, name, Predicate);
             }
 
             return query;
@@ -98,26 +98,67 @@ namespace Core.Extension
             if (!string.IsNullOrWhiteSpace(value))
             {
                 string name = expression.GetPropertyName();
-                var parameter = System.Linq.Expressions.Expression.Parameter(typeof(T), key);
-                var left = System.Linq.Expressions.Expression.Property(parameter, typeof(T).GetProperty(name));
-                var right = System.Linq.Expressions.Expression.Constant(value.Trim());
-                MethodInfo method = typeof(string).GetMethod(nameof(string.Contains), new[] { typeof(string) });
-                var predicate = System.Linq.Expressions.Expression.Call(left, method, right);
-                var lambda = System.Linq.Expressions.Expression.Lambda<Func<T, bool>>(predicate, parameter);
-                query = query.Where(lambda);
+                MethodCallExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.Call(a, StringContainsMethod, b);
+                query = query.Build(value, name, Predicate);
             }
+
+            return query;
+        }
+
+        private static IQueryable<T> Build<T>(this IQueryable<T> query, object value, string name, Func<MemberExpression, ConstantExpression, BinaryExpression> predicate)
+        {
+            Expression<Func<T, bool>> Lambda(MemberExpression a, ConstantExpression b, ParameterExpression c) => Expression.Lambda<Func<T, bool>>(predicate(a, b), c);
+            query = query.BuildQuery(value, name, Lambda);
+
+            return query;
+        }
+
+        private static IQueryable<T> Build<T>(this IQueryable<T> query, object value, string name, Func<MemberExpression, ConstantExpression, MethodCallExpression> predicate)
+        {
+            Expression<Func<T, bool>> Lambda(MemberExpression a, ConstantExpression b, ParameterExpression c) => Expression.Lambda<Func<T, bool>>(predicate(a, b), c);
+            query = query.BuildQuery(value, name, Lambda);
 
             return query;
         }
 
         private static IQueryable<T> AddEqualFilter<T>(this IQueryable<T> query, object value, string name)
         {
-            var parameter = System.Linq.Expressions.Expression.Parameter(typeof(T), key);
-            var left = System.Linq.Expressions.Expression.Property(parameter, typeof(T).GetProperty(name));
-            var right = System.Linq.Expressions.Expression.Constant(value);
-            var predicate = System.Linq.Expressions.Expression.Equal(left, right);
-            var lambda = System.Linq.Expressions.Expression.Lambda<Func<T, bool>>(predicate, parameter);
-            query = query.Where(lambda);
+            BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.Equal(a, b);
+            query = query.Build(value, name, Predicate);
+
+            return query;
+        }
+
+        private static IQueryable<T> AddNotEqualFilter<T>(this IQueryable<T> query, object value, string name)
+        {
+            BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.NotEqual(a, b);
+            query = query.Build(value, name, Predicate);
+
+            return query;
+        }
+
+        private static IQueryable<T> AddNotNullFilter<T>(this IQueryable<T> query, string name)
+        {
+            BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.NotEqual(a, b);
+            query = query.Build(null, name, Predicate);
+
+            return query;
+        }
+
+        private static IQueryable<T> AddIsNullFilter<T>(this IQueryable<T> query, string name)
+        {
+            BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.Equal(a, b);
+            query = query.Build(null, name, Predicate);
+
+            return query;
+        }
+
+        private static IQueryable<T> BuildQuery<T>(this IQueryable<T> query, object value, string name, Func<MemberExpression, ConstantExpression, ParameterExpression, Expression<Func<T, bool>>> lambda)
+        {
+            ParameterExpression parameter = Expression.Parameter(typeof(T), key);
+            MemberExpression left = Expression.Property(parameter, typeof(T).GetProperty(name));
+            ConstantExpression right = Expression.Constant(value);
+            query = query.Where(lambda(left, right, parameter));
 
             return query;
         }

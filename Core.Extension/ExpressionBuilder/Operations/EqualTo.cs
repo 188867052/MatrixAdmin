@@ -15,19 +15,19 @@ namespace Core.Extension.ExpressionBuilder.Operations
         }
 
         /// <inheritdoc />
-        public override System.Linq.Expressions.Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
+        public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
         {
-            System.Linq.Expressions.Expression constant = constant1;
+            Expression constant = constant1;
 
             if (member.Type == typeof(string))
             {
                 constant = constant1.TrimToLower();
 
-                return System.Linq.Expressions.Expression.Equal(member.TrimToLower(), constant)
+                return Expression.Equal(member.TrimToLower(), constant)
                        .AddNullCheck(member);
             }
 
-            return System.Linq.Expressions.Expression.Equal(member, constant);
+            return Expression.Equal(member, constant);
         }
     }
 }

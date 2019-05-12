@@ -53,9 +53,8 @@ namespace Core.Api.Controllers
                 // Filter<Permission> filter = new Filter<Permission>(filter1, filter2, Connector.Or);
                 // query = query.AddFilter(filter);
                 query = query.AddBooleanFilter(model.IsEnable, o => o.IsEnable);
-
-                // query = query.AddBooleanFilter(model.Status, nameof(Permission.Status));
-                // query = query.AddGuidEqualsFilter(model.MenuGuid, nameof(Permission.MenuGuid));
+                query = query.AddBooleanFilter(model.Status, o => o.Status);
+                //query = query.AddGuidEqualsFilter(model.MenuGuid, nameof(Permission.MenuGuid));
 
                 // var data = list.Select(this.Mapper.Map<Permission, PermissionJsonModel>);
                 /*
@@ -190,38 +189,6 @@ namespace Core.Api.Controllers
         public IActionResult Recover(string ids)
         {
             ResponseModel response = this.UpdateIsEnable(false, ids);
-            return this.Ok(response);
-        }
-
-        /// <summary>
-        /// 批量操作.
-        /// </summary>
-        /// <param name="command">The command.</param>
-        /// <param name="ids">权限ID,多个以逗号分隔.</param>
-        /// <returns></returns>
-        [HttpGet]
-        [ProducesResponseType(200)]
-        public IActionResult Batch(string command, string ids)
-        {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
-            switch (command)
-            {
-                case "delete":
-                    response = this.UpdateIsEnable(true, ids);
-                    break;
-                case "recover":
-                    response = this.UpdateIsEnable(false, ids);
-                    break;
-                case "forbidden":
-                    response = this.UpdateStatus(false, ids);
-                    break;
-                case "normal":
-                    response = this.UpdateStatus(true, ids);
-                    break;
-                default:
-                    break;
-            }
-
             return this.Ok(response);
         }
 

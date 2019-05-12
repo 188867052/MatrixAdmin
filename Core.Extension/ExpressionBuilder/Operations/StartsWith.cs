@@ -9,7 +9,7 @@ namespace Core.Extension.ExpressionBuilder.Operations
     /// </summary>
     public class StartsWith : OperationBase
     {
-        private readonly MethodInfo startsWithMethod = typeof(string).GetMethod("StartsWith", new[] { typeof(string) });
+        private readonly MethodInfo _startsWithMethod = typeof(string).GetMethod("StartsWith", new[] { typeof(string) });
 
         /// <inheritdoc />
         public StartsWith()
@@ -18,11 +18,11 @@ namespace Core.Extension.ExpressionBuilder.Operations
         }
 
         /// <inheritdoc />
-        public override System.Linq.Expressions.Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
+        public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
         {
-            System.Linq.Expressions.Expression constant = constant1.TrimToLower();
+            Expression constant = constant1.TrimToLower();
 
-            return System.Linq.Expressions.Expression.Call(member.TrimToLower(), this.startsWithMethod, constant)
+            return Expression.Call(member.TrimToLower(), _startsWithMethod, constant)
                    .AddNullCheck(member);
         }
     }

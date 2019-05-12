@@ -11,7 +11,7 @@ namespace Core.Extension.ExpressionBuilder.Builders
 {
     public class FilterBuilder
     {
-        public System.Linq.Expressions.Expression GetSafePropertyMember(ParameterExpression param, string memberName, System.Linq.Expressions.Expression expr)
+        public Expression GetSafePropertyMember(ParameterExpression param, string memberName, Expression expr)
         {
             if (!memberName.Contains("."))
             {
@@ -21,41 +21,41 @@ namespace Core.Extension.ExpressionBuilder.Builders
             var index = memberName.LastIndexOf(".", StringComparison.InvariantCulture);
             var parentName = memberName.Substring(0, index);
             var subParam = param.GetMemberExpression(parentName);
-            var resultExpr = System.Linq.Expressions.Expression.AndAlso(System.Linq.Expressions.Expression.NotEqual(subParam, System.Linq.Expressions.Expression.Constant(null)), expr);
+            var resultExpr = Expression.AndAlso(Expression.NotEqual(subParam, Expression.Constant(null)), expr);
             return this.GetSafePropertyMember(param, parentName, resultExpr);
         }
 
         public Expression<Func<T, bool>> GetExpression<T>(IFilter filter) where T : class
         {
-            var param = System.Linq.Expressions.Expression.Parameter(typeof(T), "x");
-            System.Linq.Expressions.Expression expression = null;
+            var param = Expression.Parameter(typeof(T), "x");
+            Expression expression = null;
             var connector = Connector.And;
             foreach (var statementGroup in filter.Statements)
             {
                 var statementGroupConnector = Connector.And;
-                System.Linq.Expressions.Expression partialExpr = this.GetPartialExpression(param, ref statementGroupConnector, statementGroup);
+                Expression partialExpr = this.GetPartialExpression(param, ref statementGroupConnector, statementGroup);
 
                 expression = expression == null ? partialExpr : this.CombineExpressions(expression, partialExpr, connector);
                 connector = statementGroupConnector;
             }
 
-            expression = expression ?? System.Linq.Expressions.Expression.Constant(true);
+            expression = expression ?? Expression.Constant(true);
 
-            return System.Linq.Expressions.Expression.Lambda<Func<T, bool>>(expression, param);
+            return Expression.Lambda<Func<T, bool>>(expression, param);
         }
 
-        protected System.Linq.Expressions.Expression CheckIfParentIsNull(ParameterExpression param, string memberName)
+        protected Expression CheckIfParentIsNull(ParameterExpression param, string memberName)
         {
             var parentMember = this.GetParentMember(param, memberName);
-            return System.Linq.Expressions.Expression.Equal(parentMember, System.Linq.Expressions.Expression.Constant(null));
+            return Expression.Equal(parentMember, Expression.Constant(null));
         }
 
-        private System.Linq.Expressions.Expression GetPartialExpression(ParameterExpression param, ref Connector connector, IEnumerable<IFilterInfo> statementGroup)
+        private Expression GetPartialExpression(ParameterExpression param, ref Connector connector, IEnumerable<IFilterInfo> statementGroup)
         {
-            System.Linq.Expressions.Expression expression = null;
+            Expression expression = null;
             foreach (var statement in statementGroup)
             {
-                System.Linq.Expressions.Expression expr = null;
+                Expression expr = null;
                 if (this.IsList(statement))
                 {
                     expr = this.ProcessListStatement(param, statement);
@@ -77,50 +77,50 @@ namespace Core.Extension.ExpressionBuilder.Builders
             return statement.PropertyName.Contains("[") && statement.PropertyName.Contains("]");
         }
 
-        private System.Linq.Expressions.Expression CombineExpressions(System.Linq.Expressions.Expression expr1, System.Linq.Expressions.Expression expr2, Connector connector)
+        private Expression CombineExpressions(Expression expr1, Expression expr2, Connector connector)
         {
-            return connector == Connector.And ? System.Linq.Expressions.Expression.AndAlso(expr1, expr2) : System.Linq.Expressions.Expression.OrElse(expr1, expr2);
+            return connector == Connector.And ? Expression.AndAlso(expr1, expr2) : Expression.OrElse(expr1, expr2);
         }
 
-        private System.Linq.Expressions.Expression ProcessListStatement(ParameterExpression param, IFilterInfo statement)
+        private Expression ProcessListStatement(ParameterExpression param, IFilterInfo statement)
         {
             var basePropertyName = statement.PropertyName.Substring(0, statement.PropertyName.IndexOf("["));
             var propertyName = statement.PropertyName.Substring(statement.PropertyName.IndexOf("[") + 1).Replace("]", string.Empty);
 
             var type = param.Type.GetProperty(basePropertyName).PropertyType.GetGenericArguments()[0];
-            ParameterExpression listItemParam = System.Linq.Expressions.Expression.Parameter(type, "i");
-            var lambda = System.Linq.Expressions.Expression.Lambda(this.GetExpression(listItemParam, statement, propertyName), listItemParam);
+            ParameterExpression listItemParam = Expression.Parameter(type, "i");
+            var lambda = Expression.Lambda(this.GetExpression(listItemParam, statement, propertyName), listItemParam);
             var member = param.GetMemberExpression(basePropertyName);
             var enumerableType = typeof(Enumerable);
             var anyInfo = enumerableType.GetMethods(BindingFlags.Static | BindingFlags.Public).First(m => m.Name == "Any" && m.GetParameters().Count() == 2);
             anyInfo = anyInfo.MakeGenericMethod(type);
-            return System.Linq.Expressions.Expression.Call(anyInfo, member, lambda);
+            return Expression.Call(anyInfo, member, lambda);
         }
 
-        private System.Linq.Expressions.Expression GetExpression(ParameterExpression param, IFilterInfo statement, string propertyName = null)
+        private Expression GetExpression(ParameterExpression param, IFilterInfo statement, string propertyName = null)
         {
-            System.Linq.Expressions.Expression resultExpr = null;
+            Expression resultExpr = null;
             var memberName = propertyName ?? statement.PropertyName;
             MemberExpression member = param.GetMemberExpression(memberName);
 
             if (Nullable.GetUnderlyingType(member.Type) != null && statement.Value != null)
             {
-                resultExpr = System.Linq.Expressions.Expression.Property(member, "HasValue");
-                member = System.Linq.Expressions.Expression.Property(member, "Value");
+                resultExpr = Expression.Property(member, "HasValue");
+                member = Expression.Property(member, "Value");
             }
 
-            var constant1 = System.Linq.Expressions.Expression.Constant(statement.Value);
-            var constant2 = System.Linq.Expressions.Expression.Constant(statement.Value2);
+            var constant1 = Expression.Constant(statement.Value);
+            var constant2 = Expression.Constant(statement.Value2);
 
             this.CheckPropertyValueMismatch(member, constant1);
 
             var safeStringExpression = statement.Operation.GetExpression(member, constant1, constant2);
-            resultExpr = resultExpr != null ? System.Linq.Expressions.Expression.AndAlso(resultExpr, safeStringExpression) : safeStringExpression;
+            resultExpr = resultExpr != null ? Expression.AndAlso(resultExpr, safeStringExpression) : safeStringExpression;
             resultExpr = this.GetSafePropertyMember(param, memberName, resultExpr);
 
             if (statement.Operation.ExpectNullValues && memberName.Contains("."))
             {
-                resultExpr = System.Linq.Expressions.Expression.OrElse(this.CheckIfParentIsNull(param, memberName), resultExpr);
+                resultExpr = Expression.OrElse(this.CheckIfParentIsNull(param, memberName), resultExpr);
             }
 
             return resultExpr;

@@ -47,7 +47,7 @@ namespace Core.Extension.ExpressionBuilder.Interfaces
         /// <param name="constant1">The operation's first constant value.</param>
         /// <param name="constant2">The operation's second constant value.</param>
         /// <returns></returns>
-        System.Linq.Expressions.Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2);
+        Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2);
 
         /// <summary>
         /// Returns a string representation of the operation.

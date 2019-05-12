@@ -4,6 +4,7 @@ using System.Net;
 using AutoMapper;
 using Core.Api.ControllerHelpers;
 using Core.Entity;
+using Core.Extension;
 using Core.Extension.CustomException;
 using Core.Model;
 using Core.Model.Log;
@@ -50,25 +51,9 @@ namespace Core.Api.Controllers
                 }
 
                 query = query.OrderByDescending(o => o.CreateTime);
-                if (model.Id.HasValue)
-                {
-                    query = query.Where(o => o.Id == model.Id);
-                }
-
-                if (model.StartTime.HasValue)
-                {
-                    query = query.Where(o => o.CreateTime >= model.StartTime);
-                }
-
-                if (model.EndTime.HasValue)
-                {
-                    query = query.Where(o => o.CreateTime <= model.EndTime);
-                }
-
-                if (!string.IsNullOrEmpty(model.Message))
-                {
-                    query = query.Where(o => o.Message.Contains(model.Message));
-                }
+                query = query.AddIntegerEqualFilter(model.Id, o => o.Id);
+                query = query.AddDateTimeBetweenFilter(model.StartTime, model.EndTime, o => o.CreateTime);
+                query = query.AddStringContainsFilter(model.Message, o => o.Message);
 
                 return this.StandardResponse(query, model);
             }
@@ -107,7 +92,7 @@ namespace Core.Api.Controllers
                 // };
                 return new ObjectResult(error);
             }
-            ////IQueryable<Role> query = this.DbContext.Role.AsQueryable();
+            ////IQueryable<Role> query = this.DbContext.Role;
             // List<Role> a = query.ToList();
             //// error = new ErrorDetails
             ////{

@@ -2,11 +2,10 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Core.Extension
 {
-    public static class Expression
+    public static class ExpressionExtension
     {
         public static string GetPropertyName<T>(this Expression<Func<T, int>> expression)
         {
@@ -55,11 +54,6 @@ namespace Core.Extension
             return name;
         }
 
-        public static string GetPropertyName<T>(this Expression<Func<T, object>> expression)
-        {
-            return expression.Body.GetName<T>();
-        }
-
         public static string GetPropertyName<T>(this Expression<Func<T, int?>> expression)
         {
             return expression.Body.GetName<T>();
@@ -76,23 +70,12 @@ namespace Core.Extension
             return typeof(T).GetProperties().First(o => o.Name == propertyName);
         }
 
-        private static PropertyInfo PropertyInfo<T>(this UnaryExpression expression)
-        {
-            string propertyName = expression.PropertyName();
-            return typeof(T).GetProperties().First(o => o.Name == propertyName);
-        }
-
-        private static string PropertyName(this UnaryExpression expr)
-        {
-            return ((MemberExpression)expr.Operand).Member.Name;
-        }
-
         private static string PropertyName(this MemberExpression expr)
         {
             return expr.Member.Name;
         }
 
-        private static string GetName<T>(this System.Linq.Expressions.Expression expression)
+        private static string GetName<T>(this Expression expression)
         {
             string name;
             switch (expression)
@@ -126,7 +109,6 @@ namespace Core.Extension
         private static string GetValue(this ParameterExpression parameterExpression)
         {
             return parameterExpression.Type.Name;
-            ;
         }
     }
 }

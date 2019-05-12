@@ -47,10 +47,10 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Menu> query = this.DbContext.Menu.AsQueryable();
+                IQueryable<Menu> query = this.DbContext.Menu;
                 query = query.AddStringContainsFilter(model.MenuName, o => o.Name);
+                query = query.AddBooleanFilter(model.Status, o => o.Status);
 
-                // query = query.AddBooleanFilter(model.Status, nameof(Menu.Status));
                 // query = query.AddGuidEqualsFilter(model.ParentGuid, nameof(Menu.ParentGuid));
                 // IEnumerable<MenuJsonModel> data = list.Select(Mapper.Map<Menu, MenuJsonModel>);
                 return this.StandardResponse(query, model);

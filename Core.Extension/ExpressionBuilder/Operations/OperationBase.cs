@@ -22,12 +22,12 @@ namespace Core.Extension.ExpressionBuilder.Operations
         /// <param name="expectNullValues"></param>
         protected OperationBase(string name, int numberOfValues, TypeGroup typeGroups, bool active = true, bool supportsLists = false, bool expectNullValues = false)
         {
-            this.Name = name;
-            this.NumberOfValues = numberOfValues;
-            this.TypeGroup = typeGroups;
-            this.Active = active;
-            this.SupportsLists = supportsLists;
-            this.ExpectNullValues = expectNullValues;
+            Name = name;
+            NumberOfValues = numberOfValues;
+            TypeGroup = typeGroups;
+            Active = active;
+            SupportsLists = supportsLists;
+            ExpectNullValues = expectNullValues;
         }
 
         /// <inheritdoc />
@@ -49,12 +49,12 @@ namespace Core.Extension.ExpressionBuilder.Operations
         public bool ExpectNullValues { get; }
 
         /// <inheritdoc />
-        public abstract System.Linq.Expressions.Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2);
+        public abstract Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2);
 
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return this.Name != null ? this.Name.GetHashCode() : 0;
+            return Name != null ? Name.GetHashCode() : 0;
         }
 
         /// <inheritdoc />
@@ -70,18 +70,18 @@ namespace Core.Extension.ExpressionBuilder.Operations
                 return true;
             }
 
-            return obj.GetType() == this.GetType() && this.Equals((OperationBase)obj);
+            return obj.GetType() == GetType() && Equals((OperationBase)obj);
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return this.Name.Trim();
+            return Name.Trim();
         }
 
         public bool Equals(IOperation other)
         {
-            return string.Equals(this.Name, other.Name);
+            return string.Equals(Name, other.Name);
         }
     }
 }

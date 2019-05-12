@@ -17,7 +17,7 @@ namespace Core.Extension.ExpressionBuilder.Operations
         }
 
         /// <inheritdoc />
-        public override System.Linq.Expressions.Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
+        public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
         {
             if (!(constant1.Value is IList) || !constant1.Value.GetType().IsGenericType)
             {
@@ -26,8 +26,8 @@ namespace Core.Extension.ExpressionBuilder.Operations
 
             var type = constant1.Value.GetType();
             var inInfo = type.GetMethod("Contains", new[] { type.GetGenericArguments()[0] });
-            var contains = System.Linq.Expressions.Expression.Call(constant1, inInfo, member);
-            return System.Linq.Expressions.Expression.Not(contains);
+            var contains = Expression.Call(constant1, inInfo, member);
+            return Expression.Not(contains);
         }
     }
 }

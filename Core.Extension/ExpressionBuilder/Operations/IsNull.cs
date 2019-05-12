@@ -15,9 +15,9 @@ namespace Core.Extension.ExpressionBuilder.Operations
         }
 
         /// <inheritdoc />
-        public override System.Linq.Expressions.Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
+        public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
         {
-            return System.Linq.Expressions.Expression.Equal(member, System.Linq.Expressions.Expression.Constant(null));
+            return Expression.Equal(member, Expression.Constant(null));
         }
     }
 }

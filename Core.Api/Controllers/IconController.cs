@@ -37,31 +37,6 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public IActionResult List(IconPostedModel model)
-        {
-            using (this.DbContext)
-            {
-                // IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();
-                ////Filter<Icon> filter = new Filter<Icon>(new FilterInfo<DateTime>(nameof(Icon.CreatedOn), Operation.Between, DateTime.Now, DateTime.Now));
-                ////query = query.AddFilter(filter);
-                ////query = query.ExpressionBuilder(model.Status, nameof(Icon.Status));
-                // query = query.AddBooleanFilter(model.IsEnable, nameof(Icon.IsEnable));
-                ////query = query.AddStringContainsFilter(model.KeyWord, nameof(Icon.Code));
-                // query = query.AddBooleanFilter(model.Status, nameof(Icon.Status));
-                // var list = query.Paged(out var count, model);
-                // IEnumerable<IconJsonModel> data = list.Select(this.Mapper.Map<Icon, IconJsonModel>);
-                ResponseModel response = ResponseModelFactory.CreateResultInstance;
-
-                // response.SetData(data, count);
-                return this.Ok(response);
-            }
-        }
-
-        /// <summary>
         /// 搜索.
         /// </summary>
         /// <returns></returns>
@@ -70,16 +45,9 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Icon> query = this.DbContext.Icon.AsQueryable();
-                if (!string.IsNullOrEmpty(model.Code))
-                {
-                    query = query.Where(x => x.Code.Contains(model.Code));
-                }
-
-                if (model.IsEnable.HasValue)
-                {
-                    query = query.Where(x => x.IsEnable == model.IsEnable);
-                }
+                IQueryable<Icon> query = this.DbContext.Icon;
+                query = query.AddStringContainsFilter(model.Code, o => o.Code);
+                query = query.AddBooleanFilter(model.IsEnable, o => o.IsEnable);
 
                 return this.StandardResponse(query, model);
             }

@@ -13,8 +13,8 @@ namespace Core.Entity
             CoreApiContext coreApiContext = new CoreApiContext();
 
             // coreApiContext.User.Include(o => o.UserStatus);
-            var query = coreApiContext.User.AsQueryable();
-            query = query.AddIntegerEqualFilte2r(1, o => o.Id);
+            var query = coreApiContext.User;
+            query.AddIntegerEqualFilte2r(1, o => o.Id);
             var a = query.ToList();
             // coreApiContext.Set<User>().Include(o => o.UserStatus);
             //coreApiContext.Set<UserStatus>().Load();
@@ -31,6 +31,44 @@ namespace Core.Entity
         }
     }
 
+    public static class OrderByExtensions
+    {
+        public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> source, string propertyName)
+        {
+            return OrderingHelper(source, propertyName, false, false);
+        }
+
+        public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> source, string propertyName, bool descending)
+        {
+            return OrderingHelper(source, propertyName, descending, false);
+        }
+
+        public static IOrderedQueryable<T> ThenBy<T>(this IOrderedQueryable<T> source, string propertyName)
+        {
+            return OrderingHelper(source, propertyName, false, true);
+        }
+
+        public static IOrderedQueryable<T> ThenBy<T>(this IOrderedQueryable<T> source, string propertyName, bool descending)
+        {
+            return OrderingHelper(source, propertyName, descending, true);
+        }
+
+        private static IOrderedQueryable<T> OrderingHelper<T>(IQueryable<T> source, string propertyName, bool descending, bool anotherLevel)
+        {
+            ParameterExpression param = Expression.Parameter(typeof(T), "p");
+            MemberExpression property = Expression.PropertyOrField(param, propertyName);
+            LambdaExpression sort = Expression.Lambda(property, param);
+
+            MethodCallExpression call = Expression.Call(
+                typeof(Queryable),
+                (!anotherLevel ? "OrderBy" : "ThenBy") + (descending ? "Descending" : string.Empty),
+                new[] { typeof(T), property.Type },
+                source.Expression,
+                Expression.Quote(sort));
+            source = (IOrderedQueryable<T>)source.Provider.CreateQuery<T>(call);
+            return (IOrderedQueryable<T>)source.Provider.CreateQuery<T>(call);
+        }
+    }
 
 
     public static class AA

@@ -15,12 +15,12 @@ namespace Core.Extension.ExpressionBuilder.Operations
         }
 
         /// <inheritdoc />
-        public override System.Linq.Expressions.Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
+        public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
         {
-            var left = System.Linq.Expressions.Expression.GreaterThanOrEqual(member, constant1);
-            var right = System.Linq.Expressions.Expression.LessThanOrEqual(member, constant2);
+            var left = Expression.GreaterThanOrEqual(member, constant1);
+            var right = Expression.LessThanOrEqual(member, constant2);
 
-            return System.Linq.Expressions.Expression.AndAlso(left, right);
+            return Expression.AndAlso(left, right);
         }
     }
 }

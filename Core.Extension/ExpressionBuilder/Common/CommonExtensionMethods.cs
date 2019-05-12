@@ -6,8 +6,8 @@ namespace Core.Extension.ExpressionBuilder.Common
 {
     public static class CommonExtensionMethods
     {
-        private static readonly MethodInfo trimMethod = typeof(string).GetMethod("Trim", new Type[0]);
-        private static readonly MethodInfo toLowerMethod = typeof(string).GetMethod("ToLower", new Type[0]);
+        private static readonly MethodInfo TrimMethod = typeof(string).GetMethod(nameof(string.Trim), new Type[0]);
+        private static readonly MethodInfo ToLowerMethod = typeof(string).GetMethod(nameof(string.ToLower), new Type[0]);
 
         /// <summary>
         /// Gets a member expression for an specific property.
@@ -17,7 +17,7 @@ namespace Core.Extension.ExpressionBuilder.Common
         /// <returns></returns>
         public static MemberExpression GetMemberExpression(this ParameterExpression param, string propertyName)
         {
-            return GetMemberExpression((System.Linq.Expressions.Expression)param, propertyName);
+            return GetMemberExpression((Expression)param, propertyName);
         }
 
         /// <summary>
@@ -25,10 +25,10 @@ namespace Core.Extension.ExpressionBuilder.Common
         /// </summary>
         /// <param name="member">Member to which to methods will be applied.</param>
         /// <returns></returns>
-        public static System.Linq.Expressions.Expression TrimToLower(this MemberExpression member)
+        public static Expression TrimToLower(this MemberExpression member)
         {
-            var trimMemberCall = System.Linq.Expressions.Expression.Call(member, trimMethod);
-            return System.Linq.Expressions.Expression.Call(trimMemberCall, toLowerMethod);
+            MethodCallExpression trimMemberCall = Expression.Call(member, TrimMethod);
+            return Expression.Call(trimMemberCall, ToLowerMethod);
         }
 
         /// <summary>
@@ -36,10 +36,10 @@ namespace Core.Extension.ExpressionBuilder.Common
         /// </summary>
         /// <param name="constant">Constant to which to methods will be applied.</param>
         /// <returns></returns>
-        public static System.Linq.Expressions.Expression TrimToLower(this ConstantExpression constant)
+        public static Expression TrimToLower(this ConstantExpression constant)
         {
-            var trimMemberCall = System.Linq.Expressions.Expression.Call(constant, trimMethod);
-            return System.Linq.Expressions.Expression.Call(trimMemberCall, toLowerMethod);
+            var trimMemberCall = Expression.Call(constant, TrimMethod);
+            return Expression.Call(trimMemberCall, ToLowerMethod);
         }
 
         /// <summary>
@@ -48,10 +48,10 @@ namespace Core.Extension.ExpressionBuilder.Common
         /// <param name="expression">Expression to which the null check will be pre-pended.</param>
         /// <param name="member">Member that will be checked.</param>
         /// <returns></returns>
-        public static System.Linq.Expressions.Expression AddNullCheck(this System.Linq.Expressions.Expression expression, MemberExpression member)
+        public static Expression AddNullCheck(this Expression expression, MemberExpression member)
         {
-            System.Linq.Expressions.Expression memberIsNotNull = System.Linq.Expressions.Expression.NotEqual(member, System.Linq.Expressions.Expression.Constant(null));
-            return System.Linq.Expressions.Expression.AndAlso(memberIsNotNull, expression);
+            Expression memberIsNotNull = Expression.NotEqual(member, Expression.Constant(null));
+            return Expression.AndAlso(memberIsNotNull, expression);
         }
 
         /// <summary>
@@ -65,15 +65,15 @@ namespace Core.Extension.ExpressionBuilder.Common
             return oType.IsGenericType && (oType.GetGenericTypeDefinition() == typeof(System.Collections.Generic.List<>));
         }
 
-        private static MemberExpression GetMemberExpression(System.Linq.Expressions.Expression param, string propertyName)
+        private static MemberExpression GetMemberExpression(Expression param, string propertyName)
         {
             if (!propertyName.Contains("."))
             {
-                return System.Linq.Expressions.Expression.PropertyOrField(param, propertyName);
+                return Expression.PropertyOrField(param, propertyName);
             }
 
-            var index = propertyName.IndexOf(".");
-            var subParam = System.Linq.Expressions.Expression.PropertyOrField(param, propertyName.Substring(0, index));
+            var index = propertyName.IndexOf(".", StringComparison.Ordinal);
+            var subParam = Expression.PropertyOrField(param, propertyName.Substring(0, index));
             return GetMemberExpression(subParam, propertyName.Substring(index + 1));
         }
     }

@@ -16,7 +16,7 @@ namespace Core.Extension.ExpressionBuilder.Operations
         }
 
         /// <inheritdoc />
-        public override System.Linq.Expressions.Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
+        public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
         {
             if (!(constant1.Value is IList) || !constant1.Value.GetType().IsGenericType)
             {
@@ -26,16 +26,16 @@ namespace Core.Extension.ExpressionBuilder.Operations
             var type = constant1.Value.GetType();
             var inInfo = type.GetMethod("Contains", new[] { type.GetGenericArguments()[0] });
 
-            return this.GetExpressionHandlingNullables(member, constant1, type, inInfo) ?? System.Linq.Expressions.Expression.Call(constant1, inInfo, member);
+            return GetExpressionHandlingNullables(member, constant1, type, inInfo) ?? Expression.Call(constant1, inInfo, member);
         }
 
-        private System.Linq.Expressions.Expression GetExpressionHandlingNullables(MemberExpression member, ConstantExpression constant1, Type type, MethodInfo inInfo)
+        private Expression GetExpressionHandlingNullables(MemberExpression member, ConstantExpression constant1, Type type, MethodInfo inInfo)
         {
             var listUnderlyingType = Nullable.GetUnderlyingType(type.GetGenericArguments()[0]);
             var memberUnderlingType = Nullable.GetUnderlyingType(member.Type);
             if (listUnderlyingType != null && memberUnderlingType == null)
             {
-                return System.Linq.Expressions.Expression.Call(constant1, inInfo, member.Expression);
+                return Expression.Call(constant1, inInfo, member.Expression);
             }
 
             return null;

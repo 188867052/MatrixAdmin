@@ -72,8 +72,7 @@ namespace Core.Api.Controllers
                 }
 
                 query = query.AddIntegerEqualFilter((int?)model.Status, o => o.Status);
-                query = query.AddDateTimeGreaterThanOrEqualFilter(model.StartCreateTime, o => o.CreateTime);
-                query = query.AddDateTimeLessThanOrEqualFilter(model.EndCreateTime, o => o.CreateTime);
+                query = query.AddDateTimeBetweenFilter(model.StartCreateTime, model.EndCreateTime, o => o.CreateTime);
                 query = query.AddBooleanFilter(model.IsEnable, o => o.IsEnable);
                 query = query.AddStringContainsFilter(model.DisplayName, o => o.DisplayName);
                 query = query.AddStringContainsFilter(model.LoginName, o => o.LoginName);
