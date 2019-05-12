@@ -6,17 +6,11 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
 {
     public class PermissionViewInstance : ViewInstanceConstruction
     {
-        protected override string InstanceClassName
-        {
-            get
-            {
-                return "Index";
-            }
-        }
+        protected override string InstanceClassName => "Index";
 
         public override void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize)
         {
-            Url url = new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.GridStateChange));
+            Url url = new Url(nameof(Administration), typeof(PermissionController), nameof(PermissionController.GridStateChange));
             javaScriptInitialize.AddUrlInstance("searchUrl", url);
         }
     }

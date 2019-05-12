@@ -12,7 +12,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 {
     public class MenuIndex : SearchGridPage
     {
-        private readonly ResponseModel response;
+        private readonly ResponseModel _response;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuIndex"/> class.
@@ -21,16 +21,10 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
         /// <param name="response">The response.</param>
         public MenuIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
-            this.response = response;
+            this._response = response;
         }
 
-        protected override string FileName
-        {
-            get
-            {
-                return "Manage";
-            }
-        }
+        protected override string FileName => "Manage";
 
         public override IList<string> Css()
         {
@@ -43,7 +37,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 
         public override string Render()
         {
-            MenuViewConfiguration configuration = new MenuViewConfiguration(this.response);
+            MenuViewConfiguration configuration = new MenuViewConfiguration(this._response);
             string table = configuration.GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 

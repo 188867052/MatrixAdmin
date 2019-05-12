@@ -3,7 +3,6 @@ using System.Text;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.Role;
-using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.ViewConfiguration.Role;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

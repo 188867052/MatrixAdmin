@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Core.Model;
@@ -39,7 +38,7 @@ namespace Core.Extension
         /// <param name="url">url.</param>
         /// <param name="data">data.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        public static async Task<ResponseModel> GetAsync<T>(Url url, object data = null)
+        public static async Task<ResponseModel> GetAsync<T>(Url url, object data)
         {
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
@@ -85,8 +84,6 @@ namespace Core.Extension
 
             return model;
         }
-
-
 
         /// <summary>
         /// PostAsync.
