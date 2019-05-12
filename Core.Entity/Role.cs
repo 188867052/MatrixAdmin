@@ -18,7 +18,6 @@ namespace Core.Entity
         public DateTime UpdateTime { get; set; }
         public string ModifiedByUserName { get; set; }
         public bool IsSuperAdministrator { get; set; }
-        public bool IsBuiltin { get; set; }
         public bool IsEnable { get; set; }
         public bool IsForbidden { get; set; }
         public int Id { get; set; }

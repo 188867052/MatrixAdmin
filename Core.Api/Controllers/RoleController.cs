@@ -151,7 +151,6 @@ namespace Core.Api.Controllers
 
                 Role entity = this.Mapper.Map<RoleCreatePostModel, Role>(model);
                 entity.IsSuperAdministrator = false;
-                entity.IsBuiltin = false;
                 entity.CreateByUserId = 1;
                 entity.CreatedByUserName = "System";
                 entity.ModifiedByUserId = 1;

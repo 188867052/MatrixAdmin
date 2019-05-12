@@ -135,10 +135,6 @@ namespace Core.Extension
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
             ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
 
-            if (model.Code != 200)
-            {
-                throw new Exception(model.InnerExceptionMessage + "," + model.StackTrace);
-            }
             return model;
         }
     }
