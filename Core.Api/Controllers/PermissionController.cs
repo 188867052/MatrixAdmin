@@ -46,13 +46,13 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Permission> query = this.DbContext.Permission.AsQueryable();
+                IQueryable<Permission> query = this.DbContext.Permission;
 
                 // Filter<Permission> filter1 = new Filter<Permission>(nameof(Permission.Name), Operation.EqualTo, model.Status);
                 // Filter<Permission> filter2 = new Filter<Permission>(nameof(Permission.Id), Operation.EqualTo, model.IsEnable);
                 // Filter<Permission> filter = new Filter<Permission>(filter1, filter2, Connector.Or);
                 // query = query.AddFilter(filter);
-                query = query.AddBooleanFilter(model.IsEnable, nameof(Permission.IsEnable));
+                query = query.AddBooleanFilter(model.IsEnable, o => o.IsEnable);
 
                 // query = query.AddBooleanFilter(model.Status, nameof(Permission.Status));
                 // query = query.AddGuidEqualsFilter(model.MenuGuid, nameof(Permission.MenuGuid));

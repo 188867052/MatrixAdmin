@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Core.Entity
 {
@@ -11,20 +13,63 @@ namespace Core.Entity
             CoreApiContext coreApiContext = new CoreApiContext();
 
             // coreApiContext.User.Include(o => o.UserStatus);
-            // var query = coreApiContext.User.AsQueryable();
+            var query = coreApiContext.User.AsQueryable();
+            query = query.AddIntegerEqualFilte2r(1, o => o.Id);
+            var a = query.ToList();
             // coreApiContext.Set<User>().Include(o => o.UserStatus);
-            coreApiContext.Set<UserStatus>().Load();
+            //coreApiContext.Set<UserStatus>().Load();
+            //// query = query.Where(o => o.Id == 1);
+            //// coreApiContext.User.Include(o => o.UserRoleMapping);
+            //coreApiContext.Set<UserRoleMapping>().Load();
+            //User user = coreApiContext.User.Find(1);
+            //var userRoleMapping = user.UserRoleMapping.FirstOrDefault(o => o.UserId == 1);
 
-            // query = query.Where(o => o.Id == 1);
-            // coreApiContext.User.Include(o => o.UserRoleMapping);
-            coreApiContext.Set<UserRoleMapping>().Load();
-            User user = coreApiContext.User.Find(1);
-            var userRoleMapping = user.UserRoleMapping.FirstOrDefault(o => o.UserId == 1);
+            //// var list = query.ToList();
+            //userRoleMapping.RoleId = 2;
+            //userRoleMapping.CreateTime = DateTime.Now;
+            //coreApiContext.SaveChanges();
+        }
+    }
 
-            // var list = query.ToList();
-            userRoleMapping.RoleId = 2;
-            userRoleMapping.CreateTime = DateTime.Now;
-            coreApiContext.SaveChanges();
+
+
+    public static class AA
+    {
+        public static IQueryable<T> AddIntegerEqualFilte2r<T>(this IQueryable<T> query, int? value, Expression<Func<T, int?>> expression)
+        {
+            if (value.HasValue)
+            {
+                string name = expression.GetPropertyName();
+                var parameter = System.Linq.Expressions.Expression.Parameter(typeof(T), "o");
+                var left = System.Linq.Expressions.Expression.Property(parameter, typeof(T).GetProperty(name));
+                var right = System.Linq.Expressions.Expression.Constant(value);
+                var predicate = System.Linq.Expressions.Expression.Equal(left, right);
+                var lambda = System.Linq.Expressions.Expression.Lambda<Func<T, bool>>(predicate, parameter);
+                query = query.Where(lambda);
+            }
+
+            return query;
+        }
+
+        public static string GetPropertyName<T>(this Expression<Func<T, int?>> expression)
+        {
+            string name;
+            switch (expression.Body)
+            {
+                case UnaryExpression unaryExpression:
+                    name = ((MemberExpression)unaryExpression.Operand).Member.Name;
+                    break;
+                case MemberExpression memberExpression:
+                    name = memberExpression.Member.Name;
+                    break;
+                case ParameterExpression parameterExpression:
+                    name = parameterExpression.Type.Name;
+                    break;
+                default:
+                    throw new ArgumentException("不支持的参数");
+            }
+
+            return name;
         }
     }
 }

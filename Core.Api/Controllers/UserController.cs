@@ -66,29 +66,17 @@ namespace Core.Api.Controllers
                 this.DbContext.Set<UserRoleMapping>().Load();
                 this.DbContext.Set<Role>().Load();
                 IQueryable<User> query = this.DbContext.User;
-                if (model.Status.HasValue)
-                {
-                    query = query.Where(o => o.Status == (int)model.Status);
-                }
-
                 if (model.RoleId.HasValue)
                 {
                     query = query.Where(o => o.UserRoleMapping.Any(u => u.Role.Id == model.RoleId));
                 }
 
-                if (model.EndCreateTime.HasValue)
-                {
-                    query = query.Where(o => o.CreateTime <= model.EndCreateTime);
-                }
-
-                if (model.StartCreateTime.HasValue)
-                {
-                    query = query.Where(o => o.CreateTime >= model.StartCreateTime);
-                }
-
-                query = query.AddBooleanFilter(model.IsEnable, nameof(Entity.User.IsEnable));
-                query = query.AddStringContainsFilter(model.DisplayName, nameof(Entity.User.DisplayName));
-                query = query.AddStringContainsFilter(model.LoginName, nameof(Entity.User.LoginName));
+                query = query.AddIntegerEqualFilter((int?)model.Status, o => o.Status);
+                query = query.AddDateTimeGreaterThanOrEqualFilter(model.StartCreateTime, o => o.CreateTime);
+                query = query.AddDateTimeLessThanOrEqualFilter(model.EndCreateTime, o => o.CreateTime);
+                query = query.AddBooleanFilter(model.IsEnable, o => o.IsEnable);
+                query = query.AddStringContainsFilter(model.DisplayName, o => o.DisplayName);
+                query = query.AddStringContainsFilter(model.LoginName, o => o.LoginName);
                 query = query.OrderByDescending(o => o.CreateTime);
 
                 model.TotalCount = query.Count();

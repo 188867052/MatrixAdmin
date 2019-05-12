@@ -48,7 +48,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Menu> query = this.DbContext.Menu.AsQueryable();
-                query = query.AddStringContainsFilter(model.MenuName, nameof(Menu.Name));
+                query = query.AddStringContainsFilter(model.MenuName, o => o.Name);
 
                 // query = query.AddBooleanFilter(model.Status, nameof(Menu.Status));
                 // query = query.AddGuidEqualsFilter(model.ParentGuid, nameof(Menu.ParentGuid));

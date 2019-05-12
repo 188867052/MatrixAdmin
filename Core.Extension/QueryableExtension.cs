@@ -14,7 +14,7 @@ namespace Core.Extension
     /// </summary>
     public static class QueryableExtension
     {
-        private const string Key = "o";
+        private static readonly string key = "o";
 
         /// <summary>
         /// IQueryable分页.
@@ -24,39 +24,62 @@ namespace Core.Extension
         /// <param name="count">count.</param>
         /// <param name="pager">pager.</param>
         /// <returns></returns>
-        public static IList<T> Paged<T>(this IQueryable<T> query, out int count, Pager pager = default)
+        public static IList<T> ToPagedList<T>(this IQueryable<T> query, out int count, Pager pager)
         {
-            if (pager == default)
-            {
-                pager = new Pager { PageSize = 10, PageIndex = 1 };
-            }
-
-            if (pager.PageIndex < 1)
-            {
-                throw new Exception("pageIndex must lager than 0");
-            }
-
-            if (pager.PageSize < 1)
-            {
-                throw new Exception("pageSize must lager than 0");
-            }
-
             pager.TotalCount = query.Count();
-
             count = query.Count();
             return query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
         }
 
-        public static IQueryable<T> AddBooleanFilter<T>(this IQueryable<T> query, bool? value, string name)
+        public static IQueryable<T> AddDateTimeLessThanOrEqualFilter<T>(this IQueryable<T> query, DateTime? value, Expression<Func<T, DateTime?>> expression)
         {
             if (value.HasValue)
             {
-                var parameter = System.Linq.Expressions.Expression.Parameter(typeof(T), Key);
+                string name = expression.GetPropertyName();
+                var parameter = System.Linq.Expressions.Expression.Parameter(typeof(T), key);
                 var left = System.Linq.Expressions.Expression.Property(parameter, typeof(T).GetProperty(name));
                 var right = System.Linq.Expressions.Expression.Constant(value);
-                var predicate = System.Linq.Expressions.Expression.Equal(left, right);
+                var predicate = System.Linq.Expressions.Expression.LessThanOrEqual(left, right);
                 var lambda = System.Linq.Expressions.Expression.Lambda<Func<T, bool>>(predicate, parameter);
                 query = query.Where(lambda);
+            }
+
+            return query;
+        }
+
+        public static IQueryable<T> AddDateTimeGreaterThanOrEqualFilter<T>(this IQueryable<T> query, DateTime? value, Expression<Func<T, DateTime?>> expression)
+        {
+            if (value.HasValue)
+            {
+                string name = expression.GetPropertyName();
+                var parameter = System.Linq.Expressions.Expression.Parameter(typeof(T), key);
+                var left = System.Linq.Expressions.Expression.Property(parameter, typeof(T).GetProperty(name));
+                var right = System.Linq.Expressions.Expression.Constant(value);
+                var predicate = System.Linq.Expressions.Expression.GreaterThanOrEqual(left, right);
+                var lambda = System.Linq.Expressions.Expression.Lambda<Func<T, bool>>(predicate, parameter);
+                query = query.Where(lambda);
+            }
+
+            return query;
+        }
+
+        public static IQueryable<T> AddIntegerEqualFilter<T>(this IQueryable<T> query, int? value, Expression<Func<T, int?>> expression)
+        {
+            if (value.HasValue)
+            {
+                string name = expression.GetPropertyName();
+                query = query.AddEqualFilter(value.Value, name);
+            }
+
+            return query;
+        }
+
+        public static IQueryable<T> AddBooleanFilter<T>(this IQueryable<T> query, bool? value, Expression<Func<T, bool?>> expression)
+        {
+            if (value.HasValue)
+            {
+                string name = expression.GetPropertyName();
+                query = query.AddEqualFilter(value.Value, name);
             }
 
             return query;
@@ -70,11 +93,12 @@ namespace Core.Extension
             return query;
         }
 
-        public static IQueryable<T> AddStringContainsFilter<T>(this IQueryable<T> query, string value, string name)
+        public static IQueryable<T> AddStringContainsFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
-                var parameter = System.Linq.Expressions.Expression.Parameter(typeof(T), Key);
+                string name = expression.GetPropertyName();
+                var parameter = System.Linq.Expressions.Expression.Parameter(typeof(T), key);
                 var left = System.Linq.Expressions.Expression.Property(parameter, typeof(T).GetProperty(name));
                 var right = System.Linq.Expressions.Expression.Constant(value.Trim());
                 MethodInfo method = typeof(string).GetMethod(nameof(string.Contains), new[] { typeof(string) });
@@ -82,6 +106,18 @@ namespace Core.Extension
                 var lambda = System.Linq.Expressions.Expression.Lambda<Func<T, bool>>(predicate, parameter);
                 query = query.Where(lambda);
             }
+
+            return query;
+        }
+
+        private static IQueryable<T> AddEqualFilter<T>(this IQueryable<T> query, object value, string name)
+        {
+            var parameter = System.Linq.Expressions.Expression.Parameter(typeof(T), key);
+            var left = System.Linq.Expressions.Expression.Property(parameter, typeof(T).GetProperty(name));
+            var right = System.Linq.Expressions.Expression.Constant(value);
+            var predicate = System.Linq.Expressions.Expression.Equal(left, right);
+            var lambda = System.Linq.Expressions.Expression.Lambda<Func<T, bool>>(predicate, parameter);
+            query = query.Where(lambda);
 
             return query;
         }

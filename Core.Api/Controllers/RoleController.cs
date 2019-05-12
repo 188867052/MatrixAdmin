@@ -106,7 +106,7 @@ namespace Core.Api.Controllers
             {
                 IQueryable<Role> query = this.DbContext.Role;
                 query = query.OrderBy(o => o.IsForbidden).ThenByDescending(o => o.CreateTime);
-                query = query.AddStringContainsFilter(model.RoleName, nameof(Role.Name));
+                query = query.AddStringContainsFilter(model.RoleName, o => o.Name);
                 if (model.PageIndex < 1)
                 {
                     model.PageIndex = 1;
