@@ -1,4 +1,4 @@
-﻿namespace Core.Api.Configurations
+﻿namespace Core.Api.MiddleWare
 {
     public interface IProfile
     {

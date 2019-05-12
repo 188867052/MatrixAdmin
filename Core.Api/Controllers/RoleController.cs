@@ -127,11 +127,11 @@ namespace Core.Api.Controllers
                 }
 
                 Role entity = this.Mapper.Map<RoleCreatePostModel, Role>(model);
-                entity.CreateTime = DateTime.Now;
                 entity.IsSuperAdministrator = false;
                 entity.IsBuiltin = false;
                 entity.CreateByUserId = 1;
                 entity.CreatedByUserName = "System";
+                entity.ModifiedByUserId = 1;
 
                 this.DbContext.Role.Add(entity);
                 this.DbContext.SaveChanges();

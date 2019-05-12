@@ -98,11 +98,15 @@ namespace Core.Entity
 
             modelBuilder.Entity<Role>(entity =>
             {
+                entity.Property(e => e.CreateTime).HasDefaultValueSql("(getdate())");
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.UpdateTime).HasColumnType("datetime");
+                entity.Property(e => e.UpdateTime)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.CreateByUser)
                     .WithMany(p => p.RoleCreateByUser)

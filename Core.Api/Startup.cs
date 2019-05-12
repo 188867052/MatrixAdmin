@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using AutoMapper;
-using Core.Api.Configurations;
+using Core.Api.MiddleWare;
 using Core.Entity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
