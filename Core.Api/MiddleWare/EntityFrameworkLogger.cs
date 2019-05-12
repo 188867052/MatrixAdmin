@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using Core.Entity;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.ProjectModel;
 
 namespace Core.Api.MiddleWare
 {
@@ -19,11 +21,12 @@ namespace Core.Api.MiddleWare
                 var logContent = formatter(state, exception);
                 if (logContent != "A data reader was disposed." && !logContent.Contains("[Log]"))
                 {
+                    logContent = this.ConvertToSql(logContent);
                     CoreApiContext coreApiContext = new CoreApiContext();
                     coreApiContext.Log.Add(new Log
                     {
-                        Message = logContent,
-                        LogLevel = (int)LogLevel.Information
+                        Message = $"<code class=\"sql\">{logContent}</code>",
+                        LogLevel = (int)logLevel
                     });
                     coreApiContext.SaveChanges();
                 }
@@ -31,5 +34,28 @@ namespace Core.Api.MiddleWare
         }
 
         public IDisposable BeginScope<TState>(TState state) => null;
+
+        private string ConvertToSql(string content)
+        {
+            string sql = Regex.Match(content, "(SELECT|UPDATE|INSERT|DELETE)+(.|\\n)+").Value;
+
+            string pare = Regex.Match(content, "Parameters[^\\]]+").Value.Replace("Parameters=[", string.Empty);
+            MatchCollection mahces = Regex.Matches(pare, "@[^ ]+");
+            foreach (Match item in mahces)
+            {
+                string key = item.Value.Split('=')[0];
+                string value = item.Value.Split('=')[1].Replace(",", string.Empty);
+                sql = sql.Replace(key, value);
+            }
+
+            Match match = Regex.Match(sql, "OFFSET+.+ROWS FETCH NEXT+.+ROWS ONLY");
+            if (!string.IsNullOrEmpty(match.Value))
+            {
+                string pagSql = match.Value;
+                sql = sql.Replace(pagSql, pagSql.Replace("'", string.Empty));
+            }
+
+            return sql;
+        }
     }
 }

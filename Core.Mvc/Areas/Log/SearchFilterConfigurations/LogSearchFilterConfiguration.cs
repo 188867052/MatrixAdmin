@@ -16,10 +16,8 @@ namespace Core.Mvc.Areas.Log.SearchFilterConfigurations
         {
             var dropDown = new DropDownGridFilter<LogPostModel, LogLevel>(o => (LogLevel)o.LogLevel, "级别");
             dropDown.AddOption(LogLevel.Error, "错误");
-            dropDown.AddOption(LogLevel.Warning, "警告");
-            dropDown.AddOption(LogLevel.Information, "日志");
+            dropDown.AddOption(LogLevel.Information, "信息");
             dropDown.AddOption(LogLevel.Debug, "调试");
-            dropDown.AddOption(LogLevel.Trace, "跟踪");
 
             searchFilter.Add(new IntegerGridFilter<LogPostModel>(o => o.Id, LogResource.ID));
             searchFilter.Add(new TextGridFilter<LogPostModel>(o => o.Message, LogResource.Message));

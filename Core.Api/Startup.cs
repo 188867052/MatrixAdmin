@@ -59,7 +59,7 @@ namespace Core.Api
             {
                 var loggerFactory = new LoggerFactory();
                 loggerFactory.AddProvider(new EntityFrameworkLoggerProvider());
-                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")).UseLoggerFactory(loggerFactory); ;
+                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")).UseLoggerFactory(loggerFactory).EnableSensitiveDataLogging();
             });
         }
 

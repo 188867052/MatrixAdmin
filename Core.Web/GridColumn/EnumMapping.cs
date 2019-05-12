@@ -1,5 +1,6 @@
 ﻿using System;
 using Core.Entity.Enums;
+using Microsoft.Extensions.Logging;
 
 namespace Core.Web.GridColumn
 {
@@ -15,8 +16,16 @@ namespace Core.Web.GridColumn
                     return "已启用";
                 case YesOrNoEnum.All:
                     return "正常";
+
+                case LogLevel.Information:
+                    return "信息";
+                case LogLevel.Debug:
+                    return "调试";
+                case LogLevel.Error:
+                    return "错误";
+
                 default:
-                    throw new Exception();
+                    throw new ArgumentException(nameof(value));
             }
         }
     }
