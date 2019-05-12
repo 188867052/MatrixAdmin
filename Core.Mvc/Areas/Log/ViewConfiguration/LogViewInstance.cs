@@ -6,13 +6,7 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
 {
     public class LogViewInstance : ViewInstanceConstruction
     {
-        protected override string InstanceClassName
-        {
-            get
-            {
-                return "Index";
-            }
-        }
+        protected override string InstanceClassName { get; } = "Index";
 
         public override void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize)
         {

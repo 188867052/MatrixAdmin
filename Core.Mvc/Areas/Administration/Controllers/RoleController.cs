@@ -111,9 +111,9 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="model">The model.</param>
         /// <returns>The IActionResult.</returns>
         [HttpPost]
-        public IActionResult SaveEdit(UserEditPostModel model)
+        public IActionResult SaveEdit(RoleEditPostModel model)
         {
-            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Edit));
+            var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Edit));
             var response = HttpClientAsync.SubmitAsync(url, model).Result;
 
             return this.Submit(response);

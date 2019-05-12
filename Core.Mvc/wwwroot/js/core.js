@@ -57,6 +57,11 @@
             $.get(url, { id: id }, pointer);
         },
 
+        actionCall: function (pointer) {
+            var url = event.currentTarget.dataset.url;
+            $.get(url, pointer);
+        },
+
         rowContextMenu: function () {
             var url = event.currentTarget.dataset.url;
             var id = event.currentTarget.dataset.id;

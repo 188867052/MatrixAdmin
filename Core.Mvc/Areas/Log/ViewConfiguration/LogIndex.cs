@@ -13,33 +13,26 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
 {
     public class LogIndex : SearchGridPage
     {
-        private readonly ResponseModel response;
+        private readonly ResponseModel _response;
 
         public LogIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
         {
-            this.response = response;
+            this._response = response;
         }
 
-        protected override string FileName
-        {
-            get
-            {
-                return "Manage";
-            }
-        }
+        protected override string FileName { get; } = "Manage";
 
         public override IList<string> Css()
         {
             return new List<string>
             {
-
                 "/font-awesome/css/font-awesome.css"
             };
         }
 
         public override string Render()
         {
-            string table = new LogGridConfiguration(this.response).GenerateGridColumn();
+            string table = new LogGridConfiguration(this._response).GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 
             LogSearchFilterConfiguration filter = new LogSearchFilterConfiguration();

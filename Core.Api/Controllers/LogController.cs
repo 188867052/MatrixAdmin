@@ -2,8 +2,10 @@
 using System.Linq;
 using System.Net;
 using AutoMapper;
+using Core.Api.ControllerHelpers;
 using Core.Entity;
 using Core.Extension.CustomException;
+using Core.Model;
 using Core.Model.Log;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
@@ -109,6 +111,17 @@ namespace Core.Api.Controllers
             ////};
 
             return new ObjectResult(null);
+        }
+
+        /// <summary>
+        /// 删除用户.
+        /// </summary>
+        /// <returns>IActionResult.</returns>
+        [HttpGet]
+        public IActionResult Clear()
+        {
+            ResponseModel response = LogControllerHelper.DeleteAll();
+            return this.Ok(response);
         }
     }
 }

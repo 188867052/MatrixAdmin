@@ -24,5 +24,7 @@
         /// 是否是系统内置角色(系统内置角色不允许删除,修改操作).
         /// </summary>
         public bool IsBuiltin { get; set; }
+
+        public bool? IsForbidden { get; set; }
     }
 }

@@ -5,7 +5,6 @@ using AutoMapper;
 using Core.Api.ControllerHelpers;
 using Core.Entity;
 using Core.Extension;
-using Core.Extension.AuthContext;
 using Core.Model;
 using Core.Model.Administration.Role;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +34,31 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Role> query = this.DbContext.Role;
+                query = query.OrderBy(o => o.IsForbidden).ThenByDescending(o => o.CreateTime);
+                Pager pager = Pager.CreateDefaultInstance();
+                pager.TotalCount = query.Count();
+                List<Role> list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
+
+                IList<RoleModel> models = new List<RoleModel>();
+                foreach (Role item in list)
+                {
+                    models.Add(new RoleModel(item));
+                }
+
+                ResponseModel response = new ResponseModel(models, pager);
+
+                return this.Ok(response);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetRoleDataList()
+        {
+            using (this.DbContext)
+            {
+                IQueryable<Role> query = this.DbContext.Role;
                 query = query.OrderByDescending(o => o.CreateTime);
+                query = query.Where(o => !o.IsForbidden);
                 Pager pager = Pager.CreateDefaultInstance();
                 pager.TotalCount = query.Count();
                 List<Role> list = query.Skip((pager.PageIndex - 1) * pager.PageSize).Take(pager.PageSize).ToList();
@@ -82,7 +105,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Role> query = this.DbContext.Role;
-                query = query.OrderByDescending(o => o.CreateTime);
+                query = query.OrderBy(o => o.IsForbidden).ThenByDescending(o => o.CreateTime);
                 query = query.AddStringContainsFilter(model.RoleName, nameof(Role.Name));
                 if (model.PageIndex < 1)
                 {
@@ -142,64 +165,41 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 编辑角色.
-        /// </summary>
-        /// <param name="code">角色惟一编码.</param>
-        /// <returns></returns>
-        [HttpGet("{code}")]
-        [ProducesResponseType(200)]
-        public IActionResult Edit(int code)
-        {
-            using (this.DbContext)
-            {
-                Role entity = this.DbContext.Role.FirstOrDefault(x => x.Id == code);
-                ResponseModel response = ResponseModelFactory.CreateInstance;
-                response.SetData(this.Mapper.Map<Role, RoleCreateModel>(entity));
-                return this.Ok(response);
-            }
-        }
-
-        /// <summary>
         /// 保存编辑后的角色信息.
         /// </summary>
         /// <param name="model">角色视图实体.</param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public IActionResult Edit(RoleCreateModel model)
+        public IActionResult Edit(RoleEditPostModel model)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
             {
-                if (this.DbContext.Role.Count(x => x.Name == model.Name && x.Id != model.Code) > 0)
+                if (this.DbContext.Role.Any(x => x.Name == model.Name && x.Id != model.Id))
                 {
                     response.SetFailed("角色已存在");
                     return this.Ok(response);
                 }
 
-                Role entity = this.DbContext.Role.FirstOrDefault(x => x.Id == model.Code);
-
-                if (entity.IsSuperAdministrator && !AuthContextService.IsSupperAdministrator)
-                {
-                    response.SetFailed("没有足够的权限");
-                    return this.Ok(response);
-                }
+                Role entity = this.DbContext.Role.Find(model.Id);
 
                 entity.Name = model.Name;
+                entity.ModifiedByUserId = 1;
+                entity.ModifiedByUserName = "Me";
+                entity.UpdateTime = DateTime.Now;
+                entity.Description = model.Description;
+
                 if (model.IsEnable.HasValue)
                 {
                     entity.IsEnable = model.IsEnable.Value;
                 }
 
-                entity.ModifiedByUserId = 1/* AuthContextService.CurrentUser.Guid*/;
-                entity.ModifiedByUserName = AuthContextService.CurrentUser.DisplayName;
-                entity.UpdateTime = DateTime.Now;
                 if (model.IsForbidden.HasValue)
                 {
                     entity.IsForbidden = model.IsForbidden.Value;
                 }
 
-                entity.Description = model.Description;
                 this.DbContext.SaveChanges();
                 return this.Ok(response);
             }

@@ -27,8 +27,11 @@
         search: function () {
             window.core.setSuccessPointer($.proxy(this._onSuccess, this));
             window.core.gridSearch(this._searchUrl);
-        }
+        },
 
+        clear: function () {
+            window.core.actionCall($.proxy(this.search, this));
+        }
         // Private Methods
     };
 })();

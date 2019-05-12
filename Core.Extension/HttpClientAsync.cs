@@ -39,12 +39,18 @@ namespace Core.Extension
         /// <param name="url">url.</param>
         /// <param name="data">data.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        public static async Task<ResponseModel> GetAsync<T>(Url url, object data)
+        public static async Task<ResponseModel> GetAsync<T>(Url url, object data = null)
         {
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
-                httpResponse = await client.GetAsync(Host + url.Render() + $"?{url.ActionParameterName}=" + data);
+                string requestUrl = Host + url.Render();
+                if (data != null)
+                {
+                    requestUrl += $"?{url.ActionParameterName}=" + data;
+                }
+
+                httpResponse = await client.GetAsync(requestUrl);
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
@@ -60,12 +66,18 @@ namespace Core.Extension
         /// <param name="url"></param>
         /// <param name="data"></param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        public static async Task<ResponseModel> DeleteAsync(Url url, object data)
+        public static async Task<ResponseModel> DeleteAsync(Url url, object data = null)
         {
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
-                httpResponse = await client.GetAsync(Host + url.Render() + $"?{url.ActionParameterName}=" + data);
+                string requestUrl = Host + url.Render();
+                if (data != null)
+                {
+                    requestUrl += $"?{url.ActionParameterName}=" + data;
+                }
+
+                httpResponse = await client.GetAsync(requestUrl);
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
@@ -73,6 +85,8 @@ namespace Core.Extension
 
             return model;
         }
+
+
 
         /// <summary>
         /// PostAsync.

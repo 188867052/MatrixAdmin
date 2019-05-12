@@ -26,6 +26,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
             gridColumns.Add(new TextGridColumn<RoleModel>(o => o.Name, RoleIndexResource.Name));
             gridColumns.Add(new EnumGridColumn<RoleModel>(o => o.IsForbidden, "禁用状态"));
             gridColumns.Add(new BooleanGridColumn<RoleModel>(o => o.IsBuiltin, RoleIndexResource.IsBuiltin));
+            gridColumns.Add(new TextGridColumn<RoleModel>(o => o.Description, "描述"));
             gridColumns.Add(new BooleanGridColumn<RoleModel>(o => o.IsSuperAdministrator, RoleIndexResource.IsSuperAdministrator));
             gridColumns.Add(new DateTimeGridColumn<RoleModel>(o => o.CreateTime, RoleIndexResource.CreatedOn));
             gridColumns.Add(new TextGridColumn<RoleModel>(o => o.CreatedByUserName, RoleIndexResource.CreatedByUserName));

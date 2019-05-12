@@ -185,7 +185,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult GetRoleDataList()
         {
-            var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.Index));
+            var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.GetRoleDataList));
             ResponseModel model = HttpClientAsync.GetAsync<IList<Role>>(url).Result;
             IList<Role> roles = (IList<Role>)model.Data;
             string options = roles.Aggregate(string.Empty, (current, role) => current + $"<option key=\"{role.Id}\" value=\"{role.Name}\"></option>");

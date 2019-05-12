@@ -41,6 +41,19 @@ namespace Core.Mvc.Areas.Log.Controllers
         }
 
         /// <summary>
+        /// The delete.
+        /// </summary>
+        /// <returns>The IActionResult.</returns>
+        [HttpGet]
+        public IActionResult Clear()
+        {
+            var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Clear));
+            ResponseModel model = HttpClientAsync.DeleteAsync(url).Result;
+
+            return this.Submit(model);
+        }
+
+        /// <summary>
         /// Grid state change.
         /// </summary>
         /// <param name="model">The model.</param>

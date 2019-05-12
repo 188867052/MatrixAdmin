@@ -20,6 +20,7 @@ namespace Core.Model.Administration.Role
             this.CreateTime = role.CreateTime;
             this.UpdateTime = role.UpdateTime;
             this.CreatedByUserName = role.CreatedByUserName;
+            this.Description = role.Description;
         }
 
         public int Id { get; set; }
