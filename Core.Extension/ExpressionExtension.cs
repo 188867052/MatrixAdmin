@@ -7,7 +7,7 @@ namespace Core.Extension
     {
         public static string GetPropertyName<T>(this Expression<Func<T, int>> expression)
         {
-            return ((MemberExpression)expression.Body).Member.Name;
+            return expression.Body.GetName();
         }
 
         public static string GetPropertyName<T>(this Expression<Func<T, bool?>> expression)
@@ -33,41 +33,25 @@ namespace Core.Extension
 
         public static string GetPropertyName<T>(this Expression<Func<T, string>> expression)
         {
-            return ((MemberExpression)expression.Body).Member.Name;
+            return expression.Body.GetName();
         }
 
         public static string GetPropertyName<T, TEnumType>(this Expression<Func<T, TEnumType>> expression) where TEnumType : Enum
         {
-            string name;
-            switch (expression.Body)
-            {
-                case UnaryExpression unaryExpression:
-                    name = ((MemberExpression)unaryExpression.Operand).Member.Name;
-                    break;
-                case MemberExpression memberExpression:
-                    name = memberExpression.Member.Name;
-                    break;
-                case ParameterExpression parameterExpression:
-                    name = parameterExpression.Type.Name;
-                    break;
-                default:
-                    throw new ArgumentException("不支持的参数");
-            }
-
-            return name;
+            return expression.Body.GetName();
         }
 
         public static string GetPropertyName<T>(this Expression<Func<T, int?>> expression)
         {
-            return expression.Body.GetName<T>();
+            return expression.Body.GetName();
         }
 
         public static string GetPropertyName<T>(this Expression<Func<T, DateTime?>> expression)
         {
-            return expression.Body.GetName<T>();
+            return expression.Body.GetName();
         }
 
-        private static string GetName<T>(this Expression expression)
+        private static string GetName(this Expression expression)
         {
             string name;
             switch (expression)
