@@ -15,6 +15,7 @@ namespace Core.Entity
         {
         }
 
+        public virtual DbSet<Configuration> Configuration { get; set; }
         public virtual DbSet<Icon> Icon { get; set; }
         public virtual DbSet<Log> Log { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
@@ -37,6 +38,11 @@ namespace Core.Entity
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("ProductVersion", "3.0.0-preview5.19227.1");
+
+            modelBuilder.Entity<Configuration>(entity =>
+            {
+                entity.Property(e => e.Value).HasMaxLength(1000);
+            });
 
             modelBuilder.Entity<Icon>(entity =>
             {

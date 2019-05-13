@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Core.Entity;
 using Core.Extension;
 using Core.Model;
 using Newtonsoft.Json;
@@ -9,8 +10,6 @@ namespace Core.Mvc
 {
     public static class HttpClientAsync
     {
-        private static readonly string Host = "http://localhost:90/api";
-
         /// <summary>
         /// GetAsync.
         /// </summary>
@@ -22,7 +21,7 @@ namespace Core.Mvc
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
-                httpResponse = await client.GetAsync(Host + url.Render());
+                httpResponse = await client.GetAsync(Host() + url.Render());
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
@@ -44,7 +43,7 @@ namespace Core.Mvc
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
-                string requestUrl = Host + url.Render();
+                string requestUrl = Host() + url.Render();
                 if (data != null)
                 {
                     requestUrl += $"?{url.ActionParameterName}=" + data;
@@ -71,7 +70,7 @@ namespace Core.Mvc
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
-                string requestUrl = Host + url.Render();
+                string requestUrl = Host() + url.Render();
                 if (data != null)
                 {
                     requestUrl += $"?{url.ActionParameterName}=" + data;
@@ -102,7 +101,7 @@ namespace Core.Mvc
                 string postData = JsonConvert.SerializeObject(postModel);
                 StringContent httpContent = new StringContent(postData);
                 httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                httpResponse = await client.PostAsync(Host + url.Render(), httpContent);
+                httpResponse = await client.PostAsync(Host() + url.Render(), httpContent);
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
@@ -127,13 +126,21 @@ namespace Core.Mvc
                 string postData = JsonConvert.SerializeObject(postModel);
                 StringContent httpContent = new StringContent(postData);
                 httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                httpResponse = await client.PostAsync(Host + url.Render(), httpContent);
+                httpResponse = await client.PostAsync(Host() + url.Render(), httpContent);
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
             ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
 
             return model;
+        }
+
+        private static string Host()
+        {
+            using (CoreApiContext context = new CoreApiContext())
+            {
+                return context.Configuration.Find(1).Value;
+            }
         }
     }
 }
