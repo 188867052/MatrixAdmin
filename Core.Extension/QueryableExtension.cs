@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -15,8 +14,6 @@ namespace Core.Extension
     {
         private static readonly string key = "o";
         private static readonly MethodInfo StringContainsMethod = typeof(string).GetMethod(nameof(string.Contains), new[] { typeof(string) });
-
-       
 
         public static IQueryable<T> AddDateTimeLessThanOrEqualFilter<T>(this IQueryable<T> query, DateTime? value, Expression<Func<T, DateTime?>> expression)
         {
@@ -59,6 +56,8 @@ namespace Core.Extension
 
             return query;
         }
+
+
 
         public static IQueryable<T> AddBooleanFilter<T>(this IQueryable<T> query, bool? value, Expression<Func<T, bool?>> expression)
         {
