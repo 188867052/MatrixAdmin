@@ -18,7 +18,10 @@ namespace Core.Mvc.Middleware
           this IApplicationBuilder app)
         {
             if (app == null)
+            {
                 throw new ArgumentNullException(nameof(app));
+            }
+
             return app.UseMiddleware<MyDeveloperExceptionPageMiddleware>();
         }
 
@@ -33,9 +36,15 @@ namespace Core.Mvc.Middleware
           MyDeveloperExceptionPageOptions options)
         {
             if (app == null)
+            {
                 throw new ArgumentNullException(nameof(app));
+            }
+
             if (options == null)
+            {
                 throw new ArgumentNullException(nameof(options));
+            }
+
             return app.UseMiddleware<MyDeveloperExceptionPageMiddleware>((object)Options.Create(options));
         }
     }
