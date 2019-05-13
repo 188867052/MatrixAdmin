@@ -1,7 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
+﻿using System.Linq;
+using Core.Extension;
 
 namespace Core.Entity
 {
@@ -10,33 +8,9 @@ namespace Core.Entity
         private static void Main(string[] args)
         {
             CoreApiContext context = new CoreApiContext();
-            var a = context.User.Where2(o => o.Id == 1).ToList();
-        }
-    }
-
-    public static class aa
-    {
-        public static IQueryable<TSource> Where2<TSource>(
-            this IQueryable<TSource> source,
-            Expression<Func<TSource, bool>> predicate)
-        {
-            if (source == null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-
-            if (predicate == null)
-            {
-                throw new ArgumentNullException(nameof(predicate));
-            }
-
-            return source.Provider.CreateQuery<TSource>(Expression.Call(null, Where_TSource_2(typeof(TSource)), source.Expression, Expression.Quote(predicate)));
-        }
-
-        public static MethodInfo Where_TSource_2(Type tSource)
-        {
-            var methodInfo = new Func<IQueryable<object>, Expression<Func<object, bool>>, IQueryable<object>>(Queryable.Where).GetMethodInfo().GetGenericMethodDefinition();
-            return methodInfo.MakeGenericMethod(tSource);
+            IQueryable<User> q = context.User;
+            q = q.AddBooleanFilter(true, o => o.IsEnable);
+            var list = q.ToList();
         }
     }
 }

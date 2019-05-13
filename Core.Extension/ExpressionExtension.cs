@@ -25,7 +25,23 @@ namespace Core.Extension
 
         public static string GetPropertyName<T>(this Expression<Func<T, bool?>> expression)
         {
-            return ((MemberExpression)expression.Body).PropertyInfo<T>().Name;
+            string name;
+            switch (expression.Body)
+            {
+                case UnaryExpression unaryExpression:
+                    name = ((MemberExpression)unaryExpression.Operand).Member.Name;
+                    break;
+                case MemberExpression memberExpression:
+                    name = memberExpression.Member.Name;
+                    break;
+                case ParameterExpression parameterExpression:
+                    name = parameterExpression.Type.Name;
+                    break;
+                default:
+                    throw new ArgumentException("不支持的参数");
+            }
+
+            return name;
         }
 
         public static string GetPropertyName<T>(this Expression<Func<T, string>> expression)

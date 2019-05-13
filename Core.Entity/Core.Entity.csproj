@@ -34,4 +34,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Extension\Core.Extension.csproj" />
+  </ItemGroup>
+
 </Project>
