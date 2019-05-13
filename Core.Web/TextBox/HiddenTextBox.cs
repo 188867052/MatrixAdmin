@@ -10,19 +10,19 @@ namespace Core.Web.TextBox
     {
         private readonly Expression<Func<TPostModel, int>> _expression;
         private readonly int _value;
-        private readonly string type;
+        private readonly string _type;
 
         public HiddenTextBox(Expression<Func<TPostModel, int>> expression, int value)
         {
             this._expression = expression;
             this._value = value;
-            this.type = EnumMappings.ToString(TextBoxTypeEnum.Hidden);
+            this._type = EnumMappings.ToString(TextBoxTypeEnum.Hidden);
         }
 
         public string Render(TModel model)
         {
             string name = this._expression.GetPropertyName();
-            return $"<input type=\"{this.type}\" name=\"{name}\" value=\"{this._value}\">";
+            return $"<input type=\"{this._type}\" name=\"{name}\" value=\"{this._value}\">";
         }
     }
 }

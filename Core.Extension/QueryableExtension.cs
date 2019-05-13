@@ -65,25 +65,35 @@ namespace Core.Extension
 
         public static IQueryable<T> AddStringContainsFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
         {
-            if (!string.IsNullOrWhiteSpace(value))
-            {
-                string name = expression.GetPropertyName();
-                MethodCallExpression Predicate(MemberExpression a, ConstantExpression b) => PredicateLocal<string>(a, b, nameof(string.Contains));
-
-                return query.CreateQuery(value, name, Predicate);
-            }
-
-            return query;
+            return query.AddStringFilter(value, expression, nameof(string.Contains));
         }
 
         public static IQueryable<T> AddStringEqualsFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
         {
+            return query.AddStringFilter(value, expression, nameof(string.Equals));
+        }
+
+        public static IQueryable<T> AddStringEndsWithFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
+        {
+            return query.AddStringFilter(value, expression, nameof(string.EndsWith));
+        }
+
+        public static IQueryable<T> AddStringStartsWithFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
+        {
+            return query.AddStringFilter(value, expression, nameof(string.StartsWith));
+        }
+
+        public static IQueryable<T> AddStringIsNullOrEmptyFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
+        {
+            return query.AddStringFilter(value, expression, nameof(string.IsNullOrEmpty));
+        }
+
+        private static IQueryable<T> AddStringFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression, string name)
+        {
             if (!string.IsNullOrWhiteSpace(value))
             {
-                string name = expression.GetPropertyName();
-                MethodCallExpression Predicate(MemberExpression a, ConstantExpression b) => PredicateLocal<string>(a, b, nameof(string.Equals));
-
-                return query.CreateQuery(value, name, Predicate);
+                MethodCallExpression Predicate(MemberExpression a, ConstantExpression b) => PredicateLocal<string>(a, b, name);
+                return query.CreateQuery(value, expression.GetPropertyName(), Predicate);
             }
 
             return query;
@@ -100,10 +110,10 @@ namespace Core.Extension
             return query.CreateQuery(value, name, Lambda);
         }
 
-        private static IQueryable<T> CreateQuery<T>(this IQueryable<T> query, object value, string name, Func<MemberExpression, ConstantExpression, MethodCallExpression> predicate)
+        private static IQueryable<T> CreateQuery<T>(this IQueryable<T> query, object value, string propertyName, Func<MemberExpression, ConstantExpression, MethodCallExpression> predicate)
         {
             Expression<Func<T, bool>> Lambda(MemberExpression a, ConstantExpression b, ParameterExpression c) => Expression.Lambda<Func<T, bool>>(predicate(a, b), c);
-            return query.CreateQuery(value, name, Lambda);
+            return query.CreateQuery(value, propertyName, Lambda);
         }
 
         private static IQueryable<T> CreateEqualFilter<T>(this IQueryable<T> query, object value, string name)
@@ -134,10 +144,10 @@ namespace Core.Extension
             return query.CreateQuery(null, name, Predicate);
         }
 
-        private static IQueryable<T> CreateQuery<T>(this IQueryable<T> query, object value, string name, Func<MemberExpression, ConstantExpression, ParameterExpression, Expression<Func<T, bool>>> lambda)
+        private static IQueryable<T> CreateQuery<T>(this IQueryable<T> query, object value, string propertyName, Func<MemberExpression, ConstantExpression, ParameterExpression, Expression<Func<T, bool>>> lambda)
         {
             ParameterExpression parameter = Expression.Parameter(typeof(T), CachedReflectionInfo.Key);
-            MemberExpression left = Expression.Property(parameter, typeof(T).GetProperty(name));
+            MemberExpression left = Expression.Property(parameter, typeof(T).GetProperty(propertyName));
             ConstantExpression right = Expression.Constant(value);
             return query.Provider.CreateQuery<T>(Expression.Call(null, CachedReflectionInfo.Where_TSource_2(typeof(T)), query.Expression, Expression.Quote(lambda(left, right, parameter))));
         }
