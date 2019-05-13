@@ -9,7 +9,7 @@ namespace Core.Mvc
 {
     public static class HttpClientAsync
     {
-        private static readonly string Host = "https://localhost:44377/api";
+        private static readonly string Host = "http://localhost:90/api";
 
         /// <summary>
         /// GetAsync.

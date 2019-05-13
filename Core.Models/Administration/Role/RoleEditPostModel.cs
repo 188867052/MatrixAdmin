@@ -15,11 +15,6 @@
 
         public bool? IsEnable { get; set; }
 
-        /// <summary>
-        /// 是否是超级管理员(超级管理员拥有系统的所有权限).
-        /// </summary>
-        public bool IsSuperAdministrator { get; set; }
-
         public bool? IsForbidden { get; set; }
     }
 }

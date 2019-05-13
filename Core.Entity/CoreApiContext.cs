@@ -87,9 +87,13 @@ namespace Core.Entity
                     .IsRequired()
                     .HasMaxLength(80);
 
+                entity.Property(e => e.CreatedTime).HasDefaultValueSql("(getdate())");
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.UpdateTime).HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.MenuGu)
                     .WithMany(p => p.Permission)

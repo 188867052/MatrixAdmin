@@ -22,7 +22,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
             gridColumns.Add(new BooleanGridColumn<Entity.Permission>(o => o.Status, "关联菜单"));
             gridColumns.Add(new TextGridColumn<Entity.Permission>(o => o.ActionCode, PermissionIndexResource.ActionCode));
             gridColumns.Add(new BooleanGridColumn<Entity.Permission>(o => o.Status, PermissionIndexResource.Status));
-            gridColumns.Add(new DateTimeGridColumn<Entity.Permission>(o => o.CreatedOn, PermissionIndexResource.CreatedOn));
+            gridColumns.Add(new DateTimeGridColumn<Entity.Permission>(o => o.CreatedTime, PermissionIndexResource.CreatedOn));
             gridColumns.Add(new TextGridColumn<Entity.Permission>(o => o.CreatedByUserName, PermissionIndexResource.CreatedByUserName));
         }
     }
