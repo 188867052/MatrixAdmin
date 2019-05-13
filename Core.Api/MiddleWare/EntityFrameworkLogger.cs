@@ -9,7 +9,10 @@ namespace Core.Api.MiddleWare
     {
         private readonly string _categoryName;
 
-        public EntityFrameworkLogger(string categoryName) => this._categoryName = categoryName;
+        public EntityFrameworkLogger(string categoryName)
+        {
+            this._categoryName = categoryName;
+        }
 
         public bool IsEnabled(LogLevel logLevel) => true;
 

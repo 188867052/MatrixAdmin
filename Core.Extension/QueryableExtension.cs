@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Core.Extension
 {
@@ -23,8 +24,8 @@ namespace Core.Extension
 
         public static IQueryable<T> AddDateTimeBetweenFilter<T>(this IQueryable<T> query, DateTime? starTime, DateTime? endTime, Expression<Func<T, DateTime?>> expression)
         {
-            query.AddDateTimeGreaterThanOrEqualFilter(starTime, expression);
-            query.AddDateTimeLessThanOrEqualFilter(endTime, expression);
+            query = query.AddDateTimeGreaterThanOrEqualFilter(starTime, expression);
+            query = query.AddDateTimeLessThanOrEqualFilter(endTime, expression);
             return query;
         }
 
@@ -67,11 +68,30 @@ namespace Core.Extension
             if (!string.IsNullOrWhiteSpace(value))
             {
                 string name = expression.GetPropertyName();
-                MethodCallExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.Call(a, CachedReflectionInfo.Contains_TSource_2(typeof(string)), b);
+                MethodCallExpression Predicate(MemberExpression a, ConstantExpression b) => PredicateLocal<string>(a, b, nameof(string.Contains));
+
                 return query.CreateQuery(value, name, Predicate);
             }
 
             return query;
+        }
+
+        public static IQueryable<T> AddStringEqualsFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                string name = expression.GetPropertyName();
+                MethodCallExpression Predicate(MemberExpression a, ConstantExpression b) => PredicateLocal<string>(a, b, nameof(string.Equals));
+
+                return query.CreateQuery(value, name, Predicate);
+            }
+
+            return query;
+        }
+
+        private static MethodCallExpression PredicateLocal<T>(MemberExpression a, ConstantExpression b, string name)
+        {
+            return Expression.Call(a, GetMethodInfo<T>(name), b);
         }
 
         private static IQueryable<T> CreateQuery<T>(this IQueryable<T> query, object value, string name, Func<MemberExpression, ConstantExpression, BinaryExpression> predicate)
@@ -88,8 +108,12 @@ namespace Core.Extension
 
         private static IQueryable<T> CreateEqualFilter<T>(this IQueryable<T> query, object value, string name)
         {
-            BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.Equal(a, b);
             return query.CreateQuery(value, name, Predicate);
+        }
+
+        private static BinaryExpression Predicate(MemberExpression a, ConstantExpression b)
+        {
+            return Expression.Equal(a, b);
         }
 
         private static IQueryable<T> AddNotEqualFilter<T>(this IQueryable<T> query, object value, string name)
@@ -116,6 +140,11 @@ namespace Core.Extension
             MemberExpression left = Expression.Property(parameter, typeof(T).GetProperty(name));
             ConstantExpression right = Expression.Constant(value);
             return query.Provider.CreateQuery<T>(Expression.Call(null, CachedReflectionInfo.Where_TSource_2(typeof(T)), query.Expression, Expression.Quote(lambda(left, right, parameter))));
+        }
+
+        private static MethodInfo GetMethodInfo<T>(string name)
+        {
+            return typeof(T).GetMethod(name, new[] { typeof(T) });
         }
     }
 }
