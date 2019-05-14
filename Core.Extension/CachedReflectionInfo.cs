@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Core.Extension
 {
-    internal static class CachedReflectionInfo
+    public static class CachedReflectionInfo
     {
         private static MethodInfo s_Aggregate_TSource_2;
         private static MethodInfo s_Aggregate_TSource_TAccumulate_3;

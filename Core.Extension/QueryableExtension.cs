@@ -121,16 +121,11 @@ namespace Core.Extension
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
-                MethodCallExpression Predicate(MemberExpression a, ConstantExpression b) => PredicateLocal<string>(a, b, name);
+                MethodCallExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.Call(a, GetMethodInfo<T>(name), b);
                 return query.CreateQuery(value, expression.GetPropertyName(), Predicate);
             }
 
             return query;
-        }
-
-        private static MethodCallExpression PredicateLocal<T>(MemberExpression a, ConstantExpression b, string name)
-        {
-            return Expression.Call(a, GetMethodInfo<T>(name), b);
         }
 
         private static IQueryable<T> CreateQuery<T>(this IQueryable<T> query, object value, string name, Func<MemberExpression, ConstantExpression, BinaryExpression> predicate)
