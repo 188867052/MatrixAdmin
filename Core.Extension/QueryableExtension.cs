@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Core.Extension.ExpressionBuilder.Builders;
+using Core.Extension.ExpressionBuilder.Generics;
 
 namespace Core.Extension
 {
@@ -78,14 +81,40 @@ namespace Core.Extension
             return query.AddStringFilter(value, expression, nameof(string.EndsWith));
         }
 
+        public static IQueryable<TSource> AddOrElseConditionWithList<TSource>(this IQueryable<TSource> query, string methodName, IList<object> list, Expression<Func<TSource, string>> expression)
+        {
+            if (list != null && list.Any())
+            {
+                ParameterExpression p = Expression.Parameter(typeof(TSource), "p");
+                MemberExpression propertyName = Expression.Property(p, expression.GetPropertyName());
+                BinaryExpression body = Expression.Equal(Expression.Call(propertyName, methodName, null, Expression.Constant(list.First())), Expression.Constant(true));
+                body = list.Aggregate(body, (current, item) => Expression.OrElse(current, Expression.Call(propertyName, methodName, null, Expression.Constant(item))));
+                Expression<Func<TSource, bool>> orExpression = Expression.Lambda<Func<TSource, bool>>(body, p);
+                query = query.Where(orExpression);
+            }
+
+            return query;
+        }
+
         public static IQueryable<T> AddStringStartsWithFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
         {
             return query.AddStringFilter(value, expression, nameof(string.StartsWith));
         }
 
-        public static IQueryable<T> AddStringIsNullOrEmptyFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
+        public static IQueryable<T> AddStringIsNullFilter<T>(this IQueryable<T> query, Expression<Func<T, string>> expression)
         {
-            return query.AddStringFilter(value, expression, nameof(string.IsNullOrEmpty));
+            return query.AddIsNullFilter(expression.GetPropertyName());
+        }
+
+        public static IQueryable<T> AddStringIsEmptyFilter<T>(this IQueryable<T> query, Expression<Func<T, string>> expression)
+        {
+            return query.AddIsEmptyFilter(expression.GetPropertyName());
+        }
+
+        public static IQueryable<T> AddNotNullFilter<T>(this IQueryable<T> query, Expression<Func<T, string>> expression)
+        {
+            BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.NotEqual(a, b);
+            return query.CreateQuery(null, expression.GetPropertyName(), Predicate);
         }
 
         private static IQueryable<T> AddStringFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression, string name)
@@ -132,16 +161,16 @@ namespace Core.Extension
             return query.CreateQuery(value, name, Predicate);
         }
 
-        private static IQueryable<T> AddNotNullFilter<T>(this IQueryable<T> query, string name)
-        {
-            BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.NotEqual(a, b);
-            return query.CreateQuery(null, name, Predicate);
-        }
-
-        private static IQueryable<T> AddIsNullFilter<T>(this IQueryable<T> query, string name)
+        private static IQueryable<T> AddIsNullFilter<T>(this IQueryable<T> query, string propertyName)
         {
             BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.Equal(a, b);
-            return query.CreateQuery(null, name, Predicate);
+            return query.CreateQuery(null, propertyName, Predicate);
+        }
+
+        private static IQueryable<T> AddIsEmptyFilter<T>(this IQueryable<T> query, string propertyName)
+        {
+            BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.Equal(a, b);
+            return query.CreateQuery(string.Empty, propertyName, Predicate);
         }
 
         private static IQueryable<T> CreateQuery<T>(this IQueryable<T> query, object value, string propertyName, Func<MemberExpression, ConstantExpression, ParameterExpression, Expression<Func<T, bool>>> lambda)
@@ -155,6 +184,14 @@ namespace Core.Extension
         private static MethodInfo GetMethodInfo<T>(string name)
         {
             return typeof(T).GetMethod(name, new[] { typeof(T) });
+        }
+
+        public static IQueryable<T> AddFilter<T>(this IQueryable<T> query, Filter<T> filter) where T : class
+        {
+            var builder = new FilterBuilder();
+            Expression<Func<T, bool>> expression = builder.GetExpression<T>(filter);
+            query = query.Where(expression);
+            return query;
         }
     }
 }

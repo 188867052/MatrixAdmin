@@ -36,6 +36,11 @@ namespace Core.Extension
             return expression.Body.GetName();
         }
 
+        public static string GetPropertyName<T>(this Expression<Func<T, object>> expression)
+        {
+            return expression.Body.GetName();
+        }
+
         public static string GetPropertyName<T, TEnumType>(this Expression<Func<T, TEnumType>> expression) where TEnumType : Enum
         {
             return expression.Body.GetName();
@@ -57,13 +62,13 @@ namespace Core.Extension
             switch (expression)
             {
                 case UnaryExpression unaryExpression:
-                    name = unaryExpression.GetValue();
+                    name = unaryExpression.GetName();
                     break;
                 case MemberExpression memberExpression:
-                    name = memberExpression.GetValue();
+                    name = memberExpression.GetName();
                     break;
                 case ParameterExpression parameterExpression:
-                    name = parameterExpression.GetValue();
+                    name = parameterExpression.GetName();
                     break;
                 default:
                     throw new ArgumentException("不支持的参数");
@@ -72,17 +77,17 @@ namespace Core.Extension
             return name;
         }
 
-        private static string GetValue(this UnaryExpression unaryExpression)
+        private static string GetName(this UnaryExpression unaryExpression)
         {
             return ((MemberExpression)unaryExpression.Operand).Member.Name;
         }
 
-        private static string GetValue(this MemberExpression memberExpression)
+        private static string GetName(this MemberExpression memberExpression)
         {
             return memberExpression.Member.Name;
         }
 
-        private static string GetValue(this ParameterExpression parameterExpression)
+        private static string GetName(this ParameterExpression parameterExpression)
         {
             return parameterExpression.Type.Name;
         }

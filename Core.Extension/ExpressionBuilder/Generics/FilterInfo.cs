@@ -136,7 +136,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
         public void Validate()
         {
             var helper = new OperationHelper();
-            this.ValidateNumberOfValues();
+            //this.ValidateNumberOfValues();
             this.ValidateSupportedOperations(helper);
         }
 

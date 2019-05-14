@@ -55,8 +55,6 @@ namespace Core.Api.Controllers
                 query = query.AddBooleanFilter(model.IsEnable, o => o.IsEnable);
                 query = query.AddBooleanFilter(model.Status, o => o.Status);
 
-                // query = query.AddGuidEqualsFilter(model.MenuGuid, nameof(Permission.MenuGuid));
-
                 // var data = list.Select(this.Mapper.Map<Permission, PermissionJsonModel>);
                 /*
                  * .Select(x => new PermissionJsonModel {

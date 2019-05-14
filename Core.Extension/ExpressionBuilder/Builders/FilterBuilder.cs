@@ -27,7 +27,7 @@ namespace Core.Extension.ExpressionBuilder.Builders
 
         public Expression<Func<T, bool>> GetExpression<T>(IFilter filter) where T : class
         {
-            var param = Expression.Parameter(typeof(T), "x");
+            ParameterExpression param = Expression.Parameter(typeof(T), "x");
             Expression expression = null;
             var connector = Connector.And;
             foreach (var statementGroup in filter.Statements)
