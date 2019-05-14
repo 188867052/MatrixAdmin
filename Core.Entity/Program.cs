@@ -14,20 +14,20 @@ namespace Core.Entity
         {
             CoreApiContext context = new CoreApiContext();
             context.Set<UserRoleMapping>().Load();
-            IQueryable<User> query = context.User;
+            IQueryable<UserRoleMapping> query = context.UserRoleMapping;
 
-            var user = query.Provider.Execute(Expression.Call(null, CachedReflectionInfo.FirstOrDefault_TSource_2(typeof(User)), query.Expression, GetMethodCallExpression(query)));
+            var user = query.Provider.Execute(Expression.Call(null, CachedReflectionInfo.FirstOrDefault_TSource_2(typeof(UserRoleMapping)), query.Expression, GetMethodCallExpression(query)));
 
-            query = query.Where(o => o.UserRoleMapping.FirstOrDefault(x => x.RoleId == 1) != null);
+            //query = query.Where(o => o.UserRoleMapping.FirstOrDefault(x => x.RoleId == 1) != null);
         }
 
-        private static LambdaExpression GetMethodCallExpression(IQueryable<User> query)
+        private static LambdaExpression GetMethodCallExpression(IQueryable<UserRoleMapping> query)
         {
-            ParameterExpression parameter = Expression.Parameter(typeof(User), "o");
+            ParameterExpression parameter = Expression.Parameter(typeof(UserRoleMapping), "o");
             MemberExpression property = Expression.Property(parameter, "Id");
             ConstantExpression rightSide = Expression.Constant(3);
             BinaryExpression operation = Expression.Equal(property, rightSide);
-            Type delegateType = typeof(Func<,>).MakeGenericType(typeof(User), typeof(bool));
+            Type delegateType = typeof(Func<,>).MakeGenericType(typeof(UserRoleMapping), typeof(bool));
             LambdaExpression predicate = Expression.Lambda(delegateType, operation, parameter);
             return predicate;
         }
