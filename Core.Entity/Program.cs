@@ -15,10 +15,8 @@ namespace Core.Entity
             CoreApiContext context = new CoreApiContext();
             IQueryable<User> query = context.User;
 
-            filter.AddIntegerBetweenFilter(o => o.Id, 2, 6).
-                And.AddIntegerInArrayFilter<User>(o => o.Id, new[] { 4, 5 });
-            filter.AddExistsFilter(o => o.UserRoleMapping, o => o.Id, Operation.EqualTo, 12323);
-
+            filter.AddIntegerBetweenFilter(o => o.Id, 2, 6).And.AddIntegerInArrayFilter<User>(o => o.Id, new[] { 4, 5 });
+            filter.AddExistsFilter(o => o.UserRoleMapping, o => o.Id, Operation.EqualTo, 1);
             query = query.Where(filter);
             var a = query.ToList();
         }

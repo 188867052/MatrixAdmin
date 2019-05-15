@@ -152,9 +152,8 @@ namespace Core.Extension.ExpressionBuilder.Generics
 
         public IFilterStatementConnection AddExistsFilter<TPropertyType>(Expression<Func<T, ICollection<TPropertyType>>> expression, Expression<Func<TPropertyType, int>> secondExpression, IOperation operation, int value)
         {
-            string name = expression.ToString().Split('.')[1]
-                + $"[{secondExpression.ToString().Split('.')[1]}]";
-            IFilterInfo statement = new FilterInfo<int>(name, operation, value, default, Connector.And);
+            string name = expression.ToString().Split('.')[1] + $"[{secondExpression.ToString().Split('.')[1]}]";
+            IFilterInfo statement = new FilterInfo<int>(name, operation, value);
             this.CurrentStatementGroup.Add(statement);
             return new FilterStatementConnection(this, statement);
         }

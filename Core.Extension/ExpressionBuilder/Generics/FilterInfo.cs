@@ -42,6 +42,14 @@ namespace Core.Extension.ExpressionBuilder.Generics
             this.Validate();
         }
 
+        public FilterInfo(string propertyId, IOperation operation, TPropertyType value)
+        {
+            this.PropertyName = propertyId;
+            this.Operation = operation;
+            this.SetValues(value);
+            this.Validate();
+        }
+
         /// <summary>
         /// Establishes how this filter statement will connect to the next one.
         /// </summary>
@@ -187,6 +195,20 @@ namespace Core.Extension.ExpressionBuilder.Generics
             {
                 this.Value = value;
                 this.Value2 = value2;
+            }
+        }
+
+        private void SetValues(TPropertyType value)
+        {
+            if (typeof(TPropertyType).IsArray)
+            {
+                var listType = typeof(List<>);
+                var constructedListType = listType.MakeGenericType(typeof(TPropertyType).GetElementType());
+                this.Value = value != null ? Activator.CreateInstance(constructedListType, value) : null;
+            }
+            else
+            {
+                this.Value = value;
             }
         }
     }
