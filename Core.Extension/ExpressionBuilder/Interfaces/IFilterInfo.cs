@@ -6,7 +6,7 @@ namespace Core.Extension.ExpressionBuilder.Interfaces
     /// <summary>
     /// Defines how a property should be filtered.
     /// </summary>
-    public interface IFilterInfo : IXmlSerializable
+    public interface IFilterInfo
     {
         /// <summary>
         /// Establishes how this filter statement will connect to the next one.

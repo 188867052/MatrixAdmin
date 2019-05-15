@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Xml;
-using System.Xml.Schema;
 using System.Xml.Serialization;
 using Core.Extension.ExpressionBuilder.Builders;
 using Core.Extension.ExpressionBuilder.Common;
@@ -17,7 +16,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
     /// Aggregates <see cref="FilterInfo{TPropertyType}" /> and build them into a LINQ expression.
     /// </summary>
     [Serializable]
-    public class Filter<T> : IFilter, IXmlSerializable where T : class
+    public class Filter<T> : IFilter/*, IXmlSerializable*/ where T : class
     {
         private readonly List<List<IFilterInfo>> _statements;
 
@@ -152,8 +151,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
 
         public IFilterStatementConnection AddExistsFilter<TPropertyType>(Expression<Func<T, ICollection<TPropertyType>>> expression, Expression<Func<TPropertyType, int>> secondExpression, IOperation operation, int value)
         {
-            string name = expression.ToString().Split('.')[1] + $"[{secondExpression.ToString().Split('.')[1]}]";
-            IFilterInfo statement = new FilterInfo<int>(name, operation, value);
+            IFilterInfo statement = new FilterInfo<T, TPropertyType, int>(expression, secondExpression, operation, value);
             this.CurrentStatementGroup.Add(statement);
             return new FilterStatementConnection(this, statement);
         }
@@ -203,7 +201,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
         /// <returns>IFilterStatementConnection.</returns>
         public IFilterStatementConnection By<TPropertyType>(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector)
         {
-            IFilterInfo statement = new FilterInfo<TPropertyType>(propertyId, operation, value, value2, connector);
+            IFilterInfo statement = new FilterInfo<TPropertyType, TPropertyType, TPropertyType>(propertyId, operation, value, value2, connector);
             this.CurrentStatementGroup.Add(statement);
             return new FilterStatementConnection(this, statement);
         }
@@ -272,38 +270,38 @@ namespace Core.Extension.ExpressionBuilder.Generics
             return result.ToString();
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
+        ///// <summary>
+        /////
+        ///// </summary>
+        ///// <returns></returns>
+        //public XmlSchema GetSchema()
+        //{
+        //    return null;
+        //}
 
         /// <summary>
         ///  Generates an object from its XML representation.
         /// </summary>
         /// <param name="reader">The System.Xml.XmlReader stream from which the object is deserialized.</param>
-        public void ReadXml(XmlReader reader)
-        {
-            while (reader.Read())
-            {
-                if (reader.Name.Equals("StatementsGroup") && reader.IsStartElement())
-                {
-                    this.StartGroup();
-                }
+        //public void ReadXml(XmlReader reader)
+        //{
+        //    while (reader.Read())
+        //    {
+        //        if (reader.Name.Equals("StatementsGroup") && reader.IsStartElement())
+        //        {
+        //            this.StartGroup();
+        //        }
 
-                if (reader.Name.StartsWith("FilterStatementOf"))
-                {
-                    var type = reader.GetAttribute("Type");
-                    var filterType = typeof(FilterInfo<>).MakeGenericType(Type.GetType(type));
-                    var serializer = new XmlSerializer(filterType);
-                    var statement = (IFilterInfo)serializer.Deserialize(reader);
-                    this.CurrentStatementGroup.Add(statement);
-                }
-            }
-        }
+        //        if (reader.Name.StartsWith("FilterStatementOf"))
+        //        {
+        //            var type = reader.GetAttribute("Type");
+        //            var filterType = typeof(FilterInfo<>).MakeGenericType(Type.GetType(type));
+        //            var serializer = new XmlSerializer(filterType);
+        //            var statement = (IFilterInfo)serializer.Deserialize(reader);
+        //            this.CurrentStatementGroup.Add(statement);
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// Converts an object into its XML representation.

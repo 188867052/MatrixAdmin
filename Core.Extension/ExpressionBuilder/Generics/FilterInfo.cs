@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Xml;
 using System.Xml.Schema;
 using Core.Extension.ExpressionBuilder.Common;
@@ -14,7 +15,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
     /// </summary>
     /// <typeparam name="TPropertyType">TPropertyType.</typeparam>
     [Serializable]
-    public class FilterInfo<TPropertyType> : IFilterInfo
+    public class FilterInfo<Tclass, TSecondClass, TPropertyType> : IFilterInfo
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
@@ -42,9 +43,10 @@ namespace Core.Extension.ExpressionBuilder.Generics
             this.Validate();
         }
 
-        public FilterInfo(string propertyId, IOperation operation, TPropertyType value)
+        public FilterInfo(Expression<Func<Tclass, ICollection<TSecondClass>>> expression, Expression<Func<TSecondClass, int>> secondExpression, IOperation operation, TPropertyType value)
         {
-            this.PropertyName = propertyId;
+            string name = expression.ToString().Split('.')[1] + $"[{secondExpression.ToString().Split('.')[1]}]";
+            this.PropertyName = name;
             this.Operation = operation;
             this.SetValues(value);
             this.Validate();
@@ -101,41 +103,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
         public XmlSchema GetSchema()
         {
             return null;
-        }
-
-        /// <summary>
-        ///  Generates an object from its XML representation.
-        /// </summary>
-        /// <param name="reader">The System.Xml.XmlReader stream from which the object is deserialized.</param>
-        public void ReadXml(XmlReader reader)
-        {
-            reader.Read();
-            this.PropertyName = reader.ReadElementContentAsString();
-            this.Operation = Operations.Operation.ByName(reader.ReadElementContentAsString());
-            if (typeof(TPropertyType).IsEnum)
-            {
-                this.Value = Enum.Parse(typeof(TPropertyType), reader.ReadElementContentAsString());
-            }
-            else
-            {
-                this.Value = Convert.ChangeType(reader.ReadElementContentAsString(), typeof(TPropertyType));
-            }
-
-            this.Connector = (Connector)Enum.Parse(typeof(Connector), reader.ReadElementContentAsString());
-        }
-
-        /// <summary>
-        /// Converts an object into its XML representation.
-        /// </summary>
-        /// <param name="writer">The System.Xml.XmlWriter stream to which the object is serialized.</param>
-        public void WriteXml(XmlWriter writer)
-        {
-            var type = this.Value.GetType();
-            writer.WriteAttributeString("Type", type.AssemblyQualifiedName);
-            writer.WriteElementString("PropertyId", this.PropertyName);
-            writer.WriteElementString("Operation", this.Operation.Name);
-            writer.WriteElementString("Value", this.Value.ToString());
-            writer.WriteElementString("Connector", this.Connector.ToString("d"));
         }
 
         /// <summary>
