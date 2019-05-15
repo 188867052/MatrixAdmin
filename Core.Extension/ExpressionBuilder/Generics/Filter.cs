@@ -326,7 +326,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
             writer.WriteEndElement();
         }
 
-        public IFilterStatementConnection AddIntegerInArrayFilter<T1>(Expression<Func<T1, int?>> expression, int[] value)
+        public IFilterStatementConnection AddIntegerInArrayFilter(Expression<Func<T, int?>> expression, int[] value)
         {
             return this.By(expression.GetPropertyName(), Operation.In, value, default(int[]));
         }

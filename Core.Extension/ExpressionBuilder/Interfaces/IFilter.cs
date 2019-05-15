@@ -48,8 +48,6 @@ namespace Core.Extension.ExpressionBuilder.Interfaces
         /// <returns>A FilterStatementConnection object that defines how this statement will be connected to the next one.</returns>
         IFilterStatementConnection By<T>(string propertyId, IOperation operation, T value);
 
-        IFilterStatementConnection AddIntegerInArrayFilter<T>(Expression<Func<T, int?>> expression, int[] value);
-
         /// <summary>
         /// Adds another statement to this filter.
         /// </summary>
