@@ -163,10 +163,10 @@ namespace Core.Extension.ExpressionBuilder.Generics
 
             var supportedOperations = helper.SupportedOperations(typeof(TPropertyType));
 
-            if (!supportedOperations.Contains(this.Operation))
-            {
-                throw new UnsupportedOperationException(this.Operation, typeof(TPropertyType).Name);
-            }
+            //if (!supportedOperations.Contains(this.Operation))
+            //{
+            //    throw new UnsupportedOperationException(this.Operation, typeof(TPropertyType).Name);
+            //}
         }
 
         private void SetValues(TPropertyType value, TPropertyType value2)

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using Core.Extension;
-using Microsoft.EntityFrameworkCore;
+using Core.Extension.ExpressionBuilder.Generics;
+using Core.Extension.ExpressionBuilder.Operations;
 
 // Scaffold-DbContext -Force "Data Source=.;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" Microsoft.EntityFrameworkCore.SqlServer
 namespace Core.Entity
@@ -12,24 +11,16 @@ namespace Core.Entity
     {
         private static void Main(string[] args)
         {
+            Filter<User> filter = new Filter<User>();
             CoreApiContext context = new CoreApiContext();
-            context.Set<UserRoleMapping>().Load();
-            IQueryable<UserRoleMapping> query = context.UserRoleMapping;
+            IQueryable<User> query = context.User;
 
-            var user = query.Provider.Execute(Expression.Call(null, CachedReflectionInfo.FirstOrDefault_TSource_2(typeof(UserRoleMapping)), query.Expression, GetMethodCallExpression(query)));
+            filter.AddIntegerBetweenFilter(o => o.Id, 2, 6).
+                And.AddIntegerInArrayFilter<User>(o => o.Id, new[] { 4, 5 });
+            filter.AddExistsFilter(o => o.UserRoleMapping, o => o.Id, Operation.EqualTo, 12323);
 
-            //query = query.Where(o => o.UserRoleMapping.FirstOrDefault(x => x.RoleId == 1) != null);
-        }
-
-        private static LambdaExpression GetMethodCallExpression(IQueryable<UserRoleMapping> query)
-        {
-            ParameterExpression parameter = Expression.Parameter(typeof(UserRoleMapping), "o");
-            MemberExpression property = Expression.Property(parameter, "Id");
-            ConstantExpression rightSide = Expression.Constant(3);
-            BinaryExpression operation = Expression.Equal(property, rightSide);
-            Type delegateType = typeof(Func<,>).MakeGenericType(typeof(UserRoleMapping), typeof(bool));
-            LambdaExpression predicate = Expression.Lambda(delegateType, operation, parameter);
-            return predicate;
+            query = query.Where(filter);
+            var a = query.ToList();
         }
     }
 }

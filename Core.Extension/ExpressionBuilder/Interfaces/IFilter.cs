@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using Core.Extension.ExpressionBuilder.Common;
 
 namespace Core.Extension.ExpressionBuilder.Interfaces
@@ -44,8 +46,8 @@ namespace Core.Extension.ExpressionBuilder.Interfaces
         /// <param name="operation">Express the interaction between the property and the constant value.</param>
         /// <param name="value">Constant value that will interact with the property, required by operations that demands one value or more.</param>
         /// <returns>A FilterStatementConnection object that defines how this statement will be connected to the next one.</returns>
-        IFilterStatementConnection By<TPropertyType>(string propertyId, IOperation operation, TPropertyType value);
-
+        IFilterStatementConnection By<T>(string propertyId, IOperation operation, T value);
+        IFilterStatementConnection AddIntegerInArrayFilter<T>(Expression<Func<T, int?>> expression, int[] value);
         /// <summary>
         /// Adds another statement to this filter.
         /// </summary>

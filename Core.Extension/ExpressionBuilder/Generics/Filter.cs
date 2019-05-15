@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 using Core.Extension.ExpressionBuilder.Builders;
 using Core.Extension.ExpressionBuilder.Common;
 using Core.Extension.ExpressionBuilder.Interfaces;
+using Core.Extension.ExpressionBuilder.Operations;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
@@ -16,7 +17,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
     /// Aggregates <see cref="FilterInfo{TPropertyType}" /> and build them into a LINQ expression.
     /// </summary>
     [Serializable]
-    public class Filter<TClass> : IFilter, IXmlSerializable where TClass : class
+    public class Filter<T> : IFilter, IXmlSerializable where T : class
     {
         private readonly List<List<IFilterInfo>> _statements;
 
@@ -43,7 +44,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
         /// Initializes a new instance of the <see cref="Filter{TClass}"/> class.
         /// Instantiates a new <see cref="Filter{TClass}" />.
         /// </summary>
-        public Filter(Filter<TClass> f1, Filter<TClass> f2, Connector connector)
+        public Filter(Filter<T> f1, Filter<T> f2, Connector connector)
         {
             this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
             IFilterInfo s1 = f1.CurrentStatementGroup.First();
@@ -90,13 +91,13 @@ namespace Core.Extension.ExpressionBuilder.Generics
         }
 
         /// <summary>
-        /// Implicitly converts a <see cref="Filter{TClass}" /> into a <see cref="System.Linq.Expressions.Expression{Func{TClass, TResult}}" />.
+        /// Implicitly converts a <see cref="Filter{TClass}" /> into a <see cref="System.Linq.Expressions.Expression{Func{T, TResult}}" />.
         /// </summary>
         /// <param name="filter">filter.</param>
-        public static implicit operator Expression<Func<TClass, bool>>(Filter<TClass> filter)
+        public static implicit operator Expression<Func<T, bool>>(Filter<T> filter)
         {
             var builder = new FilterBuilder();
-            var expression = builder.GetExpression<TClass>(filter);
+            var expression = builder.GetExpression<T>(filter);
             return expression;
         }
 
@@ -104,10 +105,10 @@ namespace Core.Extension.ExpressionBuilder.Generics
         /// Implicitly converts a <see cref="Filter{TClass}" /> into a <see cref="Func{TClass, TResult}" />.
         /// </summary>
         /// <param name="filter">filter.</param>
-        public static implicit operator Func<TClass, bool>(Filter<TClass> filter)
+        public static implicit operator Func<T, bool>(Filter<T> filter)
         {
             var builder = new FilterBuilder();
-            var expression = builder.GetExpression<TClass>(filter).Compile();
+            var expression = builder.GetExpression<T>(filter).Compile();
             return expression;
         }
 
@@ -149,6 +150,15 @@ namespace Core.Extension.ExpressionBuilder.Generics
             return this.By(propertyId, operation, value, default(TPropertyType));
         }
 
+        public IFilterStatementConnection AddExistsFilter<TPropertyType>(Expression<Func<T, ICollection<TPropertyType>>> expression, Expression<Func<TPropertyType, int>> secondExpression, IOperation operation, int value)
+        {
+            string name = expression.ToString().Split('.')[1]
+                + $"[{secondExpression.ToString().Split('.')[1]}]";
+            IFilterInfo statement = new FilterInfo<int>(name, operation, value, default, Connector.And);
+            this.CurrentStatementGroup.Add(statement);
+            return new FilterStatementConnection(this, statement);
+        }
+
         /// <summary>
         /// Adds a new <see cref="FilterInfo{TPropertyType}" /> to the <see cref="Filter{TClass}" />.
         /// </summary>
@@ -175,6 +185,11 @@ namespace Core.Extension.ExpressionBuilder.Generics
         public IFilterStatementConnection By<TPropertyType>(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2)
         {
             return this.By(propertyId, operation, value, value2, Connector.And);
+        }
+
+        public IFilterStatementConnection AddIntegerBetweenFilter(Expression<Func<T, int?>> expression, int min, int max)
+        {
+            return this.By(expression.GetPropertyName(), Operation.Between, min, max, Connector.And);
         }
 
         /// <summary>
@@ -297,7 +312,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
         /// <param name="writer">The System.Xml.XmlWriter stream to which the object is serialized.</param>
         public void WriteXml(XmlWriter writer)
         {
-            writer.WriteAttributeString("Type", typeof(TClass).AssemblyQualifiedName);
+            writer.WriteAttributeString("Type", typeof(T).AssemblyQualifiedName);
             writer.WriteStartElement("Statements");
             foreach (var statementsGroup in this._statements)
             {
@@ -312,6 +327,11 @@ namespace Core.Extension.ExpressionBuilder.Generics
             }
 
             writer.WriteEndElement();
+        }
+
+        public IFilterStatementConnection AddIntegerInArrayFilter<T1>(Expression<Func<T1, int?>> expression, int[] value)
+        {
+            return this.By(expression.GetPropertyName(), Operation.In, value, default(int[]));
         }
     }
 }
