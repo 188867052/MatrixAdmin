@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Core.Entity;
@@ -139,7 +140,7 @@ namespace Core.Mvc
         {
             using (CoreApiContext context = new CoreApiContext())
             {
-                return context.Configuration.Find(1).Value;
+                return context.Configuration.FirstOrDefault(o => o.Key == "Api.Url.IIS").Value;
             }
         }
     }

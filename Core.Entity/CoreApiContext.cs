@@ -41,6 +41,8 @@ namespace Core.Entity
 
             modelBuilder.Entity<Configuration>(entity =>
             {
+                entity.Property(e => e.Key).HasMaxLength(50);
+
                 entity.Property(e => e.Value).HasMaxLength(1000);
             });
 
