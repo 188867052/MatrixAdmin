@@ -1,11 +1,11 @@
-﻿using Core.Extension.ExpressionBuilder.Builders;
-using Core.Extension.ExpressionBuilder.Common;
-using Core.Extension.ExpressionBuilder.Interfaces;
-using Core.Extension.ExpressionBuilder.Operations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Core.Extension.ExpressionBuilder.Builders;
+using Core.Extension.ExpressionBuilder.Common;
+using Core.Extension.ExpressionBuilder.Interfaces;
+using Core.Extension.ExpressionBuilder.Operations;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
@@ -197,6 +197,11 @@ namespace Core.Extension.ExpressionBuilder.Generics
             IFilterInfo statement = new FilterInfo<int, int, int>(expression.GetPropertyName(), Operation.Between, min, max, Connector.And);
             this.CurrentStatementGroup.Add(statement);
             return new FilterStatementConnection(this, statement);
+        }
+
+        public void AddFilter(IFilterInfo f1)
+        {
+            this.CurrentStatementGroup.Add(f1);
         }
 
         public void AddFilter(IFilter f1)

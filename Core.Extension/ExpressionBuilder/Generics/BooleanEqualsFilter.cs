@@ -5,21 +5,20 @@ using Core.Extension.ExpressionBuilder.Interfaces;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-    public class IntegerBetweenFilter<T> : IFilterInfo
+
+    public class BooleanEqualsFilter<T> : IFilterInfo
     {
-        public IntegerBetweenFilter(Expression<Func<T, int>> expression,  int value, int value2)
+        public BooleanEqualsFilter(Expression<Func<T, bool>> expression, bool value)
         {
             this.PropertyName = expression.GetPropertyName();
             this.Value = value;
-            this.Value2 = value2;
-            this.Validate();
         }
 
         public Connector Connector { get; set; } = default;
 
         public string PropertyName { get; set; }
 
-        public IOperation Operation { get; set; } = Operations.Operation.Between;
+        public IOperation Operation { get; set; } = Operations.Operation.EqualTo;
 
         public object Value { get; set; }
 

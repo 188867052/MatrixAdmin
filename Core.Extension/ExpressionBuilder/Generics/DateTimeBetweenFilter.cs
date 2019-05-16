@@ -5,9 +5,10 @@ using Core.Extension.ExpressionBuilder.Interfaces;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-    public class IntegerBetweenFilter<T> : IFilterInfo
+
+    public class DateTimeBetweenFilter<T> : IFilterInfo
     {
-        public IntegerBetweenFilter(Expression<Func<T, int>> expression,  int value, int value2)
+        public DateTimeBetweenFilter(Expression<Func<T, DateTime>> expression, DateTime value, DateTime value2)
         {
             this.PropertyName = expression.GetPropertyName();
             this.Value = value;

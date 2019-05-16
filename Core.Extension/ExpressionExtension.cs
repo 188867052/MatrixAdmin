@@ -36,12 +36,22 @@ namespace Core.Extension
             return expression.Body.GetName();
         }
 
+        public static string GetPropertyName<T>(this Expression<Func<T, DateTime>> expression)
+        {
+            return expression.Body.GetName();
+        }
+
         public static string GetPropertyName<T>(this Expression<Func<T, object>> expression)
         {
             return expression.Body.GetName();
         }
 
         public static string GetPropertyName<T, TEnumType>(this Expression<Func<T, TEnumType>> expression) where TEnumType : Enum
+        {
+            return expression.Body.GetName();
+        }
+
+        public static string GetPropertyName<T>(this Expression<Func<T, bool>> expression)
         {
             return expression.Body.GetName();
         }
