@@ -39,22 +39,26 @@ namespace Core.Extension.ExpressionBuilder.Generics
             this.By(statement);
         }
 
+        public Filter(Expression<Func<T, int?>> expression, int min, int max)
+        {
+            IFilterInfo statement = new FilterInfo<int, int, int>(expression.GetPropertyName(), Operation.Between, min, max, Connector.And);
+            this.CurrentStatementGroup.Add(statement);
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Filter{TClass}"/> class.
         /// Instantiates a new <see cref="Filter{TClass}" />.
         /// </summary>
-        public Filter(Filter<T> f1, Filter<T> f2, Connector connector)
+        public Filter(IFilterInfo f1, IFilterInfo f2, Connector connector)
         {
             this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
-            IFilterInfo s1 = f1.CurrentStatementGroup.First();
-            IFilterInfo s2 = f2.CurrentStatementGroup.First();
             if (connector == Connector.Or)
             {
-                this.By(s1).Or.By(s2);
+                this.By(f1).Or.By(f2);
             }
             else
             {
-                this.By(s1).And.By(s2);
+                this.By(f1).And.By(f2);
             }
         }
 
@@ -184,9 +188,26 @@ namespace Core.Extension.ExpressionBuilder.Generics
             return this.By(propertyId, operation, value, value2, Connector.And);
         }
 
+        public IFilterStatementConnection AddIntegerInArrayFilter(Expression<Func<T, int?>> expression, int[] value)
+        {
+            IFilterInfo statement = new FilterInfo<int[], int[], int[]>(expression.GetPropertyName(), Operation.In, value);
+            this.CurrentStatementGroup.Add(statement);
+            return new FilterStatementConnection(this, statement);
+        }
+
         public IFilterStatementConnection AddIntegerBetweenFilter(Expression<Func<T, int?>> expression, int min, int max)
         {
-            return this.By(expression.GetPropertyName(), Operation.Between, min, max, Connector.And);
+            IFilterInfo statement = new FilterInfo<int, int, int>(expression.GetPropertyName(), Operation.Between, min, max, Connector.And);
+            this.CurrentStatementGroup.Add(statement);
+            return new FilterStatementConnection(this, statement);
+        }
+
+        public void AddFilter(Filter<T> f1)
+        {
+            IFilterInfo statement = f1.CurrentStatementGroup[0];
+            var statement2 = f1.CurrentStatementGroup[1];
+            this.CurrentStatementGroup.Add(statement);
+            this.CurrentStatementGroup.Add(statement2);
         }
 
         /// <summary>
@@ -326,9 +347,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
             writer.WriteEndElement();
         }
 
-        public IFilterStatementConnection AddIntegerInArrayFilter(Expression<Func<T, int?>> expression, int[] value)
-        {
-            return this.By(expression.GetPropertyName(), Operation.In, value, default(int[]));
-        }
+
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Xml;
-using System.Xml.Schema;
 using Core.Extension.ExpressionBuilder.Common;
 using Core.Extension.ExpressionBuilder.Exceptions;
 using Core.Extension.ExpressionBuilder.Helpers;
@@ -29,17 +27,43 @@ namespace Core.Extension.ExpressionBuilder.Generics
         /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
         /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
         /// </summary>
-        /// <param name="propertyId">propertyId.</param>
+        /// <param name="propertyName">propertyId.</param>
         /// <param name="operation">operation.</param>
         /// <param name="value">value.</param>
         /// <param name="value2">value2.</param>
         /// <param name="connector">connector.</param>
-        public FilterInfo(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
+        public FilterInfo(string propertyName, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
         {
-            this.PropertyName = propertyId;
+            this.PropertyName = propertyName;
             this.Connector = connector;
             this.Operation = operation;
             this.SetValues(value, value2);
+            this.Validate();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
+        /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
+        /// </summary>
+        /// <param name="propertyName">propertyId.</param>
+        /// <param name="operation">operation.</param>
+        /// <param name="value">value.</param>
+        /// <param name="value2">value2.</param>
+        /// <param name="connector">connector.</param>
+        public FilterInfo(Expression<Func<Tclass, int>> secondExpression, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
+        {
+            this.PropertyName = secondExpression.GetPropertyName();
+            this.Connector = connector;
+            this.Operation = operation;
+            this.SetValues(value, value2);
+            this.Validate();
+        }
+
+        public FilterInfo(string propertyId, IOperation operation, TPropertyType value)
+        {
+            this.PropertyName = propertyId;
+            this.Operation = operation;
+            this.SetValues(value);
             this.Validate();
         }
 
@@ -76,34 +100,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
         /// Constant value that will interact with the property defined in this filter statement when the operation demands a second value to compare to.
         /// </summary>
         public object Value2 { get; set; }
-
-        /// <summary>
-        /// String representation of <see cref="FilterInfo{TPropertyType}" />.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            switch (this.Operation.NumberOfValues)
-            {
-                case 0:
-                    return string.Format("{0} {1}", this.PropertyName, this.Operation);
-
-                case 2:
-                    return string.Format("{0} {1} {2} And {3}", this.PropertyName, this.Operation, this.Value, this.Value2);
-
-                default:
-                    return string.Format("{0} {1} {2}", this.PropertyName, this.Operation, this.Value);
-            }
-        }
-
-        /// <summary>
-        /// GetSchema.
-        /// </summary>
-        /// <returns>XmlSchema.</returns>
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
 
         /// <summary>
         /// Validates the FilterStatement regarding the number of provided values and supported operations.

@@ -1,4 +1,6 @@
-﻿using Core.Extension.ExpressionBuilder.Generics;
+﻿using Core.Extension.ExpressionBuilder.Common;
+using Core.Extension.ExpressionBuilder.Generics;
+using Core.Extension.ExpressionBuilder.Interfaces;
 using Core.Extension.ExpressionBuilder.Operations;
 using System.Linq;
 
@@ -14,11 +16,16 @@ namespace Core.Entity
             IQueryable<User> query = context.User;
 
             filter.AddIntegerBetweenFilter(o => o.Id, 2, 6);
-            filter.AddIntegerInArrayFilter(o => o.Id, new[] { 4, 5 });
-            filter.AddExistsFilter(o => o.UserRoleMapping, o => o.Id, Operation.EqualTo, 1);
+            //filter.AddIntegerInArrayFilter(o => o.Id, new[] { 4, 5 });
+            //filter.AddExistsFilter(o => o.UserRoleMapping, o => o.Id, Operation.EqualTo, 1);
+
+            IFilterInfo filterInfo1 = new IntegerBetweenFilter<User>(o => o.Id, 2, 3);
+            IFilterInfo filterInfo2 = new IntegerInArrayFilte<User>(o => o.Id, new[] { 4, 5 });
+            Filter<User> a = new Filter<User>(filterInfo1, filterInfo2, Connector.Or);
+            filter.AddFilter(a);
+
             query = query.Where(filter);
-            query = query.Where(filter);
-            var a = query.ToList();
+            var ab = query.ToList();
         }
     }
 }
