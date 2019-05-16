@@ -5,9 +5,11 @@ using Core.Extension.ExpressionBuilder.Interfaces;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-    public class IntegerGreaterThanOrEqualToFilter<T> : IFilterInfo
+
+
+    public class DateTimeGreaterThanOrEqualFilter<T> : IFilterInfo
     {
-        public IntegerGreaterThanOrEqualToFilter(Expression<Func<T, int>> expression, int value)
+        public DateTimeGreaterThanOrEqualFilter(Expression<Func<T, DateTime>> expression, DateTime value)
         {
             this.PropertyName = expression.GetPropertyName();
             this.Value = value;

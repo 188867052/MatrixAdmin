@@ -6,10 +6,9 @@ using Core.Extension.ExpressionBuilder.Interfaces;
 namespace Core.Extension.ExpressionBuilder.Generics
 {
 
-
-    public class StringNotEqualsFilter<T> : IFilterInfo
+    public class DateTimeLessThanOrEqualFilter<T> : IFilterInfo
     {
-        public StringNotEqualsFilter(Expression<Func<T, string>> expression, string value)
+        public DateTimeLessThanOrEqualFilter(Expression<Func<T, DateTime>> expression, DateTime value)
         {
             this.PropertyName = expression.GetPropertyName();
             this.Value = value;
@@ -19,7 +18,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
 
         public string PropertyName { get; set; }
 
-        public IOperation Operation { get; set; } = Operations.Operation.NotEqualTo;
+        public IOperation Operation { get; set; } = Operations.Operation.LessThanOrEqualTo;
 
         public object Value { get; set; }
 

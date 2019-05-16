@@ -5,9 +5,9 @@ using Core.Extension.ExpressionBuilder.Interfaces;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-    public class IntegerLessThanOrEqualToFilter<T> : IFilterInfo
+    public class IntegerLessThanOrEqualFilter<T> : IFilterInfo
     {
-        public IntegerLessThanOrEqualToFilter(Expression<Func<T, int>> expression, int value)
+        public IntegerLessThanOrEqualFilter(Expression<Func<T, int>> expression, int value)
         {
             this.PropertyName = expression.GetPropertyName();
             this.Value = value;

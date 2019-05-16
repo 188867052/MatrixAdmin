@@ -18,16 +18,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
             _statements.Add(statement);
         }
 
-        public Connector Connector { get; set; } = default;
-
-        public string PropertyName { get; set; }
-
-        public IOperation Operation { get; set; } = Operations.Operation.Between;
-
-        public object Value { get; set; }
-
-        public object Value2 { get; set; }
-
         public IFilter Group => throw new NotImplementedException();
 
         public IEnumerable<IEnumerable<IFilterInfo>> Statements => throw new NotImplementedException();

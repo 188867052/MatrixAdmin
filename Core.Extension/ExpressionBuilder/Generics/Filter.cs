@@ -206,12 +206,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
 
         public void AddFilter(IFilter f1)
         {
-            IFilterInfo statement = f1.FilterInfos.ToList()[0];
-            IFilterInfo statement1 = f1.FilterInfos.ToList()[1];
-            var a = new List<IFilterInfo>();
-            a.Add(statement);
-            a.Add(statement1);
-            this._statements.Add(a);
+            this._statements.Add(f1.FilterInfos.ToList());
         }
 
         public IEnumerable<IFilterInfo> FilterInfos

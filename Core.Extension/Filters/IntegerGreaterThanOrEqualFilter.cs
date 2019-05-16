@@ -5,10 +5,9 @@ using Core.Extension.ExpressionBuilder.Interfaces;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-
-    public class BooleanEqualsFilter<T> : IFilterInfo
+    public class IntegerGreaterThanOrEqualFilter<T> : IFilterInfo
     {
-        public BooleanEqualsFilter(Expression<Func<T, bool>> expression, bool value)
+        public IntegerGreaterThanOrEqualFilter(Expression<Func<T, int>> expression, int value)
         {
             this.PropertyName = expression.GetPropertyName();
             this.Value = value;
@@ -18,7 +17,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
 
         public string PropertyName { get; set; }
 
-        public IOperation Operation { get; set; } = Operations.Operation.EqualTo;
+        public IOperation Operation { get; set; } = Operations.Operation.GreaterThanOrEqualTo;
 
         public object Value { get; set; }
 
