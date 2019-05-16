@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
 using Core.Extension.ExpressionBuilder.Common;
 
 namespace Core.Extension.ExpressionBuilder.Interfaces
@@ -19,7 +18,7 @@ namespace Core.Extension.ExpressionBuilder.Interfaces
         /// List of statements groups that compose this filter.
         /// </summary>
         IEnumerable<IEnumerable<IFilterInfo>> Statements { get; }
-
+        IEnumerable<IFilterInfo> FilterInfos { get; }
         /// <summary>
         /// Add a statement, that doesn't need value, to this filter.
         /// </summary>

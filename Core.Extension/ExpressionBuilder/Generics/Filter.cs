@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
-using Core.Extension.ExpressionBuilder.Builders;
+﻿using Core.Extension.ExpressionBuilder.Builders;
 using Core.Extension.ExpressionBuilder.Common;
 using Core.Extension.ExpressionBuilder.Interfaces;
 using Core.Extension.ExpressionBuilder.Operations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
@@ -16,7 +13,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
     /// Aggregates <see cref="FilterInfo{TPropertyType}" /> and build them into a LINQ expression.
     /// </summary>
     [Serializable]
-    public class Filter<T> : IFilter/*, IXmlSerializable*/ where T : class
+    public class Filter<T> : IFilter where T : class
     {
         private readonly List<List<IFilterInfo>> _statements;
 
@@ -92,6 +89,8 @@ namespace Core.Extension.ExpressionBuilder.Generics
                 return this._statements.Last();
             }
         }
+
+        public IEnumerable<IFilterInfo> FilterInfos => throw new NotImplementedException();
 
         /// <summary>
         /// Implicitly converts a <see cref="Filter{TClass}" /> into a <see cref="System.Linq.Expressions.Expression{Func{T, TResult}}" />.
@@ -202,12 +201,14 @@ namespace Core.Extension.ExpressionBuilder.Generics
             return new FilterStatementConnection(this, statement);
         }
 
-        public void AddFilter(Filter<T> f1)
+        public void AddFilter(IFilter f1)
         {
-            IFilterInfo statement = f1.CurrentStatementGroup[0];
-            var statement2 = f1.CurrentStatementGroup[1];
-            this.CurrentStatementGroup.Add(statement);
-            this.CurrentStatementGroup.Add(statement2);
+            IFilterInfo statement = f1.FilterInfos.ToList()[0];
+            IFilterInfo statement1 = f1.FilterInfos.ToList()[1];
+            var a = new List<IFilterInfo>();
+            a.Add(statement);
+            a.Add(statement1);
+            this._statements.Add(a);
         }
 
         /// <summary>
@@ -252,101 +253,5 @@ namespace Core.Extension.ExpressionBuilder.Generics
             this._statements.Clear();
             this._statements.Add(new List<IFilterInfo>());
         }
-
-        /// <summary>
-        /// String representation of <see cref="Filter{TClass}" />.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            var result = new StringBuilder();
-            Connector lastConector = Connector.And;
-
-            foreach (var statementGroup in this._statements)
-            {
-                if (this._statements.Count() > 1)
-                {
-                    result.Append("(");
-                }
-
-                var groupResult = new System.Text.StringBuilder();
-                foreach (var statement in statementGroup)
-                {
-                    if (groupResult.Length > 0)
-                    {
-                        groupResult.Append(" " + lastConector + " ");
-                    }
-
-                    groupResult.Append(statement);
-                    lastConector = statement.Connector;
-                }
-
-                result.Append(groupResult.ToString().Trim());
-                if (this._statements.Count() > 1)
-                {
-                    result.Append(")");
-                }
-            }
-
-            return result.ToString();
-        }
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <returns></returns>
-        //public XmlSchema GetSchema()
-        //{
-        //    return null;
-        //}
-
-        /// <summary>
-        ///  Generates an object from its XML representation.
-        /// </summary>
-        /// <param name="reader">The System.Xml.XmlReader stream from which the object is deserialized.</param>
-        //public void ReadXml(XmlReader reader)
-        //{
-        //    while (reader.Read())
-        //    {
-        //        if (reader.Name.Equals("StatementsGroup") && reader.IsStartElement())
-        //        {
-        //            this.StartGroup();
-        //        }
-
-        //        if (reader.Name.StartsWith("FilterStatementOf"))
-        //        {
-        //            var type = reader.GetAttribute("Type");
-        //            var filterType = typeof(FilterInfo<>).MakeGenericType(Type.GetType(type));
-        //            var serializer = new XmlSerializer(filterType);
-        //            var statement = (IFilterInfo)serializer.Deserialize(reader);
-        //            this.CurrentStatementGroup.Add(statement);
-        //        }
-        //    }
-        //}
-
-        /// <summary>
-        /// Converts an object into its XML representation.
-        /// </summary>
-        /// <param name="writer">The System.Xml.XmlWriter stream to which the object is serialized.</param>
-        public void WriteXml(XmlWriter writer)
-        {
-            writer.WriteAttributeString("Type", typeof(T).AssemblyQualifiedName);
-            writer.WriteStartElement("Statements");
-            foreach (var statementsGroup in this._statements)
-            {
-                writer.WriteStartElement("StatementsGroup");
-                foreach (var statement in statementsGroup)
-                {
-                    var serializer = new XmlSerializer(statement.GetType());
-                    serializer.Serialize(writer, statement);
-                }
-
-                writer.WriteEndElement();
-            }
-
-            writer.WriteEndElement();
-        }
-
-
     }
 }

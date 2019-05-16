@@ -1,7 +1,5 @@
-﻿using Core.Extension.ExpressionBuilder.Common;
-using Core.Extension.ExpressionBuilder.Generics;
+﻿using Core.Extension.ExpressionBuilder.Generics;
 using Core.Extension.ExpressionBuilder.Interfaces;
-using Core.Extension.ExpressionBuilder.Operations;
 using System.Linq;
 
 // Scaffold-DbContext -Force "Data Source=.;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" Microsoft.EntityFrameworkCore.SqlServer
@@ -21,7 +19,7 @@ namespace Core.Entity
 
             IFilterInfo filterInfo1 = new IntegerBetweenFilter<User>(o => o.Id, 2, 3);
             IFilterInfo filterInfo2 = new IntegerInArrayFilte<User>(o => o.Id, new[] { 4, 5 });
-            Filter<User> a = new Filter<User>(filterInfo1, filterInfo2, Connector.Or);
+            IFilter a = new OrElseFilter<User>(filterInfo1, filterInfo2);
             filter.AddFilter(a);
 
             query = query.Where(filter);
