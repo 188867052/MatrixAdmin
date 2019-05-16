@@ -90,8 +90,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
             }
         }
 
-        public IEnumerable<IFilterInfo> FilterInfos => throw new NotImplementedException();
-
         /// <summary>
         /// Implicitly converts a <see cref="Filter{TClass}" /> into a <see cref="System.Linq.Expressions.Expression{Func{T, TResult}}" />.
         /// </summary>
@@ -209,6 +207,14 @@ namespace Core.Extension.ExpressionBuilder.Generics
             a.Add(statement);
             a.Add(statement1);
             this._statements.Add(a);
+        }
+
+        public IEnumerable<IFilterInfo> FilterInfos
+        {
+            get
+            {
+                return this._statements.FirstOrDefault();
+            }
         }
 
         /// <summary>
