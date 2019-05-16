@@ -210,9 +210,9 @@ namespace Core.Model.DataAccess
 
             public DbTypeMapEntry(Type type, DbType dbType, SqlDbType sqlDbType)
             {
-                Type = type;
-                DbType = dbType;
-                SqlDbType = sqlDbType;
+                this.Type = type;
+                this.DbType = dbType;
+                this.SqlDbType = sqlDbType;
             }
         }
     }

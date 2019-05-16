@@ -22,7 +22,7 @@ namespace Core.Extension.ExpressionBuilder.Operations
         {
             Expression constant = constant1.TrimToLower();
 
-            return Expression.Call(member.TrimToLower(), _startsWithMethod, constant)
+            return Expression.Call(member.TrimToLower(), this._startsWithMethod, constant)
                    .AddNullCheck(member);
         }
     }

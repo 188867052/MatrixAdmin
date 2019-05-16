@@ -26,7 +26,7 @@ namespace Core.Extension.ExpressionBuilder.Operations
             var type = constant1.Value.GetType();
             var inInfo = type.GetMethod("Contains", new[] { type.GetGenericArguments()[0] });
 
-            return GetExpressionHandlingNullables(member, constant1, type, inInfo) ?? Expression.Call(constant1, inInfo, member);
+            return this.GetExpressionHandlingNullables(member, constant1, type, inInfo) ?? Expression.Call(constant1, inInfo, member);
         }
 
         private Expression GetExpressionHandlingNullables(MemberExpression member, ConstantExpression constant1, Type type, MethodInfo inInfo)

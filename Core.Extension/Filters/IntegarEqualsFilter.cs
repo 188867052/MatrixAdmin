@@ -7,7 +7,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
 {
     public class IntegarEqualsFilter<T> : IFilterInfo
     {
-        public IntegarEqualsFilter(Expression<Func<T, int>> expression,  int value)
+        public IntegarEqualsFilter(Expression<Func<T, int?>> expression,  int? value)
         {
             this.PropertyName = expression.GetPropertyName();
             this.Value = value;

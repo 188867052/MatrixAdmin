@@ -1,7 +1,6 @@
 ﻿using System.Data.Common;
 using System.Data.SqlClient;
 using Core.Entity;
-using Core.Extension;
 using Core.Extension.Dapper;
 using Core.Model;
 

@@ -22,12 +22,12 @@ namespace Core.Extension.ExpressionBuilder.Operations
         /// <param name="expectNullValues"></param>
         protected OperationBase(string name, int numberOfValues, TypeGroup typeGroups, bool active = true, bool supportsLists = false, bool expectNullValues = false)
         {
-            Name = name;
-            NumberOfValues = numberOfValues;
-            TypeGroup = typeGroups;
-            Active = active;
-            SupportsLists = supportsLists;
-            ExpectNullValues = expectNullValues;
+            this.Name = name;
+            this.NumberOfValues = numberOfValues;
+            this.TypeGroup = typeGroups;
+            this.Active = active;
+            this.SupportsLists = supportsLists;
+            this.ExpectNullValues = expectNullValues;
         }
 
         /// <inheritdoc />
@@ -54,7 +54,7 @@ namespace Core.Extension.ExpressionBuilder.Operations
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return Name != null ? Name.GetHashCode() : 0;
+            return this.Name != null ? this.Name.GetHashCode() : 0;
         }
 
         /// <inheritdoc />
@@ -70,18 +70,18 @@ namespace Core.Extension.ExpressionBuilder.Operations
                 return true;
             }
 
-            return obj.GetType() == GetType() && Equals((OperationBase)obj);
+            return obj.GetType() == this.GetType() && this.Equals((OperationBase)obj);
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return Name.Trim();
+            return this.Name.Trim();
         }
 
         public bool Equals(IOperation other)
         {
-            return string.Equals(Name, other.Name);
+            return string.Equals(this.Name, other.Name);
         }
     }
 }

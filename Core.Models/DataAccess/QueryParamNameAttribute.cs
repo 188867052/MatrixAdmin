@@ -14,7 +14,7 @@ namespace Core.Model.DataAccess
         /// <param name="name">name.</param>
         public QueryParamNameAttribute(string name)
         {
-            Name = name;
+            this.Name = name;
         }
 
         public string Name { get; set; }

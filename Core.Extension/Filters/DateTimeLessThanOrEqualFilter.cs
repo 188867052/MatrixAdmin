@@ -5,7 +5,6 @@ using Core.Extension.ExpressionBuilder.Interfaces;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-
     public class DateTimeLessThanOrEqualFilter<T> : IFilterInfo
     {
         public DateTimeLessThanOrEqualFilter(Expression<Func<T, DateTime>> expression, DateTime value)

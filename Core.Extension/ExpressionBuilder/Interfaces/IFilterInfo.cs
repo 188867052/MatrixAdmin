@@ -1,5 +1,4 @@
-﻿using System.Xml.Serialization;
-using Core.Extension.ExpressionBuilder.Common;
+﻿using Core.Extension.ExpressionBuilder.Common;
 
 namespace Core.Extension.ExpressionBuilder.Interfaces
 {

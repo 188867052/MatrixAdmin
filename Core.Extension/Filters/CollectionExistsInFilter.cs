@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using Core.Extension.ExpressionBuilder.Common;
 using Core.Extension.ExpressionBuilder.Interfaces;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-    public class CollectionExistInFilter<T, TPropertyType> : IFilter
+    public class CollectionExistsInFilter<T, TPropertyType> : IFilter
     {
         private readonly List<IFilterInfo> _statements;
 
-        public CollectionExistInFilter(Expression<Func<T, ICollection<TPropertyType>>> expression, Expression<Func<TPropertyType, int>> secondExpression, IOperation operation, int value)
+        public CollectionExistsInFilter(Expression<Func<T, ICollection<TPropertyType>>> expression, Expression<Func<TPropertyType, int>> secondExpression, IOperation operation, int value)
         {
             IFilterInfo statement = new FilterInfo<T, TPropertyType, int>(expression, secondExpression, operation, value);
             this._statements = new List<IFilterInfo>();
-            _statements.Add(statement);
+            this._statements.Add(statement);
         }
 
         public IFilter Group => throw new NotImplementedException();

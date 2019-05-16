@@ -1,5 +1,6 @@
 ﻿using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using Core.Api.MiddleWare;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Middleware;
 using Microsoft.AspNetCore.Builder;
@@ -46,7 +47,7 @@ namespace Core.Mvc
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
+            app.UseMiddleware(typeof(ExceptionHandlerMiddleWare));
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();

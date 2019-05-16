@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using Core.Api.Authentication;
 using Core.Entity;
-using Core.Extension;
 using Core.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

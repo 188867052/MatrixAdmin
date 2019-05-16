@@ -5,7 +5,6 @@ using Core.Extension.ExpressionBuilder.Interfaces;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-
     public class StringIsEmptyFilter<T> : IFilterInfo
     {
         public StringIsEmptyFilter(Expression<Func<T, string>> expression, string value)
@@ -18,7 +17,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
 
         public string PropertyName { get; set; }
 
-        public IOperation Operation { get; set; } = Operations.Operation.IsEmpty  ;
+        public IOperation Operation { get; set; } = Operations.Operation.IsEmpty;
 
         public object Value { get; set; }
 

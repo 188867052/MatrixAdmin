@@ -7,7 +7,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
 {
     public class BooleanEqualsFilter<T> : IFilterInfo
     {
-        public BooleanEqualsFilter(Expression<Func<T, bool>> expression, bool value)
+        public BooleanEqualsFilter(Expression<Func<T, bool?>> expression, bool? value)
         {
             this.PropertyName = expression.GetPropertyName();
             this.Value = value;
