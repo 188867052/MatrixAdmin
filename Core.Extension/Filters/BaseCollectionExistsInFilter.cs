@@ -8,13 +8,14 @@ namespace Core.Extension.ExpressionBuilder.Generics
 {
     public class BaseCollectionExistsInFilter<T, TCollection, TPropertyType> : IFilterInfo
     {
-        public BaseCollectionExistsInFilter(Expression<Func<T, ICollection<TCollection>>> expression, Expression<Func<TCollection, TPropertyType>> secondExpression, IOperation operation, TPropertyType value)
+        public BaseCollectionExistsInFilter(Expression<Func<T, ICollection<TCollection>>> expression, IFilterInfo filter)
         {
             this.Connector = Connector.And;
-            this.Operation = operation;
+            this.Operation = filter.Operation;
+            string name = expression.ToString().Split('.')[1] + $"[{filter.PropertyName}]";
             this.FilterInfos = new List<IFilterInfo>
             {
-                new FilterInfo<T, TCollection, TPropertyType>(expression, secondExpression, operation, value)
+                new FilterInfo<T, TCollection, TPropertyType>(name,     this.Operation, (TPropertyType)filter.Value)
             };
         }
 

@@ -5,10 +5,10 @@ using Core.Extension.ExpressionBuilder.Interfaces;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-    public class DecimalExistsInFilter<T, TPropertyType> : BaseCollectionExistsInFilter<T, TPropertyType, decimal>
+    public class DecimalExistsInFilter<T, TCollection, TPropertyType> : BaseCollectionExistsInFilter<T, TCollection, decimal>
     {
-        public DecimalExistsInFilter(Expression<Func<T, ICollection<TPropertyType>>> expression, Expression<Func<TPropertyType, decimal>> secondExpression, IOperation operation, decimal value)
-              : base(expression, secondExpression, operation, value)
+        public DecimalExistsInFilter(Expression<Func<T, ICollection<TCollection>>> expression, IFilterInfo filter)
+               : base(expression, filter)
         {
         }
     }

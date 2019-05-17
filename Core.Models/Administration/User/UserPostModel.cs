@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Core.Entity;
 using Core.Entity.Enums;
 using Core.Extension.ExpressionBuilder.Generics;
-using Core.Extension.ExpressionBuilder.Operations;
 
 namespace Core.Model.Administration.User
 {
@@ -68,7 +66,7 @@ namespace Core.Model.Administration.User
 
             if (this.RoleId.HasValue)
             {
-                filter.AddExistFilter(new IntegerExistsInFilter<Entity.User, UserRoleMapping>(o => o.UserRoleMapping, o => o.RoleId, Operation.EqualTo, this.RoleId.Value));
+                //filter.AddExistFilter(new IntegerExistsInFilter<Entity.User, UserRoleMapping>(o => o.UserRoleMapping, o => o.RoleId, Operation.EqualTo, this.RoleId.Value));
             }
 
             filter.AddSimpleFilter(new IntegarEqualFilter<Entity.User>(o => o.Status, (int?)this.Status));

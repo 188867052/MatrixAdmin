@@ -5,10 +5,10 @@ using Core.Extension.ExpressionBuilder.Interfaces;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-    public class DateTimeExistsInFilter<T, TPropertyType> : BaseCollectionExistsInFilter<T, TPropertyType, DateTime>
+    public class DateTimeExistsInFilter<T, TCollection, TPropertyType> : BaseCollectionExistsInFilter<T, TCollection, DateTime>
     {
-        public DateTimeExistsInFilter(Expression<Func<T, ICollection<TPropertyType>>> expression, Expression<Func<TPropertyType, DateTime>> secondExpression, IOperation operation, DateTime value)
-              : base(expression, secondExpression, operation, value)
+        public DateTimeExistsInFilter(Expression<Func<T, ICollection<TCollection>>> expression, IFilterInfo filter)
+                : base(expression, filter)
         {
         }
     }
