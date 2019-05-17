@@ -101,7 +101,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
             }
         }
 
-        public void AddComplexFilter(IFilter f1)
+        public void AddFilter(IFilter f1)
         {
             this._statements.Add(f1.FilterInfos.ToList());
         }

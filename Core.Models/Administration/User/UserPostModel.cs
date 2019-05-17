@@ -2,7 +2,6 @@
 using System.Linq;
 using Core.Entity;
 using Core.Entity.Enums;
-using Core.Extension;
 using Core.Extension.ExpressionBuilder.Generics;
 
 namespace Core.Model.Administration.User

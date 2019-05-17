@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Core.Extension.ExpressionBuilder.Generics;
-using Core.Extension.ExpressionBuilder.Interfaces;
 
 // Scaffold-DbContext -Force "Data Source=.;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" Microsoft.EntityFrameworkCore.SqlServer
 namespace Core.Entity
@@ -10,13 +9,14 @@ namespace Core.Entity
     {
         private static void Main(string[] args)
         {
-            Filter<User> filter = new Filter<User>();
+            Filter<Role> filter = new Filter<Role>();
             CoreApiContext context = new CoreApiContext();
-            IQueryable<User> query = context.User;
+            IQueryable<Role> query = context.Role;
 
-            filter.AddExistFilter(new IntegerExistsInFilter<Entity.User, UserRoleMapping>(o => o.UserRoleMapping, new IntegerInArrayFilte<UserRoleMapping>(o => o.RoleId, null)));
-            //filter.AddSimpleFilter(new DateTimeBetweenFilter<Entity.User>(o => o.CreateTime, DateTime.Now, null));
-            //filter.AddSimpleFilter(new IntegerInArrayFilte<Entity.User>(o => o.Id, new int[] { 1, 2 }));
+            filter.AddSimpleFilter(new IntegarEqualFilter<Role>(RoleField.CreateByUserField.IsLocked, 1));
+            filter.AddSimpleFilter(new BooleanEqualFilter<Role>(RoleField.IsEnable, true));
+            filter.AddSimpleFilter(new DateTimeBetweenFilter<Entity.User>(o => o.CreateTime, DateTime.Now, null));
+            filter.AddSimpleFilter(new IntegerInArrayFilte<Entity.User>(o => o.Id, new int[] { 1, 2 }));
 
             query = query.Where(filter);
             var ab = query.ToList();
