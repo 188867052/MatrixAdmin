@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-    public class BooleanEqualsFilter<T> : BaseFilter<T>
+    public class BooleanEqualsFilter<T> : BaseSingleFilter<T>
     {
         public BooleanEqualsFilter(Expression<Func<T, bool?>> expression, bool? value) : base(expression.GetPropertyName(), Operations.Operation.EqualTo, value)
         {

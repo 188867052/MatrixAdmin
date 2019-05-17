@@ -3,9 +3,9 @@ using Core.Extension.ExpressionBuilder.Interfaces;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-    public abstract class BaseFilter<T> : IFilterInfo
+    public abstract class BaseSingleFilter<T> : IFilterInfo
     {
-        protected BaseFilter(string propertyName, IOperation operation, object value)
+        protected BaseSingleFilter(string propertyName, IOperation operation, object value)
         {
             this.PropertyName = propertyName;
             this.Operation = operation;

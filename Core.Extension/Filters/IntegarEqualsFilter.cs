@@ -3,9 +3,9 @@ using System.Linq.Expressions;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-    public class IntegarEqualsFilter<T> : BaseFilter<T>
+    public class IntegarEqualsFilter<T> : BaseSingleFilter<T>
     {
-        public IntegarEqualsFilter(Expression<Func<T, int?>> expression, int? value) :    base(expression.GetPropertyName(), Operations.Operation.EqualTo, value)
+        public IntegarEqualsFilter(Expression<Func<T, int?>> expression, int? value) : base(expression.GetPropertyName(), Operations.Operation.EqualTo, value)
         {
         }
 
