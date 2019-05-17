@@ -22,10 +22,10 @@ namespace Core.Entity
             IFilterInfo filterInfo1 = new IntegerBetweenFilter<User>(o => o.Id, 2, 3);
             IFilterInfo filterInfo2 = new IntegerInArrayFilte<User>(o => o.Id, new[] { 4, 5 });
             IFilter a = new Filter<User>(filterInfo1, filterInfo2, Connector.Or);
-            filter.AddFilter(a);
+            filter.AddComplexFilter(a);
 
             var filterInfo4 = new CollectionExistsInFilter<User, UserRoleMapping>(o => o.UserRoleMapping, o => o.Id, Operation.EqualTo, 11);
-            filter.AddFilter(filterInfo4);
+            filter.AddComplexFilter(filterInfo4);
             query = query.Where(filter);
             var ab = query.ToList();
         }

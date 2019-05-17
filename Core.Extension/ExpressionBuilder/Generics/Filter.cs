@@ -199,12 +199,15 @@ namespace Core.Extension.ExpressionBuilder.Generics
             return new FilterStatementConnection(this, statement);
         }
 
-        public void AddFilter(IFilterInfo f1)
+        public void AddSimpleFilter(IFilterInfo f1)
         {
-            this.CurrentStatementGroup.Add(f1);
+            if (f1.IsFilterEnable)
+            {
+                this.CurrentStatementGroup.Add(f1);
+            }
         }
 
-        public void AddFilter(IFilter f1)
+        public void AddComplexFilter(IFilter f1)
         {
             this._statements.Add(f1.FilterInfos.ToList());
         }

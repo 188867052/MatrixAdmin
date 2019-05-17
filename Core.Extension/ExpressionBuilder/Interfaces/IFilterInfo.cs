@@ -18,6 +18,11 @@ namespace Core.Extension.ExpressionBuilder.Interfaces
         string PropertyName { get; set; }
 
         /// <summary>
+        /// Is filter enable.
+        /// </summary>
+        bool IsFilterEnable { get; }
+
+        /// <summary>
         /// Express the interaction between the property and the constant value defined in this filter statement.
         /// </summary>
         IOperation Operation { get; set; }

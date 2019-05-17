@@ -7,7 +7,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
 {
     public class IntegerBetweenFilter<T> : IFilterInfo
     {
-        public IntegerBetweenFilter(Expression<Func<T, int>> expression,  int value, int value2)
+        public IntegerBetweenFilter(Expression<Func<T, int>> expression, int value, int value2)
         {
             this.PropertyName = expression.GetPropertyName();
             this.Value = value;
@@ -24,6 +24,8 @@ namespace Core.Extension.ExpressionBuilder.Generics
         public object Value { get; set; }
 
         public object Value2 { get; set; }
+
+        public bool IsFilterEnable => true;
 
         public void Validate()
         {

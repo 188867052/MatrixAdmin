@@ -101,6 +101,8 @@ namespace Core.Extension.ExpressionBuilder.Generics
         /// </summary>
         public object Value2 { get; set; }
 
+        public bool IsFilterEnable => true;
+
         /// <summary>
         /// Validates the FilterStatement regarding the number of provided values and supported operations.
         /// </summary>

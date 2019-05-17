@@ -15,6 +15,8 @@ namespace Core.Extension.ExpressionBuilder.Generics
             this.Validate();
         }
 
+        public bool IsFilterEnable => true;
+
         public Connector Connector { get; set; } = default;
 
         public string PropertyName { get; set; }
