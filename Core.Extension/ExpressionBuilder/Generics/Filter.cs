@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using Core.Extension.ExpressionBuilder.Builders;
 using Core.Extension.ExpressionBuilder.Common;
 using Core.Extension.ExpressionBuilder.Interfaces;
-using Core.Extension.ExpressionBuilder.Operations;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
@@ -33,13 +32,15 @@ namespace Core.Extension.ExpressionBuilder.Generics
         public Filter(IFilterInfo f1, IFilterInfo f2, Connector connector)
         {
             this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
+            this.CurrentStatementGroup.Add(f1);
+            var connection = new FilterStatementConnection(this, f1);
             if (connector == Connector.Or)
             {
-                this.By(f1).Or.By(f2);
+                connection.Or.By(f2);
             }
             else
             {
-                this.By(f1).And.By(f2);
+                connection.And.By(f2);
             }
         }
 
@@ -205,6 +206,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
             return new FilterStatementConnection(this, statement);
         }
 
+        // by2
         public IFilterStatementConnection By(IFilterInfo statement)
         {
             this.CurrentStatementGroup.Add(statement);
