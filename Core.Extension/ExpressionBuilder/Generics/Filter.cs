@@ -95,7 +95,10 @@ namespace Core.Extension.ExpressionBuilder.Generics
 
         public void AddExistFilter(IFilterInfo f1)
         {
-            this._statements.Add(f1.FilterInfos.ToList());
+            if (f1.IsFilterEnable)
+            {
+                this._statements.Add(f1.FilterInfos.ToList());
+            }
         }
 
         public void AddComplexFilter(IFilter f1)

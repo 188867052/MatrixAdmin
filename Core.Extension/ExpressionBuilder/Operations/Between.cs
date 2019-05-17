@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq.Expressions;
 using Core.Extension.ExpressionBuilder.Common;
 
 namespace Core.Extension.ExpressionBuilder.Operations
@@ -9,18 +10,31 @@ namespace Core.Extension.ExpressionBuilder.Operations
     public class Between : OperationBase
     {
         /// <inheritdoc />
-        public Between()
-            : base("Between", 2, TypeGroup.Number | TypeGroup.Date)
+        public Between() : base("Between", 2, TypeGroup.Number | TypeGroup.Date)
         {
         }
 
         /// <inheritdoc />
-        public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
+        public override Expression GetExpression(MemberExpression member, ConstantExpression leftConstant, ConstantExpression rightConstant)
         {
-            var left = Expression.GreaterThanOrEqual(member, constant1);
-            var right = Expression.LessThanOrEqual(member, constant2);
-
-            return Expression.AndAlso(left, right);
+            if (leftConstant.Value != null && rightConstant.Value == null)
+            {
+                return Expression.GreaterThanOrEqual(member, leftConstant);
+            }
+            else if (leftConstant.Value == null && rightConstant.Value != null)
+            {
+                return Expression.LessThanOrEqual(member, rightConstant);
+            }
+            else if (leftConstant.Value != null && rightConstant.Value != null)
+            {
+                var left = Expression.GreaterThanOrEqual(member, leftConstant);
+                var right = Expression.LessThanOrEqual(member, rightConstant);
+                return Expression.AndAlso(left, right);
+            }
+            else
+            {
+                throw new ArgumentException("参数错误");
+            }
         }
     }
 }

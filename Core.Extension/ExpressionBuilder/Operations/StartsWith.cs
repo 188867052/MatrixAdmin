@@ -9,7 +9,7 @@ namespace Core.Extension.ExpressionBuilder.Operations
     /// </summary>
     public class StartsWith : OperationBase
     {
-        private readonly MethodInfo _startsWithMethod = typeof(string).GetMethod("StartsWith", new[] { typeof(string) });
+        private readonly MethodInfo _startsWithMethod = typeof(string).GetMethod(nameof(string.StartsWith), new[] { typeof(string) });
 
         /// <inheritdoc />
         public StartsWith()

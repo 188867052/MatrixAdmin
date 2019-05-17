@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-    public class IntegerLessThanFilter<T> : BaseSingleFilter<T>
+    public class IntegerLessThanFilter<T> : BaseFilter<T>
     {
         public IntegerLessThanFilter(Expression<Func<T, int>> expression, int max) : base(expression.GetPropertyName(), Operations.Operation.LessThan, max)
         {

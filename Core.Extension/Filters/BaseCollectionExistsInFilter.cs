@@ -15,13 +15,14 @@ namespace Core.Extension.ExpressionBuilder.Generics
             string name = expression.ToString().Split('.')[1] + $"[{filter.PropertyName}]";
             this.FilterInfos = new List<IFilterInfo>
             {
-                new FilterInfo<T, TCollection, TPropertyType>(name,     this.Operation, (TPropertyType)filter.Value)
+                new FilterInfo<T, TCollection, TPropertyType>(name, this.Operation, (TPropertyType)filter.Value)
             };
+            this.IsFilterEnable = filter.Value != null;
         }
 
         public IEnumerable<IFilterInfo> FilterInfos { get; }
 
-        public virtual bool IsFilterEnable => true;
+        public virtual bool IsFilterEnable { get; set; }
 
         public Connector Connector { get; set; } = default;
 

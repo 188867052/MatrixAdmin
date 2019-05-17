@@ -33,6 +33,8 @@ namespace Core.Extension.ExpressionBuilder.Generics
 
         public Expression Expression => throw new System.NotImplementedException();
 
+        bool IFilterInfo.IsFilterEnable { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
         public void Validate()
         {
         }

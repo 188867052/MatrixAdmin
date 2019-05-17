@@ -107,6 +107,8 @@ namespace Core.Extension.ExpressionBuilder.Generics
 
         public Expression Expression => throw new NotImplementedException();
 
+        bool IFilterInfo.IsFilterEnable { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         /// <summary>
         /// Validates the FilterStatement regarding the number of provided values and supported operations.
         /// </summary>
@@ -115,18 +117,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
             var helper = new OperationHelper();
             //this.ValidateNumberOfValues();
             this.ValidateSupportedOperations(helper);
-        }
-
-        private void ValidateNumberOfValues()
-        {
-            var numberOfValues = this.Operation.NumberOfValues;
-            var failsForSingleValue = numberOfValues == 1 && !Equals(this.Value2, default(TPropertyType));
-            var failsForNoValueAtAll = numberOfValues == 0 && (!Equals(this.Value, default(TPropertyType)) || !Equals(this.Value2, default(TPropertyType)));
-
-            if (failsForSingleValue || failsForNoValueAtAll)
-            {
-                throw new WrongNumberOfValuesException(this.Operation);
-            }
         }
 
         private void ValidateSupportedOperations(OperationHelper helper)

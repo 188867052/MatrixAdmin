@@ -5,18 +5,19 @@ using Core.Extension.ExpressionBuilder.Interfaces;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-    public abstract class BaseSingleFilter<T> : IFilterInfo
+    public abstract class BaseFilter<T> : IFilterInfo
     {
-        protected BaseSingleFilter(string propertyName, IOperation operation, object value, Expression expression1 = null)
+        protected BaseFilter(string propertyName, IOperation operation, object value, Expression expression1 = null)
         {
             this.PropertyName = propertyName;
             this.Operation = operation;
             this.Value = value;
             this.Expression = expression1;
             this.Validate();
+            this.IsFilterEnable = this.Value != null;
         }
 
-        public virtual bool IsFilterEnable => true;
+        public bool IsFilterEnable { get; set; }
 
         public Connector Connector { get; set; } = default;
 

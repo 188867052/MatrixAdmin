@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
+using Core.Entity;
 using Core.Entity.Enums;
+using Core.Extension;
 using Core.Extension.ExpressionBuilder.Generics;
 
 namespace Core.Model.Administration.User
@@ -62,20 +64,15 @@ namespace Core.Model.Administration.User
 
         public IQueryable<Entity.User> GenerateQuery(IQueryable<Entity.User> query)
         {
-            var filter = new Filter<Entity.User>();
-
-            if (this.RoleId.HasValue)
-            {
-                //filter.AddExistFilter(new IntegerExistsInFilter<Entity.User, UserRoleMapping>(o => o.UserRoleMapping, o => o.RoleId, Operation.EqualTo, this.RoleId.Value));
-            }
-
+            Filter<Entity.User> filter = new Filter<Entity.User>();
+            filter.AddExistFilter(new IntegerExistsInFilter<Entity.User, UserRoleMapping>(o => o.UserRoleMapping, new IntegarEqualFilter<UserRoleMapping>(o => o.RoleId, 1)));
             filter.AddSimpleFilter(new IntegarEqualFilter<Entity.User>(o => o.Status, (int?)this.Status));
-            //filter.AddSimpleFilter(new DateTimeBetweenFilter<Entity.User>(o => o.CreateTime, this.StartCreateTime, this.EndCreateTime));
-            //filter.AddSimpleFilter(new BooleanEqualsFilter<Entity.User>(o => o.IsEnable, this.IsEnable));
-            //filter.AddSimpleFilter(new StringContainsFilter<Entity.User>(o => o.LoginName, this.LoginName));
+            filter.AddSimpleFilter(new DateTimeBetweenFilter<Entity.User>(o => o.CreateTime, this.StartCreateTime, this.EndCreateTime));
+            filter.AddSimpleFilter(new BooleanEqualFilter<Entity.User>(o => o.IsEnable, this.IsEnable));
+            filter.AddSimpleFilter(new StringContainsFilter<Entity.User>(o => o.DisplayName, this.DisplayName));
+            filter.AddSimpleFilter(new StringContainsFilter<Entity.User>(o => o.LoginName, this.LoginName));
 
-            //query = query.OrderByDescending(o => o.CreateTime);
-
+            query = query.OrderByDescending(o => o.CreateTime);
             return query.Where(filter);
         }
     }

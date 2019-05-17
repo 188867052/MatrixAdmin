@@ -9,7 +9,7 @@ namespace Core.Extension.ExpressionBuilder.Operations
     /// </summary>
     public class EndsWith : OperationBase
     {
-        private readonly MethodInfo endsWithMethod = typeof(string).GetMethod("EndsWith", new[] { typeof(string) });
+        private readonly MethodInfo endsWithMethod = typeof(string).GetMethod(nameof(string.EndsWith), new[] { typeof(string) });
 
         /// <inheritdoc />
         public EndsWith()
@@ -26,4 +26,6 @@ namespace Core.Extension.ExpressionBuilder.Operations
                    .AddNullCheck(member);
         }
     }
+
+
 }
