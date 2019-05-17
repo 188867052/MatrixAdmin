@@ -105,6 +105,8 @@ namespace Core.Extension.ExpressionBuilder.Generics
 
         public IEnumerable<IFilterInfo> FilterInfos => throw new NotImplementedException();
 
+        public Expression Expression => throw new NotImplementedException();
+
         /// <summary>
         /// Validates the FilterStatement regarding the number of provided values and supported operations.
         /// </summary>

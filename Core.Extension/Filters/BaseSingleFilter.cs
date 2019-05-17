@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq.Expressions;
 using Core.Extension.ExpressionBuilder.Common;
 using Core.Extension.ExpressionBuilder.Interfaces;
 
@@ -6,11 +7,12 @@ namespace Core.Extension.ExpressionBuilder.Generics
 {
     public abstract class BaseSingleFilter<T> : IFilterInfo
     {
-        protected BaseSingleFilter(string propertyName, IOperation operation, object value)
+        protected BaseSingleFilter(string propertyName, IOperation operation, object value, Expression expression1 = null)
         {
             this.PropertyName = propertyName;
             this.Operation = operation;
             this.Value = value;
+            this.Expression = expression1;
             this.Validate();
         }
 
@@ -23,6 +25,8 @@ namespace Core.Extension.ExpressionBuilder.Generics
         public IOperation Operation { get; set; }
 
         public object Value { get; set; }
+
+        public Expression Expression { get; }
 
         public object Value2 { get; set; }
 

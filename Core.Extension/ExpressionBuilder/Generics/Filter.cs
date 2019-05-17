@@ -45,18 +45,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
         }
 
         /// <summary>
-        /// Group.
-        /// </summary>
-        public IFilter Group
-        {
-            get
-            {
-                this.StartGroup();
-                return this;
-            }
-        }
-
-        /// <summary>
         /// List of <see cref="IFilterInfo" /> groups that will be combined and built into a LINQ expression.
         /// </summary>
         public IEnumerable<IEnumerable<IFilterInfo>> Statements
@@ -97,72 +85,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
             return expression;
         }
 
-        /// <summary>
-        /// Adds a new <see cref="FilterInfo{TPropertyType}" /> to the <see cref="Filter{TClass}" />.
-        /// (To be used by <see cref="IOperation" /> that need no values).
-        /// </summary>
-        /// <param name="propertyId">Property identifier conventionalized by for the Expression Builder.</param>
-        /// <param name="operation">Operation to be used.</param>
-        /// <param name="connector">connector.</param>
-        /// <returns>IFilterStatementConnection.</returns>
-        public IFilterStatementConnection By(string propertyId, IOperation operation, Connector connector)
-        {
-            return this.By<string>(propertyId, operation, null, null, connector);
-        }
-
-        /// <summary>
-        /// Adds a new <see cref="FilterInfo{TPropertyType}" /> to the <see cref="Filter{TClass}" />.
-        /// (To be used by <see cref="IOperation" /> that need no values).
-        /// </summary>
-        /// <param name="propertyId">Property identifier conventionalized by for the Expression Builder.</param>
-        /// <param name="operation">Operation to be used.</param>
-        /// <returns>IFilterStatementConnection.</returns>
-        public IFilterStatementConnection By(string propertyId, IOperation operation)
-        {
-            return this.By<string>(propertyId, operation, null, null, Connector.And);
-        }
-
-        /// <summary>
-        /// Adds a new <see cref="FilterInfo{TPropertyType}" /> to the <see cref="Filter{TClass}" />.
-        /// </summary>
-        /// <typeparam name="TPropertyType">TPropertyType.</typeparam>
-        /// <param name="propertyId">Property identifier conventionalized by for the Expression Builder.</param>
-        /// <param name="operation">Operation to be used.</param>
-        /// <param name="value">value.</param>
-        /// <returns>IFilterStatementConnection.</returns>
-        public IFilterStatementConnection By<TPropertyType>(string propertyId, IOperation operation, TPropertyType value)
-        {
-            return this.By(propertyId, operation, value, default(TPropertyType));
-        }
-
-        /// <summary>
-        /// Adds a new <see cref="FilterInfo{TPropertyType}" /> to the <see cref="Filter{TClass}" />.
-        /// </summary>
-        /// <typeparam name="TPropertyType">TPropertyType.</typeparam>
-        /// <param name="propertyId">Property identifier conventionalized by for the Expression Builder.</param>
-        /// <param name="operation">Operation to be used.</param>
-        /// <param name="value">value.</param>
-        /// <param name="connector">connector.</param>
-        /// <returns>IFilterStatementConnection.</returns>
-        public IFilterStatementConnection By<TPropertyType>(string propertyId, IOperation operation, TPropertyType value, Connector connector)
-        {
-            return this.By(propertyId, operation, value, default, connector);
-        }
-
-        /// <summary>
-        /// Adds a new <see cref="FilterInfo{TPropertyType}" /> to the <see cref="Filter{TClass}" />.
-        /// </summary>
-        /// <typeparam name="TPropertyType">TPropertyType.</typeparam>
-        /// <param name="propertyId">Property identifier conventionalized by for the Expression Builder.</param>
-        /// <param name="operation">Operation to be used.</param>
-        /// <param name="value">value.</param>
-        /// <param name="value2">value2.</param>
-        /// <returns>IFilterStatementConnection.</returns>
-        public IFilterStatementConnection By<TPropertyType>(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2)
-        {
-            return this.By(propertyId, operation, value, value2, Connector.And);
-        }
-
         public void AddSimpleFilter(IFilterInfo f1)
         {
             if (f1.IsFilterEnable)
@@ -189,48 +111,11 @@ namespace Core.Extension.ExpressionBuilder.Generics
             }
         }
 
-        /// <summary>
-        /// Adds a new <see cref="FilterInfo{TPropertyType}" /> to the <see cref="Filter{TClass}" />.
-        /// </summary>
-        /// <typeparam name="TPropertyType">TPropertyType.</typeparam>
-        /// <param name="propertyId">Property identifier conventionalized by for the Expression Builder.</param>
-        /// <param name="operation">Operation to be used.</param>
-        /// <param name="value">value.</param>
-        /// <param name="value2">value2.</param>
-        /// <param name="connector">connector.</param>
-        /// <returns>IFilterStatementConnection.</returns>
-        public IFilterStatementConnection By<TPropertyType>(string propertyId, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector)
-        {
-            IFilterInfo statement = new FilterInfo<TPropertyType, TPropertyType, TPropertyType>(propertyId, operation, value, value2, connector);
-            this.CurrentStatementGroup.Add(statement);
-            return new FilterStatementConnection(this, statement);
-        }
-
         // by2
         public IFilterStatementConnection By(IFilterInfo statement)
         {
             this.CurrentStatementGroup.Add(statement);
             return new FilterStatementConnection(this, statement);
-        }
-
-        /// <summary>
-        /// Starts a new group denoting that every subsequent filter statement should be grouped together (as if using a parenthesis).
-        /// </summary>
-        public void StartGroup()
-        {
-            if (this.CurrentStatementGroup.Any())
-            {
-                this._statements.Add(new List<IFilterInfo>());
-            }
-        }
-
-        /// <summary>
-        /// Removes all <see cref="FilterInfo{TPropertyType}" />, leaving the <see cref="Filter{TClass}" /> empty.
-        /// </summary>
-        public void Clear()
-        {
-            this._statements.Clear();
-            this._statements.Add(new List<IFilterInfo>());
         }
     }
 }

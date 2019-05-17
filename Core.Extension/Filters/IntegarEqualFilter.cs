@@ -5,7 +5,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
 {
     public class IntegarEqualFilter<T> : BaseSingleFilter<T>
     {
-        public IntegarEqualFilter(Expression<Func<T, int?>> expression, int? value) : base(expression.GetPropertyName(), Operations.Operation.EqualTo, value)
+        public IntegarEqualFilter(Expression<Func<T, int?>> expression, int? value) : base(expression.GetPropertyName(), Operations.Operation.EqualTo, value, expression)
         {
         }
 

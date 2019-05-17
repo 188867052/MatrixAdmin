@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq.Expressions;
 using Core.Extension.ExpressionBuilder.Common;
 
 namespace Core.Extension.ExpressionBuilder.Interfaces
@@ -8,6 +9,8 @@ namespace Core.Extension.ExpressionBuilder.Interfaces
     /// </summary>
     public interface IFilterInfo
     {
+        Expression Expression { get; }
+
         /// <summary>
         /// Establishes how this filter statement will connect to the next one.
         /// </summary>

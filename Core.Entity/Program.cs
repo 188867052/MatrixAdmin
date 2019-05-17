@@ -16,13 +16,14 @@ namespace Core.Entity
             CoreApiContext context = new CoreApiContext();
             IQueryable<User> query = context.User;
 
-            IFilterInfo filterInfo1 = new IntegerBetweenFilter<User>(o => o.Id, 2, 3);
-            IFilterInfo filterInfo2 = new IntegerInArrayFilte<User>(o => o.Id, new[] { 4, 5 });
-            IFilter a = new Filter<User>(filterInfo1, filterInfo2, Connector.Or);
-            filter.AddComplexFilter(a);
+            IFilterInfo filterInfo1 = new IntegarEqualFilter<User>(o => o.Id, 3);
+            //IFilterInfo filterInfo2 = new IntegerInArrayFilte<User>(o => o.Id, new[] { 4, 5 });
+            //IFilter a = new Filter<User>(filterInfo1, filterInfo2, Connector.Or);
+            //filter.AddComplexFilter(a);
 
-            var filterInfo4 = new DateTimeExistsInFilter<User, UserRoleMapping>(o => o.UserRoleMapping, o => o.CreateTime, Operation.EqualTo, DateTime.Now);
-            filter.AddExistFilter(filterInfo4);
+            //var filterInfo4 = new DateTimeExistsInFilter<User, UserRoleMapping>(o => o.UserRoleMapping, o => o.CreateTime, Operation.EqualTo, DateTime.Now);
+            //filter.AddExistFilter(filterInfo4);
+            filter.AddSimpleFilter(filterInfo1);
             query = query.Where(filter);
             var ab = query.ToList();
         }
