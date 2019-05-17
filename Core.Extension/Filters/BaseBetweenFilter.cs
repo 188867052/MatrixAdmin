@@ -15,9 +15,10 @@ namespace Core.Extension.ExpressionBuilder.Generics
             this.Validate();
             this.Operation = Operations.Operation.Between;
             this.Connector = Connector.And;
+            this.IsFilterEnable = min != null || max != null;
         }
 
-        public virtual bool IsFilterEnable => true;
+        public virtual bool IsFilterEnable { get; set; }
 
         public Connector Connector { get; set; }
 
@@ -32,8 +33,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
         public IEnumerable<IFilterInfo> FilterInfos => throw new System.NotImplementedException();
 
         public Expression Expression => throw new System.NotImplementedException();
-
-        bool IFilterInfo.IsFilterEnable { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
         public void Validate()
         {

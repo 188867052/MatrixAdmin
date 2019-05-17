@@ -7,12 +7,11 @@ namespace Core.Extension.ExpressionBuilder.Generics
 {
     public abstract class BaseFilter<T> : IFilterInfo
     {
-        protected BaseFilter(string propertyName, IOperation operation, object value, Expression expression1 = null)
+        protected BaseFilter(string propertyName, IOperation operation, object value)
         {
             this.PropertyName = propertyName;
             this.Operation = operation;
             this.Value = value;
-            this.Expression = expression1;
             this.Validate();
             this.IsFilterEnable = this.Value != null;
         }
@@ -26,8 +25,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
         public IOperation Operation { get; set; }
 
         public object Value { get; set; }
-
-        public Expression Expression { get; }
 
         public object Value2 { get; set; }
 

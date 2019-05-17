@@ -15,9 +15,10 @@ namespace Core.Extension.ExpressionBuilder.Generics
             this.Validate();
             this.Operation = Operations.Operation.In;
             this.Connector = Connector.And;
+            this.IsFilterEnable = true;
         }
 
-        public bool IsFilterEnable => true;
+        public bool IsFilterEnable { get; set; }
 
         public Connector Connector { get; set; }
 
@@ -29,11 +30,9 @@ namespace Core.Extension.ExpressionBuilder.Generics
 
         public object Value2 { get; set; }
 
-        public IEnumerable<IFilterInfo> FilterInfos => throw new NotImplementedException();
+        public IEnumerable<IFilterInfo> FilterInfos { get; set; }
 
-        public Expression Expression => throw new NotImplementedException();
-
-        bool IFilterInfo.IsFilterEnable { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Expression Expression { get; set; }
 
         public void Validate()
         {

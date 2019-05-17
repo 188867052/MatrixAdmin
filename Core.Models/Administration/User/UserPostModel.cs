@@ -47,21 +47,6 @@ namespace Core.Model.Administration.User
         /// </summary>
         public DateTime? EndCreateTime { get; set; }
 
-        /// <summary>
-        /// 创建者姓名.
-        /// </summary>
-        public string CreatedByUserName { get; set; }
-
-        /// <summary>
-        /// 最近修改时间.
-        /// </summary>
-        public DateTime? ModifiedOn { get; set; }
-
-        /// <summary>
-        /// 最近修改者姓名.
-        /// </summary>
-        public string ModifiedByUserName { get; set; }
-
         public IQueryable<Entity.User> GenerateQuery(IQueryable<Entity.User> query)
         {
             Filter<Entity.User> filter = new Filter<Entity.User>();

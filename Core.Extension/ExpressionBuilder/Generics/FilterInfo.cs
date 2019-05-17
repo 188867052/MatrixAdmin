@@ -13,64 +13,11 @@ namespace Core.Extension.ExpressionBuilder.Generics
     /// </summary>
     /// <typeparam name="TPropertyType">TPropertyType.</typeparam>
     [Serializable]
-    public class FilterInfo<T, TCollection, TPropertyType> : IFilterInfo
+    public class FilterInfo<TPropertyType> : IFilterInfo
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
-        /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
-        /// </summary>
-        public FilterInfo()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
-        /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
-        /// </summary>
-        /// <param name="propertyName">propertyId.</param>
-        /// <param name="operation">operation.</param>
-        /// <param name="value">value.</param>
-        /// <param name="value2">value2.</param>
-        /// <param name="connector">connector.</param>
-        public FilterInfo(string propertyName, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
-        {
-            this.PropertyName = propertyName;
-            this.Connector = connector;
-            this.Operation = operation;
-            this.SetValues(value, value2);
-            this.Validate();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
-        /// Instantiates a new <see cref="FilterInfo{TPropertyType}" />.
-        /// </summary>
-        /// <param name="propertyName">propertyId.</param>
-        /// <param name="operation">operation.</param>
-        /// <param name="value">value.</param>
-        /// <param name="value2">value2.</param>
-        /// <param name="connector">connector.</param>
-        public FilterInfo(Expression<Func<T, int>> secondExpression, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
-        {
-            this.PropertyName = secondExpression.GetPropertyName();
-            this.Connector = connector;
-            this.Operation = operation;
-            this.SetValues(value, value2);
-            this.Validate();
-        }
-
-        public FilterInfo(string propertyId, IOperation operation, TPropertyType value)
+        public FilterInfo(string propertyId, IOperation operation, object value)
         {
             this.PropertyName = propertyId;
-            this.Operation = operation;
-            this.SetValues(value);
-            this.Validate();
-        }
-
-        public FilterInfo(Expression<Func<T, ICollection<TCollection>>> expression, Expression<Func<TCollection, TPropertyType>> secondExpression, IOperation operation, TPropertyType value)
-        {
-            string name = expression.ToString().Split('.')[1] + $"[{secondExpression.ToString().Split('.')[1]}]";
-            this.PropertyName = name;
             this.Operation = operation;
             this.SetValues(value);
             this.Validate();
@@ -101,13 +48,11 @@ namespace Core.Extension.ExpressionBuilder.Generics
         /// </summary>
         public object Value2 { get; set; }
 
-        public bool IsFilterEnable => true;
+        public IEnumerable<IFilterInfo> FilterInfos { get; set; }
 
-        public IEnumerable<IFilterInfo> FilterInfos => throw new NotImplementedException();
+        public Expression Expression { get; set; }
 
-        public Expression Expression => throw new NotImplementedException();
-
-        bool IFilterInfo.IsFilterEnable { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        bool IFilterInfo.IsFilterEnable { get; set; }
 
         /// <summary>
         /// Validates the FilterStatement regarding the number of provided values and supported operations.
@@ -115,28 +60,9 @@ namespace Core.Extension.ExpressionBuilder.Generics
         public void Validate()
         {
             var helper = new OperationHelper();
-            //this.ValidateNumberOfValues();
-            this.ValidateSupportedOperations(helper);
         }
 
-        private void ValidateSupportedOperations(OperationHelper helper)
-        {
-            if (typeof(TPropertyType) == typeof(object))
-            {
-                // TODO: Issue regarding the TPropertyType that comes from the UI always as 'Object'
-                System.Diagnostics.Debug.WriteLine("WARN: Not able to check if the operation is supported or not.");
-                return;
-            }
-
-            var supportedOperations = helper.SupportedOperations(typeof(TPropertyType));
-
-            //if (!supportedOperations.Contains(this.Operation))
-            //{
-            //    throw new UnsupportedOperationException(this.Operation, typeof(TPropertyType).Name);
-            //}
-        }
-
-        private void SetValues(TPropertyType value, TPropertyType value2)
+        private void SetValues(object value, object value2)
         {
             if (typeof(TPropertyType).IsArray)
             {
@@ -157,7 +83,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
             }
         }
 
-        private void SetValues(TPropertyType value)
+        private void SetValues(object value)
         {
             if (typeof(TPropertyType).IsArray)
             {
