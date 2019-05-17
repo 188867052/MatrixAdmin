@@ -1,4 +1,5 @@
-﻿using Core.Extension.ExpressionBuilder.Common;
+﻿using System.Collections.Generic;
+using Core.Extension.ExpressionBuilder.Common;
 using Core.Extension.ExpressionBuilder.Interfaces;
 
 namespace Core.Extension.ExpressionBuilder.Generics
@@ -24,6 +25,8 @@ namespace Core.Extension.ExpressionBuilder.Generics
         public object Value { get; set; }
 
         public object Value2 { get; set; }
+
+        public IEnumerable<IFilterInfo> FilterInfos => throw new System.NotImplementedException();
 
         public void Validate()
         {

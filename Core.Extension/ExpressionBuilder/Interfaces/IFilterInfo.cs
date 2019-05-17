@@ -1,4 +1,5 @@
-﻿using Core.Extension.ExpressionBuilder.Common;
+﻿using System.Collections.Generic;
+using Core.Extension.ExpressionBuilder.Common;
 
 namespace Core.Extension.ExpressionBuilder.Interfaces
 {
@@ -36,6 +37,8 @@ namespace Core.Extension.ExpressionBuilder.Interfaces
         /// Constant value that will interact with the property defined in this filter statement when the operation demands a second value to compare to.
         /// </summary>
         object Value2 { get; set; }
+
+        IEnumerable<IFilterInfo> FilterInfos { get; }
 
         /// <summary>
         /// Validates the FilterStatement regarding the number of provided values and supported operations.

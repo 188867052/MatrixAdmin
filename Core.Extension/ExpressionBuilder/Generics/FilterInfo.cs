@@ -13,7 +13,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
     /// </summary>
     /// <typeparam name="TPropertyType">TPropertyType.</typeparam>
     [Serializable]
-    public class FilterInfo<Tclass, TSecondClass, TPropertyType> : IFilterInfo
+    public class FilterInfo<T, TCollection, TPropertyType> : IFilterInfo
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FilterInfo{TPropertyType}"/> class.
@@ -50,7 +50,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
         /// <param name="value">value.</param>
         /// <param name="value2">value2.</param>
         /// <param name="connector">connector.</param>
-        public FilterInfo(Expression<Func<Tclass, int>> secondExpression, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
+        public FilterInfo(Expression<Func<T, int>> secondExpression, IOperation operation, TPropertyType value, TPropertyType value2, Connector connector = default)
         {
             this.PropertyName = secondExpression.GetPropertyName();
             this.Connector = connector;
@@ -67,7 +67,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
             this.Validate();
         }
 
-        public FilterInfo(Expression<Func<Tclass, ICollection<TSecondClass>>> expression, Expression<Func<TSecondClass, int>> secondExpression, IOperation operation, TPropertyType value)
+        public FilterInfo(Expression<Func<T, ICollection<TCollection>>> expression, Expression<Func<TCollection, TPropertyType>> secondExpression, IOperation operation, TPropertyType value)
         {
             string name = expression.ToString().Split('.')[1] + $"[{secondExpression.ToString().Split('.')[1]}]";
             this.PropertyName = name;
@@ -102,6 +102,8 @@ namespace Core.Extension.ExpressionBuilder.Generics
         public object Value2 { get; set; }
 
         public bool IsFilterEnable => true;
+
+        public IEnumerable<IFilterInfo> FilterInfos => throw new NotImplementedException();
 
         /// <summary>
         /// Validates the FilterStatement regarding the number of provided values and supported operations.

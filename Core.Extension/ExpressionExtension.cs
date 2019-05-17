@@ -10,25 +10,14 @@ namespace Core.Extension
             return expression.Body.GetName();
         }
 
+        public static string GetPropertyName<T>(this Expression<Func<T, decimal>> expression)
+        {
+            return expression.Body.GetName();
+        }
+
         public static string GetPropertyName<T>(this Expression<Func<T, bool?>> expression)
         {
-            string name;
-            switch (expression.Body)
-            {
-                case UnaryExpression unaryExpression:
-                    name = ((MemberExpression)unaryExpression.Operand).Member.Name;
-                    break;
-                case MemberExpression memberExpression:
-                    name = memberExpression.Member.Name;
-                    break;
-                case ParameterExpression parameterExpression:
-                    name = parameterExpression.Type.Name;
-                    break;
-                default:
-                    throw new ArgumentException("不支持的参数");
-            }
-
-            return name;
+            return expression.Body.GetName();
         }
 
         public static string GetPropertyName<T>(this Expression<Func<T, string>> expression)
@@ -57,6 +46,11 @@ namespace Core.Extension
         }
 
         public static string GetPropertyName<T>(this Expression<Func<T, int?>> expression)
+        {
+            return expression.Body.GetName();
+        }
+
+        public static string GetPropertyName<T>(this Expression<Func<T, decimal?>> expression)
         {
             return expression.Body.GetName();
         }

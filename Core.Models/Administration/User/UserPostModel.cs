@@ -68,10 +68,10 @@ namespace Core.Model.Administration.User
 
             if (this.RoleId.HasValue)
             {
-                filter.AddComplexFilter(new CollectionExistsInFilter<Entity.User, UserRoleMapping>(o => o.UserRoleMapping, o => o.RoleId, Operation.EqualTo, this.RoleId.Value));
+                filter.AddExistFilter(new IntegerExistsInFilter<Entity.User, UserRoleMapping>(o => o.UserRoleMapping, o => o.RoleId, Operation.EqualTo, this.RoleId.Value));
             }
 
-            filter.AddSimpleFilter(new IntegarEqualsFilter<Entity.User>(o => o.Status, (int?)this.Status));
+            filter.AddSimpleFilter(new IntegarEqualFilter<Entity.User>(o => o.Status, (int?)this.Status));
             //filter.AddSimpleFilter(new DateTimeBetweenFilter<Entity.User>(o => o.CreateTime, this.StartCreateTime, this.EndCreateTime));
             //filter.AddSimpleFilter(new BooleanEqualsFilter<Entity.User>(o => o.IsEnable, this.IsEnable));
             //filter.AddSimpleFilter(new StringContainsFilter<Entity.User>(o => o.LoginName, this.LoginName));

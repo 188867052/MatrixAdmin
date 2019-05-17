@@ -5,8 +5,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
 {
     public class IntegerLessThanFilter<T> : BaseSingleFilter<T>
     {
-        public IntegerLessThanFilter(Expression<Func<T, int>> expression, int value) : base(expression.GetPropertyName(), Operations.Operation.EqualTo, value)
-
+        public IntegerLessThanFilter(Expression<Func<T, int>> expression, int max) : base(expression.GetPropertyName(), Operations.Operation.LessThan, max)
         {
         }
     }

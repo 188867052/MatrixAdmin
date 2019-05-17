@@ -28,6 +28,8 @@ namespace Core.Extension.ExpressionBuilder.Generics
 
         public object Value2 { get; set; }
 
+        public IEnumerable<IFilterInfo> FilterInfos => throw new NotImplementedException();
+
         public void Validate()
         {
         }

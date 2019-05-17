@@ -30,22 +30,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
         /// Initializes a new instance of the <see cref="Filter{TClass}"/> class.
         /// Instantiates a new <see cref="Filter{TClass}" />.
         /// </summary>
-        public Filter(IFilterInfo statement)
-        {
-            this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
-            this.By(statement);
-        }
-
-        public Filter(Expression<Func<T, int?>> expression, int min, int max)
-        {
-            IFilterInfo statement = new FilterInfo<int, int, int>(expression.GetPropertyName(), Operation.Between, min, max, Connector.And);
-            this.CurrentStatementGroup.Add(statement);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Filter{TClass}"/> class.
-        /// Instantiates a new <see cref="Filter{TClass}" />.
-        /// </summary>
         public Filter(IFilterInfo f1, IFilterInfo f2, Connector connector)
         {
             this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
@@ -150,13 +134,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
             return this.By(propertyId, operation, value, default(TPropertyType));
         }
 
-        public IFilterStatementConnection AddExistsFilter<TPropertyType>(Expression<Func<T, ICollection<TPropertyType>>> expression, Expression<Func<TPropertyType, int>> secondExpression, IOperation operation, int value)
-        {
-            IFilterInfo statement = new FilterInfo<T, TPropertyType, int>(expression, secondExpression, operation, value);
-            this.CurrentStatementGroup.Add(statement);
-            return new FilterStatementConnection(this, statement);
-        }
-
         /// <summary>
         /// Adds a new <see cref="FilterInfo{TPropertyType}" /> to the <see cref="Filter{TClass}" />.
         /// </summary>
@@ -185,26 +162,17 @@ namespace Core.Extension.ExpressionBuilder.Generics
             return this.By(propertyId, operation, value, value2, Connector.And);
         }
 
-        public IFilterStatementConnection AddIntegerInArrayFilter(Expression<Func<T, int?>> expression, int[] value)
-        {
-            IFilterInfo statement = new FilterInfo<int[], int[], int[]>(expression.GetPropertyName(), Operation.In, value);
-            this.CurrentStatementGroup.Add(statement);
-            return new FilterStatementConnection(this, statement);
-        }
-
-        public IFilterStatementConnection AddIntegerBetweenFilter(Expression<Func<T, int?>> expression, int min, int max)
-        {
-            IFilterInfo statement = new FilterInfo<int, int, int>(expression.GetPropertyName(), Operation.Between, min, max, Connector.And);
-            this.CurrentStatementGroup.Add(statement);
-            return new FilterStatementConnection(this, statement);
-        }
-
         public void AddSimpleFilter(IFilterInfo f1)
         {
             if (f1.IsFilterEnable)
             {
                 this.CurrentStatementGroup.Add(f1);
             }
+        }
+
+        public void AddExistFilter(IFilterInfo f1)
+        {
+            this._statements.Add(f1.FilterInfos.ToList());
         }
 
         public void AddComplexFilter(IFilter f1)
