@@ -22,7 +22,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
         public override void CreateGridColumn(IList<BaseGridColumn<UserModel>> gridColumns)
         {
             Url url = new Url(nameof(Administration), typeof(UserController), nameof(UserController.RowContextMenu));
-            gridColumns.Add(new RowContextMenuColumn<UserModel>(o => o.Id.ToString(), "操作", url));
+            gridColumns.Add(new RowContextMenuColumn<UserModel>(o => o.Id, "操作", url));
             gridColumns.Add(new TextGridColumn<UserModel>(o => o.LoginName, UserIndexResource.LoginName));
             gridColumns.Add(new TextGridColumn<UserModel>(o => o.DisplayName, UserIndexResource.DisplayName));
             gridColumns.Add(new TextGridColumn<UserModel>(o => o.RoleName, "角色"));

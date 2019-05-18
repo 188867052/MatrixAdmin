@@ -11,7 +11,7 @@ namespace Core.Web.GridFilter
         {
             this.LabelText = labelText;
             this.InputName = inputName;
-            this._inputType = EnumMappings.ToString(type);
+            this._inputType = JavaScriptEnumMappings.ToString(type);
         }
 
         protected string ContainerClass { get; } = "custom-control-inline";

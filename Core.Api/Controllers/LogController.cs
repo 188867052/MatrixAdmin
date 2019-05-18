@@ -1,15 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Net;
+﻿using System.Linq;
 using AutoMapper;
 using Core.Api.ControllerHelpers;
-using Core.Api.CustomException;
 using Core.Entity;
-using Core.Extension;
+using Core.Extension.ExpressionBuilder.Generics;
 using Core.Model;
 using Core.Model.Log;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Api.Controllers
@@ -45,62 +40,18 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Log> query = this.DbContext.Log;
-                if (model.LogLevel.HasValue)
-                {
-                    query = query.Where(o => o.LogLevel == (int)model.LogLevel.Value);
-                }
 
+                Filter<Log> filter = new Filter<Log>();
+                filter.AddSimpleFilter(new IntegarEqualFilter<Log>(LogField.LogLevel, (int?)model.LogLevel));
+                filter.AddSimpleFilter(new IntegarEqualFilter<Log>(LogField.SqlOperateType, (int?)model.SqlType));
+                filter.AddSimpleFilter(new StringContainsFilter<Log>(LogField.Message, model.Message));
+                filter.AddSimpleFilter(new DateTimeBetweenFilter<Log>(LogField.CreateTime, model.StartTime, model.EndTime));
+
+                query = query.Where(filter);
                 query = query.OrderByDescending(o => o.CreateTime);
-                query = query.AddIntegerEqualFilter(model.Id, o => o.Id);
-                query = query.AddDateTimeBetweenFilter(model.StartTime, model.EndTime, o => o.CreateTime);
-                query = query.AddStringContainsFilter(model.Message, o => o.Message);
 
                 return this.StandardResponse(query, model);
             }
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="code"></param>
-        /// <returns></returns>
-        [Route("{code}")]
-        [HttpGet]
-        public IActionResult Code(int code)
-        {
-            // 捕获状态码
-            HttpStatusCode statusCode = this.HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error is HttpException httpEx ?
-                httpEx.StatusCode : (HttpStatusCode)this.Response.StatusCode;
-            HttpException ex = (HttpException)this.HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
-
-            HttpStatusCode parsedCode = (HttpStatusCode)code;
-            ErrorDetails error = new ErrorDetails
-            {
-                StatusCode = code,
-                Message = ex?.ToString()
-            };
-
-            // 如果是ASP.NET Core Web Api 应用程序，直接返回状态码(不跳转到错误页面，这里假设所有API接口的路径都是以/api/开始的)
-            if (this.HttpContext.Features.Get<IHttpRequestFeature>().RawTarget.StartsWith("/api/", StringComparison.Ordinal))
-            {
-                parsedCode = (HttpStatusCode)code;
-
-                // error = new ErrorDetails
-                // {
-                //    StatusCode = code,
-                //    Message = parsedCode.ToString()
-                // };
-                return new ObjectResult(error);
-            }
-            ////IQueryable<Role> query = this.DbContext.Role;
-            // List<Role> a = query.ToList();
-            //// error = new ErrorDetails
-            ////{
-            ////    StatusCode = code,
-            ////    Message = parsedCode.ToString()
-            ////};
-
-            return new ObjectResult(null);
         }
 
         /// <summary>

@@ -22,7 +22,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
         public override void CreateGridColumn(IList<BaseGridColumn<RoleModel>> gridColumns)
         {
             Url url = new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.RowContextMenu));
-            gridColumns.Add(new RowContextMenuColumn<RoleModel>(o => o.Id.ToString(), "操作", url));
+            gridColumns.Add(new RowContextMenuColumn<RoleModel>(o => o.Id, "操作", url));
             gridColumns.Add(new TextGridColumn<RoleModel>(o => o.Name, RoleIndexResource.Name));
             gridColumns.Add(new EnumGridColumn<RoleModel>(o => o.IsForbidden, "禁用状态"));
             gridColumns.Add(new TextGridColumn<RoleModel>(o => o.Description, "描述"));

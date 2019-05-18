@@ -16,7 +16,7 @@ namespace Core.Web.TextBox
         {
             this._expression = expression;
             this._value = value;
-            this._type = EnumMappings.ToString(TextBoxTypeEnum.Hidden);
+            this._type = JavaScriptEnumMappings.ToString(TextBoxTypeEnum.Hidden);
         }
 
         public string Render(TModel model)

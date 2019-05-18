@@ -2,7 +2,7 @@
 
 namespace Core.Web.Enums
 {
-    public static class EnumMappings
+    public static class JavaScriptEnumMappings
     {
         /// <summary>
         /// Text box type enum.

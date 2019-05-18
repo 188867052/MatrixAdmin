@@ -5,6 +5,7 @@ using AutoMapper;
 using Core.Api.ControllerHelpers;
 using Core.Entity;
 using Core.Extension;
+using Core.Extension.ExpressionBuilder.Generics;
 using Core.Model;
 using Core.Model.Administration.Role;
 using Microsoft.AspNetCore.Mvc;
@@ -85,8 +86,11 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Role> query = this.DbContext.Role;
+                Filter<Role> filter = new Filter<Role>();
+                filter.AddSimpleFilter(new StringContainsFilter<Role>(RoleField.Name, model.RoleName));
+                query = query.Where(filter);
                 query = query.OrderBy(o => o.IsForbidden).ThenByDescending(o => o.CreateTime);
-                query = query.AddStringContainsFilter(model.RoleName, o => o.Name);
+
                 if (model.PageIndex < 1)
                 {
                     model.PageIndex = 1;

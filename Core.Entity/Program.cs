@@ -9,6 +9,8 @@ namespace Core.Entity
     {
         private static void Main(string[] args)
         {
+            FilterInfoGenerator.GenerateFildInfo();
+
             Filter<Role> filter = new Filter<Role>();
             CoreApiContext context = new CoreApiContext();
             IQueryable<Role> query = context.Role;

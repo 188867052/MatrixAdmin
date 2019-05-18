@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using Core.Entity;
+using Core.Web.Enums;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Api.MiddleWare
@@ -23,12 +24,17 @@ namespace Core.Api.MiddleWare
                 var logContent = formatter(state, exception);
                 if (logContent != "A data reader was disposed." && !logContent.Contains("[Log]"))
                 {
-                    logContent = this.ConvertToSql(logContent);
+                    var sql = this.ConvertToSql(logContent);
                     CoreApiContext coreApiContext = new CoreApiContext();
                     coreApiContext.Log.Add(new Log
                     {
-                        Message = $"<code class=\"sql\">{logContent}</code>",
-                        LogLevel = (int)logLevel
+                        Message = $"<code class=\"sql\">{sql}</code>",
+                        LogLevel = (int)logLevel,
+                        SqlOperateType = (int)(sql.StartsWith("SELECT") ? SqlTypeEnum.Select :
+                        sql.StartsWith("UPDATE") ? SqlTypeEnum.Update :
+                        sql.StartsWith("DELETE") ? SqlTypeEnum.Delete :
+                        sql.StartsWith("INSERT") ? SqlTypeEnum.Insert :
+                        sql.StartsWith("CREATE") ? SqlTypeEnum.Create : throw new Exception("暂时不支持的sql类型"))
                     });
                     coreApiContext.SaveChanges();
                 }

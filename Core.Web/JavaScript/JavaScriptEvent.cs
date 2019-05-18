@@ -41,7 +41,7 @@ namespace Core.Web.JavaScript
 
         public string Render()
         {
-            string js = $"$(\"{this._selector}\").on('{EnumMappings.ToString(this._eventType)}',function(){{{this._func}();}});";
+            string js = $"$(\"{this._selector}\").on('{JavaScriptEnumMappings.ToString(this._eventType)}',function(){{{this._func}();}});";
             return $"<script>{js}</script>";
         }
     }

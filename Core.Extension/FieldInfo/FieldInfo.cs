@@ -1,8 +1,6 @@
-﻿using Core.Entity;
-
-namespace Core.Entity
+﻿namespace Core.Entity
 {
-    public partial class FildInfoGeneratorField
+    public partial class FilterInfoGeneratorField
     {
     }
 
@@ -13,6 +11,8 @@ namespace Core.Entity
         public static IntegerField Id = new IntegerField(nameof(Id));
 
         public static StringField Key = new StringField(nameof(Key));
+
+        public static StringField Description = new StringField(nameof(Description));
     }
 
     public partial class IconField
@@ -55,6 +55,8 @@ namespace Core.Entity
         public static StringField Message = new StringField(nameof(Message));
 
         public static IntegerField LogLevel = new IntegerField(nameof(LogLevel));
+
+        public static IntegerField SqlOperateType = new IntegerField(nameof(SqlOperateType));
     }
 
     public partial class MenuField

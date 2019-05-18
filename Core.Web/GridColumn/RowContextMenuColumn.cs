@@ -6,9 +6,9 @@ namespace Core.Web.GridColumn
 {
     public class RowContextMenuColumn<T> : BaseGridColumn<T>
     {
-        private readonly Expression<Func<T, string>> _expression;
+        private readonly Expression<Func<T, int?>> _expression;
 
-        public RowContextMenuColumn(Expression<Func<T, string>> expression, string thead, Url url) : base(thead)
+        public RowContextMenuColumn(Expression<Func<T, int?>> expression, string thead, Url url) : base(thead)
         {
             this._expression = expression;
             this.Url = url;

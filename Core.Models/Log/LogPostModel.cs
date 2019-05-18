@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Web.Enums;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Model.Log
@@ -26,5 +27,7 @@ namespace Core.Model.Log
         public DateTime? StartTime { get; set; }
 
         public DateTime? EndTime { get; set; }
+
+        public SqlTypeEnum? SqlType { get; set; }
     }
 }
