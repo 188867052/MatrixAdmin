@@ -20,14 +20,13 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
             this._response = response;
         }
 
-        protected override string FileName { get; } = "Manage";
+        protected override string FileName { get; } = "SearchGridPage";
 
         public override IList<string> Css()
         {
             return new List<string>
             {
                 "/font-awesome/css/font-awesome.css",
-                "//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css"
             };
         }
 
@@ -49,7 +48,6 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
             return new List<string>
             {
                 "/js/log/index.js",
-                "//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"
             };
         }
 

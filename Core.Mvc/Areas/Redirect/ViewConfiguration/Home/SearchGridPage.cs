@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using Core.Entity;
 using Core.Extension;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Web.Html;
@@ -51,7 +52,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             string sidebarMenu = sidebarNavigation.GenerateSidebarMenu();
 
             string contentHeader = this.ContentHeader();
-            string htmlFormat = File.ReadAllText(Path.Combine(this._hostingEnvironment.WebRootPath, $@"html\{this.FileName}.html"));
+            string htmlFormat = CoreApiContext.Instance.Configuration.FirstOrDefault(o => o.Key == this.FileName).Value;
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var item in this.CssResource())
             {
@@ -69,7 +70,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             html = html.Replace("{{content-header}}", contentHeader);
             html = html.Replace("{{Footer}}", this.Footer());
 
-            string tobHeader = File.ReadAllText(Path.Combine(this._hostingEnvironment.WebRootPath, $@"html\topHeader.html"));
+            string tobHeader = CoreApiContext.Instance.Configuration.FirstOrDefault(o => o.Key == "TopHeader").Value;
             html = html.Replace("{{tobHeader}}", tobHeader);
 
             return html + $"<script>{this.RenderJavaScript()}</script>";

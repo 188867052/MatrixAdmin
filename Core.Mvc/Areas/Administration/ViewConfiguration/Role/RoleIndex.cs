@@ -24,7 +24,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
             this._response = response;
         }
 
-        protected override string FileName { get; } = "Manage";
+        protected override string FileName { get; } = "SearchGridPage";
 
         public override IList<string> Css()
         {

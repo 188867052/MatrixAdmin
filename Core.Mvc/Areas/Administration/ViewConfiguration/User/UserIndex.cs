@@ -27,7 +27,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
         /// <summary>
         /// Gets file name.
         /// </summary>
-        protected override string FileName => "Manage";
+        protected override string FileName => "SearchGridPage";
 
         public override IList<string> Css()
         {

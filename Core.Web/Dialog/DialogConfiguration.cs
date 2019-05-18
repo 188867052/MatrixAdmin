@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Entity;
 using Core.Web.Button;
 using Core.Web.Html;
 using Core.Web.Identifiers;
@@ -48,7 +49,7 @@ namespace Core.Web.Dialog
 
         public virtual string Render(T model)
         {
-            string html = System.IO.File.ReadAllText("C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\wwwroot\\html\\dialog.html");
+            string html = CoreApiContext.Instance.Configuration.FirstOrDefault(o => o.Key == "Dialog").Value;
             html = html.Replace("{{id}}", this.Identifier.Value);
             html = html.Replace("{{modal-title}}", this.Title);
             html = html.Replace("{{modal-body}}", this.Body);
