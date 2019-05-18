@@ -47,6 +47,7 @@ namespace Core.Mvc
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
             app.UseMiddleware(typeof(ExceptionHandlerMiddleWare));
             app.UseHttpsRedirection();
             app.UseStaticFiles();

@@ -1,8 +1,5 @@
-﻿using Core.Entity;
-
-namespace Core.EntityTest
+﻿namespace Core.Entity
 {
-
     public class ConfigurationField
     {
         public static StringField Value = new StringField(nameof(Value));
@@ -94,7 +91,6 @@ namespace Core.EntityTest
 
         public static BooleanField Status = new BooleanField(nameof(Status));
 
-
         public class PermissionField
         {
             public static StringField Id = new StringField(nameof(PermissionField), nameof(Id));
@@ -160,7 +156,6 @@ namespace Core.EntityTest
         public static BooleanField IsEnable = new BooleanField(nameof(IsEnable));
 
         public static BooleanField Status = new BooleanField(nameof(Status));
-
 
         public class MenuGuField
         {
@@ -240,7 +235,6 @@ namespace Core.EntityTest
         public static IntegerField ModifiedByUserId = new IntegerField(nameof(ModifiedByUserId));
 
         public static IntegerField CreateByUserId = new IntegerField(nameof(CreateByUserId));
-
 
         public class CreateByUserField
         {
@@ -357,7 +351,6 @@ namespace Core.EntityTest
 
         public static IntegerField Id = new IntegerField(nameof(Id));
 
-
         public class PermissionCodeNavigationField
         {
             public static StringField Id = new StringField(nameof(PermissionField), nameof(Id));
@@ -456,7 +449,6 @@ namespace Core.EntityTest
         public static BooleanField IsDeleted = new BooleanField(nameof(IsDeleted));
 
         public static IntegerField UserStatusId = new IntegerField(nameof(UserStatusId));
-
 
         public class UserStatusField
         {
@@ -581,7 +573,6 @@ namespace Core.EntityTest
 
         public static DateTimeField CreateTime = new DateTimeField(nameof(CreateTime));
 
-
         public class RoleField
         {
             public static StringField Name = new StringField(nameof(RoleField), nameof(Name));
@@ -656,7 +647,6 @@ namespace Core.EntityTest
         public static IntegerField Id = new IntegerField(nameof(Id));
 
         public static StringField Name = new StringField(nameof(Name));
-
 
         public class UserField
         {

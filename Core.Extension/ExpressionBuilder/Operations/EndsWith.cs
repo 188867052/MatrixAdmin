@@ -26,5 +26,4 @@ namespace Core.Extension.ExpressionBuilder.Operations
                    .AddNullCheck(member);
         }
     }
-
 }

@@ -8,6 +8,5 @@ namespace Core.Extension.ExpressionBuilder.Generics
         public StringNotEqualsFilter(Expression<Func<T, string>> expression, string value) : base(expression.GetPropertyName(), Operations.Operation.EqualTo, value)
         {
         }
-
     }
 }

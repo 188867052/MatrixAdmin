@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using Core.Extension.ExpressionBuilder.Generics;
 
 // Scaffold-DbContext -Force "Data Source=.;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" Microsoft.EntityFrameworkCore.SqlServer
@@ -12,107 +9,17 @@ namespace Core.Entity
     {
         private static void Main(string[] args)
         {
-            Type[] types = Assembly.GetExecutingAssembly().GetTypes();
+            Filter<Role> filter = new Filter<Role>();
+            CoreApiContext context = new CoreApiContext();
+            IQueryable<Role> query = context.Role;
 
-            Console.WriteLine("using Core.Entity;");
-            Console.WriteLine(Environment.NewLine);
-            Console.WriteLine("namespace Core.EntityTest");
-            Console.WriteLine("{");
-            foreach (Type item in types.Where(o => !o.Name.Contains("Enum") && !o.Name.Contains("CoreApi") && !o.Name.Contains("Partial") && !o.Name.Contains("<>") && !o.Name.Contains("Program")))
-            {
-                PrintClass(item);
-            }
+            filter.AddSimpleFilter(new IntegarEqualFilter<Role>(RoleField.CreateByUserField.IsLocked, 1));
+            filter.AddSimpleFilter(new BooleanEqualFilter<Role>(RoleField.IsEnable, true));
+            filter.AddSimpleFilter(new DateTimeBetweenFilter<Entity.User>(o => o.CreateTime, DateTime.Now, null));
+            filter.AddSimpleFilter(new IntegerInArrayFilte<Entity.User>(o => o.Id, new int[] { 1, 2 }));
 
-            Console.WriteLine("}");
-        }
-
-        private static void PrintClass(Type item, string propertyName = "", bool isNested = false)
-        {
-            string className = string.IsNullOrEmpty(propertyName) ? item.Name : propertyName;
-            if (className.Contains("PrivateImplementationDetails"))
-            {
-                return;
-            }
-
-            Console.WriteLine($"public class {className}Field");
-            Console.WriteLine("{");
-            PropertyInfo[] propertyInfos = item.GetProperties();
-            foreach (var property in propertyInfos)
-            {
-                PrintProperty(property, isNested);
-            }
-
-            Console.WriteLine("}");
-        }
-
-        private static void PrintProperty(PropertyInfo property, bool isNested = false)
-        {
-            string type = property.PropertyType.ToString();
-            string parameter = string.Empty;
-            parameter = isNested ? $"nameof({property.DeclaringType.Name}Field),nameof({property.Name})" : $"nameof({property.Name})";
-            Type t = null;
-            if (type.Contains("System.Collections.Generic.ICollection"))
-            {
-                string @class = type.Split('[')[1].Replace("]", string.Empty);
-                t = Type.GetType(@class, true, true);
-                type = "System.Collections.Generic.ICollection";
-            }
-            if (!type.Contains("System"))
-            {
-                t = Type.GetType(type, true, true);
-                type = "Entity";
-            }
-
-            switch (type)
-            {
-                case "System.String":
-                case "System.Nullable`1[System.String]":
-                    Console.WriteLine($"public static StringField {property.Name} = new StringField({parameter});");
-                    Console.WriteLine(Environment.NewLine);
-                    break;
-                case "System.DateTime":
-                case "System.Nullable`1[System.DateTime]":
-                    Console.WriteLine($"public static DateTimeField {property.Name} = new DateTimeField({parameter});");
-                    Console.WriteLine(Environment.NewLine);
-                    break;
-                case "System.Decimal":
-                case "System.Nullable`1[System.Decimal]":
-                    Console.WriteLine($"public static DecimalField {property.Name} = new DecimalField({parameter});");
-                    Console.WriteLine(Environment.NewLine);
-                    break;
-                case "System.Int32":
-                case "System.Nullable`1[System.Int32]":
-                    Console.WriteLine($"public static IntegerField {property.Name} = new IntegerField({parameter});");
-                    Console.WriteLine(Environment.NewLine);
-                    break;
-                case "System.Boolean":
-                case "System.Nullable`1[System.Boolean]":
-                    Console.WriteLine($"public static BooleanField {property.Name} = new BooleanField({parameter});");
-                    Console.WriteLine(Environment.NewLine);
-                    break;
-                case "System.Guid":
-                case "System.Nullable`1[System.Guid]":
-                    Console.WriteLine($"public static BooleanField {property.Name} = new BooleanField({parameter});");
-                    Console.WriteLine(Environment.NewLine);
-                    break;
-                case "System.Collections.Generic.ICollection":
-                    if (!isNested)
-                    {
-                        PrintClass(t, property.Name, true);
-                    }
-
-                    break;
-                case "Entity":
-                    if (!isNested)
-                    {
-                        PrintClass(t, property.Name, true);
-                    }
-
-                    break;
-                default:
-                    Console.WriteLine(Environment.NewLine);
-                    break;
-            }
+            query = query.Where(filter);
+            var ab = query.ToList();
         }
     }
 }
