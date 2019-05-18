@@ -30,22 +30,22 @@ namespace Core.Entity
                 return;
             }
 
-            Console.WriteLine($"public class {className}Field");
+            Console.WriteLine($"public partial class {className}Field");
             Console.WriteLine("{");
             PropertyInfo[] propertyInfos = item.GetProperties();
             foreach (var property in propertyInfos)
             {
-                PrintProperty(property, isNested);
+                PrintProperty(property, className, isNested);
             }
 
             Console.WriteLine("}");
         }
 
-        private static void PrintProperty(PropertyInfo property, bool isNested = false)
+        private static void PrintProperty(PropertyInfo property, string parentClassName, bool isNested = false)
         {
             string type = property.PropertyType.ToString();
             string parameter = string.Empty;
-            parameter = isNested ? $"nameof({property.DeclaringType.Name}Field),nameof({property.Name})" : $"nameof({property.Name})";
+            parameter = isNested ? $"nameof({parentClassName}Field),nameof({property.Name})" : $"nameof({property.Name})";
             Type t = null;
             if (type.Contains("System.Collections.Generic.ICollection"))
             {

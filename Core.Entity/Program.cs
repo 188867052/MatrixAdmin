@@ -15,8 +15,6 @@ namespace Core.Entity
 
             filter.AddSimpleFilter(new IntegarEqualFilter<Role>(RoleField.CreateByUserField.IsLocked, 1));
             filter.AddSimpleFilter(new BooleanEqualFilter<Role>(RoleField.IsEnable, true));
-            filter.AddSimpleFilter(new DateTimeBetweenFilter<Entity.User>(o => o.CreateTime, DateTime.Now, null));
-            filter.AddSimpleFilter(new IntegerInArrayFilte<Entity.User>(o => o.Id, new int[] { 1, 2 }));
 
             query = query.Where(filter);
             var ab = query.ToList();
