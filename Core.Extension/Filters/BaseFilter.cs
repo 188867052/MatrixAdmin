@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Entity;
 using Core.Extension.ExpressionBuilder.Common;
 using Core.Extension.ExpressionBuilder.Interfaces;
 
@@ -6,6 +7,10 @@ namespace Core.Extension.ExpressionBuilder.Generics
 {
     public abstract class BaseFilter<T> : IFilterInfo
     {
+        protected BaseFilter(Field propertyName, IOperation operation, object value) : this(propertyName.Value, operation, value)
+        {
+        }
+
         protected BaseFilter(string propertyName, IOperation operation, object value)
         {
             this.PropertyName = propertyName;

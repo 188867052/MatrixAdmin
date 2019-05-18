@@ -5,14 +5,12 @@ using System.Reflection;
 // Scaffold-DbContext -Force "Data Source=.;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" Microsoft.EntityFrameworkCore.SqlServer
 namespace Core.Entity
 {
-    internal class FildInfoGenerator
+    internal class FilterInfoGenerator
     {
         public static void GenerateFildInfo()
         {
             Type[] types = Assembly.GetExecutingAssembly().GetTypes();
-            Console.WriteLine("using Core.Entity;");
-            Console.WriteLine();
-            Console.WriteLine("namespace Core.EntityTest");
+            Console.WriteLine("namespace Core.Entity");
             Console.WriteLine("{");
             foreach (Type item in types.Where(o => !o.Name.Contains("Enum") && !o.Name.Contains("CoreApi") && !o.Name.Contains("Partial") && !o.Name.Contains("<>") && !o.Name.Contains("Program")))
             {
@@ -64,32 +62,32 @@ namespace Core.Entity
             {
                 case "System.String":
                 case "System.Nullable`1[System.String]":
-                    Console.WriteLine($"public static StringField {property.Name} = new StringField({parameter});");
+                    Console.WriteLine($"public static {nameof(StringField)} {property.Name} = new {nameof(StringField)}({parameter});");
                     Console.WriteLine();
                     break;
                 case "System.DateTime":
                 case "System.Nullable`1[System.DateTime]":
-                    Console.WriteLine($"public static DateTimeField {property.Name} = new DateTimeField({parameter});");
+                    Console.WriteLine($"public static {nameof(DateTimeField)} {property.Name} = new {nameof(DateTimeField)}({parameter});");
                     Console.WriteLine();
                     break;
                 case "System.Decimal":
                 case "System.Nullable`1[System.Decimal]":
-                    Console.WriteLine($"public static DecimalField {property.Name} = new DecimalField({parameter});");
+                    Console.WriteLine($"public static {nameof(DecimalField)} {property.Name} = new {nameof(DecimalField)}({parameter});");
                     Console.WriteLine();
                     break;
                 case "System.Int32":
                 case "System.Nullable`1[System.Int32]":
-                    Console.WriteLine($"public static IntegerField {property.Name} = new IntegerField({parameter});");
+                    Console.WriteLine($"public static {nameof(IntegerField)} {property.Name} = new {nameof(IntegerField)}({parameter});");
                     Console.WriteLine();
                     break;
                 case "System.Boolean":
                 case "System.Nullable`1[System.Boolean]":
-                    Console.WriteLine($"public static BooleanField {property.Name} = new BooleanField({parameter});");
+                    Console.WriteLine($"public static {nameof(BooleanField)} {property.Name} = new {nameof(BooleanField)}({parameter});");
                     Console.WriteLine();
                     break;
                 case "System.Guid":
                 case "System.Nullable`1[System.Guid]":
-                    Console.WriteLine($"public static BooleanField {property.Name} = new BooleanField({parameter});");
+                    Console.WriteLine($"public static {nameof(BooleanField)} {property.Name} = new {nameof(BooleanField)}({parameter});");
                     Console.WriteLine();
                     break;
                 case "System.Collections.Generic.ICollection":

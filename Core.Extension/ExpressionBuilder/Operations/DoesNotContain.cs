@@ -20,10 +20,7 @@ namespace Core.Extension.ExpressionBuilder.Operations
         /// <inheritdoc />
         public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
         {
-            Expression constant = constant1.TrimToLower();
-
-            return Expression.Not(Expression.Call(member.TrimToLower(), this.stringContainsMethod, constant))
-                   .AddNullCheck(member);
+            return Expression.Not(Expression.Call(member, this.stringContainsMethod, constant1));
         }
     }
 }

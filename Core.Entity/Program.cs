@@ -13,7 +13,7 @@ namespace Core.Entity
             CoreApiContext context = new CoreApiContext();
             IQueryable<Role> query = context.Role;
 
-            filter.AddSimpleFilter(new IntegarEqualFilter<Role>(RoleField.CreateByUserField.IsLocked, 1));
+            filter.AddSimpleFilter(new BooleanEqualFilter<Role>(RoleField.CreateByUserField.IsEnable, true));
             filter.AddSimpleFilter(new BooleanEqualFilter<Role>(RoleField.IsEnable, true));
 
             query = query.Where(filter);

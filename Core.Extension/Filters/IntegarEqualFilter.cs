@@ -10,7 +10,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
         {
         }
 
-        public IntegarEqualFilter(IntegerField fieldInfo, int? value) : base(fieldInfo.Value, Operations.Operation.EqualTo, value)
+        public IntegarEqualFilter(IntegerField fieldInfo, int? value) : base(fieldInfo, Operations.Operation.EqualTo, value)
         {
         }
     }

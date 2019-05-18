@@ -10,7 +10,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
         {
         }
 
-        public BooleanEqualFilter(BooleanField fieldInfo, bool? value) : base(fieldInfo.Value, Operations.Operation.EqualTo, value)
+        public BooleanEqualFilter(BooleanField fieldInfo, bool? value) : base(fieldInfo, Operations.Operation.EqualTo, value)
         {
         }
     }

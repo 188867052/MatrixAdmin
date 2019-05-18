@@ -49,12 +49,12 @@ namespace Core.Model.Administration.User
         public IQueryable<Entity.User> GenerateQuery(IQueryable<Entity.User> query)
         {
             Filter<Entity.User> filter = new Filter<Entity.User>();
-            filter.AddExistFilter(new IntegerExistsInFilter<Entity.User, UserRoleMapping>(o => o.UserRoleMapping, new IntegarEqualFilter<UserRoleMapping>(o => o.RoleId, 1)));
-            filter.AddSimpleFilter(new IntegarEqualFilter<Entity.User>(o => o.Status, (int?)this.Status));
-            filter.AddSimpleFilter(new DateTimeBetweenFilter<Entity.User>(o => o.CreateTime, this.StartCreateTime, this.EndCreateTime));
-            filter.AddSimpleFilter(new BooleanEqualFilter<Entity.User>(o => o.IsEnable, this.IsEnable));
-            filter.AddSimpleFilter(new StringContainsFilter<Entity.User>(o => o.DisplayName, this.DisplayName));
-            filter.AddSimpleFilter(new StringContainsFilter<Entity.User>(o => o.LoginName, this.LoginName));
+            filter.AddExistFilter(new IntegerExistsInFilter<Entity.User, UserRoleMapping>(o => o.UserRoleMapping, new IntegarEqualFilter<UserRoleMapping>(o => o.RoleId, this.RoleId)));
+            filter.AddSimpleFilter(new IntegarEqualFilter<Entity.User>(UserField.Status, (int?)this.Status));
+            filter.AddSimpleFilter(new DateTimeBetweenFilter<Entity.User>(UserField.CreateTime, this.StartCreateTime, this.EndCreateTime));
+            filter.AddSimpleFilter(new BooleanEqualFilter<Entity.User>(UserField.IsEnable, this.IsEnable));
+            filter.AddSimpleFilter(new StringContainsFilter<Entity.User>(UserField.DisplayName, this.DisplayName));
+            filter.AddSimpleFilter(new StringContainsFilter<Entity.User>(UserField.LoginName, this.LoginName));
 
             query = query.OrderByDescending(o => o.CreateTime);
             return query.Where(filter);
