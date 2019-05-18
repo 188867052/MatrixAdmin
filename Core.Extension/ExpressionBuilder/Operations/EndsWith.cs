@@ -27,5 +27,4 @@ namespace Core.Extension.ExpressionBuilder.Operations
         }
     }
 
-
 }
