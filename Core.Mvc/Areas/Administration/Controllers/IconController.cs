@@ -4,7 +4,6 @@ using Core.Extension;
 using Core.Model.Administration.Icon;
 using Core.Mvc.Areas.Administration.ViewConfiguration.Icon;
 using Core.Mvc.Areas.Administration.ViewConfiguration.User;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Mvc.Areas.Administration.Controllers
@@ -13,14 +12,6 @@ namespace Core.Mvc.Areas.Administration.Controllers
     public class IconController : StandardController
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IconController"/> class.
-        /// </summary>
-        /// <param name="hostingEnvironment">A hostingEnvironment.</param>
-        public IconController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
-        {
-        }
-
-        /// <summary>
         /// The index page.
         /// </summary>
         /// <returns>A IActionResult.</returns>
@@ -28,7 +19,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Index));
             var responseModel = HttpClientAsync.GetAsync<IList<Icon>>(url).Result;
-            IconIndex index = new IconIndex(this.HostingEnvironment, responseModel);
+            IconIndex index = new IconIndex(responseModel);
 
             return this.ViewConfiguration(index);
         }

@@ -6,7 +6,6 @@ using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.ViewConfiguration.User;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Mvc.Areas.Administration.Controllers
@@ -14,14 +13,6 @@ namespace Core.Mvc.Areas.Administration.Controllers
     [Area(nameof(Administration))]
     public class UserController : StandardController
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UserController"/> class.
-        /// </summary>
-        /// <param name="hostingEnvironment">The hostingEnvironment.</param>
-        public UserController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
-        {
-        }
-
         /// <summary>
         /// The Index.
         /// </summary>

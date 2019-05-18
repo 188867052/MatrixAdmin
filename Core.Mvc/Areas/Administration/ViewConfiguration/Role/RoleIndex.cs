@@ -6,7 +6,6 @@ using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 {
@@ -17,9 +16,9 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
         /// <summary>
         /// Initializes a new instance of the <see cref="RoleIndex"/> class.
         /// </summary>
-        /// <param name="hostingEnvironment">A hostingEnvironment.</param>
+        /// <param name="hostingEnvironment">A hosingEnvironment.</param>
         /// <param name="response">The response.</param>
-        public RoleIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
+        public RoleIndex(ResponseModel response)
         {
             this._response = response;
         }

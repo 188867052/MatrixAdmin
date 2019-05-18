@@ -6,7 +6,6 @@ using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
 {
@@ -17,9 +16,8 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
         /// <summary>
         /// Initializes a new instance of the <see cref="IconIndex"/> class.
         /// </summary>
-        /// <param name="hostingEnvironment">A hostingEnvironment.</param>
         /// <param name="response">The response.</param>
-        public IconIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
+        public IconIndex(ResponseModel response)
         {
             this.response = response;
         }
@@ -29,7 +27,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
         {
             get
             {
-                return "Manage";
+                return "SearchGridPage";
             }
         }
 

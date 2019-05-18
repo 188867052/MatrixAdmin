@@ -7,7 +7,6 @@ using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.Areas.Log.ViewConfiguration
 {
@@ -15,7 +14,7 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
     {
         private readonly ResponseModel _response;
 
-        public LogIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
+        public LogIndex(ResponseModel response)
         {
             this._response = response;
         }

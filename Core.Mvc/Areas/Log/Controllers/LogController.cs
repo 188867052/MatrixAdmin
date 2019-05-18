@@ -5,7 +5,6 @@ using Core.Model;
 using Core.Model.Log;
 using Core.Mvc.Areas.Log.ViewConfiguration;
 using Core.Web.File;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Mvc.Areas.Log.Controllers
@@ -14,14 +13,6 @@ namespace Core.Mvc.Areas.Log.Controllers
     public class LogController : StandardController
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="LogController"/> class.
-        /// </summary>
-        /// <param name="hostingEnvironment">A hostingEnvironment.</param>
-        public LogController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
-        {
-        }
-
-        /// <summary>
         /// The Index.
         /// </summary>
         /// <returns>A IActionResult.</returns>
@@ -29,7 +20,7 @@ namespace Core.Mvc.Areas.Log.Controllers
         {
             var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Index));
             var model = HttpClientAsync.GetAsync<IList<Entity.Log>>(url).Result;
-            LogIndex table = new LogIndex(this.HostingEnvironment, model);
+            LogIndex table = new LogIndex(model);
 
             return this.ViewConfiguration(table);
         }

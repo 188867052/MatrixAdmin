@@ -7,7 +7,6 @@ using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
 {
@@ -18,14 +17,13 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
         /// <summary>
         /// Initializes a new instance of the <see cref="PermissionIndex"/> class.
         /// </summary>
-        /// <param name="hostingEnvironment">A hostingEnvironment.</param>
         /// <param name="response">The response.</param>
-        public PermissionIndex(IHostingEnvironment hostingEnvironment, ResponseModel response) : base(hostingEnvironment)
+        public PermissionIndex(ResponseModel response)
         {
             this._response = response;
         }
 
-        protected override string FileName { get; } = "Manage";
+        protected override string FileName { get; } = "SearchGridPage";
 
         public override IList<string> Css()
         {

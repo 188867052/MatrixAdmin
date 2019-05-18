@@ -3,7 +3,6 @@ using Core.Entity;
 using Core.Extension;
 using Core.Model.Administration.Menu;
 using Core.Mvc.Areas.Administration.ViewConfiguration.Menu;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Mvc.Areas.Administration.Controllers
@@ -13,14 +12,6 @@ namespace Core.Mvc.Areas.Administration.Controllers
     public class MenuController : StandardController
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MenuController"/> class.
-        /// </summary>
-        /// <param name="hostingEnvironment">The hostingEnvironment.</param>
-        public MenuController(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
-        {
-        }
-
-        /// <summary>
         /// The index page.
         /// </summary>
         /// <returns>A IActionResult.</returns>
@@ -28,7 +19,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             var url = new Url(typeof(Api.Controllers.MenuController), nameof(Api.Controllers.MenuController.Index));
             var response = HttpClientAsync.GetAsync<IList<Menu>>(url).Result;
-            MenuIndex index = new MenuIndex(this.HostingEnvironment, response);
+            MenuIndex index = new MenuIndex(response);
 
             return this.ViewConfiguration(index);
         }

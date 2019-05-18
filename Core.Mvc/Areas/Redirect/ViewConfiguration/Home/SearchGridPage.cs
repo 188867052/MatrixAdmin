@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using Core.Entity;
@@ -17,11 +16,8 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         public static readonly string LeftText = "&laquo;";
         public static readonly string RightText = "&raquo;";
 
-        private readonly IHostingEnvironment _hostingEnvironment;
-
-        protected SearchGridPage(IHostingEnvironment hostingEnvironment)
+        protected SearchGridPage(IHostingEnvironment hostingEnvironment = null)
         {
-            this._hostingEnvironment = hostingEnvironment;
         }
 
         /// <summary>
