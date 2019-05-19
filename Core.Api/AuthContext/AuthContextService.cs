@@ -28,7 +28,6 @@ namespace Core.Api.AuthContext
                     EmailAddress = Current.User.FindFirstValue("emailAddress"),
                     UserType = (UserRoleEnum)Convert.ToInt32(Current.User.FindFirstValue("userType")),
                     Avator = Current.User.FindFirstValue("avator"),
-                    Guid = new Guid(Current.User.FindFirstValue("guid"))
                 };
                 return user;
             }

@@ -11,12 +11,12 @@ namespace Core.Api.AuthContext
         /// <summary>
         /// 用户GUID.
         /// </summary>
-        public Guid Guid { get; set; }
+        public int Id { get; set; } = 1;
 
         /// <summary>
         /// 显示名.
         /// </summary>
-        public string DisplayName { get; set; }
+        public string DisplayName { get; set; } = "System";
 
         /// <summary>
         /// 登录名.

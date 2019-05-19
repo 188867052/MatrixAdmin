@@ -44,8 +44,6 @@ namespace Core.Entity
                 entity.Property(e => e.Description).HasMaxLength(50);
 
                 entity.Property(e => e.Key).HasMaxLength(50);
-
-                entity.Property(e => e.Value).HasMaxLength(1000);
             });
 
             modelBuilder.Entity<Icon>(entity =>
@@ -56,9 +54,13 @@ namespace Core.Entity
 
                 entity.Property(e => e.Color).HasMaxLength(50);
 
+                entity.Property(e => e.CreateByUserId).HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.Custom).HasMaxLength(60);
 
                 entity.Property(e => e.Size).HasMaxLength(20);
+
+                entity.Property(e => e.UpdateByUserId).HasDefaultValueSql("((1))");
             });
 
             modelBuilder.Entity<Log>(entity =>
@@ -78,6 +80,8 @@ namespace Core.Entity
 
                 entity.Property(e => e.Alias).HasMaxLength(255);
 
+                entity.Property(e => e.CreateByUserId).HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.Description).HasMaxLength(800);
 
                 entity.Property(e => e.Icon).HasMaxLength(128);
@@ -85,6 +89,8 @@ namespace Core.Entity
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.UpdateByUserId).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Url).HasMaxLength(255);
             });
@@ -97,11 +103,15 @@ namespace Core.Entity
                     .IsRequired()
                     .HasMaxLength(80);
 
-                entity.Property(e => e.CreatedTime).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreateByUserId).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.CreateTime).HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.Property(e => e.UpdateByUserId).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.UpdateTime).HasDefaultValueSql("(getdate())");
 

@@ -21,14 +21,14 @@ namespace Core.Entity
         public string Description { get; set; }
         public int Sort { get; set; }
         public int IsDefaultRouter { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public string CreatedByUserName { get; set; }
-        public DateTime? ModifiedOn { get; set; }
-        public string ModifiedByUserName { get; set; }
-        public Guid CreatedByUserGuid { get; set; }
-        public Guid? ModifiedByUserGuid { get; set; }
+        public DateTime CreateTime { get; set; }
+        public string CreateByUserName { get; set; }
+        public DateTime? UpdateTime { get; set; }
+        public string UpdateByUserName { get; set; }
         public bool IsEnable { get; set; }
         public bool Status { get; set; }
+        public int CreateByUserId { get; set; }
+        public int UpdateByUserId { get; set; }
 
         public virtual ICollection<Permission> Permission { get; set; }
     }

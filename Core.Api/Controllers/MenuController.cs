@@ -67,10 +67,10 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 Menu entity = this.Mapper.Map<MenuCreateViewModel, Menu>(model);
-                entity.CreatedOn = DateTime.Now;
+                entity.CreateTime = DateTime.Now;
                 entity.Guid = Guid.NewGuid();
-                entity.CreatedByUserGuid = AuthContextService.CurrentUser.Guid;
-                entity.CreatedByUserName = AuthContextService.CurrentUser.DisplayName;
+                entity.CreateByUserId = AuthContextService.CurrentUser.Id;
+                entity.CreateByUserName = AuthContextService.CurrentUser.DisplayName;
                 this.DbContext.Menu.Add(entity);
                 this.DbContext.SaveChanges();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
@@ -126,9 +126,9 @@ namespace Core.Api.Controllers
                 entity.ParentGuid = model.ParentGuid;
                 entity.Sort = model.Sort;
                 entity.Url = model.Url;
-                entity.ModifiedByUserGuid = AuthContextService.CurrentUser.Guid;
-                entity.ModifiedByUserName = AuthContextService.CurrentUser.DisplayName;
-                entity.ModifiedOn = DateTime.Now;
+                entity.UpdateByUserId = AuthContextService.CurrentUser.Id;
+                entity.UpdateByUserName = AuthContextService.CurrentUser.DisplayName;
+                entity.UpdateTime = DateTime.Now;
                 entity.Description = model.Description;
                 entity.ParentName = model.ParentName;
                 entity.Alias = model.Alias;

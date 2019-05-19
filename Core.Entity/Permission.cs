@@ -17,14 +17,14 @@ namespace Core.Entity
         public string Icon { get; set; }
         public string Description { get; set; }
         public int Type { get; set; }
-        public DateTime CreatedTime { get; set; }
-        public string CreatedByUserName { get; set; }
+        public DateTime CreateTime { get; set; }
+        public string CreateByUserName { get; set; }
         public DateTime? UpdateTime { get; set; }
         public string UpdateByUserName { get; set; }
-        public Guid CreateByUserId { get; set; }
-        public Guid? UpdateByUserId { get; set; }
         public bool IsEnable { get; set; }
         public bool Status { get; set; }
+        public int CreateByUserId { get; set; }
+        public int UpdateByUserId { get; set; }
 
         public virtual Menu MenuGu { get; set; }
         public virtual ICollection<RolePermissionMapping> RolePermissionMapping { get; set; }

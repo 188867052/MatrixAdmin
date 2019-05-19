@@ -24,8 +24,8 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
             gridColumns.Add(new TextGridColumn<Entity.Icon>(o => o.Size, IconResource.Size));
             gridColumns.Add(new TextGridColumn<Entity.Icon>(o => o.Color, IconResource.Color));
             gridColumns.Add(new BooleanGridColumn<Entity.Icon>(o => o.IsEnable, IconResource.Status));
-            gridColumns.Add(new DateTimeGridColumn<Entity.Icon>(o => o.CreatedOn, IconResource.CreatedOn));
-            gridColumns.Add(new TextGridColumn<Entity.Icon>(o => o.CreatedByUserName, IconResource.CreatedByUserName));
+            gridColumns.Add(new DateTimeGridColumn<Entity.Icon>(o => o.CreateTime, IconResource.CreatedOn));
+            gridColumns.Add(new TextGridColumn<Entity.Icon>(o => o.CreateByUserName, IconResource.CreatedByUserName));
         }
     }
 }

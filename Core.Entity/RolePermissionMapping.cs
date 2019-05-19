@@ -6,7 +6,7 @@ namespace Core.Entity
     public partial class RolePermissionMapping
     {
         public string PermissionCode { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreateTime { get; set; }
         public int? RoleId { get; set; }
         public int Id { get; set; }
 

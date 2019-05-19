@@ -22,10 +22,10 @@ namespace Core.Entity
         public DateTime CreateTime { get; set; }
         public string CreatedByUserName { get; set; }
         public DateTime UpdateTime { get; set; }
-        public string ModifiedByUserName { get; set; }
+        public string UpdateByUserName { get; set; }
         public string Description { get; set; }
         public Guid CreatedByUserId { get; set; }
-        public Guid? ModifiedByUserId { get; set; }
+        public Guid? UpdateByUserId { get; set; }
         public bool IsEnable { get; set; }
         public int Id { get; set; }
         public bool IsDeleted { get; set; }

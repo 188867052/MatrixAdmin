@@ -79,10 +79,10 @@ namespace Core.Api.Controllers
                 }
 
                 Permission entity = this.Mapper.Map<PermissionCreateViewModel, Permission>(model);
-                entity.CreatedTime = DateTime.Now;
+                entity.CreateTime = DateTime.Now;
                 entity.Id = RandomHelper.GetRandom(8, true, false, true, true);
-                entity.CreateByUserId = AuthContextService.CurrentUser.Guid;
-                entity.CreatedByUserName = AuthContextService.CurrentUser.DisplayName;
+                entity.CreateByUserId = AuthContextService.CurrentUser.Id;
+                entity.CreateByUserName = AuthContextService.CurrentUser.DisplayName;
                 this.DbContext.Permission.Add(entity);
                 this.DbContext.SaveChanges();
 
@@ -141,9 +141,9 @@ namespace Core.Api.Controllers
                 entity.ActionCode = model.ActionCode;
                 entity.MenuGuid = model.MenuGuid;
                 entity.IsEnable = model.IsEnable.Value;
-                entity.UpdateByUserId = AuthContextService.CurrentUser.Guid;
+                entity.UpdateByUserId = 1;
                 entity.UpdateByUserName = AuthContextService.CurrentUser.DisplayName;
-                entity.CreatedTime = DateTime.Now;
+                entity.CreateTime = DateTime.Now;
                 entity.Status = model.Status;
                 entity.Description = model.Description;
                 this.DbContext.SaveChanges();
@@ -196,7 +196,7 @@ namespace Core.Api.Controllers
                     return this.Ok(response);
                 }
 
-                List<PermissionMenuTree> menu = this.DbContext.Menu.Where(x => !x.IsEnable && x.Status).OrderBy(x => x.CreatedOn).ThenBy(x => x.Sort)
+                List<PermissionMenuTree> menu = this.DbContext.Menu.Where(x => !x.IsEnable && x.Status).OrderBy(x => x.CreateTime).ThenBy(x => x.Sort)
                     .Select(x => new PermissionMenuTree
                     {
                         Guid = x.Guid,

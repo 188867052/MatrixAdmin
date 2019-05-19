@@ -26,8 +26,8 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
             gridColumns.Add(new BooleanGridColumn<Entity.Menu>(o => o.Status, MenuIndexResource.Status));
 
             // gridColumns.Add(new EnumGridColumn<ConsoleApp.Menu>(o => o.IsDefaultRouter, MenuIndexResource.IsDefaultRouter));
-            gridColumns.Add(new DateTimeGridColumn<Entity.Menu>(o => o.CreatedOn, MenuIndexResource.CreatedOn));
-            gridColumns.Add(new TextGridColumn<Entity.Menu>(o => o.CreatedByUserName, MenuIndexResource.CreatedByUserName));
+            gridColumns.Add(new DateTimeGridColumn<Entity.Menu>(o => o.CreateTime, MenuIndexResource.CreatedOn));
+            gridColumns.Add(new TextGridColumn<Entity.Menu>(o => o.CreateByUserName, MenuIndexResource.CreatedByUserName));
         }
     }
 }

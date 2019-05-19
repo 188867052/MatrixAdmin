@@ -78,9 +78,9 @@ namespace Core.Api.Controllers
                 }
 
                 Icon entity = this.Mapper.Map<IconCreateViewModel, Icon>(model);
-                entity.CreatedOn = DateTime.Now;
-                entity.CreatedByUserGuid = AuthContextService.CurrentUser.Guid;
-                entity.CreatedByUserName = AuthContextService.CurrentUser.DisplayName;
+                entity.CreateTime = DateTime.Now;
+                entity.CreateByUserId = AuthContextService.CurrentUser.Id;
+                entity.CreateByUserName = AuthContextService.CurrentUser.DisplayName;
                 this.DbContext.Icon.Add(entity);
                 this.DbContext.SaveChanges();
                 response.SetSuccess();
@@ -137,9 +137,9 @@ namespace Core.Api.Controllers
                 entity.Custom = model.Custom;
                 entity.Size = model.Size;
                 entity.IsEnable = model.IsDeleted;
-                entity.ModifiedByUserGuid = AuthContextService.CurrentUser.Guid;
-                entity.ModifiedByUserName = AuthContextService.CurrentUser.DisplayName;
-                entity.ModifiedOn = DateTime.Now;
+                entity.UpdateByUserId = AuthContextService.CurrentUser.Id;
+                entity.UpdateByUserName = AuthContextService.CurrentUser.DisplayName;
+                entity.UpdateTime = DateTime.Now;
                 entity.Status = model.Status.Value;
                 entity.Description = model.Description;
                 this.DbContext.SaveChanges();
@@ -226,9 +226,9 @@ namespace Core.Api.Controllers
             IEnumerable<Icon> models = model.Icons.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries).Select(x => new Icon
             {
                 Code = x.Trim(),
-                CreatedByUserGuid = AuthContextService.CurrentUser.Guid,
-                CreatedOn = DateTime.Now,
-                CreatedByUserName = "超级管理员"
+                CreateByUserId = AuthContextService.CurrentUser.Id,
+                CreateTime = DateTime.Now,
+                CreateByUserName = "超级管理员"
             });
             using (this.DbContext)
             {

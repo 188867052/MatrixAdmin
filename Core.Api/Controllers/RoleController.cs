@@ -5,7 +5,6 @@ using AutoMapper;
 using Core.Api.ControllerHelpers;
 using Core.Entity;
 using Core.Extension;
-using Core.Extension.ExpressionBuilder.Generics;
 using Core.Model;
 using Core.Model.Administration.Role;
 using Microsoft.AspNetCore.Mvc;
@@ -258,7 +257,7 @@ namespace Core.Api.Controllers
                 {
                     IEnumerable<RolePermissionMapping> permissions = payload.Permissions.Select(x => new RolePermissionMapping
                     {
-                        CreatedOn = DateTime.Now,
+                        CreateTime = DateTime.Now,
                         PermissionCode = x.Trim(),
 
                         // RoleCode = payload.RoleCode.Trim()
