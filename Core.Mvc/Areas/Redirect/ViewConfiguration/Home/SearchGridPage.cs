@@ -48,7 +48,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             string sidebarMenu = sidebarNavigation.GenerateSidebarMenu();
 
             string contentHeader = this.ContentHeader();
-            string htmlFormat = CoreApiContext.Instance.Configuration.FirstOrDefault(o => o.Key == this.FileName).Value;
+            string htmlFormat = new CoreApiContext().Configuration.FirstOrDefault(o => o.Key == this.FileName).Value;
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var item in this.CssResource())
             {
@@ -66,7 +66,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             html = html.Replace("{{content-header}}", contentHeader);
             html = html.Replace("{{Footer}}", this.Footer());
 
-            string tobHeader = CoreApiContext.Instance.Configuration.FirstOrDefault(o => o.Key == "TopHeader").Value;
+            string tobHeader = new CoreApiContext().Configuration.FirstOrDefault(o => o.Key == "TopHeader").Value;
             html = html.Replace("{{tobHeader}}", tobHeader);
 
             return html + $"<script>{this.RenderJavaScript()}</script>";

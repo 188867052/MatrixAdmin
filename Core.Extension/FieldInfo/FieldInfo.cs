@@ -1,9 +1,5 @@
 ﻿namespace Core.Entity
 {
-    public partial class FilterInfoGeneratorField
-    {
-    }
-
     public partial class ConfigurationField
     {
         public static StringField Value = new StringField(nameof(Value));
@@ -98,6 +94,8 @@
         public static BooleanField IsEnable = new BooleanField(nameof(IsEnable));
 
         public static BooleanField Status = new BooleanField(nameof(Status));
+
+        public static CollectionField Permission = new CollectionField(nameof(Permission));
 
         public partial class PermissionField
         {
@@ -205,6 +203,8 @@
 
             public static BooleanField Status = new BooleanField(nameof(MenuGuField), nameof(Status));
         }
+
+        public static CollectionField RolePermissionMapping = new CollectionField(nameof(RolePermissionMapping));
 
         public partial class RolePermissionMappingField
         {
@@ -326,6 +326,8 @@
             public static StringField RoleName = new StringField(nameof(ModifiedByUserField), nameof(RoleName));
         }
 
+        public static CollectionField RolePermissionMapping = new CollectionField(nameof(RolePermissionMapping));
+
         public partial class RolePermissionMappingField
         {
             public static StringField PermissionCode = new StringField(nameof(RolePermissionMappingField), nameof(PermissionCode));
@@ -336,6 +338,8 @@
 
             public static IntegerField Id = new IntegerField(nameof(RolePermissionMappingField), nameof(Id));
         }
+
+        public static CollectionField UserRoleMapping = new CollectionField(nameof(UserRoleMapping));
 
         public partial class UserRoleMappingField
         {
@@ -465,6 +469,8 @@
             public static StringField Name = new StringField(nameof(UserStatusField), nameof(Name));
         }
 
+        public static CollectionField RoleCreateByUser = new CollectionField(nameof(RoleCreateByUser));
+
         public partial class RoleCreateByUserField
         {
             public static StringField Name = new StringField(nameof(RoleCreateByUserField), nameof(Name));
@@ -492,6 +498,8 @@
             public static IntegerField CreateByUserId = new IntegerField(nameof(RoleCreateByUserField), nameof(CreateByUserId));
         }
 
+        public static CollectionField RoleModifiedByUser = new CollectionField(nameof(RoleModifiedByUser));
+
         public partial class RoleModifiedByUserField
         {
             public static StringField Name = new StringField(nameof(RoleModifiedByUserField), nameof(Name));
@@ -518,6 +526,8 @@
 
             public static IntegerField CreateByUserId = new IntegerField(nameof(RoleModifiedByUserField), nameof(CreateByUserId));
         }
+
+        public static CollectionField UserRoleMapping = new CollectionField(nameof(UserRoleMapping));
 
         public partial class UserRoleMappingField
         {
@@ -655,6 +665,8 @@
         public static IntegerField Id = new IntegerField(nameof(Id));
 
         public static StringField Name = new StringField(nameof(Name));
+
+        public static CollectionField User = new CollectionField(nameof(User));
 
         public partial class UserField
         {

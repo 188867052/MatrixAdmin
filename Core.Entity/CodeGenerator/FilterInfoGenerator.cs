@@ -12,7 +12,7 @@ namespace Core.Entity
             Type[] types = Assembly.GetExecutingAssembly().GetTypes();
             Console.WriteLine("namespace Core.Entity");
             Console.WriteLine("{");
-            foreach (Type item in types.Where(o => !o.Name.Contains("Enum") && !o.Name.Contains("CoreApi") && !o.Name.Contains("Partial") && !o.Name.Contains("<>") && !o.Name.Contains("Program")))
+            foreach (Type item in types.Where(o => !o.Name.Contains("Enum") && !o.Name.Contains("CoreApi") && !o.Name.Contains("Partial") && !o.Name.Contains("<>") && !o.Name.Contains("Program") && !o.Name.Contains("Generator")))
             {
                 PrintClass(item);
             }
@@ -93,6 +93,8 @@ namespace Core.Entity
                 case "System.Collections.Generic.ICollection":
                     if (!isNested)
                     {
+                        Console.WriteLine($"public static {nameof(CollectionField)} {property.Name} = new {nameof(CollectionField)}({parameter});");
+                        Console.WriteLine();
                         PrintClass(t, property.Name, true);
                     }
 

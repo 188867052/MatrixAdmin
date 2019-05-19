@@ -25,7 +25,7 @@ namespace Core.Api.MiddleWare
                 if (logContent != "A data reader was disposed." && !logContent.Contains("[Log]"))
                 {
                     var sql = this.ConvertToSql(logContent);
-                    CoreApiContext coreApiContext = CoreApiContext.Instance;
+                    CoreApiContext coreApiContext = new CoreApiContext();
                     coreApiContext.Log.Add(new Log
                     {
                         Message = $"<code class=\"sql\">{sql}</code>",

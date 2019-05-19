@@ -88,6 +88,9 @@ namespace Core.Api.Controllers
                 IQueryable<Role> query = this.DbContext.Role;
                 Filter<Role> filter = new Filter<Role>();
                 filter.AddSimpleFilter(new StringContainsFilter<Role>(RoleField.Name, model.RoleName));
+                filter.AddSimpleFilter(new StringContainsFilter<Role>(RoleField.Description, model.Description));
+                filter.AddSimpleFilter(new DateTimeBetweenFilter<Role>(RoleField.CreateTime, model.StartCreateTime, model.EndCreateTime));
+
                 query = query.Where(filter);
                 query = query.OrderBy(o => o.IsForbidden).ThenByDescending(o => o.CreateTime);
 

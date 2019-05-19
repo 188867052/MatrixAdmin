@@ -25,6 +25,7 @@ namespace Core.Api.MiddleWare
             this.CreateMap<Role, RoleModel>();
             this.CreateMap<RoleCreateModel, Role>();
             this.CreateMap<RoleCreatePostModel, Role>();
+            this.CreateMap<RoleEditPostModel, Role>();
 
             this.CreateMap<Menu, MenuJsonModel>();
             this.CreateMap<MenuCreateViewModel, Menu>();

@@ -23,7 +23,7 @@ namespace Core.Api.MiddleWare
             }
             catch (Exception exception)
             {
-                CoreApiContext coreApiContext = CoreApiContext.Instance;
+                CoreApiContext coreApiContext = new CoreApiContext();
                 coreApiContext.Log.Add(new Log
                 {
                     Message = $"[1:]{exception.StackTrace}{Environment.NewLine}{Environment.NewLine}" +

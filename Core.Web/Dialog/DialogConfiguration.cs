@@ -49,7 +49,7 @@ namespace Core.Web.Dialog
 
         public virtual string Render(T model)
         {
-            string html = CoreApiContext.Instance.Configuration.FirstOrDefault(o => o.Key == "Dialog").Value;
+            string html = new CoreApiContext().Configuration.FirstOrDefault(o => o.Key == "Dialog").Value;
             html = html.Replace("{{id}}", this.Identifier.Value);
             html = html.Replace("{{modal-title}}", this.Title);
             html = html.Replace("{{modal-body}}", this.Body);

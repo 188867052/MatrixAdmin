@@ -10,7 +10,7 @@ using Core.Web.TextBox;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 {
-    public class AddRoleDialogConfiguration : DialogConfiguration<RoleCreateModel, RoleModel>
+    public class AddRoleDialogConfiguration : DialogConfiguration<RoleCreatePostModel, RoleModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AddRoleDialogConfiguration"/> class.
@@ -23,12 +23,13 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 
         public override string Title => "添加用户";
 
-        protected override void CreateBody(IList<ITextRender<RoleCreateModel, RoleModel>> textBoxes)
+        protected override void CreateBody(IList<ITextRender<RoleCreatePostModel, RoleModel>> textBoxes)
         {
-            textBoxes.Add(new LabeledTextBox<RoleCreateModel, RoleModel>("角色名", o => o.Name));
+            textBoxes.Add(new LabeledTextBox<RoleCreatePostModel, RoleModel>("角色名", o => o.Name));
+            textBoxes.Add(new LabeledTextBox<RoleCreatePostModel, RoleModel>("描述", o => o.Description));
         }
 
-        protected override void CreateHiddenValues(IList<ITextRender<RoleCreateModel, RoleModel>> textBoxes)
+        protected override void CreateHiddenValues(IList<ITextRender<RoleCreatePostModel, RoleModel>> textBoxes)
         {
         }
 

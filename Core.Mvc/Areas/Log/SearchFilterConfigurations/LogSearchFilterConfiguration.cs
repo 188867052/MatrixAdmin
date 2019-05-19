@@ -21,11 +21,11 @@ namespace Core.Mvc.Areas.Log.SearchFilterConfigurations
             logLevelDropDown.AddOption(LogLevel.Debug, "调试");
 
             var sqlTypeDropDown = new DropDownGridFilter<LogPostModel, SqlTypeEnum>(o => (SqlTypeEnum)o.SqlType, "操作类型");
-            sqlTypeDropDown.AddOption(SqlTypeEnum.Select, "查找");
-            sqlTypeDropDown.AddOption(SqlTypeEnum.Create, "添加");
-            sqlTypeDropDown.AddOption(SqlTypeEnum.Update, "更新");
-            sqlTypeDropDown.AddOption(SqlTypeEnum.Delete, "删除");
-            sqlTypeDropDown.AddOption(SqlTypeEnum.Insert, "插入");
+            sqlTypeDropDown.AddOption(SqlTypeEnum.Select, "Select");
+            sqlTypeDropDown.AddOption(SqlTypeEnum.Create, "Create");
+            sqlTypeDropDown.AddOption(SqlTypeEnum.Update, "Update");
+            sqlTypeDropDown.AddOption(SqlTypeEnum.Delete, "Delete");
+            sqlTypeDropDown.AddOption(SqlTypeEnum.Insert, "Insert");
 
             searchFilter.Add(new IntegerGridFilter<LogPostModel>(o => o.Id, LogResource.ID));
             searchFilter.Add(new TextGridFilter<LogPostModel>(o => o.Message, LogResource.Message));

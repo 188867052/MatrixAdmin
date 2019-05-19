@@ -28,15 +28,15 @@ namespace Core.Web.GridColumn
                 case SqlTypeEnum.None:
                     return string.Empty;
                 case SqlTypeEnum.Select:
-                    return "查找";
+                    return "Select";
                 case SqlTypeEnum.Create:
-                    return "添加";
+                    return "Create";
                 case SqlTypeEnum.Update:
-                    return "更新";
+                    return "Update";
                 case SqlTypeEnum.Delete:
-                    return "删除";
+                    return "Delete";
                 case SqlTypeEnum.Insert:
-                    return "插入";
+                    return "Insert";
 
                 default:
                     throw new ArgumentException(value.ToString());

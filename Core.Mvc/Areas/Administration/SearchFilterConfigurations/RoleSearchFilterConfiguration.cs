@@ -2,6 +2,7 @@
 using Core.Extension;
 using Core.Model.Administration.Role;
 using Core.Mvc.Areas.Administration.Controllers;
+using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.SearchFilterConfiguration;
@@ -13,6 +14,9 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
             searchFilter.Add(new TextGridFilter<RolePostModel>(o => o.RoleName, "角色名称"));
+            searchFilter.Add(new TextGridFilter<RolePostModel>(o => o.Description, "描述"));
+            searchFilter.Add(new DateTimeGridFilter<RolePostModel>(o => o.StartCreateTime, "开始" + LogResource.CreateTime));
+            searchFilter.Add(new DateTimeGridFilter<RolePostModel>(o => o.EndCreateTime, "结束" + LogResource.CreateTime));
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)

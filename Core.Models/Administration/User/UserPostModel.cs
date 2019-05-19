@@ -49,7 +49,7 @@ namespace Core.Model.Administration.User
         public IQueryable<Entity.User> GenerateQuery(IQueryable<Entity.User> query)
         {
             Filter<Entity.User> filter = new Filter<Entity.User>();
-            filter.AddExistFilter(new IntegerExistsInFilter<Entity.User, UserRoleMapping>(o => o.UserRoleMapping, new IntegarEqualFilter<UserRoleMapping>(o => o.RoleId, this.RoleId)));
+            filter.AddExistFilter(new IntegerExistsInFilter<Entity.User, UserRoleMapping>(UserField.UserRoleMapping, new IntegarEqualFilter<UserRoleMapping>(o => o.RoleId, this.RoleId)));
             filter.AddSimpleFilter(new IntegarEqualFilter<Entity.User>(UserField.Status, (int?)this.Status));
             filter.AddSimpleFilter(new DateTimeBetweenFilter<Entity.User>(UserField.CreateTime, this.StartCreateTime, this.EndCreateTime));
             filter.AddSimpleFilter(new BooleanEqualFilter<Entity.User>(UserField.IsEnable, this.IsEnable));
