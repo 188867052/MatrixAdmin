@@ -2,6 +2,7 @@
 using System.Linq;
 using Core.Entity;
 using Core.Entity.Enums;
+using Core.Extension;
 using Core.Extension.ExpressionBuilder.Generics;
 
 namespace Core.Model.Administration.User
@@ -48,16 +49,15 @@ namespace Core.Model.Administration.User
 
         public IQueryable<Entity.User> GenerateQuery(IQueryable<Entity.User> query)
         {
-            Filter<Entity.User> filter = new Filter<Entity.User>();
-            filter.AddExistFilter(new IntegerExistsInFilter<Entity.User, UserRoleMapping>(UserField.UserRoleMapping, new IntegarEqualFilter<UserRoleMapping>(o => o.RoleId, this.RoleId)));
-            filter.AddSimpleFilter(new IntegarEqualFilter<Entity.User>(UserField.Status, (int?)this.Status));
-            filter.AddSimpleFilter(new DateTimeBetweenFilter<Entity.User>(UserField.CreateTime, this.StartCreateTime, this.EndCreateTime));
-            filter.AddSimpleFilter(new BooleanEqualFilter<Entity.User>(UserField.IsEnable, this.IsEnable));
-            filter.AddSimpleFilter(new StringContainsFilter<Entity.User>(UserField.DisplayName, this.DisplayName));
-            filter.AddSimpleFilter(new StringContainsFilter<Entity.User>(UserField.LoginName, this.LoginName));
+            query = query.AddFilter(this.RoleId, o => o.UserRoleMapping.Any(x => x.RoleId == this.RoleId));
+            query = query.AddFilter(this.IsEnable, o => o.IsEnable);
+            query = query.AddFilter(this.Status, o => o.Status == (int?)this.Status);
+            query = query.AddFilter(this.DisplayName, o => o.DisplayName.Contains(this.DisplayName));
+            query = query.AddFilter(this.LoginName, o => o.LoginName.Contains(this.LoginName));
+            query = query.AddDateTimeBetweenFilter(this.StartCreateTime, this.EndCreateTime, o => o.CreateTime);
 
             query = query.OrderByDescending(o => o.CreateTime);
-            return query.Where(filter);
+            return query;
         }
     }
 }

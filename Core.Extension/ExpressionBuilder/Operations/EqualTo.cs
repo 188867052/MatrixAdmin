@@ -17,17 +17,7 @@ namespace Core.Extension.ExpressionBuilder.Operations
         /// <inheritdoc />
         public override Expression GetExpression(MemberExpression member, ConstantExpression constant1, ConstantExpression constant2)
         {
-            Expression constant = constant1;
-
-            if (member.Type == typeof(string))
-            {
-                constant = constant1.TrimToLower();
-
-                return Expression.Equal(member.TrimToLower(), constant)
-                       .AddNullCheck(member);
-            }
-
-            return Expression.Equal(member, constant);
+            return Expression.Equal(member, constant1);
         }
     }
 }

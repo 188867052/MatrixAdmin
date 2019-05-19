@@ -21,11 +21,11 @@ namespace Core.Extension.ExpressionBuilder.Generics
             this.IsFilterEnable = filter.Value != null;
         }
 
-        public BaseCollectionExistsInFilter(CollectionField expression, IFilterInfo filter)
+        public BaseCollectionExistsInFilter(CollectionField field, IFilterInfo filter)
         {
             this.Connector = Connector.And;
             this.Operation = filter.Operation;
-            string name = expression.Value + $"[{filter.PropertyName}]";
+            string name = field.Value + $"[{filter.PropertyName}]";
             this.FilterInfos = new List<IFilterInfo>
             {
                 new FilterInfo<TPropertyType>(name, this.Operation,filter.Value)

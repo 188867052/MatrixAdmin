@@ -1,5 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
+using Core.Extension;
 using Core.Extension.ExpressionBuilder.Generics;
 
 // Scaffold-DbContext -Force "Data Source=.;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" Microsoft.EntityFrameworkCore.SqlServer
@@ -9,16 +9,11 @@ namespace Core.Entity
     {
         private static void Main(string[] args)
         {
-            FilterInfoGenerator.GenerateFildInfo();
-
-            Filter<Role> filter = new Filter<Role>();
+            Filter<User> filter = new Filter<User>();
             CoreApiContext context = new CoreApiContext();
-            IQueryable<Role> query = context.Role;
+            IQueryable<User> query = context.User;
+            query = query.AddFilter(1, o => o.UserStatus.Id == 1);
 
-            filter.AddSimpleFilter(new BooleanEqualFilter<Role>(RoleField.CreateByUserField.IsEnable, true));
-            filter.AddSimpleFilter(new BooleanEqualFilter<Role>(RoleField.IsEnable, true));
-
-            query = query.Where(filter);
             var ab = query.ToList();
         }
     }

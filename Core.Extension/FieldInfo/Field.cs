@@ -8,8 +8,10 @@ namespace Core.Entity
         {
             this.Value = string.Join('.', args);
             this.Value = this.Value.Replace("Field", string.Empty);
+            this.PropertyName = (string)args.Last();
         }
 
         public string Value { get; set; }
+        public string PropertyName { get; }
     }
 }

@@ -535,7 +535,7 @@
 
             public static IntegerField UserId = new IntegerField(nameof(UserRoleMappingField), nameof(UserId));
 
-            public static IntegerField RoleId = new IntegerField(nameof(UserRoleMappingField), nameof(RoleId));
+            public static IntegerField RoleId = new IntegerField(nameof(UserRoleMappingField), "[" + nameof(RoleId) + "]");
 
             public static DateTimeField CreateTime = new DateTimeField(nameof(UserRoleMappingField), nameof(CreateTime));
         }

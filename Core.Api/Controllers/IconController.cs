@@ -47,7 +47,7 @@ namespace Core.Api.Controllers
             {
                 IQueryable<Icon> query = this.DbContext.Icon;
                 query = query.AddStringContainsFilter(model.Code, o => o.Code);
-                query = query.AddBooleanFilter(model.IsEnable, o => o.IsEnable);
+                query = query.AddFilter(model.IsEnable, o => o.IsEnable);
 
                 return this.StandardResponse(query, model);
             }
