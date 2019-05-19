@@ -39,6 +39,7 @@ namespace Core.Api.Controllers
         /// <summary>
         /// 搜索.
         /// </summary>
+        /// <param name="model">model.</param>
         /// <returns></returns>
         [HttpPost]
         public IActionResult Search(IconPostModel model)
@@ -177,7 +178,7 @@ namespace Core.Api.Controllers
         /// <summary>
         /// 批量操作.
         /// </summary>
-        /// <param name="command"></param>
+        /// <param name="command">command.</param>
         /// <param name="ids">图标ID,多个以逗号分隔.</param>
         /// <returns></returns>
         [HttpGet]

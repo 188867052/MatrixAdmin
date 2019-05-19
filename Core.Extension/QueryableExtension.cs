@@ -16,7 +16,6 @@ namespace Core.Extension
         private static readonly MethodInfo stringEndsWithMethod = typeof(string).GetMethod(nameof(string.EndsWith), new[] { typeof(string) });
         private static readonly MethodInfo stringStartsWithMethod = typeof(string).GetMethod(nameof(string.StartsWith), new[] { typeof(string) });
 
-
         public static IQueryable<T> AddDateTimeLessThanOrEqualFilter<T>(this IQueryable<T> query, DateTime? value, Expression<Func<T, DateTime?>> expression)
         {
             if (value.HasValue)

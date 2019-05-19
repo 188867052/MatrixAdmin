@@ -91,9 +91,9 @@ namespace Core.Mvc
         /// </summary>
         /// <typeparam name="TModel">TModel.</typeparam>
         /// <typeparam name="TPostModel">TPostModel.</typeparam>
-        /// <param name="url"></param>
-        /// <param name="postModel"></param>
-        /// <returns></returns>
+        /// <param name="url">url.</param>
+        /// <param name="postModel">postModel.</param>
+        /// <returns>ResponseModel.</returns>
         public static async Task<ResponseModel> PostAsync<TModel, TPostModel>(Url url, TPostModel postModel)
         {
             HttpResponseMessage httpResponse;

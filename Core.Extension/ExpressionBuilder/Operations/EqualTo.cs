@@ -8,7 +8,6 @@ namespace Core.Extension.ExpressionBuilder.Operations
     /// </summary>
     public class EqualTo : OperationBase
     {
-        /// <inheritdoc />
         public EqualTo()
             : base("EqualTo", 1, TypeGroup.Default | TypeGroup.Boolean | TypeGroup.Date | TypeGroup.Number | TypeGroup.Text)
         {

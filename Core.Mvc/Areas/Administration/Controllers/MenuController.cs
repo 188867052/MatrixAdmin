@@ -112,7 +112,6 @@ namespace Core.Mvc.Areas.Administration.Controllers
             return this.Submit(response);
         }
 
-
         /// <summary>
         /// The delete.
         /// </summary>

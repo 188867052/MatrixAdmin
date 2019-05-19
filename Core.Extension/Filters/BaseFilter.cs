@@ -7,10 +7,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
 {
     public class BaseFilter<T> : IFilterInfo
     {
-        protected BaseFilter(Field propertyName, IOperation operation, object value) : this(propertyName.Value, operation, value)
-        {
-        }
-
         public BaseFilter(string propertyName, IOperation operation, object value)
         {
             this.PropertyName = propertyName;
@@ -18,6 +14,10 @@ namespace Core.Extension.ExpressionBuilder.Generics
             this.Value = value;
             this.Validate();
             this.IsFilterEnable = this.Value != null;
+        }
+
+        protected BaseFilter(Field propertyName, IOperation operation, object value) : this(propertyName.Value, operation, value)
+        {
         }
 
         public bool IsFilterEnable { get; set; }

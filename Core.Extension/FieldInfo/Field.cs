@@ -12,6 +12,7 @@ namespace Core.Entity
         }
 
         public string Value { get; set; }
+
         public string PropertyName { get; }
     }
 }

@@ -7,7 +7,6 @@ using Core.Web.Identifiers;
 
 namespace Core.Web.TextBox
 {
-
     public class LabeledIntegerTextBox<TPostModel, TModel> : ITextRender<TPostModel, TModel>
     {
         private readonly Expression<Func<TPostModel, int?>> _expression;

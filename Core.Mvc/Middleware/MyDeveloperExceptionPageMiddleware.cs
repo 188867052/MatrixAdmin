@@ -13,7 +13,7 @@ namespace Core.Mvc.Middleware
     public class MyDeveloperExceptionPageMiddleware : DeveloperExceptionPageMiddleware
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MyDeveloperExceptionPageMiddleware"/> class
+        /// Initializes a new instance of the <see cref="MyDeveloperExceptionPageMiddleware"/> class.
         /// </summary>
         /// <param name="next"></param>
         /// <param name="options"></param>

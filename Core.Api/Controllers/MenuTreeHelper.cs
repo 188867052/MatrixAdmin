@@ -11,10 +11,10 @@ namespace Core.Api.Controllers
     public static class MenuTreeHelper
     {
         /// <summary>
-        ///
+        /// BuildTree.
         /// </summary>
-        /// <param name="menus"></param>
-        /// <param name="selectedGuid"></param>
+        /// <param name="menus">menus.</param>
+        /// <param name="selectedGuid">selectedGuid.</param>
         /// <returns></returns>
         public static List<MenuTree> BuildTree(this List<MenuTree> menus, string selectedGuid = null)
         {

@@ -11,7 +11,6 @@ namespace Core.Extension.ExpressionBuilder.Operations
     {
         private readonly MethodInfo endsWithMethod = typeof(string).GetMethod(nameof(string.EndsWith), new[] { typeof(string) });
 
-        /// <inheritdoc />
         public EndsWith()
             : base("EndsWith", 1, TypeGroup.Text)
         {

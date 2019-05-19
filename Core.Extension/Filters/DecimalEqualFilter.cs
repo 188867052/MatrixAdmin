@@ -1,6 +1,6 @@
-﻿using Core.Entity;
-using System;
+﻿using System;
 using System.Linq.Expressions;
+using Core.Entity;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {

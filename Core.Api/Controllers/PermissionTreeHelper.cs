@@ -15,7 +15,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="menus">菜单集合.</param>
         /// <param name="permissions">权限集合.</param>
-        /// <param name="parentGuid">父级菜单GUID.</param>
+        /// <param name="parentId">父级菜单ID.</param>
         /// <param name="isSuperAdministrator">是否为超级管理员角色.</param>
         /// <returns></returns>
         public static List<PermissionMenuTree> FillRecursive(this List<PermissionMenuTree> menus, List<PermissionWithAssignProperty> permissions, int? parentId, bool isSuperAdministrator = false)

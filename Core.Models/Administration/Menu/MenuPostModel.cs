@@ -1,5 +1,5 @@
-﻿using Core.Entity.Enums;
-using System;
+﻿using System;
+using Core.Entity.Enums;
 
 namespace Core.Model.Administration.Menu
 {

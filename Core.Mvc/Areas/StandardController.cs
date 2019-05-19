@@ -18,7 +18,7 @@ namespace Core.Mvc.Areas
         /// Initializes a new instance of the <see cref="StandardController"/> class.
         /// </summary>
         /// <param name="hostingEnvironment">The hostingEnvironment.</param>
-        protected StandardController(IHostingEnvironment hostingEnvironment=null)
+        protected StandardController(IHostingEnvironment hostingEnvironment = null)
         {
             this.HostingEnvironment = hostingEnvironment;
         }
