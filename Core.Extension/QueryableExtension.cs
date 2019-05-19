@@ -11,6 +11,11 @@ namespace Core.Extension
     public static class QueryableExtension
     {
         private static MethodInfo whereTSource;
+        private static readonly MethodInfo stringContainsMethod = typeof(string).GetMethod(nameof(string.Contains), new[] { typeof(string) });
+        private static readonly MethodInfo stringEqualsMethod = typeof(string).GetMethod(nameof(string.Equals), new[] { typeof(string) });
+        private static readonly MethodInfo stringEndsWithMethod = typeof(string).GetMethod(nameof(string.EndsWith), new[] { typeof(string) });
+        private static readonly MethodInfo stringStartsWithMethod = typeof(string).GetMethod(nameof(string.StartsWith), new[] { typeof(string) });
+
 
         public static IQueryable<T> AddDateTimeLessThanOrEqualFilter<T>(this IQueryable<T> query, DateTime? value, Expression<Func<T, DateTime?>> expression)
         {
@@ -77,22 +82,22 @@ namespace Core.Extension
 
         public static IQueryable<T> AddStringContainsFilter<T>(this IQueryable<T> query, Expression<Func<T, string>> expression, string value)
         {
-            return query.AddStringFilter(value, expression, nameof(string.Contains));
+            return query.AddStringFilter(value, expression, stringContainsMethod);
         }
 
         public static IQueryable<T> AddStringEqualFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
         {
-            return query.AddStringFilter(value, expression, nameof(string.Equals));
+            return query.AddStringFilter(value, expression, stringEqualsMethod);
         }
 
         public static IQueryable<T> AddStringEndsWithFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
         {
-            return query.AddStringFilter(value, expression, nameof(string.EndsWith));
+            return query.AddStringFilter(value, expression, stringEndsWithMethod);
         }
 
         public static IQueryable<T> AddStringStartsWithFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
         {
-            return query.AddStringFilter(value, expression, nameof(string.StartsWith));
+            return query.AddStringFilter(value, expression, stringStartsWithMethod);
         }
 
         public static IQueryable<T> AddStringIsNullFilter<T>(this IQueryable<T> query, Expression<Func<T, string>> expression)
@@ -111,11 +116,11 @@ namespace Core.Extension
             return query.CreateQuery(null, expression.GetPropertyName(), Predicate);
         }
 
-        private static IQueryable<T> AddStringFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression, string name)
+        private static IQueryable<T> AddStringFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression, MethodInfo method)
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
-                MethodCallExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.Call(a, GetMethodInfo<T>(name), b);
+                MethodCallExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.Call(a, stringContainsMethod, b);
                 return query.CreateQuery(value, expression.GetPropertyName(), Predicate);
             }
 
@@ -169,11 +174,6 @@ namespace Core.Extension
             ConstantExpression right = Expression.Constant(value);
 
             return query.Provider.CreateQuery<T>(Expression.Call(null, QueryableExtension.WhereTSource(typeof(T)), query.Expression, Expression.Quote(lambda(left, right, parameter))));
-        }
-
-        private static MethodInfo GetMethodInfo<T>(string name)
-        {
-            return typeof(T).GetMethod(name, new[] { typeof(T) });
         }
 
         private static MethodInfo WhereTSource(Type source)

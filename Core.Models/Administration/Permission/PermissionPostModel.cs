@@ -18,6 +18,11 @@ namespace Core.Model.Administration.Permission
         public bool? Status { get; set; }
 
         /// <summary>
+        /// 操作码.
+        /// </summary>
+        public string ActionCode { get; set; }
+
+        /// <summary>
         /// 关联菜单GUID.
         /// </summary>
         public Guid? MenuGuid { get; set; }

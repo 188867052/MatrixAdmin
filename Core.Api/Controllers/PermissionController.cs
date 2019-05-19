@@ -48,7 +48,7 @@ namespace Core.Api.Controllers
             {
                 IQueryable<Permission> query = this.DbContext.Permission;
                 query = query.AddBooleanFilter(o => o.IsEnable, model.IsEnable);
-                query = query.AddBooleanFilter(o => o.Status, model.Status);
+                query = query.AddStringContainsFilter(o => o.ActionCode, model.ActionCode);
 
                 return this.StandardResponse(query, model);
             }

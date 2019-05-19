@@ -13,6 +13,7 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
             searchFilter.Add(new BooleanGridFilter<PermissionPostModel>(o => o.IsEnable, "是否已删除"));
+            searchFilter.Add(new TextGridFilter<PermissionPostModel>(o => o.ActionCode, "操作码"));
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)
