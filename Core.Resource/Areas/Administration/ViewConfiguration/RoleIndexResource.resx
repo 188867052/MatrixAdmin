@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddRoleDialogTitle" xml:space="preserve">
+    <value>添加角色</value>
+  </data>
   <data name="CreatedByUserName" xml:space="preserve">
     <value>创建者</value>
   </data>
   <data name="CreatedOn" xml:space="preserve">
     <value>创建时间</value>
+  </data>
+  <data name="EditRoleDialogTitle" xml:space="preserve">
+    <value>编辑角色</value>
   </data>
   <data name="IsBuiltin" xml:space="preserve">
     <value>是否内置</value>

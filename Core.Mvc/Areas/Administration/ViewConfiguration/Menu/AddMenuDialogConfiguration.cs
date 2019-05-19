@@ -22,7 +22,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 
         public new static Identifier Identifier { get; } = new Identifier();
 
-        public override string Title => "添加用户";
+        public override string Title => "添加菜单";
 
         protected override void CreateBody(IList<ITextRender<MenuCreatePostModel, MenuModel>> textBoxes)
         {

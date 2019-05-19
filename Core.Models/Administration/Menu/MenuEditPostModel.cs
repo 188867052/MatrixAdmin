@@ -9,6 +9,11 @@ namespace Core.Model.Administration.Menu
     public class MenuEditPostModel
     {
         /// <summary>
+        /// Id.
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
         /// 菜单名称.
         /// </summary>
         public string Name { get; set; }
@@ -29,9 +34,9 @@ namespace Core.Model.Administration.Menu
         public string Icon { get; set; }
 
         /// <summary>
-        /// 父级GUID.
+        /// 父级ID.
         /// </summary>
-        public Guid? ParentGuid { get; set; }
+        public int? ParentId { get; set; }
 
         /// <summary>
         /// 上级菜单名称.

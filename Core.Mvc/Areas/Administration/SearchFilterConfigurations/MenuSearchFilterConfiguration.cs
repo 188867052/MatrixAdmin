@@ -13,9 +13,10 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            searchFilter.Add(new TextGridFilter<MenuPostModel>(o => o.MenuName, "菜单名称"));
+            searchFilter.Add(new TextGridFilter<MenuPostModel>(o => o.Name, "菜单名称"));
             searchFilter.Add(new DateTimeGridFilter<MenuPostModel>(o => o.StartCreateTime, "开始" + LogResource.CreateTime));
             searchFilter.Add(new DateTimeGridFilter<MenuPostModel>(o => o.EndCreateTime, "结束" + LogResource.CreateTime));
+            searchFilter.Add(new TextGridFilter<MenuPostModel>(o => o.Description, "描述"));
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)

@@ -7,14 +7,15 @@ using Core.Web.Identifiers;
 
 namespace Core.Web.TextBox
 {
-    public class LabeledTextBox<TPostModel, TModel> : ITextRender<TPostModel, TModel>
+
+    public class LabeledIntegerTextBox<TPostModel, TModel> : ITextRender<TPostModel, TModel>
     {
-        private readonly Expression<Func<TPostModel, string>> _expression;
-        private readonly Expression<Func<TModel, string>> _modelExpression;
+        private readonly Expression<Func<TPostModel, int?>> _expression;
+        private readonly Expression<Func<TModel, int?>> _modelExpression;
         private readonly string _label;
         private readonly string type;
 
-        public LabeledTextBox(string label, Expression<Func<TPostModel, string>> expression, Expression<Func<TModel, string>> modelExpression = null, TextBoxTypeEnum type = default)
+        public LabeledIntegerTextBox(string label, Expression<Func<TPostModel, int?>> expression, Expression<Func<TModel, int?>> modelExpression = null, TextBoxTypeEnum type = default)
         {
             this._expression = expression;
             this._modelExpression = modelExpression;
@@ -28,7 +29,7 @@ namespace Core.Web.TextBox
             string value = default;
             if (entity != null)
             {
-                value = this._modelExpression.Compile()(entity);
+                value = this._modelExpression.Compile()(entity).ToString();
             }
 
             string name = this._expression.GetPropertyName();

@@ -2,6 +2,7 @@
 using Core.Extension;
 using Core.Model.Administration.Role;
 using Core.Mvc.Areas.Administration.Controllers;
+using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.Dialog;
 using Core.Web.Html;
@@ -21,7 +22,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 
         public new static Identifier Identifier { get; } = new Identifier();
 
-        public override string Title => "添加用户";
+        public override string Title => RoleIndexResource.AddRoleDialogTitle;
 
         protected override void CreateBody(IList<ITextRender<RoleCreatePostModel, RoleModel>> textBoxes)
         {

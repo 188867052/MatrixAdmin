@@ -78,6 +78,8 @@ namespace Core.Entity
 
                 entity.Property(e => e.CreateByUserId).HasDefaultValueSql("((1))");
 
+                entity.Property(e => e.CreateTime).HasDefaultValueSql("(getdate())");
+
                 entity.Property(e => e.Description).HasMaxLength(800);
 
                 entity.Property(e => e.Icon).HasMaxLength(128);
@@ -89,6 +91,8 @@ namespace Core.Entity
                 entity.Property(e => e.ParentId).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.UpdateByUserId).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.UpdateTime).HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Url).HasMaxLength(255);
 

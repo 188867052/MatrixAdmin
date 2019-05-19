@@ -198,6 +198,11 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration
 		public static string CreatedOn { get { return GetResourceString("CreatedOn"); } }
 
 		/// <summary>
+		/// Gets the localized string for Description.
+		/// </summary>
+		public static string Description { get { return GetResourceString("Description"); } }
+
+		/// <summary>
 		/// Gets the localized string for IsDefaultRouter.
 		/// </summary>
 		public static string IsDefaultRouter { get { return GetResourceString("IsDefaultRouter"); } }
@@ -221,6 +226,11 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration
 		/// Gets the localized string for Status.
 		/// </summary>
 		public static string Status { get { return GetResourceString("Status"); } }
+
+		/// <summary>
+		/// Gets the localized string for UpdateByUserName.
+		/// </summary>
+		public static string UpdateByUserName { get { return GetResourceString("UpdateByUserName"); } }
 
 		/// <summary>
 		/// Gets the localized string for Url.
@@ -329,6 +339,11 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration
         }
 		
 		/// <summary>
+		/// Gets the localized string for AddRoleDialogTitle.
+		/// </summary>
+		public static string AddRoleDialogTitle { get { return GetResourceString("AddRoleDialogTitle"); } }
+
+		/// <summary>
 		/// Gets the localized string for CreatedByUserName.
 		/// </summary>
 		public static string CreatedByUserName { get { return GetResourceString("CreatedByUserName"); } }
@@ -337,6 +352,11 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration
 		/// Gets the localized string for CreatedOn.
 		/// </summary>
 		public static string CreatedOn { get { return GetResourceString("CreatedOn"); } }
+
+		/// <summary>
+		/// Gets the localized string for EditRoleDialogTitle.
+		/// </summary>
+		public static string EditRoleDialogTitle { get { return GetResourceString("EditRoleDialogTitle"); } }
 
 		/// <summary>
 		/// Gets the localized string for IsBuiltin.

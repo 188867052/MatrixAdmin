@@ -1,31 +1,73 @@
-﻿using Core.Entity;
+﻿using System;
+using Core.Entity;
+using Core.Entity.Enums;
 
 namespace Core.Model
 {
     public class MenuModel
     {
-        public MenuModel(Menu entity)
+        public MenuModel()
         {
         }
 
-        /// <summary>
-        /// 菜单名称.
-        /// </summary>
-        public string MenuName { get; set; }
+        public MenuModel(Menu entity)
+        {
+            this.Id = entity.Id;
+            this.Name = entity.Name;
+            this.Url = entity.Url;
+            this.Alias = entity.Alias;
+            this.Icon = entity.Icon;
+            this.ParentName = entity.ParentName;
+            this.Level = entity.Level;
+            this.Description = entity.Description;
+            this.Sort = entity.Sort;
+            this.CreateTime = entity.CreateTime;
+            this.CreateByUserName = entity.CreateByUserName;
+            this.UpdateTime = entity.UpdateTime;
+            this.UpdateByUserName = entity.UpdateByUserName;
+        }
 
-        /// <summary>
-        /// 是否已被删除.
-        /// </summary>
-        public bool? IsEnable { get; set; }
+        public string Name { get; set; }
 
-        /// <summary>
-        /// 状态.
-        /// </summary>
-        public bool? Status { get; set; }
+        public string Url { get; set; }
 
-        /// <summary>
-        /// 上级菜单ID.
-        /// </summary>
+        public string Alias { get; set; }
+
+        public string Icon { get; set; }
+
+        public string ParentName { get; set; }
+
+        public int Level { get; set; }
+
+        public string Description { get; set; }
+
+        public int Sort { get; set; }
+
+        public int IsDefaultRouter { get; set; }
+
+        public DateTime CreateTime { get; set; }
+
+        public string CreateByUserName { get; set; }
+
+        public DateTime? UpdateTime { get; set; }
+
+        public string UpdateByUserName { get; set; }
+
+        public bool IsEnable { get; set; }
+
+        public IsForbiddenEnum Status { get; set; }
+
+        public int CreateByUserId { get; set; }
+
+        public int UpdateByUserId { get; set; }
+
+        public int Id { get; set; }
+
         public int ParentId { get; set; }
+
+        public static MenuModel Convert(Menu item)
+        {
+            return new MenuModel(item);
+        }
     }
 }

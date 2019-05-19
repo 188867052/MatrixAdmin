@@ -126,6 +126,9 @@
   <data name="CreatedOn" xml:space="preserve">
     <value>创建时间</value>
   </data>
+  <data name="Description" xml:space="preserve">
+    <value>描述</value>
+  </data>
   <data name="IsDefaultRouter" xml:space="preserve">
     <value>是否默认路由</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="Status" xml:space="preserve">
     <value>状态</value>
+  </data>
+  <data name="UpdateByUserName" xml:space="preserve">
+    <value>更新人</value>
   </data>
   <data name="Url" xml:space="preserve">
     <value>请求地址</value>

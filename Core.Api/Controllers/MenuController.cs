@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Core.Api.AuthContext;
+using Core.Api.ControllerHelpers;
 using Core.Entity;
 using Core.Entity.Enums;
 using Core.Extension;
@@ -33,7 +34,11 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                return this.StandardResponse(this.DbContext.Menu);
+                IQueryable<Menu> query = this.DbContext.Menu;
+                query = query.OrderByDescending(o => o.CreateTime);
+                Pager pager = Pager.CreateDefaultInstance();
+
+                return this.StandardSearchResponse(query, pager, MenuModel.Convert);
             }
         }
 
@@ -48,11 +53,18 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Menu> query = this.DbContext.Menu;
-                query = query.AddStringContainsFilter(o => o.Name, model.MenuName);
+                query = query.AddStringContainsFilter(o => o.Name, model.Name);
+                query = query.AddStringContainsFilter(o => o.Description, model.Description);
                 query = query.AddFilter(o => o.Status, model.Status);
                 query = query.AddDateTimeBetweenFilter(model.StartCreateTime, model.EndCreateTime, o => o.CreateTime);
+                query = query.OrderByDescending(o => o.CreateTime);
 
-                return this.StandardResponse(query, model);
+                if (model.PageIndex < 1)
+                {
+                    model.PageIndex = 1;
+                }
+
+                return this.StandardSearchResponse(query, model, MenuModel.Convert);
             }
         }
 
@@ -87,42 +99,13 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 Menu entity = this.Mapper.Map<MenuCreatePostModel, Menu>(model);
-                entity.CreateTime = DateTime.Now;
-                entity.CreateByUserId = AuthContextService.CurrentUser.Id;
-                entity.CreateByUserName = AuthContextService.CurrentUser.DisplayName;
+                entity.CreateByUserId = 1;
+                entity.CreateByUserName = "管理员";
                 this.DbContext.Menu.Add(entity);
                 this.DbContext.SaveChanges();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetSuccess();
-                return this.Ok(response);
-            }
-        }
 
-        /// <summary>
-        /// 编辑菜单.
-        /// </summary>
-        /// <param name="id">菜单ID.</param>
-        /// <returns></returns>
-        [HttpGet("{guid}")]
-        [ProducesResponseType(200)]
-        public IActionResult Edit(int id)
-        {
-            using (this.DbContext)
-            {
-                Menu entity = this.DbContext.Menu.Find(id);
-                ResponseModel response = ResponseModelFactory.CreateInstance;
-                MenuEditViewModel model = this.Mapper.Map<Menu, MenuEditViewModel>(entity);
-
-                // if (model.ParentGuid.HasValue)
-                // {
-                //    var parent = this._dbContext.DncMenu.FirstOrDefault(x => x.Guid == entity.ParentGuid);
-                //    if (parent != null)
-                //    {
-                //        model.ParentName = parent.Name;
-                //    }
-                // }
-                List<MenuTree> tree = this.LoadMenuTree(model.ParentId.ToString());
-                response.SetData(new { model, tree });
                 return this.Ok(response);
             }
         }
@@ -134,7 +117,7 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public IActionResult Edit(MenuEditViewModel model)
+        public IActionResult Edit(MenuEditPostModel model)
         {
             using (this.DbContext)
             {
@@ -142,17 +125,15 @@ namespace Core.Api.Controllers
                 entity.Name = model.Name;
                 entity.Icon = model.Icon;
                 entity.Level = 1;
-                entity.ParentId = model.ParentId.Value;
+                entity.ParentId = 1;
                 entity.Sort = model.Sort;
                 entity.Url = model.Url;
-                entity.UpdateByUserId = AuthContextService.CurrentUser.Id;
-                entity.UpdateByUserName = AuthContextService.CurrentUser.DisplayName;
+                entity.UpdateByUserId = 1;
+                entity.UpdateByUserName = "System";
                 entity.UpdateTime = DateTime.Now;
                 entity.Description = model.Description;
                 entity.ParentName = model.ParentName;
                 entity.Alias = model.Alias;
-                entity.IsEnable = model.IsEnable.Value;
-                entity.Status = model.Status;
 
                 // entity.IsDefaultRouter = model.IsDefaultRouter;
                 this.DbContext.SaveChanges();
@@ -250,6 +231,30 @@ namespace Core.Api.Controllers
             temp.Insert(0, root);
             List<MenuTree> tree = temp.BuildTree(selectedGuid);
             return tree;
+        }
+
+        /// <summary>
+        /// 启用用户.
+        /// </summary>
+        /// <param name="ids">ids.</param>
+        /// <returns>IActionResult.</returns>
+        [HttpGet]
+        public IActionResult Normal(int[] ids)
+        {
+            ResponseModel response = MenuControllerHelper.UpdateStatus(true, ids);
+            return this.Ok(response);
+        }
+
+        /// <summary>
+        /// 禁止用户.
+        /// </summary>
+        /// <param name="ids">ids.</param>
+        /// <returns>IActionResult.</returns>
+        [HttpGet]
+        public IActionResult Forbidden(int[] ids)
+        {
+            ResponseModel response = MenuControllerHelper.UpdateStatus(false, ids);
+            return this.Ok(response);
         }
     }
 }

@@ -28,7 +28,6 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
         {
             return new List<string>
             {
-
                 "/font-awesome/css/font-awesome.css",
             };
         }

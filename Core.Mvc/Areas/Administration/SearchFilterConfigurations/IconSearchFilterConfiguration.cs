@@ -24,6 +24,7 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
         {
             Url searchUrl = new Url(nameof(Administration), typeof(IconController), nameof(IconController.GridStateChange));
             buttons.Add(new StandardButton("搜索", "index.search", searchUrl));
+            buttons.Add(new StandardButton("清理", "core.clear"));
         }
     }
 }

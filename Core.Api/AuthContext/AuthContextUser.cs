@@ -9,7 +9,7 @@ namespace Core.Api.AuthContext
     public class AuthContextUser
     {
         /// <summary>
-        /// 用户GUID.
+        /// 用户ID.
         /// </summary>
         public int Id { get; set; } = 1;
 

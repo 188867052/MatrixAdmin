@@ -26,6 +26,7 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 
             buttons.Add(new StandardButton("搜索", "index.search", searchUrl));
             buttons.Add(new StandardButton("添加", "core.dialog", addDialogUrl));
+            buttons.Add(new StandardButton("清理", "core.clear"));
         }
     }
 }

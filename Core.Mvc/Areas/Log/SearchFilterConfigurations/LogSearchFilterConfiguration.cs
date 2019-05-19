@@ -40,7 +40,8 @@ namespace Core.Mvc.Areas.Log.SearchFilterConfigurations
             Url url = new Url(nameof(Log), typeof(LogController), nameof(LogController.Clear));
             Url searchUrl = new Url(nameof(Log), typeof(LogController), nameof(LogController.GridStateChange));
             buttons.Add(new StandardButton("搜索", "index.search", searchUrl));
-            buttons.Add(new StandardButton("清理", "index.clear", url));
+            buttons.Add(new StandardButton("清空", "index.clear", url));
+            buttons.Add(new StandardButton("清理", "core.clear"));
         }
     }
 }
