@@ -25,7 +25,7 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
             Url addDialogUrl = new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.AddDialog));
 
             buttons.Add(new StandardButton("搜索", "index.search", searchUrl));
-            buttons.Add(new StandardButton("添加", "index.add", addDialogUrl));
+            buttons.Add(new StandardButton("添加", "core.dialog", addDialogUrl));
         }
     }
 }

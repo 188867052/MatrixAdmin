@@ -28,7 +28,6 @@
             window.core.setSuccessPointer($.proxy(this._onSuccess, this));
             window.core.gridSearch(this._searchUrl);
         }
-
         // Private Methods
     };
 })();

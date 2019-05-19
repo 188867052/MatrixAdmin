@@ -17,14 +17,14 @@ namespace Core.Model.Administration.Menu
         }
 
         /// <summary>
-        /// GUID.
+        /// ID.
         /// </summary>
-        public string Guid { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        public Guid? ParentGuid { get; set; }
+        public int? ParentId { get; set; }
 
         /// <summary>
         /// 标题(菜单名称).

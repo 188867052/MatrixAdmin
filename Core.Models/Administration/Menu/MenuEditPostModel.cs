@@ -6,7 +6,7 @@ namespace Core.Model.Administration.Menu
     /// <summary>
     ///
     /// </summary>
-    public class MenuCreateViewModel
+    public class MenuEditPostModel
     {
         /// <summary>
         /// 菜单名称.

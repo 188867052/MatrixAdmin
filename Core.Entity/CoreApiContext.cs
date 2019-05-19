@@ -74,10 +74,6 @@ namespace Core.Entity
 
             modelBuilder.Entity<Menu>(entity =>
             {
-                entity.HasKey(e => e.Guid);
-
-                entity.Property(e => e.Guid).ValueGeneratedNever();
-
                 entity.Property(e => e.Alias).HasMaxLength(255);
 
                 entity.Property(e => e.CreateByUserId).HasDefaultValueSql("((1))");
@@ -90,9 +86,23 @@ namespace Core.Entity
                     .IsRequired()
                     .HasMaxLength(50);
 
+                entity.Property(e => e.ParentId).HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.UpdateByUserId).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Url).HasMaxLength(255);
+
+                entity.HasOne(d => d.CreateByUser)
+                    .WithMany(p => p.MenuCreateByUser)
+                    .HasForeignKey(d => d.CreateByUserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Menu_User_Create");
+
+                entity.HasOne(d => d.UpdateByUser)
+                    .WithMany(p => p.MenuUpdateByUser)
+                    .HasForeignKey(d => d.UpdateByUserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Menu_User");
             });
 
             modelBuilder.Entity<Permission>(entity =>
@@ -107,6 +117,8 @@ namespace Core.Entity
 
                 entity.Property(e => e.CreateTime).HasDefaultValueSql("(getdate())");
 
+                entity.Property(e => e.MenuId).HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
@@ -115,9 +127,11 @@ namespace Core.Entity
 
                 entity.Property(e => e.UpdateTime).HasDefaultValueSql("(getdate())");
 
-                entity.HasOne(d => d.MenuGu)
+                entity.HasOne(d => d.Menu)
                     .WithMany(p => p.Permission)
-                    .HasForeignKey(d => d.MenuGuid);
+                    .HasForeignKey(d => d.MenuId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Permission_Menu");
             });
 
             modelBuilder.Entity<Role>(entity =>

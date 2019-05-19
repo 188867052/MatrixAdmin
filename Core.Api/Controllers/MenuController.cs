@@ -50,8 +50,28 @@ namespace Core.Api.Controllers
                 IQueryable<Menu> query = this.DbContext.Menu;
                 query = query.AddStringContainsFilter(o => o.Name, model.MenuName);
                 query = query.AddFilter(o => o.Status, model.Status);
+                query = query.AddDateTimeBetweenFilter(model.StartCreateTime, model.EndCreateTime, o => o.CreateTime);
 
                 return this.StandardResponse(query, model);
+            }
+        }
+
+        /// <summary>
+        /// 根据id查询.
+        /// </summary>
+        /// <param name="id">id.</param>
+        /// <returns>IActionResult.</returns>
+        [HttpGet]
+        public IActionResult FindById(int id)
+        {
+            using (this.DbContext)
+            {
+                Menu entity = this.DbContext.Menu.Find(id);
+                MenuModel model = new MenuModel(entity);
+                ResponseModel response = ResponseModelFactory.CreateInstance;
+                response.SetData(model);
+
+                return this.Ok(response);
             }
         }
 
@@ -62,13 +82,12 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public IActionResult Create(MenuCreateViewModel model)
+        public IActionResult Create(MenuCreatePostModel model)
         {
             using (this.DbContext)
             {
-                Menu entity = this.Mapper.Map<MenuCreateViewModel, Menu>(model);
+                Menu entity = this.Mapper.Map<MenuCreatePostModel, Menu>(model);
                 entity.CreateTime = DateTime.Now;
-                entity.Guid = Guid.NewGuid();
                 entity.CreateByUserId = AuthContextService.CurrentUser.Id;
                 entity.CreateByUserName = AuthContextService.CurrentUser.DisplayName;
                 this.DbContext.Menu.Add(entity);
@@ -82,15 +101,15 @@ namespace Core.Api.Controllers
         /// <summary>
         /// 编辑菜单.
         /// </summary>
-        /// <param name="guid">菜单ID.</param>
+        /// <param name="id">菜单ID.</param>
         /// <returns></returns>
         [HttpGet("{guid}")]
         [ProducesResponseType(200)]
-        public IActionResult Edit(Guid guid)
+        public IActionResult Edit(int id)
         {
             using (this.DbContext)
             {
-                Menu entity = this.DbContext.Menu.FirstOrDefault(x => x.Guid == guid);
+                Menu entity = this.DbContext.Menu.Find(id);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 MenuEditViewModel model = this.Mapper.Map<Menu, MenuEditViewModel>(entity);
 
@@ -102,7 +121,7 @@ namespace Core.Api.Controllers
                 //        model.ParentName = parent.Name;
                 //    }
                 // }
-                List<MenuTree> tree = this.LoadMenuTree(model.ParentGuid.ToString());
+                List<MenuTree> tree = this.LoadMenuTree(model.ParentId.ToString());
                 response.SetData(new { model, tree });
                 return this.Ok(response);
             }
@@ -119,11 +138,11 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                Menu entity = this.DbContext.Menu.FirstOrDefault(x => x.Guid == model.Guid);
+                Menu entity = this.DbContext.Menu.Find(model.Id);
                 entity.Name = model.Name;
                 entity.Icon = model.Icon;
                 entity.Level = 1;
-                entity.ParentGuid = model.ParentGuid;
+                entity.ParentId = model.ParentId.Value;
                 entity.Sort = model.Sort;
                 entity.Url = model.Url;
                 entity.UpdateByUserId = AuthContextService.CurrentUser.Id;
@@ -219,15 +238,14 @@ namespace Core.Api.Controllers
         {
             List<MenuTree> temp = this.DbContext.Menu.Where(x => !x.IsEnable && x.Status).ToList().Select(x => new MenuTree
             {
-                Guid = x.Guid.ToString(),
-                ParentGuid = x.ParentGuid,
+                ParentId = x.ParentId,
                 Title = x.Name
             }).ToList();
             MenuTree root = new MenuTree
             {
                 Title = "顶级菜单",
-                Guid = Guid.Empty.ToString(),
-                ParentGuid = null
+                Id = 1,
+                ParentId = null
             };
             temp.Insert(0, root);
             List<MenuTree> tree = temp.BuildTree(selectedGuid);

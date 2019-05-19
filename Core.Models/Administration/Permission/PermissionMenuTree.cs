@@ -18,14 +18,14 @@ namespace Core.Model.Administration.Permission
         }
 
         /// <summary>
-        /// GUID.
+        /// Id.
         /// </summary>
-        public Guid Guid { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         ///
         /// </summary>
-        public Guid? ParentGuid { get; set; }
+        public int? ParentId { get; set; }
 
         /// <summary>
         /// 标题(菜单名称).

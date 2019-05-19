@@ -16,7 +16,7 @@ namespace Core.Model.Administration.Permission
         /// <summary>
         /// 菜单GUID.
         /// </summary>
-        public Guid MenuGuid { get; set; }
+        public int MenuId { get; set; }
 
         /// <summary>
         /// 菜单名称.

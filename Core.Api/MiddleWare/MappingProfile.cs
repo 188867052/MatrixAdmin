@@ -28,8 +28,8 @@ namespace Core.Api.MiddleWare
             this.CreateMap<RoleEditPostModel, Role>();
 
             this.CreateMap<Menu, MenuJsonModel>();
-            this.CreateMap<MenuCreateViewModel, Menu>();
-            this.CreateMap<MenuEditViewModel, Menu>();
+            this.CreateMap<MenuEditPostModel, Menu>();
+            this.CreateMap<MenuCreatePostModel, Menu>();
 
             this.CreateMap<Icon, IconCreateViewModel>();
             this.CreateMap<IconCreateViewModel, Icon>();

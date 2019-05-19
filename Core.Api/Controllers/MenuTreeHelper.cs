@@ -18,19 +18,19 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         public static List<MenuTree> BuildTree(this List<MenuTree> menus, string selectedGuid = null)
         {
-            ILookup<Guid?, MenuTree> lookup = menus.ToLookup(x => x.ParentGuid);
-            Func<Guid?, List<MenuTree>> build = null;
+            ILookup<int?, MenuTree> lookup = menus.ToLookup(x => x.ParentId);
+            Func<int?, List<MenuTree>> build = null;
             build = pid =>
             {
                 return lookup[pid]
                  .Select(x => new MenuTree
                  {
-                     Guid = x.Guid,
-                     ParentGuid = x.ParentGuid,
+                     Id = x.Id,
+                     ParentId = x.ParentId,
                      Title = x.Title,
-                     Expand = x.ParentGuid == null || x.ParentGuid == Guid.Empty,
-                     Selected = selectedGuid == x.Guid,
-                     Children = build(new Guid(x.Guid)),
+                     Expand = !x.ParentId.HasValue,
+                     Selected = selectedGuid == x.Id.ToString(),
+                     Children = build(x.Id)
                  })
                  .ToList();
             };

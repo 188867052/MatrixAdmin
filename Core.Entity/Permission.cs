@@ -11,7 +11,6 @@ namespace Core.Entity
         }
 
         public string Id { get; set; }
-        public Guid MenuGuid { get; set; }
         public string Name { get; set; }
         public string ActionCode { get; set; }
         public string Icon { get; set; }
@@ -25,8 +24,9 @@ namespace Core.Entity
         public bool Status { get; set; }
         public int CreateByUserId { get; set; }
         public int UpdateByUserId { get; set; }
+        public int MenuId { get; set; }
 
-        public virtual Menu MenuGu { get; set; }
+        public virtual Menu Menu { get; set; }
         public virtual ICollection<RolePermissionMapping> RolePermissionMapping { get; set; }
     }
 }

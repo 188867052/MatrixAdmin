@@ -26,5 +26,15 @@ namespace Core.Model.Administration.Menu
         /// 上级菜单GUID.
         /// </summary>
         public Guid? ParentGuid { get; set; }
+
+        /// <summary>
+        /// 开始创建时间.
+        /// </summary>
+        public DateTime? StartCreateTime { get; set; }
+
+        /// <summary>
+        /// 结束创建时间.
+        /// </summary>
+        public DateTime? EndCreateTime { get; set; }
     }
 }

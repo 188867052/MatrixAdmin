@@ -18,18 +18,18 @@ namespace Core.Api.Controllers
         /// <param name="parentGuid">父级菜单GUID.</param>
         /// <param name="isSuperAdministrator">是否为超级管理员角色.</param>
         /// <returns></returns>
-        public static List<PermissionMenuTree> FillRecursive(this List<PermissionMenuTree> menus, List<PermissionWithAssignProperty> permissions, Guid? parentGuid, bool isSuperAdministrator = false)
+        public static List<PermissionMenuTree> FillRecursive(this List<PermissionMenuTree> menus, List<PermissionWithAssignProperty> permissions, int? parentId, bool isSuperAdministrator = false)
         {
             List<PermissionMenuTree> recursiveObjects = new List<PermissionMenuTree>();
-            foreach (PermissionMenuTree item in menus.Where(x => x.ParentGuid == parentGuid))
+            foreach (PermissionMenuTree item in menus.Where(x => x.ParentId == parentId))
             {
                 PermissionMenuTree children = new PermissionMenuTree
                 {
-                    AllAssigned = isSuperAdministrator || permissions.Where(x => x.MenuGuid == item.Guid).Count(x => x.IsAssigned == 0) == 0,
+                    AllAssigned = isSuperAdministrator || permissions.Where(x => x.MenuId == item.Id).Count(x => x.IsAssigned == 0) == 0,
                     Expand = true,
-                    Guid = item.Guid,
-                    ParentGuid = item.ParentGuid,
-                    Permissions = permissions.Where(x => x.MenuGuid == item.Guid).Select(x => new PermissionElement
+                    Id = item.Id,
+                    ParentId = item.ParentId,
+                    Permissions = permissions.Where(x => x.MenuId == item.Id).Select(x => new PermissionElement
                     {
                         Name = x.Name,
                         Code = x.Code,
@@ -37,7 +37,7 @@ namespace Core.Api.Controllers
                     }).ToList(),
 
                     Title = item.Title,
-                    Children = FillRecursive(menus, permissions, item.Guid)
+                    Children = FillRecursive(menus, permissions, item.Id)
                 };
                 recursiveObjects.Add(children);
             }

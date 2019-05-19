@@ -6,13 +6,8 @@ namespace Core.Model.Administration.Menu
     /// <summary>
     ///
     /// </summary>
-    public class MenuEditViewModel
+    public class MenuCreatePostModel
     {
-        /// <summary>
-        ///
-        /// </summary>
-        public int Id { get; set; }
-
         /// <summary>
         /// 菜单名称.
         /// </summary>
@@ -34,9 +29,9 @@ namespace Core.Model.Administration.Menu
         public string Icon { get; set; }
 
         /// <summary>
-        /// 父级ID.
+        /// 父级GUID.
         /// </summary>
-        public int? ParentId { get; set; }
+        public Guid? ParentGuid { get; set; }
 
         /// <summary>
         /// 上级菜单名称.
@@ -61,12 +56,12 @@ namespace Core.Model.Administration.Menu
         /// <summary>
         /// 是否可用(0:禁用,1:可用).
         /// </summary>
-        public bool Status { get; set; }
+        public StatusEnum Status { get; set; }
 
         /// <summary>
         /// 是否已删.
         /// </summary>
-        public bool? IsEnable { get; set; }
+        public IsDeletedEnum IsDeleted { get; set; }
 
         /// <summary>
         /// 是否为默认路由.

@@ -14,9 +14,9 @@ namespace Core.Model.Administration.Permission
         public string Code { get; set; }
 
         /// <summary>
-        /// 菜单GUID.
+        /// 菜单ID.
         /// </summary>
-        public Guid MenuGuid { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// 权限名称.

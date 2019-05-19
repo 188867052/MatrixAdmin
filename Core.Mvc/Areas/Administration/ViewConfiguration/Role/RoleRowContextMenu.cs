@@ -24,7 +24,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
             Url deleteUrl = new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.Delete));
             Url forbiddenUrl = new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.Forbidden));
             Url normalUrl = new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.Normal));
-            links.Add(new RowContextMenuLink("编辑", "index.edit", editUrl));
+            links.Add(new RowContextMenuLink("编辑", "core.editDialog", editUrl));
             links.Add(this.Model.IsDeleted
                 ? new RowContextMenuLink("恢复", "index.recover", recoverUrl)
                 : new RowContextMenuLink("删除", "index.delete", deleteUrl));

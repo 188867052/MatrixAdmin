@@ -28,14 +28,6 @@
                 });
         },
 
-        add: function () {
-            window.core.dialog();
-        },
-
-        edit: function () {
-            window.core.editDialog();
-        },
-
         submit: function () {
             var url = event.currentTarget.dataset.url;
             window.core.submit(url, this._dialogInstance, $.proxy(this.search, this));

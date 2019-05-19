@@ -62,6 +62,10 @@
             $.get(url, pointer);
         },
 
+        clear: function () {
+            alert("I am clear!");
+        },
+
         rowContextMenu: function () {
             var url = event.currentTarget.dataset.url;
             var id = event.currentTarget.dataset.id;

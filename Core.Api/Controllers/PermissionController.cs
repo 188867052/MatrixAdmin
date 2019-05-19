@@ -72,7 +72,7 @@ namespace Core.Api.Controllers
 
             using (this.DbContext)
             {
-                if (this.DbContext.Permission.Count(x => x.ActionCode == model.ActionCode && x.MenuGuid == model.MenuGuid) > 0)
+                if (this.DbContext.Permission.Count(x => x.ActionCode == model.ActionCode && x.Id == model.Id.ToString()) > 0)
                 {
                     response.SetFailed("权限操作码已存在");
                     return this.Ok(response);
@@ -105,7 +105,7 @@ namespace Core.Api.Controllers
                 Permission entity = this.DbContext.Permission.FirstOrDefault(x => x.Id == code);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 PermissionEditViewModel model = this.Mapper.Map<Permission, PermissionEditViewModel>(entity);
-                Menu menu = this.DbContext.Menu.FirstOrDefault(x => x.Guid == entity.MenuGuid);
+                Menu menu = this.DbContext.Menu.FirstOrDefault(x => x.Id == entity.MenuId);
                 model.MenuName = menu.Name;
                 response.SetData(model);
                 return this.Ok(response);
@@ -139,7 +139,7 @@ namespace Core.Api.Controllers
 
                 entity.Name = model.Name;
                 entity.ActionCode = model.ActionCode;
-                entity.MenuGuid = model.MenuGuid;
+                entity.MenuId = model.MenuId;
                 entity.IsEnable = model.IsEnable.Value;
                 entity.UpdateByUserId = 1;
                 entity.UpdateByUserName = AuthContextService.CurrentUser.DisplayName;
@@ -199,8 +199,8 @@ namespace Core.Api.Controllers
                 List<PermissionMenuTree> menu = this.DbContext.Menu.Where(x => !x.IsEnable && x.Status).OrderBy(x => x.CreateTime).ThenBy(x => x.Sort)
                     .Select(x => new PermissionMenuTree
                     {
-                        Guid = x.Guid,
-                        ParentGuid = x.ParentGuid,
+                        Id = x.Id,
+                        ParentId = x.ParentId,
                         Title = x.Name
                     }).ToList();
                 if (role.IsSuperAdministrator)
