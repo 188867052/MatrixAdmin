@@ -63,7 +63,9 @@
         },
 
         clear: function () {
-            alert("I am clear!");
+            $(".custom-control-inline input").each(function () {
+                this.value = '';
+            });
         },
 
         rowContextMenu: function () {
