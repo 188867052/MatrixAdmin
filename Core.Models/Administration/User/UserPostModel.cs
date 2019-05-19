@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Core.Entity;
 using Core.Entity.Enums;
 using Core.Extension;
-using Core.Extension.ExpressionBuilder.Generics;
 
 namespace Core.Model.Administration.User
 {
@@ -49,11 +47,11 @@ namespace Core.Model.Administration.User
 
         public IQueryable<Entity.User> GenerateQuery(IQueryable<Entity.User> query)
         {
-            query = query.AddFilter(this.RoleId, o => o.UserRoleMapping.Any(x => x.RoleId == this.RoleId));
-            query = query.AddFilter(this.IsEnable, o => o.IsEnable);
-            query = query.AddFilter(this.Status, o => o.Status == (int?)this.Status);
-            query = query.AddFilter(this.DisplayName, o => o.DisplayName.Contains(this.DisplayName));
-            query = query.AddFilter(this.LoginName, o => o.LoginName.Contains(this.LoginName));
+            query = query.AddFilter(o => o.UserRoleMapping.Any(x => x.RoleId == this.RoleId), this.RoleId);
+            query = query.AddFilter(o => o.IsEnable, this.IsEnable);
+            query = query.AddFilter(o => o.Status == (int?)this.Status, this.Status);
+            query = query.AddFilter(o => o.DisplayName.Contains(this.DisplayName), this.DisplayName);
+            query = query.AddFilter(o => o.LoginName.Contains(this.LoginName), this.LoginName);
             query = query.AddDateTimeBetweenFilter(this.StartCreateTime, this.EndCreateTime, o => o.CreateTime);
 
             query = query.OrderByDescending(o => o.CreateTime);

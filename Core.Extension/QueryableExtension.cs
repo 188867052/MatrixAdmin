@@ -24,6 +24,17 @@ namespace Core.Extension
             return query;
         }
 
+        public static IQueryable<T> AddBooleanFilter<T>(this IQueryable<T> query, Expression<Func<T, bool>> expression, bool? value)
+        {
+            if (value.HasValue)
+            {
+                string name = expression.GetPropertyName();
+                return query.CreateEqualFilter(value, name);
+            }
+
+            return query;
+        }
+
         public static IQueryable<T> AddDateTimeBetweenFilter<T>(this IQueryable<T> query, DateTime? starTime, DateTime? endTime, Expression<Func<T, DateTime?>> expression)
         {
             query = query.AddDateTimeGreaterThanOrEqualFilter(starTime, expression);
@@ -54,7 +65,7 @@ namespace Core.Extension
             return query;
         }
 
-        public static IQueryable<T> AddFilter<T>(this IQueryable<T> query, object value, Expression<Func<T, bool>> expression)
+        public static IQueryable<T> AddFilter<T>(this IQueryable<T> query, Expression<Func<T, bool>> expression, object value)
         {
             if (value != null)
             {
@@ -64,12 +75,12 @@ namespace Core.Extension
             return query;
         }
 
-        public static IQueryable<T> AddStringContainsFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
+        public static IQueryable<T> AddStringContainsFilter<T>(this IQueryable<T> query, Expression<Func<T, string>> expression, string value)
         {
             return query.AddStringFilter(value, expression, nameof(string.Contains));
         }
 
-        public static IQueryable<T> AddStringEqualsFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
+        public static IQueryable<T> AddStringEqualFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
         {
             return query.AddStringFilter(value, expression, nameof(string.Equals));
         }
@@ -153,7 +164,7 @@ namespace Core.Extension
 
         private static IQueryable<T> CreateQuery<T>(this IQueryable<T> query, object value, string propertyName, Func<MemberExpression, ConstantExpression, ParameterExpression, Expression<Func<T, bool>>> lambda)
         {
-            ParameterExpression parameter = Expression.Parameter(typeof(T), CachedReflectionInfo.Key);
+            ParameterExpression parameter = Expression.Parameter(typeof(T), "x");
             MemberExpression left = Expression.Property(parameter, typeof(T).GetProperty(propertyName));
             ConstantExpression right = Expression.Constant(value);
 
@@ -165,15 +176,14 @@ namespace Core.Extension
             return typeof(T).GetMethod(name, new[] { typeof(T) });
         }
 
-        private static MethodInfo WhereTSource(Type tSource)
+        private static MethodInfo WhereTSource(Type source)
         {
-            MethodInfo methodInfo = QueryableExtension.whereTSource;
-            if (methodInfo is null)
+            if (QueryableExtension.whereTSource is null)
             {
-                methodInfo = QueryableExtension.whereTSource = new Func<IQueryable<object>, Expression<Func<object, bool>>, IQueryable<object>>(Queryable.Where<object>).GetMethodInfo().GetGenericMethodDefinition();
+                QueryableExtension.whereTSource = new Func<IQueryable<object>, Expression<Func<object, bool>>, IQueryable<object>>(Queryable.Where<object>).GetMethodInfo().GetGenericMethodDefinition();
             }
 
-            return methodInfo.MakeGenericMethod(tSource);
+            return QueryableExtension.whereTSource.MakeGenericMethod(source);
         }
     }
 }

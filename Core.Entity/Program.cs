@@ -12,7 +12,6 @@ namespace Core.Entity
             Filter<User> filter = new Filter<User>();
             CoreApiContext context = new CoreApiContext();
             IQueryable<User> query = context.User;
-            query = query.AddFilter(1, o => o.UserStatus.Id == 1);
 
             var ab = query.ToList();
         }

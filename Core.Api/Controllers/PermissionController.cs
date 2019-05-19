@@ -47,21 +47,8 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 IQueryable<Permission> query = this.DbContext.Permission;
-
-                // Filter<Permission> filter1 = new Filter<Permission>(nameof(Permission.Name), Operation.EqualTo, model.Status);
-                // Filter<Permission> filter2 = new Filter<Permission>(nameof(Permission.Id), Operation.EqualTo, model.IsEnable);
-                // Filter<Permission> filter = new Filter<Permission>(filter1, filter2, Connector.Or);
-                // query = query.AddFilter(filter);
-                query = query.AddFilter(model.IsEnable, o => o.IsEnable);
-                query = query.AddFilter(model.Status, o => o.Status);
-
-                // var data = list.Select(this.Mapper.Map<Permission, PermissionJsonModel>);
-                /*
-                 * .Select(x => new PermissionJsonModel {
-                    MenuName = x.Menu.Name,
-                    x.
-                });
-                 */
+                query = query.AddBooleanFilter(o => o.IsEnable, model.IsEnable);
+                query = query.AddBooleanFilter(o => o.Status, model.Status);
 
                 return this.StandardResponse(query, model);
             }
