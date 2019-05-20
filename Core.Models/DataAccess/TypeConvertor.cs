@@ -85,7 +85,7 @@ namespace Core.Model.DataAccess
         /// Convert TSQL type to .Net data type.
         /// </summary>
         /// <param name="sqlDbType">sqlDbType.</param>
-        /// <returns></returns>
+        /// <returns>Type.</returns>
         public static Type ToNetType(SqlDbType sqlDbType)
         {
             DbTypeMapEntry entry = Find(sqlDbType);

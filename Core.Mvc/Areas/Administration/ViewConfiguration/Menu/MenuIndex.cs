@@ -4,6 +4,7 @@ using Core.Model;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
+using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 
@@ -56,7 +57,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 
         protected override string ContentHeader()
         {
-            ContentHeader contentHeader = new ContentHeader("菜单管理");
+            ContentHeader contentHeader = new ContentHeader(MenuIndexResource.MenuManageTitle);
             contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;

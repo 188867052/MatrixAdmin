@@ -118,63 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Alias" xml:space="preserve">
-    <value>菜单别名</value>
+    <value>页面别名</value>
   </data>
-  <data name="CreateByUserName" xml:space="preserve">
-    <value>创建者</value>
-  </data>
-  <data name="CreateTime" xml:space="preserve">
-    <value>创建时间</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>删除</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>描述</value>
+    <value>描述信息</value>
   </data>
-  <data name="Edit" xml:space="preserve">
-    <value>编辑</value>
-  </data>
-  <data name="Forbidden" xml:space="preserve">
-    <value>禁用</value>
-  </data>
-  <data name="IsDefaultRouter" xml:space="preserve">
-    <value>是否默认路由</value>
-  </data>
-  <data name="MenuManageTitle" xml:space="preserve">
-    <value>菜单管理</value>
+  <data name="EditMenuTitle" xml:space="preserve">
+    <value>编辑菜单</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>菜单名称</value>
-  </data>
-  <data name="Normal" xml:space="preserve">
-    <value>启用</value>
-  </data>
-  <data name="ParentName" xml:space="preserve">
-    <value>上级菜单</value>
-  </data>
-  <data name="Recover" xml:space="preserve">
-    <value>恢复</value>
-  </data>
-  <data name="RowContextMenu" xml:space="preserve">
-    <value>操作</value>
+    <value>菜单名</value>
   </data>
   <data name="Sort" xml:space="preserve">
     <value>排序</value>
   </data>
-  <data name="Status" xml:space="preserve">
-    <value>状态</value>
-  </data>
-  <data name="UpdateByUserName" xml:space="preserve">
-    <value>更新人</value>
-  </data>
-  <data name="UpdateTime" xml:space="preserve">
-    <value>更新时间</value>
+  <data name="Submit" xml:space="preserve">
+    <value>提交</value>
   </data>
   <data name="Url" xml:space="preserve">
-    <value>请求地址</value>
-  </data>
-  <data name="WidgetTitle" xml:space="preserve">
-    <value>权限管理</value>
+    <value>链接地址</value>
   </data>
 </root>

@@ -2,8 +2,8 @@
 using Core.Entity.Enums;
 using Core.Extension;
 using Core.Model;
-using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.Controllers;
+using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.RowContextMenu;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
@@ -25,13 +25,13 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
             Url deleteUrl = new Url(nameof(Administration), typeof(MenuController), nameof(MenuController.Delete));
             Url forbiddenUrl = new Url(nameof(Administration), typeof(MenuController), nameof(MenuController.Forbidden));
             Url normalUrl = new Url(nameof(Administration), typeof(MenuController), nameof(MenuController.Normal));
-            links.Add(new RowContextMenuLink("编辑", "core.editDialog", editUrl));
+            links.Add(new RowContextMenuLink(MenuIndexResource.Edit, "core.editDialog", editUrl));
             links.Add(this.Model.IsEnable
-                ? new RowContextMenuLink("恢复", "index.recover", recoverUrl)
-                : new RowContextMenuLink("删除", "index.delete", deleteUrl));
+                ? new RowContextMenuLink(MenuIndexResource.Recover, "index.recover", recoverUrl)
+                : new RowContextMenuLink(MenuIndexResource.Delete, "index.delete", deleteUrl));
             links.Add(this.Model.Status == IsForbiddenEnum.Normal
-                ? new RowContextMenuLink("禁用", "index.forbidden", forbiddenUrl)
-                : new RowContextMenuLink("启用", "index.normal", normalUrl));
+                ? new RowContextMenuLink(MenuIndexResource.Forbidden, "index.forbidden", forbiddenUrl)
+                : new RowContextMenuLink(MenuIndexResource.Normal, "index.normal", normalUrl));
         }
     }
 }

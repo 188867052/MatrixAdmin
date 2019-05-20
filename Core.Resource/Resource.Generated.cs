@@ -6,6 +6,79 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration
 	/// <summary>
 	/// A static class used to access a specific set of resources.
 	/// </summary>
+	public static class EditMenuDialogConfigurationResource
+	{
+        private static ResourceManager resourceManager;
+        
+        /// <summary>
+        /// Gets the cached ResourceManager instance used by this class.
+        /// </summary>
+        private static ResourceManager ResourceManager 
+		{
+            get 
+			{
+                if (object.ReferenceEquals(resourceManager, null)) 
+				{
+                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.EditMenuDialogConfigurationResource", typeof(EditMenuDialogConfigurationResource).Assembly);
+                }
+                return resourceManager;
+            }
+        }
+        
+        /// <summary>
+        /// Returns the formatted resource string.
+        /// </summary>
+		/// <param name="key">The resource key.</param>
+		/// <returns>The localized resource string.</returns>
+        private static string GetResourceString(string key)
+		{
+			var culture = Thread.CurrentThread.CurrentCulture;
+            return ResourceManager.GetString(key, culture);
+        }
+		
+		/// <summary>
+		/// Gets the localized string for Alias.
+		/// </summary>
+		public static string Alias { get { return GetResourceString("Alias"); } }
+
+		/// <summary>
+		/// Gets the localized string for Cancel.
+		/// </summary>
+		public static string Cancel { get { return GetResourceString("Cancel"); } }
+
+		/// <summary>
+		/// Gets the localized string for Description.
+		/// </summary>
+		public static string Description { get { return GetResourceString("Description"); } }
+
+		/// <summary>
+		/// Gets the localized string for EditMenuTitle.
+		/// </summary>
+		public static string EditMenuTitle { get { return GetResourceString("EditMenuTitle"); } }
+
+		/// <summary>
+		/// Gets the localized string for Name.
+		/// </summary>
+		public static string Name { get { return GetResourceString("Name"); } }
+
+		/// <summary>
+		/// Gets the localized string for Sort.
+		/// </summary>
+		public static string Sort { get { return GetResourceString("Sort"); } }
+
+		/// <summary>
+		/// Gets the localized string for Submit.
+		/// </summary>
+		public static string Submit { get { return GetResourceString("Submit"); } }
+
+		/// <summary>
+		/// Gets the localized string for Url.
+		/// </summary>
+		public static string Url { get { return GetResourceString("Url"); } }
+	}
+	/// <summary>
+	/// A static class used to access a specific set of resources.
+	/// </summary>
 	public static class IconResource
 	{
         private static ResourceManager resourceManager;
@@ -188,14 +261,19 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration
 		public static string Alias { get { return GetResourceString("Alias"); } }
 
 		/// <summary>
-		/// Gets the localized string for CreatedByUserName.
+		/// Gets the localized string for CreateByUserName.
 		/// </summary>
-		public static string CreatedByUserName { get { return GetResourceString("CreatedByUserName"); } }
+		public static string CreateByUserName { get { return GetResourceString("CreateByUserName"); } }
 
 		/// <summary>
-		/// Gets the localized string for CreatedOn.
+		/// Gets the localized string for CreateTime.
 		/// </summary>
-		public static string CreatedOn { get { return GetResourceString("CreatedOn"); } }
+		public static string CreateTime { get { return GetResourceString("CreateTime"); } }
+
+		/// <summary>
+		/// Gets the localized string for Delete.
+		/// </summary>
+		public static string Delete { get { return GetResourceString("Delete"); } }
 
 		/// <summary>
 		/// Gets the localized string for Description.
@@ -203,9 +281,24 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration
 		public static string Description { get { return GetResourceString("Description"); } }
 
 		/// <summary>
+		/// Gets the localized string for Edit.
+		/// </summary>
+		public static string Edit { get { return GetResourceString("Edit"); } }
+
+		/// <summary>
+		/// Gets the localized string for Forbidden.
+		/// </summary>
+		public static string Forbidden { get { return GetResourceString("Forbidden"); } }
+
+		/// <summary>
 		/// Gets the localized string for IsDefaultRouter.
 		/// </summary>
 		public static string IsDefaultRouter { get { return GetResourceString("IsDefaultRouter"); } }
+
+		/// <summary>
+		/// Gets the localized string for MenuManageTitle.
+		/// </summary>
+		public static string MenuManageTitle { get { return GetResourceString("MenuManageTitle"); } }
 
 		/// <summary>
 		/// Gets the localized string for Name.
@@ -213,9 +306,24 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration
 		public static string Name { get { return GetResourceString("Name"); } }
 
 		/// <summary>
+		/// Gets the localized string for Normal.
+		/// </summary>
+		public static string Normal { get { return GetResourceString("Normal"); } }
+
+		/// <summary>
 		/// Gets the localized string for ParentName.
 		/// </summary>
 		public static string ParentName { get { return GetResourceString("ParentName"); } }
+
+		/// <summary>
+		/// Gets the localized string for Recover.
+		/// </summary>
+		public static string Recover { get { return GetResourceString("Recover"); } }
+
+		/// <summary>
+		/// Gets the localized string for RowContextMenu.
+		/// </summary>
+		public static string RowContextMenu { get { return GetResourceString("RowContextMenu"); } }
 
 		/// <summary>
 		/// Gets the localized string for Sort.
@@ -231,6 +339,11 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration
 		/// Gets the localized string for UpdateByUserName.
 		/// </summary>
 		public static string UpdateByUserName { get { return GetResourceString("UpdateByUserName"); } }
+
+		/// <summary>
+		/// Gets the localized string for UpdateTime.
+		/// </summary>
+		public static string UpdateTime { get { return GetResourceString("UpdateTime"); } }
 
 		/// <summary>
 		/// Gets the localized string for Url.
