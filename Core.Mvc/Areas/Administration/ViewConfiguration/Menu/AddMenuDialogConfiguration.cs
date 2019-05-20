@@ -16,7 +16,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
         /// <summary>
         /// Initializes a new instance of the <see cref="AddMenuDialogConfiguration"/> class.
         /// </summary>
-        public AddMenuDialogConfiguration() : base(null, Identifier)
+        public AddMenuDialogConfiguration() : base(Identifier)
         {
         }
 

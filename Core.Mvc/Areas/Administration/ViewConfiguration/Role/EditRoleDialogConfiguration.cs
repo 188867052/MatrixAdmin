@@ -2,6 +2,7 @@
 using Core.Extension;
 using Core.Model.Administration.Role;
 using Core.Mvc.Areas.Administration.Controllers;
+using Core.Mvc.Areas.Administration.ViewConfiguration.User;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.Dialog;
@@ -16,14 +17,12 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
         where TModel : RoleModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EditRoleDialogConfiguration"/> class.
+        /// Initializes a new instance of the <see cref="EditRoleDialogConfiguration{TPostModel, TModel}"/> class.
         /// </summary>
         /// <param name="user">The user.</param>
-        public EditRoleDialogConfiguration(TModel user) : base(user, Identifier)
+        public EditRoleDialogConfiguration(TModel user) : base(RoleIdentifiers.EditRoleDialogIdentifier, user)
         {
         }
-
-        public new static Identifier Identifier { get; } = new Identifier();
 
         public override string Title => RoleIndexResource.EditRoleDialogTitle;
 

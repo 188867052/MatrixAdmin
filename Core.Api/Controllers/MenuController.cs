@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Core.Api.AuthContext;
 using Core.Api.ControllerHelpers;
 using Core.Entity;
 using Core.Entity.Enums;
@@ -184,6 +183,48 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
+        /// 启用用户.
+        /// </summary>
+        /// <param name="ids">ids.</param>
+        /// <returns>IActionResult.</returns>
+        [HttpGet]
+        public IActionResult Normal(int[] ids)
+        {
+            ResponseModel response = MenuControllerHelper.UpdateStatus(true, ids);
+            return this.Ok(response);
+        }
+
+        /// <summary>
+        /// 禁止用户.
+        /// </summary>
+        /// <param name="ids">ids.</param>
+        /// <returns>IActionResult.</returns>
+        [HttpGet]
+        public IActionResult Forbidden(int[] ids)
+        {
+            ResponseModel response = MenuControllerHelper.UpdateStatus(false, ids);
+            return this.Ok(response);
+        }
+
+        private List<MenuTree> LoadMenuTree(string selectedGuid = null)
+        {
+            List<MenuTree> temp = this.DbContext.Menu.Where(x => !x.IsEnable && x.Status).ToList().Select(x => new MenuTree
+            {
+                ParentId = x.ParentId,
+                Title = x.Name
+            }).ToList();
+            MenuTree root = new MenuTree
+            {
+                Title = "顶级菜单",
+                Id = 1,
+                ParentId = null
+            };
+            temp.Insert(0, root);
+            List<MenuTree> tree = temp.BuildTree(selectedGuid);
+            return tree;
+        }
+
+        /// <summary>
         /// 删除菜单.
         /// </summary>
         /// <param name="isEnable">isEnable.</param>
@@ -213,48 +254,6 @@ namespace Core.Api.Controllers
                 this.DbContext.Dapper.Execute(sql, new { Status = status, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
-        }
-
-        private List<MenuTree> LoadMenuTree(string selectedGuid = null)
-        {
-            List<MenuTree> temp = this.DbContext.Menu.Where(x => !x.IsEnable && x.Status).ToList().Select(x => new MenuTree
-            {
-                ParentId = x.ParentId,
-                Title = x.Name
-            }).ToList();
-            MenuTree root = new MenuTree
-            {
-                Title = "顶级菜单",
-                Id = 1,
-                ParentId = null
-            };
-            temp.Insert(0, root);
-            List<MenuTree> tree = temp.BuildTree(selectedGuid);
-            return tree;
-        }
-
-        /// <summary>
-        /// 启用用户.
-        /// </summary>
-        /// <param name="ids">ids.</param>
-        /// <returns>IActionResult.</returns>
-        [HttpGet]
-        public IActionResult Normal(int[] ids)
-        {
-            ResponseModel response = MenuControllerHelper.UpdateStatus(true, ids);
-            return this.Ok(response);
-        }
-
-        /// <summary>
-        /// 禁止用户.
-        /// </summary>
-        /// <param name="ids">ids.</param>
-        /// <returns>IActionResult.</returns>
-        [HttpGet]
-        public IActionResult Forbidden(int[] ids)
-        {
-            ResponseModel response = MenuControllerHelper.UpdateStatus(false, ids);
-            return this.Ok(response);
         }
     }
 }

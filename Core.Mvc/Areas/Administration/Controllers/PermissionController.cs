@@ -5,6 +5,7 @@ using Core.Model;
 using Core.Model.Administration.Permission;
 using Core.Mvc.Areas.Administration.ViewConfiguration.Permission;
 using Microsoft.AspNetCore.Mvc;
+using ApiController = Core.Api.Controllers.PermissionController;
 
 namespace Core.Mvc.Areas.Administration.Controllers
 {
@@ -17,7 +18,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <returns>A IActionResult.</returns>
         public IActionResult Index()
         {
-            var url = new Url(typeof(Api.Controllers.PermissionController), nameof(Api.Controllers.PermissionController.Index));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Index));
             var model = HttpClientAsync.GetAsync<IList<Permission>>(url).Result;
             PermissionIndex table = new PermissionIndex(model);
 
@@ -32,7 +33,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public IActionResult GridStateChange(PermissionPostModel model)
         {
-            var url = new Url(typeof(Api.Controllers.PermissionController), nameof(Api.Controllers.PermissionController.Search));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Search));
             ResponseModel response = HttpClientAsync.PostAsync<IList<Permission>, PermissionPostModel>(url, model).Result;
             PermissionGridConfiguration configuration = new PermissionGridConfiguration(response);
 

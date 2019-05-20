@@ -1,4 +1,5 @@
-﻿using Core.Web.JavaScript;
+﻿using Core.Model.Administration.User;
+using Core.Web.JavaScript;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 {
@@ -8,7 +9,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 
         public override void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize)
         {
-            javaScriptInitialize.AddFrameWorkInstance("dialogInstance", AddUserDialogConfiguration.Identifier);
+            javaScriptInitialize.AddFrameWorkInstance("dialogInstance", UserIdentifiers.AddUserDialogIdentifier);
         }
     }
 }

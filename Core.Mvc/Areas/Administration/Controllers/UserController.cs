@@ -7,6 +7,7 @@ using Core.Model;
 using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.ViewConfiguration.User;
 using Microsoft.AspNetCore.Mvc;
+using ApiController = Core.Api.Controllers.UserController;
 
 namespace Core.Mvc.Areas.Administration.Controllers
 {
@@ -20,7 +21,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Index));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Index));
             var model = HttpClientAsync.GetAsync<IList<UserModel>>(url).Result;
             UserIndex table = new UserIndex(this.HostingEnvironment, model);
 
@@ -35,7 +36,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public IActionResult GridStateChange(UserPostModel model)
         {
-            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Search));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Search));
             ResponseModel response = HttpClientAsync.PostAsync<IList<UserModel>, UserPostModel>(url, model).Result;
             UserViewConfiguration configuration = new UserViewConfiguration(response);
 
@@ -50,7 +51,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult RowContextMenu(int id)
         {
-            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.FindById));
+            var url = new Url(typeof(ApiController), nameof(ApiController.FindById));
             ResponseModel model = HttpClientAsync.GetAsync<UserModel>(url, id).Result;
             UserModel user = (UserModel)model.Data;
             UserRowContextMenu menu = new UserRowContextMenu(user);
@@ -64,7 +65,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult AddDialog()
         {
-            AddUserDialogConfiguration dialog = new AddUserDialogConfiguration();
+            AddUserDialogConfiguration<UserCreatePostModel, UserModel> dialog = new AddUserDialogConfiguration<UserCreatePostModel, UserModel>();
             return this.Dialog(dialog);
         }
 
@@ -76,7 +77,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public IActionResult SaveCreate(UserCreatePostModel model)
         {
-            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Create));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Create));
             var response = HttpClientAsync.SubmitAsync(url, model).Result;
 
             return this.Submit(response);
@@ -90,7 +91,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public IActionResult SaveEdit(UserEditPostModel model)
         {
-            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Edit));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Edit));
             var response = HttpClientAsync.SubmitAsync(url, model).Result;
 
             return this.Submit(response);
@@ -104,10 +105,9 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult EditDialog(int id)
         {
-            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.FindById));
+            var url = new Url(typeof(ApiController), nameof(ApiController.FindById));
             ResponseModel model = HttpClientAsync.GetAsync<UserModel>(url, id).Result;
-            UserModel user = (UserModel)model.Data;
-            EditUserDialogConfiguration dialog = new EditUserDialogConfiguration(user);
+            EditUserDialogConfiguration<UserEditPostModel, UserModel> dialog = new EditUserDialogConfiguration<UserEditPostModel, UserModel>((UserModel)model.Data);
 
             return this.Dialog(dialog);
         }
@@ -120,7 +120,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Delete));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Delete));
             ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
 
             return this.Submit(model);
@@ -134,7 +134,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Recover(int id)
         {
-            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Recover));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Recover));
             ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
 
             return this.Submit(model);
@@ -148,7 +148,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Forbidden(int id)
         {
-            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Forbidden));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Forbidden));
             ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
 
             return this.Submit(model);
@@ -162,7 +162,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Normal(int id)
         {
-            var url = new Url(typeof(Api.Controllers.UserController), nameof(Api.Controllers.UserController.Normal));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Normal));
             ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
 
             return this.Submit(model);

@@ -6,6 +6,89 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration
 	/// <summary>
 	/// A static class used to access a specific set of resources.
 	/// </summary>
+	public static class AddUserDialogConfigurationResource
+	{
+        private static ResourceManager resourceManager;
+        
+        /// <summary>
+        /// Gets the cached ResourceManager instance used by this class.
+        /// </summary>
+        private static ResourceManager ResourceManager 
+		{
+            get 
+			{
+                if (object.ReferenceEquals(resourceManager, null)) 
+				{
+                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.AddUserDialogConfigurationResource", typeof(AddUserDialogConfigurationResource).Assembly);
+                }
+                return resourceManager;
+            }
+        }
+        
+        /// <summary>
+        /// Returns the formatted resource string.
+        /// </summary>
+		/// <param name="key">The resource key.</param>
+		/// <returns>The localized resource string.</returns>
+        private static string GetResourceString(string key)
+		{
+			var culture = Thread.CurrentThread.CurrentCulture;
+            return ResourceManager.GetString(key, culture);
+        }
+		
+		/// <summary>
+		/// Gets the localized string for Admin.
+		/// </summary>
+		public static string Admin { get { return GetResourceString("Admin"); } }
+
+		/// <summary>
+		/// Gets the localized string for Cancel.
+		/// </summary>
+		public static string Cancel { get { return GetResourceString("Cancel"); } }
+
+		/// <summary>
+		/// Gets the localized string for DisplayName.
+		/// </summary>
+		public static string DisplayName { get { return GetResourceString("DisplayName"); } }
+
+		/// <summary>
+		/// Gets the localized string for GeneralUser.
+		/// </summary>
+		public static string GeneralUser { get { return GetResourceString("GeneralUser"); } }
+
+		/// <summary>
+		/// Gets the localized string for LoginName.
+		/// </summary>
+		public static string LoginName { get { return GetResourceString("LoginName"); } }
+
+		/// <summary>
+		/// Gets the localized string for Password.
+		/// </summary>
+		public static string Password { get { return GetResourceString("Password"); } }
+
+		/// <summary>
+		/// Gets the localized string for Submit.
+		/// </summary>
+		public static string Submit { get { return GetResourceString("Submit"); } }
+
+		/// <summary>
+		/// Gets the localized string for SuperAdministrator.
+		/// </summary>
+		public static string SuperAdministrator { get { return GetResourceString("SuperAdministrator"); } }
+
+		/// <summary>
+		/// Gets the localized string for Title.
+		/// </summary>
+		public static string Title { get { return GetResourceString("Title"); } }
+
+		/// <summary>
+		/// Gets the localized string for UserRole.
+		/// </summary>
+		public static string UserRole { get { return GetResourceString("UserRole"); } }
+	}
+	/// <summary>
+	/// A static class used to access a specific set of resources.
+	/// </summary>
 	public static class EditMenuDialogConfigurationResource
 	{
         private static ResourceManager resourceManager;
@@ -75,6 +158,89 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration
 		/// Gets the localized string for Url.
 		/// </summary>
 		public static string Url { get { return GetResourceString("Url"); } }
+	}
+	/// <summary>
+	/// A static class used to access a specific set of resources.
+	/// </summary>
+	public static class EditUserDialogConfigurationResource
+	{
+        private static ResourceManager resourceManager;
+        
+        /// <summary>
+        /// Gets the cached ResourceManager instance used by this class.
+        /// </summary>
+        private static ResourceManager ResourceManager 
+		{
+            get 
+			{
+                if (object.ReferenceEquals(resourceManager, null)) 
+				{
+                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.EditUserDialogConfigurationResource", typeof(EditUserDialogConfigurationResource).Assembly);
+                }
+                return resourceManager;
+            }
+        }
+        
+        /// <summary>
+        /// Returns the formatted resource string.
+        /// </summary>
+		/// <param name="key">The resource key.</param>
+		/// <returns>The localized resource string.</returns>
+        private static string GetResourceString(string key)
+		{
+			var culture = Thread.CurrentThread.CurrentCulture;
+            return ResourceManager.GetString(key, culture);
+        }
+		
+		/// <summary>
+		/// Gets the localized string for Admin.
+		/// </summary>
+		public static string Admin { get { return GetResourceString("Admin"); } }
+
+		/// <summary>
+		/// Gets the localized string for Cancel.
+		/// </summary>
+		public static string Cancel { get { return GetResourceString("Cancel"); } }
+
+		/// <summary>
+		/// Gets the localized string for DisplayName.
+		/// </summary>
+		public static string DisplayName { get { return GetResourceString("DisplayName"); } }
+
+		/// <summary>
+		/// Gets the localized string for GeneralUser.
+		/// </summary>
+		public static string GeneralUser { get { return GetResourceString("GeneralUser"); } }
+
+		/// <summary>
+		/// Gets the localized string for LoginName.
+		/// </summary>
+		public static string LoginName { get { return GetResourceString("LoginName"); } }
+
+		/// <summary>
+		/// Gets the localized string for Password.
+		/// </summary>
+		public static string Password { get { return GetResourceString("Password"); } }
+
+		/// <summary>
+		/// Gets the localized string for Submit.
+		/// </summary>
+		public static string Submit { get { return GetResourceString("Submit"); } }
+
+		/// <summary>
+		/// Gets the localized string for SuperAdministrator.
+		/// </summary>
+		public static string SuperAdministrator { get { return GetResourceString("SuperAdministrator"); } }
+
+		/// <summary>
+		/// Gets the localized string for Title.
+		/// </summary>
+		public static string Title { get { return GetResourceString("Title"); } }
+
+		/// <summary>
+		/// Gets the localized string for UserRole.
+		/// </summary>
+		public static string UserRole { get { return GetResourceString("UserRole"); } }
 	}
 	/// <summary>
 	/// A static class used to access a specific set of resources.

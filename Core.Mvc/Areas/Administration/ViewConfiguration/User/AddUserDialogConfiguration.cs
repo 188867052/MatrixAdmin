@@ -6,35 +6,35 @@ using Core.Web.Button;
 using Core.Web.Dialog;
 using Core.Web.Enums;
 using Core.Web.Html;
-using Core.Web.Identifiers;
 using Core.Web.JavaScript;
 using Core.Web.TextBox;
+using Resources = Core.Resource.Areas.Administration.ViewConfiguration.AddUserDialogConfigurationResource;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 {
-    public class AddUserDialogConfiguration : DialogConfiguration<UserCreatePostModel, UserModel>
+    public class AddUserDialogConfiguration<TPostModel, TModel> : DialogConfiguration<TPostModel, TModel>
+        where TPostModel : UserCreatePostModel
+        where TModel : UserModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AddUserDialogConfiguration"/> class.
+        /// Initializes a new instance of the <see cref="AddUserDialogConfiguration{TPostModel, TModel}"/> class.
         /// </summary>
-        public AddUserDialogConfiguration() : base(null, Identifier)
+        public AddUserDialogConfiguration() : base(UserIdentifiers.AddUserDialogIdentifier)
         {
         }
 
-        public new static Identifier Identifier { get; } = new Identifier();
+        public override string Title => Resources.Title;
 
-        public override string Title => "添加用户";
-
-        protected override void CreateBody(IList<ITextRender<UserCreatePostModel, UserModel>> textBoxes)
+        protected override void CreateBody(IList<ITextRender<TPostModel, TModel>> textBoxes)
         {
-            textBoxes.Add(new LabeledTextBox<UserCreatePostModel, UserModel>("登录名", o => o.LoginName));
-            textBoxes.Add(new LabeledTextBox<UserCreatePostModel, UserModel>("显示名", o => o.DisplayName));
-            var roleDropDown = new AdvancedDropDown<UserCreatePostModel, UserModel>(o => o.UserRole, "角色", new MethodCall("core.addOption"));
+            textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.LoginName, o => o.LoginName));
+            textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.DisplayName, o => o.DisplayName));
+            var roleDropDown = new AdvancedDropDown<TPostModel, TModel>(o => o.UserRole, Resources.UserRole, new MethodCall("core.addOption"));
             textBoxes.Add(roleDropDown);
-            textBoxes.Add(new LabeledTextBox<UserCreatePostModel, UserModel>("密码", o => o.Password, null, TextBoxTypeEnum.Password));
+            textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.Password, o => o.Password, null, TextBoxTypeEnum.Password));
         }
 
-        protected override void CreateHiddenValues(IList<ITextRender<UserCreatePostModel, UserModel>> textBoxes)
+        protected override void CreateHiddenValues(IList<ITextRender<TPostModel, TModel>> textBoxes)
         {
         }
 
@@ -42,8 +42,8 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
         {
             Url saveCreateUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.SaveCreate));
 
-            buttons.Add(new StandardButton("提交", "index.submit", saveCreateUrl));
-            buttons.Add(new StandardButton("取消", "core.cancel"));
+            buttons.Add(new StandardButton(Resources.Submit, "index.submit", saveCreateUrl));
+            buttons.Add(new StandardButton(Resources.Cancel, "core.cancel"));
         }
     }
 }

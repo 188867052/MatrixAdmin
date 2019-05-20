@@ -7,20 +7,20 @@ using Core.Web.Identifiers;
 
 namespace Core.Web.Dialog
 {
-    public abstract class DialogConfiguration<TPostModel, T> : ITextRender<TPostModel, T>
+    public abstract class DialogConfiguration<TPostModel, TModel> : ITextRender<TPostModel, TModel>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DialogConfiguration{TPostModel, T}"/> class.
+        /// Initializes a new instance of the <see cref="DialogConfiguration{TPostModel, TModel}"/> class.
         /// </summary>
         /// <param name="model">The model.</param>
         /// <param name="id">The id.</param>
-        protected DialogConfiguration(T model, Identifier id)
+        protected DialogConfiguration(Identifier id, TModel model = default)
         {
             this.Model = model;
             this.Identifier = id;
         }
 
-        public T Model { get; }
+        public TModel Model { get; }
 
         public abstract string Title { get; }
 
@@ -40,14 +40,14 @@ namespace Core.Web.Dialog
         {
             get
             {
-                IList<ITextRender<TPostModel, T>> textBoxes = new List<ITextRender<TPostModel, T>>();
+                IList<ITextRender<TPostModel, TModel>> textBoxes = new List<ITextRender<TPostModel, TModel>>();
                 this.CreateBody(textBoxes);
                 this.CreateHiddenValues(textBoxes);
-                return textBoxes.Aggregate<ITextRender<TPostModel, T>, string>(default, (current, item) => current + item.Render(this.Model));
+                return textBoxes.Aggregate<ITextRender<TPostModel, TModel>, string>(default, (current, item) => current + item.Render(this.Model));
             }
         }
 
-        public virtual string Render(T model)
+        public virtual string Render(TModel model)
         {
             string html = new CoreApiContext().Configuration.FirstOrDefault(o => o.Key == "Dialog").Value;
             html = html.Replace("{{id}}", this.Identifier.Value);
@@ -59,8 +59,8 @@ namespace Core.Web.Dialog
 
         protected abstract void CreateButtons(IList<StandardButton> buttons);
 
-        protected abstract void CreateBody(IList<ITextRender<TPostModel, T>> textBoxes);
+        protected abstract void CreateBody(IList<ITextRender<TPostModel, TModel>> textBoxes);
 
-        protected abstract void CreateHiddenValues(IList<ITextRender<TPostModel, T>> textBoxes);
+        protected abstract void CreateHiddenValues(IList<ITextRender<TPostModel, TModel>> textBoxes);
     }
 }
