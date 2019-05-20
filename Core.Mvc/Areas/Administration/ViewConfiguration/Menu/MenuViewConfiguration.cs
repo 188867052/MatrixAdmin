@@ -4,7 +4,7 @@ using Core.Model;
 using Core.Mvc.Areas.Administration.Controllers;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
-using Resources = Core.Resource.Areas.Administration.ViewConfiguration.MenuIndexResource;
+using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Menu.MenuIndexResource;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 {

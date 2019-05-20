@@ -3,9 +3,9 @@ using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.Role;
 using Core.Mvc.Areas.Administration.Controllers;
-using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
+using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Role.RoleIndexResource;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 {
@@ -23,12 +23,12 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
         {
             Url url = new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.RowContextMenu));
             gridColumns.Add(new RowContextMenuColumn<RoleModel>(o => o.Id, "操作", url));
-            gridColumns.Add(new TextGridColumn<RoleModel>(o => o.Name, RoleIndexResource.Name));
+            gridColumns.Add(new TextGridColumn<RoleModel>(o => o.Name, Resources.Name));
             gridColumns.Add(new EnumGridColumn<RoleModel>(o => o.IsForbidden, "禁用状态"));
             gridColumns.Add(new TextGridColumn<RoleModel>(o => o.Description, "描述"));
-            gridColumns.Add(new BooleanGridColumn<RoleModel>(o => o.IsSuperAdministrator, RoleIndexResource.IsSuperAdministrator));
-            gridColumns.Add(new DateTimeGridColumn<RoleModel>(o => o.CreateTime, RoleIndexResource.CreatedOn));
-            gridColumns.Add(new TextGridColumn<RoleModel>(o => o.CreatedByUserName, RoleIndexResource.CreatedByUserName));
+            gridColumns.Add(new BooleanGridColumn<RoleModel>(o => o.IsSuperAdministrator, Resources.IsSuperAdministrator));
+            gridColumns.Add(new DateTimeGridColumn<RoleModel>(o => o.CreateTime, Resources.CreatedOn));
+            gridColumns.Add(new TextGridColumn<RoleModel>(o => o.CreatedByUserName, Resources.CreatedByUserName));
             gridColumns.Add(new DateTimeGridColumn<RoleModel>(o => o.UpdateTime, "更新时间"));
         }
     }

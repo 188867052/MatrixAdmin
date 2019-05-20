@@ -3,9 +3,8 @@ using Core.Entity.Enums;
 using Core.Extension;
 using Core.Model;
 using Core.Mvc.Areas.Administration.Controllers;
-using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.RowContextMenu;
-using Resources = Core.Resource.Areas.Administration.ViewConfiguration.MenuRowContextMenu;
+using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Menu.MenuRowContextMenu;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 {

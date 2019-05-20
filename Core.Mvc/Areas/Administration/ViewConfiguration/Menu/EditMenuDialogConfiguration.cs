@@ -8,7 +8,7 @@ using Core.Web.Button;
 using Core.Web.Dialog;
 using Core.Web.Html;
 using Core.Web.TextBox;
-using Resources = Core.Resource.Areas.Administration.ViewConfiguration.EditMenuDialogConfigurationResource;
+using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Menu.EditMenuDialogConfigurationResource;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 {
@@ -36,7 +36,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.Name, o => o.Name, o => o.Name));
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.Url, o => o.Url, o => o.Url));
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.Description, o => o.Description, o => o.Description));
-            textBoxes.Add(new LabeledIntegerTextBox<TPostModel, TModel>(Resources.Sort, o => o.Sort, o => o.Sort));
+            textBoxes.Add(new LabeledIntegerBox<TPostModel, TModel>(Resources.Sort, o => o.Sort, o => o.Sort));
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.Alias, o => o.Alias, o => o.Alias));
         }
 

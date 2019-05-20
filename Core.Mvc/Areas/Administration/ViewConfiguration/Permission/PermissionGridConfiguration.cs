@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Core.Model;
-using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
+using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Permission.PermissionIndexResource;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
 {
@@ -18,12 +18,12 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
 
         public override void CreateGridColumn(IList<BaseGridColumn<Entity.Permission>> gridColumns)
         {
-            gridColumns.Add(new TextGridColumn<Entity.Permission>(o => o.Name, PermissionIndexResource.Name));
+            gridColumns.Add(new TextGridColumn<Entity.Permission>(o => o.Name, Resources.Name));
             gridColumns.Add(new BooleanGridColumn<Entity.Permission>(o => o.Status, "关联菜单"));
-            gridColumns.Add(new TextGridColumn<Entity.Permission>(o => o.ActionCode, PermissionIndexResource.ActionCode));
-            gridColumns.Add(new BooleanGridColumn<Entity.Permission>(o => o.Status, PermissionIndexResource.Status));
-            gridColumns.Add(new DateTimeGridColumn<Entity.Permission>(o => o.CreateTime, PermissionIndexResource.CreatedOn));
-            gridColumns.Add(new TextGridColumn<Entity.Permission>(o => o.CreateByUserName, PermissionIndexResource.CreatedByUserName));
+            gridColumns.Add(new TextGridColumn<Entity.Permission>(o => o.ActionCode, Resources.ActionCode));
+            gridColumns.Add(new BooleanGridColumn<Entity.Permission>(o => o.Status, Resources.Status));
+            gridColumns.Add(new DateTimeGridColumn<Entity.Permission>(o => o.CreateTime, Resources.CreatedOn));
+            gridColumns.Add(new TextGridColumn<Entity.Permission>(o => o.CreateByUserName, Resources.CreatedByUserName));
         }
     }
 }

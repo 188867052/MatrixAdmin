@@ -4,7 +4,7 @@ using Core.Model;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
-using Core.Resource.Areas.Administration.ViewConfiguration;
+using Core.Resource.Areas.Administration.ViewConfiguration.Menu;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
 

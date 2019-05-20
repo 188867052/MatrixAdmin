@@ -4,9 +4,9 @@ using Core.Model;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
-using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
+using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Permission.PermissionIndexResource;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
 {
@@ -57,7 +57,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
 
         protected override string ContentHeader()
         {
-            ContentHeader contentHeader = new ContentHeader(PermissionIndexResource.WidgetTitle);
+            ContentHeader contentHeader = new ContentHeader(Resources.WidgetTitle);
             contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "首页", "返回首页", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;

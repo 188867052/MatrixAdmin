@@ -8,7 +8,7 @@ using Core.Web.Enums;
 using Core.Web.Html;
 using Core.Web.JavaScript;
 using Core.Web.TextBox;
-using Resources = Core.Resource.Areas.Administration.ViewConfiguration.AddUserDialogConfigurationResource;
+using Resources = Core.Resource.Areas.Administration.ViewConfiguration.User.AddUserDialogConfigurationResource;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 {

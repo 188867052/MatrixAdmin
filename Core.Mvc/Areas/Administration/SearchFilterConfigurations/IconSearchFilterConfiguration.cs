@@ -2,10 +2,10 @@
 using Core.Extension;
 using Core.Model.Administration.Icon;
 using Core.Mvc.Areas.Administration.Controllers;
-using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.SearchFilterConfiguration;
+using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Icon.IconResource;
 
 namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 {
@@ -13,8 +13,8 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            searchFilter.Add(new TextGridFilter<IconPostModel>(o => o.Code, IconResource.Code));
-            var filter = new BooleanGridFilter<IconPostModel>(o => o.IsEnable, IconResource.Status);
+            searchFilter.Add(new TextGridFilter<IconPostModel>(o => o.Code, Resources.Code));
+            var filter = new BooleanGridFilter<IconPostModel>(o => o.IsEnable, Resources.Status);
             filter.AddOption(true, "可用");
             filter.AddOption(false, "不可用");
             searchFilter.Add(filter);
