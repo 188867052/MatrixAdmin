@@ -76,6 +76,69 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.Icon
 		/// </summary>
 		public static string Status { get { return GetResourceString("Status"); } }
 	}
+	/// <summary>
+	/// A static class used to access a specific set of resources.
+	/// </summary>
+	public static class IconSearchFilterConfigurationResource
+	{
+        private static ResourceManager resourceManager;
+        
+        /// <summary>
+        /// Gets the cached ResourceManager instance used by this class.
+        /// </summary>
+        private static ResourceManager ResourceManager 
+		{
+            get 
+			{
+                if (object.ReferenceEquals(resourceManager, null)) 
+				{
+                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.Icon.IconSearchFilterConfigurationResource", typeof(IconSearchFilterConfigurationResource).Assembly);
+                }
+                return resourceManager;
+            }
+        }
+        
+        /// <summary>
+        /// Returns the formatted resource string.
+        /// </summary>
+		/// <param name="key">The resource key.</param>
+		/// <returns>The localized resource string.</returns>
+        private static string GetResourceString(string key)
+		{
+			var culture = Thread.CurrentThread.CurrentCulture;
+            return ResourceManager.GetString(key, culture);
+        }
+		
+		/// <summary>
+		/// Gets the localized string for ClearButtonLabel.
+		/// </summary>
+		public static string ClearButtonLabel { get { return GetResourceString("ClearButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for Code.
+		/// </summary>
+		public static string Code { get { return GetResourceString("Code"); } }
+
+		/// <summary>
+		/// Gets the localized string for Disable.
+		/// </summary>
+		public static string Disable { get { return GetResourceString("Disable"); } }
+
+		/// <summary>
+		/// Gets the localized string for Enable.
+		/// </summary>
+		public static string Enable { get { return GetResourceString("Enable"); } }
+
+		/// <summary>
+		/// Gets the localized string for SearchButtonLabel.
+		/// </summary>
+		public static string SearchButtonLabel { get { return GetResourceString("SearchButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for Status.
+		/// </summary>
+		public static string Status { get { return GetResourceString("Status"); } }
+	}
 }
 
 namespace Core.Resource.Areas.Administration.ViewConfiguration.Menu
@@ -492,6 +555,74 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.Menu
 		/// </summary>
 		public static string WidgetTitle { get { return GetResourceString("WidgetTitle"); } }
 	}
+	/// <summary>
+	/// A static class used to access a specific set of resources.
+	/// </summary>
+	public static class MenuSearchFilterConfigurationResource
+	{
+        private static ResourceManager resourceManager;
+        
+        /// <summary>
+        /// Gets the cached ResourceManager instance used by this class.
+        /// </summary>
+        private static ResourceManager ResourceManager 
+		{
+            get 
+			{
+                if (object.ReferenceEquals(resourceManager, null)) 
+				{
+                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.Menu.MenuSearchFilterConfigurationResource", typeof(MenuSearchFilterConfigurationResource).Assembly);
+                }
+                return resourceManager;
+            }
+        }
+        
+        /// <summary>
+        /// Returns the formatted resource string.
+        /// </summary>
+		/// <param name="key">The resource key.</param>
+		/// <returns>The localized resource string.</returns>
+        private static string GetResourceString(string key)
+		{
+			var culture = Thread.CurrentThread.CurrentCulture;
+            return ResourceManager.GetString(key, culture);
+        }
+		
+		/// <summary>
+		/// Gets the localized string for AddButtonLabel.
+		/// </summary>
+		public static string AddButtonLabel { get { return GetResourceString("AddButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for ClearButtonLabel.
+		/// </summary>
+		public static string ClearButtonLabel { get { return GetResourceString("ClearButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for Description.
+		/// </summary>
+		public static string Description { get { return GetResourceString("Description"); } }
+
+		/// <summary>
+		/// Gets the localized string for EndCreateTime.
+		/// </summary>
+		public static string EndCreateTime { get { return GetResourceString("EndCreateTime"); } }
+
+		/// <summary>
+		/// Gets the localized string for MenuName.
+		/// </summary>
+		public static string MenuName { get { return GetResourceString("MenuName"); } }
+
+		/// <summary>
+		/// Gets the localized string for SearchButtonLabel.
+		/// </summary>
+		public static string SearchButtonLabel { get { return GetResourceString("SearchButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for StartCreateTime.
+		/// </summary>
+		public static string StartCreateTime { get { return GetResourceString("StartCreateTime"); } }
+	}
 }
 
 namespace Core.Resource.Areas.Administration.ViewConfiguration.Permission
@@ -558,6 +689,84 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.Permission
 		/// Gets the localized string for WidgetTitle.
 		/// </summary>
 		public static string WidgetTitle { get { return GetResourceString("WidgetTitle"); } }
+	}
+	/// <summary>
+	/// A static class used to access a specific set of resources.
+	/// </summary>
+	public static class PermissionSearchFilterConfigurationResource
+	{
+        private static ResourceManager resourceManager;
+        
+        /// <summary>
+        /// Gets the cached ResourceManager instance used by this class.
+        /// </summary>
+        private static ResourceManager ResourceManager 
+		{
+            get 
+			{
+                if (object.ReferenceEquals(resourceManager, null)) 
+				{
+                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.Permission.PermissionSearchFilterConfigurationResource", typeof(PermissionSearchFilterConfigurationResource).Assembly);
+                }
+                return resourceManager;
+            }
+        }
+        
+        /// <summary>
+        /// Returns the formatted resource string.
+        /// </summary>
+		/// <param name="key">The resource key.</param>
+		/// <returns>The localized resource string.</returns>
+        private static string GetResourceString(string key)
+		{
+			var culture = Thread.CurrentThread.CurrentCulture;
+            return ResourceManager.GetString(key, culture);
+        }
+		
+		/// <summary>
+		/// Gets the localized string for ActionCode.
+		/// </summary>
+		public static string ActionCode { get { return GetResourceString("ActionCode"); } }
+
+		/// <summary>
+		/// Gets the localized string for AddButtonLabel.
+		/// </summary>
+		public static string AddButtonLabel { get { return GetResourceString("AddButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for ClearButtonLabel.
+		/// </summary>
+		public static string ClearButtonLabel { get { return GetResourceString("ClearButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for Description.
+		/// </summary>
+		public static string Description { get { return GetResourceString("Description"); } }
+
+		/// <summary>
+		/// Gets the localized string for EndCreateTime.
+		/// </summary>
+		public static string EndCreateTime { get { return GetResourceString("EndCreateTime"); } }
+
+		/// <summary>
+		/// Gets the localized string for IsEnable.
+		/// </summary>
+		public static string IsEnable { get { return GetResourceString("IsEnable"); } }
+
+		/// <summary>
+		/// Gets the localized string for Name.
+		/// </summary>
+		public static string Name { get { return GetResourceString("Name"); } }
+
+		/// <summary>
+		/// Gets the localized string for SearchButtonLabel.
+		/// </summary>
+		public static string SearchButtonLabel { get { return GetResourceString("SearchButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for StartCreateTime.
+		/// </summary>
+		public static string StartCreateTime { get { return GetResourceString("StartCreateTime"); } }
 	}
 }
 
@@ -640,6 +849,79 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.Role
 		/// Gets the localized string for WidgetTitle.
 		/// </summary>
 		public static string WidgetTitle { get { return GetResourceString("WidgetTitle"); } }
+	}
+	/// <summary>
+	/// A static class used to access a specific set of resources.
+	/// </summary>
+	public static class RoleSearchFilterConfigurationResource
+	{
+        private static ResourceManager resourceManager;
+        
+        /// <summary>
+        /// Gets the cached ResourceManager instance used by this class.
+        /// </summary>
+        private static ResourceManager ResourceManager 
+		{
+            get 
+			{
+                if (object.ReferenceEquals(resourceManager, null)) 
+				{
+                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.Role.RoleSearchFilterConfigurationResource", typeof(RoleSearchFilterConfigurationResource).Assembly);
+                }
+                return resourceManager;
+            }
+        }
+        
+        /// <summary>
+        /// Returns the formatted resource string.
+        /// </summary>
+		/// <param name="key">The resource key.</param>
+		/// <returns>The localized resource string.</returns>
+        private static string GetResourceString(string key)
+		{
+			var culture = Thread.CurrentThread.CurrentCulture;
+            return ResourceManager.GetString(key, culture);
+        }
+		
+		/// <summary>
+		/// Gets the localized string for AddButtonLabel.
+		/// </summary>
+		public static string AddButtonLabel { get { return GetResourceString("AddButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for ClearButtonLabel.
+		/// </summary>
+		public static string ClearButtonLabel { get { return GetResourceString("ClearButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for Description.
+		/// </summary>
+		public static string Description { get { return GetResourceString("Description"); } }
+
+		/// <summary>
+		/// Gets the localized string for EndCreateTime.
+		/// </summary>
+		public static string EndCreateTime { get { return GetResourceString("EndCreateTime"); } }
+
+		/// <summary>
+		/// Gets the localized string for Name.
+		/// </summary>
+		public static string Name { get { return GetResourceString("Name"); } }
+
+		/// <summary>
+		/// Gets the localized string for RoleName.
+		/// </summary>
+		public static string RoleName { get { return GetResourceString("RoleName"); } }
+
+		/// <summary>
+		/// Gets the localized string for SearchButtonLabel.
+		/// </summary>
+		public static string SearchButtonLabel { get { return GetResourceString("SearchButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for StartCreateTime.
+		/// </summary>
+		public static string StartCreateTime { get { return GetResourceString("StartCreateTime"); } }
 	}
 }
 
@@ -878,6 +1160,109 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.User
 		/// Gets the localized string for WidgetTitle.
 		/// </summary>
 		public static string WidgetTitle { get { return GetResourceString("WidgetTitle"); } }
+	}
+	/// <summary>
+	/// A static class used to access a specific set of resources.
+	/// </summary>
+	public static class UserSearchFilterConfigurationResource
+	{
+        private static ResourceManager resourceManager;
+        
+        /// <summary>
+        /// Gets the cached ResourceManager instance used by this class.
+        /// </summary>
+        private static ResourceManager ResourceManager 
+		{
+            get 
+			{
+                if (object.ReferenceEquals(resourceManager, null)) 
+				{
+                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.User.UserSearchFilterConfigurationResource", typeof(UserSearchFilterConfigurationResource).Assembly);
+                }
+                return resourceManager;
+            }
+        }
+        
+        /// <summary>
+        /// Returns the formatted resource string.
+        /// </summary>
+		/// <param name="key">The resource key.</param>
+		/// <returns>The localized resource string.</returns>
+        private static string GetResourceString(string key)
+		{
+			var culture = Thread.CurrentThread.CurrentCulture;
+            return ResourceManager.GetString(key, culture);
+        }
+		
+		/// <summary>
+		/// Gets the localized string for AddButtonLabel.
+		/// </summary>
+		public static string AddButtonLabel { get { return GetResourceString("AddButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for ClearButtonLabel.
+		/// </summary>
+		public static string ClearButtonLabel { get { return GetResourceString("ClearButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for Description.
+		/// </summary>
+		public static string Description { get { return GetResourceString("Description"); } }
+
+		/// <summary>
+		/// Gets the localized string for DisplayName.
+		/// </summary>
+		public static string DisplayName { get { return GetResourceString("DisplayName"); } }
+
+		/// <summary>
+		/// Gets the localized string for EndCreateTime.
+		/// </summary>
+		public static string EndCreateTime { get { return GetResourceString("EndCreateTime"); } }
+
+		/// <summary>
+		/// Gets the localized string for Forbidden.
+		/// </summary>
+		public static string Forbidden { get { return GetResourceString("Forbidden"); } }
+
+		/// <summary>
+		/// Gets the localized string for ForbiddenStatus.
+		/// </summary>
+		public static string ForbiddenStatus { get { return GetResourceString("ForbiddenStatus"); } }
+
+		/// <summary>
+		/// Gets the localized string for LoginName.
+		/// </summary>
+		public static string LoginName { get { return GetResourceString("LoginName"); } }
+
+		/// <summary>
+		/// Gets the localized string for Name.
+		/// </summary>
+		public static string Name { get { return GetResourceString("Name"); } }
+
+		/// <summary>
+		/// Gets the localized string for Normal.
+		/// </summary>
+		public static string Normal { get { return GetResourceString("Normal"); } }
+
+		/// <summary>
+		/// Gets the localized string for Role.
+		/// </summary>
+		public static string Role { get { return GetResourceString("Role"); } }
+
+		/// <summary>
+		/// Gets the localized string for RoleName.
+		/// </summary>
+		public static string RoleName { get { return GetResourceString("RoleName"); } }
+
+		/// <summary>
+		/// Gets the localized string for SearchButtonLabel.
+		/// </summary>
+		public static string SearchButtonLabel { get { return GetResourceString("SearchButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for StartCreateTime.
+		/// </summary>
+		public static string StartCreateTime { get { return GetResourceString("StartCreateTime"); } }
 	}
 }
 

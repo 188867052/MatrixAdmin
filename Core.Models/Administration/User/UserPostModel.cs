@@ -28,7 +28,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         /// 状态.
         /// </summary>
-        public IsForbiddenEnum? Status { get; set; }
+        public ForbiddenStatusEnum? ForbiddenStatus { get; set; }
 
         /// <summary>
         /// 角色.
@@ -49,7 +49,7 @@ namespace Core.Model.Administration.User
         {
             query = query.AddFilter(o => o.UserRoleMapping.Any(x => x.RoleId == this.RoleId), this.RoleId);
             query = query.AddFilter(o => o.IsEnable == this.IsEnable, this.IsEnable);
-            query = query.AddFilter(o => o.Status == (int?)this.Status, this.Status);
+            query = query.AddFilter(o => o.Status == (int?)this.ForbiddenStatus, this.ForbiddenStatus);
             query = query.AddFilter(o => o.DisplayName.Contains(this.DisplayName), this.DisplayName);
             query = query.AddFilter(o => o.LoginName.Contains(this.LoginName), this.LoginName);
             query = query.AddDateTimeBetweenFilter(this.StartCreateTime, this.EndCreateTime, o => o.CreateTime);

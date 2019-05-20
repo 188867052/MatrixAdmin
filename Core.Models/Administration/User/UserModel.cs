@@ -33,7 +33,7 @@ namespace Core.Model.Administration.User
             }
 
             this.CreateTime = user.CreateTime;
-            this.Status = (IsForbiddenEnum)user.Status;
+            this.Status = (ForbiddenStatusEnum)user.Status;
             this.IsDeleted = user.IsDeleted;
             this.CreatedByUserName = user.CreatedByUserName;
             this.UpdateTime = user.UpdateTime;
@@ -77,7 +77,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         ///
         /// </summary>
-        public IsForbiddenEnum Status { get; set; }
+        public ForbiddenStatusEnum Status { get; set; }
 
         /// <summary>
         ///

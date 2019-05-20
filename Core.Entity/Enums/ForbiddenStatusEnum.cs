@@ -3,7 +3,7 @@
     /// <summary>
     /// 是否禁用枚举.
     /// </summary>
-    public enum IsForbiddenEnum
+    public enum ForbiddenStatusEnum
     {
         /// <summary>
         /// 已禁用

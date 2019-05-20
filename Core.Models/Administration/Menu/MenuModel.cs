@@ -55,7 +55,7 @@ namespace Core.Model
 
         public bool IsEnable { get; set; }
 
-        public IsForbiddenEnum Status { get; set; }
+        public ForbiddenStatusEnum Status { get; set; }
 
         public int CreateByUserId { get; set; }
 

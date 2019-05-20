@@ -29,7 +29,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
             links.Add(this.Model.IsEnable
                 ? new RowContextMenuLink(Resources.Recover, "index.recover", recoverUrl)
                 : new RowContextMenuLink(Resources.Delete, "index.delete", deleteUrl));
-            links.Add(this.Model.Status == IsForbiddenEnum.Normal
+            links.Add(this.Model.Status == ForbiddenStatusEnum.Normal
                 ? new RowContextMenuLink(Resources.Forbidden, "index.forbidden", forbiddenUrl)
                 : new RowContextMenuLink(Resources.Normal, "index.normal", normalUrl));
         }

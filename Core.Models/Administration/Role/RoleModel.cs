@@ -16,7 +16,7 @@ namespace Core.Model.Administration.Role
         {
             this.Name = role.Name;
             this.Id = role.Id;
-            this.IsForbidden = role.IsForbidden ? IsForbiddenEnum.Forbidden : IsForbiddenEnum.Normal;
+            this.IsForbidden = role.IsForbidden ? ForbiddenStatusEnum.Forbidden : ForbiddenStatusEnum.Normal;
             this.CreateTime = role.CreateTime;
             this.UpdateTime = role.UpdateTime;
             this.CreatedByUserName = role.CreatedByUserName;
@@ -29,7 +29,7 @@ namespace Core.Model.Administration.Role
 
         public string Description { get; set; }
 
-        public IsForbiddenEnum IsForbidden { get; set; }
+        public ForbiddenStatusEnum IsForbidden { get; set; }
 
         public bool IsDeleted { get; set; }
 
