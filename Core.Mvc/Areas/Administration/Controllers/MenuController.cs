@@ -21,7 +21,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Index));
             var response = HttpClientAsync.GetAsync<IList<MenuModel>>(url).Result;
-            MenuIndex index = new MenuIndex(response);
+            MenuIndex<MenuPostModel> index = new MenuIndex<MenuPostModel>(response);
 
             return this.ViewConfiguration(index);
         }

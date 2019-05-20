@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
 using Core.Model;
+using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
+using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
@@ -22,11 +24,6 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
             this._response = response;
         }
 
-        /// <summary>
-        /// Gets file name.
-        /// </summary>
-        protected override string FileName => "SearchGridPage";
-
         public override IList<string> Css()
         {
             return new List<string>();
@@ -38,10 +35,6 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
             string table = configuration.GenerateGridColumn();
 
             var html = base.Render().Replace("{{Table}}", table);
-            UserSearchFilterConfiguration filter = new UserSearchFilterConfiguration();
-            html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
-            html = html.Replace("{{button-group}}", filter.GenerateButton());
-            html = html.Replace("{{Pager}}", this.Pager());
             return html;
         }
 
@@ -77,6 +70,11 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
                 new UserViewInstance()
             };
             return constructions;
+        }
+
+        protected override SearchFilterConfiguration SearchFilterConfiguration()
+        {
+            return new UserSearchFilterConfiguration<UserPostModel>();
         }
     }
 }

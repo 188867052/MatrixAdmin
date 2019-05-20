@@ -11,7 +11,7 @@ using LogController = Core.Mvc.Areas.Log.Controllers.LogController;
 
 namespace Core.Mvc.Areas.Log.SearchFilterConfigurations
 {
-    public class LogSearchFilterConfiguration : SearchFilterConfiguration<LogPostModel>
+    public class LogSearchFilterConfiguration : SearchFilterConfiguration
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {

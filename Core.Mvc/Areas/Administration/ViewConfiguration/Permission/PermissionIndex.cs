@@ -5,6 +5,7 @@ using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
+using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
 using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Permission.PermissionIndexResource;
 
@@ -53,6 +54,11 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
             {
                "/js/Permission/index.js",
             };
+        }
+
+        protected override SearchFilterConfiguration SearchFilterConfiguration()
+        {
+            return new PermissionSearchFilterConfiguration();
         }
 
         protected override string ContentHeader()

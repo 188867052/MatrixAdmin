@@ -5,6 +5,7 @@ using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
+using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
@@ -55,6 +56,11 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
             {
                 "/js/icon/index.js",
             };
+        }
+
+        protected override SearchFilterConfiguration SearchFilterConfiguration()
+        {
+            throw new System.NotImplementedException();
         }
 
         /// <inheritdoc/>

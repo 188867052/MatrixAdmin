@@ -2,6 +2,7 @@
 using Core.Extension;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
+using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Addons
@@ -32,6 +33,11 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Addons
                "/js/matrix.js",
                "/js/matrix.chat.js"
             };
+        }
+
+        protected override SearchFilterConfiguration SearchFilterConfiguration()
+        {
+            throw new System.NotImplementedException();
         }
 
         protected override string ContentHeader()

@@ -11,20 +11,21 @@ using Resources = Core.Resource.Areas.Administration.ViewConfiguration.User.User
 
 namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 {
-    public class UserSearchFilterConfiguration : SearchFilterConfiguration<UserPostModel>
+    public class UserSearchFilterConfiguration<T> : SearchFilterConfiguration
+        where T : UserPostModel
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            var dropDown = new DropDownGridFilter<UserPostModel, ForbiddenStatusEnum>(o => (ForbiddenStatusEnum)o.ForbiddenStatus, Resources.ForbiddenStatus);
+            var dropDown = new DropDownGridFilter<T, ForbiddenStatusEnum>(o => (ForbiddenStatusEnum)o.ForbiddenStatus, Resources.ForbiddenStatus);
             dropDown.AddOption(ForbiddenStatusEnum.Normal, Resources.Normal);
             dropDown.AddOption(ForbiddenStatusEnum.Forbidden, Resources.Forbidden);
 
-            searchFilter.Add(new TextGridFilter<UserPostModel>(o => o.DisplayName, Resources.DisplayName));
-            searchFilter.Add(new TextGridFilter<UserPostModel>(o => o.LoginName, Resources.LoginName));
-            searchFilter.Add(new DateTimeGridFilter<UserPostModel>(o => o.StartCreateTime, Resources.StartCreateTime));
-            searchFilter.Add(new DateTimeGridFilter<UserPostModel>(o => o.EndCreateTime, Resources.EndCreateTime));
+            searchFilter.Add(new TextGridFilter<T>(o => o.DisplayName, Resources.DisplayName));
+            searchFilter.Add(new TextGridFilter<T>(o => o.LoginName, Resources.LoginName));
+            searchFilter.Add(new DateTimeGridFilter<T>(o => o.StartCreateTime, Resources.StartCreateTime));
+            searchFilter.Add(new DateTimeGridFilter<T>(o => o.EndCreateTime, Resources.EndCreateTime));
             searchFilter.Add(dropDown);
-            searchFilter.Add(AdvancedDropDown<UserPostModel>.RoleAdvancedDropDown(o => o.RoleId));
+            searchFilter.Add(AdvancedDropDown<T>.RoleAdvancedDropDown(o => o.RoleId));
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)

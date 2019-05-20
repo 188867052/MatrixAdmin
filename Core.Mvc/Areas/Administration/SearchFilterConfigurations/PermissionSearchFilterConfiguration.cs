@@ -9,7 +9,7 @@ using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Permissio
 
 namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 {
-    public class PermissionSearchFilterConfiguration : SearchFilterConfiguration<PermissionPostModel>
+    public class PermissionSearchFilterConfiguration : SearchFilterConfiguration
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {

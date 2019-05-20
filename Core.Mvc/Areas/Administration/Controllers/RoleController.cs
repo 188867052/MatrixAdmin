@@ -20,7 +20,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Index));
             var model = HttpClientAsync.GetAsync<IList<RoleModel>>(url).Result;
-            RoleIndex table = new RoleIndex(model);
+            RoleIndex<RolePostModel> table = new RoleIndex<RolePostModel>(model);
 
             return this.ViewConfiguration(table);
         }

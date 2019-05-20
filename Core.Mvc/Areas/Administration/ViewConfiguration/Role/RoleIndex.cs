@@ -1,20 +1,23 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
 using Core.Model;
+using Core.Model.Administration.Role;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
+using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 {
-    public class RoleIndex : SearchGridPage
+    public class RoleIndex<T> : SearchGridPage
+    where T : RolePostModel
     {
         private readonly ResponseModel _response;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RoleIndex"/> class.
+        /// Initializes a new instance of the <see cref="RoleIndex{T}"/> class.
         /// </summary>
         /// <param name="response">The response.</param>
         public RoleIndex(ResponseModel response)
@@ -38,7 +41,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
             string table = configuration.GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 
-            RoleSearchFilterConfiguration filter = new RoleSearchFilterConfiguration();
+            RoleSearchFilterConfiguration<T> filter = new RoleSearchFilterConfiguration<T>();
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
             html = html.Replace("{{button-group}}", filter.GenerateButton());
             html = html.Replace("{{Pager}}", this.Pager());
@@ -69,6 +72,11 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
                 new RoleViewInstance()
             };
             return constructions;
+        }
+
+        protected override SearchFilterConfiguration SearchFilterConfiguration()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

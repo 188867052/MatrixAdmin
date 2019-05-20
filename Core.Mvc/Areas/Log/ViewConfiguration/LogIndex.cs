@@ -6,6 +6,7 @@ using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.JavaScript;
+using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
 
 namespace Core.Mvc.Areas.Log.ViewConfiguration
@@ -66,6 +67,11 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
                 new LogViewInstance()
             };
             return constructions;
+        }
+
+        protected override SearchFilterConfiguration SearchFilterConfiguration()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

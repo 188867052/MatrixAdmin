@@ -6,6 +6,7 @@ using Core.Extension;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Web.Html;
 using Core.Web.JavaScript;
+using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
@@ -25,7 +26,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         /// Gets html 文件.
         /// </summary>
         /// <returns>A file name.</returns>
-        protected abstract string FileName { get; }
+        protected virtual string FileName { get; } = "SearchGridPage";
 
         /// <summary>
         /// Css文件.
@@ -43,7 +44,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             string sidebarMenu = sidebarNavigation.GenerateSidebarMenu();
 
             string contentHeader = this.ContentHeader();
-            string htmlFormat = new CoreApiContext().Configuration.FirstOrDefault(o => o.Key == this.FileName).Value;
+            string htmlFormat = new CoreApiContext().Configuration.FirstOrDefault(o => o.Key == this.FileName)?.Value;
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var item in this.CssResource())
             {
@@ -61,8 +62,16 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             html = html.Replace("{{content-header}}", contentHeader);
             html = html.Replace("{{Footer}}", this.Footer());
 
-            string tobHeader = new CoreApiContext().Configuration.FirstOrDefault(o => o.Key == "TopHeader").Value;
+            string tobHeader = new CoreApiContext().Configuration.FirstOrDefault(o => o.Key == "TopHeader")?.Value;
             html = html.Replace("{{tobHeader}}", tobHeader);
+
+            var filter = this.SearchFilterConfiguration();
+            if (filter != null)
+            {
+                html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
+                html = html.Replace("{{button-group}}", filter.GenerateButton());
+                html = html.Replace("{{Pager}}", this.Pager());
+            }
 
             return html + $"<script>{this.RenderJavaScript()}</script>";
         }
@@ -83,6 +92,16 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         /// </summary>
         /// <returns>The list.</returns>
         protected abstract IList<string> JavaScript();
+
+        protected virtual SearchFilterConfiguration SearchFilterConfiguration()
+        {
+            return null;
+        }
+
+        //protected virtual SearchFilterConfiguration SearchFilterConfiguration()
+        //{
+        //    return null;
+        //}
 
         protected virtual string ContentHeader()
         {

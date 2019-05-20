@@ -9,7 +9,7 @@ using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Icon.Icon
 
 namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 {
-    public class IconSearchFilterConfiguration : SearchFilterConfiguration<IconPostModel>
+    public class IconSearchFilterConfiguration : SearchFilterConfiguration
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {

@@ -1,21 +1,24 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
 using Core.Model;
+using Core.Model.Administration.Menu;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Resource.Areas.Administration.ViewConfiguration.Menu;
 using Core.Web.JavaScript;
+using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 {
-    public class MenuIndex : SearchGridPage
+    public class MenuIndex<T> : SearchGridPage
+       where T : MenuPostModel
     {
         private readonly ResponseModel _response;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MenuIndex"/> class.
+        /// Initializes a new instance of the <see cref="MenuIndex{T}"/> class.
         /// </summary>
         /// <param name="response">The response.</param>
         public MenuIndex(ResponseModel response)
@@ -39,7 +42,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
             string table = configuration.GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 
-            MenuSearchFilterConfiguration filter = new MenuSearchFilterConfiguration();
+            MenuSearchFilterConfiguration<T> filter = new MenuSearchFilterConfiguration<T>();
 
             html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
             html = html.Replace("{{button-group}}", filter.GenerateButton());
@@ -71,6 +74,11 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
                 new MenuViewInstance()
             };
             return constructions;
+        }
+
+        protected override SearchFilterConfiguration SearchFilterConfiguration()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

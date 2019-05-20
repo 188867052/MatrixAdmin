@@ -6,7 +6,7 @@ using Core.Web.GridFilter;
 
 namespace Core.Web.SearchFilterConfiguration
 {
-    public abstract class SearchFilterConfiguration<T>
+    public abstract class SearchFilterConfiguration
     {
         /// <summary>
         /// Generate search filter.

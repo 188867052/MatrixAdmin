@@ -9,14 +9,15 @@ using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Role.Role
 
 namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 {
-    public class RoleSearchFilterConfiguration : SearchFilterConfiguration<RolePostModel>
+    public class RoleSearchFilterConfiguration<T> : SearchFilterConfiguration
+        where T : RolePostModel
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            searchFilter.Add(new TextGridFilter<RolePostModel>(o => o.RoleName, Resources.RoleName));
-            searchFilter.Add(new TextGridFilter<RolePostModel>(o => o.Description, Resources.Description));
-            searchFilter.Add(new DateTimeGridFilter<RolePostModel>(o => o.StartCreateTime, Resources.StartCreateTime));
-            searchFilter.Add(new DateTimeGridFilter<RolePostModel>(o => o.EndCreateTime, Resources.EndCreateTime));
+            searchFilter.Add(new TextGridFilter<T>(o => o.RoleName, Resources.RoleName));
+            searchFilter.Add(new TextGridFilter<T>(o => o.Description, Resources.Description));
+            searchFilter.Add(new DateTimeGridFilter<T>(o => o.StartCreateTime, Resources.StartCreateTime));
+            searchFilter.Add(new DateTimeGridFilter<T>(o => o.EndCreateTime, Resources.EndCreateTime));
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)
