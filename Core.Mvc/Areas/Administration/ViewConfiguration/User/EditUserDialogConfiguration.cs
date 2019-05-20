@@ -28,7 +28,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 
         protected override void CreateHiddenValues(IList<ITextRender<TPostModel, TModel>> textBoxes)
         {
-            textBoxes.Add(new HiddenTextBox<TPostModel, TModel>(o => o.Id, this.Model.Id));
+            textBoxes.Add(new HiddenValue<TPostModel, TModel>(o => o.Id, this.Model.Id));
         }
 
         protected override void CreateBody(IList<ITextRender<TPostModel, TModel>> textBoxes)

@@ -7,7 +7,6 @@ using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.Dialog;
 using Core.Web.Html;
-using Core.Web.Identifiers;
 using Core.Web.TextBox;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role

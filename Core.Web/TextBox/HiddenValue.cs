@@ -6,13 +6,13 @@ using Core.Web.Html;
 
 namespace Core.Web.TextBox
 {
-    public class HiddenTextBox<TPostModel, TModel> : ITextRender<TPostModel, TModel>
+    public class HiddenValue<TPostModel, TModel> : ITextRender<TPostModel, TModel>
     {
         private readonly Expression<Func<TPostModel, int>> _expression;
         private readonly int _value;
         private readonly string _type;
 
-        public HiddenTextBox(Expression<Func<TPostModel, int>> expression, int value)
+        public HiddenValue(Expression<Func<TPostModel, int>> expression, int value)
         {
             this._expression = expression;
             this._value = value;

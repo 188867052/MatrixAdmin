@@ -49,7 +49,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult AddDialog()
         {
-            AddMenuDialogConfiguration dialog = new AddMenuDialogConfiguration();
+            AddMenuDialogConfiguration<MenuCreatePostModel, MenuModel> dialog = new AddMenuDialogConfiguration<MenuCreatePostModel, MenuModel>();
             return this.Dialog(dialog);
         }
 

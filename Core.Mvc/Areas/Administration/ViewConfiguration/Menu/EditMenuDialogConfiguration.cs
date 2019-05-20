@@ -3,10 +3,10 @@ using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.Menu;
 using Core.Mvc.Areas.Administration.Controllers;
+using Core.Mvc.Areas.Administration.ViewConfiguration.User;
 using Core.Web.Button;
 using Core.Web.Dialog;
 using Core.Web.Html;
-using Core.Web.Identifiers;
 using Core.Web.TextBox;
 using Resources = Core.Resource.Areas.Administration.ViewConfiguration.EditMenuDialogConfigurationResource;
 
@@ -20,17 +20,15 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
         /// Initializes a new instance of the <see cref="EditMenuDialogConfiguration{TPostModel, TModel}"/> class.
         /// </summary>
         /// <param name="menu">The Menu.</param>
-        public EditMenuDialogConfiguration(TModel menu) : base(Identifier, menu)
+        public EditMenuDialogConfiguration(TModel menu) : base(MenuIdentifiers.EditMenuDialogIdentifier, menu)
         {
         }
-
-        public new static Identifier Identifier { get; } = new Identifier();
 
         public override string Title => Resources.EditMenuTitle;
 
         protected override void CreateHiddenValues(IList<ITextRender<TPostModel, TModel>> textBoxes)
         {
-            textBoxes.Add(new HiddenTextBox<TPostModel, TModel>(o => o.Id, this.Model.Id));
+            textBoxes.Add(new HiddenValue<TPostModel, TModel>(o => o.Id, this.Model.Id));
         }
 
         protected override void CreateBody(IList<ITextRender<TPostModel, TModel>> textBoxes)

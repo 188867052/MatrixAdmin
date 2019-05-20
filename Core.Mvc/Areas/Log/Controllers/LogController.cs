@@ -6,6 +6,7 @@ using Core.Model.Log;
 using Core.Mvc.Areas.Log.ViewConfiguration;
 using Core.Web.File;
 using Microsoft.AspNetCore.Mvc;
+using ApiController = Core.Api.Controllers.LogController;
 
 namespace Core.Mvc.Areas.Log.Controllers
 {
@@ -18,7 +19,7 @@ namespace Core.Mvc.Areas.Log.Controllers
         /// <returns>A IActionResult.</returns>
         public IActionResult Index()
         {
-            var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Index));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Index));
             var model = HttpClientAsync.GetAsync<IList<Entity.Log>>(url).Result;
             LogIndex table = new LogIndex(model);
 
@@ -38,7 +39,7 @@ namespace Core.Mvc.Areas.Log.Controllers
         [HttpGet]
         public IActionResult Clear()
         {
-            var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Clear));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Clear));
             ResponseModel model = HttpClientAsync.DeleteAsync(url).Result;
 
             return this.Submit(model);
@@ -52,7 +53,7 @@ namespace Core.Mvc.Areas.Log.Controllers
         [HttpPost]
         public IActionResult GridStateChange(LogPostModel model)
         {
-            var url = new Url(typeof(Api.Controllers.LogController), nameof(Api.Controllers.LogController.Search));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Search));
             ResponseModel response = HttpClientAsync.PostAsync<IList<Entity.Log>, LogPostModel>(url, model).Result;
             LogGridConfiguration configuration = new LogGridConfiguration(response);
 

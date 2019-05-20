@@ -3,8 +3,8 @@ using Core.Entity;
 using Core.Extension;
 using Core.Model.Administration.Icon;
 using Core.Mvc.Areas.Administration.ViewConfiguration.Icon;
-using Core.Mvc.Areas.Administration.ViewConfiguration.User;
 using Microsoft.AspNetCore.Mvc;
+using ApiController = Core.Api.Controllers.IconController;
 
 namespace Core.Mvc.Areas.Administration.Controllers
 {
@@ -17,7 +17,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <returns>A IActionResult.</returns>
         public IActionResult Index()
         {
-            var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Index));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Index));
             var responseModel = HttpClientAsync.GetAsync<IList<Icon>>(url).Result;
             IconIndex index = new IconIndex(responseModel);
 
@@ -32,7 +32,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public IActionResult GridStateChange(IconPostModel model)
         {
-            var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Search));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Search));
             var response = HttpClientAsync.PostAsync<IList<Icon>, IconPostModel>(url, model).Result;
             IconGridConfiguration configuration = new IconGridConfiguration(response);
 
