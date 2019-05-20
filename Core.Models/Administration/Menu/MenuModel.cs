@@ -1,8 +1,7 @@
 ﻿using System;
-using Core.Entity;
 using Core.Entity.Enums;
 
-namespace Core.Model
+namespace Core.Model.Administration.Menu
 {
     public class MenuModel
     {
@@ -10,7 +9,7 @@ namespace Core.Model
         {
         }
 
-        public MenuModel(Menu entity)
+        public MenuModel(Entity.Menu entity)
         {
             this.Id = entity.Id;
             this.Name = entity.Name;
@@ -65,7 +64,7 @@ namespace Core.Model
 
         public int ParentId { get; set; }
 
-        public static MenuModel Convert(Menu item)
+        public static MenuModel Convert(Entity.Menu item)
         {
             return new MenuModel(item);
         }

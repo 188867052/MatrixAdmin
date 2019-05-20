@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Linq.Expressions;
-using Core.Entity;
+using Core.Extension.FieldInfos;
 
-namespace Core.Extension.ExpressionBuilder.Generics
+namespace Core.Extension.Filters
 {
     public class DateTimeBetweenFilter<T> : BaseBetweenFilter<T>
     {

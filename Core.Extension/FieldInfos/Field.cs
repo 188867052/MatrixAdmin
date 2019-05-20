@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Core.Entity
+namespace Core.Extension.FieldInfos
 {
     public abstract class Field
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Core.Extension.ExpressionBuilder.Generics
+namespace Core.Extension.Filters
 {
     public class IntegerLessThanFilter<T> : BaseFilter<T>
     {
-        public IntegerLessThanFilter(Expression<Func<T, int>> expression, int max) : base(expression.GetPropertyName(), Operations.Operation.LessThan, max)
+        public IntegerLessThanFilter(Expression<Func<T, int>> expression, int max) : base(expression.GetPropertyName(), ExpressionBuilder.Operations.Operation.LessThan, max)
         {
         }
     }

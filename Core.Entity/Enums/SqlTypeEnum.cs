@@ -1,4 +1,4 @@
-﻿namespace Core.Web.Enums
+﻿namespace Core.Entity.Enums
 {
     public enum SqlTypeEnum
     {

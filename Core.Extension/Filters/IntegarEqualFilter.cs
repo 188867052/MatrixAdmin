@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Linq.Expressions;
-using Core.Entity;
+using Core.Extension.FieldInfos;
 
-namespace Core.Extension.ExpressionBuilder.Generics
+namespace Core.Extension.Filters
 {
     public class IntegarEqualFilter<T> : BaseFilter<T>
     {
-        public IntegarEqualFilter(Expression<Func<T, int?>> expression, int? value) : base(expression.GetPropertyName(), Operations.Operation.EqualTo, value)
+        public IntegarEqualFilter(Expression<Func<T, int?>> expression, int? value) : base(expression.GetPropertyName(), ExpressionBuilder.Operations.Operation.EqualTo, value)
         {
         }
 
-        public IntegarEqualFilter(IntegerField fieldInfo, int? value) : base(fieldInfo, Operations.Operation.EqualTo, value)
+        public IntegarEqualFilter(IntegerField fieldInfo, int? value) : base(fieldInfo, ExpressionBuilder.Operations.Operation.EqualTo, value)
         {
         }
     }

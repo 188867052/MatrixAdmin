@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Core.Extension.ExpressionBuilder.Generics
+namespace Core.Extension.Filters
 {
     public class StringStartsWithFilter<T> : BaseFilter<T>
     {
-        public StringStartsWithFilter(Expression<Func<T, string>> expression, string value) : base(expression.GetPropertyName(), Operations.Operation.StartsWith, value)
+        public StringStartsWithFilter(Expression<Func<T, string>> expression, string value) : base(expression.GetPropertyName(), ExpressionBuilder.Operations.Operation.StartsWith, value)
         {
         }
     }

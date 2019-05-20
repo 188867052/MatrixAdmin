@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Core.Extension.ExpressionBuilder.Interfaces;
 
-namespace Core.Extension.ExpressionBuilder.Generics
+namespace Core.Extension.Filters
 {
     public class DecimalExistsInFilter<T, TCollection, TPropertyType> : BaseCollectionExistsInFilter<T, TCollection, decimal>
     {

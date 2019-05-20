@@ -1,5 +1,4 @@
-﻿using System;
-using Core.Entity.Enums;
+﻿using Core.Entity.Enums;
 
 namespace Core.Model.Administration.Permission
 {

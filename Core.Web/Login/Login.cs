@@ -1,7 +1,4 @@
-﻿using System.IO;
-using Microsoft.AspNetCore.Hosting;
-
-namespace Core.Web.Login
+﻿namespace Core.Web.Login
 {
     public class Login
     {

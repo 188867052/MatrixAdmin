@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Core.Model.Administration.Permission
+﻿namespace Core.Model.Administration.Permission
 {
     /// <summary>
     ///

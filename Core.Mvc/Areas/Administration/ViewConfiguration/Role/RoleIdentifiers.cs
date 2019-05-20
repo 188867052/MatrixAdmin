@@ -1,6 +1,6 @@
 ﻿using Core.Web.Identifiers;
 
-namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
+namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 {
     public static class RoleIdentifiers
     {

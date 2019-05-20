@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using Core.Entity.Enums;
 using Core.Extension;
 using Core.Model.Log;
 using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.Button;
-using Core.Web.Enums;
 using Core.Web.GridFilter;
 using Core.Web.SearchFilterConfiguration;
 using Microsoft.Extensions.Logging;

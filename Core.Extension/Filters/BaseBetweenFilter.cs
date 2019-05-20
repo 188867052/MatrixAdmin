@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using Core.Extension.ExpressionBuilder.Common;
 using Core.Extension.ExpressionBuilder.Interfaces;
 
-namespace Core.Extension.ExpressionBuilder.Generics
+namespace Core.Extension.Filters
 {
     public abstract class BaseBetweenFilter<T> : IFilterInfo
     {
@@ -13,7 +13,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
             this.Value = min;
             this.Value2 = max;
             this.Validate();
-            this.Operation = Operations.Operation.Between;
+            this.Operation = ExpressionBuilder.Operations.Operation.Between;
             this.Connector = Connector.And;
             this.IsFilterEnable = min != null || max != null;
         }

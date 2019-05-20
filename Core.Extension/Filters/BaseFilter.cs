@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Core.Entity;
 using Core.Extension.ExpressionBuilder.Common;
 using Core.Extension.ExpressionBuilder.Interfaces;
+using Core.Extension.FieldInfos;
 
-namespace Core.Extension.ExpressionBuilder.Generics
+namespace Core.Extension.Filters
 {
     public class BaseFilter<T> : IFilterInfo
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.Web.Enums;
+using Core.Entity.Enums;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Model.Log

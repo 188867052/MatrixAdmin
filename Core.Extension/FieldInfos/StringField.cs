@@ -1,4 +1,4 @@
-﻿namespace Core.Entity
+﻿namespace Core.Extension.FieldInfos
 {
     public class StringField : Field
     {

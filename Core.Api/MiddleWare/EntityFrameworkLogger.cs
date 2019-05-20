@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using Core.Entity;
-using Core.Web.Enums;
+using Core.Entity.Enums;
 using Microsoft.Extensions.Logging;
 
 namespace Core.Api.MiddleWare

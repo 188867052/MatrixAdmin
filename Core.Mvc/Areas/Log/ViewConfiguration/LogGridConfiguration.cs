@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using Core.Entity.Enums;
 using Core.Model;
 using Core.Resource.Areas.Log.ViewConfiguration;
-using Core.Web.Enums;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
 using Microsoft.Extensions.Logging;

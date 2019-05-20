@@ -1,9 +1,8 @@
 ﻿using System;
 using Core.Entity.Enums;
-using Core.Web.Enums;
 using Microsoft.Extensions.Logging;
 
-namespace Core.Web.GridColumn
+namespace Core.Web.Enums
 {
     public static class EnumMapping
     {

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace Core.Extension.ExpressionBuilder.Generics
+namespace Core.Extension.Filters
 {
     public class StringIsEmptyFilter<T> : BaseFilter<T>
     {
-        public StringIsEmptyFilter(Expression<Func<T, string>> expression) : base(expression.GetPropertyName(), Operations.Operation.IsEmpty, string.Empty)
+        public StringIsEmptyFilter(Expression<Func<T, string>> expression) : base(expression.GetPropertyName(), ExpressionBuilder.Operations.Operation.IsEmpty, string.Empty)
         {
         }
     }

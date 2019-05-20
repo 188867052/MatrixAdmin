@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
-using Core.Model;
 using Core.Model.Administration.Menu;
 using Core.Mvc.Areas.Administration.Controllers;
 using Core.Web.Button;
@@ -9,7 +8,7 @@ using Core.Web.Html;
 using Core.Web.TextBox;
 using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Menu.AddMenuDialogConfigurationResource;
 
-namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
+namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 {
     public class AddMenuDialogConfiguration<TPostModel, TModel> : DialogConfiguration<TPostModel, TModel>
         where TPostModel : MenuCreatePostModel

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
 using Core.Model;
+using Core.Model.Administration.Menu;
 using Core.Mvc.Areas.Administration.Controllers;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;

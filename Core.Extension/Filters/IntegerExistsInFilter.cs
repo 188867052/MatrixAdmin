@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Core.Entity;
 using Core.Extension.ExpressionBuilder.Interfaces;
+using Core.Extension.FieldInfos;
 
-namespace Core.Extension.ExpressionBuilder.Generics
+namespace Core.Extension.Filters
 {
     public class IntegerExistsInFilter<T, TCollection> : BaseCollectionExistsInFilter<T, TCollection, int?>
     {

@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using Core.Entity;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
@@ -166,21 +164,6 @@ namespace Core.Mvc.Areas.Administration.Controllers
             ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
 
             return this.Submit(model);
-        }
-
-        /// <summary>
-        /// Gets role data list.
-        /// </summary>
-        /// <returns>The IActionResult.</returns>
-        [HttpGet]
-        public IActionResult GetRoleDataList()
-        {
-            var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.GetRoleDataList));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<Role>>(url).Result;
-            IList<Role> roles = (IList<Role>)model.Data;
-            string options = roles.Aggregate(string.Empty, (current, role) => current + $"<option key=\"{role.Id}\" value=\"{role.Name}\"></option>");
-
-            return this.Content(options, "text/html", Encoding.UTF8);
         }
     }
 }

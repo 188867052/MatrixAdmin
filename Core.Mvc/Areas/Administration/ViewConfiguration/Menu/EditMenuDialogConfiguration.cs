@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
-using Core.Model;
 using Core.Model.Administration.Menu;
 using Core.Mvc.Areas.Administration.Controllers;
-using Core.Mvc.Areas.Administration.ViewConfiguration.User;
 using Core.Web.Button;
 using Core.Web.Dialog;
 using Core.Web.Html;
