@@ -12,13 +12,15 @@ using Core.Web.TextBox;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 {
-    public class EditMenuDialogConfiguration : DialogConfiguration<MenuEditPostModel, MenuModel>
+    public class EditMenuDialogConfiguration<TPostModel, TModel> : DialogConfiguration<TPostModel, TModel>
+        where TPostModel : MenuEditPostModel
+        where TModel : MenuModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EditMenuDialogConfiguration"/> class.
         /// </summary>
         /// <param name="menu">The Menu.</param>
-        public EditMenuDialogConfiguration(MenuModel menu) : base(menu, Identifier)
+        public EditMenuDialogConfiguration(TModel menu) : base(menu, Identifier)
         {
         }
 
@@ -26,18 +28,18 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 
         public override string Title => EditMenuDialogConfigurationResource.EditMenuTitle;
 
-        protected override void CreateHiddenValues(IList<ITextRender<MenuEditPostModel, MenuModel>> textBoxes)
+        protected override void CreateHiddenValues(IList<ITextRender<TPostModel, TModel>> textBoxes)
         {
-            textBoxes.Add(new HiddenTextBox<MenuEditPostModel, MenuModel>(o => o.Id, this.Model.Id));
+            textBoxes.Add(new HiddenTextBox<TPostModel, TModel>(o => o.Id, this.Model.Id));
         }
 
-        protected override void CreateBody(IList<ITextRender<MenuEditPostModel, MenuModel>> textBoxes)
+        protected override void CreateBody(IList<ITextRender<TPostModel, TModel>> textBoxes)
         {
-            textBoxes.Add(new LabeledTextBox<MenuEditPostModel, MenuModel>(EditMenuDialogConfigurationResource.Name, o => o.Name, o => o.Name));
-            textBoxes.Add(new LabeledTextBox<MenuEditPostModel, MenuModel>(EditMenuDialogConfigurationResource.Url, o => o.Url, o => o.Url));
-            textBoxes.Add(new LabeledTextBox<MenuEditPostModel, MenuModel>(EditMenuDialogConfigurationResource.Description, o => o.Description, o => o.Description));
-            textBoxes.Add(new LabeledIntegerTextBox<MenuEditPostModel, MenuModel>(EditMenuDialogConfigurationResource.Sort, o => o.Sort, o => o.Sort));
-            textBoxes.Add(new LabeledTextBox<MenuEditPostModel, MenuModel>(EditMenuDialogConfigurationResource.Alias, o => o.Alias, o => o.Alias));
+            textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(EditMenuDialogConfigurationResource.Name, o => o.Name, o => o.Name));
+            textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(EditMenuDialogConfigurationResource.Url, o => o.Url, o => o.Url));
+            textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(EditMenuDialogConfigurationResource.Description, o => o.Description, o => o.Description));
+            textBoxes.Add(new LabeledIntegerTextBox<TPostModel, TModel>(EditMenuDialogConfigurationResource.Sort, o => o.Sort, o => o.Sort));
+            textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(EditMenuDialogConfigurationResource.Alias, o => o.Alias, o => o.Alias));
         }
 
         protected override void CreateButtons(IList<StandardButton> buttons)

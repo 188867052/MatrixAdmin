@@ -11,13 +11,15 @@ using Core.Web.TextBox;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 {
-    public class EditRoleDialogConfiguration : DialogConfiguration<RoleEditPostModel, RoleModel>
+    public class EditRoleDialogConfiguration<TPostModel, TModel> : DialogConfiguration<TPostModel, TModel>
+        where TPostModel : RoleEditPostModel
+        where TModel : RoleModel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EditRoleDialogConfiguration"/> class.
         /// </summary>
         /// <param name="user">The user.</param>
-        public EditRoleDialogConfiguration(RoleModel user) : base(user, Identifier)
+        public EditRoleDialogConfiguration(TModel user) : base(user, Identifier)
         {
         }
 
@@ -25,15 +27,15 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 
         public override string Title => RoleIndexResource.EditRoleDialogTitle;
 
-        protected override void CreateHiddenValues(IList<ITextRender<RoleEditPostModel, RoleModel>> textBoxes)
+        protected override void CreateHiddenValues(IList<ITextRender<TPostModel, TModel>> textBoxes)
         {
-            textBoxes.Add(new HiddenTextBox<RoleEditPostModel, RoleModel>(o => o.Id, this.Model.Id));
+            textBoxes.Add(new HiddenTextBox<TPostModel, TModel>(o => o.Id, this.Model.Id));
         }
 
-        protected override void CreateBody(IList<ITextRender<RoleEditPostModel, RoleModel>> textBoxes)
+        protected override void CreateBody(IList<ITextRender<TPostModel, TModel>> textBoxes)
         {
-            textBoxes.Add(new LabeledTextBox<RoleEditPostModel, RoleModel>("角色名", o => o.Name, o => o.Name));
-            textBoxes.Add(new LabeledTextBox<RoleEditPostModel, RoleModel>("描述", o => o.Description, o => o.Description));
+            textBoxes.Add(new LabeledTextBox<TPostModel, TModel>("角色名", o => o.Name, o => o.Name));
+            textBoxes.Add(new LabeledTextBox<TPostModel, TModel>("描述", o => o.Description, o => o.Description));
         }
 
         protected override void CreateButtons(IList<StandardButton> buttons)

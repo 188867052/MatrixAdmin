@@ -93,7 +93,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
             var url = new Url(typeof(Api.Controllers.MenuController), nameof(Api.Controllers.MenuController.FindById));
             ResponseModel model = HttpClientAsync.GetAsync<MenuModel>(url, id).Result;
             MenuModel menuModel = (MenuModel)model.Data;
-            EditMenuDialogConfiguration dialog = new EditMenuDialogConfiguration(menuModel);
+            EditMenuDialogConfiguration<MenuEditPostModel, MenuModel> dialog = new EditMenuDialogConfiguration<MenuEditPostModel, MenuModel>(menuModel);
 
             return this.Dialog(dialog);
         }

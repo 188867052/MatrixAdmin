@@ -90,7 +90,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
             var url = new Url(typeof(Api.Controllers.RoleController), nameof(Api.Controllers.RoleController.FindById));
             ResponseModel model = HttpClientAsync.GetAsync<RoleModel>(url, id).Result;
             RoleModel user = (RoleModel)model.Data;
-            EditRoleDialogConfiguration dialog = new EditRoleDialogConfiguration(user);
+            EditRoleDialogConfiguration<RoleEditPostModel, RoleModel> dialog = new EditRoleDialogConfiguration<RoleEditPostModel, RoleModel>(user);
 
             return this.Dialog(dialog);
         }
