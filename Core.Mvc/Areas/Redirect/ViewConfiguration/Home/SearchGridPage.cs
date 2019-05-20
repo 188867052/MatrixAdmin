@@ -7,7 +7,6 @@ using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Web.Html;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 {
@@ -15,10 +14,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
     {
         public static readonly string LeftText = "&laquo;";
         public static readonly string RightText = "&raquo;";
-
-        protected SearchGridPage(IHostingEnvironment hostingEnvironment = null)
-        {
-        }
 
         /// <summary>
         /// Gets title.

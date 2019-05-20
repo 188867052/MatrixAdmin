@@ -1,16 +1,11 @@
 ﻿using System.Collections.Generic;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Index
 {
     public class Index : SearchGridPage
     {
-        public Index(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
-        {
-        }
-
         protected override string FileName
         {
             get

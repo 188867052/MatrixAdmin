@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Log;
 using Core.Mvc.Areas.Log.ViewConfiguration;
-using Core.Web.File;
 using Microsoft.AspNetCore.Mvc;
 using ApiController = Core.Api.Controllers.LogController;
 
@@ -24,12 +22,6 @@ namespace Core.Mvc.Areas.Log.Controllers
             LogIndex table = new LogIndex(model);
 
             return this.ViewConfiguration(table);
-        }
-
-        public IActionResult Test()
-        {
-            File index = new File(this.HostingEnvironment, "a_test");
-            return this.Content(index.Render(), "text/html", Encoding.UTF8);
         }
 
         /// <summary>

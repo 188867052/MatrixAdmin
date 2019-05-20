@@ -3,16 +3,11 @@ using Core.Extension;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.Sidebar;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Interface
 {
     public class Interface : SearchGridPage
     {
-        public Interface(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
-        {
-        }
-
         protected override string FileName
         {
             get

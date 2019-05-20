@@ -6,16 +6,11 @@ using Core.Model;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.Sidebar;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button
 {
     public class Button : SearchGridPage
     {
-        public Button(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
-        {
-        }
-
         protected override string FileName
         {
             get

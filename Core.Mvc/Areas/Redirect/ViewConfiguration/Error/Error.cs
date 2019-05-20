@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Error
 {
@@ -8,7 +7,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Error
     {
         private readonly int _errorNumber;
 
-        public Error(IHostingEnvironment hostingEnvironment, int errorNumber) : base(hostingEnvironment)
+        public Error(int errorNumber)
         {
             this._errorNumber = errorNumber;
         }

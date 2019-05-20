@@ -4,16 +4,11 @@ using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.Sidebar;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Form
 {
     public class BasicForm : SearchGridPage
     {
-        public BasicForm(IHostingEnvironment hostingEnvironment) : base(hostingEnvironment)
-        {
-        }
-
         protected override string FileName
         {
             get

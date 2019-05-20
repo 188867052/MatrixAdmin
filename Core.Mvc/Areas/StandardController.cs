@@ -4,7 +4,6 @@ using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.Dialog;
 using Core.Web.Html;
 using Core.Web.ViewConfiguration;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Mvc.Areas
@@ -13,17 +12,6 @@ namespace Core.Mvc.Areas
     {
         private readonly Encoding _encoding = Encoding.UTF8;
         private readonly string _contentType = "text/html";
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StandardController"/> class.
-        /// </summary>
-        /// <param name="hostingEnvironment">The hostingEnvironment.</param>
-        protected StandardController(IHostingEnvironment hostingEnvironment = null)
-        {
-            this.HostingEnvironment = hostingEnvironment;
-        }
-
-        protected IHostingEnvironment HostingEnvironment { get; set; }
 
         protected ContentResult ViewConfiguration(SearchGridPage index)
         {

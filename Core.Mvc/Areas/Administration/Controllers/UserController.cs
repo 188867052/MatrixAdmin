@@ -23,7 +23,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Index));
             var model = HttpClientAsync.GetAsync<IList<UserModel>>(url).Result;
-            UserIndex table = new UserIndex(this.HostingEnvironment, model);
+            UserIndex table = new UserIndex(model);
 
             return this.ViewConfiguration(table);
         }

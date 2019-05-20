@@ -1,5 +1,4 @@
-﻿using Core.Model.Administration.User;
-using Core.Web.JavaScript;
+﻿using Core.Web.JavaScript;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 {
