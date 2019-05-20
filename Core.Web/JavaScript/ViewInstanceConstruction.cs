@@ -17,6 +17,6 @@
             return javaScriptInitialize;
         }
 
-        public abstract void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize);
+        public abstract void InitializeViewInstance(JavaScriptInitialize initialize);
     }
 }

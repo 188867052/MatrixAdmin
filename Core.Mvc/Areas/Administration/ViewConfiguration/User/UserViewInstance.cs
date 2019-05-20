@@ -6,9 +6,9 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
     {
         protected override string InstanceClassName => "Index";
 
-        public override void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize)
+        public override void InitializeViewInstance(JavaScriptInitialize initialize)
         {
-            javaScriptInitialize.AddFrameWorkInstance("dialogInstance", UserIdentifiers.AddUserDialogIdentifier);
+            initialize.AddFrameWorkInstance("dialogInstance", UserIdentifiers.AddUserDialogIdentifier);
         }
     }
 }

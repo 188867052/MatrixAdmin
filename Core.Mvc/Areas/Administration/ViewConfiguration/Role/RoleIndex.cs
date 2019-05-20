@@ -16,7 +16,6 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
         /// <summary>
         /// Initializes a new instance of the <see cref="RoleIndex"/> class.
         /// </summary>
-        /// <param name="hostingEnvironment">A hosingEnvironment.</param>
         /// <param name="response">The response.</param>
         public RoleIndex(ResponseModel response)
         {

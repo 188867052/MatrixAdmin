@@ -63,8 +63,8 @@ namespace Core.Mvc
         /// <summary>
         /// DeleteAsync.
         /// </summary>
-        /// <param name="url"></param>
-        /// <param name="data"></param>
+        /// <param name="url">url</param>
+        /// <param name="data">data</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public static async Task<ResponseModel> DeleteAsync(Url url, object data = null)
         {

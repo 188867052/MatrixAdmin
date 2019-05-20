@@ -2,9 +2,8 @@
 using AutoMapper;
 using Core.Api.ControllerHelpers;
 using Core.Entity;
+using Core.Extension;
 using Core.Extension.ExpressionBuilder.Generics;
-using Core.Extension.FieldInfos;
-using Core.Extension.Filters;
 using Core.Model;
 using Core.Model.Log;
 using Microsoft.AspNetCore.Mvc;
@@ -44,13 +43,12 @@ namespace Core.Api.Controllers
                 IQueryable<Log> query = this.DbContext.Log;
 
                 Filter<Log> filter = new Filter<Log>();
-                filter.AddSimpleFilter(new IntegarEqualFilter<Log>(LogField.LogLevel, (int?)model.LogLevel));
-                filter.AddSimpleFilter(new IntegarEqualFilter<Log>(LogField.SqlOperateType, (int?)model.SqlType));
-                filter.AddSimpleFilter(new StringContainsFilter<Log>(LogField.Message, model.Message));
-                filter.AddSimpleFilter(new DateTimeBetweenFilter<Log>(LogField.CreateTime, model.StartTime, model.EndTime));
-
-                query = query.Where(filter);
+                query = query.AddFilter(o => o.LogLevel == (int?)model.LogLevel, model.LogLevel);
+                query = query.AddFilter(o => o.SqlOperateType == (int?)model.SqlType, model.SqlType);
+                query = query.AddFilter(o => o.Message.Contains(model.Message), model.Message);
+                query = query.AddDateTimeBetweenFilter(model.StartTime, model.EndTime, o => o.CreateTime);
                 query = query.OrderByDescending(o => o.CreateTime);
+                query = query.Where(filter);
 
                 return this.StandardResponse(query, model);
             }

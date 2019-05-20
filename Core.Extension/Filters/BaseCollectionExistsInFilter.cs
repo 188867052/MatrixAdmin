@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using Core.Extension.ExpressionBuilder.Common;
 using Core.Extension.ExpressionBuilder.Generics;
 using Core.Extension.ExpressionBuilder.Interfaces;
-using Core.Extension.FieldInfos;
 
 namespace Core.Extension.Filters
 {
@@ -15,18 +14,6 @@ namespace Core.Extension.Filters
             this.Connector = Connector.And;
             this.Operation = filter.Operation;
             string name = expression.ToString().Split('.')[1] + $"[{filter.PropertyName}]";
-            this.FilterInfos = new List<IFilterInfo>
-            {
-                new FilterInfo<TPropertyType>(name, this.Operation, filter.Value)
-            };
-            this.IsFilterEnable = filter.Value != null;
-        }
-
-        public BaseCollectionExistsInFilter(CollectionField field, IFilterInfo filter)
-        {
-            this.Connector = Connector.And;
-            this.Operation = filter.Operation;
-            string name = field.Value + $"[{filter.PropertyName}]";
             this.FilterInfos = new List<IFilterInfo>
             {
                 new FilterInfo<TPropertyType>(name, this.Operation, filter.Value)

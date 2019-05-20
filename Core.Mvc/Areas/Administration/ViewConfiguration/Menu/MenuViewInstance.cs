@@ -6,7 +6,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
     {
         protected override string InstanceClassName => "Index";
 
-        public override void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize)
+        public override void InitializeViewInstance(JavaScriptInitialize initialize)
         {
         }
     }

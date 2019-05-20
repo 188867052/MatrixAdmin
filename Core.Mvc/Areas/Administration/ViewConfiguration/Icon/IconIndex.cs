@@ -11,7 +11,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
 {
     public class IconIndex : SearchGridPage
     {
-        private readonly ResponseModel response;
+        private readonly ResponseModel _response;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IconIndex"/> class.
@@ -19,17 +19,11 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
         /// <param name="response">The response.</param>
         public IconIndex(ResponseModel response)
         {
-            this.response = response;
+            this._response = response;
         }
 
         /// <inheritdoc/>
-        protected override string FileName
-        {
-            get
-            {
-                return "SearchGridPage";
-            }
-        }
+        protected override string FileName { get; } = "SearchGridPage";
 
         /// <inheritdoc/>
         public override IList<string> Css()
@@ -42,7 +36,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
 
         public override string Render()
         {
-            IconGridConfiguration configuration = new IconGridConfiguration(this.response);
+            IconGridConfiguration configuration = new IconGridConfiguration(this._response);
             string table = configuration.GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 

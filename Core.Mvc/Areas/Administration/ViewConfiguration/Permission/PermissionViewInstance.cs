@@ -8,10 +8,10 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
     {
         protected override string InstanceClassName => "Index";
 
-        public override void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize)
+        public override void InitializeViewInstance(JavaScriptInitialize initialize)
         {
             Url url = new Url(nameof(Administration), typeof(PermissionController), nameof(PermissionController.GridStateChange));
-            javaScriptInitialize.AddUrlInstance("searchUrl", url);
+            initialize.AddUrlInstance("searchUrl", url);
         }
     }
 }

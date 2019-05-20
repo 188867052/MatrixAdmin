@@ -17,7 +17,7 @@ namespace Core.Mvc.Areas.AdvancedDropDown
         /// </summary>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult GetRoleDataList()
+        public IActionResult RoleDataList()
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.GetRoleDataList));
             ResponseModel model = HttpClientAsync.GetAsync<IList<Role>>(url).Result;

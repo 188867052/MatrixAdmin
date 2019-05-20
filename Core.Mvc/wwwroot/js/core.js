@@ -13,7 +13,7 @@
         _successPointer: null,
         _leftText: null,
         _rightText: null,
-        _getRoleDataList: null,
+        _getRoleDataListUrl: null,
 
         // Private Event Delegates  
 
@@ -64,6 +64,10 @@
 
         clear: function () {
             $(".custom-control-inline input").each(function () {
+                this.value = '';
+            });
+
+            $(".custom-control-inline select").each(function () {
                 this.value = '';
             });
         },
@@ -186,7 +190,7 @@
             var dataList = event.currentTarget.list;
             $.ajaxSettings.async = false;
             var onSuccess = $.proxy(this._onGetRoleDataList, this, dataList);
-            $.get(this._getRoleDataList, onSuccess);
+            $.get(this._getRoleDataListUrl, onSuccess);
         },
 
         _onGetRoleDataList: function (dataList, response) {

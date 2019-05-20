@@ -6,18 +6,12 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 {
     public class RoleViewInstance : ViewInstanceConstruction
     {
-        protected override string InstanceClassName
-        {
-            get
-            {
-                return "Index";
-            }
-        }
+        protected override string InstanceClassName { get; } = "Index";
 
-        public override void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize)
+        public override void InitializeViewInstance(JavaScriptInitialize initialize)
         {
             Url url = new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.GridStateChange));
-            javaScriptInitialize.AddUrlInstance("searchUrl", url);
+            initialize.AddUrlInstance("searchUrl", url);
         }
     }
 }

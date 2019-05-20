@@ -9,13 +9,13 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
     {
         protected override string InstanceClassName => "Core";
 
-        public override void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize)
+        public override void InitializeViewInstance(JavaScriptInitialize initialize)
         {
-            javaScriptInitialize.AddStringInstance("leftText", WebUtility.HtmlDecode(SearchGridPage.LeftText));
-            javaScriptInitialize.AddStringInstance("rightText", WebUtility.HtmlDecode(SearchGridPage.RightText));
+            initialize.AddStringInstance("leftText", WebUtility.HtmlDecode(SearchGridPage.LeftText));
+            initialize.AddStringInstance("rightText", WebUtility.HtmlDecode(SearchGridPage.RightText));
 
-            var url = new Url(nameof(AdvancedDropDown), typeof(AdvancedDropDownController), nameof(AdvancedDropDownController.GetRoleDataList));
-            javaScriptInitialize.AddUrlInstance("getRoleDataList", url);
+            var url = new Url(nameof(AdvancedDropDown), typeof(AdvancedDropDownController), nameof(AdvancedDropDownController.RoleDataList));
+            initialize.AddUrlInstance("getRoleDataListUrl", url);
         }
     }
 }

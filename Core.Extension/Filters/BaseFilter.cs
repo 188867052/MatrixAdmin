@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Extension.ExpressionBuilder.Common;
 using Core.Extension.ExpressionBuilder.Interfaces;
-using Core.Extension.FieldInfos;
 
 namespace Core.Extension.Filters
 {
@@ -14,10 +13,6 @@ namespace Core.Extension.Filters
             this.Value = value;
             this.Validate();
             this.IsFilterEnable = this.Value != null;
-        }
-
-        protected BaseFilter(Field propertyName, IOperation operation, object value) : this(propertyName.Value, operation, value)
-        {
         }
 
         public bool IsFilterEnable { get; set; }

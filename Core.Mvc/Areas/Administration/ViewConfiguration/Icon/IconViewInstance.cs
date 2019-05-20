@@ -6,20 +6,14 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
 {
     public class IconViewInstance : ViewInstanceConstruction
     {
-        protected override string InstanceClassName
-        {
-            get
-            {
-                return "Index";
-            }
-        }
+        protected override string InstanceClassName => "Index";
 
-        public override void InitializeViewInstance(JavaScriptInitialize javaScriptInitialize)
+        public override void InitializeViewInstance(JavaScriptInitialize initialize)
         {
             Url searchUrl = new Url(nameof(Administration), typeof(IconController), nameof(IconController.GridStateChange));
             Url addUrl = new Url(nameof(Administration), typeof(IconController), nameof(IconController.AddDialog));
-            javaScriptInitialize.AddUrlInstance("searchUrl", searchUrl);
-            javaScriptInitialize.AddUrlInstance("addUrl", addUrl);
+            initialize.AddUrlInstance("searchUrl", searchUrl);
+            initialize.AddUrlInstance("addUrl", addUrl);
         }
     }
 }
