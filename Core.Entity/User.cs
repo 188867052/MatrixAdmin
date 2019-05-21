@@ -14,6 +14,7 @@ namespace Core.Entity
             UserRoleMapping = new HashSet<UserRoleMapping>();
         }
 
+        public int Id { get; set; }
         public string LoginName { get; set; }
         public string DisplayName { get; set; }
         public string Password { get; set; }
@@ -29,7 +30,6 @@ namespace Core.Entity
         public Guid CreatedByUserId { get; set; }
         public Guid? UpdateByUserId { get; set; }
         public bool IsEnable { get; set; }
-        public int Id { get; set; }
         public bool IsDeleted { get; set; }
         public int UserStatusId { get; set; }
 

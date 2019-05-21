@@ -11,6 +11,7 @@ namespace Core.Entity
             UserRoleMapping = new HashSet<UserRoleMapping>();
         }
 
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime CreateTime { get; set; }
@@ -20,7 +21,6 @@ namespace Core.Entity
         public bool IsSuperAdministrator { get; set; }
         public bool IsEnable { get; set; }
         public bool IsForbidden { get; set; }
-        public int Id { get; set; }
         public int ModifiedByUserId { get; set; }
         public int CreateByUserId { get; set; }
 
