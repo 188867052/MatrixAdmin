@@ -42,6 +42,11 @@ namespace Core.Resource.Areas.Administration.SearchFilterConfigurations
 		public static string ClearButtonLabel { get { return GetResourceString("ClearButtonLabel"); } }
 
 		/// <summary>
+		/// Gets the localized string for ClearButtonToolTip.
+		/// </summary>
+		public static string ClearButtonToolTip { get { return GetResourceString("ClearButtonToolTip"); } }
+
+		/// <summary>
 		/// Gets the localized string for Code.
 		/// </summary>
 		public static string Code { get { return GetResourceString("Code"); } }
@@ -1569,13 +1574,25 @@ namespace Core.Resource.Areas.Log.SearchFilterConfigurations
 		
 		/// <summary>
 		/// Gets the localized string for ClearButtonLabel.
+		/// 删除所有日志
 		/// </summary>
 		public static string ClearButtonLabel { get { return GetResourceString("ClearButtonLabel"); } }
 
 		/// <summary>
+		/// Gets the localized string for ClearButtonToolTip.
+		/// </summary>
+		public static string ClearButtonToolTip { get { return GetResourceString("ClearButtonToolTip"); } }
+
+		/// <summary>
 		/// Gets the localized string for ClearEmptyButtonLabel.
+		/// 清空搜索条件
 		/// </summary>
 		public static string ClearEmptyButtonLabel { get { return GetResourceString("ClearEmptyButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for ClearEmptyButtonToolTip.
+		/// </summary>
+		public static string ClearEmptyButtonToolTip { get { return GetResourceString("ClearEmptyButtonToolTip"); } }
 
 		/// <summary>
 		/// Gets the localized string for Create.

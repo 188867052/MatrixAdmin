@@ -20,7 +20,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Index));
             var responseModel = HttpClientAsync.GetAsync<IList<Icon>>(url).Result;
-            IconIndex index = new IconIndex(responseModel);
+            IconIndex<IconPostModel> index = new IconIndex<IconPostModel>(responseModel);
 
             return this.ViewConfiguration(index);
         }

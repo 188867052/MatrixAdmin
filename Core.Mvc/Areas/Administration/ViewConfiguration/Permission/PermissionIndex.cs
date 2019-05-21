@@ -7,6 +7,7 @@ using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
+using Core.Web.ViewConfiguration;
 using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Permission.PermissionIndexResource;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
@@ -49,6 +50,11 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
         protected override SearchFilterConfiguration SearchFilterConfiguration()
         {
             return new PermissionSearchFilterConfiguration();
+        }
+
+        protected override GridConfiguration<object> GridConfiguration()
+        {
+            return null;
         }
 
         protected override string ContentHeader()

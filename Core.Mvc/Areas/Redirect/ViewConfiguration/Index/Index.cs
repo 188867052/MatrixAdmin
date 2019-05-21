@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Index
 {
@@ -41,6 +42,11 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Index
                "/js/matrix.chat.js",
                "/js/jquery.validate.js",
             };
+        }
+
+        protected override GridConfiguration<object> GridConfiguration()
+        {
+            return null;
         }
 
         protected override IList<ViewInstanceConstruction> CreateViewInstanceConstructions()

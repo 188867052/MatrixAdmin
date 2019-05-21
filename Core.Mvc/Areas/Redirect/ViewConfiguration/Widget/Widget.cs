@@ -3,6 +3,7 @@ using Core.Extension;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.Sidebar;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Widget
 {
@@ -32,6 +33,11 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Widget
             {
                "/js/matrix.js",
             };
+        }
+
+        protected override GridConfiguration<object> GridConfiguration()
+        {
+            return null;
         }
 
         protected override string ContentHeader()

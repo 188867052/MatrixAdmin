@@ -4,6 +4,7 @@ using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Addons
 {
@@ -37,7 +38,12 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Addons
 
         protected override SearchFilterConfiguration SearchFilterConfiguration()
         {
-            throw new System.NotImplementedException();
+            return null;
+        }
+
+        protected override GridConfiguration<object> GridConfiguration()
+        {
+            return null;
         }
 
         protected override string ContentHeader()

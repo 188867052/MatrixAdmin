@@ -40,9 +40,9 @@ namespace Core.Mvc.Areas.Log.SearchFilterConfigurations
         {
             Url url = new Url(nameof(Log), typeof(LogController), nameof(LogController.Clear));
             Url searchUrl = new Url(nameof(Log), typeof(LogController), nameof(LogController.GridStateChange));
-            buttons.Add(new StandardButton(Resources.SearchButtonLabel, "index.search", searchUrl));
-            buttons.Add(new StandardButton(Resources.ClearEmptyButtonLabel, "index.clear", url));
-            buttons.Add(new StandardButton(Resources.ClearButtonLabel, "core.clear"));
+            buttons.Add(new StandardButton(Resources.SearchButtonLabel, "index.search", searchUrl, tooltip: Resources.SearchButtonLabel));
+            buttons.Add(new StandardButton(Resources.ClearButtonLabel, "index.clear", url, tooltip: Resources.ClearButtonToolTip));
+            buttons.Add(new StandardButton(Resources.ClearEmptyButtonLabel, "core.clear", tooltip: Resources.ClearEmptyButtonToolTip));
         }
     }
 }

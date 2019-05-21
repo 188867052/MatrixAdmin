@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Login
 {
@@ -28,6 +29,11 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Login
             {
                "/js/matrix.login.js"
             };
+        }
+
+        protected override GridConfiguration<object> GridConfiguration()
+        {
+            return null;
         }
     }
 }

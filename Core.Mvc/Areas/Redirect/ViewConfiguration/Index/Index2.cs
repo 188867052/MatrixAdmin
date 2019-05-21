@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Index
 {
@@ -43,6 +44,11 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Index
                "/js/matrix.tables.js",
                "/js/matrix.interface.js",
             };
+        }
+
+        protected override GridConfiguration<object> GridConfiguration()
+        {
+            return null;
         }
     }
 }

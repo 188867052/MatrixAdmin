@@ -3,8 +3,6 @@ using Core.Mvc.Areas.Redirect.ViewConfiguration.Addons;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Button;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Chart;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Error;
-using Core.Mvc.Areas.Redirect.ViewConfiguration.Form;
-using Core.Mvc.Areas.Redirect.ViewConfiguration.Grid;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Index;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Interface;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Login;
@@ -69,33 +67,9 @@ namespace Core.Mvc.Areas.Redirect.Controllers
             return this.Content(error.Render(), "text/html", Encoding.UTF8);
         }
 
-        public IActionResult FormCommon()
-        {
-            BasicForm basicForm = new BasicForm();
-            return this.Content(basicForm.Render(), "text/html", Encoding.UTF8);
-        }
-
-        public IActionResult FormValidation()
-        {
-            FormValidation basicForm = new FormValidation();
-            return this.Content(basicForm.Render(), "text/html", Encoding.UTF8);
-        }
-
-        public IActionResult FormWizard()
-        {
-            FormWizard basicForm = new FormWizard();
-            return this.Content(basicForm.Render(), "text/html", Encoding.UTF8);
-        }
-
         public IActionResult Gallery()
         {
             Gallery file = new Gallery();
-            return this.Content(file.Render(), "text/html", Encoding.UTF8);
-        }
-
-        public IActionResult Grid()
-        {
-            Grid file = new Grid();
             return this.Content(file.Render(), "text/html", Encoding.UTF8);
         }
 

@@ -1,21 +1,24 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
 using Core.Model;
+using Core.Model.Administration.Icon;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
 {
-    public class IconIndex : SearchGridPage<object>
+    public class IconIndex<T> : SearchGridPage<T>
+        where T : IconPostModel
     {
         private readonly ResponseModel _response;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="IconIndex"/> class.
+        /// Initializes a new instance of the <see cref="IconIndex{T}"/> class.
         /// </summary>
         /// <param name="response">The response.</param>
         public IconIndex(ResponseModel response)
@@ -40,7 +43,12 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
 
         protected override SearchFilterConfiguration SearchFilterConfiguration()
         {
-            return new IconSearchFilterConfiguration();
+            return new IconSearchFilterConfiguration<T>();
+        }
+
+        protected override GridConfiguration<T> GridConfiguration()
+        {
+            return null;
         }
 
         /// <inheritdoc/>

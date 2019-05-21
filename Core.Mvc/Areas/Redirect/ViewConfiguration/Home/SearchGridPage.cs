@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Core.Api.AuthContext;
 using Core.Entity;
 using Core.Extension;
 using Core.Mvc.Areas.Redirect.Controllers;
@@ -46,7 +45,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             string htmlFormat = new CoreApiContext().Configuration.FirstOrDefault(o => o.Key == this.FileName)?.Value;
 
             string html = htmlFormat.Replace("{{head}}", this.HtmlHead());
-            html = html.Replace("{{sidebarMenu}}",  SidebarNavigation.SidebarMenu());
+            html = html.Replace("{{sidebarMenu}}", SidebarNavigation.SidebarMenu());
             html = html.Replace("{{content-header}}", this.ContentHeader());
             html = html.Replace("{{Footer}}", this.Footer());
             html = html.Replace("{{tobHeader}}", SiteConfiguration.TopHeader);
@@ -91,10 +90,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             return null;
         }
 
-        protected virtual GridConfiguration<T> GridConfiguration()
-        {
-            return null;
-        }
+        protected abstract GridConfiguration<T> GridConfiguration();
 
         protected virtual string ContentHeader()
         {

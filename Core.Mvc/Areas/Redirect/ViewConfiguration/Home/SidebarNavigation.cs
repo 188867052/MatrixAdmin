@@ -10,7 +10,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 {
     public class SidebarNavigation
     {
-        public static string SidebarMenuValue;
+        private static string _sidebarMenuValue;
 
         /// <summary>
         /// Generate sidebar menu.
@@ -18,15 +18,10 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         /// <returns>string.</returns>
         public static string SidebarMenu()
         {
-            if (!string.IsNullOrEmpty(SidebarMenuValue))
+            if (!string.IsNullOrEmpty(_sidebarMenuValue))
             {
-                return SidebarMenuValue;
+                return _sidebarMenuValue;
             }
-
-            SubMenu forms = new SubMenu("icon icon-th-list", default, SidebarNavigationResource.FormsTitle, 3);
-            forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormCommon)), SidebarNavigationResource.FormCommon));
-            forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormValidation)), SidebarNavigationResource.FormValidation));
-            forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormWizard)), SidebarNavigationResource.FormWizard));
 
             SubMenu addons = new SubMenu("icon icon-file", default, SidebarNavigationResource.AddonsTitle, 5);
             addons.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Index2)), SidebarNavigationResource.Index2));
@@ -58,8 +53,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             sidebar.AddSubMenu(error);
             sidebar.AddSubMenu(new SubMenu("icon icon-signal", new Url(typeof(RedirectController), nameof(RedirectController.Charts)), SidebarNavigationResource.Charts));
             sidebar.AddSubMenu(new SubMenu("icon icon-inbox", new Url(typeof(RedirectController), nameof(RedirectController.Widgets)), SidebarNavigationResource.Widgets));
-            sidebar.AddSubMenu(new SubMenu("icon icon-fullscreen", new Url(typeof(RedirectController), nameof(RedirectController.Grid)), SidebarNavigationResource.Grid));
-            sidebar.AddSubMenu(forms);
             sidebar.AddSubMenu(new SubMenu("icon icon-tint", new Url(typeof(RedirectController), nameof(RedirectController.Buttons)), SidebarNavigationResource.Buttons));
             sidebar.AddSubMenu(new SubMenu("icon icon-pencil", new Url(typeof(RedirectController), nameof(RedirectController.Interface)), SidebarNavigationResource.Interface));
             sidebar.AddSubMenu(addons);
@@ -68,8 +61,8 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             sidebar.AddSubContent(new SidebarContent("Disk Space Usage", 0.87, "604.44 / 4000 MB", "progress progress-mini active progress-striped"));
             sidebar.AddSubContent(new SidebarContent("Disk Space Usage", 0.27, "614.44 / 4000 MB", "progress progress-mini active progress-striped"));
 
-            SidebarMenuValue = sidebar.Render();
-            return SidebarMenuValue = sidebar.Render();
+            _sidebarMenuValue = sidebar.Render();
+            return _sidebarMenuValue = sidebar.Render();
         }
     }
 }

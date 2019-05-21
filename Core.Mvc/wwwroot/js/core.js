@@ -25,6 +25,10 @@
             this._successPointer();
         },
 
+        initialize: function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        },
+
         // Public Properties
 
         // Public Methods
