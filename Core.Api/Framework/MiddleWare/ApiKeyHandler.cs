@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Core.Api.MiddleWare
+namespace Core.Api.Framework.MiddleWare
 {
     public class ApiKeyHandler : DelegatingHandler
     {

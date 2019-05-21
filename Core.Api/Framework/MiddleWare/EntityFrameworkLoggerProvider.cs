@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Core.Api.MiddleWare
+namespace Core.Api.Framework.MiddleWare
 {
     public class EntityFrameworkLoggerProvider : ILoggerProvider
     {

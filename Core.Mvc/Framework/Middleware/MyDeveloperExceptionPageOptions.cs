@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace Core.Mvc.Middleware
+namespace Core.Mvc.Framework.Middleware
 {
     public class MyDeveloperExceptionPageOptions : DeveloperExceptionPageOptions
     {

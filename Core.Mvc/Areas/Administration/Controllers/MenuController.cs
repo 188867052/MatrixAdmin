@@ -4,6 +4,7 @@ using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.Menu;
 using Core.Mvc.Areas.Administration.ViewConfiguration.Menu;
+using Core.Mvc.Framework;
 using Microsoft.AspNetCore.Mvc;
 using ApiController = Core.Api.Controllers.MenuController;
 

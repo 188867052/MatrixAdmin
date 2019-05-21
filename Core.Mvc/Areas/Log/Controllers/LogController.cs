@@ -3,6 +3,7 @@ using Core.Extension;
 using Core.Model;
 using Core.Model.Log;
 using Core.Mvc.Areas.Log.ViewConfiguration;
+using Core.Mvc.Framework;
 using Microsoft.AspNetCore.Mvc;
 using ApiController = Core.Api.Controllers.LogController;
 

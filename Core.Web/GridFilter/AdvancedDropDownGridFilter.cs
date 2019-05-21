@@ -10,8 +10,8 @@ namespace Core.Web.GridFilter
     /// <summary>
     /// 构造函数.
     /// </summary>
-    /// <typeparam name="TPostModel">The post model.</typeparam>
-    public class AdvancedDropDownGridFilter<TPostModel> : BaseGridFilter
+    /// <typeparam name="T">The post model.</typeparam>
+    public class AdvancedDropDownGridFilter<T> : BaseGridFilter
     {
         private readonly string _script;
         private readonly Identifier _id;
@@ -22,7 +22,7 @@ namespace Core.Web.GridFilter
         /// <param name="expression">The expression.</param>
         /// <param name="labelText">The labelText.</param>
         /// <param name="methodCall">The method call.</param>
-        public AdvancedDropDownGridFilter(Expression<Func<TPostModel, int?>> expression, string labelText, MethodCall methodCall) : base(labelText, expression.GetPropertyName())
+        public AdvancedDropDownGridFilter(Expression<Func<T, int?>> expression, string labelText, MethodCall methodCall) : base(labelText, expression.GetPropertyName())
         {
             this._script = new JavaScriptEvent(methodCall.Method, methodCall.Id, JavaScriptEventEnum.MouseDown).Render();
             this._id = methodCall.Id;

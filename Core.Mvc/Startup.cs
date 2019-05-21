@@ -1,8 +1,8 @@
 ﻿using System.Text.Encodings.Web;
 using System.Text.Unicode;
-using Core.Api.MiddleWare;
+using Core.Api.Framework.MiddleWare;
 using Core.Mvc.Areas.Redirect.Controllers;
-using Core.Mvc.Middleware;
+using Core.Mvc.Framework.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

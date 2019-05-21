@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Core.Entity;
 
-namespace Core.Api.AuthContext
+namespace Core.Mvc.Framework
 {
     public static class SiteConfiguration
     {
@@ -15,6 +15,14 @@ namespace Core.Api.AuthContext
             get
             {
                 return _topHeader ?? (_topHeader = Context.Configuration.FirstOrDefault(o => o.Key == "TopHeader")?.Value);
+            }
+        }
+
+        public static string Host
+        {
+            get
+            {
+                return Context.Configuration.FirstOrDefault(o => o.Key == "Api.Url.IIS")?.Value;
             }
         }
     }

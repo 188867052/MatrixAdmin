@@ -5,9 +5,9 @@ using Core.Web.Identifiers;
 
 namespace Core.Web.GridFilter
 {
-    public class DateTimeGridFilter<TPostModel> : BaseGridFilter
+    public class DateTimeGridFilter<T> : BaseGridFilter
     {
-        public DateTimeGridFilter(Expression<Func<TPostModel, DateTime?>> expression, string label) : base(label, expression.GetPropertyName())
+        public DateTimeGridFilter(Expression<Func<T, DateTime?>> expression, string label) : base(label, expression.GetPropertyName())
         {
         }
 

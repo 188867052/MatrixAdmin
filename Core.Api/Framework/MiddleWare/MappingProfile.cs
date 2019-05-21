@@ -6,7 +6,7 @@ using Core.Model.Administration.Permission;
 using Core.Model.Administration.Role;
 using Core.Model.Administration.User;
 
-namespace Core.Api.MiddleWare
+namespace Core.Api.Framework.MiddleWare
 {
     /// <summary>
     /// MappingProfile.

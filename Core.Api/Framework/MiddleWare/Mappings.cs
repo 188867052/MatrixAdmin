@@ -2,7 +2,7 @@
 using System.Reflection;
 using AutoMapper;
 
-namespace Core.Api.MiddleWare
+namespace Core.Api.Framework.MiddleWare
 {
     public class Mappings
     {

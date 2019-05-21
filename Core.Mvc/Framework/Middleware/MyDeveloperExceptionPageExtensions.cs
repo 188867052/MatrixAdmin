@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Options;
 
-namespace Core.Mvc.Middleware
+namespace Core.Mvc.Framework.Middleware
 {
     /// <summary>
     /// <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder" /> extension methods for the <see cref="T:Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware" />.

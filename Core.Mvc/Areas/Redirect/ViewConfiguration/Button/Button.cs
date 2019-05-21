@@ -5,6 +5,7 @@ using Core.Extension;
 using Core.Model;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
+using Core.Mvc.Framework;
 using Core.Web.Sidebar;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button

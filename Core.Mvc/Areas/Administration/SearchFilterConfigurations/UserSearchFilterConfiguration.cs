@@ -2,8 +2,8 @@
 using Core.Entity.Enums;
 using Core.Extension;
 using Core.Model.Administration.User;
-using Core.Mvc.AdvancedGridFilters;
 using Core.Mvc.Areas.Administration.Controllers;
+using Core.Mvc.Framework.AdvancedGridFilters;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.SearchFilterConfiguration;

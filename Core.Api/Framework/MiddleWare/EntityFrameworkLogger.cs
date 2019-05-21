@@ -4,7 +4,7 @@ using Core.Entity;
 using Core.Entity.Enums;
 using Microsoft.Extensions.Logging;
 
-namespace Core.Api.MiddleWare
+namespace Core.Api.Framework.MiddleWare
 {
     public class EntityFrameworkLogger : ILogger
     {

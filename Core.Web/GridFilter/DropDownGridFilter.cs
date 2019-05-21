@@ -9,9 +9,9 @@ namespace Core.Web.GridFilter
     /// <summary>
     /// 构造函数.
     /// </summary>
-    /// <typeparam name="TPostModel">The post model.</typeparam>
+    /// <typeparam name="T">The post model.</typeparam>
     /// <typeparam name="TEnumType">The enum.</typeparam>
-    public class DropDownGridFilter<TPostModel, TEnumType> : BaseGridFilter where TEnumType : Enum
+    public class DropDownGridFilter<T, TEnumType> : BaseGridFilter where TEnumType : Enum
     {
         private readonly IList<KeyValuePair<int, string>> _keyValuePair;
         private readonly bool _isContainsEmpty;
@@ -22,7 +22,7 @@ namespace Core.Web.GridFilter
         /// <param name="expression">The expression.</param>
         /// <param name="labelText">The labelText.</param>
         /// <param name="isContainsEmpty">The isContainsEmpty.</param>
-        public DropDownGridFilter(Expression<Func<TPostModel, TEnumType>> expression, string labelText, bool isContainsEmpty = true) : base(labelText, expression.GetPropertyName())
+        public DropDownGridFilter(Expression<Func<T, TEnumType>> expression, string labelText, bool isContainsEmpty = true) : base(labelText, expression.GetPropertyName())
         {
             this._isContainsEmpty = isContainsEmpty;
             this._keyValuePair = new List<KeyValuePair<int, string>>();

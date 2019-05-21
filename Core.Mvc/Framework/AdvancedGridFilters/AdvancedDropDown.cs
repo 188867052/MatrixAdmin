@@ -4,7 +4,7 @@ using Core.Resource.Areas.AdvancedDropDown;
 using Core.Web.GridFilter;
 using Core.Web.JavaScript;
 
-namespace Core.Mvc.AdvancedGridFilters
+namespace Core.Mvc.Framework.AdvancedGridFilters
 {
     public static class AdvancedDropDown<T>
     {

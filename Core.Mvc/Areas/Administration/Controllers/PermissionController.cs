@@ -4,6 +4,7 @@ using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.Permission;
 using Core.Mvc.Areas.Administration.ViewConfiguration.Permission;
+using Core.Mvc.Framework;
 using Microsoft.AspNetCore.Mvc;
 using ApiController = Core.Api.Controllers.PermissionController;
 
