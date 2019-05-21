@@ -2,35 +2,36 @@
 using Core.Entity.Enums;
 using Core.Extension;
 using Core.Model.Log;
-using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.SearchFilterConfiguration;
 using Microsoft.Extensions.Logging;
 using LogController = Core.Mvc.Areas.Log.Controllers.LogController;
+using Resources = Core.Resource.Areas.Log.SearchFilterConfigurations.LogSearchFilterConfigurationResource;
 
 namespace Core.Mvc.Areas.Log.SearchFilterConfigurations
 {
-    public class LogSearchFilterConfiguration : SearchFilterConfiguration
+    public class LogSearchFilterConfiguration<T> : SearchFilterConfiguration
+        where T : LogPostModel
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            var logLevelDropDown = new DropDownGridFilter<LogPostModel, LogLevel>(o => (LogLevel)o.LogLevel, "级别");
-            logLevelDropDown.AddOption(LogLevel.Error, "错误");
-            logLevelDropDown.AddOption(LogLevel.Information, "信息");
-            logLevelDropDown.AddOption(LogLevel.Debug, "调试");
+            var logLevelDropDown = new DropDownGridFilter<T, LogLevel>(o => (LogLevel)o.LogLevel, Resources.LogLevel);
+            logLevelDropDown.AddOption(LogLevel.Error, Resources.Error);
+            logLevelDropDown.AddOption(LogLevel.Information, Resources.Information);
+            logLevelDropDown.AddOption(LogLevel.Debug, Resources.Debug);
 
-            var sqlTypeDropDown = new DropDownGridFilter<LogPostModel, SqlTypeEnum>(o => (SqlTypeEnum)o.SqlType, "操作类型");
-            sqlTypeDropDown.AddOption(SqlTypeEnum.Select, "Select");
-            sqlTypeDropDown.AddOption(SqlTypeEnum.Create, "Create");
-            sqlTypeDropDown.AddOption(SqlTypeEnum.Update, "Update");
-            sqlTypeDropDown.AddOption(SqlTypeEnum.Delete, "Delete");
-            sqlTypeDropDown.AddOption(SqlTypeEnum.Insert, "Insert");
+            var sqlTypeDropDown = new DropDownGridFilter<T, SqlTypeEnum>(o => (SqlTypeEnum)o.SqlType, Resources.SqlType);
+            sqlTypeDropDown.AddOption(SqlTypeEnum.Select, Resources.Select);
+            sqlTypeDropDown.AddOption(SqlTypeEnum.Create, Resources.Create);
+            sqlTypeDropDown.AddOption(SqlTypeEnum.Update, Resources.Update);
+            sqlTypeDropDown.AddOption(SqlTypeEnum.Delete, Resources.Delete);
+            sqlTypeDropDown.AddOption(SqlTypeEnum.Insert, Resources.Insert);
 
-            searchFilter.Add(new IntegerGridFilter<LogPostModel>(o => o.Id, LogResource.ID));
-            searchFilter.Add(new TextGridFilter<LogPostModel>(o => o.Message, LogResource.Message));
-            searchFilter.Add(new DateTimeGridFilter<LogPostModel>(o => o.StartTime, "开始" + LogResource.CreateTime));
-            searchFilter.Add(new DateTimeGridFilter<LogPostModel>(o => o.EndTime, "结束" + LogResource.CreateTime));
+            searchFilter.Add(new IntegerGridFilter<T>(o => o.Id, Resources.ID));
+            searchFilter.Add(new TextGridFilter<T>(o => o.Message, Resources.Message));
+            searchFilter.Add(new DateTimeGridFilter<T>(o => o.StartTime, Resources.StartTime));
+            searchFilter.Add(new DateTimeGridFilter<T>(o => o.EndTime, Resources.EndTime));
             searchFilter.Add(logLevelDropDown);
             searchFilter.Add(sqlTypeDropDown);
         }
@@ -39,9 +40,9 @@ namespace Core.Mvc.Areas.Log.SearchFilterConfigurations
         {
             Url url = new Url(nameof(Log), typeof(LogController), nameof(LogController.Clear));
             Url searchUrl = new Url(nameof(Log), typeof(LogController), nameof(LogController.GridStateChange));
-            buttons.Add(new StandardButton("搜索", "index.search", searchUrl));
-            buttons.Add(new StandardButton("清空", "index.clear", url));
-            buttons.Add(new StandardButton("清理", "core.clear"));
+            buttons.Add(new StandardButton(Resources.SearchButtonLabel, "index.search", searchUrl));
+            buttons.Add(new StandardButton(Resources.ClearEmptyButtonLabel, "index.clear", url));
+            buttons.Add(new StandardButton(Resources.ClearButtonLabel, "core.clear"));
         }
     }
 }

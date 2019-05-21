@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Core.Api.AuthContext;
 using Core.Entity;
 using Core.Extension;
 using Core.Mvc.Areas.Redirect.Controllers;
@@ -41,29 +42,13 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         /// <returns>A string.</returns>
         public virtual string Render()
         {
-            SidebarNavigation sidebarNavigation = new SidebarNavigation();
-            string sidebarMenu = sidebarNavigation.GenerateSidebarMenu();
-
-            string contentHeader = this.ContentHeader();
             string htmlFormat = new CoreApiContext().Configuration.FirstOrDefault(o => o.Key == this.FileName)?.Value;
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach (var item in this.CssResource())
-            {
-                stringBuilder.Append($"<link href=\"{item}\" rel=\"stylesheet\">");
-            }
 
-            foreach (var item in this.JavaScriptResource())
-            {
-                stringBuilder.Append($"<script src=\"{item}\"></script>");
-            }
-
-            string html = htmlFormat.Replace("{{head}}", $"<head>{stringBuilder}</head>");
-            html = html.Replace("{{sidebarMenu}}", sidebarMenu);
-            html = html.Replace("{{content-header}}", contentHeader);
+            string html = htmlFormat.Replace("{{head}}", this.HtmlHead());
+            html = html.Replace("{{sidebarMenu}}",  SidebarNavigation.SidebarMenu());
+            html = html.Replace("{{content-header}}", this.ContentHeader());
             html = html.Replace("{{Footer}}", this.Footer());
-
-            string tobHeader = new CoreApiContext().Configuration.FirstOrDefault(o => o.Key == "TopHeader")?.Value;
-            html = html.Replace("{{tobHeader}}", tobHeader);
+            html = html.Replace("{{tobHeader}}", SiteConfiguration.TopHeader);
 
             var filter = this.SearchFilterConfiguration();
             if (filter != null)
@@ -119,11 +104,10 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 
         protected virtual IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
         {
-            IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>
+            return new List<ViewInstanceConstruction>
             {
                 new IndexViewInstance()
             };
-            return constructions;
         }
 
         private string Footer()
@@ -170,6 +154,22 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             list.AddRange(this.Css());
 
             return list;
+        }
+
+        private string HtmlHead()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (var item in this.CssResource())
+            {
+                stringBuilder.Append($"<link href=\"{item}\" rel=\"stylesheet\">");
+            }
+
+            foreach (var item in this.JavaScriptResource())
+            {
+                stringBuilder.Append($"<script src=\"{item}\"></script>");
+            }
+
+            return $"<head>{stringBuilder}</head>";
         }
     }
 }

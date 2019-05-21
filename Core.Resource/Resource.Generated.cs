@@ -1528,6 +1528,128 @@ namespace Core.Resource.Areas.AdvancedDropDown
 	}
 }
 
+namespace Core.Resource.Areas.Log.SearchFilterConfigurations
+{
+	/// <summary>
+	/// A static class used to access a specific set of resources.
+	/// </summary>
+	public static class LogSearchFilterConfigurationResource
+	{
+        private static ResourceManager resourceManager;
+        
+        /// <summary>
+        /// Gets the cached ResourceManager instance used by this class.
+        /// </summary>
+        private static ResourceManager ResourceManager 
+		{
+            get 
+			{
+                if (object.ReferenceEquals(resourceManager, null)) 
+				{
+                    resourceManager = new ResourceManager("Core.Resource.Areas.Log.SearchFilterConfigurations.LogSearchFilterConfigurationResource", typeof(LogSearchFilterConfigurationResource).Assembly);
+                }
+                return resourceManager;
+            }
+        }
+        
+        /// <summary>
+        /// Returns the formatted resource string.
+        /// </summary>
+		/// <param name="key">The resource key.</param>
+		/// <returns>The localized resource string.</returns>
+        private static string GetResourceString(string key)
+		{
+			var culture = Thread.CurrentThread.CurrentCulture;
+            return ResourceManager.GetString(key, culture);
+        }
+		
+		/// <summary>
+		/// Gets the localized string for ClearButtonLabel.
+		/// </summary>
+		public static string ClearButtonLabel { get { return GetResourceString("ClearButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for ClearEmptyButtonLabel.
+		/// </summary>
+		public static string ClearEmptyButtonLabel { get { return GetResourceString("ClearEmptyButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for Create.
+		/// </summary>
+		public static string Create { get { return GetResourceString("Create"); } }
+
+		/// <summary>
+		/// Gets the localized string for Debug.
+		/// </summary>
+		public static string Debug { get { return GetResourceString("Debug"); } }
+
+		/// <summary>
+		/// Gets the localized string for Delete.
+		/// </summary>
+		public static string Delete { get { return GetResourceString("Delete"); } }
+
+		/// <summary>
+		/// Gets the localized string for EndTime.
+		/// </summary>
+		public static string EndTime { get { return GetResourceString("EndTime"); } }
+
+		/// <summary>
+		/// Gets the localized string for Error.
+		/// </summary>
+		public static string Error { get { return GetResourceString("Error"); } }
+
+		/// <summary>
+		/// Gets the localized string for ID.
+		/// </summary>
+		public static string ID { get { return GetResourceString("ID"); } }
+
+		/// <summary>
+		/// Gets the localized string for Information.
+		/// </summary>
+		public static string Information { get { return GetResourceString("Information"); } }
+
+		/// <summary>
+		/// Gets the localized string for Insert.
+		/// </summary>
+		public static string Insert { get { return GetResourceString("Insert"); } }
+
+		/// <summary>
+		/// Gets the localized string for LogLevel.
+		/// </summary>
+		public static string LogLevel { get { return GetResourceString("LogLevel"); } }
+
+		/// <summary>
+		/// Gets the localized string for Message.
+		/// </summary>
+		public static string Message { get { return GetResourceString("Message"); } }
+
+		/// <summary>
+		/// Gets the localized string for SearchButtonLabel.
+		/// </summary>
+		public static string SearchButtonLabel { get { return GetResourceString("SearchButtonLabel"); } }
+
+		/// <summary>
+		/// Gets the localized string for Select.
+		/// </summary>
+		public static string Select { get { return GetResourceString("Select"); } }
+
+		/// <summary>
+		/// Gets the localized string for SqlType.
+		/// </summary>
+		public static string SqlType { get { return GetResourceString("SqlType"); } }
+
+		/// <summary>
+		/// Gets the localized string for StartTime.
+		/// </summary>
+		public static string StartTime { get { return GetResourceString("StartTime"); } }
+
+		/// <summary>
+		/// Gets the localized string for Update.
+		/// </summary>
+		public static string Update { get { return GetResourceString("Update"); } }
+	}
+}
+
 namespace Core.Resource.Areas.Log.ViewConfiguration
 {
 	/// <summary>
@@ -1640,6 +1762,64 @@ namespace Core.Resource.Areas.Log.ViewConfiguration
 		/// Gets the localized string for UserManage.
 		/// </summary>
 		public static string UserManage { get { return GetResourceString("UserManage"); } }
+	}
+	/// <summary>
+	/// A static class used to access a specific set of resources.
+	/// </summary>
+	public static class LogGridConfigurationResource
+	{
+        private static ResourceManager resourceManager;
+        
+        /// <summary>
+        /// Gets the cached ResourceManager instance used by this class.
+        /// </summary>
+        private static ResourceManager ResourceManager 
+		{
+            get 
+			{
+                if (object.ReferenceEquals(resourceManager, null)) 
+				{
+                    resourceManager = new ResourceManager("Core.Resource.Areas.Log.ViewConfiguration.LogGridConfigurationResource", typeof(LogGridConfigurationResource).Assembly);
+                }
+                return resourceManager;
+            }
+        }
+        
+        /// <summary>
+        /// Returns the formatted resource string.
+        /// </summary>
+		/// <param name="key">The resource key.</param>
+		/// <returns>The localized resource string.</returns>
+        private static string GetResourceString(string key)
+		{
+			var culture = Thread.CurrentThread.CurrentCulture;
+            return ResourceManager.GetString(key, culture);
+        }
+		
+		/// <summary>
+		/// Gets the localized string for Copy.
+		/// </summary>
+		public static string Copy { get { return GetResourceString("Copy"); } }
+
+		/// <summary>
+		/// Gets the localized string for CreateTime.
+		/// </summary>
+		public static string CreateTime { get { return GetResourceString("CreateTime"); } }
+
+		/// <summary>
+		/// Gets the localized string for LogLevel.
+		/// </summary>
+		public static string LogLevel { get { return GetResourceString("LogLevel"); } }
+
+		/// <summary>
+		/// Gets the localized string for Message.
+		/// </summary>
+		public static string Message { get { return GetResourceString("Message"); } }
+
+		/// <summary>
+		/// Gets the localized string for SqlType.
+		/// </summary>
+		public static string SqlType { get { return GetResourceString("SqlType"); } }
 	}
 	/// <summary>
 	/// A static class used to access a specific set of resources.

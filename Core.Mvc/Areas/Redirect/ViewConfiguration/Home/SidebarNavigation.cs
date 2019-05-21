@@ -4,17 +4,25 @@ using Core.Mvc.Areas.Log.Controllers;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.Sidebar;
+using Resources = Core.Resource.Areas.Administration.ViewConfiguration.IndexBaseResource;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 {
     public class SidebarNavigation
     {
+        public static string SidebarMenuValue;
+
         /// <summary>
         /// Generate sidebar menu.
         /// </summary>
         /// <returns>string.</returns>
-        public string GenerateSidebarMenu()
+        public static string SidebarMenu()
         {
+            if (!string.IsNullOrEmpty(SidebarMenuValue))
+            {
+                return SidebarMenuValue;
+            }
+
             SubMenu forms = new SubMenu("icon icon-th-list", default, SidebarNavigationResource.FormsTitle, 3);
             forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormCommon)), SidebarNavigationResource.FormCommon));
             forms.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.FormValidation)), SidebarNavigationResource.FormValidation));
@@ -33,15 +41,15 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error), "?number=405"), SidebarNavigationResource.Error405));
             error.AddLinkButton(new LinkedAnchor(new Url(typeof(RedirectController), nameof(RedirectController.Error), "?number=500"), SidebarNavigationResource.Error500));
 
-            SubMenu manage = new SubMenu("icon icon-user", default, IndexBaseResource.SystemManage, 8);
-            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(UserController), nameof(UserController.Index)), IndexBaseResource.UserManage));
-            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.Index)), IndexBaseResource.RoleManage));
-            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(PermissionController), nameof(PermissionController.Index)), IndexBaseResource.PermissionManage));
-            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(MenuController), nameof(MenuController.Index)), IndexBaseResource.MenuManage));
-            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(IconController), nameof(IconController.Index)), IndexBaseResource.IconManage));
+            SubMenu manage = new SubMenu("icon icon-user", default, Resources.SystemManage, 8);
+            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(UserController), nameof(UserController.Index)), Resources.UserManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.Index)), Resources.RoleManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(PermissionController), nameof(PermissionController.Index)), Resources.PermissionManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(MenuController), nameof(MenuController.Index)), Resources.MenuManage));
+            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(IconController), nameof(IconController.Index)), Resources.IconManage));
 
-            SubMenu log = new SubMenu("icon icon-edit", default, IndexBaseResource.LogManage, 2);
-            log.AddLinkButton(new LinkedAnchor(new Url(nameof(Log), typeof(LogController), nameof(LogController.Index)), IndexBaseResource.ErrorLog));
+            SubMenu log = new SubMenu("icon icon-edit", default, Resources.LogManage, 2);
+            log.AddLinkButton(new LinkedAnchor(new Url(nameof(Log), typeof(LogController), nameof(LogController.Index)), Resources.ErrorLog));
 
             Sidebar sidebar = new Sidebar();
             sidebar.AddSubMenu(new SubMenu("icon icon-home", new Url(typeof(RedirectController), nameof(RedirectController.Index)), SidebarNavigationResource.DashboardTitle, 0, true));
@@ -60,7 +68,8 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             sidebar.AddSubContent(new SidebarContent("Disk Space Usage", 0.87, "604.44 / 4000 MB", "progress progress-mini active progress-striped"));
             sidebar.AddSubContent(new SidebarContent("Disk Space Usage", 0.27, "614.44 / 4000 MB", "progress progress-mini active progress-striped"));
 
-            return sidebar.Render();
+            SidebarMenuValue = sidebar.Render();
+            return SidebarMenuValue = sidebar.Render();
         }
     }
 }

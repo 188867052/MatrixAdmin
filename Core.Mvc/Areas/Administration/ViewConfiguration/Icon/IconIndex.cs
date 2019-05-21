@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
 using Core.Model;
+using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
@@ -39,7 +40,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
 
         protected override SearchFilterConfiguration SearchFilterConfiguration()
         {
-            throw new System.NotImplementedException();
+            return new IconSearchFilterConfiguration();
         }
 
         /// <inheritdoc/>

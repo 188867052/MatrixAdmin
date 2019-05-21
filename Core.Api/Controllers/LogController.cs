@@ -31,7 +31,9 @@ namespace Core.Api.Controllers
             {
                 IQueryable<Log> query = this.DbContext.Log;
                 query = query.OrderByDescending(o => o.CreateTime);
-                return this.StandardResponse(query);
+                Pager pager = Pager.CreateDefaultInstance();
+
+                return this.StandardSearchResponse(query, pager, LogModel.Convert);
             }
         }
 
@@ -42,15 +44,13 @@ namespace Core.Api.Controllers
             {
                 IQueryable<Log> query = this.DbContext.Log;
 
-                Filter<Log> filter = new Filter<Log>();
                 query = query.AddFilter(o => o.LogLevel == (int?)model.LogLevel, model.LogLevel);
                 query = query.AddFilter(o => o.SqlOperateType == (int?)model.SqlType, model.SqlType);
                 query = query.AddFilter(o => o.Message.Contains(model.Message), model.Message);
                 query = query.AddDateTimeBetweenFilter(model.StartTime, model.EndTime, o => o.CreateTime);
                 query = query.OrderByDescending(o => o.CreateTime);
-                query = query.Where(filter);
 
-                return this.StandardResponse(query, model);
+                return this.StandardSearchResponse(query, model, LogModel.Convert);
             }
         }
 

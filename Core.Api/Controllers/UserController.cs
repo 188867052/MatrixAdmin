@@ -56,11 +56,6 @@ namespace Core.Api.Controllers
                 IQueryable<User> query = this.DbContext.User;
                 query = model.GenerateQuery(query);
 
-                if (model.PageIndex < 1)
-                {
-                    model.PageIndex = 1;
-                }
-
                 return this.StandardSearchResponse(query, model, UserModel.Convert);
             }
         }

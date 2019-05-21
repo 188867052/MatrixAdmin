@@ -58,11 +58,6 @@ namespace Core.Api.Controllers
                 query = query.AddDateTimeBetweenFilter(model.StartCreateTime, model.EndCreateTime, o => o.CreateTime);
                 query = query.OrderByDescending(o => o.CreateTime);
 
-                if (model.PageIndex < 1)
-                {
-                    model.PageIndex = 1;
-                }
-
                 return this.StandardSearchResponse(query, model, MenuModel.Convert);
             }
         }

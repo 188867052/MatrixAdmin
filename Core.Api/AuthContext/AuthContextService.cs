@@ -38,10 +38,7 @@ namespace Core.Api.AuthContext
         /// </summary>
         public static bool IsAuthenticated
         {
-            get
-            {
-                return Current.User.Identity.IsAuthenticated;
-            }
+            get { return Current.User.Identity.IsAuthenticated; }
         }
 
         /// <summary>
@@ -51,7 +48,8 @@ namespace Core.Api.AuthContext
         {
             get
             {
-                return (UserRoleEnum)Convert.ToInt32(Current.User.FindFirstValue("userType")) == UserRoleEnum.SuperAdministrator;
+                return (UserRoleEnum)Convert.ToInt32(Current.User.FindFirstValue("userType")) ==
+                       UserRoleEnum.SuperAdministrator;
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
 using Core.Model;
+using Core.Model.Log;
 using Core.Mvc.Areas.Log.SearchFilterConfigurations;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
@@ -8,10 +9,13 @@ using Core.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.JavaScript;
 using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Log.ViewConfiguration
 {
-    public class LogIndex : SearchGridPage<object>
+    public class LogIndex<TModel, TPostModel> : SearchGridPage<TModel>
+        where TModel : LogModel
+        where TPostModel : LogPostModel
     {
         private readonly ResponseModel _response;
 
@@ -20,27 +24,9 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
             this._response = response;
         }
 
-        protected override string FileName { get; } = "SearchGridPage";
-
         public override IList<string> Css()
         {
-            return new List<string>
-            {
-                "/font-awesome/css/font-awesome.css",
-            };
-        }
-
-        public override string Render()
-        {
-            string table = new LogGridConfiguration(this._response).GenerateGridColumn();
-            var html = base.Render().Replace("{{Table}}", table);
-
-            LogSearchFilterConfiguration filter = new LogSearchFilterConfiguration();
-            html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
-            html = html.Replace("{{button-group}}", filter.GenerateButton());
-            html = html.Replace("{{Pager}}", this.Pager());
-
-            return html;
+            return new List<string>();
         }
 
         protected override IList<string> JavaScript()
@@ -61,17 +47,21 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
 
         protected override IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
         {
-            IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>
+            return new List<ViewInstanceConstruction>
             {
                 new IndexViewInstance(),
                 new LogViewInstance()
             };
-            return constructions;
         }
 
         protected override SearchFilterConfiguration SearchFilterConfiguration()
         {
-            throw new System.NotImplementedException();
+            return new LogSearchFilterConfiguration<TPostModel>();
+        }
+
+        protected override GridConfiguration<TModel> GridConfiguration()
+        {
+            return new LogGridConfiguration<TModel>(this._response);
         }
     }
 }
