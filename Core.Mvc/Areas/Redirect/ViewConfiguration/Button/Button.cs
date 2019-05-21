@@ -9,7 +9,7 @@ using Core.Web.Sidebar;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button
 {
-    public class Button : SearchGridPage
+    public class Button : SearchGridPage<object>
     {
         protected override string FileName
         {

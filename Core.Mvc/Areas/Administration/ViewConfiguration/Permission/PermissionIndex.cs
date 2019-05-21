@@ -11,7 +11,7 @@ using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Permissio
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
 {
-    public class PermissionIndex : SearchGridPage
+    public class PermissionIndex : SearchGridPage<object>
     {
         private readonly ResponseModel _response;
 
@@ -24,14 +24,9 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
             this._response = response;
         }
 
-        protected override string FileName { get; } = "SearchGridPage";
-
         public override IList<string> Css()
         {
-            return new List<string>
-            {
-                "/font-awesome/css/font-awesome.css",
-            };
+            return new List<string>();
         }
 
         public override string Render()
@@ -40,11 +35,6 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
             string table = configuration.GenerateGridColumn();
             var html = base.Render().Replace("{{Table}}", table);
 
-            PermissionSearchFilterConfiguration filter = new PermissionSearchFilterConfiguration();
-
-            html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
-            html = html.Replace("{{button-group}}", filter.GenerateButton());
-            html = html.Replace("{{Pager}}", this.Pager());
             return html;
         }
 

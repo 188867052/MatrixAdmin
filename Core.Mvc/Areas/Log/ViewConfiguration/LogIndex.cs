@@ -11,7 +11,7 @@ using Core.Web.Sidebar;
 
 namespace Core.Mvc.Areas.Log.ViewConfiguration
 {
-    public class LogIndex : SearchGridPage
+    public class LogIndex : SearchGridPage<object>
     {
         private readonly ResponseModel _response;
 

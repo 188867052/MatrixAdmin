@@ -21,7 +21,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Index));
             var model = HttpClientAsync.GetAsync<IList<UserModel>>(url).Result;
-            UserIndex table = new UserIndex(model);
+            UserIndex<UserModel, UserPostModel> table = new UserIndex<UserModel, UserPostModel>(model);
 
             return this.ViewConfiguration(table);
         }
@@ -36,7 +36,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Search));
             ResponseModel response = HttpClientAsync.PostAsync<IList<UserModel>, UserPostModel>(url, model).Result;
-            UserViewConfiguration configuration = new UserViewConfiguration(response);
+            UserViewConfiguration<UserModel> configuration = new UserViewConfiguration<UserModel>(response);
 
             return this.GridConfiguration(configuration);
         }

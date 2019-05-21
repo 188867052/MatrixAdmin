@@ -7,7 +7,7 @@ using Core.Web.Sidebar;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Addons
 {
-    public class Chat : SearchGridPage
+    public class Chat : SearchGridPage<object>
     {
         protected override string FileName
         {

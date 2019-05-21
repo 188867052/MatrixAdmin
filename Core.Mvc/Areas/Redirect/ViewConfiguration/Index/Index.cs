@@ -4,7 +4,7 @@ using Core.Web.JavaScript;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Index
 {
-    public class Index : SearchGridPage
+    public class Index : SearchGridPage<object>
     {
         protected override string FileName
         {

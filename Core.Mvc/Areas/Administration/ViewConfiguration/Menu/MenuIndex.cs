@@ -9,16 +9,18 @@ using Core.Resource.Areas.Administration.ViewConfiguration.Menu;
 using Core.Web.JavaScript;
 using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 {
-    public class MenuIndex<T> : SearchGridPage
-       where T : MenuPostModel
+    public class MenuIndex<TModel, TPostModel> : SearchGridPage<TModel>
+        where TModel : MenuModel
+        where TPostModel : MenuPostModel
     {
         private readonly ResponseModel _response;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MenuIndex{T}"/> class.
+        /// Initializes a new instance of the <see cref="MenuIndex{TModel, TPostModel}"/> class.
         /// </summary>
         /// <param name="response">The response.</param>
         public MenuIndex(ResponseModel response)
@@ -26,28 +28,9 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
             this._response = response;
         }
 
-        protected override string FileName => "SearchGridPage";
-
         public override IList<string> Css()
         {
-            return new List<string>
-            {
-                "/font-awesome/css/font-awesome.css",
-            };
-        }
-
-        public override string Render()
-        {
-            MenuViewConfiguration configuration = new MenuViewConfiguration(this._response);
-            string table = configuration.GenerateGridColumn();
-            var html = base.Render().Replace("{{Table}}", table);
-
-            MenuSearchFilterConfiguration<T> filter = new MenuSearchFilterConfiguration<T>();
-
-            html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
-            html = html.Replace("{{button-group}}", filter.GenerateButton());
-            html = html.Replace("{{Pager}}", this.Pager());
-            return html;
+            return new List<string>();
         }
 
         protected override IList<string> JavaScript()
@@ -68,17 +51,21 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 
         protected override IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
         {
-            IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>
+            return new List<ViewInstanceConstruction>
             {
                 new IndexViewInstance(),
                 new MenuViewInstance()
             };
-            return constructions;
         }
 
         protected override SearchFilterConfiguration SearchFilterConfiguration()
         {
-            throw new System.NotImplementedException();
+            return new MenuSearchFilterConfiguration<TPostModel>();
+        }
+
+        protected override GridConfiguration<TModel> GridConfiguration()
+        {
+            return new MenuViewConfiguration<TModel>(this._response);
         }
     }
 }

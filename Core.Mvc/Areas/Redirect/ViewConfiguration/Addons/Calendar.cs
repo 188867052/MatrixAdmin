@@ -6,7 +6,7 @@ using Core.Web.Sidebar;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Addons
 {
-    public class Calendar : SearchGridPage
+    public class Calendar : SearchGridPage<object>
     {
         protected override string FileName
         {

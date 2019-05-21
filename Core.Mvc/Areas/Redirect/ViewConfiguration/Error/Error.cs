@@ -3,7 +3,7 @@ using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Error
 {
-    public class Error : SearchGridPage
+    public class Error : SearchGridPage<object>
     {
         private readonly int _errorNumber;
 

@@ -8,15 +8,18 @@ using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 {
-    public class UserIndex : SearchGridPage
+    public class UserIndex<TModel, TPostModel> : SearchGridPage<TModel>
+         where TModel : UserModel
+         where TPostModel : UserPostModel
     {
         private readonly ResponseModel _response;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserIndex"/> class.
+        /// Initializes a new instance of the <see cref="UserIndex{TModel, TPostModel}"/> class.
         /// </summary>
         /// <param name="response">The response.</param>
         public UserIndex(ResponseModel response)
@@ -27,15 +30,6 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
         public override IList<string> Css()
         {
             return new List<string>();
-        }
-
-        public override string Render()
-        {
-            UserViewConfiguration configuration = new UserViewConfiguration(this._response);
-            string table = configuration.GenerateGridColumn();
-
-            var html = base.Render().Replace("{{Table}}", table);
-            return html;
         }
 
         protected override IList<string> JavaScript()
@@ -64,17 +58,21 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
         /// <returns>The string.</returns>
         protected override IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
         {
-            IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>
+            return new List<ViewInstanceConstruction>
             {
                 new IndexViewInstance(),
                 new UserViewInstance()
             };
-            return constructions;
         }
 
         protected override SearchFilterConfiguration SearchFilterConfiguration()
         {
-            return new UserSearchFilterConfiguration<UserPostModel>();
+            return new UserSearchFilterConfiguration<TPostModel>();
+        }
+
+        protected override GridConfiguration<TModel> GridConfiguration()
+        {
+            return new UserViewConfiguration<TModel>(this._response);
         }
     }
 }

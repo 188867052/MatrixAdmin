@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Extension;
 using Core.Model;
-using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
@@ -10,7 +9,7 @@ using Core.Web.Sidebar;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
 {
-    public class IconIndex : SearchGridPage
+    public class IconIndex : SearchGridPage<object>
     {
         private readonly ResponseModel _response;
 
@@ -24,29 +23,9 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
         }
 
         /// <inheritdoc/>
-        protected override string FileName { get; } = "SearchGridPage";
-
-        /// <inheritdoc/>
         public override IList<string> Css()
         {
-            return new List<string>
-            {
-                "/font-awesome/css/font-awesome.css",
-            };
-        }
-
-        public override string Render()
-        {
-            IconGridConfiguration configuration = new IconGridConfiguration(this._response);
-            string table = configuration.GenerateGridColumn();
-            var html = base.Render().Replace("{{Table}}", table);
-
-            IconSearchFilterConfiguration filter = new IconSearchFilterConfiguration();
-            html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
-            html = html.Replace("{{button-group}}", filter.GenerateButton());
-            html = html.Replace("{{Pager}}", this.Pager());
-
-            return html;
+            return new List<string>();
         }
 
         /// <inheritdoc/>
@@ -75,12 +54,11 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
         /// <inheritdoc/>
         protected override IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
         {
-            IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>
+            return new List<ViewInstanceConstruction>
             {
                 new IndexViewInstance(),
                 new IconViewInstance()
             };
-            return constructions;
         }
     }
 }

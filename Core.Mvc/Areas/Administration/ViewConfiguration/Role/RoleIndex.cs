@@ -8,16 +8,18 @@ using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 {
-    public class RoleIndex<T> : SearchGridPage
-    where T : RolePostModel
+    public class RoleIndex<TModel, TPostModel> : SearchGridPage<TModel>
+        where TModel : RoleModel
+        where TPostModel : RolePostModel
     {
         private readonly ResponseModel _response;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RoleIndex{T}"/> class.
+        /// Initializes a new instance of the <see cref="RoleIndex{TModel, TPostModel}"/> class.
         /// </summary>
         /// <param name="response">The response.</param>
         public RoleIndex(ResponseModel response)
@@ -25,27 +27,9 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
             this._response = response;
         }
 
-        protected override string FileName { get; } = "SearchGridPage";
-
         public override IList<string> Css()
         {
-            return new List<string>
-            {
-                "/font-awesome/css/font-awesome.css",
-            };
-        }
-
-        public override string Render()
-        {
-            RoleViewConfiguration configuration = new RoleViewConfiguration(this._response);
-            string table = configuration.GenerateGridColumn();
-            var html = base.Render().Replace("{{Table}}", table);
-
-            RoleSearchFilterConfiguration<T> filter = new RoleSearchFilterConfiguration<T>();
-            html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
-            html = html.Replace("{{button-group}}", filter.GenerateButton());
-            html = html.Replace("{{Pager}}", this.Pager());
-            return html;
+            return new List<string>();
         }
 
         protected override IList<string> JavaScript()
@@ -66,17 +50,21 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 
         protected override IList<ViewInstanceConstruction> CreateViewInstanceConstructions()
         {
-            IList<ViewInstanceConstruction> constructions = new List<ViewInstanceConstruction>
+            return new List<ViewInstanceConstruction>
             {
                 new IndexViewInstance(),
                 new RoleViewInstance()
             };
-            return constructions;
         }
 
         protected override SearchFilterConfiguration SearchFilterConfiguration()
         {
-            throw new System.NotImplementedException();
+            return new RoleSearchFilterConfiguration<TPostModel>();
+        }
+
+        protected override GridConfiguration<TModel> GridConfiguration()
+        {
+            return new RoleViewConfiguration<TModel>(this._response);
         }
     }
 }

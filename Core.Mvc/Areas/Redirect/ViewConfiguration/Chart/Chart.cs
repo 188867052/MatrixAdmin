@@ -6,7 +6,7 @@ using Core.Web.Sidebar;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Chart
 {
-    public class Chart : SearchGridPage
+    public class Chart : SearchGridPage<object>
     {
         protected override string FileName
         {

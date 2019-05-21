@@ -11,8 +11,8 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 
         public override void InitializeViewInstance(JavaScriptInitialize initialize)
         {
-            initialize.AddStringInstance("leftText", WebUtility.HtmlDecode(SearchGridPage.LeftText));
-            initialize.AddStringInstance("rightText", WebUtility.HtmlDecode(SearchGridPage.RightText));
+            initialize.AddStringInstance("leftText", WebUtility.HtmlDecode(SearchGridPage<object>.LeftText));
+            initialize.AddStringInstance("rightText", WebUtility.HtmlDecode(SearchGridPage<object>.RightText));
 
             var url = new Url(nameof(AdvancedDropDown), typeof(AdvancedDropDownController), nameof(AdvancedDropDownController.RoleDataList));
             initialize.AddUrlInstance("getRoleDataListUrl", url);

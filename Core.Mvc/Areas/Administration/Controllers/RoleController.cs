@@ -20,7 +20,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Index));
             var model = HttpClientAsync.GetAsync<IList<RoleModel>>(url).Result;
-            RoleIndex<RolePostModel> table = new RoleIndex<RolePostModel>(model);
+            RoleIndex<RoleModel, RolePostModel> table = new RoleIndex<RoleModel, RolePostModel>(model);
 
             return this.ViewConfiguration(table);
         }
@@ -61,7 +61,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Search));
             var response = HttpClientAsync.PostAsync<IList<RoleModel>, RolePostModel>(url, model).Result;
-            RoleViewConfiguration configuration = new RoleViewConfiguration(response);
+            RoleViewConfiguration<RoleModel> configuration = new RoleViewConfiguration<RoleModel>(response);
 
             return this.GridConfiguration(configuration);
         }

@@ -8,10 +8,11 @@ using Core.Web.Html;
 using Core.Web.JavaScript;
 using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
+using Core.Web.ViewConfiguration;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 {
-    public abstract class SearchGridPage : IRender
+    public abstract class SearchGridPage<T> : IRender
     {
         public static readonly string LeftText = "&laquo;";
         public static readonly string RightText = "&raquo;";
@@ -56,8 +57,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
                 stringBuilder.Append($"<script src=\"{item}\"></script>");
             }
 
-            string head = $"<head>{stringBuilder}</head>";
-            string html = htmlFormat.Replace("{{head}}", head);
+            string html = htmlFormat.Replace("{{head}}", $"<head>{stringBuilder}</head>");
             html = html.Replace("{{sidebarMenu}}", sidebarMenu);
             html = html.Replace("{{content-header}}", contentHeader);
             html = html.Replace("{{Footer}}", this.Footer());
@@ -71,6 +71,13 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
                 html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
                 html = html.Replace("{{button-group}}", filter.GenerateButton());
                 html = html.Replace("{{Pager}}", this.Pager());
+            }
+
+            var grid = this.GridConfiguration();
+            if (grid != null)
+            {
+                string table = grid.GenerateGridColumn();
+                html = html.Replace("{{Table}}", table);
             }
 
             return html + $"<script>{this.RenderJavaScript()}</script>";
@@ -98,10 +105,10 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             return null;
         }
 
-        //protected virtual SearchFilterConfiguration SearchFilterConfiguration()
-        //{
-        //    return null;
-        //}
+        protected virtual GridConfiguration<T> GridConfiguration()
+        {
+            return null;
+        }
 
         protected virtual string ContentHeader()
         {
@@ -150,7 +157,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             return list;
         }
 
-        private IList<string> CssResource()
+        private IEnumerable<string> CssResource()
         {
             List<string> list = new List<string>
             {

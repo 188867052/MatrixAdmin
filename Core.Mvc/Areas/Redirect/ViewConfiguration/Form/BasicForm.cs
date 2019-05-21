@@ -7,7 +7,7 @@ using Core.Web.Sidebar;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Form
 {
-    public class BasicForm : SearchGridPage
+    public class BasicForm : SearchGridPage<object>
     {
         protected override string FileName
         {

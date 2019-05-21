@@ -21,7 +21,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Index));
             var response = HttpClientAsync.GetAsync<IList<MenuModel>>(url).Result;
-            MenuIndex<MenuPostModel> index = new MenuIndex<MenuPostModel>(response);
+            MenuIndex<MenuModel, MenuPostModel> index = new MenuIndex<MenuModel, MenuPostModel>(response);
 
             return this.ViewConfiguration(index);
         }
@@ -36,7 +36,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Search));
             var response = HttpClientAsync.PostAsync<IList<MenuModel>, MenuPostModel>(url, model).Result;
-            MenuViewConfiguration configuration = new MenuViewConfiguration(response);
+            MenuViewConfiguration<MenuModel> configuration = new MenuViewConfiguration<MenuModel>(response);
 
             return this.GridConfiguration(configuration);
         }

@@ -13,7 +13,7 @@ namespace Core.Mvc.Areas
         private readonly Encoding _encoding = Encoding.UTF8;
         private readonly string _contentType = "text/html";
 
-        protected ContentResult ViewConfiguration(SearchGridPage index)
+        protected ContentResult ViewConfiguration<T>(SearchGridPage<T> index)
         {
             return this.RenderContent(index);
         }

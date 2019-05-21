@@ -3,7 +3,7 @@ using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Login
 {
-    public class Login : SearchGridPage
+    public class Login : SearchGridPage<object>
     {
         protected override string FileName
         {
