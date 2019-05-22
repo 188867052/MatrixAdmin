@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Core.Api.ControllerHelpers;
+using Core.Api.Framework;
 using Core.Entity;
 using Core.Extension;
 using Core.Model;
@@ -35,20 +36,6 @@ namespace Core.Api.Controllers
             {
                 IQueryable<Role> query = this.DbContext.Role;
                 query = query.OrderBy(o => o.IsForbidden).ThenByDescending(o => o.CreateTime);
-                Pager pager = Pager.CreateDefaultInstance();
-
-                return this.StandardSearchResponse(query, pager, RoleModel.Convert);
-            }
-        }
-
-        [HttpGet]
-        public IActionResult GetRoleDataList()
-        {
-            using (this.DbContext)
-            {
-                IQueryable<Role> query = this.DbContext.Role;
-                query = query.OrderByDescending(o => o.CreateTime);
-                query = query.Where(o => !o.IsForbidden);
                 Pager pager = Pager.CreateDefaultInstance();
 
                 return this.StandardSearchResponse(query, pager, RoleModel.Convert);

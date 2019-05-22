@@ -23,7 +23,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
             var model = HttpClientAsync.GetAsync<IList<RoleModel>>(url).Result;
             RoleIndex<RoleModel, RolePostModel> table = new RoleIndex<RoleModel, RolePostModel>(model);
 
-            return this.ViewConfiguration(table);
+            return this.SearchGridConfiguration(table);
         }
 
         /// <summary>

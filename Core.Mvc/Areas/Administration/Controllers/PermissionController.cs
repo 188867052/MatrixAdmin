@@ -23,7 +23,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
             var model = HttpClientAsync.GetAsync<IList<Permission>>(url).Result;
             PermissionIndex table = new PermissionIndex(model);
 
-            return this.ViewConfiguration(table);
+            return this.SearchGridConfiguration(table);
         }
 
         /// <summary>

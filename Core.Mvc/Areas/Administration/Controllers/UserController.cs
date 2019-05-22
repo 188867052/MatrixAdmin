@@ -24,7 +24,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
             var model = HttpClientAsync.GetAsync<IList<UserModel>>(url).Result;
             UserIndex<UserModel, UserPostModel> table = new UserIndex<UserModel, UserPostModel>(model);
 
-            return this.ViewConfiguration(table);
+            return this.SearchGridConfiguration(table);
         }
 
         /// <summary>

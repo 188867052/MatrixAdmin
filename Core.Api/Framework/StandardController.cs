@@ -7,7 +7,7 @@ using Core.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Core.Api.Controllers
+namespace Core.Api.Framework
 {
     [Route("api/[controller]/[action]")]
     [ApiController]

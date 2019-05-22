@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using Core.Api.ControllerHelpers;
+using Core.Api.Framework;
 using Core.Entity;
 using Core.Model;
 using Core.Model.Administration.User;
@@ -34,21 +35,6 @@ namespace Core.Api.Controllers
                 this.DbContext.Set<Role>().Load();
                 IQueryable<User> query = this.DbContext.User;
                 query = query.OrderByDescending(o => o.CreateTime);
-                Pager pager = Pager.CreateDefaultInstance();
-
-                return this.StandardSearchResponse(query, pager, UserModel.Convert);
-            }
-        }
-
-        [HttpGet]
-        public IActionResult GetUserDataList()
-        {
-            using (this.DbContext)
-            {
-                IQueryable<User> query = this.DbContext.User;
-                query = query.OrderByDescending(o => o.CreateTime);
-                query = query.Where(o => !o.IsDeleted);
-                query = query.Where(o => o.IsEnable);
                 Pager pager = Pager.CreateDefaultInstance();
 
                 return this.StandardSearchResponse(query, pager, UserModel.Convert);

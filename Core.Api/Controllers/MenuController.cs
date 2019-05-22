@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Core.Api.ControllerHelpers;
+using Core.Api.Framework;
 using Core.Entity;
 using Core.Entity.Enums;
 using Core.Extension;

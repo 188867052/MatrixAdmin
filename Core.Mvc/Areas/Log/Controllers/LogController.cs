@@ -22,7 +22,7 @@ namespace Core.Mvc.Areas.Log.Controllers
             var model = HttpClientAsync.GetAsync<IList<LogModel>>(url).Result;
             LogIndex<LogModel, LogPostModel> table = new LogIndex<LogModel, LogPostModel>(model);
 
-            return this.ViewConfiguration(table);
+            return this.SearchGridConfiguration(table);
         }
 
         /// <summary>

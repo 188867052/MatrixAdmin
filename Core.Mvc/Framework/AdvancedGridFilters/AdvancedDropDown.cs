@@ -23,5 +23,12 @@ namespace Core.Mvc.Framework.AdvancedGridFilters
 
             return new AdvancedDropDownGridFilter<T>(expression, AdvancedDropDownIndexResource.UserName, new MethodCall("core.addOption"), url);
         }
+
+        public static AdvancedDropDownGridFilter<T> MenuAdvancedDropDown<T>(Expression<Func<T, int?>> expression)
+        {
+            var url = new Url(nameof(Areas.AdvancedDropDownFilters), typeof(AdvancedDropDownController), nameof(AdvancedDropDownController.MenuDataList));
+
+            return new AdvancedDropDownGridFilter<T>(expression, AdvancedDropDownIndexResource.MenuName, new MethodCall("core.addOption"), url);
+        }
     }
 }

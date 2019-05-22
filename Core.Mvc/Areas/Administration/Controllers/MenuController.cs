@@ -24,7 +24,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
             var response = HttpClientAsync.GetAsync<IList<MenuModel>>(url).Result;
             MenuIndex<MenuModel, MenuPostModel> index = new MenuIndex<MenuModel, MenuPostModel>(response);
 
-            return this.ViewConfiguration(index);
+            return this.SearchGridConfiguration(index);
         }
 
         /// <summary>

@@ -22,7 +22,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
             var responseModel = HttpClientAsync.GetAsync<IList<Icon>>(url).Result;
             IconIndex<IconPostModel> index = new IconIndex<IconPostModel>(responseModel);
 
-            return this.ViewConfiguration(index);
+            return this.SearchGridConfiguration(index);
         }
 
         /// <summary>

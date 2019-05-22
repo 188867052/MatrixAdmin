@@ -27,6 +27,7 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
             searchFilter.Add(dropDown);
             searchFilter.Add(AdvancedDropDown.RoleAdvancedDropDown<T>(o => o.RoleId));
             searchFilter.Add(AdvancedDropDown.UserAdvancedDropDown<T>(o => o.Id));
+            searchFilter.Add(AdvancedDropDown.MenuAdvancedDropDown<T>(o => o.Id));
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)
