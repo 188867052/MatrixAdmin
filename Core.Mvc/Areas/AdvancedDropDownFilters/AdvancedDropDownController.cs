@@ -16,32 +16,33 @@ namespace Core.Mvc.Areas.AdvancedDropDownFilters
         /// <summary>
         /// Gets role data list.
         /// </summary>
+        /// <param name="name">The name.</param>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult RoleDataList()
+        public IActionResult RoleDataList(string name)
         {
             var url = new Url(typeof(DataListController), nameof(DataListController.GetRoleDataList));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<Role>>(url).Result;
+            ResponseModel model = HttpClientAsync.GetAsync<IList<Role>>(url, name).Result;
             IList<Role> roles = (IList<Role>)model.Data;
 
             return this.DataListContent(roles, o => o.Id, o => o.Name);
         }
 
         [HttpGet]
-        public IActionResult UserDataList()
+        public IActionResult UserDataList(string name)
         {
             var url = new Url(typeof(DataListController), nameof(DataListController.GetUserDataList));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<UserModel>>(url).Result;
+            ResponseModel model = HttpClientAsync.GetAsync<IList<UserModel>>(url, name).Result;
             IList<UserModel> users = (IList<UserModel>)model.Data;
 
             return this.DataListContent(users, o => o.Id, o => o.LoginName);
         }
 
         [HttpGet]
-        public IActionResult MenuDataList()
+        public IActionResult MenuDataList(string name)
         {
             var url = new Url(typeof(DataListController), nameof(DataListController.GetMenuDataList));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<MenuModel>>(url).Result;
+            ResponseModel model = HttpClientAsync.GetAsync<IList<MenuModel>>(url, name).Result;
             IList<MenuModel> users = (IList<MenuModel>)model.Data;
 
             return this.DataListContent(users, o => o.Id, o => o.Name);

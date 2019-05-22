@@ -1,4 +1,6 @@
-﻿using Core.Entity.Enums;
+﻿using System;
+using Core.Entity;
+using Core.Entity.Enums;
 
 namespace Core.Model.Administration.User
 {
@@ -56,5 +58,29 @@ namespace Core.Model.Administration.User
         /// 用户描述信息.
         /// </summary>
         public string Description { get; set; }
+
+        public void MapTo(Entity.User entity)
+        {
+            entity.DisplayName = this.DisplayName;
+            entity.LoginName = this.LoginName;
+            entity.Password = this.Password;
+            entity.UpdateTime = DateTime.Now;
+
+            if (this.UserRole.HasValue)
+            {
+                if (entity.RoleMapping != null)
+                {
+                    entity.RoleMapping.RoleId = (int)this.UserRole.Value;
+                }
+                else
+                {
+                    entity.UserRoleMapping.Add(new UserRoleMapping
+                    {
+                        UserId = this.Id,
+                        RoleId = (int)this.UserRole
+                    });
+                }
+            }
+        }
     }
 }

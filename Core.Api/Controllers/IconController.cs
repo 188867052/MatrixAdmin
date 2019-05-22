@@ -252,7 +252,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 string sql = @"UPDATE Icon SET IsEnable = @IsEnable WHERE Id IN @Id";
-                CoreApiContext.Dapper2.Execute(sql, new { IsEnable = isEnable, Id = ids });
+                CoreApiContext.Dapper.Execute(sql, new { IsEnable = isEnable, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }
@@ -268,7 +268,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 string sql = @"UPDATE Icon SET Status = @Status WHERE Id IN @Id";
-                CoreApiContext.Dapper2.Execute(sql, new { Status = status, Id = ids });
+                CoreApiContext.Dapper.Execute(sql, new { Status = status, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }

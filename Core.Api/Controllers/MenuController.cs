@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Core.Api.ControllerHelpers;
@@ -117,20 +116,8 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 Menu entity = this.DbContext.Menu.Find(model.Id);
-                entity.Name = model.Name;
-                entity.Icon = model.Icon;
-                entity.Level = 1;
-                entity.ParentId = 1;
-                entity.Sort = model.Sort;
-                entity.Url = model.Url;
-                entity.UpdateByUserId = 1;
-                entity.UpdateByUserName = "System";
-                entity.UpdateTime = DateTime.Now;
-                entity.Description = model.Description;
-                entity.ParentName = model.ParentName;
-                entity.Alias = model.Alias;
+                model.MapTo(entity);
 
-                // entity.IsDefaultRouter = model.IsDefaultRouter;
                 this.DbContext.SaveChanges();
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetSuccess();
@@ -231,7 +218,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 string sql = @"UPDATE Menu SET IsEnable = @IsEnable WHERE Id IN @Ids";
-                this.DbContext.Dapper.Execute(sql, new { IsEnable = isEnable, Ids = ids });
+                CoreApiContext.Dapper.Execute(sql, new { IsEnable = isEnable, Ids = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }
@@ -247,7 +234,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 string sql = @"UPDATE Menu SET Status = @Status WHERE Guid IN @Id";
-                this.DbContext.Dapper.Execute(sql, new { Status = status, Id = ids });
+                CoreApiContext.Dapper.Execute(sql, new { Status = status, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }

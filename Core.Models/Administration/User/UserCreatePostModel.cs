@@ -1,4 +1,6 @@
-﻿using Core.Entity.Enums;
+﻿using AutoMapper;
+using Core.Entity;
+using Core.Entity.Enums;
 
 namespace Core.Model.Administration.User
 {
@@ -41,5 +43,20 @@ namespace Core.Model.Administration.User
         /// 用户描述信息.
         /// </summary>
         public string Description { get; set; }
+
+        public Entity.User MapTo(IMapper mapper)
+        {
+            Entity.User entity = mapper.Map<UserCreatePostModel, Entity.User>(this);
+            if (this.UserRole.HasValue)
+            {
+                entity.UserRoleMapping.Add(new UserRoleMapping
+                {
+                    UserId = entity.Id,
+                    RoleId = (int)this.UserRole
+                });
+            }
+
+            return entity;
+        }
     }
 }

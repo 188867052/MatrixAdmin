@@ -84,16 +84,7 @@ namespace Core.Api.Controllers
                     return this.Ok(response);
                 }
 
-                User entity = this.Mapper.Map<UserCreatePostModel, User>(model);
-                if (model.UserRole.HasValue)
-                {
-                    entity.UserRoleMapping.Add(new UserRoleMapping
-                    {
-                        UserId = entity.Id,
-                        RoleId = (int)model.UserRole
-                    });
-                }
-
+                User entity = model.MapTo(this.Mapper);
                 this.DbContext.User.Add(entity);
                 this.DbContext.SaveChanges();
 
@@ -144,26 +135,7 @@ namespace Core.Api.Controllers
                     return this.Ok(response);
                 }
 
-                entity.DisplayName = model.DisplayName;
-                entity.LoginName = model.LoginName;
-                entity.Password = model.Password;
-                entity.UpdateTime = DateTime.Now;
-
-                if (model.UserRole.HasValue)
-                {
-                    if (entity.RoleMapping != null)
-                    {
-                        entity.RoleMapping.RoleId = (int)model.UserRole.Value;
-                    }
-                    else
-                    {
-                        entity.UserRoleMapping.Add(new UserRoleMapping
-                        {
-                            UserId = model.Id,
-                            RoleId = (int)model.UserRole
-                        });
-                    }
-                }
+                model.MapTo(entity);
 
                 this.DbContext.SaveChanges();
                 response = ResponseModelFactory.CreateInstance;

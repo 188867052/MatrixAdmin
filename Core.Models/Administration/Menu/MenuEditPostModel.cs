@@ -1,4 +1,5 @@
-﻿using Core.Entity.Enums;
+﻿using System;
+using Core.Entity.Enums;
 
 namespace Core.Model.Administration.Menu
 {
@@ -71,5 +72,21 @@ namespace Core.Model.Administration.Menu
         /// 是否为默认路由.
         /// </summary>
         public YesOrNoEnum IsDefaultRouter { get; set; }
+
+        public void MapTo(Entity.Menu entity)
+        {
+            entity.Name = this.Name;
+            entity.Icon = this.Icon;
+            entity.Level = 1;
+            entity.ParentId = 1;
+            entity.Sort = this.Sort;
+            entity.Url = this.Url;
+            entity.UpdateByUserId = 1;
+            entity.UpdateByUserName = "System";
+            entity.UpdateTime = DateTime.Now;
+            entity.Description = this.Description;
+            entity.ParentName = this.ParentName;
+            entity.Alias = this.Alias;
+        }
     }
 }

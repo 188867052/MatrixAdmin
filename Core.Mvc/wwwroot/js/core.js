@@ -193,7 +193,8 @@
             var dataList = event.currentTarget.list;
             $.ajaxSettings.async = false;
             var onSuccess = $.proxy(this._onGetDataList, this, dataList);
-            $.get(event.currentTarget.dataset.url, onSuccess);
+            var data = { name: event.currentTarget.value.trim() };
+            $.get(event.currentTarget.dataset.url, data, onSuccess);
         },
 
         _onGetDataList: function (dataList, response) {
