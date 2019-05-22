@@ -5,10 +5,12 @@ namespace Core.Web.GridFilter
 {
     public abstract class BaseGridFilter
     {
+        private readonly string _tooltip;
         private readonly string _inputType;
 
-        protected BaseGridFilter(string labelText, string inputName, TextBoxTypeEnum type = default)
+        protected BaseGridFilter(string labelText, string inputName, TextBoxTypeEnum type = default, string tooltip = default)
         {
+            this._tooltip = tooltip;
             this.LabelText = labelText;
             this.InputName = inputName;
             this._inputType = JavaScriptEnumMappings.ToString(type);
@@ -22,10 +24,12 @@ namespace Core.Web.GridFilter
 
         public virtual string Render()
         {
+            string tooltip = this._tooltip == default ? string.Empty : $"data-toggle=\"tooltip\" data-placement=\"top\" title=\"{this._tooltip}\"";
             string id = new Identifier().Value;
+
             return $"<div class=\"{this.ContainerClass}\">" +
                    $"<div class=\"form-group\">" +
-                   $"<label for=\"{id}\">{this.LabelText}</label>" +
+                   $"<label for=\"{id}\" {tooltip}>{this.LabelText}</label>" +
                    $"<input class=\"form-control\" id=\"{id}\" name=\"{this.InputName}\" type=\"{this._inputType}\">" +
                    $"</div>" +
                    $"</div>";

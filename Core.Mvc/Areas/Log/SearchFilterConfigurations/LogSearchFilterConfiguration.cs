@@ -29,7 +29,7 @@ namespace Core.Mvc.Areas.Log.SearchFilterConfigurations
             sqlTypeDropDown.AddOption(SqlTypeEnum.Insert, Resources.Insert);
 
             searchFilter.Add(new IntegerGridFilter<T>(o => o.Id, Resources.ID));
-            searchFilter.Add(new TextGridFilter<T>(o => o.Message, Resources.Message));
+            searchFilter.Add(new TextGridFilter<T>(o => o.Message, Resources.Message, Resources.Message));
             searchFilter.Add(new DateTimeGridFilter<T>(o => o.StartTime, Resources.StartTime));
             searchFilter.Add(new DateTimeGridFilter<T>(o => o.EndTime, Resources.EndTime));
             searchFilter.Add(logLevelDropDown);
@@ -40,8 +40,8 @@ namespace Core.Mvc.Areas.Log.SearchFilterConfigurations
         {
             Url url = new Url(nameof(Log), typeof(LogController), nameof(LogController.Clear));
             Url searchUrl = new Url(nameof(Log), typeof(LogController), nameof(LogController.GridStateChange));
-            buttons.Add(new StandardButton(Resources.SearchButtonLabel, "index.search", searchUrl, tooltip: Resources.SearchButtonLabel));
-            buttons.Add(new StandardButton(Resources.ClearButtonLabel, "index.clear", url, tooltip: Resources.ClearButtonToolTip));
+            buttons.Add(new StandardButton(Resources.SearchButtonLabel, "index.search", searchUrl, Resources.SearchButtonLabel));
+            buttons.Add(new StandardButton(Resources.ClearButtonLabel, "index.clear", url, Resources.ClearButtonToolTip));
             buttons.Add(new StandardButton(Resources.ClearEmptyButtonLabel, "core.clear", tooltip: Resources.ClearEmptyButtonToolTip));
         }
     }
