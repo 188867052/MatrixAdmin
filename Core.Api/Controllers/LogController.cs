@@ -3,7 +3,6 @@ using AutoMapper;
 using Core.Api.ControllerHelpers;
 using Core.Entity;
 using Core.Extension;
-using Core.Extension.ExpressionBuilder.Generics;
 using Core.Model;
 using Core.Model.Log;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Core.Api.Controllers
 {
     /// <summary>
-    ///
+    /// Log controller.
     /// </summary>
     public class LogController : StandardController
     {

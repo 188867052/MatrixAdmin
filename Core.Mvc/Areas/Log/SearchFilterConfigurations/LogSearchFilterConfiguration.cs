@@ -28,10 +28,10 @@ namespace Core.Mvc.Areas.Log.SearchFilterConfigurations
             sqlTypeDropDown.AddOption(SqlTypeEnum.Delete, Resources.Delete);
             sqlTypeDropDown.AddOption(SqlTypeEnum.Insert, Resources.Insert);
 
-            searchFilter.Add(new IntegerGridFilter<T>(o => o.Id, Resources.ID));
+            searchFilter.Add(new IntegerGridFilter<T>(o => o.Id, Resources.ID, Resources.ID));
             searchFilter.Add(new TextGridFilter<T>(o => o.Message, Resources.Message, Resources.Message));
-            searchFilter.Add(new DateTimeGridFilter<T>(o => o.StartTime, Resources.StartTime));
-            searchFilter.Add(new DateTimeGridFilter<T>(o => o.EndTime, Resources.EndTime));
+            searchFilter.Add(new DateTimeGridFilter<T>(o => o.StartTime, Resources.StartTime, Resources.StartTime));
+            searchFilter.Add(new DateTimeGridFilter<T>(o => o.EndTime, Resources.EndTime, Resources.EndTime));
             searchFilter.Add(logLevelDropDown);
             searchFilter.Add(sqlTypeDropDown);
         }

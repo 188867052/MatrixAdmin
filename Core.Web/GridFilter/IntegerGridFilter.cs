@@ -11,7 +11,8 @@ namespace Core.Web.GridFilter
         /// </summary>
         /// <param name="expression">The expression.</param>
         /// <param name="label">The label.</param>
-        public IntegerGridFilter(Expression<Func<T, int?>> expression, string label) : base(label, expression.GetPropertyName())
+        /// <param name="tooltip">The tooltip.</param>
+        public IntegerGridFilter(Expression<Func<T, int?>> expression, string label, string tooltip = default) : base(label, expression.GetPropertyName(), tooltip: tooltip)
         {
         }
     }
