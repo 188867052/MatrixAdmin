@@ -16,16 +16,17 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            var dropDown = new DropDownGridFilter<T, ForbiddenStatusEnum>(o => (ForbiddenStatusEnum)o.ForbiddenStatus, Resources.ForbiddenStatus);
+            var dropDown = new DropDownGridFilter<T, ForbiddenStatusEnum>(o => (ForbiddenStatusEnum)o.ForbiddenStatus, Resources.ForbiddenStatus, tooltip: Resources.ForbiddenStatus);
             dropDown.AddOption(ForbiddenStatusEnum.Normal, Resources.Normal);
             dropDown.AddOption(ForbiddenStatusEnum.Forbidden, Resources.Forbidden);
 
-            searchFilter.Add(new TextGridFilter<T>(o => o.DisplayName, Resources.DisplayName));
-            searchFilter.Add(new TextGridFilter<T>(o => o.LoginName, Resources.LoginName));
-            searchFilter.Add(new DateTimeGridFilter<T>(o => o.StartCreateTime, Resources.StartCreateTime));
-            searchFilter.Add(new DateTimeGridFilter<T>(o => o.EndCreateTime, Resources.EndCreateTime));
+            searchFilter.Add(new TextGridFilter<T>(o => o.DisplayName, Resources.DisplayName, Resources.DisplayName));
+            searchFilter.Add(new TextGridFilter<T>(o => o.LoginName, Resources.LoginName, Resources.LoginName));
+            searchFilter.Add(new DateTimeGridFilter<T>(o => o.StartCreateTime, Resources.StartCreateTime, Resources.StartCreateTime));
+            searchFilter.Add(new DateTimeGridFilter<T>(o => o.EndCreateTime, Resources.EndCreateTime, Resources.EndCreateTime));
             searchFilter.Add(dropDown);
-            searchFilter.Add(AdvancedDropDown<T>.RoleAdvancedDropDown(o => o.RoleId));
+            searchFilter.Add(AdvancedDropDown.RoleAdvancedDropDown<T>(o => o.RoleId));
+            searchFilter.Add(AdvancedDropDown.UserAdvancedDropDown<T>(o => o.Id));
         }
 
         protected override void CreateButton(IList<StandardButton> buttons)
@@ -33,9 +34,9 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
             Url searchUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.GridStateChange));
             Url addDialogUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.AddDialog));
 
-            buttons.Add(new StandardButton(Resources.SearchButtonLabel, "index.search", searchUrl));
-            buttons.Add(new StandardButton(Resources.AddButtonLabel, "core.dialog", addDialogUrl));
-            buttons.Add(new StandardButton(Resources.ClearButtonLabel, "core.clear"));
+            buttons.Add(new StandardButton(Resources.SearchButtonLabel, "index.search", searchUrl, Resources.SearchButtonLabel));
+            buttons.Add(new StandardButton(Resources.AddButtonLabel, "core.dialog", addDialogUrl, Resources.AddButtonLabel));
+            buttons.Add(new StandardButton(Resources.ClearButtonLabel, "core.clear", tooltip: Resources.ClearButtonLabel));
         }
     }
 }

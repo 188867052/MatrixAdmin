@@ -1534,6 +1534,11 @@ namespace Core.Resource.Areas.AdvancedDropDown
 		/// Gets the localized string for RoleName.
 		/// </summary>
 		public static string RoleName { get { return GetResourceString("RoleName"); } }
+
+		/// <summary>
+		/// Gets the localized string for UserName.
+		/// </summary>
+		public static string UserName { get { return GetResourceString("UserName"); } }
 	}
 }
 

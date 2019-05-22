@@ -14,8 +14,8 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            searchFilter.Add(new TextGridFilter<T>(o => o.Code, Resources.Code));
-            var filter = new BooleanGridFilter<T>(o => o.IsEnable, Resources.Status);
+            searchFilter.Add(new TextGridFilter<T>(o => o.Code, Resources.Code, Resources.Code));
+            var filter = new BooleanGridFilter<T>(o => o.IsEnable, Resources.Status, tooltip: Resources.Status);
             filter.AddOption(true, Resources.Enable);
             filter.AddOption(false, Resources.Disable);
             searchFilter.Add(filter);

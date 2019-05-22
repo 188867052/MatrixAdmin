@@ -22,7 +22,8 @@ namespace Core.Web.GridFilter
         /// <param name="expression">The expression.</param>
         /// <param name="labelText">The labelText.</param>
         /// <param name="isContainsEmpty">The isContainsEmpty.</param>
-        public DropDownGridFilter(Expression<Func<T, TEnumType>> expression, string labelText, bool isContainsEmpty = true) : base(labelText, expression.GetPropertyName())
+        /// <param name="tooltip">The tooltip.</param>
+        public DropDownGridFilter(Expression<Func<T, TEnumType>> expression, string labelText, bool isContainsEmpty = true, string tooltip = default) : base(labelText, expression.GetPropertyName(), tooltip: tooltip)
         {
             this._isContainsEmpty = isContainsEmpty;
             this._keyValuePair = new List<KeyValuePair<int, string>>();
@@ -40,7 +41,7 @@ namespace Core.Web.GridFilter
 
             return $"<div class=\"{this.ContainerClass}\">" +
                    $"<div class=\"form-group\">" +
-                   $"<label>{this.LabelText}</label>" +
+                   $"<label {this.Tooltip}>{this.LabelText}</label>" +
                    $"<select class=\"form-control\" style=\"width:204.16px\" name=\"{this.InputName}\">" +
                    $"{options}" +
                    $"</select>" +

@@ -11,6 +11,11 @@ namespace Core.Model.Administration.User
     public class UserPostModel : Pager
     {
         /// <summary>
+        /// Id.
+        /// </summary>
+        public int? Id { get; set; }
+
+        /// <summary>
         /// 是否已被删除.
         /// </summary>
         public bool? IsEnable { get; set; }

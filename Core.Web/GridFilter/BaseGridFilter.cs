@@ -9,7 +9,7 @@ namespace Core.Web.GridFilter
 
         protected BaseGridFilter(string labelText, string inputName, TextBoxTypeEnum type = default, string tooltip = default)
         {
-            this.Tooltip = tooltip;
+            this.Tooltip = tooltip == default ? string.Empty : $"data-toggle=\"tooltip\" data-placement=\"top\" title=\"{tooltip}\"";
             this.LabelText = labelText;
             this.InputName = inputName;
             this._inputType = JavaScriptEnumMappings.ToString(type);
@@ -25,12 +25,11 @@ namespace Core.Web.GridFilter
 
         public virtual string Render()
         {
-            string tooltip = this.Tooltip == default ? string.Empty : $"data-toggle=\"tooltip\" data-placement=\"top\" title=\"{this.Tooltip}\"";
             string id = new Identifier().Value;
 
             return $"<div class=\"{this.ContainerClass}\">" +
                    $"<div class=\"form-group\">" +
-                   $"<label for=\"{id}\" {tooltip}>{this.LabelText}</label>" +
+                   $"<label for=\"{id}\" {this.Tooltip}>{this.LabelText}</label>" +
                    $"<input class=\"form-control\" id=\"{id}\" name=\"{this.InputName}\" type=\"{this._inputType}\">" +
                    $"</div>" +
                    $"</div>";

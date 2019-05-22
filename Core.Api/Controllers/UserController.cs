@@ -40,6 +40,21 @@ namespace Core.Api.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult GetUserDataList()
+        {
+            using (this.DbContext)
+            {
+                IQueryable<User> query = this.DbContext.User;
+                query = query.OrderByDescending(o => o.CreateTime);
+                query = query.Where(o => !o.IsDeleted);
+                query = query.Where(o => o.IsEnable);
+                Pager pager = Pager.CreateDefaultInstance();
+
+                return this.StandardSearchResponse(query, pager, UserModel.Convert);
+            }
+        }
+
         /// <summary>
         /// Search.
         /// </summary>

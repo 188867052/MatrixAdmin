@@ -8,7 +8,6 @@ namespace Core.Web.GridFilter
 {
     public class BooleanGridFilter<T> : BaseGridFilter
     {
-        private readonly Expression<Func<T, bool?>> _expression;
         private readonly IList<KeyValuePair<bool, string>> _keyValuePair;
         private readonly bool _isContainsEmpty;
 
@@ -17,11 +16,11 @@ namespace Core.Web.GridFilter
         /// 构造函数.
         /// </summary>
         /// <param name="expression">The expression.</param>
-        /// <param name="labelText"></param>
-        /// <param name="isContainsEmpty"></param>
-        public BooleanGridFilter(Expression<Func<T, bool?>> expression, string labelText, bool isContainsEmpty = true) : base(labelText, expression.GetPropertyName())
+        /// <param name="labelText">labelText.</param>
+        /// <param name="isContainsEmpty">isContainsEmpty.</param>
+        /// <param name="tooltip">toolTip.</param>
+        public BooleanGridFilter(Expression<Func<T, bool?>> expression, string labelText, bool isContainsEmpty = true, string tooltip = default) : base(labelText, expression.GetPropertyName(), tooltip: tooltip)
         {
-            this._expression = expression;
             this._keyValuePair = new List<KeyValuePair<bool, string>>();
             this._isContainsEmpty = isContainsEmpty;
         }
@@ -44,13 +43,12 @@ namespace Core.Web.GridFilter
             }
 
             string options = this._isContainsEmpty ? "<option></option>" : default;
-            string name = this._expression.GetPropertyName();
             options = this._keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
             return $"<div class=\"{this.ContainerClass}\">" +
                    $"<div class=\"form-group\">" +
-                   $"<label>{this.LabelText}</label>" +
-                   $"<select class=\"form-control\" style=\"width:204.16px\" name=\"{name}\">{options}</select>" +
+                   $"<label {this.Tooltip}>{this.LabelText}</label>" +
+                   $"<select class=\"form-control\" style=\"width:204.16px\" name=\"{this.InputName}\">{options}</select>" +
                    $"</div>" +
                    $"</div>";
         }

@@ -13,7 +13,6 @@
         _successPointer: null,
         _leftText: null,
         _rightText: null,
-        _getRoleDataListUrl: null,
 
         // Private Event Delegates  
 
@@ -193,11 +192,11 @@
         addOption: function () {
             var dataList = event.currentTarget.list;
             $.ajaxSettings.async = false;
-            var onSuccess = $.proxy(this._onGetRoleDataList, this, dataList);
-            $.get(this._getRoleDataListUrl, onSuccess);
+            var onSuccess = $.proxy(this._onGetDataList, this, dataList);
+            $.get(event.currentTarget.dataset.url, onSuccess);
         },
 
-        _onGetRoleDataList: function (dataList, response) {
+        _onGetDataList: function (dataList, response) {
             dataList.innerHTML = response;
         }
     };
