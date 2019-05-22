@@ -1083,6 +1083,11 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.User
 		public static string Cancel { get { return GetResourceString("Cancel"); } }
 
 		/// <summary>
+		/// Gets the localized string for Description.
+		/// </summary>
+		public static string Description { get { return GetResourceString("Description"); } }
+
+		/// <summary>
 		/// Gets the localized string for DisplayName.
 		/// </summary>
 		public static string DisplayName { get { return GetResourceString("DisplayName"); } }

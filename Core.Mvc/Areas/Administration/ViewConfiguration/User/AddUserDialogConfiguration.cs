@@ -29,6 +29,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
         {
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.LoginName, o => o.LoginName));
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.DisplayName, o => o.DisplayName));
+            textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.Description, o => o.Description));
             var roleDropDown = new AdvancedDropDown<TPostModel, TModel>(o => o.UserRole, Resources.UserRole, new MethodCall("core.addOption"));
             textBoxes.Add(roleDropDown);
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.Password, o => o.Password, null, TextBoxTypeEnum.Password));
