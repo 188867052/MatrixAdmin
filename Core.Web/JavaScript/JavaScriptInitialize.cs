@@ -44,9 +44,9 @@ namespace Core.Web.JavaScript
         public string Render()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (KeyValuePair<string, string> keyValuePair in this._fields)
+            foreach (var (key, value) in this._fields)
             {
-                stringBuilder.Append($"{this._globalVariableName}._{keyValuePair.Key}=\"{keyValuePair.Value}\";");
+                stringBuilder.Append($"{this._globalVariableName}._{key}=\"{value}\";");
             }
 
             string initializeCall = string.Concat(this._globalVariableName, ".initialize");

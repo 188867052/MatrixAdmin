@@ -17,7 +17,7 @@ namespace Core.Web.Button
             this._tooltip = tooltip;
             this.Text = labelText;
             this._id = new Identifier();
-            this.Event = new JavaScriptEvent(@event, this._id);
+            this.Event = new JavaScriptEvent(func: @event, id: this._id);
         }
 
         public string Text { get; set; }

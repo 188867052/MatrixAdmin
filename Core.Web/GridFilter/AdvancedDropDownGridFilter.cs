@@ -24,10 +24,10 @@ namespace Core.Web.GridFilter
         /// <param name="labelText">The labelText.</param>
         /// <param name="methodCall">The method call.</param>
         /// <param name="url">url.</param>
-        public AdvancedDropDownGridFilter(Expression<Func<T, int?>> expression, string labelText, MethodCall methodCall,Url url) : base(labelText, expression.GetPropertyName())
+        public AdvancedDropDownGridFilter(Expression<Func<T, int?>> expression, string labelText, MethodCall methodCall, Url url) : base(labelText, expression.GetPropertyName())
         {
             this._url = url;
-            this._script = new JavaScriptEvent(methodCall.Method, methodCall.Id, JavaScriptEventEnum.MouseDown).Render();
+            this._script = new JavaScriptEvent(func: methodCall.Method, methodCall.Id, eventType: JavaScriptEventEnum.MouseDown).Render();
             this._id = methodCall.Id;
         }
 

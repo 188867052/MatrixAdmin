@@ -30,7 +30,7 @@ namespace Core.Web.TextBox
         {
             this._expression = expression;
             this._labelText = labelText;
-            this._script = new JavaScriptEvent(methodCall.Method, methodCall.Id, JavaScriptEventEnum.MouseDown).Render();
+            this._script = new JavaScriptEvent(func: methodCall.Method, id: methodCall.Id, eventType: JavaScriptEventEnum.MouseDown).Render();
             this._id = methodCall.Id;
         }
 
