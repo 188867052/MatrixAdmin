@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 
 namespace Core.Model.Log
 {
-
     public class LogModel : Pager
     {
         public LogModel()
@@ -18,6 +17,7 @@ namespace Core.Model.Log
             this.LogLevel = (LogLevel?)entity.LogLevel;
             this.CreateTime = entity.CreateTime;
             this.SqlType = (SqlTypeEnum)entity.SqlOperateType;
+            int a = 1;
         }
 
         /// <summary>
