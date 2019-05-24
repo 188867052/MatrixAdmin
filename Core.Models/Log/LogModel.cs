@@ -17,7 +17,7 @@ namespace Core.Model.Log
             this.LogLevel = (LogLevel?)entity.LogLevel;
             this.CreateTime = entity.CreateTime;
             this.SqlType = (SqlTypeEnum)entity.SqlOperateType;
-            int a = 666;
+            int a = 6626;
         }
 
         /// <summary>
