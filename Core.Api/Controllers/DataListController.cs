@@ -32,8 +32,8 @@ namespace Core.Api.Controllers
             {
                 IQueryable<User> query = this.DbContext.User;
                 query = query.OrderByDescending(o => o.CreateTime);
-                query = query.Where(o => !o.IsDeleted);
-                query = query.Where(o => o.IsEnable);
+                query = query.AddBooleanFilter(o => o.IsDeleted, false);
+                query = query.AddBooleanFilter(o => o.IsEnable, true);
                 query = query.AddStringContainsFilter(o => o.LoginName, name);
                 Pager pager = Pager.CreateDefaultInstance();
 
@@ -48,7 +48,8 @@ namespace Core.Api.Controllers
             {
                 IQueryable<Role> query = this.DbContext.Role;
                 query = query.OrderByDescending(o => o.CreateTime);
-                query = query.Where(o => !o.IsForbidden);
+                query = query.AddBooleanFilter(o => o.IsForbidden, false);
+                query = query.AddBooleanFilter(o => o.IsEnable, true);
                 query = query.AddStringContainsFilter(o => o.Name, name);
                 Pager pager = Pager.CreateDefaultInstance();
 
@@ -63,7 +64,7 @@ namespace Core.Api.Controllers
             {
                 IQueryable<Menu> query = this.DbContext.Menu;
                 query = query.OrderByDescending(o => o.CreateTime);
-                query = query.Where(o => o.IsEnable);
+                query = query.AddBooleanFilter(o => o.IsEnable, true);
                 query = query.AddStringContainsFilter(o => o.Name, name);
                 Pager pager = Pager.CreateDefaultInstance();
 
