@@ -6,9 +6,9 @@ using Core.Api.Framework;
 using Core.Entity;
 using Core.Entity.Enums;
 using Core.Extension;
-using Core.Extension.Dapper;
 using Core.Model;
 using Core.Model.Administration.Menu;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Api.Controllers

@@ -6,9 +6,9 @@ using Core.Api.AuthContext;
 using Core.Api.Framework;
 using Core.Entity;
 using Core.Extension;
-using Core.Extension.Dapper;
 using Core.Model;
 using Core.Model.Administration.Permission;
+using Dapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Api.Controllers

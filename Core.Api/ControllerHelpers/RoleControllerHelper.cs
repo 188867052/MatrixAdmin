@@ -1,7 +1,7 @@
 ﻿using System;
 using Core.Entity;
-using Core.Extension.Dapper;
 using Core.Model;
+using Dapper;
 
 namespace Core.Api.ControllerHelpers
 {
