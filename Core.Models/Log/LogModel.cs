@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Core.Model.Log
 {
+
     public class LogModel : Pager
     {
         public LogModel()
