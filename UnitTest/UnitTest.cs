@@ -10,9 +10,9 @@ namespace UnitTest
         [TestCategory("MyUnitTest")]
         public void TestMethod()
         {
-            Assert.IsTrue(true);
+            Assert.IsTrue(true,"test success!this is a test message.");
         }
-
+        
         [TestMethod]
         [TestCategory("MyUnitTest")]
         public void AddNumberTest()
