@@ -157,7 +157,7 @@ namespace Core.Extension
             return query.AddIsEmptyFilter(expression.GetPropertyName());
         }
 
-        public static IQueryable<T> AddNotNullFilter<T>(this IQueryable<T> query, Expression<Func<T, string>> expression)
+        public static IQueryable<T> AddStringNotNullFilter<T>(this IQueryable<T> query, Expression<Func<T, string>> expression)
         {
             BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.NotEqual(a, b);
             return query.CreateQuery(null, expression.GetPropertyName(), Predicate);

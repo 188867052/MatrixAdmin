@@ -42,6 +42,16 @@ namespace UnitTest.Resource.Areas
 		public static string TestAddBooleanFilter { get { return GetResourceString("TestAddBooleanFilter"); } }
 
 		/// <summary>
+		/// Gets the localized string for TestAddDateTimeGreaterThanOrEqualFilters.
+		/// </summary>
+		public static string TestAddDateTimeGreaterThanOrEqualFilters { get { return GetResourceString("TestAddDateTimeGreaterThanOrEqualFilters"); } }
+
+		/// <summary>
+		/// Gets the localized string for TestAddDateTimeLessThanOrEqualFilter.
+		/// </summary>
+		public static string TestAddDateTimeLessThanOrEqualFilter { get { return GetResourceString("TestAddDateTimeLessThanOrEqualFilter"); } }
+
+		/// <summary>
 		/// Gets the localized string for TestAddIntegerEqualFilter.
 		/// </summary>
 		public static string TestAddIntegerEqualFilter { get { return GetResourceString("TestAddIntegerEqualFilter"); } }

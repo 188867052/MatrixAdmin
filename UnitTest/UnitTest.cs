@@ -119,6 +119,35 @@ namespace Core.UnitTest
         }
 
         [Test]
+        public void TestAddDateTimeGreaterThanOrEqualFilters()
+        {
+            var a = _coreApiContext.User.Where(o => o.CreateTime >= DateTime.Today).Expression.ToString().Replace("DateTime.Today", DateTime.Today.ToString());
+            var b = _coreApiContext.User.AddDateTimeGreaterThanOrEqualFilter(DateTime.Today, o => o.CreateTime).Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestAddDateTimeGreaterThanOrEqualFilters);
+        }
+
+
+
+        [Test]
+        public void TestAddDateTimeLessThanOrEqualFilter()
+        {
+            var a = _coreApiContext.User.Where(o => o.CreateTime <= DateTime.Today).Expression.ToString().Replace("DateTime.Today", DateTime.Today.ToString());
+            var b = _coreApiContext.User.AddDateTimeLessThanOrEqualFilter(DateTime.Today, o => o.CreateTime).Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestAddDateTimeLessThanOrEqualFilter);
+        }
+
+        [Test]
+        public void TestAddStringNotNullFilter()
+        {
+            var a = _coreApiContext.User.Where(o => o.LoginName != null).Expression.ToString();
+            var b = _coreApiContext.User.AddStringNotNullFilter(o => o.LoginName).Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestAddStringEqualFilter);
+        }
+
+        [Test]
         public void TestAddBooleanFilter()
         {
             IQueryable<User> query = _coreApiContext.User;

@@ -120,6 +120,12 @@
   <data name="TestAddBooleanFilter" xml:space="preserve">
     <value>AddBooleanFilter 错误</value>
   </data>
+  <data name="TestAddDateTimeGreaterThanOrEqualFilters" xml:space="preserve">
+    <value>AddDateTimeGreaterThanOrEqualFilters   错误</value>
+  </data>
+  <data name="TestAddDateTimeLessThanOrEqualFilter" xml:space="preserve">
+    <value>AddDateTimeLessThanOrEqualFilter  错误</value>
+  </data>
   <data name="TestAddIntegerEqualFilter" xml:space="preserve">
     <value>AddIntegerEqualFilter 错误</value>
   </data>
