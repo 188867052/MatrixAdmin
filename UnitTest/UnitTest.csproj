@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core.Entity\Core.Entity.csproj" />
+    <ProjectReference Include="..\UnitTest.Resource\UnitTest.Resource.csproj" />
   </ItemGroup>
 
 </Project>

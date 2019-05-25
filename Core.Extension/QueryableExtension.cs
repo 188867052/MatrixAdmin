@@ -168,7 +168,7 @@ namespace Core.Extension
 
         private static IQueryable<T> CreateQuery<T>(this IQueryable<T> query, object value, string propertyName, Func<MemberExpression, ConstantExpression, ParameterExpression, Expression<Func<T, bool>>> lambda)
         {
-            ParameterExpression parameter = Expression.Parameter(typeof(T), "x");
+            ParameterExpression parameter = Expression.Parameter(typeof(T), "o");
             MemberExpression left = Expression.Property(parameter, typeof(T).GetProperty(propertyName));
             ConstantExpression right = Expression.Constant(value);
 

@@ -2451,6 +2451,16 @@
         "runtime": {
           "bin/placeholder/Core.Extension.dll": {}
         }
+      },
+      "UnitTest.Resource/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/UnitTest.Resource.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UnitTest.Resource.dll": {}
+        }
       }
     }
   },
@@ -8047,6 +8057,11 @@
       "type": "project",
       "path": "../Core.Extension/Core.Extension.csproj",
       "msbuildProject": "../Core.Extension/Core.Extension.csproj"
+    },
+    "UnitTest.Resource/1.0.0": {
+      "type": "project",
+      "path": "../UnitTest.Resource/UnitTest.Resource.csproj",
+      "msbuildProject": "../UnitTest.Resource/UnitTest.Resource.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -8058,7 +8073,8 @@
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.UnitTestFramework.Extensions >= 2.0.0",
       "NUnit >= 3.12.0",
-      "NUnit3TestAdapter >= 3.13.0"
+      "NUnit3TestAdapter >= 3.13.0",
+      "UnitTest.Resource >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -8091,6 +8107,9 @@
           "projectReferences": {
             "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj": {
               "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj"
+            },
+            "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\UnitTest.Resource.csproj": {
+              "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\UnitTest.Resource.csproj"
             }
           }
         }
