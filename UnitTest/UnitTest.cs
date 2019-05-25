@@ -1,21 +1,19 @@
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace UnitTest
 {
-    [TestClass, TestCategory("MyUnitTest")]
+    [TestFixture]
     public class UnitTest
     {
-        [TestMethod]
-        [TestCategory("MyUnitTest")]
+        [Test]
         public void TestMethod()
         {
             Console.WriteLine("test fail 1");
             Assert.IsTrue(false, "test fail!");
         }
 
-        [TestMethod]
-        [TestCategory("MyUnitTest")]
+        [Test]
         public void AddNumberTest()
         {
             int i = 5, j = 6;
