@@ -47,13 +47,7 @@ namespace Core.Extension.ExpressionBuilder.Generics
         /// <summary>
         /// List of <see cref="IFilterInfo" /> groups that will be combined and built into a LINQ expression.
         /// </summary>
-        public IEnumerable<IEnumerable<IFilterInfo>> Statements
-        {
-            get
-            {
-                return this._statements.ToArray();
-            }
-        }
+        public IEnumerable<IEnumerable<IFilterInfo>> Statements => this._statements.ToArray();
 
         private List<IFilterInfo> CurrentStatementGroup
         {
@@ -63,10 +57,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
             }
         }
 
-        /// <summary>
-        /// Implicitly converts a <see cref="Filter{TClass}" /> into a <see cref="System.Linq.Expressions.Expression{Func{T, TResult}}" />.
-        /// </summary>
-        /// <param name="filter">filter.</param>
         public static implicit operator Expression<Func<T, bool>>(Filter<T> filter)
         {
             var builder = new FilterBuilder();
