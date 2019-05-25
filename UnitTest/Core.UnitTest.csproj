@@ -18,7 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core.Api\Core.Api.csproj" />
     <ProjectReference Include="..\Core.Entity\Core.Entity.csproj" />
+    <ProjectReference Include="..\Core.Models\Core.Model.csproj" />
+    <ProjectReference Include="..\Core.Mvc\Core.Mvc.csproj" />
     <ProjectReference Include="..\UnitTest.Resource\UnitTest.Resource.csproj" />
   </ItemGroup>
 

@@ -1,8 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using Core.Api.Controllers;
 using Core.Entity;
 using Core.Extension;
+using Core.Model;
+using Core.Model.Administration.User;
+using Core.Mvc.Framework;
 using Dapper;
 using NUnit.Framework;
 using UnitTest.Resource.Areas;
@@ -127,8 +132,6 @@ namespace Core.UnitTest
             Assert.AreEqual(a, b, UnitTestResource.TestAddDateTimeGreaterThanOrEqualFilters);
         }
 
-
-
         [Test]
         public void TestAddDateTimeLessThanOrEqualFilter()
         {
@@ -156,6 +159,17 @@ namespace Core.UnitTest
             var b = query.Expression.ToString();
 
             Assert.AreEqual(a, b, UnitTestResource.TestAddBooleanFilter);
+        }
+
+        [Test]
+        public void TestDataList()
+        {
+            var url = new Url(typeof(DataListController), nameof(DataListController.GetUserDataList));
+            ResponseModel model = HttpClientAsync.GetAsync<IList<UserModel>>(url).Result;
+            IList<UserModel> users = (IList<UserModel>)model.Data;
+
+            Assert.GreaterOrEqual(users.Count, 0, UnitTestResource.TestAddBooleanFilter);
+            Assert.AreEqual(model.Code, (int)HttpStatusCode.OK, UnitTestResource.TestAddBooleanFilter);
         }
     }
 }
