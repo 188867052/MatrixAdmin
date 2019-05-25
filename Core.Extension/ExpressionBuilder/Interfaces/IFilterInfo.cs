@@ -21,7 +21,7 @@ namespace Core.Extension.ExpressionBuilder.Interfaces
         /// <summary>
         /// Is filter enable.
         /// </summary>
-        bool IsFilterEnable{ get; set; }
+        bool IsFilterEnable { get; set; }
 
         /// <summary>
         /// Express the interaction between the property and the constant value defined in this filter statement.

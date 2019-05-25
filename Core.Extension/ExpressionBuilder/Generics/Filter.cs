@@ -9,7 +9,7 @@ using Core.Extension.ExpressionBuilder.Interfaces;
 namespace Core.Extension.ExpressionBuilder.Generics
 {
     /// <summary>
-    /// Aggregates <see cref="FilterInfo{TPropertyType}" /> and build them into a LINQ expression.
+    /// Aggregates <see cref="FilterInfo{T}" /> and build them into a LINQ expression.
     /// </summary>
     [Serializable]
     public class Filter<T> : IFilter where T : class
@@ -44,18 +44,12 @@ namespace Core.Extension.ExpressionBuilder.Generics
             }
         }
 
+        private List<IFilterInfo> CurrentStatementGroup => this._statements.Last();
+
         /// <summary>
         /// List of <see cref="IFilterInfo" /> groups that will be combined and built into a LINQ expression.
         /// </summary>
         public IEnumerable<IEnumerable<IFilterInfo>> Statements => this._statements.ToArray();
-
-        private List<IFilterInfo> CurrentStatementGroup
-        {
-            get
-            {
-                return this._statements.Last();
-            }
-        }
 
         public static implicit operator Expression<Func<T, bool>>(Filter<T> filter)
         {
@@ -104,7 +98,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
             }
         }
 
-        // by2
         public IFilterStatementConnection By(IFilterInfo statement)
         {
             this.CurrentStatementGroup.Add(statement);
