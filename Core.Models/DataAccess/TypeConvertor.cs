@@ -13,57 +13,57 @@ namespace Core.Model.DataAccess
     /// </summary>
     public sealed class TypeConvertor
     {
-        private static readonly ArrayList _dbTypeList = new ArrayList();
+        private static readonly ArrayList dbTypeList = new ArrayList();
 
         static TypeConvertor()
         {
             DbTypeMapEntry dbTypeMapEntry
             = new DbTypeMapEntry(typeof(bool), DbType.Boolean, SqlDbType.Bit);
-            _dbTypeList.Add(dbTypeMapEntry);
+            dbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
             = new DbTypeMapEntry(typeof(byte), DbType.Double, SqlDbType.TinyInt);
-            _dbTypeList.Add(dbTypeMapEntry);
+            dbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
             = new DbTypeMapEntry(typeof(byte[]), DbType.Binary, SqlDbType.Image);
-            _dbTypeList.Add(dbTypeMapEntry);
+            dbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
             = new DbTypeMapEntry(typeof(DateTime), DbType.DateTime, SqlDbType.DateTime);
-            _dbTypeList.Add(dbTypeMapEntry);
+            dbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
             = new DbTypeMapEntry(typeof(decimal), DbType.Decimal, SqlDbType.Decimal);
-            _dbTypeList.Add(dbTypeMapEntry);
+            dbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
             = new DbTypeMapEntry(typeof(double), DbType.Double, SqlDbType.Float);
-            _dbTypeList.Add(dbTypeMapEntry);
+            dbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
             = new DbTypeMapEntry(typeof(Guid), DbType.Guid, SqlDbType.UniqueIdentifier);
-            _dbTypeList.Add(dbTypeMapEntry);
+            dbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
             = new DbTypeMapEntry(typeof(short), DbType.Int16, SqlDbType.SmallInt);
-            _dbTypeList.Add(dbTypeMapEntry);
+            dbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
             = new DbTypeMapEntry(typeof(int), DbType.Int32, SqlDbType.Int);
-            _dbTypeList.Add(dbTypeMapEntry);
+            dbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
             = new DbTypeMapEntry(typeof(long), DbType.Int64, SqlDbType.BigInt);
-            _dbTypeList.Add(dbTypeMapEntry);
+            dbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
             = new DbTypeMapEntry(typeof(object), DbType.Object, SqlDbType.Variant);
-            _dbTypeList.Add(dbTypeMapEntry);
+            dbTypeList.Add(dbTypeMapEntry);
 
             dbTypeMapEntry
             = new DbTypeMapEntry(typeof(string), DbType.String, SqlDbType.VarChar);
-            _dbTypeList.Add(dbTypeMapEntry);
+            dbTypeList.Add(dbTypeMapEntry);
         }
 
         private TypeConvertor()
@@ -139,9 +139,9 @@ namespace Core.Model.DataAccess
         private static DbTypeMapEntry Find(Type type)
         {
             object retObj = null;
-            for (int i = 0; i < _dbTypeList.Count; i++)
+            for (int i = 0; i < dbTypeList.Count; i++)
             {
-                DbTypeMapEntry entry = (DbTypeMapEntry)_dbTypeList[i];
+                DbTypeMapEntry entry = (DbTypeMapEntry)dbTypeList[i];
                 if (entry.Type == (Nullable.GetUnderlyingType(type) ?? type))
                 {
                     retObj = entry;
@@ -161,9 +161,9 @@ namespace Core.Model.DataAccess
         private static DbTypeMapEntry Find(DbType dbType)
         {
             object retObj = null;
-            for (int i = 0; i < _dbTypeList.Count; i++)
+            for (int i = 0; i < dbTypeList.Count; i++)
             {
-                DbTypeMapEntry entry = (DbTypeMapEntry)_dbTypeList[i];
+                DbTypeMapEntry entry = (DbTypeMapEntry)dbTypeList[i];
                 if (entry.DbType == dbType)
                 {
                     retObj = entry;
@@ -183,9 +183,9 @@ namespace Core.Model.DataAccess
         private static DbTypeMapEntry Find(SqlDbType sqlDbType)
         {
             object retObj = null;
-            for (int i = 0; i < _dbTypeList.Count; i++)
+            for (int i = 0; i < dbTypeList.Count; i++)
             {
-                DbTypeMapEntry entry = (DbTypeMapEntry)_dbTypeList[i];
+                DbTypeMapEntry entry = (DbTypeMapEntry)dbTypeList[i];
                 if (entry.SqlDbType == sqlDbType)
                 {
                     retObj = entry;

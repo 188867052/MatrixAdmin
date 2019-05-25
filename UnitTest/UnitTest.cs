@@ -10,7 +10,8 @@ namespace UnitTest
         [TestCategory("MyUnitTest")]
         public void TestMethod()
         {
-            Assert.IsTrue(true,"test success!this is a test message.");
+            Console.WriteLine("this is a test message.");
+            Assert.IsTrue(true,"test success!");
         }
         
         [TestMethod]
