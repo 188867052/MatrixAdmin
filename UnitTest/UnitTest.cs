@@ -3,7 +3,6 @@ using System.Linq;
 using Core.Entity;
 using Core.Extension;
 using Dapper;
-using Microsoft.Extensions.Options;
 using NUnit.Framework;
 using UnitTest.Resource.Areas;
 
@@ -12,6 +11,8 @@ namespace UnitTest
     [TestFixture]
     public class UnitTest
     {
+        private readonly CoreApiContext _coreApiContext = new CoreApiContext();
+
         [Test(Description = "测试数据库是否连接")]
         public void TestDataBaseConnection()
         {
@@ -32,12 +33,34 @@ namespace UnitTest
         [Test]
         public void TestStringContainsFilter()
         {
-            IQueryable<User> query = new CoreApiContext().User;
+            IQueryable<User> query = _coreApiContext.User;
             query = query.AddStringContainsFilter(o => o.LoginName, "a");
             var a = query.Expression.ToString();
-            var b = new CoreApiContext().User.Where(o => o.LoginName.Contains("a")).Expression.ToString();
+            var b = _coreApiContext.User.Where(o => o.LoginName.Contains("a")).Expression.ToString();
 
             Assert.AreEqual(a, b, UnitTestResource.TestStringContainsFilter);
+        }
+
+        [Test]
+        public void TestAddIntegerEqualFilter()
+        {
+            IQueryable<User> query = _coreApiContext.User;
+            query = query.AddIntegerEqualFilter(1, o => o.Id);
+            var a = query.Expression.ToString();
+            var b = _coreApiContext.User.Where(o => o.Id == 1).Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestAddIntegerEqualFilter);
+        }
+
+        [Test]
+        public void TestAddBooleanFilter()
+        {
+            IQueryable<User> query = _coreApiContext.User;
+            query = query.AddBooleanFilter(o => o.IsEnable, true);
+            var a = query.Expression.ToString();
+            var b = _coreApiContext.User.Where(o => o.IsEnable == true).Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestAddBooleanFilter);
         }
     }
 }

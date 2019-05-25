@@ -37,6 +37,16 @@ namespace UnitTest.Resource.Areas
         }
 		
 		/// <summary>
+		/// Gets the localized string for TestAddBooleanFilter.
+		/// </summary>
+		public static string TestAddBooleanFilter { get { return GetResourceString("TestAddBooleanFilter"); } }
+
+		/// <summary>
+		/// Gets the localized string for TestAddIntegerEqualFilter.
+		/// </summary>
+		public static string TestAddIntegerEqualFilter { get { return GetResourceString("TestAddIntegerEqualFilter"); } }
+
+		/// <summary>
 		/// Gets the localized string for TestDataBaseConnection.
 		/// </summary>
 		public static string TestDataBaseConnection { get { return GetResourceString("TestDataBaseConnection"); } }
