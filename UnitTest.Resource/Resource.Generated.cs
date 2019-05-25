@@ -47,9 +47,34 @@ namespace UnitTest.Resource.Areas
 		public static string TestAddIntegerEqualFilter { get { return GetResourceString("TestAddIntegerEqualFilter"); } }
 
 		/// <summary>
+		/// Gets the localized string for TestAddIntegerInArrayFilter.
+		/// </summary>
+		public static string TestAddIntegerInArrayFilter { get { return GetResourceString("TestAddIntegerInArrayFilter"); } }
+
+		/// <summary>
 		/// Gets the localized string for TestAddStringEndsWithFilter.
 		/// </summary>
 		public static string TestAddStringEndsWithFilter { get { return GetResourceString("TestAddStringEndsWithFilter"); } }
+
+		/// <summary>
+		/// Gets the localized string for TestAddStringEqualFilter.
+		/// </summary>
+		public static string TestAddStringEqualFilter { get { return GetResourceString("TestAddStringEqualFilter"); } }
+
+		/// <summary>
+		/// Gets the localized string for TestAddStringIsEmptyFilter.
+		/// </summary>
+		public static string TestAddStringIsEmptyFilter { get { return GetResourceString("TestAddStringIsEmptyFilter"); } }
+
+		/// <summary>
+		/// Gets the localized string for TestAddStringIsNullFilter.
+		/// </summary>
+		public static string TestAddStringIsNullFilter { get { return GetResourceString("TestAddStringIsNullFilter"); } }
+
+		/// <summary>
+		/// Gets the localized string for TestAddStringStartsWithFilter.
+		/// </summary>
+		public static string TestAddStringStartsWithFilter { get { return GetResourceString("TestAddStringStartsWithFilter"); } }
 
 		/// <summary>
 		/// Gets the localized string for TestDataBaseConnection.

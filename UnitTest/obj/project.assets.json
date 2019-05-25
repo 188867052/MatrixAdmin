@@ -8084,9 +8084,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest\\UnitTest.csproj",
-      "projectName": "UnitTest",
-      "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest\\UnitTest.csproj",
+      "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest\\Core.UnitTest.csproj",
+      "projectName": "Core.UnitTest",
+      "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest\\Core.UnitTest.csproj",
       "packagesPath": "C:\\Users\\54215\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest\\obj\\",
       "projectStyle": "PackageReference",

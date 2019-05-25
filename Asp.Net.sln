@@ -21,9 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Resource", "Core.Resou
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Entity", "Core.Entity\Core.Entity.csproj", "{58993CB3-F9C5-487F-9D4B-37C1BE7CB8C5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "UnitTest\UnitTest.csproj", "{C547062C-2B2A-4ACC-AE74-7F30F4718177}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.UnitTest", "UnitTest\Core.UnitTest.csproj", "{C547062C-2B2A-4ACC-AE74-7F30F4718177}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Resource", "UnitTest.Resource\UnitTest.Resource.csproj", "{230102A3-E08F-4BE2-9A76-1039B0611E64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest.Resource", "UnitTest.Resource\UnitTest.Resource.csproj", "{230102A3-E08F-4BE2-9A76-1039B0611E64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

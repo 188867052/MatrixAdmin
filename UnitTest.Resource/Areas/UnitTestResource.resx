@@ -123,8 +123,23 @@
   <data name="TestAddIntegerEqualFilter" xml:space="preserve">
     <value>AddIntegerEqualFilter 错误</value>
   </data>
+  <data name="TestAddIntegerInArrayFilter" xml:space="preserve">
+    <value>AddIntegerInArrayFilter 错误</value>
+  </data>
   <data name="TestAddStringEndsWithFilter" xml:space="preserve">
     <value>AddStringEndsWithFilter 错误</value>
+  </data>
+  <data name="TestAddStringEqualFilter" xml:space="preserve">
+    <value>AddStringEqualFilter 错误</value>
+  </data>
+  <data name="TestAddStringIsEmptyFilter" xml:space="preserve">
+    <value>AddStringIsEmptyFilter 错误</value>
+  </data>
+  <data name="TestAddStringIsNullFilter" xml:space="preserve">
+    <value>AddStringIsNullFilter 错误</value>
+  </data>
+  <data name="TestAddStringStartsWithFilter" xml:space="preserve">
+    <value>AddStringStartsWithFilter 错误</value>
   </data>
   <data name="TestDataBaseConnection" xml:space="preserve">
     <value>数据库连接异常</value>

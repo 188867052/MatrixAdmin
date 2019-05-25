@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -34,6 +35,29 @@ namespace Core.Extension
             {
                 string name = expression.GetPropertyName();
                 return query.CreateEqualFilter(value, name);
+            }
+
+            return query;
+        }
+
+        public static IQueryable<T> AddIntegerInArrayFilter<T>(this IQueryable<T> query, Expression<Func<T, int>> expression, int[] value)
+        {
+            if (value.Length > 0)
+            {
+                string name = expression.GetPropertyName();
+                Type constructedListType = typeof(List<>).MakeGenericType(typeof(int[]).GetElementType());
+                MethodInfo method = constructedListType.GetMethod(nameof(List<int>.Contains), new[] { typeof(int) });
+                var value1 = Activator.CreateInstance(constructedListType, value);
+                var constant = Expression.Constant(value1);
+                ParameterExpression parameter = Expression.Parameter(typeof(T), "o");
+                MemberExpression member = Expression.Property(parameter, typeof(T).GetProperty(name));
+                Expression<Func<T, bool>> Lambda(ParameterExpression c) => Expression.Lambda<Func<T, bool>>(Expression.Call(constant, method, member), c);
+
+                return query.Provider.CreateQuery<T>(Expression.Call(
+                    null,
+                    WhereTSource(typeof(T)),
+                    query.Expression,
+                    Expression.Quote(Lambda(parameter))));
             }
 
             return query;
@@ -119,7 +143,7 @@ namespace Core.Extension
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
-                MethodCallExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.Call(a, stringContainsMethod, b);
+                MethodCallExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.Call(a, method, b);
                 return query.CreateQuery(value, expression.GetPropertyName(), Predicate);
             }
 
