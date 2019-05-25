@@ -47,6 +47,11 @@ namespace UnitTest.Resource.Areas
 		public static string TestAddIntegerEqualFilter { get { return GetResourceString("TestAddIntegerEqualFilter"); } }
 
 		/// <summary>
+		/// Gets the localized string for TestAddStringEndsWithFilter.
+		/// </summary>
+		public static string TestAddStringEndsWithFilter { get { return GetResourceString("TestAddStringEndsWithFilter"); } }
+
+		/// <summary>
 		/// Gets the localized string for TestDataBaseConnection.
 		/// </summary>
 		public static string TestDataBaseConnection { get { return GetResourceString("TestDataBaseConnection"); } }

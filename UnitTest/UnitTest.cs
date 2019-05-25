@@ -53,12 +53,23 @@ namespace UnitTest
         }
 
         [Test]
+        public void TestAddStringEndsWithFilter()
+        {
+            IQueryable<User> query = _coreApiContext.User;
+            query = query.AddStringEndsWithFilter("a", o => o.LoginName);
+            var a = query.Expression.ToString();
+            var b = _coreApiContext.User.Where(o => o.LoginName.EndsWith("a")).Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestAddStringEndsWithFilter);
+        }
+
+        [Test]
         public void TestAddBooleanFilter()
         {
             IQueryable<User> query = _coreApiContext.User;
-            query = query.AddBooleanFilter(o => o.IsEnable, true);
+            query = query.AddBooleanFilter(o => o.IsEnable, false);
             var a = query.Expression.ToString();
-            var b = _coreApiContext.User.Where(o => o.IsEnable == true).Expression.ToString();
+            var b = _coreApiContext.User.Where(o => o.IsEnable == false).Expression.ToString();
 
             Assert.AreEqual(a, b, UnitTestResource.TestAddBooleanFilter);
         }
