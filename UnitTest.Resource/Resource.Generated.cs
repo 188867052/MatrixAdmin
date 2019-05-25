@@ -97,6 +97,21 @@ namespace UnitTest.Resource.Areas
 		public static string TestDataBaseConnection { get { return GetResourceString("TestDataBaseConnection"); } }
 
 		/// <summary>
+		/// Gets the localized string for TestGetMenuDataList.
+		/// </summary>
+		public static string TestGetMenuDataList { get { return GetResourceString("TestGetMenuDataList"); } }
+
+		/// <summary>
+		/// Gets the localized string for TestGetRoleDataList.
+		/// </summary>
+		public static string TestGetRoleDataList { get { return GetResourceString("TestGetRoleDataList"); } }
+
+		/// <summary>
+		/// Gets the localized string for TestGetUserDataList.
+		/// </summary>
+		public static string TestGetUserDataList { get { return GetResourceString("TestGetUserDataList"); } }
+
+		/// <summary>
 		/// Gets the localized string for TestStringContainsFilter.
 		/// </summary>
 		public static string TestStringContainsFilter { get { return GetResourceString("TestStringContainsFilter"); } }

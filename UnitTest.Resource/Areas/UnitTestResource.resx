@@ -153,6 +153,15 @@
   <data name="TestDataBaseConnection" xml:space="preserve">
     <value>数据库连接异常</value>
   </data>
+  <data name="TestGetMenuDataList" xml:space="preserve">
+    <value>GetMenuDataList  错误</value>
+  </data>
+  <data name="TestGetRoleDataList" xml:space="preserve">
+    <value>GetRoleDataList  错误</value>
+  </data>
+  <data name="TestGetUserDataList" xml:space="preserve">
+    <value>GetUserDataList  错误</value>
+  </data>
   <data name="TestStringContainsFilter" xml:space="preserve">
     <value>AddStringContainsFilter 错误</value>
   </data>
