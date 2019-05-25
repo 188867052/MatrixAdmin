@@ -62,6 +62,11 @@ namespace UnitTest.Resource.Areas
 		public static string TestAddStringEqualFilter { get { return GetResourceString("TestAddStringEqualFilter"); } }
 
 		/// <summary>
+		/// Gets the localized string for TestAddStringInArrayFilter.
+		/// </summary>
+		public static string TestAddStringInArrayFilter { get { return GetResourceString("TestAddStringInArrayFilter"); } }
+
+		/// <summary>
 		/// Gets the localized string for TestAddStringIsEmptyFilter.
 		/// </summary>
 		public static string TestAddStringIsEmptyFilter { get { return GetResourceString("TestAddStringIsEmptyFilter"); } }

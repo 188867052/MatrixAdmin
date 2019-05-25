@@ -132,6 +132,9 @@
   <data name="TestAddStringEqualFilter" xml:space="preserve">
     <value>AddStringEqualFilter 错误</value>
   </data>
+  <data name="TestAddStringInArrayFilter" xml:space="preserve">
+    <value>AddStringInArrayFilter  错误</value>
+  </data>
   <data name="TestAddStringIsEmptyFilter" xml:space="preserve">
     <value>AddStringIsEmptyFilter 错误</value>
   </data>

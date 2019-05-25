@@ -76,10 +76,19 @@ namespace Core.UnitTest
         [Test]
         public void TestAddIntegerInArrayFilter()
         {
-            var a = _coreApiContext.User.Where(o => new[] { 1, 2 ,3}.Contains(o.Id)).ToList();
-            var b = _coreApiContext.User.AddIntegerInArrayFilter(o => o.Id, new[] { 1, 2,3 }).ToList();
+            var a = _coreApiContext.User.Where(o => new[] { 1, 2, 3 }.Contains(o.Id)).ToList();
+            var b = _coreApiContext.User.AddIntegerInArrayFilter(o => o.Id, new[] { 1, 2, 3 }).ToList();
 
             Assert.AreEqual(a.Count, b.Count, UnitTestResource.TestAddIntegerInArrayFilter);
+        }
+
+        [Test]
+        public void TestAddStringInArrayFilter()
+        {
+            var a = _coreApiContext.Role.Where(o => new[] { "超级管理员", "普通用户", "管理员" }.Contains(o.Name)).ToList();
+            var b = _coreApiContext.Role.AddStringInArrayFilter(o => o.Name, new[] { "超级管理员", "普通用户", "管理员" }).ToList();
+
+            Assert.AreEqual(a.Count, b.Count, UnitTestResource.TestAddStringInArrayFilter);
         }
 
         [Test]
