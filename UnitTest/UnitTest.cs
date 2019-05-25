@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace UnitTest
 {
     [TestClass]
+    [TestCategory("MyUnitTest")]
     public class UnitTest
     {
         [TestMethod]
