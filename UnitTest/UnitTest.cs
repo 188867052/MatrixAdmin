@@ -11,10 +11,9 @@ namespace UnitTest
         [Test]
         public void TestDataBaseConnection()
         {
-            //string sql = $"UPDATE [User] SET IsDeleted = @IsDeleted WHERE IsDeleted = @IsDeleted";
-            //CoreApiContext.Dapper.Execute(sql, new { IsDeleted = false });
-            CoreApiContext context = new CoreApiContext();
-            Assert.IsTrue(context.User.Any(), "数据库连接正常");
+            string sql = $"UPDATE [User] SET IsDeleted = @IsDeleted WHERE IsDeleted = @IsDeleted";
+            CoreApiContext.Dapper.Execute(sql, new { IsDeleted = false });
+            Assert.IsTrue(true, "数据库连接正常");
         }
 
         [Test]
