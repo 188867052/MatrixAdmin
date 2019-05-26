@@ -37,6 +37,8 @@ namespace Core.UnitTest.Dapper
                 Assert.IsNotNull(users);
                 users = this.OpenConnection.GetList<User>(new { });
                 Assert.IsNotNull(users);
+                users = this.OpenConnection.GetList<User>();
+                Assert.IsNotNull(users);
             }
         }
 

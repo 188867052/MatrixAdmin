@@ -13,6 +13,11 @@ namespace Core.Extension.Dapper
 
         static DapperExtension()
         {
+            DapperExtension.SetTypeMap();
+        }
+
+        public static void SetTypeMap()
+        {
             SqlMapper.SetTypeMap(typeof(User), new ColumnAttributeTypeMapper<User>());
             SqlMapper.SetTypeMap(typeof(Role), new ColumnAttributeTypeMapper<Role>());
             SqlMapper.SetTypeMap(typeof(Menu), new ColumnAttributeTypeMapper<Menu>());
