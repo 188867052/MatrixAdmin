@@ -165,6 +165,8 @@ namespace Core.Entity
 
             modelBuilder.Entity<RolePermissionMapping>(entity =>
             {
+                entity.ToTable("role_permission_mapping");
+
                 entity.Property(e => e.PermissionCode)
                     .IsRequired()
                     .HasMaxLength(20);
@@ -172,7 +174,8 @@ namespace Core.Entity
                 entity.HasOne(d => d.PermissionCodeNavigation)
                     .WithMany(p => p.RolePermissionMapping)
                     .HasForeignKey(d => d.PermissionCode)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_RolePermissionMapping_Permission_PermissionCode");
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.RolePermissionMapping)
@@ -182,23 +185,38 @@ namespace Core.Entity
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.Property(e => e.Avatar).HasMaxLength(255);
+                entity.Property(e => e.Avatar)
+                    .HasColumnName("avatar")
+                    .HasMaxLength(255);
 
-                entity.Property(e => e.CreateTime).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreateTime)
+                    .HasColumnName("create_time")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Description).HasMaxLength(800);
 
-                entity.Property(e => e.DisplayName).HasMaxLength(50);
+                entity.Property(e => e.DisplayName)
+                    .HasColumnName("display_name")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.IsLocked).HasColumnName("is_locked");
 
                 entity.Property(e => e.LoginName)
                     .IsRequired()
+                    .HasColumnName("login_name")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Password).HasMaxLength(255);
+                entity.Property(e => e.Password)
+                    .HasColumnName("password")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.Property(e => e.UpdateTime).HasColumnType("datetime");
 
                 entity.Property(e => e.UserStatusId).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.UserType).HasColumnName("user_type");
 
                 entity.HasOne(d => d.UserStatus)
                     .WithMany(p => p.User)
