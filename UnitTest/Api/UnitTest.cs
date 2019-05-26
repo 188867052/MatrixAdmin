@@ -141,13 +141,13 @@ namespace Core.UnitTest.Api
                 var url = new Url(typeof(UserController), nameof(UserController.DisEnable));
                 ResponseModel model = HttpClientAsync.DeleteAsync(url, user.Id).Result;
 
-                user = CoreApiContext.Dapper.QueryFirstOrDefault<User>("SELECT * FROM [User] WHERE Id = @Id", new { Id = user.Id });
+                user = new CoreApiContext().User.Find(user.Id);
                 Assert.IsFalse(user.IsEnable, UnitTestResource.DisEnableFail);
 
                 url = new Url(typeof(UserController), nameof(UserController.Enable));
                 model = HttpClientAsync.DeleteAsync(url, user.Id).Result;
                 Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
-                user = CoreApiContext.Dapper.QueryFirstOrDefault<User>("SELECT * FROM [User] WHERE Id = @Id", new { Id = user.Id });
+                user = new CoreApiContext().User.Find(user.Id);
                 Assert.IsTrue(user.IsEnable, UnitTestResource.EnableFail);
             }
         }
