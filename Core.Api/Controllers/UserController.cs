@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AutoMapper;
 using Core.Api.ControllerHelpers;
 using Core.Api.Framework;

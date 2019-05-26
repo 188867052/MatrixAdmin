@@ -3,6 +3,7 @@ using System.Net;
 using Core.Api.Controllers;
 using Core.Entity;
 using Core.Extension;
+using Core.Extension.Dapper;
 using Core.Model;
 using Core.Model.Administration.Menu;
 using Core.Model.Administration.Role;
@@ -15,6 +16,9 @@ using NUnit.Framework;
 
 namespace Core.UnitTest.Api
 {
+    /// <summary>
+    /// Api unit test.
+    /// </summary>
     [TestFixture]
     public class UnitTest
     {
@@ -128,27 +132,27 @@ namespace Core.UnitTest.Api
             Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
         }
 
+        /// <summary>
+        /// Test enable user.
+        /// </summary>
         [Test]
         public void TestEnableUser()
         {
-            User user = Extension.Dapper.Dapper.Connection.QueryFirst<User>("SELECT * FROM [User] WHERE is_enable = @IsEnable", new { IsEnable = true });
+            User user = DapperExtension.Connection.QueryFirst<User>("SELECT * FROM [User] WHERE is_enable = @IsEnable", new { IsEnable = true });
             if (user != null)
             {
                 var url = new Url(typeof(UserController), nameof(UserController.DisEnable));
                 ResponseModel model = HttpClientAsync.DeleteAsync(url, user.Id).Result;
                 Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
-                user = Extension.Dapper.Dapper.Connection.QueryFirst<User>("SELECT * FROM [User] WHERE id = @id", new { user.Id });
+                user = DapperExtension.Connection.QueryFirst<User>("SELECT * FROM [User] WHERE id = @id", new { user.Id });
                 Assert.IsFalse(user.IsEnable, UnitTestResource.DisEnableFail);
 
                 url = new Url(typeof(UserController), nameof(UserController.Enable));
                 model = HttpClientAsync.DeleteAsync(url, user.Id).Result;
                 Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
-                user = Extension.Dapper.Dapper.Connection.QueryFirst<User>("SELECT * FROM [User] WHERE id = @id", new { user.Id });
+                user = DapperExtension.Connection.QueryFirst<User>("SELECT * FROM [User] WHERE id = @id", new { user.Id });
                 Assert.IsTrue(user.IsEnable, UnitTestResource.EnableFail);
             }
         }
     }
 }
-
-
-
