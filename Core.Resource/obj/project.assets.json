@@ -5558,9 +5558,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Resource\\Core.Resource.csproj",
-      "projectName": "Core.Resource",
-      "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Resource\\Core.Resource.csproj",
+      "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Resource\\Core.Mvc.Resource.csproj",
+      "projectName": "Core.Mvc.Resource",
+      "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Resource\\Core.Mvc.Resource.csproj",
       "packagesPath": "C:\\Users\\54215\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Resource\\obj\\",
       "projectStyle": "PackageReference",

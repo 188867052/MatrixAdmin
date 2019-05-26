@@ -6,7 +6,7 @@ using Core.Web.Button;
 using Core.Web.Dialog;
 using Core.Web.Html;
 using Core.Web.TextBox;
-using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Menu.AddMenuDialogConfigurationResource;
+using Resources = Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Menu.AddMenuDialogConfigurationResource;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 {

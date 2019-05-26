@@ -3773,6 +3773,22 @@
           "bin/placeholder/Core.Model.dll": {}
         }
       },
+      "Core.Mvc.Resource/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "Dapper": "1.60.6",
+          "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
+          "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04"
+        },
+        "compile": {
+          "bin/placeholder/Core.Mvc.Resource.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Core.Mvc.Resource.dll": {}
+        }
+      },
       "Core.Repository/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
@@ -3804,22 +3820,6 @@
         },
         "runtime": {
           "bin/placeholder/Core.Repository.dll": {}
-        }
-      },
-      "Core.Resource/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.1",
-        "dependencies": {
-          "Dapper": "1.60.6",
-          "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
-          "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04"
-        },
-        "compile": {
-          "bin/placeholder/Core.Resource.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Core.Resource.dll": {}
         }
       },
       "Core.Service/1.0.0": {
@@ -11151,15 +11151,15 @@
       "path": "../Core.Models/Core.Model.csproj",
       "msbuildProject": "../Core.Models/Core.Model.csproj"
     },
+    "Core.Mvc.Resource/1.0.0": {
+      "type": "project",
+      "path": "../Core.Resource/Core.Mvc.Resource.csproj",
+      "msbuildProject": "../Core.Resource/Core.Mvc.Resource.csproj"
+    },
     "Core.Repository/1.0.0": {
       "type": "project",
       "path": "../Core.Repository/Core.Repository.csproj",
       "msbuildProject": "../Core.Repository/Core.Repository.csproj"
-    },
-    "Core.Resource/1.0.0": {
-      "type": "project",
-      "path": "../Core.Resource/Core.Resource.csproj",
-      "msbuildProject": "../Core.Resource/Core.Resource.csproj"
     },
     "Core.Service/1.0.0": {
       "type": "project",
@@ -11178,7 +11178,7 @@
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 6.1.0",
       "Core.Api >= 1.0.0",
       "Core.Extension >= 1.0.0",
-      "Core.Resource >= 1.0.0",
+      "Core.Mvc.Resource >= 1.0.0",
       "Core.Web >= 1.0.0",
       "Dapper >= 1.60.6",
       "Microsoft.AspNetCore >= 2.2.0",
@@ -11232,8 +11232,8 @@
             "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Extension\\Core.Extension.csproj": {
               "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Extension\\Core.Extension.csproj"
             },
-            "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Resource\\Core.Resource.csproj": {
-              "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Resource\\Core.Resource.csproj"
+            "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Resource\\Core.Mvc.Resource.csproj": {
+              "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Resource\\Core.Mvc.Resource.csproj"
             },
             "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Web\\Core.Web.csproj": {
               "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Web\\Core.Web.csproj"

@@ -17,13 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Mvc", "Core.Mvc\Core.M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Extension", "Core.Extension\Core.Extension.csproj", "{9577107D-8BE9-4762-84EE-BABF834AC4FE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Resource", "Core.Resource\Core.Resource.csproj", "{4184D335-132A-4145-A345-8B0BCCB0B811}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Mvc.Resource", "Core.Resource\Core.Mvc.Resource.csproj", "{4184D335-132A-4145-A345-8B0BCCB0B811}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Entity", "Core.Entity\Core.Entity.csproj", "{58993CB3-F9C5-487F-9D4B-37C1BE7CB8C5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.UnitTest", "UnitTest\Core.UnitTest.csproj", "{C547062C-2B2A-4ACC-AE74-7F30F4718177}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest.Resource", "UnitTest.Resource\UnitTest.Resource.csproj", "{230102A3-E08F-4BE2-9A76-1039B0611E64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.UnitTest.Resource", "UnitTest.Resource\Core.UnitTest.Resource.csproj", "{230102A3-E08F-4BE2-9A76-1039B0611E64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

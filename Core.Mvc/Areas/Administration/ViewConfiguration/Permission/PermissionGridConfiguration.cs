@@ -2,7 +2,7 @@
 using Core.Model;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
-using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Permission.PermissionIndexResource;
+using Resources = Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Permission.PermissionIndexResource;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
 {

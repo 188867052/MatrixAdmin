@@ -2,9 +2,9 @@
 using Core.Mvc.Areas.Administration.Controllers;
 using Core.Mvc.Areas.Log.Controllers;
 using Core.Mvc.Areas.Redirect.Controllers;
-using Core.Resource.Areas.Administration.ViewConfiguration;
+using Core.Mvc.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.Sidebar;
-using Resources = Core.Resource.Areas.Administration.ViewConfiguration.IndexBaseResource;
+using Resources = Core.Mvc.Resource.Areas.Administration.ViewConfiguration.IndexBaseResource;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 {

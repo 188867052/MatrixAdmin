@@ -4347,7 +4347,7 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.1.0",
           "Core.Api": "1.0.0",
           "Core.Extension": "1.0.0",
-          "Core.Resource": "1.0.0",
+          "Core.Mvc.Resource": "1.0.0",
           "Core.Web": "1.0.0",
           "Dapper": "1.60.6",
           "Microsoft.AspNetCore": "2.2.0",
@@ -4368,6 +4368,22 @@
         },
         "runtime": {
           "bin/placeholder/Core.Mvc.dll": {}
+        }
+      },
+      "Core.Mvc.Resource/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "dependencies": {
+          "Dapper": "1.60.6",
+          "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
+          "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04"
+        },
+        "compile": {
+          "bin/placeholder/Core.Mvc.Resource.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Core.Mvc.Resource.dll": {}
         }
       },
       "Core.Repository/1.0.0": {
@@ -4401,22 +4417,6 @@
         },
         "runtime": {
           "bin/placeholder/Core.Repository.dll": {}
-        }
-      },
-      "Core.Resource/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.1",
-        "dependencies": {
-          "Dapper": "1.60.6",
-          "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
-          "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04"
-        },
-        "compile": {
-          "bin/placeholder/Core.Resource.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Core.Resource.dll": {}
         }
       },
       "Core.Service/1.0.0": {
@@ -4453,6 +4453,16 @@
           "bin/placeholder/Core.Service.dll": {}
         }
       },
+      "Core.UnitTest.Resource/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/Core.UnitTest.Resource.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Core.UnitTest.Resource.dll": {}
+        }
+      },
       "Core.Web/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
@@ -4477,16 +4487,6 @@
         },
         "runtime": {
           "bin/placeholder/Core.Web.dll": {}
-        }
-      },
-      "UnitTest.Resource/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.1",
-        "compile": {
-          "bin/placeholder/UnitTest.Resource.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/UnitTest.Resource.dll": {}
         }
       }
     }
@@ -12773,30 +12773,30 @@
       "path": "../Core.Mvc/Core.Mvc.csproj",
       "msbuildProject": "../Core.Mvc/Core.Mvc.csproj"
     },
+    "Core.Mvc.Resource/1.0.0": {
+      "type": "project",
+      "path": "../Core.Resource/Core.Mvc.Resource.csproj",
+      "msbuildProject": "../Core.Resource/Core.Mvc.Resource.csproj"
+    },
     "Core.Repository/1.0.0": {
       "type": "project",
       "path": "../Core.Repository/Core.Repository.csproj",
       "msbuildProject": "../Core.Repository/Core.Repository.csproj"
-    },
-    "Core.Resource/1.0.0": {
-      "type": "project",
-      "path": "../Core.Resource/Core.Resource.csproj",
-      "msbuildProject": "../Core.Resource/Core.Resource.csproj"
     },
     "Core.Service/1.0.0": {
       "type": "project",
       "path": "../Core.Service/Core.Service.csproj",
       "msbuildProject": "../Core.Service/Core.Service.csproj"
     },
+    "Core.UnitTest.Resource/1.0.0": {
+      "type": "project",
+      "path": "../UnitTest.Resource/Core.UnitTest.Resource.csproj",
+      "msbuildProject": "../UnitTest.Resource/Core.UnitTest.Resource.csproj"
+    },
     "Core.Web/1.0.0": {
       "type": "project",
       "path": "../Core.Web/Core.Web.csproj",
       "msbuildProject": "../Core.Web/Core.Web.csproj"
-    },
-    "UnitTest.Resource/1.0.0": {
-      "type": "project",
-      "path": "../UnitTest.Resource/UnitTest.Resource.csproj",
-      "msbuildProject": "../UnitTest.Resource/UnitTest.Resource.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -12805,14 +12805,14 @@
       "Core.Entity >= 1.0.0",
       "Core.Model >= 1.0.0",
       "Core.Mvc >= 1.0.0",
+      "Core.UnitTest.Resource >= 1.0.0",
       "MSTest.TestAdapter >= 2.0.0-beta4",
       "MSTest.TestFramework >= 2.0.0-beta4",
       "Microsoft.NET.Test.Sdk >= 16.1.0",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.UnitTestFramework.Extensions >= 2.0.0",
       "NUnit >= 3.12.0",
-      "NUnit3TestAdapter >= 3.13.0",
-      "UnitTest.Resource >= 1.0.0"
+      "NUnit3TestAdapter >= 3.13.0"
     ]
   },
   "packageFolders": {
@@ -12855,8 +12855,8 @@
             "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj": {
               "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj"
             },
-            "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\UnitTest.Resource.csproj": {
-              "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\UnitTest.Resource.csproj"
+            "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\Core.UnitTest.Resource.csproj": {
+              "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\Core.UnitTest.Resource.csproj"
             }
           }
         }

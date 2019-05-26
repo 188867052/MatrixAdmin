@@ -7,7 +7,7 @@ using Core.Mvc.Framework.AdvancedGridFilters;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.SearchFilterConfiguration;
-using Resources = Core.Resource.Areas.Administration.SearchFilterConfigurations.UserSearchFilterConfigurationResource;
+using Resources = Core.Mvc.Resource.Areas.Administration.SearchFilterConfigurations.UserSearchFilterConfigurationResource;
 
 namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 {

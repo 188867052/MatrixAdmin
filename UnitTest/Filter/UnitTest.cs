@@ -1,20 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using Core.Api.Controllers;
 using Core.Entity;
 using Core.Extension;
-using Core.Model;
-using Core.Model.Administration.Menu;
-using Core.Model.Administration.Role;
-using Core.Model.Administration.User;
-using Core.Mvc.Framework;
+using Core.UnitTest.Resource.Areas;
 using Dapper;
 using NUnit.Framework;
-using UnitTest.Resource.Areas;
 
-namespace Core.UnitTest
+namespace Core.UnitTest.Filter
 {
     [TestFixture]
     public class UnitTest
@@ -83,8 +75,9 @@ namespace Core.UnitTest
         [Test]
         public void TestAddIntegerInArrayFilter()
         {
-            var a = _coreApiContext.User.Where(o => new[] { 1, 2, 3 }.Contains(o.Id)).ToList();
-            var b = _coreApiContext.User.AddIntegerInArrayFilter(o => o.Id, new[] { 1, 2, 3 }).ToList();
+            var list = _coreApiContext.User.Take(10).Select(o => o.Id).ToArray();
+            var a = _coreApiContext.User.Where(o => list.Contains(o.Id)).ToList();
+            var b = _coreApiContext.User.AddIntegerInArrayFilter(o => o.Id, list).ToList();
 
             Assert.AreEqual(a.Count, b.Count, UnitTestResource.TestAddIntegerInArrayFilter);
         }
@@ -92,8 +85,9 @@ namespace Core.UnitTest
         [Test]
         public void TestAddStringInArrayFilter()
         {
-            var a = _coreApiContext.Role.Where(o => new[] { "超级管理员", "普通用户", "管理员" }.Contains(o.Name)).ToList();
-            var b = _coreApiContext.Role.AddStringInArrayFilter(o => o.Name, new[] { "超级管理员", "普通用户", "管理员" }).ToList();
+            var list = _coreApiContext.Role.Take(10).Select(o => o.Name).ToArray();
+            var a = _coreApiContext.Role.Where(o => list.Contains(o.Name)).ToList();
+            var b = _coreApiContext.Role.AddStringInArrayFilter(o => o.Name, list).ToList();
 
             Assert.AreEqual(a.Count, b.Count, UnitTestResource.TestAddStringInArrayFilter);
         }
@@ -105,6 +99,26 @@ namespace Core.UnitTest
             var b = _coreApiContext.User.AddStringEndsWithFilter("a", o => o.LoginName).Expression.ToString();
 
             Assert.AreEqual(a, b, UnitTestResource.TestAddStringEndsWithFilter);
+        }
+
+        [Test]
+        public void TestAddDateTimeBetweenFilter()
+        {
+            var list = _coreApiContext.User.OrderBy(o => o.CreateTime).Take(10).Select(o => o.CreateTime).ToList();
+            var a = _coreApiContext.User.Where(o => o.CreateTime >= list.FirstOrDefault() && o.CreateTime <= list.LastOrDefault()).ToList();
+            var b = _coreApiContext.User.AddDateTimeBetweenFilter(list.FirstOrDefault(), list.LastOrDefault(), o => o.CreateTime).ToList();
+
+            Assert.AreEqual(a.Count, b.Count);
+        }
+
+        [Test]
+        public void TestAddIntegerBetweenFilter()
+        {
+            var list = _coreApiContext.User.OrderBy(o => o.CreateTime).Take(10).Select(o => o.Id).ToList();
+            var a = _coreApiContext.User.Where(o => o.Id >= list.FirstOrDefault() && o.Id <= list.LastOrDefault()).ToList();
+            var b = _coreApiContext.User.AddIntegerBetweenFilter(list.FirstOrDefault(), list.LastOrDefault(), o => o.Id).ToList();
+
+            Assert.AreEqual(a.Count, b.Count);
         }
 
         [Test]
@@ -161,39 +175,6 @@ namespace Core.UnitTest
             var b = query.Expression.ToString();
 
             Assert.AreEqual(a, b, UnitTestResource.TestAddBooleanFilter);
-        }
-
-        [Test]
-        public void TestGetUserDataList()
-        {
-            var url = new Url(typeof(DataListController), nameof(DataListController.GetUserDataList));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<UserModel>>(url).Result;
-            IList<UserModel> users = (IList<UserModel>)model.Data;
-
-            Assert.GreaterOrEqual(users.Count, 0);
-            Assert.AreEqual(model.Code, (int)HttpStatusCode.OK, UnitTestResource.TestGetUserDataList);
-        }
-
-        [Test]
-        public void TestGetRoleDataList()
-        {
-            var url = new Url(typeof(DataListController), nameof(DataListController.GetRoleDataList));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<RoleModel>>(url).Result;
-            IList<RoleModel> roles = (IList<RoleModel>)model.Data;
-
-            Assert.GreaterOrEqual(roles.Count, 0);
-            Assert.AreEqual(model.Code, (int)HttpStatusCode.OK, UnitTestResource.TestGetRoleDataList);
-        }
-
-        [Test]
-        public void TestGetMenuDataList()
-        {
-            var url = new Url(typeof(DataListController), nameof(DataListController.GetMenuDataList));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<MenuModel>>(url).Result;
-            IList<MenuModel> menus = (IList<MenuModel>)model.Data;
-
-            Assert.GreaterOrEqual(menus.Count, 0);
-            Assert.AreEqual(model.Code, (int)HttpStatusCode.OK, UnitTestResource.TestAddBooleanFilter);
         }
     }
 }

@@ -5,7 +5,7 @@ using Core.Mvc.Areas.Administration.Controllers;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.SearchFilterConfiguration;
-using Resources = Core.Resource.Areas.Administration.SearchFilterConfigurations.MenuSearchFilterConfigurationResource;
+using Resources = Core.Mvc.Resource.Areas.Administration.SearchFilterConfigurations.MenuSearchFilterConfigurationResource;
 
 namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 {

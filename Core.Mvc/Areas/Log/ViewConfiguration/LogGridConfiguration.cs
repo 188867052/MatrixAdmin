@@ -4,7 +4,7 @@ using Core.Model.Log;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
 using Microsoft.Extensions.Logging;
-using Resources = Core.Resource.Areas.Log.ViewConfiguration.LogGridConfigurationResource;
+using Resources = Core.Mvc.Resource.Areas.Log.ViewConfiguration.LogGridConfigurationResource;
 
 namespace Core.Mvc.Areas.Log.ViewConfiguration
 {

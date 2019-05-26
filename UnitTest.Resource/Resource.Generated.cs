@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Resources;
 
-namespace UnitTest.Resource.Areas
+namespace Core.UnitTest.Resource.Areas
 {
 	/// <summary>
 	/// A static class used to access a specific set of resources.
@@ -19,7 +19,7 @@ namespace UnitTest.Resource.Areas
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("UnitTest.Resource.Areas.UnitTestResource", typeof(UnitTestResource).Assembly);
+                    resourceManager = new ResourceManager("Core.UnitTest.Resource.Areas.UnitTestResource", typeof(UnitTestResource).Assembly);
                 }
                 return resourceManager;
             }

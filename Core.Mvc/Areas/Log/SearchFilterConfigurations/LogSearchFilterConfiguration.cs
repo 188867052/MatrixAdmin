@@ -7,7 +7,7 @@ using Core.Web.GridFilter;
 using Core.Web.SearchFilterConfiguration;
 using Microsoft.Extensions.Logging;
 using LogController = Core.Mvc.Areas.Log.Controllers.LogController;
-using Resources = Core.Resource.Areas.Log.SearchFilterConfigurations.LogSearchFilterConfigurationResource;
+using Resources = Core.Mvc.Resource.Areas.Log.SearchFilterConfigurations.LogSearchFilterConfigurationResource;
 
 namespace Core.Mvc.Areas.Log.SearchFilterConfigurations
 {

@@ -45,7 +45,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Core.Api\Core.Api.csproj" />
     <ProjectReference Include="..\Core.Extension\Core.Extension.csproj" />
-    <ProjectReference Include="..\Core.Resource\Core.Resource.csproj" />
+    <ProjectReference Include="..\Core.Resource\Core.Mvc.Resource.csproj" />
     <ProjectReference Include="..\Core.Web\Core.Web.csproj" />
   </ItemGroup>
 

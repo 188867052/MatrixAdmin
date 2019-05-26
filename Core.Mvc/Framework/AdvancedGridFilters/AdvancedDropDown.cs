@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using Core.Extension;
 using Core.Mvc.Areas.AdvancedDropDownFilters;
-using Core.Resource.Areas.AdvancedDropDown;
+using Core.Mvc.Resource.Areas.AdvancedDropDown;
 using Core.Web.GridFilter;
 using Core.Web.JavaScript;
 

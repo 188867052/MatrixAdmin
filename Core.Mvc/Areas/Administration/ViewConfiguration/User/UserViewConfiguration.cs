@@ -5,7 +5,7 @@ using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.Controllers;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
-using Resources = Core.Resource.Areas.Administration.ViewConfiguration.User.UserIndexResource;
+using Resources = Core.Mvc.Resource.Areas.Administration.ViewConfiguration.User.UserIndexResource;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 {

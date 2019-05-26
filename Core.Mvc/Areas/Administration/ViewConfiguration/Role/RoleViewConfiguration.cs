@@ -5,7 +5,7 @@ using Core.Model.Administration.Role;
 using Core.Mvc.Areas.Administration.Controllers;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
-using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Role.RoleIndexResource;
+using Resources = Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Role.RoleIndexResource;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 {

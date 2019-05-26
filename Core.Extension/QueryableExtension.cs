@@ -94,12 +94,43 @@ namespace Core.Extension
             return query;
         }
 
+        public static IQueryable<T> AddIntegerBetweenFilter<T>(this IQueryable<T> query, int? starTime, int? endTime, Expression<Func<T, int?>> expression)
+        {
+            query = query.AddIntegerGreaterThanOrEqualFilter(starTime, expression);
+            query = query.AddIntegerLessThanOrEqualFilter(endTime, expression);
+            return query;
+        }
+
         public static IQueryable<T> AddDateTimeGreaterThanOrEqualFilter<T>(this IQueryable<T> query, DateTime? value, Expression<Func<T, DateTime?>> expression)
         {
             if (value.HasValue)
             {
                 string name = expression.GetPropertyName();
                 BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.GreaterThanOrEqual(a, b);
+                return query.CreateQuery(value, name, Predicate);
+            }
+
+            return query;
+        }
+
+        public static IQueryable<T> AddIntegerGreaterThanOrEqualFilter<T>(this IQueryable<T> query, int? value, Expression<Func<T, int?>> expression)
+        {
+            if (value.HasValue)
+            {
+                string name = expression.GetPropertyName();
+                BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.GreaterThanOrEqual(a, b);
+                return query.CreateQuery(value, name, Predicate);
+            }
+
+            return query;
+        }
+
+        public static IQueryable<T> AddIntegerLessThanOrEqualFilter<T>(this IQueryable<T> query, int? value, Expression<Func<T, int?>> expression)
+        {
+            if (value.HasValue)
+            {
+                string name = expression.GetPropertyName();
+                BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.LessThanOrEqual(a, b);
                 return query.CreateQuery(value, name, Predicate);
             }
 

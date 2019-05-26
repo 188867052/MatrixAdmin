@@ -4,7 +4,7 @@ using Core.Extension;
 using Core.Model.Administration.Menu;
 using Core.Mvc.Areas.Administration.Controllers;
 using Core.Web.RowContextMenu;
-using Resources = Core.Resource.Areas.Administration.ViewConfiguration.Menu.MenuRowContextMenu;
+using Resources = Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Menu.MenuRowContextMenu;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 {

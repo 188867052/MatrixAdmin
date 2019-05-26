@@ -5,7 +5,7 @@ using Core.Model.Log;
 using Core.Mvc.Areas.Log.SearchFilterConfigurations;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
-using Core.Resource.Areas.Log.ViewConfiguration;
+using Core.Mvc.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.JavaScript;
 using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;

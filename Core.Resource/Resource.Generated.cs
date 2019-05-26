@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Resources;
 
-namespace Core.Resource.Areas.Administration.SearchFilterConfigurations
+namespace Core.Mvc.Resource.Areas.Administration.SearchFilterConfigurations
 {
 	/// <summary>
 	/// A static class used to access a specific set of resources.
@@ -19,7 +19,7 @@ namespace Core.Resource.Areas.Administration.SearchFilterConfigurations
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.SearchFilterConfigurations.IconSearchFilterConfigurationResource", typeof(IconSearchFilterConfigurationResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.SearchFilterConfigurations.IconSearchFilterConfigurationResource", typeof(IconSearchFilterConfigurationResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -87,7 +87,7 @@ namespace Core.Resource.Areas.Administration.SearchFilterConfigurations
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.SearchFilterConfigurations.MenuSearchFilterConfigurationResource", typeof(MenuSearchFilterConfigurationResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.SearchFilterConfigurations.MenuSearchFilterConfigurationResource", typeof(MenuSearchFilterConfigurationResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -155,7 +155,7 @@ namespace Core.Resource.Areas.Administration.SearchFilterConfigurations
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.SearchFilterConfigurations.PermissionSearchFilterConfigurationResource", typeof(PermissionSearchFilterConfigurationResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.SearchFilterConfigurations.PermissionSearchFilterConfigurationResource", typeof(PermissionSearchFilterConfigurationResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -233,7 +233,7 @@ namespace Core.Resource.Areas.Administration.SearchFilterConfigurations
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.SearchFilterConfigurations.RoleSearchFilterConfigurationResource", typeof(RoleSearchFilterConfigurationResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.SearchFilterConfigurations.RoleSearchFilterConfigurationResource", typeof(RoleSearchFilterConfigurationResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -306,7 +306,7 @@ namespace Core.Resource.Areas.Administration.SearchFilterConfigurations
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.SearchFilterConfigurations.UserSearchFilterConfigurationResource", typeof(UserSearchFilterConfigurationResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.SearchFilterConfigurations.UserSearchFilterConfigurationResource", typeof(UserSearchFilterConfigurationResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -395,7 +395,7 @@ namespace Core.Resource.Areas.Administration.SearchFilterConfigurations
 	}
 }
 
-namespace Core.Resource.Areas.Administration.ViewConfiguration.Icon
+namespace Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Icon
 {
 	/// <summary>
 	/// A static class used to access a specific set of resources.
@@ -413,7 +413,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.Icon
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.Icon.IconResource", typeof(IconResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Icon.IconResource", typeof(IconResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -472,7 +472,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.Icon
 	}
 }
 
-namespace Core.Resource.Areas.Administration.ViewConfiguration.Menu
+namespace Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Menu
 {
 	/// <summary>
 	/// A static class used to access a specific set of resources.
@@ -490,7 +490,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.Menu
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.Menu.AddMenuDialogConfigurationResource", typeof(AddMenuDialogConfigurationResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Menu.AddMenuDialogConfigurationResource", typeof(AddMenuDialogConfigurationResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -563,7 +563,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.Menu
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.Menu.EditMenuDialogConfigurationResource", typeof(EditMenuDialogConfigurationResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Menu.EditMenuDialogConfigurationResource", typeof(EditMenuDialogConfigurationResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -636,7 +636,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.Menu
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.Menu.MenuIndexResource", typeof(MenuIndexResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Menu.MenuIndexResource", typeof(MenuIndexResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -769,7 +769,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.Menu
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.Menu.MenuRowContextMenu", typeof(MenuRowContextMenu).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Menu.MenuRowContextMenu", typeof(MenuRowContextMenu).Assembly);
                 }
                 return resourceManager;
             }
@@ -888,7 +888,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.Menu
 	}
 }
 
-namespace Core.Resource.Areas.Administration.ViewConfiguration.Permission
+namespace Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Permission
 {
 	/// <summary>
 	/// A static class used to access a specific set of resources.
@@ -906,7 +906,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.Permission
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.Permission.PermissionIndexResource", typeof(PermissionIndexResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Permission.PermissionIndexResource", typeof(PermissionIndexResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -955,7 +955,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.Permission
 	}
 }
 
-namespace Core.Resource.Areas.Administration.ViewConfiguration.Role
+namespace Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Role
 {
 	/// <summary>
 	/// A static class used to access a specific set of resources.
@@ -973,7 +973,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.Role
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.Role.RoleIndexResource", typeof(RoleIndexResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Role.RoleIndexResource", typeof(RoleIndexResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -1037,7 +1037,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.Role
 	}
 }
 
-namespace Core.Resource.Areas.Administration.ViewConfiguration.User
+namespace Core.Mvc.Resource.Areas.Administration.ViewConfiguration.User
 {
 	/// <summary>
 	/// A static class used to access a specific set of resources.
@@ -1055,7 +1055,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.User
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.User.AddUserDialogConfigurationResource", typeof(AddUserDialogConfigurationResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.ViewConfiguration.User.AddUserDialogConfigurationResource", typeof(AddUserDialogConfigurationResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -1143,7 +1143,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.User
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.User.EditUserDialogConfigurationResource", typeof(EditUserDialogConfigurationResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.ViewConfiguration.User.EditUserDialogConfigurationResource", typeof(EditUserDialogConfigurationResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -1226,7 +1226,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.User
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.User.UserIndexResource", typeof(UserIndexResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.ViewConfiguration.User.UserIndexResource", typeof(UserIndexResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -1280,7 +1280,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration.User
 	}
 }
 
-namespace Core.Resource.Areas.Administration.ViewConfiguration
+namespace Core.Mvc.Resource.Areas.Administration.ViewConfiguration
 {
 	/// <summary>
 	/// A static class used to access a specific set of resources.
@@ -1298,7 +1298,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.IndexBaseResource", typeof(IndexBaseResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.ViewConfiguration.IndexBaseResource", typeof(IndexBaseResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -1371,7 +1371,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Administration.ViewConfiguration.SidebarNavigationResource", typeof(SidebarNavigationResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Administration.ViewConfiguration.SidebarNavigationResource", typeof(SidebarNavigationResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -1500,7 +1500,7 @@ namespace Core.Resource.Areas.Administration.ViewConfiguration
 	}
 }
 
-namespace Core.Resource.Areas.AdvancedDropDown
+namespace Core.Mvc.Resource.Areas.AdvancedDropDown
 {
 	/// <summary>
 	/// A static class used to access a specific set of resources.
@@ -1518,7 +1518,7 @@ namespace Core.Resource.Areas.AdvancedDropDown
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.AdvancedDropDown.AdvancedDropDownIndexResource", typeof(AdvancedDropDownIndexResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.AdvancedDropDown.AdvancedDropDownIndexResource", typeof(AdvancedDropDownIndexResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -1552,7 +1552,7 @@ namespace Core.Resource.Areas.AdvancedDropDown
 	}
 }
 
-namespace Core.Resource.Areas.Log.SearchFilterConfigurations
+namespace Core.Mvc.Resource.Areas.Log.SearchFilterConfigurations
 {
 	/// <summary>
 	/// A static class used to access a specific set of resources.
@@ -1570,7 +1570,7 @@ namespace Core.Resource.Areas.Log.SearchFilterConfigurations
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Log.SearchFilterConfigurations.LogSearchFilterConfigurationResource", typeof(LogSearchFilterConfigurationResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Log.SearchFilterConfigurations.LogSearchFilterConfigurationResource", typeof(LogSearchFilterConfigurationResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -1686,7 +1686,7 @@ namespace Core.Resource.Areas.Log.SearchFilterConfigurations
 	}
 }
 
-namespace Core.Resource.Areas.Log.ViewConfiguration
+namespace Core.Mvc.Resource.Areas.Log.ViewConfiguration
 {
 	/// <summary>
 	/// A static class used to access a specific set of resources.
@@ -1704,7 +1704,7 @@ namespace Core.Resource.Areas.Log.ViewConfiguration
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Log.ViewConfiguration.ErrorResource", typeof(ErrorResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Log.ViewConfiguration.ErrorResource", typeof(ErrorResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -1742,7 +1742,7 @@ namespace Core.Resource.Areas.Log.ViewConfiguration
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Log.ViewConfiguration.IndexBaseResource", typeof(IndexBaseResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Log.ViewConfiguration.IndexBaseResource", typeof(IndexBaseResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -1815,7 +1815,7 @@ namespace Core.Resource.Areas.Log.ViewConfiguration
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Log.ViewConfiguration.LogGridConfigurationResource", typeof(LogGridConfigurationResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Log.ViewConfiguration.LogGridConfigurationResource", typeof(LogGridConfigurationResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -1873,7 +1873,7 @@ namespace Core.Resource.Areas.Log.ViewConfiguration
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Resource.Areas.Log.ViewConfiguration.LogResource", typeof(LogResource).Assembly);
+                    resourceManager = new ResourceManager("Core.Mvc.Resource.Areas.Log.ViewConfiguration.LogResource", typeof(LogResource).Assembly);
                 }
                 return resourceManager;
             }

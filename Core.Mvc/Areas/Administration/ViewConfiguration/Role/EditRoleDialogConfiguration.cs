@@ -2,7 +2,7 @@
 using Core.Extension;
 using Core.Model.Administration.Role;
 using Core.Mvc.Areas.Administration.Controllers;
-using Core.Resource.Areas.Administration.ViewConfiguration.Role;
+using Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Role;
 using Core.Web.Button;
 using Core.Web.Dialog;
 using Core.Web.Html;
