@@ -19,7 +19,7 @@ namespace Core.Model.Administration.Role
             this.IsForbidden = role.IsForbidden ? ForbiddenStatusEnum.Forbidden : ForbiddenStatusEnum.Normal;
             this.CreateTime = role.CreateTime;
             this.UpdateTime = role.UpdateTime;
-            this.CreatedByUserName = role.CreatedByUserName;
+            this.CreatedByUserName = role.CreateByUserName;
             this.Description = role.Description;
         }
 

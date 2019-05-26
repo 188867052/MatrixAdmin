@@ -19,7 +19,7 @@ namespace Core.UnitTest.Filter
             Exception exception = null;
             try
             {
-                string sql = $"UPDATE [User] SET IsDeleted = @IsDeleted WHERE IsDeleted = @IsDeleted";
+                string sql = $"UPDATE [User] SET is_deleted = @IsDeleted WHERE is_deleted = @IsDeleted";
                 CoreApiContext.Dapper.Execute(sql, new { IsDeleted = false });
             }
             catch (Exception e)

@@ -113,8 +113,8 @@ namespace Core.Api.Controllers
                 Role entity = this.Mapper.Map<RoleCreatePostModel, Role>(model);
                 entity.IsSuperAdministrator = false;
                 entity.CreateByUserId = 1;
-                entity.CreatedByUserName = "System";
-                entity.ModifiedByUserId = 1;
+                entity.CreateByUserName = "System";
+                entity.UpdateByUserId = 1;
 
                 this.DbContext.Role.Add(entity);
                 this.DbContext.SaveChanges();
@@ -145,8 +145,8 @@ namespace Core.Api.Controllers
                 Role entity = this.DbContext.Role.Find(model.Id);
 
                 entity.Name = model.Name;
-                entity.ModifiedByUserId = 1;
-                entity.ModifiedByUserName = "Me";
+                entity.UpdateByUserId = 1;
+                entity.UpdateByUserName = "Me";
                 entity.UpdateTime = DateTime.Now;
                 entity.Description = model.Description;
 

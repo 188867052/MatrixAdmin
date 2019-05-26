@@ -35,7 +35,7 @@ namespace Core.Model.Administration.User
             this.CreateTime = user.CreateTime;
             this.Status = (ForbiddenStatusEnum)user.Status;
             this.IsDeleted = user.IsDeleted;
-            this.CreatedByUserName = user.CreatedByUserName;
+            this.CreatedByUserName = user.CreateByUserName;
             this.UpdateTime = user.UpdateTime;
 
             if (user.UserStatus != null)

@@ -41,60 +41,149 @@ namespace Core.Entity
 
             modelBuilder.Entity<Configuration>(entity =>
             {
-                entity.Property(e => e.Description).HasMaxLength(50);
+                entity.ToTable("configuration");
 
-                entity.Property(e => e.Key).HasMaxLength(50);
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Key)
+                    .HasColumnName("key")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Value).HasColumnName("value");
             });
 
             modelBuilder.Entity<Icon>(entity =>
             {
+                entity.ToTable("icon");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
                 entity.Property(e => e.Code)
                     .IsRequired()
+                    .HasColumnName("code")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.Color).HasMaxLength(50);
+                entity.Property(e => e.Color)
+                    .HasColumnName("color")
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.CreateByUserId).HasDefaultValueSql("((1))");
+                entity.Property(e => e.CreateByUserId)
+                    .HasColumnName("create_by_user_id")
+                    .HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.Custom).HasMaxLength(60);
+                entity.Property(e => e.CreateByUserName).HasColumnName("create_by_user_name");
 
-                entity.Property(e => e.Size).HasMaxLength(20);
+                entity.Property(e => e.CreateTime).HasColumnName("create_time");
 
-                entity.Property(e => e.UpdateByUserId).HasDefaultValueSql("((1))");
+                entity.Property(e => e.Custom)
+                    .HasColumnName(" custom")
+                    .HasMaxLength(60);
+
+                entity.Property(e => e.Description).HasColumnName("description");
+
+                entity.Property(e => e.IsEnable).HasColumnName("is_enable");
+
+                entity.Property(e => e.Size)
+                    .HasColumnName("size")
+                    .HasMaxLength(20);
+
+                entity.Property(e => e.Status).HasColumnName("status");
+
+                entity.Property(e => e.UpdateByUserId)
+                    .HasColumnName("update_by_user_id")
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.UpdateByUserName).HasColumnName("update_by_user_name");
+
+                entity.Property(e => e.UpdateTime).HasColumnName("update_time");
             });
 
             modelBuilder.Entity<Log>(entity =>
             {
+                entity.ToTable("log");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
                 entity.Property(e => e.CreateTime)
+                    .HasColumnName("create_time")
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Message).HasColumnType("text");
+                entity.Property(e => e.LogLevel).HasColumnName("log_level");
+
+                entity.Property(e => e.Message)
+                    .HasColumnName("message")
+                    .HasColumnType("text");
+
+                entity.Property(e => e.SqlOperateType).HasColumnName("sql_operate_type");
             });
 
             modelBuilder.Entity<Menu>(entity =>
             {
-                entity.Property(e => e.Alias).HasMaxLength(255);
+                entity.ToTable("menu");
 
-                entity.Property(e => e.CreateByUserId).HasDefaultValueSql("((1))");
+                entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.CreateTime).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.Alias)
+                    .HasColumnName("alias")
+                    .HasMaxLength(255);
 
-                entity.Property(e => e.Description).HasMaxLength(800);
+                entity.Property(e => e.CreateByUserId)
+                    .HasColumnName("create_by_user_id")
+                    .HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.Icon).HasMaxLength(128);
+                entity.Property(e => e.CreateByUserName).HasColumnName("create_by_user_name");
+
+                entity.Property(e => e.CreateTime)
+                    .HasColumnName("create_time")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasMaxLength(800);
+
+                entity.Property(e => e.Icon)
+                    .HasColumnName("icon")
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.IsDefaultRouter).HasColumnName("is_default_router");
+
+                entity.Property(e => e.IsEnable).HasColumnName("is_enable");
+
+                entity.Property(e => e.Level).HasColumnName("level");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
+                    .HasColumnName("name")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.ParentId).HasDefaultValueSql("((1))");
+                entity.Property(e => e.ParentId)
+                    .HasColumnName("parent_id")
+                    .HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.UpdateByUserId).HasDefaultValueSql("((1))");
+                entity.Property(e => e.ParentName).HasColumnName("parent_name");
 
-                entity.Property(e => e.UpdateTime).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.Sort).HasColumnName("sort");
 
-                entity.Property(e => e.Url).HasMaxLength(255);
+                entity.Property(e => e.Status).HasColumnName("status");
+
+                entity.Property(e => e.UpdateByUserId)
+                    .HasColumnName("update_by_user_id")
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.UpdateByUserName).HasColumnName("update_by_user_name");
+
+                entity.Property(e => e.UpdateTime)
+                    .HasColumnName("update_time")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Url)
+                    .HasColumnName("url")
+                    .HasMaxLength(255);
 
                 entity.HasOne(d => d.CreateByUser)
                     .WithMany(p => p.MenuCreateByUser)
@@ -111,25 +200,55 @@ namespace Core.Entity
 
             modelBuilder.Entity<Permission>(entity =>
             {
-                entity.Property(e => e.Id).HasMaxLength(20);
+                entity.ToTable("permission");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasMaxLength(20);
 
                 entity.Property(e => e.ActionCode)
                     .IsRequired()
+                    .HasColumnName("action_code")
                     .HasMaxLength(80);
 
-                entity.Property(e => e.CreateByUserId).HasDefaultValueSql("((1))");
+                entity.Property(e => e.CreateByUserId)
+                    .HasColumnName("create_by_user_id")
+                    .HasDefaultValueSql("((1))");
 
-                entity.Property(e => e.CreateTime).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.CreateByUserName).HasColumnName("create_by_user_name");
 
-                entity.Property(e => e.MenuId).HasDefaultValueSql("((1))");
+                entity.Property(e => e.CreateTime)
+                    .HasColumnName("create_time")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Description).HasColumnName("description");
+
+                entity.Property(e => e.Icon).HasColumnName("icon");
+
+                entity.Property(e => e.IsEnable).HasColumnName("is_enable");
+
+                entity.Property(e => e.MenuId)
+                    .HasColumnName("menu_id")
+                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
+                    .HasColumnName("name")
                     .HasMaxLength(50);
 
-                entity.Property(e => e.UpdateByUserId).HasDefaultValueSql("((1))");
+                entity.Property(e => e.Status).HasColumnName("status");
 
-                entity.Property(e => e.UpdateTime).HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.Type).HasColumnName("type");
+
+                entity.Property(e => e.UpdateByUserId)
+                    .HasColumnName("update_by_user_id")
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.UpdateByUserName).HasColumnName("update_by_user_name");
+
+                entity.Property(e => e.UpdateTime)
+                    .HasColumnName("update_time")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.HasOne(d => d.Menu)
                     .WithMany(p => p.Permission)
@@ -140,13 +259,37 @@ namespace Core.Entity
 
             modelBuilder.Entity<Role>(entity =>
             {
-                entity.Property(e => e.CreateTime).HasDefaultValueSql("(getdate())");
+                entity.ToTable("role");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CreateByUserId).HasColumnName("create_by_user_id");
+
+                entity.Property(e => e.CreateByUserName).HasColumnName("create_by_user_name");
+
+                entity.Property(e => e.CreateTime)
+                    .HasColumnName("create_time")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Description).HasColumnName("description");
+
+                entity.Property(e => e.IsEnable).HasColumnName("is_enable");
+
+                entity.Property(e => e.IsForbidden).HasColumnName("is_forbidden");
+
+                entity.Property(e => e.IsSuperAdministrator).HasColumnName("is_super_administrator");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
+                    .HasColumnName("name")
                     .HasMaxLength(50);
 
+                entity.Property(e => e.UpdateByUserId).HasColumnName("update_by_user_id");
+
+                entity.Property(e => e.UpdateByUserName).HasColumnName("update_by_user_name");
+
                 entity.Property(e => e.UpdateTime)
+                    .HasColumnName("update_time")
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
 
@@ -156,9 +299,9 @@ namespace Core.Entity
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Role_User_CreateBy");
 
-                entity.HasOne(d => d.ModifiedByUser)
-                    .WithMany(p => p.RoleModifiedByUser)
-                    .HasForeignKey(d => d.ModifiedByUserId)
+                entity.HasOne(d => d.UpdateByUser)
+                    .WithMany(p => p.RoleUpdateByUser)
+                    .HasForeignKey(d => d.UpdateByUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Role_User_ModifiedBy");
             });
@@ -167,9 +310,16 @@ namespace Core.Entity
             {
                 entity.ToTable("role_permission_mapping");
 
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.CreateTime).HasColumnName("create_time");
+
                 entity.Property(e => e.PermissionCode)
                     .IsRequired()
+                    .HasColumnName("permission_code")
                     .HasMaxLength(20);
+
+                entity.Property(e => e.RoleId).HasColumnName("role_id");
 
                 entity.HasOne(d => d.PermissionCodeNavigation)
                     .WithMany(p => p.RolePermissionMapping)
@@ -185,19 +335,33 @@ namespace Core.Entity
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.ToTable("user");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
                 entity.Property(e => e.Avatar)
                     .HasColumnName("avatar")
                     .HasMaxLength(255);
+
+                entity.Property(e => e.CreateByUserId).HasColumnName("create_by_user_id");
+
+                entity.Property(e => e.CreateByUserName).HasColumnName("create_by_user_name");
 
                 entity.Property(e => e.CreateTime)
                     .HasColumnName("create_time")
                     .HasDefaultValueSql("(getdate())");
 
-                entity.Property(e => e.Description).HasMaxLength(800);
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasMaxLength(800);
 
                 entity.Property(e => e.DisplayName)
                     .HasColumnName("display_name")
                     .HasMaxLength(50);
+
+                entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
+
+                entity.Property(e => e.IsEnable).HasColumnName("is_enable");
 
                 entity.Property(e => e.IsLocked).HasColumnName("is_locked");
 
@@ -212,9 +376,17 @@ namespace Core.Entity
 
                 entity.Property(e => e.Status).HasColumnName("status");
 
-                entity.Property(e => e.UpdateTime).HasColumnType("datetime");
+                entity.Property(e => e.UpdateByUserId).HasColumnName("update_by_user_id");
 
-                entity.Property(e => e.UserStatusId).HasDefaultValueSql("((1))");
+                entity.Property(e => e.UpdateByUserName).HasColumnName("update_by_user_name");
+
+                entity.Property(e => e.UpdateTime)
+                    .HasColumnName("update_time")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.UserStatusId)
+                    .HasColumnName("user_status_id")
+                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.UserType).HasColumnName("user_type");
 
@@ -227,9 +399,18 @@ namespace Core.Entity
 
             modelBuilder.Entity<UserRoleMapping>(entity =>
             {
+                entity.ToTable("user_role_mapping");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
                 entity.Property(e => e.CreateTime)
+                    .HasColumnName("create_time")
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.RoleId).HasColumnName("role_id");
+
+                entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.UserRoleMapping)
@@ -246,8 +427,13 @@ namespace Core.Entity
 
             modelBuilder.Entity<UserStatus>(entity =>
             {
+                entity.ToTable("user_status");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
                 entity.Property(e => e.Name)
                     .IsRequired()
+                    .HasColumnName("name")
                     .HasMaxLength(50)
                     .IsUnicode(false);
             });
