@@ -12,6 +12,7 @@ using Core.Model.Administration.User;
 using Core.Model.Log;
 using Core.Mvc.Framework;
 using Core.UnitTest.Resource.Areas;
+using Dapper;
 using NUnit.Framework;
 
 namespace Core.UnitTest.Api
@@ -139,15 +140,15 @@ namespace Core.UnitTest.Api
             {
                 var url = new Url(typeof(UserController), nameof(UserController.DisEnable));
                 ResponseModel model = HttpClientAsync.DeleteAsync(url, user.Id).Result;
-                Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
-                user = _coreApiContext.User.Find(user.Id);
-                Assert.IsFalse(user.IsEnable);
+
+                user = CoreApiContext.Dapper.QueryFirstOrDefault<User>("SELECT * FROM [User] WHERE Id = @Id", new { Id = user.Id });
+                Assert.IsFalse(user.IsEnable, "禁用用户失败");
 
                 url = new Url(typeof(UserController), nameof(UserController.Enable));
                 model = HttpClientAsync.DeleteAsync(url, user.Id).Result;
                 Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
-                user = _coreApiContext.User.Find(user.Id);
-                Assert.IsTrue(user.IsEnable);
+                user = CoreApiContext.Dapper.QueryFirstOrDefault<User>("SELECT * FROM [User] WHERE Id = @Id", new { Id = user.Id });
+                Assert.IsTrue(user.IsEnable, "启用用户失败");
             }
         }
     }
