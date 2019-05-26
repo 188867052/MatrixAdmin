@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Resource.Generated.tt">
       <LastGenOutput>Resource.Generated.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
