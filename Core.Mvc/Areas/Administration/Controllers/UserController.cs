@@ -147,7 +147,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Forbidden(int id)
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.Forbidden));
+            var url = new Url(typeof(ApiController), nameof(ApiController.DisEnable));
             ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
 
             return this.Submit(model);
@@ -161,7 +161,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Normal(int id)
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.Normal));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Enable));
             ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
 
             return this.Submit(model);

@@ -20,15 +20,15 @@ namespace Core.Api.ControllerHelpers
         }
 
         /// <summary>
-        /// 删除用户.
+        ///  启用禁用用户.
         /// </summary>
-        /// <param name="status">status.</param>
+        /// <param name="isEnable">IsEnable.</param>
         /// <param name="ids">ids.</param>
         /// <returns>A ResponseModel.</returns>
-        public static ResponseModel UpdateStatus(bool status, int[] ids)
+        public static ResponseModel UpdateIsEnable(bool isEnable, int[] ids)
         {
-            string sql = @"UPDATE [User] SET Status = @Status WHERE Id IN @Id";
-            CoreApiContext.Dapper.Execute(sql, new { Status = status, Id = ids });
+            string sql = @"UPDATE [User] SET IsEnable = @IsEnable WHERE Id IN @Id";
+            CoreApiContext.Dapper.Execute(sql, new { IsEnable = isEnable, Id = ids });
             return ResponseModelFactory.CreateInstance;
         }
     }

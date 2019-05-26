@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Core.Api.Controllers;
 using Core.Entity;
+using Core.Entity.Enums;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.Menu;
@@ -127,6 +129,26 @@ namespace Core.UnitTest.Api
 
             Assert.IsNotNull(user);
             Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
+        }
+
+        [Test]
+        public void TestEnableUser()
+        {
+            User user = _coreApiContext.User.FirstOrDefault(o => o.IsEnable);
+            if (user != null)
+            {
+                var url = new Url(typeof(UserController), nameof(UserController.DisEnable));
+                ResponseModel model = HttpClientAsync.DeleteAsync(url, user.Id).Result;
+                Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
+                user = _coreApiContext.User.Find(user.Id);
+                Assert.IsFalse(user.IsEnable);
+
+                url = new Url(typeof(UserController), nameof(UserController.Enable));
+                model = HttpClientAsync.DeleteAsync(url, user.Id).Result;
+                Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
+                user = _coreApiContext.User.Find(user.Id);
+                Assert.IsTrue(user.IsEnable);
+            }
         }
     }
 }

@@ -173,9 +173,9 @@ namespace Core.Api.Controllers
         /// <param name="ids">ids.</param>
         /// <returns>IActionResult.</returns>
         [HttpGet]
-        public IActionResult Normal(int[] ids)
+        public IActionResult Enable(int[] ids)
         {
-            ResponseModel response = UserControllerHelper.UpdateStatus(true, ids);
+            ResponseModel response = UserControllerHelper.UpdateIsEnable(true, ids);
             return this.Ok(response);
         }
 
@@ -185,9 +185,9 @@ namespace Core.Api.Controllers
         /// <param name="ids">ids.</param>
         /// <returns>IActionResult.</returns>
         [HttpGet]
-        public IActionResult Forbidden(int[] ids)
+        public IActionResult DisEnable(int[] ids)
         {
-            ResponseModel response = UserControllerHelper.UpdateStatus(false, ids);
+            ResponseModel response = UserControllerHelper.UpdateIsEnable(false, ids);
             return this.Ok(response);
         }
     }
