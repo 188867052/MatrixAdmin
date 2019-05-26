@@ -14,7 +14,7 @@ namespace Core.Api.ControllerHelpers
         /// <returns>A ResponseModel.</returns>
         public static ResponseModel UpdateIsDeleted(bool isDeleted, int[] ids)
         {
-            string sql = @"UPDATE [User] SET IsDeleted = @IsDeleted WHERE Id IN @Id";
+            string sql = @"UPDATE [User] SET is_deleted = @IsDeleted WHERE Id IN @Id";
             CoreApiContext.Dapper.Execute(sql, new { IsDeleted = isDeleted, Id = ids });
             return ResponseModelFactory.CreateInstance;
         }
@@ -27,7 +27,7 @@ namespace Core.Api.ControllerHelpers
         /// <returns>A ResponseModel.</returns>
         public static ResponseModel UpdateIsEnable(bool isEnable, int[] ids)
         {
-            string sql = @"UPDATE [User] SET IsEnable = @IsEnable WHERE Id IN @Id";
+            string sql = @"UPDATE [User] SET is_enable = @IsEnable WHERE Id IN @Id";
             CoreApiContext.Dapper.Execute(sql, new { IsEnable = isEnable, Id = ids });
             return ResponseModelFactory.CreateInstance;
         }
