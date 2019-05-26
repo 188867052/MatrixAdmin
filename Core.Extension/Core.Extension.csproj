@@ -29,6 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Core.Entity\Core.Entity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="System.Data.SqlClient">
       <HintPath>..\..\..\..\.nuget\packages\system.data.sqlclient\4.7.0-preview5.19224.8\ref\netcoreapp2.1\System.Data.SqlClient.dll</HintPath>
     </Reference>

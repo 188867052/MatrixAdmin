@@ -1463,22 +1463,6 @@
         "runtime": {
           "lib/netcoreapp2.1/_._": {}
         }
-      },
-      "Core.Extension/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.1",
-        "dependencies": {
-          "Dapper": "1.60.6",
-          "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
-          "Newtonsoft.Json": "12.0.2"
-        },
-        "compile": {
-          "bin/placeholder/Core.Extension.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Core.Extension.dll": {}
-        }
       }
     }
   },
@@ -5075,16 +5059,10 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "Core.Extension/1.0.0": {
-      "type": "project",
-      "path": "../Core.Extension/Core.Extension.csproj",
-      "msbuildProject": "../Core.Extension/Core.Extension.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "Core.Extension >= 1.0.0",
       "Dapper >= 1.60.6",
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
       "Microsoft.EntityFrameworkCore.Design >= 3.0.0-preview5.19227.1",
@@ -5124,11 +5102,7 @@
       },
       "frameworks": {
         "netcoreapp2.1": {
-          "projectReferences": {
-            "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Extension\\Core.Extension.csproj": {
-              "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Extension\\Core.Extension.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -5169,6 +5143,7 @@
             "version": "[3.0.0-preview-18579-0056, )"
           },
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true

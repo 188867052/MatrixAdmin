@@ -3565,12 +3565,10 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
-          "Core.Extension": "1.0.0",
           "Dapper": "1.60.6",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
-          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2"
         },
@@ -3585,6 +3583,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
+          "Core.Entity": "1.0.0",
           "Dapper": "1.60.6",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",

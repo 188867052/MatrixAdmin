@@ -1039,7 +1039,7 @@
           "build/netstandard1.0/Microsoft.CodeCoverage.targets": {}
         }
       },
-      "Microsoft.CSharp/4.5.0": {
+      "Microsoft.CSharp/4.6.0-preview5.19224.8": {
         "type": "package",
         "compile": {
           "ref/netcoreapp2.0/_._": {}
@@ -1119,6 +1119,22 @@
       },
       "Microsoft.EntityFrameworkCore.Analyzers/3.0.0-preview5.19227.1": {
         "type": "package"
+      },
+      "Microsoft.EntityFrameworkCore.Design/3.0.0-preview5.19227.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.6.0-preview5.19224.8",
+          "Microsoft.EntityFrameworkCore.Relational": "3.0.0-preview5.19227.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.dll": {}
+        },
+        "build": {
+          "build/netcoreapp2.0/Microsoft.EntityFrameworkCore.Design.props": {}
+        }
       },
       "Microsoft.EntityFrameworkCore.Relational/3.0.0-preview5.19227.1": {
         "type": "package",
@@ -2525,6 +2541,9 @@
             "rid": "win-x86"
           }
         }
+      },
+      "StyleCop.Analyzers/1.1.118": {
+        "type": "package"
       },
       "Swashbuckle.AspNetCore/5.0.0-rc2": {
         "type": "package",
@@ -4277,12 +4296,10 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
-          "Core.Extension": "1.0.0",
           "Dapper": "1.60.6",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
-          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2"
         },
@@ -4297,6 +4314,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
+          "Core.Entity": "1.0.0",
           "Dapper": "1.60.6",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
@@ -4465,6 +4483,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
+          "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview5.19227.1",
           "Newtonsoft.Json": "12.0.2"
         },
         "compile": {
@@ -5533,10 +5553,10 @@
         "microsoft.codecoverage.nuspec"
       ]
     },
-    "Microsoft.CSharp/4.5.0": {
-      "sha512": "fcyI3xN2vZV2FTGmxxMjV2LmQykV4PknROKrXrBG4lrTFJqlJJx5d1bOwTTJ/Y9XzpWBHGYsTSBnA0q3bWgGjg==",
+    "Microsoft.CSharp/4.6.0-preview5.19224.8": {
+      "sha512": "NKRaujZapqCS82W6XW3yuAr5BHM+TnpCejaw44PhXsqQz0JgR+QqvdYwaTs8b7HetHZWi+1L9gZcA6mozHzvuA==",
       "type": "package",
-      "path": "microsoft.csharp/4.5.0",
+      "path": "microsoft.csharp/4.6.0-preview5.19224.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5549,6 +5569,7 @@
         "lib/netcoreapp2.0/_._",
         "lib/netstandard1.3/Microsoft.CSharp.dll",
         "lib/netstandard2.0/Microsoft.CSharp.dll",
+        "lib/netstandard2.0/Microsoft.CSharp.xml",
         "lib/portable-net45+win8+wp8+wpa81/_._",
         "lib/uap10.0.16299/_._",
         "lib/win8/_._",
@@ -5558,7 +5579,7 @@
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
         "lib/xamarinwatchos10/_._",
-        "microsoft.csharp.4.5.0.nupkg.sha512",
+        "microsoft.csharp.4.6.0-preview5.19224.8.nupkg.sha512",
         "microsoft.csharp.nuspec",
         "ref/MonoAndroid10/_._",
         "ref/MonoTouch10/_._",
@@ -5665,6 +5686,23 @@
         "analyzers/dotnet/cs/Microsoft.EntityFrameworkCore.Analyzers.dll",
         "microsoft.entityframeworkcore.analyzers.3.0.0-preview5.19227.1.nupkg.sha512",
         "microsoft.entityframeworkcore.analyzers.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.Design/3.0.0-preview5.19227.1": {
+      "sha512": "lJe0GP6si6JsmFuN6VH4tMD02IS6cWknHscHeGvN4srVH16phIE5dCY/y0SwJref2rFZ67L8tgL5v1Cr6OEWCQ==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.design/3.0.0-preview5.19227.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/net461/Microsoft.EntityFrameworkCore.Design.props",
+        "build/netcoreapp2.0/Microsoft.EntityFrameworkCore.Design.props",
+        "lib/net461/Microsoft.EntityFrameworkCore.Design.dll",
+        "lib/net461/Microsoft.EntityFrameworkCore.Design.xml",
+        "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.dll",
+        "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.xml",
+        "microsoft.entityframeworkcore.design.3.0.0-preview5.19227.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.design.nuspec"
       ]
     },
     "Microsoft.EntityFrameworkCore.Relational/3.0.0-preview5.19227.1": {
@@ -7742,6 +7780,31 @@
         "runtimes/win-x86/native/sni.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "StyleCop.Analyzers/1.1.118": {
+      "sha512": "Onx6ovGSqXSK07n/0eM3ZusiNdB6cIlJdabQhWGgJp3Vooy9AaLS/tigeybOJAobqbtggTamoWndz72JscZBvw==",
+      "type": "package",
+      "path": "stylecop.analyzers/1.1.118",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "THIRD-PARTY-NOTICES.txt",
+        "analyzers/dotnet/cs/StyleCop.Analyzers.CodeFixes.dll",
+        "analyzers/dotnet/cs/StyleCop.Analyzers.dll",
+        "analyzers/dotnet/cs/de-DE/StyleCop.Analyzers.resources.dll",
+        "analyzers/dotnet/cs/en-GB/StyleCop.Analyzers.resources.dll",
+        "analyzers/dotnet/cs/es-MX/StyleCop.Analyzers.resources.dll",
+        "analyzers/dotnet/cs/fr-FR/StyleCop.Analyzers.resources.dll",
+        "analyzers/dotnet/cs/pl-PL/StyleCop.Analyzers.resources.dll",
+        "analyzers/dotnet/cs/pt-BR/StyleCop.Analyzers.resources.dll",
+        "analyzers/dotnet/cs/ru-RU/StyleCop.Analyzers.resources.dll",
+        "stylecop.analyzers.1.1.118.nupkg.sha512",
+        "stylecop.analyzers.nuspec",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
       ]
     },
     "Swashbuckle.AspNetCore/5.0.0-rc2": {
@@ -12820,12 +12883,16 @@
       "Core.UnitTest.Resource >= 1.0.0",
       "MSTest.TestAdapter >= 2.0.0-beta4",
       "MSTest.TestFramework >= 2.0.0-beta4",
+      "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
+      "Microsoft.EntityFrameworkCore.Design >= 3.0.0-preview5.19227.1",
+      "Microsoft.EntityFrameworkCore.SqlServer >= 3.0.0-preview5.19227.1",
       "Microsoft.NET.Test.Sdk >= 16.1.0",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.UnitTestFramework.Extensions >= 2.0.0",
       "NUnit >= 3.12.0",
       "NUnit3TestAdapter >= 3.13.0",
-      "Newtonsoft.Json >= 12.0.2"
+      "Newtonsoft.Json >= 12.0.2",
+      "StyleCop.Analyzers >= 1.1.118"
     ]
   },
   "packageFolders": {
@@ -12891,6 +12958,20 @@
             "target": "Package",
             "version": "[2.0.0-beta4, )"
           },
+          "Microsoft.AspNetCore.Mvc.Core": {
+            "target": "Package",
+            "version": "[2.2.5, )"
+          },
+          "Microsoft.EntityFrameworkCore.Design": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[3.0.0-preview5.19227.1, )"
+          },
+          "Microsoft.EntityFrameworkCore.SqlServer": {
+            "target": "Package",
+            "version": "[3.0.0-preview5.19227.1, )"
+          },
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
             "version": "[16.1.0, )"
@@ -12915,6 +12996,12 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[12.0.2, )"
+          },
+          "StyleCop.Analyzers": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[1.1.118, )"
           }
         },
         "imports": [
