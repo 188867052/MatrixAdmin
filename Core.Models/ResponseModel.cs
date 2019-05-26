@@ -1,4 +1,6 @@
-﻿namespace Core.Model
+﻿using System.Net;
+
+namespace Core.Model
 {
     /// <summary>
     /// 请求响应实体.
@@ -24,7 +26,7 @@
         /// </summary>
         public ResponseModel()
         {
-            this.Code = 200;
+            this.Code = (int)HttpStatusCode.OK;
             this.Message = "操作成功";
         }
 
@@ -43,19 +45,13 @@
         /// </summary>
         public object Data { get; set; }
 
-        public string InnerExceptionMessage { get; set; }
-
-        public string StackTrace { get; set; }
-
-        public string InnerExceptionStackTrace { get; set; }
-
         /// <summary>
         /// 设置响应状态为成功.
         /// </summary>
         /// <param name="message">message.</param>
         public void SetSuccess(string message = "成功")
         {
-            this.Code = 200;
+            this.Code = (int)HttpStatusCode.OK;
             this.Message = message;
         }
 
@@ -75,7 +71,7 @@
         /// <param name="message">message.</param>
         public void SetError(string message = "错误")
         {
-            this.Code = 500;
+            this.Code = (int)HttpStatusCode.InternalServerError;
             this.Message = message;
         }
 
@@ -85,8 +81,8 @@
         /// <param name="message">message.</param>
         public void SetNotFound(string message = "未知资源")
         {
+            this.Code = (int)HttpStatusCode.NotFound;
             this.Message = message;
-            this.Code = 404;
         }
 
         /// <summary>
@@ -95,8 +91,8 @@
         /// <param name="message">message.</param>
         public void SetNoPermission(string message = "无权限")
         {
+            this.Code = (int)HttpStatusCode.Unauthorized;
             this.Message = message;
-            this.Code = 401;
         }
 
         /// <summary>
