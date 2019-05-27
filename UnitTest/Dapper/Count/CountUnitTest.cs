@@ -20,21 +20,10 @@ namespace Core.UnitTest.Dapper
             User user = DapperExtension.Connection.QueryFirstOrDefault<User>("SELECT * FROM [user]");
             if (user != null)
             {
-                var count = this.OpenConnection.RecordCount<User>($"where Id = '{user.Id}'");
+                var count = DapperExtension.Connection.RecordCount<User>($"where Id = '{user.Id}'");
                 Assert.AreEqual(count, 1);
-                count = this.OpenConnection.RecordCount<User>();
+                count = DapperExtension.Connection.RecordCount<User>();
                 Assert.GreaterOrEqual(count, 0);
-            }
-        }
-
-        private IDbConnection OpenConnection
-        {
-            get
-            {
-                SqlConnection connection = new SqlConnection(DapperExtension.Connection.ConnectionString);
-                SimpleCRUD.SetDialect(Dialect.SQLServer);
-                connection.Open();
-                return connection;
             }
         }
     }

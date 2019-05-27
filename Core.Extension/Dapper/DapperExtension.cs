@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using Core.Entity;
@@ -8,12 +9,36 @@ namespace Core.Extension.Dapper
 {
     public static class DapperExtension
     {
-        private static IEnumerable<InformationSchema> _myProperty;
-        private static DbConnection _connection;
+        private static IEnumerable<InformationSchema> _informationSchema;
+        private static IDbConnection _connection;
 
         static DapperExtension()
         {
             DapperExtension.SetTypeMap();
+        }
+
+        public static IEnumerable<InformationSchema> InformationSchemas
+        {
+            get
+            {
+                if (_informationSchema == null)
+                {
+                    using (Connection)
+                    {
+                        _informationSchema = Connection.Query<InformationSchema>("SELECT * FROM INFORMATION_SCHEMA.COLUMNS");
+                    }
+                }
+
+                return _informationSchema;
+            }
+        }
+
+        public static IDbConnection Connection
+        {
+            get
+            {
+                return new SqlConnection("Data Source=.;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            }
         }
 
         public static void SetTypeMap()
@@ -25,32 +50,6 @@ namespace Core.Extension.Dapper
             SqlMapper.SetTypeMap(typeof(Icon), new ColumnAttributeTypeMapper<Icon>());
             SqlMapper.SetTypeMap(typeof(Log), new ColumnAttributeTypeMapper<Log>());
             SqlMapper.SetTypeMap(typeof(InformationSchema), new ColumnAttributeTypeMapper<InformationSchema>());
-        }
-
-        public static IEnumerable<InformationSchema> MyProperty
-        {
-            get
-            {
-                if (_myProperty == null)
-                {
-                    _myProperty = Connection.Query<InformationSchema>("SELECT * FROM INFORMATION_SCHEMA.COLUMNS");
-                }
-
-                return _myProperty;
-            }
-        }
-
-        public static DbConnection Connection
-        {
-            get
-            {
-                if (_connection == null)
-                {
-                    _connection = new SqlConnection("Data Source=.;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-                }
-
-                return _connection;
-            }
         }
 
         public class InformationSchema

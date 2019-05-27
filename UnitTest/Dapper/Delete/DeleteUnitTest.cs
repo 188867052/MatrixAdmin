@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using Core.Entity;
 using Core.Extension.Dapper;
 using Dapper;
@@ -20,14 +17,14 @@ namespace Core.UnitTest.Dapper
             Log log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT * FROM [log]");
             if (log != null)
             {
-                var count = this.OpenConnection.Delete<Log>(log.Id);
+                var count = DapperExtension.Connection.Delete<Log>(log.Id);
                 Assert.AreEqual(count, 1);
             }
 
             log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT * FROM [log]");
             if (log != null)
             {
-                var count = this.OpenConnection.DeleteAsync<Log>(log.Id);
+                var count = DapperExtension.Connection.DeleteAsync<Log>(log.Id);
                 Assert.AreEqual(count.Result, 1);
             }
         }
@@ -38,19 +35,8 @@ namespace Core.UnitTest.Dapper
             Log log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT * FROM [log]");
             if (log != null)
             {
-                var count = this.OpenConnection.DeleteList<Log>("where Id = @Id", new { log.Id });
+                var count = DapperExtension.Connection.DeleteList<Log>("where Id = @Id", new { log.Id });
                 Assert.AreEqual(count, 1);
-            }
-        }
-
-        private IDbConnection OpenConnection
-        {
-            get
-            {
-                SqlConnection connection = new SqlConnection(DapperExtension.Connection.ConnectionString);
-                SimpleCRUD.SetDialect(Dialect.SQLServer);
-                connection.Open();
-                return connection;
             }
         }
     }

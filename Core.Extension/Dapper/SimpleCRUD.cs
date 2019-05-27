@@ -177,7 +177,7 @@ namespace Dapper
             var whereprops = GetAllProperties(whereConditions).ToArray();
             sb.Append("Select ");
 
-            IList<string> columns = DapperExtension.MyProperty.Where(o => o.TableName.Replace("_", default).Equals(currenttype.Name, StringComparison.InvariantCultureIgnoreCase)).Select(o => o.ColumnName).ToList();
+            IList<string> columns = DapperExtension.InformationSchemas.Where(o => o.TableName.Replace("_", default).Equals(currenttype.Name, StringComparison.InvariantCultureIgnoreCase)).Select(o => o.ColumnName).ToList();
 
             // create a new empty instance of the type to get the base properties
             BuildSelect(sb, GetScaffoldableProperties<T>().ToArray(), columns);
@@ -202,6 +202,22 @@ namespace Dapper
             return connection.GetList<T>(where, dynParms).ToList();
         }
 
+        public static IList<T> FindAll<T>(this IDbConnection connection)
+        {
+            return connection.GetList<T>().ToList();
+        }
+
+        public static T Find<T>(this IDbConnection connection, int value)
+        {
+            var currenttype = typeof(T);
+            var name = GetIdProperties(currenttype).ToList().FirstOrDefault().Name;
+            string where = $"where {name} = @{name}";
+            var dynParms = new DynamicParameters();
+            dynParms.Add("@" + name, value);
+
+            return connection.GetList<T>(where, dynParms).FirstOrDefault();
+        }
+
         public static IEnumerable<T> GetList<T>(this IDbConnection connection, string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var currenttype = typeof(T);
@@ -211,7 +227,7 @@ namespace Dapper
                 throw new ArgumentException("Entity must have at least one [Key] property");
             }
 
-            IList<string> columns = DapperExtension.MyProperty.Where(o => o.TableName.Replace("_", default).Equals(currenttype.Name, StringComparison.InvariantCultureIgnoreCase)).Select(o => o.ColumnName).ToList();
+            IList<string> columns = DapperExtension.InformationSchemas.Where(o => o.TableName.Replace("_", default).Equals(currenttype.Name, StringComparison.InvariantCultureIgnoreCase)).Select(o => o.ColumnName).ToList();
 
             var name = GetTableName(currenttype);
             var sb = new StringBuilder();
@@ -252,7 +268,7 @@ namespace Dapper
             }
 
             var currenttype = typeof(T);
-            IList<string> columns = DapperExtension.MyProperty.Where(o => o.TableName.Replace("_", default).Equals(currenttype.Name, StringComparison.InvariantCultureIgnoreCase)).Select(o => o.ColumnName).ToList();
+            IList<string> columns = DapperExtension.InformationSchemas.Where(o => o.TableName.Replace("_", default).Equals(currenttype.Name, StringComparison.InvariantCultureIgnoreCase)).Select(o => o.ColumnName).ToList();
 
             var idProps = GetIdProperties(currenttype).ToList();
             if (!idProps.Any())
@@ -435,7 +451,7 @@ namespace Dapper
             var sb = new StringBuilder();
             sb.AppendFormat("Delete from {0} where ", name);
 
-            IList<string> columns = DapperExtension.MyProperty.Where(o => o.TableName.Replace("_", default).Equals(currenttype.Name, StringComparison.InvariantCultureIgnoreCase)).Select(o => o.ColumnName).ToList();
+            IList<string> columns = DapperExtension.InformationSchemas.Where(o => o.TableName.Replace("_", default).Equals(currenttype.Name, StringComparison.InvariantCultureIgnoreCase)).Select(o => o.ColumnName).ToList();
 
             sb.AppendFormat("{0} = @{1}", GetColumnName(idProp, columns[0]), columns[0]);
 
