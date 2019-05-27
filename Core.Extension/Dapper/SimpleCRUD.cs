@@ -220,14 +220,10 @@ namespace Dapper
         public static IEnumerable<T> GetList<T>(this IDbConnection connection, string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var currenttype = typeof(T);
-
-            IEnumerable<string> columns = DapperExtension.GetFields<T>();
-
             var name = GetTableName(currenttype);
-            var sb = new StringBuilder();
-            sb.Append("Select ");
+            var sb = new StringBuilder("Select ");
 
-            SimpleCRUD.BuildSelect(sb, GetScaffoldableProperties<T>().ToArray(), columns.ToList());
+            SimpleCRUD.BuildSelect<T>(sb, GetScaffoldableProperties<T>().ToArray());
             sb.AppendFormat(" from {0}", name);
             sb.Append(" " + conditions);
 
@@ -659,6 +655,16 @@ namespace Dapper
             });
         }
 
+        private static void BuildSelect<T>(StringBuilder stringBuilder, IEnumerable<PropertyInfo> props = null)
+        {
+            StringBuilderCache(stringBuilder, $"{props.CacheKey()}_BuildSelect", sb =>
+            {
+                IEnumerable<string> columns = DapperExtension.GetFields<T>();
+                columns.ToList().ForEach(o => GetColumnName<T>(o));
+                sb.Append(string.Join(",", columns));
+            });
+        }
+
         private static void BuildWhere<TEntity>(StringBuilder sb, IEnumerable<PropertyInfo> idProps, object whereConditions = null)
         {
             var propertyInfos = idProps.ToArray();
@@ -942,10 +948,11 @@ namespace Dapper
             return columnName;
         }
 
-        private static string GetColumnName<T>(string field, string name)
+        private static string GetColumnName<T>(string name)
         {
             string columnName;
-            string key = string.Format("{0}.{1}", typeof(T).DeclaringType, typeof(T).Name);
+            Type type = typeof(T);
+            string key = string.Format("{0}.{1}", type.DeclaringType, type.Name);
 
             if (ColumnNames.TryGetValue(key, out columnName))
             {
@@ -991,6 +998,7 @@ namespace Dapper
         public interface IColumnNameResolver
         {
             string ResolveColumnName(PropertyInfo propertyInfo, string name = default);
+
             string ResolveColumnName<T>(string name);
         }
     }
