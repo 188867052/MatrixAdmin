@@ -171,17 +171,17 @@ namespace Dapper
             var currenttype = typeof(T);
             var idProps = GetIdProperties(currenttype).ToList();
 
-            var name = GetTableName(currenttype);
+            var tableName = DapperExtension.GetTableName<T>();
 
             var sb = new StringBuilder();
             var whereprops = GetAllProperties(whereConditions).ToArray();
             sb.Append("Select ");
 
-            IEnumerable<string> columns = DapperExtension.GetFields(currenttype.Name);
+            IEnumerable<string> columns = DapperExtension.GetFields<T>();
 
             // create a new empty instance of the type to get the base properties
             BuildSelect(sb, GetScaffoldableProperties<T>().ToArray(), columns.ToList());
-            sb.AppendFormat(" from {0}", name);
+            sb.AppendFormat(" from {0}", Encapsulate(tableName));
 
             if (whereprops.Any())
             {
@@ -209,7 +209,7 @@ namespace Dapper
 
         public static T Find<T>(this IDbConnection connection, int value)
         {
-            var primaryKey = DapperExtension.GetKey(typeof(T).Name);
+            var primaryKey = DapperExtension.GetKey<T>();
             string where = $"where {primaryKey} = @{primaryKey}";
             var dynParms = new DynamicParameters();
             dynParms.Add("@" + primaryKey, value);
@@ -221,13 +221,13 @@ namespace Dapper
         {
             var currenttype = typeof(T);
 
-            IList<string> columns = DapperExtension.Tables.Where(o => o.TableName.Replace("_", default).Equals(currenttype.Name, StringComparison.InvariantCultureIgnoreCase)).Select(o => o.ColumnName).ToList();
+            IEnumerable<string> columns = DapperExtension.GetFields<T>();
 
             var name = GetTableName(currenttype);
             var sb = new StringBuilder();
             sb.Append("Select ");
 
-            SimpleCRUD.BuildSelect(sb, GetScaffoldableProperties<T>().ToArray(), columns);
+            SimpleCRUD.BuildSelect(sb, GetScaffoldableProperties<T>().ToArray(), columns.ToList());
             sb.AppendFormat(" from {0}", name);
             sb.Append(" " + conditions);
 
@@ -255,8 +255,7 @@ namespace Dapper
             }
 
             var currenttype = typeof(T);
-            IList<string> columns = DapperExtension.Tables.Where(o => DapperExtension.Predicate(o, currenttype.Name)).Select(x => x.ColumnName).ToList();
-
+            IEnumerable<string> columns = DapperExtension.GetFields<T>();
             var idProps = GetIdProperties(currenttype).ToList();
             if (!idProps.Any())
             {
@@ -272,7 +271,7 @@ namespace Dapper
             }
 
             // create a new empty instance of the type to get the base properties
-            BuildSelect(sb, GetScaffoldableProperties<T>().ToArray(), columns);
+            BuildSelect(sb, GetScaffoldableProperties<T>().ToArray(), columns.ToList());
             query = query.Replace("{SelectColumns}", sb.ToString());
             query = query.Replace("{TableName}", name);
             query = query.Replace("{PageNumber}", pageNumber.ToString());
@@ -438,7 +437,7 @@ namespace Dapper
             var sb = new StringBuilder();
             sb.AppendFormat("Delete from {0} where ", name);
 
-            string key = DapperExtension.GetKey(currenttype.Name);
+            string key = DapperExtension.GetKey<T>();
 
             sb.AppendFormat("{0} = @{1}", GetColumnName(idProp, key), key);
 
@@ -943,24 +942,22 @@ namespace Dapper
             return columnName;
         }
 
+        private static string GetColumnName<T>(string field, string name)
+        {
+            string columnName;
+            string key = string.Format("{0}.{1}", typeof(T).DeclaringType, typeof(T).Name);
 
-        //private static string GetColumnName(TableInfo propertyInfo, string name = default)
-        //{
-        //    string columnName;
-        //    string key = string.Format("{0}.{1}", propertyInfo.DeclaringType, propertyInfo.Name);
+            if (ColumnNames.TryGetValue(key, out columnName))
+            {
+                return columnName;
+            }
 
-        //    if (ColumnNames.TryGetValue(key, out columnName))
-        //    {
-        //        return columnName;
-        //    }
+            columnName = _columnNameResolver.ResolveColumnName<T>(name);
 
-        //    columnName = _columnNameResolver.ResolveColumnName(propertyInfo, name);
+            ColumnNames.AddOrUpdate(key, columnName, (t, v) => columnName);
 
-        //    ColumnNames.AddOrUpdate(key, columnName, (t, v) => columnName);
-
-        //    return columnName;
-        //}
-
+            return columnName;
+        }
 
         private static string Encapsulate(string databaseword)
         {
@@ -994,6 +991,7 @@ namespace Dapper
         public interface IColumnNameResolver
         {
             string ResolveColumnName(PropertyInfo propertyInfo, string name = default);
+            string ResolveColumnName<T>(string name);
         }
     }
 }

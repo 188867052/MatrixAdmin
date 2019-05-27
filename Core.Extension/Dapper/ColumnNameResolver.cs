@@ -24,6 +24,11 @@ namespace Dapper
 
                 return columnName;
             }
+
+            public virtual string ResolveColumnName<T>(string name)
+            {
+                return Encapsulate(name);
+            }
         }
     }
 }
