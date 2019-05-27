@@ -1,12 +1,14 @@
-﻿using Core.Extension.Dapper;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using Core.Extension;
+using Core.Extension.Dapper;
 
 namespace Dapper
 {
@@ -115,20 +117,6 @@ namespace Dapper
             _columnNameResolver = resolver;
         }
 
-        /// <summary>
-        /// <para>By default queries the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>By default filters on the Id column.</para>
-        /// <para>-Id column name can be overridden by adding an attribute on your primary key property [Key].</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// <para>Returns a single entity by a single id from table T.</para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connection"></param>
-        /// <param name="id"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>Returns a single entity by a single id from table T.</returns>
         public static T Get<T>(this IDbConnection connection, object id, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var currenttype = typeof(T);
@@ -154,7 +142,7 @@ namespace Dapper
                     sb.Append(" and ");
                 }
 
-                sb.AppendFormat("{0} = @{1}", GetColumnName(idProps[i]), idProps[i].Name);
+                sb.AppendFormat("{0} = @{1}", GetColumnName(idProps[i], default), idProps[i].Name);
             }
 
             var dynParms = new DynamicParameters();
@@ -178,27 +166,10 @@ namespace Dapper
             return connection.Query<T>(sb.ToString(), dynParms, transaction, true, commandTimeout).FirstOrDefault();
         }
 
-        /// <summary>
-        /// <para>By default queries the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>whereConditions is an anonymous type to filter the results ex: new {Category = 1, SubCategory=2}.</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// <para>Returns a list of entities that match where conditions.</para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connection"></param>
-        /// <param name="whereConditions"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>Gets a list of entities with optional exact match where conditions.</returns>
         public static IEnumerable<T> GetList<T>(this IDbConnection connection, object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var currenttype = typeof(T);
             var idProps = GetIdProperties(currenttype).ToList();
-            if (!idProps.Any())
-            {
-                throw new ArgumentException("Entity must have at least one [Key] property");
-            }
 
             var name = GetTableName(currenttype);
 
@@ -206,8 +177,10 @@ namespace Dapper
             var whereprops = GetAllProperties(whereConditions).ToArray();
             sb.Append("Select ");
 
+            IList<string> columns = DapperExtension.MyProperty.Where(o => o.TableName.Replace("_", default).Equals(currenttype.Name, StringComparison.InvariantCultureIgnoreCase)).Select(o => o.ColumnName).ToList();
+
             // create a new empty instance of the type to get the base properties
-            BuildSelect(sb, GetScaffoldableProperties<T>().ToArray());
+            BuildSelect(sb, GetScaffoldableProperties<T>().ToArray(), columns);
             sb.AppendFormat(" from {0}", name);
 
             if (whereprops.Any())
@@ -216,30 +189,19 @@ namespace Dapper
                 BuildWhere<T>(sb, whereprops, whereConditions);
             }
 
-            if (Debugger.IsAttached)
-            {
-                Trace.WriteLine(string.Format("GetList<{0}>: {1}", currenttype, sb));
-            }
-
-
             return connection.Query<T>(sb.ToString(), whereConditions, transaction, true, commandTimeout);
         }
 
-        /// <summary>
-        /// <para>By default queries the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>conditions is an SQL where clause and/or order by clause ex: "where name='bob'" or "where age>=@Age".</para>
-        /// <para>parameters is an anonymous type to pass in named parameter values: new { Age = 15 }.</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// <para>Returns a list of entities that match where conditions.</para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connection"></param>
-        /// <param name="conditions"></param>
-        /// <param name="parameters"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>Gets a list of entities with optional SQL where conditions.</returns>
+        public static IList<T> FindAll<T>(this IDbConnection connection, Expression<Func<T, int>> expression, int value)
+        {
+            string name = expression.GetPropertyName();
+            string where = $"where {name} = @{name}";
+            var dynParms = new DynamicParameters();
+            dynParms.Add("@" + name, value);
+
+            return connection.GetList<T>(where, dynParms).ToList();
+        }
+
         public static IEnumerable<T> GetList<T>(this IDbConnection connection, string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var currenttype = typeof(T);
@@ -266,7 +228,6 @@ namespace Dapper
                 Trace.WriteLine(string.Format("GetList<{0}>: {1}", currenttype, sb));
             }
 
-
             return connection.Query<T>(sb.ToString(), parameters, transaction, true, commandTimeout);
         }
 
@@ -283,38 +244,16 @@ namespace Dapper
             return connection.GetList<T>(new { });
         }
 
-        /// <summary>
-        /// <para>By default queries the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>conditions is an SQL where clause ex: "where name='bob'" or "where age>=@Age" - not required. </para>
-        /// <para>orderby is a column or list of columns to order by ex: "lastname, age desc" - not required - default is by primary key.</para>
-        /// <para>parameters is an anonymous type to pass in named parameter values: new { Age = 15 }.</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// <para>Returns a list of entities that match where conditions.</para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connection"></param>
-        /// <param name="pageNumber"></param>
-        /// <param name="rowsPerPage"></param>
-        /// <param name="conditions"></param>
-        /// <param name="orderby"></param>
-        /// <param name="parameters"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>Gets a paged list of entities with optional exact match where conditions.</returns>
         public static IEnumerable<T> GetListPaged<T>(this IDbConnection connection, int pageNumber, int rowsPerPage, string conditions, string orderby, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            if (string.IsNullOrEmpty(_getPagedListSql))
-            {
-                throw new Exception("GetListPage is not supported with the current SQL Dialect");
-            }
-
             if (pageNumber < 1)
             {
-                throw new Exception("Page must be greater than 0");
+                throw new ArgumentException("Page must be greater than 0");
             }
 
             var currenttype = typeof(T);
+            IList<string> columns = DapperExtension.MyProperty.Where(o => o.TableName.Replace("_", default).Equals(currenttype.Name, StringComparison.InvariantCultureIgnoreCase)).Select(o => o.ColumnName).ToList();
+
             var idProps = GetIdProperties(currenttype).ToList();
             if (!idProps.Any())
             {
@@ -326,11 +265,11 @@ namespace Dapper
             var query = _getPagedListSql;
             if (string.IsNullOrEmpty(orderby))
             {
-                orderby = GetColumnName(idProps.First());
+                orderby = columns.First();
             }
 
             // create a new empty instance of the type to get the base properties
-            BuildSelect(sb, GetScaffoldableProperties<T>().ToArray());
+            BuildSelect(sb, GetScaffoldableProperties<T>().ToArray(), columns);
             query = query.Replace("{SelectColumns}", sb.ToString());
             query = query.Replace("{TableName}", name);
             query = query.Replace("{PageNumber}", pageNumber.ToString());
@@ -338,11 +277,6 @@ namespace Dapper
             query = query.Replace("{OrderBy}", orderby);
             query = query.Replace("{WhereClause}", conditions);
             query = query.Replace("{Offset}", ((pageNumber - 1) * rowsPerPage).ToString());
-
-            if (Debugger.IsAttached)
-            {
-                Trace.WriteLine(string.Format("GetListPaged<{0}>: {1}", currenttype, query));
-            }
 
             return connection.Query<T>(query, parameters, transaction, true, commandTimeout);
         }
@@ -366,20 +300,6 @@ namespace Dapper
             return Insert<int?, TEntity>(connection, entityToInsert, transaction, commandTimeout);
         }
 
-        /// <summary>
-        /// <para>Inserts a row into the database, using ONLY the properties defined by TEntity.</para>
-        /// <para>By default inserts into the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>Insert filters out Id column and any columns with the [Key] attribute.</para>
-        /// <para>Properties marked with attribute [Editable(false)] and complex types are ignored.</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// <para>Returns the ID (primary key) of the newly inserted record if it is identity using the defined type, otherwise null.</para>
-        /// </summary>
-        /// <param name="connection"></param>
-        /// <param name="entityToInsert"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>The ID (primary key) of the newly inserted record if it is identity using the defined type, otherwise null.</returns>
         public static TKey Insert<TKey, TEntity>(this IDbConnection connection, TEntity entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var idProps = GetIdProperties(entityToInsert).ToList();
@@ -449,20 +369,6 @@ namespace Dapper
             return (TKey)r.First().id;
         }
 
-        /// <summary>
-        /// <para>Updates a record or records in the database with only the properties of TEntity.</para>
-        /// <para>By default updates records in the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>Updates records where the Id property and properties with the [Key] attribute match those in the database.</para>
-        /// <para>Properties marked with attribute [Editable(false)] and complex types are ignored.</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// <para>Returns number of rows affected.</para>
-        /// </summary>
-        /// <param name="connection"></param>
-        /// <param name="entityToUpdate"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>The number of affected records.</returns>
         public static int Update<T>(this IDbConnection connection, T entityToUpdate, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var masterSb = new StringBuilder();
@@ -492,19 +398,6 @@ namespace Dapper
             return connection.Execute(masterSb.ToString(), entityToUpdate, transaction, commandTimeout);
         }
 
-        /// <summary>
-        /// <para>Deletes a record or records in the database that match the object passed in.</para>
-        /// <para>-By default deletes records in the table matching the class name.</para>
-        /// <para>Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// <para>Returns the number of records affected.</para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connection"></param>
-        /// <param name="entityToDelete"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>The number of records affected.</returns>
         public static int Delete<T>(this IDbConnection connection, T entityToDelete, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var masterSb = new StringBuilder();
@@ -532,62 +425,22 @@ namespace Dapper
             return connection.Execute(masterSb.ToString(), entityToDelete, transaction, commandTimeout);
         }
 
-        /// <summary>
-        /// <para>Deletes a record or records in the database by ID.</para>
-        /// <para>By default deletes records in the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>Deletes records where the Id property and properties with the [Key] attribute match those in the database.</para>
-        /// <para>The number of records affected.</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connection"></param>
-        /// <param name="id"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>The number of records affected.</returns>
         public static int Delete<T>(this IDbConnection connection, object id, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var currenttype = typeof(T);
-            var idProps = GetIdProperties(currenttype).ToList();
-
-            if (!idProps.Any())
-            {
-                throw new ArgumentException("Delete<T> only supports an entity with a [Key] or Id property");
-            }
+            var idProp = GetIdProperties(currenttype).ToList().FirstOrDefault();
 
             var name = GetTableName(currenttype);
 
             var sb = new StringBuilder();
             sb.AppendFormat("Delete from {0} where ", name);
 
-            for (var i = 0; i < idProps.Count; i++)
-            {
-                if (i > 0)
-                {
-                    sb.Append(" and ");
-                }
+            IList<string> columns = DapperExtension.MyProperty.Where(o => o.TableName.Replace("_", default).Equals(currenttype.Name, StringComparison.InvariantCultureIgnoreCase)).Select(o => o.ColumnName).ToList();
 
-                sb.AppendFormat("{0} = @{1}", GetColumnName(idProps[i]), idProps[i].Name);
-            }
+            sb.AppendFormat("{0} = @{1}", GetColumnName(idProp, columns[0]), columns[0]);
 
             var dynParms = new DynamicParameters();
-            if (idProps.Count == 1)
-            {
-                dynParms.Add("@" + idProps.First().Name, id);
-            }
-            else
-            {
-                foreach (var prop in idProps)
-                {
-                    dynParms.Add("@" + prop.Name, id.GetType().GetProperty(prop.Name).GetValue(id, null));
-                }
-            }
-
-            if (Debugger.IsAttached)
-            {
-                Trace.WriteLine(string.Format("Delete<{0}> {1}", currenttype, sb));
-            }
+            dynParms.Add("@" + idProp.Name, id);
 
             return connection.Execute(sb.ToString(), dynParms, transaction, commandTimeout);
         }
@@ -755,7 +608,7 @@ namespace Dapper
                 {
                     var property = nonIdProps[i];
 
-                    sb.AppendFormat("{0} = @{1}", GetColumnName(property), property.Name);
+                    sb.AppendFormat("{0} = @{1}", GetColumnName(property, default), property.Name);
                     if (i < nonIdProps.Length - 1)
                     {
                         sb.AppendFormat(", ");
@@ -777,6 +630,7 @@ namespace Dapper
                     {
                         break;
                     }
+
                     var property = propertyInfos.ElementAt(i);
 
                     if (property.GetCustomAttributes(true).Any(attr => attr.GetType().Name == typeof(IgnoreSelectAttribute).Name || attr.GetType().Name == typeof(NotMappedAttribute).Name))
@@ -799,7 +653,6 @@ namespace Dapper
                     }
 
                     addedAny = true;
-
                 }
             });
         }
@@ -818,7 +671,7 @@ namespace Dapper
                 var sourceProperties = GetScaffoldableProperties<TEntity>().ToArray();
                 for (var x = 0; x < sourceProperties.Count(); x++)
                 {
-                    if (sourceProperties.ElementAt(x).Name == propertyToUse.Name)
+                    if (sourceProperties.ElementAt(x).Name.Equals(propertyToUse.Name, StringComparison.InvariantCultureIgnoreCase))
                     {
                         if (whereConditions != null && propertyToUse.CanRead && (propertyToUse.GetValue(whereConditions, null) == null || propertyToUse.GetValue(whereConditions, null) == DBNull.Value))
                         {
@@ -832,7 +685,7 @@ namespace Dapper
 
                 sb.AppendFormat(
                     useIsNull ? "{0} is null" : "{0} = @{1}",
-                    GetColumnName(propertyToUse),
+                    GetColumnName(propertyToUse, propertyToUse.Name),
                     propertyToUse.Name);
 
                 if (i < propertyInfos.Count() - 1)

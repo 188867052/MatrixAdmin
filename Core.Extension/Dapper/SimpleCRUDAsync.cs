@@ -435,45 +435,17 @@ namespace Dapper
         public static Task<int> DeleteAsync<T>(this IDbConnection connection, object id, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var currenttype = typeof(T);
-            var idProps = GetIdProperties(currenttype).ToList();
-
-            if (!idProps.Any())
-            {
-                throw new ArgumentException("Delete<T> only supports an entity with a [Key] or Id property");
-            }
+            var idProp = GetIdProperties(currenttype).ToList().FirstOrDefault();
 
             var name = GetTableName(currenttype);
 
             var sb = new StringBuilder();
             sb.AppendFormat("Delete from {0} where ", name);
 
-            for (var i = 0; i < idProps.Count; i++)
-            {
-                if (i > 0)
-                {
-                    sb.Append(" and ");
-                }
-
-                sb.AppendFormat("{0} = @{1}", GetColumnName(idProps[i]), idProps[i].Name);
-            }
+            sb.AppendFormat("{0} = @{1}", GetColumnName(idProp, idProp.Name), idProp.Name);
 
             var dynParms = new DynamicParameters();
-            if (idProps.Count == 1)
-            {
-                dynParms.Add("@" + idProps.First().Name, id);
-            }
-            else
-            {
-                foreach (var prop in idProps)
-                {
-                    dynParms.Add("@" + prop.Name, prop.GetValue(id));
-                }
-            }
-
-            if (Debugger.IsAttached)
-            {
-                Trace.WriteLine(string.Format("Delete<{0}> {1}", currenttype, sb));
-            }
+            dynParms.Add("@" + idProp.Name, id);
 
             return connection.ExecuteAsync(sb.ToString(), dynParms, transaction, commandTimeout);
         }
