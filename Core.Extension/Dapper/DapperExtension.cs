@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
 using Core.Entity;
 using Dapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Extension.Dapper
 {
@@ -25,7 +27,7 @@ namespace Core.Extension.Dapper
                 {
                     using (Connection)
                     {
-                        _informationSchema = Connection.Query<InformationSchema>("SELECT * FROM INFORMATION_SCHEMA.COLUMNS");
+                        _informationSchema = DapperExtension.Connection.Query<InformationSchema>("SELECT * FROM INFORMATION_SCHEMA.COLUMNS");
                     }
                 }
 
@@ -37,19 +39,28 @@ namespace Core.Extension.Dapper
         {
             get
             {
-                return new SqlConnection("Data Source=.;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                if (_connection == null || _connection.State == ConnectionState.Closed)
+                {
+                    _connection = new SqlConnection("Data Source=.;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                }
+
+                return _connection;
             }
         }
 
-        public static void SetTypeMap()
+        private static void SetTypeMap()
         {
-            SqlMapper.SetTypeMap(typeof(User), new ColumnAttributeTypeMapper<User>());
-            SqlMapper.SetTypeMap(typeof(Role), new ColumnAttributeTypeMapper<Role>());
-            SqlMapper.SetTypeMap(typeof(Menu), new ColumnAttributeTypeMapper<Menu>());
-            SqlMapper.SetTypeMap(typeof(Permission), new ColumnAttributeTypeMapper<Permission>());
-            SqlMapper.SetTypeMap(typeof(Icon), new ColumnAttributeTypeMapper<Icon>());
-            SqlMapper.SetTypeMap(typeof(Log), new ColumnAttributeTypeMapper<Log>());
-            SqlMapper.SetTypeMap(typeof(InformationSchema), new ColumnAttributeTypeMapper<InformationSchema>());
+            var pro = typeof(CoreApiContext).GetProperties();
+            foreach (var type in pro)
+            {
+                if (type.ToString().Contains(typeof(DbSet<>).FullName))
+                {
+                    var type2 = type.PropertyType.GenericTypeArguments[default];
+                    SqlMapper.SetTypeMap(type2, new ColumnAttributeTypeMapper(type2));
+                }
+            }
+
+            SqlMapper.SetTypeMap(typeof(InformationSchema), new ColumnAttributeTypeMapper(typeof(InformationSchema)));
         }
 
         public class InformationSchema

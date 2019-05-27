@@ -20,7 +20,6 @@ namespace Dapper
         static SimpleCRUD()
         {
             SetDialect(_dialect);
-            DapperExtension.SetTypeMap();
         }
 
         private static Dialect _dialect = Dialect.SQLServer;

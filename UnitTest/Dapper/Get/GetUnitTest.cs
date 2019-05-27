@@ -27,15 +27,18 @@ namespace Core.UnitTest.Dapper
         [Test]
         public void TestFindAllByExpression()
         {
-            User user = DapperExtension.Connection.QueryFirstOrDefault<User>("SELECT * FROM [user]");
-            if (user != null)
+            using (var dapper = DapperExtension.Connection)
             {
-                var users = DapperExtension.Connection.FindAll<User>(o => o.Id, user.Id);
-                Assert.AreEqual(users.Count, 1);
-                user = DapperExtension.Connection.Find<User>(user.Id);
-                Assert.IsNotNull(user);
-                var roles = DapperExtension.Connection.FindAll<Role>();
-                Assert.IsNotNull(roles);
+                User user = DapperExtension.Connection.QueryFirstOrDefault<User>("SELECT * FROM [user]");
+                if (user != null)
+                {
+                    var users = dapper.FindAll<User>(o => o.Id, user.Id);
+                    Assert.AreEqual(users.Count, 1);
+                    user = dapper.Find<User>(user.Id);
+                    Assert.IsNotNull(user);
+                    var roles = dapper.FindAll<Role>();
+                    Assert.IsNotNull(roles);
+                }
             }
         }
 
