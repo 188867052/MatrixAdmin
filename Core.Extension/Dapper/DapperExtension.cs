@@ -59,9 +59,15 @@ namespace Core.Extension.Dapper
             }
         }
 
+        public static string ToProperty(string field)
+        {
+            var array = field.Split('_');
+            return array.Aggregate<string, string>(default, (current, item) => current + char.ToUpper(item[0]) + item.Substring(1));
+        }
+
         public static IEnumerable<string> GetColumns<T>()
         {
-            return GetTableInfo<T>().Select(x => x.ColumnName);
+            return GetTableInfo<T>().Select(x => x.ColumnName).Distinct();
         }
 
         public static string GetColumn<T>(string propertyName)
@@ -77,6 +83,11 @@ namespace Core.Extension.Dapper
         public static string GetKey<T>()
         {
             return GetTableInfo<T>().First(o => o.IsPrimaryKey).ColumnName;
+        }
+
+        public static bool HasMultipleKey<T>()
+        {
+            return GetTableInfo<T>().Count(o => o.IsPrimaryKey) > 1;
         }
 
         public static string GetTableName<T>()

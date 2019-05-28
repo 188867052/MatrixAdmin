@@ -24,7 +24,7 @@ namespace Dapper
 
         private static Dialect _dialect = Dialect.SQLServer;
         private static string _encapsulation;
-        private static string _identitySql;
+        private static string _getIdentitySql;
         private static string _pagedListSql;
         private static readonly ConcurrentDictionary<Type, string> TableNames = new ConcurrentDictionary<Type, string>();
         private static readonly ConcurrentDictionary<string, string> ColumnNames = new ConcurrentDictionary<string, string>();
@@ -65,25 +65,25 @@ namespace Dapper
                 case Dialect.PostgreSQL:
                     _dialect = Dialect.PostgreSQL;
                     _encapsulation = "\"{0}\"";
-                    _identitySql = string.Format("SELECT LASTVAL() AS id");
+                    _getIdentitySql = string.Format("SELECT LASTVAL() AS id");
                     _pagedListSql = "Select {SelectColumns} from {TableName} {WhereClause} Order By {OrderBy} LIMIT {RowsPerPage} OFFSET (({PageNumber}-1) * {RowsPerPage})";
                     break;
                 case Dialect.SQLite:
                     _dialect = Dialect.SQLite;
                     _encapsulation = "\"{0}\"";
-                    _identitySql = string.Format("SELECT LAST_INSERT_ROWID() AS id");
+                    _getIdentitySql = string.Format("SELECT LAST_INSERT_ROWID() AS id");
                     _pagedListSql = "Select {SelectColumns} from {TableName} {WhereClause} Order By {OrderBy} LIMIT {RowsPerPage} OFFSET (({PageNumber}-1) * {RowsPerPage})";
                     break;
                 case Dialect.MySQL:
                     _dialect = Dialect.MySQL;
                     _encapsulation = "`{0}`";
-                    _identitySql = string.Format("SELECT LAST_INSERT_ID() AS id");
+                    _getIdentitySql = string.Format("SELECT LAST_INSERT_ID() AS id");
                     _pagedListSql = "Select {SelectColumns} from {TableName} {WhereClause} Order By {OrderBy} LIMIT {Offset},{RowsPerPage}";
                     break;
                 default:
                     _dialect = Dialect.SQLServer;
                     _encapsulation = "[{0}]";
-                    _identitySql = string.Format("SELECT CAST(SCOPE_IDENTITY()  AS BIGINT) AS [id]");
+                    _getIdentitySql = string.Format("SELECT CAST(SCOPE_IDENTITY()  AS BIGINT) AS [id]");
                     _pagedListSql = "SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY {OrderBy}) AS PagedNumber, {SelectColumns} FROM {TableName} {WhereClause}) AS u WHERE PagedNumber BETWEEN (({PageNumber}-1) * {RowsPerPage} + 1) AND ({PageNumber} * {RowsPerPage})";
                     break;
             }
@@ -242,35 +242,48 @@ namespace Dapper
             return connection.Query<T>(query, parameters, transaction, true, commandTimeout);
         }
 
-        public static int? Insert<T>(this IDbConnection connection, T entity, IDbTransaction transaction = null, int? commandTimeout = null)
+        private static void GetColumns<T>(T entity)
         {
-            return Insert<int?, T>(connection, entity, transaction, commandTimeout);
+            var tableName = DapperExtension.GetTableName<T>();
+            var columns = DapperExtension.GetColumns<T>();
+            foreach (var item in columns)
+            {
+                var value = entity.GetType().GetProperty(item).GetValue(item, null);
+            }
         }
 
-        public static TKey Insert<TKey, TEntity>(this IDbConnection connection, TEntity entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
+        public static dynamic Insert<TEntity>(this IDbConnection connection, TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null)
         {
+            var tableName = DapperExtension.GetTableName<TEntity>();
+            var columns = DapperExtension.GetColumns<TEntity>().ToList();
+            var newColumns = new List<string>();
+            var newProperties = new List<string>();
             string key = DapperExtension.GetKey<TEntity>();
 
-            var idProps = GetIdProperties(entityToInsert).ToList();
-            var keyHasPredefinedValue = false;
-            var baseType = typeof(TKey);
-            var underlyingType = Nullable.GetUnderlyingType(baseType);
-            var keytype = underlyingType ?? baseType;
-
-            var tableName = DapperExtension.GetTableName<TEntity>();
-            var sb = new StringBuilder($"insert into {Encapsulate(tableName)} (");
-            BuildInsertParameters<TEntity>(sb);
-            sb.Append(") values (");
-            BuildInsertValues<TEntity>(sb);
-            sb.Append(")");
-
-            var result = connection.Query(sb.ToString(), entityToInsert, transaction, true, commandTimeout);
-            if (keytype == typeof(Guid) || keyHasPredefinedValue)
+            foreach (var columnName in columns)
             {
-                return (TKey)idProps.First().GetValue(entityToInsert, null);
+                var property = typeof(TEntity).GetProperty(DapperExtension.ToProperty(columnName));
+                var value = property.GetValue(entity, null);
+                if (value != null && (DapperExtension.HasMultipleKey<TEntity>() || columnName != key))
+                {
+                    newColumns.Add(columnName);
+                    newProperties.Add(property.Name);
+                }
             }
 
-            return (TKey)result.First().id;
+            StringBuilder sb = new StringBuilder($"insert into {Encapsulate(tableName)} (");
+            sb.Append($"[{string.Join("], [", newColumns)}]");
+            sb.Append(") values (");
+            sb.Append($"@{string.Join(", @", newProperties)}");
+            sb.Append($");{_getIdentitySql}");
+            var result = connection.Query(sb.ToString(), entity, transaction, true, commandTimeout);
+
+            if (DapperExtension.HasMultipleKey<TEntity>())
+            {
+                return typeof(TEntity).GetProperty(DapperExtension.ToProperty(DapperExtension.ToProperty(key))).GetValue(entity, null);
+            }
+
+            return result.First().id;
         }
 
         public static int Update<T>(this IDbConnection connection, T entityToUpdate, IDbTransaction transaction = null, int? commandTimeout = null)
@@ -564,7 +577,6 @@ namespace Dapper
 
                 for (var i = 0; i < props.Count(); i++)
                 {
-                  
                     var property = props.ElementAt(i);
                     if (property.PropertyType != typeof(Guid) && property.PropertyType != typeof(string)
                           && property.GetCustomAttributes(true).Any(attr => attr.GetType().Name == typeof(KeyAttribute).Name)
@@ -578,6 +590,7 @@ namespace Dapper
                     {
                         continue;
                     }
+
                     sb.Append(Encapsulate(columnName));
                     if (i < props.Count() - 1)
                     {

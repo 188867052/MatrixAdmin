@@ -171,76 +171,38 @@ namespace Dapper
             return connection.QueryAsync<T>(query, parameters, transaction, commandTimeout);
         }
 
-        public static Task<int?> InsertAsync<TEntity>(this IDbConnection connection, TEntity entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
+        public static async Task<dynamic> InsertAsync<TEntity>(this IDbConnection connection, TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            return InsertAsync<int?, TEntity>(connection, entityToInsert, transaction, commandTimeout);
-        }
-
-        public static async Task<TKey> InsertAsync<TKey, TEntity>(this IDbConnection connection, TEntity entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
-        {
-            var idProps = GetIdProperties(entityToInsert).ToList();
-
-            if (!idProps.Any())
-            {
-                throw new ArgumentException("Insert<T> only supports an entity with a [Key] or Id property");
-            }
-
-            var keyHasPredefinedValue = false;
-            var baseType = typeof(TKey);
-            var underlyingType = Nullable.GetUnderlyingType(baseType);
-            var keytype = underlyingType ?? baseType;
-            if (keytype != typeof(int) && keytype != typeof(uint) && keytype != typeof(long) && keytype != typeof(ulong) && keytype != typeof(short) && keytype != typeof(ushort) && keytype != typeof(Guid) && keytype != typeof(string))
-            {
-                throw new Exception("Invalid return type");
-            }
-
             var tableName = DapperExtension.GetTableName<TEntity>();
-            var sb = new StringBuilder();
-            sb.AppendFormat("insert into {0}", Encapsulate(tableName));
-            sb.Append(" (");
-            BuildInsertParameters<TEntity>(sb);
-            sb.Append(") ");
-            sb.Append("values");
-            sb.Append(" (");
-            BuildInsertValues<TEntity>(sb);
-            sb.Append(")");
+            var columns = DapperExtension.GetColumns<TEntity>().ToList();
+            var newColumns = new List<string>();
+            var newProperties = new List<string>();
+            string key = DapperExtension.GetKey<TEntity>();
 
-            if (keytype == typeof(Guid))
+            foreach (var columnName in columns)
             {
-                var guidvalue = (Guid)idProps.First().GetValue(entityToInsert, null);
-                if (guidvalue == Guid.Empty)
+                var property = typeof(TEntity).GetProperty(DapperExtension.ToProperty(columnName));
+                var value = property.GetValue(entity, null);
+                if (value != null && (DapperExtension.HasMultipleKey<TEntity>() || columnName != key))
                 {
-                    var newguid = SequentialGuid();
-                    idProps.First().SetValue(entityToInsert, newguid, null);
-                }
-                else
-                {
-                    keyHasPredefinedValue = true;
+                    newColumns.Add(columnName);
+                    newProperties.Add(property.Name);
                 }
             }
 
-            if ((keytype == typeof(int) || keytype == typeof(long)) && Convert.ToInt64(idProps.First().GetValue(entityToInsert, null)) == 0)
+            StringBuilder sb = new StringBuilder($"insert into {Encapsulate(tableName)} (");
+            sb.Append($"[{string.Join("], [", newColumns)}]");
+            sb.Append(") values (");
+            sb.Append($"@{string.Join(", @", newProperties)}");
+            sb.Append($");{_getIdentitySql}");
+
+            var result = await connection.QueryAsync(sb.ToString(), entity, transaction, commandTimeout);
+            if (DapperExtension.HasMultipleKey<TEntity>())
             {
-                sb.Append(";" + _identitySql);
-            }
-            else
-            {
-                keyHasPredefinedValue = true;
+                return typeof(TEntity).GetProperty(DapperExtension.ToProperty(DapperExtension.ToProperty(key))).GetValue(entity, null);
             }
 
-            if (Debugger.IsAttached)
-            {
-                Trace.WriteLine(string.Format("Insert: {0}", sb));
-            }
-
-            if (keytype == typeof(Guid) || keyHasPredefinedValue)
-            {
-                await connection.ExecuteAsync(sb.ToString(), entityToInsert, transaction, commandTimeout);
-                return (TKey)idProps.First().GetValue(entityToInsert, null);
-            }
-
-            var r = await connection.QueryAsync(sb.ToString(), entityToInsert, transaction, commandTimeout);
-            return (TKey)r.First().id;
+            return result.First().id;
         }
 
         public static Task<int> UpdateAsync<TEntity>(this IDbConnection connection, TEntity entityToUpdate, IDbTransaction transaction = null, int? commandTimeout = null, System.Threading.CancellationToken? token = null)

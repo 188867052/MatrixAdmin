@@ -22,22 +22,33 @@ namespace Core.UnitTest.Dapper
             var log = new Log { LogLevel = (int)LogLevel.Information, CreateTime = DateTime.Now, Message = "TestInsertWithSpecifiedPrimaryKey" };
             var id = DapperExtension.Connection.Insert(log);
             Assert.Greater(id, 0);
-            var idTask = DapperExtension.Connection.InsertAsync<int?, Log>(log);
+        }
+
+        [Test]
+        public void TestInsertAsyncWithSpecifiedPrimaryKey()
+        {
+            var log = new Log { LogLevel = (int)LogLevel.Information, CreateTime = DateTime.Now, Message = "TestInsertWithSpecifiedPrimaryKey" };
+            var idTask = DapperExtension.Connection.InsertAsync(log);
             idTask.Wait();
-            id = idTask.Result;
+            var id = idTask.Result;
             Assert.Greater(id, 0);
         }
 
         [Test]
-        public void TestInsertWithMultiplePrimaryKeysAsync()
+        public void TestInsertWithMultiplePrimaryKeys()
         {
             var keyMaster = new MultiplePrimaryKeyTable { Id = Guid.NewGuid().ToString("N"), Name = Guid.NewGuid().ToString("N") };
-            var id = DapperExtension.Connection.Insert<string, MultiplePrimaryKeyTable>(keyMaster);
+            string id = DapperExtension.Connection.Insert(keyMaster);
             Assert.IsNotNull(id);
-            var idTask = DapperExtension.Connection.InsertAsync<string, MultiplePrimaryKeyTable>(new MultiplePrimaryKeyTable { Id = Guid.NewGuid().ToString("N"), Name = Guid.NewGuid().ToString("N") });
+        }
+
+        [Test]
+        public void TestInsertAsyncWithMultiplePrimaryKeys()
+        {
+            var idTask = DapperExtension.Connection.InsertAsync(new MultiplePrimaryKeyTable { Id = Guid.NewGuid().ToString("N"), Name = Guid.NewGuid().ToString("N") });
             idTask.Wait();
             var result = idTask.Result;
-            Assert.IsNotNull(id);
+            Assert.IsNotNull(result);
         }
     }
 }

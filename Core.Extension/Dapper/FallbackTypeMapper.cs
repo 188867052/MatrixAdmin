@@ -68,9 +68,7 @@ namespace Core.Extension.Dapper
             {
                 try
                 {
-                    var array = columnName.Split('_');
-                    string propertyName = array.Aggregate<string, string>(default, (current, item) => current + (char.ToUpper(item[0]) + item.Substring(1)));
-
+                    string propertyName = DapperExtension.ToProperty(columnName);
                     var result = mapper.GetMember(propertyName);
                     if (result != null)
                     {
