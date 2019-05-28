@@ -264,31 +264,6 @@ namespace Dapper
             BuildInsertValues<TEntity>(sb);
             sb.Append(")");
 
-            if (keytype == typeof(Guid))
-            {
-                var guidvalue = (Guid)idProps.First().GetValue(entityToInsert, null);
-                if (guidvalue == Guid.Empty)
-                {
-                    var newguid = SequentialGuid();
-                    idProps.First().SetValue(entityToInsert, newguid, null);
-                }
-                else
-                {
-                    keyHasPredefinedValue = true;
-                }
-
-                sb.Append(";select '" + idProps.First().GetValue(entityToInsert, null) + "' as id");
-            }
-
-            if ((keytype == typeof(int) || keytype == typeof(long)) && Convert.ToInt64(idProps.First().GetValue(entityToInsert, null)) == 0)
-            {
-                sb.Append(";" + _identitySql);
-            }
-            else
-            {
-                keyHasPredefinedValue = true;
-            }
-
             var result = connection.Query(sb.ToString(), entityToInsert, transaction, true, commandTimeout);
             if (keytype == typeof(Guid) || keyHasPredefinedValue)
             {
@@ -562,6 +537,11 @@ namespace Dapper
                 for (var i = 0; i < props.Count(); i++)
                 {
                     var property = props.ElementAt(i);
+                    var columnName = DapperExtension.GetColumn<T>(property.Name);
+                    if (columnName == DapperExtension.GetKey<T>())
+                    {
+                        continue;
+                    }
                     sb.AppendFormat("@{0}", property.Name);
                     if (i < props.Count() - 1)
                     {
@@ -584,6 +564,7 @@ namespace Dapper
 
                 for (var i = 0; i < props.Count(); i++)
                 {
+                  
                     var property = props.ElementAt(i);
                     if (property.PropertyType != typeof(Guid) && property.PropertyType != typeof(string)
                           && property.GetCustomAttributes(true).Any(attr => attr.GetType().Name == typeof(KeyAttribute).Name)
@@ -593,6 +574,10 @@ namespace Dapper
                     }
 
                     var columnName = DapperExtension.GetColumn<T>(property.Name);
+                    if (columnName == DapperExtension.GetKey<T>())
+                    {
+                        continue;
+                    }
                     sb.Append(Encapsulate(columnName));
                     if (i < props.Count() - 1)
                     {
