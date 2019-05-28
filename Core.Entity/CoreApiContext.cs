@@ -19,6 +19,7 @@ namespace Core.Entity
         public virtual DbSet<Icon> Icon { get; set; }
         public virtual DbSet<Log> Log { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
+        public virtual DbSet<MultiplePrimaryKeyTable> MultiplePrimaryKeyTable { get; set; }
         public virtual DbSet<Permission> Permission { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<RolePermissionMapping> RolePermissionMapping { get; set; }
@@ -196,6 +197,22 @@ namespace Core.Entity
                     .HasForeignKey(d => d.UpdateByUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Menu_User");
+            });
+
+            modelBuilder.Entity<MultiplePrimaryKeyTable>(entity =>
+            {
+                entity.HasKey(e => new { e.Id, e.Name })
+                    .HasName("pk_name");
+
+                entity.ToTable("multiple_primary_key_table");
+
+                entity.Property(e => e.Id)
+                    .HasMaxLength(50)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .IsFixedLength();
             });
 
             modelBuilder.Entity<Permission>(entity =>
@@ -394,7 +411,7 @@ namespace Core.Entity
                     .WithMany(p => p.User)
                     .HasForeignKey(d => d.UserStatusId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__User__UserStatus");
+                    .HasConstraintName("FK__user__user_status");
             });
 
             modelBuilder.Entity<UserRoleMapping>(entity =>

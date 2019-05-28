@@ -27,5 +27,17 @@ namespace Core.UnitTest.Dapper
             id = idTask.Result;
             Assert.Greater(id, 0);
         }
+
+        [Test]
+        public void TestInsertWithMultiplePrimaryKeysAsync()
+        {
+            var keyMaster = new MultiplePrimaryKeyTable { Id = Guid.NewGuid().ToString("N"), Name = Guid.NewGuid().ToString("N") };
+            var id = DapperExtension.Connection.Insert<string, MultiplePrimaryKeyTable>(keyMaster);
+            Assert.IsNotNull(id);
+            var idTask = DapperExtension.Connection.InsertAsync<string, MultiplePrimaryKeyTable>(new MultiplePrimaryKeyTable { Id = Guid.NewGuid().ToString("N"), Name = Guid.NewGuid().ToString("N") });
+            idTask.Wait();
+            var result = idTask.Result;
+            Assert.IsNotNull(id);
+        }
     }
 }

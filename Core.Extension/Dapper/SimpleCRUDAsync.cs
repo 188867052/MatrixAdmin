@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Extension.Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
@@ -193,9 +194,9 @@ namespace Dapper
                 throw new Exception("Invalid return type");
             }
 
-            var name = GetTableName(entityToInsert);
+            var tableName = DapperExtension.GetTableName<TEntity>();
             var sb = new StringBuilder();
-            sb.AppendFormat("insert into {0}", name);
+            sb.AppendFormat("insert into {0}", Encapsulate(tableName));
             sb.Append(" (");
             BuildInsertParameters<TEntity>(sb);
             sb.Append(") ");

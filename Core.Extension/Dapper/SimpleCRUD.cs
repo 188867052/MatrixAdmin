@@ -257,8 +257,8 @@ namespace Dapper
             var underlyingType = Nullable.GetUnderlyingType(baseType);
             var keytype = underlyingType ?? baseType;
 
-            var tableName = GetTableName<TEntity>();
-            var sb = new StringBuilder($"insert into {tableName} (");
+            var tableName = DapperExtension.GetTableName<TEntity>();
+            var sb = new StringBuilder($"insert into {Encapsulate(tableName)} (");
             BuildInsertParameters<TEntity>(sb);
             sb.Append(") values (");
             BuildInsertValues<TEntity>(sb);
@@ -562,27 +562,6 @@ namespace Dapper
                 for (var i = 0; i < props.Count(); i++)
                 {
                     var property = props.ElementAt(i);
-                    if (property.PropertyType != typeof(Guid) && property.PropertyType != typeof(string)
-                          && property.GetCustomAttributes(true).Any(attr => attr.GetType().Name == typeof(KeyAttribute).Name)
-                          && property.GetCustomAttributes(true).All(attr => attr.GetType().Name != typeof(RequiredAttribute).Name))
-                    {
-                        continue;
-                    }
-
-                    if (property.GetCustomAttributes(true).Any(attr =>
-                        attr.GetType().Name == typeof(IgnoreInsertAttribute).Name ||
-                        attr.GetType().Name == typeof(NotMappedAttribute).Name ||
-                        attr.GetType().Name == typeof(ReadOnlyAttribute).Name && IsReadOnly(property))
-                    )
-                    {
-                        continue;
-                    }
-
-                    if (property.Name.Equals("Id", StringComparison.OrdinalIgnoreCase) && property.GetCustomAttributes(true).All(attr => attr.GetType().Name != typeof(RequiredAttribute).Name) && property.PropertyType != typeof(Guid))
-                    {
-                        continue;
-                    }
-
                     sb.AppendFormat("@{0}", property.Name);
                     if (i < props.Count() - 1)
                     {
@@ -609,19 +588,6 @@ namespace Dapper
                     if (property.PropertyType != typeof(Guid) && property.PropertyType != typeof(string)
                           && property.GetCustomAttributes(true).Any(attr => attr.GetType().Name == typeof(KeyAttribute).Name)
                           && property.GetCustomAttributes(true).All(attr => attr.GetType().Name != typeof(RequiredAttribute).Name))
-                    {
-                        continue;
-                    }
-
-                    if (property.GetCustomAttributes(true).Any(attr =>
-                        attr.GetType().Name == typeof(IgnoreInsertAttribute).Name ||
-                        attr.GetType().Name == typeof(NotMappedAttribute).Name ||
-                        attr.GetType().Name == typeof(ReadOnlyAttribute).Name && IsReadOnly(property)))
-                    {
-                        continue;
-                    }
-
-                    if (property.Name.Equals("Id", StringComparison.OrdinalIgnoreCase) && property.GetCustomAttributes(true).All(attr => attr.GetType().Name != typeof(RequiredAttribute).Name) && property.PropertyType != typeof(Guid))
                     {
                         continue;
                     }
