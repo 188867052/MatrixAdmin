@@ -170,39 +170,11 @@ namespace Dapper
             return connection.QueryAsync<T>(query, parameters, transaction, commandTimeout);
         }
 
-        /// <summary>
-        /// <para>Inserts a row into the database asynchronously.</para>
-        /// <para>By default inserts into the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>Insert filters out Id column and any columns with the [Key] attribute.</para>
-        /// <para>Properties marked with attribute [Editable(false)] and complex types are ignored.</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// <para>Returns the ID (primary key) of the newly inserted record if it is identity using the int? type, otherwise null.</para>
-        /// </summary>
-        /// <param name="connection"></param>
-        /// <param name="entityToInsert"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>The ID (primary key) of the newly inserted record if it is identity using the int? type, otherwise null.</returns>
         public static Task<int?> InsertAsync<TEntity>(this IDbConnection connection, TEntity entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             return InsertAsync<int?, TEntity>(connection, entityToInsert, transaction, commandTimeout);
         }
 
-        /// <summary>
-        /// <para>Inserts a row into the database, using ONLY the properties defined by TEntity.</para>
-        /// <para>By default inserts into the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>Insert filters out Id column and any columns with the [Key] attribute.</para>
-        /// <para>Properties marked with attribute [Editable(false)] and complex types are ignored.</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// <para>Returns the ID (primary key) of the newly inserted record if it is identity using the defined type, otherwise null.</para>
-        /// </summary>
-        /// <param name="connection"></param>
-        /// <param name="entityToInsert"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>The ID (primary key) of the newly inserted record if it is identity using the defined type, otherwise null.</returns>
         public static async Task<TKey> InsertAsync<TKey, TEntity>(this IDbConnection connection, TEntity entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var idProps = GetIdProperties(entityToInsert).ToList();
@@ -248,7 +220,7 @@ namespace Dapper
 
             if ((keytype == typeof(int) || keytype == typeof(long)) && Convert.ToInt64(idProps.First().GetValue(entityToInsert, null)) == 0)
             {
-                sb.Append(";" + _getIdentitySql);
+                sb.Append(";" + _identitySql);
             }
             else
             {
@@ -270,20 +242,6 @@ namespace Dapper
             return (TKey)r.First().id;
         }
 
-        /// <summary>
-        ///  <para>Updates a record or records in the database asynchronously.</para>
-        ///  <para>By default updates records in the table matching the class name.</para>
-        ///  <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        ///  <para>Updates records where the Id property and properties with the [Key] attribute match those in the database.</para>
-        ///  <para>Properties marked with attribute [Editable(false)] and complex types are ignored.</para>
-        ///  <para>Supports transaction and command timeout.</para>
-        ///  <para>Returns number of rows affected.</para>
-        ///  </summary>
-        /// <param name="connection"></param>
-        /// <param name="entityToUpdate"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>The number of affected records.</returns>
         public static Task<int> UpdateAsync<TEntity>(this IDbConnection connection, TEntity entityToUpdate, IDbTransaction transaction = null, int? commandTimeout = null, System.Threading.CancellationToken? token = null)
         {
             var idProps = GetIdProperties(entityToUpdate).ToList();
@@ -312,19 +270,6 @@ namespace Dapper
             return connection.ExecuteAsync(new CommandDefinition(sb.ToString(), entityToUpdate, transaction, commandTimeout, cancellationToken: cancelToken));
         }
 
-        /// <summary>
-        /// <para>Deletes a record or records in the database that match the object passed in asynchronously.</para>
-        /// <para>-By default deletes records in the table matching the class name.</para>
-        /// <para>Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// <para>Returns the number of records affected.</para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connection"></param>
-        /// <param name="entityToDelete"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>The number of records affected.</returns>
         public static Task<int> DeleteAsync<T>(this IDbConnection connection, T entityToDelete, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var idProps = GetIdProperties(entityToDelete).ToList();
@@ -350,20 +295,6 @@ namespace Dapper
             return connection.ExecuteAsync(sb.ToString(), entityToDelete, transaction, commandTimeout);
         }
 
-        /// <summary>
-        /// <para>Deletes a record or records in the database by ID asynchronously.</para>
-        /// <para>By default deletes records in the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>Deletes records where the Id property and properties with the [Key] attribute match those in the database.</para>
-        /// <para>The number of records affected.</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connection"></param>
-        /// <param name="id"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>The number of records affected.</returns>
         public static Task<int> DeleteAsync<T>(this IDbConnection connection, object id, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var currenttype = typeof(T);
@@ -382,21 +313,6 @@ namespace Dapper
             return connection.ExecuteAsync(sb.ToString(), dynParms, transaction, commandTimeout);
         }
 
-        /// <summary>
-        /// <para>Deletes a list of records in the database.</para>
-        /// <para>By default deletes records in the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>Deletes records where that match the where clause.</para>
-        /// <para>whereConditions is an anonymous type to filter the results ex: new {Category = 1, SubCategory=2}.</para>
-        /// <para>The number of records affected.</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connection"></param>
-        /// <param name="whereConditions"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>The number of records affected.</returns>
         public static Task<int> DeleteListAsync<T>(this IDbConnection connection, object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var currenttype = typeof(T);
@@ -419,21 +335,6 @@ namespace Dapper
             return connection.ExecuteAsync(sb.ToString(), whereConditions, transaction, commandTimeout);
         }
 
-        /// <summary>
-        /// <para>Deletes a list of records in the database.</para>
-        /// <para>By default deletes records in the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>Deletes records where that match the where clause.</para>
-        /// <para>conditions is an SQL where clause ex: "where name='bob'" or "where age>=@Age".</para>
-        /// <para>parameters is an anonymous type to pass in named parameter values: new { Age = 15 }.</para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connection"></param>
-        /// <param name="conditions"></param>
-        /// <param name="parameters"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>The number of records affected.</returns>
         public static Task<int> DeleteListAsync<T>(this IDbConnection connection, string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             if (string.IsNullOrEmpty(conditions))
@@ -461,20 +362,6 @@ namespace Dapper
             return connection.ExecuteAsync(sb.ToString(), parameters, transaction, commandTimeout);
         }
 
-        /// <summary>
-        /// <para>By default queries the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>conditions is an SQL where clause ex: "where name='bob'" or "where age>=@Age" - not required. </para>
-        /// <para>parameters is an anonymous type to pass in named parameter values: new { Age = 15 }.</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// ///. </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connection"></param>
-        /// <param name="conditions"></param>
-        /// <param name="parameters"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>Returns a count of records.</returns>
         public static Task<int> RecordCountAsync<T>(this IDbConnection connection, string conditions = "", object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var currenttype = typeof(T);
@@ -492,19 +379,6 @@ namespace Dapper
             return connection.ExecuteScalarAsync<int>(sb.ToString(), parameters, transaction, commandTimeout);
         }
 
-        /// <summary>
-        /// <para>By default queries the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>Returns a number of records entity by a single id from table T.</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// <para>whereConditions is an anonymous type to filter the results ex: new {Category = 1, SubCategory=2}.</para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connection"></param>
-        /// <param name="whereConditions"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>Returns a count of records.</returns>
         public static Task<int> RecordCountAsync<T>(this IDbConnection connection, object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var currenttype = typeof(T);

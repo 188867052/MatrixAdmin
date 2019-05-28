@@ -30,6 +30,24 @@ namespace Core.UnitTest.Dapper
         }
 
         [Test]
+        public void TestDeleteListWithWhereClause()
+        {
+            Log log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT * FROM [log]");
+            if (log != null)
+            {
+                var count = DapperExtension.Connection.DeleteList<Log>($"Where id = {log.Id}");
+                Assert.AreEqual(count, 1);
+            }
+
+            log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT * FROM [log]");
+            if (log != null)
+            {
+                var count = DapperExtension.Connection.DeleteList<Log>(new { log.Id });
+                Assert.AreEqual(count, 1);
+            }
+        }
+
+        [Test]
         public void TestDeleteWithParameters()
         {
             Log log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT * FROM [log]");

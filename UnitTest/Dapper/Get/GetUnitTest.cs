@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Core.Entity;
 using Core.Extension.Dapper;
@@ -21,6 +22,19 @@ namespace Core.UnitTest.Dapper
             {
                 var users = DapperExtension.Connection.GetList<User>($"where login_name = '{user.LoginName}'");
                 Assert.IsNotNull(users);
+                users = DapperExtension.Connection.GetList<User>(new { login_name = "Strange 2" });
+                Assert.IsNotNull(users);
+            }
+        }
+
+        [Test]
+        public void TestUpdateWithSpecifiedColumnName()
+        {
+            var log = DapperExtension.Connection.FindAll<Log>().FirstOrDefault();
+            if (log != null)
+            {
+                int count = DapperExtension.Connection.Delete<Log>(log.Id);
+                Assert.AreEqual(count, 1);
             }
         }
 
@@ -53,6 +67,8 @@ namespace Core.UnitTest.Dapper
         public void TestGetListPaged()
         {
             var logs = DapperExtension.Connection.GetListPaged<Log>(2, 10, null, null);
+            Assert.IsNotNull(logs);
+            logs = DapperExtension.Connection.GetListPaged<Log>(1, 30, "where Id > @Id", null, new { Id = 14 });
             Assert.IsNotNull(logs);
         }
 

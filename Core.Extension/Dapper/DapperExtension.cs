@@ -52,16 +52,21 @@ namespace Core.Extension.Dapper
             {
                 if (_connection == null || _connection.State == ConnectionState.Closed)
                 {
-                    _connection = new SqlConnection("Data Source=.;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                    _connection = new SqlConnection("Data Source=.;App=Dapper;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
                 }
 
                 return _connection;
             }
         }
 
-        public static IEnumerable<string> GetFields<T>()
+        public static IEnumerable<string> GetColumns<T>()
         {
             return GetTableInfo<T>().Select(x => x.ColumnName);
+        }
+
+        public static string GetColumn<T>(string propertyName)
+        {
+            return GetColumns<T>().FirstOrDefault(o => o.Replace("_", string.Empty).Equals(propertyName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public static IEnumerable<TableInfo> GetTableInfo<T>()

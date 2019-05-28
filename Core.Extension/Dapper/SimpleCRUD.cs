@@ -24,7 +24,7 @@ namespace Dapper
 
         private static Dialect _dialect = Dialect.SQLServer;
         private static string _encapsulation;
-        private static string _getIdentitySql;
+        private static string _identitySql;
         private static string _pagedListSql;
         private static readonly ConcurrentDictionary<Type, string> TableNames = new ConcurrentDictionary<Type, string>();
         private static readonly ConcurrentDictionary<string, string> ColumnNames = new ConcurrentDictionary<string, string>();
@@ -65,25 +65,25 @@ namespace Dapper
                 case Dialect.PostgreSQL:
                     _dialect = Dialect.PostgreSQL;
                     _encapsulation = "\"{0}\"";
-                    _getIdentitySql = string.Format("SELECT LASTVAL() AS id");
+                    _identitySql = string.Format("SELECT LASTVAL() AS id");
                     _pagedListSql = "Select {SelectColumns} from {TableName} {WhereClause} Order By {OrderBy} LIMIT {RowsPerPage} OFFSET (({PageNumber}-1) * {RowsPerPage})";
                     break;
                 case Dialect.SQLite:
                     _dialect = Dialect.SQLite;
                     _encapsulation = "\"{0}\"";
-                    _getIdentitySql = string.Format("SELECT LAST_INSERT_ROWID() AS id");
+                    _identitySql = string.Format("SELECT LAST_INSERT_ROWID() AS id");
                     _pagedListSql = "Select {SelectColumns} from {TableName} {WhereClause} Order By {OrderBy} LIMIT {RowsPerPage} OFFSET (({PageNumber}-1) * {RowsPerPage})";
                     break;
                 case Dialect.MySQL:
                     _dialect = Dialect.MySQL;
                     _encapsulation = "`{0}`";
-                    _getIdentitySql = string.Format("SELECT LAST_INSERT_ID() AS id");
+                    _identitySql = string.Format("SELECT LAST_INSERT_ID() AS id");
                     _pagedListSql = "Select {SelectColumns} from {TableName} {WhereClause} Order By {OrderBy} LIMIT {Offset},{RowsPerPage}";
                     break;
                 default:
                     _dialect = Dialect.SQLServer;
                     _encapsulation = "[{0}]";
-                    _getIdentitySql = string.Format("SELECT CAST(SCOPE_IDENTITY()  AS BIGINT) AS [id]");
+                    _identitySql = string.Format("SELECT CAST(SCOPE_IDENTITY()  AS BIGINT) AS [id]");
                     _pagedListSql = "SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY {OrderBy}) AS PagedNumber, {SelectColumns} FROM {TableName} {WhereClause}) AS u WHERE PagedNumber BETWEEN (({PageNumber}-1) * {RowsPerPage} + 1) AND ({PageNumber} * {RowsPerPage})";
                     break;
             }
@@ -242,33 +242,23 @@ namespace Dapper
             return connection.Query<T>(query, parameters, transaction, true, commandTimeout);
         }
 
-        public static int? Insert<T>(this IDbConnection connection, T entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
+        public static int? Insert<T>(this IDbConnection connection, T entity, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            return Insert<int?, T>(connection, entityToInsert, transaction, commandTimeout);
+            return Insert<int?, T>(connection, entity, transaction, commandTimeout);
         }
 
         public static TKey Insert<TKey, TEntity>(this IDbConnection connection, TEntity entityToInsert, IDbTransaction transaction = null, int? commandTimeout = null)
         {
+            string key = DapperExtension.GetKey<TEntity>();
+
             var idProps = GetIdProperties(entityToInsert).ToList();
-
-            if (!idProps.Any())
-            {
-                throw new ArgumentException("Insert<T> only supports an entity with a [Key] or Id property");
-            }
-
             var keyHasPredefinedValue = false;
             var baseType = typeof(TKey);
             var underlyingType = Nullable.GetUnderlyingType(baseType);
             var keytype = underlyingType ?? baseType;
-            if (keytype != typeof(int) && keytype != typeof(uint) && keytype != typeof(long) && keytype != typeof(ulong) && keytype != typeof(short) && keytype != typeof(ushort) && keytype != typeof(Guid) && keytype != typeof(string))
-            {
-                throw new Exception("Invalid return type");
-            }
 
-            var name = GetTableName(entityToInsert);
-            var sb = new StringBuilder();
-            sb.AppendFormat("insert into {0}", name);
-            sb.Append(" (");
+            var tableName = GetTableName<TEntity>();
+            var sb = new StringBuilder($"insert into {tableName} (");
             BuildInsertParameters<TEntity>(sb);
             sb.Append(") values (");
             BuildInsertValues<TEntity>(sb);
@@ -292,20 +282,20 @@ namespace Dapper
 
             if ((keytype == typeof(int) || keytype == typeof(long)) && Convert.ToInt64(idProps.First().GetValue(entityToInsert, null)) == 0)
             {
-                sb.Append(";" + _getIdentitySql);
+                sb.Append(";" + _identitySql);
             }
             else
             {
                 keyHasPredefinedValue = true;
             }
 
-            var r = connection.Query(sb.ToString(), entityToInsert, transaction, true, commandTimeout);
+            var result = connection.Query(sb.ToString(), entityToInsert, transaction, true, commandTimeout);
             if (keytype == typeof(Guid) || keyHasPredefinedValue)
             {
                 return (TKey)idProps.First().GetValue(entityToInsert, null);
             }
 
-            return (TKey)r.First().id;
+            return (TKey)result.First().id;
         }
 
         public static int Update<T>(this IDbConnection connection, T entityToUpdate, IDbTransaction transaction = null, int? commandTimeout = null)
@@ -350,17 +340,10 @@ namespace Dapper
                 }
 
                 var name = GetTableName(entityToDelete);
-
-                sb.AppendFormat("delete from {0}", name);
-
-                sb.Append(" where ");
+                sb.AppendFormat("delete from {0} where ", name);
                 BuildWhere<T>(sb, idProps, entityToDelete);
-
-                if (Debugger.IsAttached)
-                {
-                    Trace.WriteLine(string.Format("Delete: {0}", sb));
-                }
             });
+
             return connection.Execute(masterSb.ToString(), entityToDelete, transaction, commandTimeout);
         }
 
@@ -384,31 +367,16 @@ namespace Dapper
             return connection.Execute(sb.ToString(), dynParms, transaction, commandTimeout);
         }
 
-        /// <summary>
-        /// <para>Deletes a list of records in the database.</para>
-        /// <para>By default deletes records in the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>Deletes records where that match the where clause.</para>
-        /// <para>whereConditions is an anonymous type to filter the results ex: new {Category = 1, SubCategory=2}.</para>
-        /// <para>The number of records affected.</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connection"></param>
-        /// <param name="whereConditions"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>The number of records affected.</returns>
         public static int DeleteList<T>(this IDbConnection connection, object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var masterSb = new StringBuilder();
             StringBuilderCache(masterSb, $"{typeof(T).FullName}_DeleteWhere{whereConditions?.GetType()?.FullName}", sb =>
             {
                 var currenttype = typeof(T);
-                var name = GetTableName(currenttype);
+                var tableName = GetTableName<T>();
 
                 var whereprops = GetAllProperties(whereConditions).ToArray();
-                sb.AppendFormat("Delete from {0}", name);
+                sb.AppendFormat("Delete from {0}", tableName);
                 if (whereprops.Any())
                 {
                     sb.Append(" where ");
@@ -423,22 +391,6 @@ namespace Dapper
             return connection.Execute(masterSb.ToString(), whereConditions, transaction, commandTimeout);
         }
 
-        /// <summary>
-        /// <para>Deletes a list of records in the database.</para>
-        /// <para>By default deletes records in the table matching the class name.</para>
-        /// <para>-Table name can be overridden by adding an attribute on your class [Table("YourTableName")].</para>
-        /// <para>Deletes records where that match the where clause.</para>
-        /// <para>conditions is an SQL where clause ex: "where name='bob'" or "where age>=@Age".</para>
-        /// <para>parameters is an anonymous type to pass in named parameter values: new { Age = 15 }.</para>
-        /// <para>Supports transaction and command timeout.</para>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="connection"></param>
-        /// <param name="conditions"></param>
-        /// <param name="parameters"></param>
-        /// <param name="transaction"></param>
-        /// <param name="commandTimeout"></param>
-        /// <returns>The number of records affected.</returns>
         public static int DeleteList<T>(this IDbConnection connection, string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var masterSb = new StringBuilder();
@@ -558,7 +510,7 @@ namespace Dapper
         {
             StringBuilderCache(stringBuilder, $"{typeof(T).Name}_BuildSelect", sb =>
             {
-                IEnumerable<string> columns = DapperExtension.GetFields<T>();
+                IEnumerable<string> columns = DapperExtension.GetColumns<T>();
                 columns.ToList().ForEach(o => GetColumnName<T>(o));
                 sb.Append(string.Join(",", columns));
             });
@@ -602,12 +554,6 @@ namespace Dapper
             }
         }
 
-        // build insert values which include all properties in the class that are:
-        // Not named Id
-        // Not marked with the Editable(false) attribute
-        // Not marked with the [Key] attribute (without required attribute)
-        // Not marked with [IgnoreInsert]
-        // Not marked with [NotMapped]
         private static void BuildInsertValues<T>(StringBuilder masterSb)
         {
             StringBuilderCache(masterSb, $"{typeof(T).FullName}_BuildInsertValues", sb =>
@@ -651,15 +597,9 @@ namespace Dapper
             });
         }
 
-        // build insert parameters which include all properties in the class that are not:
-        // marked with the Editable(false) attribute
-        // marked with the [Key] attribute
-        // marked with [IgnoreInsert]
-        // named Id
-        // marked with [NotMapped]
-        private static void BuildInsertParameters<T>(StringBuilder masterSb)
+        private static void BuildInsertParameters<T>(StringBuilder stringBuilder)
         {
-            StringBuilderCache(masterSb, $"{typeof(T).FullName}_BuildInsertParameters", sb =>
+            StringBuilderCache(stringBuilder, $"{typeof(T).FullName}_BuildInsertParameters", sb =>
             {
                 var props = GetScaffoldableProperties<T>().ToArray();
 
@@ -686,7 +626,8 @@ namespace Dapper
                         continue;
                     }
 
-                    sb.Append(GetColumnName(property));
+                    var columnName = DapperExtension.GetColumn<T>(property.Name);
+                    sb.Append(Encapsulate(columnName));
                     if (i < props.Count() - 1)
                     {
                         sb.Append(", ");
@@ -757,12 +698,6 @@ namespace Dapper
             return false;
         }
 
-        // Get all properties that are:
-        // Not named Id
-        // Not marked with the Key attribute
-        // Not marked ReadOnly
-        // Not marked IgnoreInsert
-        // Not marked NotMapped
         private static IEnumerable<PropertyInfo> GetUpdateableProperties<T>(T entity)
         {
             var updateableProperties = GetScaffoldableProperties<T>();
@@ -801,19 +736,26 @@ namespace Dapper
             return tp.Any() ? tp : type.GetProperties().Where(p => p.Name.Equals("Id", StringComparison.OrdinalIgnoreCase));
         }
 
-        // Gets the table name for this entity
-        // For Inserts and updates we have a whole entity so this method is used
-        // Uses class name by default and overrides if the class has a Table attribute
         private static string GetTableName(object entity)
         {
             var type = entity.GetType();
             return GetTableName(type);
         }
 
-        // Gets the table name for this type
-        // For Get(id) and Delete(id) we don't have an entity, just the type so this method is used
-        // Use dynamic type to be able to handle both our Table-attribute and the DataAnnotation
-        // Uses class name by default and overrides if the class has a Table attribute
+        private static string GetTableName<T>()
+        {
+            string tableName;
+            if (TableNames.TryGetValue(typeof(T), out tableName))
+            {
+                return tableName;
+            }
+
+            tableName = _tableNameResolver.ResolveTableName(typeof(T));
+            TableNames.AddOrUpdate(typeof(T), tableName, (t, v) => tableName);
+
+            return tableName;
+        }
+
         private static string GetTableName(Type type)
         {
             string tableName;
