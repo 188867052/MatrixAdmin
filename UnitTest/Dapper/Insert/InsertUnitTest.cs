@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.Entity;
 using Core.Extension.Dapper;
 using Dapper;
@@ -18,7 +19,6 @@ namespace Core.UnitTest.Dapper
         [Test]
         public void TestInsertWithSpecifiedPrimaryKey()
         {
-            // TODO: can`t set value to primary key. and cant`t set default value when a column not included.
             var log = new Log { LogLevel = (int)LogLevel.Information, CreateTime = DateTime.Now, Message = "TestInsertWithSpecifiedPrimaryKey" };
             var id = DapperExtension.Connection.Insert(log);
             Assert.Greater(id, 0);
@@ -45,10 +45,27 @@ namespace Core.UnitTest.Dapper
         [Test]
         public void TestInsertAsyncWithMultiplePrimaryKeys()
         {
-            var idTask = DapperExtension.Connection.InsertAsync(new MultiplePrimaryKeyTable { Id = Guid.NewGuid().ToString("N"), Name = Guid.NewGuid().ToString("N") });
-            idTask.Wait();
-            var result = idTask.Result;
+            Task<dynamic> task = DapperExtension.Connection.InsertAsync(new MultiplePrimaryKeyTable { Id = Guid.NewGuid().ToString("N"), Name = Guid.NewGuid().ToString("N") });
+            task.Wait();
+            var result = task.Result;
             Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void TestInsertUsingGenericLimitedFields()
+        {
+            var log = new Log { LogLevel = (int)LogLevel.Information, Message = "TestInsertWithSpecifiedPrimaryKey" };
+            var id = DapperExtension.Connection.Insert(log);
+            Assert.Greater(id, 0);
+        }
+
+        [Test]
+        public void TestInsertAsyncUsingGenericLimitedFields()
+        {
+            var log = new Log { LogLevel = (int)LogLevel.Information, Message = "TestInsertWithSpecifiedPrimaryKey" };
+            var task = DapperExtension.Connection.InsertAsync(log);
+            task.Wait();
+            Assert.IsNotNull(task.Result);
         }
     }
 }

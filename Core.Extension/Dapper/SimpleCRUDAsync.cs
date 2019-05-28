@@ -171,6 +171,11 @@ namespace Dapper
             return connection.QueryAsync<T>(query, parameters, transaction, commandTimeout);
         }
 
+        public static dynamic Default(Type type)
+        {
+            return type.IsValueType ? Activator.CreateInstance(type) : null;
+        }
+
         public static async Task<dynamic> InsertAsync<TEntity>(this IDbConnection connection, TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var tableName = DapperExtension.GetTableName<TEntity>();
@@ -182,8 +187,9 @@ namespace Dapper
             foreach (var columnName in columns)
             {
                 var property = typeof(TEntity).GetProperty(DapperExtension.ToProperty(columnName));
-                var value = property.GetValue(entity, null);
-                if (value != null && (DapperExtension.HasMultipleKey<TEntity>() || columnName != key))
+                dynamic value = property.GetValue(entity, null);
+                dynamic defaultValue = Default(property.PropertyType);
+                if (value != defaultValue && (DapperExtension.HasMultipleKey<TEntity>() || columnName != key))
                 {
                     newColumns.Add(columnName);
                     newProperties.Add(property.Name);

@@ -263,8 +263,9 @@ namespace Dapper
             foreach (var columnName in columns)
             {
                 var property = typeof(TEntity).GetProperty(DapperExtension.ToProperty(columnName));
-                var value = property.GetValue(entity, null);
-                if (value != null && (DapperExtension.HasMultipleKey<TEntity>() || columnName != key))
+                dynamic value = property.GetValue(entity, null);
+                dynamic defaultValue = Default(property.PropertyType);
+                if (value != defaultValue && (DapperExtension.HasMultipleKey<TEntity>() || columnName != key))
                 {
                     newColumns.Add(columnName);
                     newProperties.Add(property.Name);
