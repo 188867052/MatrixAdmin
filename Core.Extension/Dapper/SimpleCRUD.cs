@@ -20,29 +20,22 @@ namespace Dapper
     {
         static SimpleCRUD()
         {
-            SetDialect(_dialect);
+            _getIdentitySql = "SELECT CAST(SCOPE_IDENTITY()  AS BIGINT) AS [id]";
+            _pagedListSql = "SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY {OrderBy}) AS PagedNumber, {SelectColumns} FROM {TableName} {WhereClause}) AS u WHERE PagedNumber BETWEEN (({PageNumber}-1) * {RowsPerPage} + 1) AND ({PageNumber} * {RowsPerPage})";
         }
 
-        private static Dialect _dialect = Dialect.SQLServer;
-        private static string _encapsulation;
         private static string _getIdentitySql;
         private static string _pagedListSql;
         private static readonly ConcurrentDictionary<Type, string> TableNames = new ConcurrentDictionary<Type, string>();
         private static readonly ConcurrentDictionary<string, string> ColumnNames = new ConcurrentDictionary<string, string>();
-        private static readonly ConcurrentDictionary<string, string> StringBuilderCacheDict = new ConcurrentDictionary<string, string>();
+        private static readonly ConcurrentDictionary<string, string> StringBuilderCacheDictionary = new ConcurrentDictionary<string, string>();
         private static bool stringBuilderCacheEnabled = true;
         private static ITableNameResolver _tableNameResolver = new TableNameResolver();
         private static IColumnNameResolver _columnNameResolver = new ColumnNameResolver();
 
-        /// <summary>
-        /// Append a Cached version of a strinbBuilderAction result based on a cacheKey.
-        /// </summary>
-        /// <param name="sb"></param>
-        /// <param name="cacheKey"></param>
-        /// <param name="stringBuilderAction"></param>
         private static void StringBuilderCache(StringBuilder sb, string cacheKey, Action<StringBuilder> stringBuilderAction)
         {
-            if (stringBuilderCacheEnabled && StringBuilderCacheDict.TryGetValue(cacheKey, out string value))
+            if (stringBuilderCacheEnabled && StringBuilderCacheDictionary.TryGetValue(cacheKey, out string value))
             {
                 sb.Append(value);
                 return;
@@ -51,43 +44,8 @@ namespace Dapper
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilderAction(stringBuilder);
             value = stringBuilder.ToString();
-            StringBuilderCacheDict.AddOrUpdate(cacheKey, value, (t, v) => value);
+            StringBuilderCacheDictionary.AddOrUpdate(cacheKey, value, (t, v) => value);
             sb.Append(value);
-        }
-
-        /// <summary>
-        /// Sets the database dialect.
-        /// </summary>
-        /// <param name="dialect"></param>
-        public static void SetDialect(Dialect dialect)
-        {
-            switch (dialect)
-            {
-                case Dialect.PostgreSQL:
-                    _dialect = Dialect.PostgreSQL;
-                    _encapsulation = "\"{0}\"";
-                    _getIdentitySql = string.Format("SELECT LASTVAL() AS id");
-                    _pagedListSql = "Select {SelectColumns} from {TableName} {WhereClause} Order By {OrderBy} LIMIT {RowsPerPage} OFFSET (({PageNumber}-1) * {RowsPerPage})";
-                    break;
-                case Dialect.SQLite:
-                    _dialect = Dialect.SQLite;
-                    _encapsulation = "\"{0}\"";
-                    _getIdentitySql = string.Format("SELECT LAST_INSERT_ROWID() AS id");
-                    _pagedListSql = "Select {SelectColumns} from {TableName} {WhereClause} Order By {OrderBy} LIMIT {RowsPerPage} OFFSET (({PageNumber}-1) * {RowsPerPage})";
-                    break;
-                case Dialect.MySQL:
-                    _dialect = Dialect.MySQL;
-                    _encapsulation = "`{0}`";
-                    _getIdentitySql = string.Format("SELECT LAST_INSERT_ID() AS id");
-                    _pagedListSql = "Select {SelectColumns} from {TableName} {WhereClause} Order By {OrderBy} LIMIT {Offset},{RowsPerPage}";
-                    break;
-                default:
-                    _dialect = Dialect.SQLServer;
-                    _encapsulation = "[{0}]";
-                    _getIdentitySql = string.Format("SELECT CAST(SCOPE_IDENTITY()  AS BIGINT) AS [id]");
-                    _pagedListSql = "SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY {OrderBy}) AS PagedNumber, {SelectColumns} FROM {TableName} {WhereClause}) AS u WHERE PagedNumber BETWEEN (({PageNumber}-1) * {RowsPerPage} + 1) AND ({PageNumber} * {RowsPerPage})";
-                    break;
-            }
         }
 
         /// <summary>
@@ -308,12 +266,12 @@ namespace Dapper
             return result.First().id;
         }
 
-        public static int Update<T>(this IDbConnection connection, T entityToUpdate, IDbTransaction transaction = null, int? commandTimeout = null)
+        public static int Update<T>(this IDbConnection connection, T entity, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            var masterSb = new StringBuilder();
-            StringBuilderCache(masterSb, $"{typeof(T).FullName}_Update", sb =>
+            var stringBuilder = new StringBuilder();
+            StringBuilderCache(stringBuilder, $"{typeof(T).FullName}_Update", sb =>
             {
-                var idProps = GetIdProperties(entityToUpdate).ToList();
+                var idProps = GetIdProperties(entity).ToList();
 
                 if (!idProps.Any())
                 {
@@ -324,9 +282,10 @@ namespace Dapper
                 sb.AppendFormat("update {0} set ", tableName);
                 BuildUpdateSet<T>(sb);
                 sb.Append(" where ");
-                BuildWhere<T>(sb, idProps, entityToUpdate);
+                BuildWhere<T>(sb, idProps, entity);
             });
-            return connection.Execute(masterSb.ToString(), entityToUpdate, transaction, commandTimeout);
+
+            return connection.Execute(stringBuilder.ToString(), entity, transaction, commandTimeout);
         }
 
         public static int Delete<T>(this IDbConnection connection, T entityToDelete, IDbTransaction transaction = null, int? commandTimeout = null)
@@ -779,7 +738,7 @@ namespace Dapper
 
         private static string Encapsulate(string databaseword)
         {
-            return string.Format(_encapsulation, databaseword);
+            return string.Format("[{0}]", databaseword);
         }
 
         /// <summary>
