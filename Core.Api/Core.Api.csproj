@@ -8,12 +8,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <CodeAnalysisRuleSet>C:\Users\54215\Desktop\Study\Asp.Net\Core.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>../Core.ruleset</CodeAnalysisRuleSet>
     <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <CodeAnalysisRuleSet>C:\Users\54215\Desktop\Study\Asp.Net\Core.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>../Core.ruleset</CodeAnalysisRuleSet>
+    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
   </PropertyGroup>
 
   <ItemGroup>

@@ -33,6 +33,20 @@ namespace Core.Extension.Dapper
             }
         }
 
+        public static IDbConnection Connection
+        {
+            get
+            {
+                if (_connection == null || _connection.State == ConnectionState.Closed)
+                {
+                    _connection = new SqlConnection("Data Source=.;App=Dapper;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                }
+
+                OpenConnection();
+                return _connection;
+            }
+        }
+
         public static IEnumerable<TableInfo> Tables { get; }
 
         public static void OpenConnection()
@@ -54,20 +68,6 @@ namespace Core.Extension.Dapper
         public static IDbTransaction BeginTransaction()
         {
             return Connection.BeginTransaction();
-        }
-
-        public static IDbConnection Connection
-        {
-            get
-            {
-                if (_connection == null || _connection.State == ConnectionState.Closed)
-                {
-                    _connection = new SqlConnection("Data Source=.;App=Dapper;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-                }
-
-                OpenConnection();
-                return _connection;
-            }
         }
 
         public static string ToProperty(string field)
@@ -103,7 +103,7 @@ namespace Core.Extension.Dapper
 
         public static IList<string> GetKeys<T>()
         {
-            return GetTableInfo<T>().Where(o => o.IsPrimaryKey).Select(o=>o.ColumnName).ToList();
+            return GetTableInfo<T>().Where(o => o.IsPrimaryKey).Select(o => o.ColumnName).ToList();
         }
 
         public static bool HasMultipleKey<T>()

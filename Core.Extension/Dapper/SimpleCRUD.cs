@@ -24,8 +24,8 @@ namespace Dapper
             _pagedListSql = "SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY {OrderBy}) AS PagedNumber, {SelectColumns} FROM {TableName} {WhereClause}) AS u WHERE PagedNumber BETWEEN (({PageNumber}-1) * {RowsPerPage} + 1) AND ({PageNumber} * {RowsPerPage})";
         }
 
-        private static string _getIdentitySql;
-        private static string _pagedListSql;
+        private static readonly string _getIdentitySql;
+        private static readonly string _pagedListSql;
         private static readonly ConcurrentDictionary<Type, string> TableNames = new ConcurrentDictionary<Type, string>();
         private static readonly ConcurrentDictionary<string, string> ColumnNames = new ConcurrentDictionary<string, string>();
         private static readonly ConcurrentDictionary<string, string> StringBuilderCacheDictionary = new ConcurrentDictionary<string, string>();
@@ -777,30 +777,6 @@ namespace Dapper
             return columnName;
         }
 
-        private static string Encapsulate(string databaseword)
-        {
-            return string.Format("[{0}]", databaseword);
-        }
-
-        /// <summary>
-        /// Generates a GUID based on the current date/time
-        /// http://stackoverflow.com/questions/1752004/sequential-guid-generator-c-sharp.
-        /// </summary>
-        /// <returns></returns>
-        public static Guid SequentialGuid()
-        {
-            var tempGuid = Guid.NewGuid();
-            var bytes = tempGuid.ToByteArray();
-            var time = DateTime.Now;
-            bytes[3] = (byte)time.Year;
-            bytes[2] = (byte)time.Month;
-            bytes[1] = (byte)time.Day;
-            bytes[0] = (byte)time.Hour;
-            bytes[5] = (byte)time.Minute;
-            bytes[4] = (byte)time.Second;
-            return new Guid(bytes);
-        }
-
         public interface ITableNameResolver
         {
             string ResolveTableName(Type type);
@@ -811,6 +787,11 @@ namespace Dapper
             string ResolveColumnName(PropertyInfo propertyInfo, string name = default);
 
             string ResolveColumnName<T>(string name);
+        }
+
+        private static string Encapsulate(string databaseword)
+        {
+            return string.Format("[{0}]", databaseword);
         }
     }
 }

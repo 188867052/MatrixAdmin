@@ -77,7 +77,7 @@ namespace Core.UnitTest.Dapper
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    Log log = new Log() { Message = SimpleCRUD.SequentialGuid().ToString(), LogLevel = (int)LogLevel.None };
+                    Log log = new Log() { Message = Guid.NewGuid().ToString(), LogLevel = (int)LogLevel.None };
                     count += DapperExtension.Connection.Insert(log, transaction);
                 }
 
