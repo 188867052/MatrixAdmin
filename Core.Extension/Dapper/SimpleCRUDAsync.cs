@@ -235,33 +235,21 @@ namespace Dapper
                 Trace.WriteLine(string.Format("Update: {0}", sb));
             }
 
-            System.Threading.CancellationToken cancelToken = token ?? default(System.Threading.CancellationToken);
+            System.Threading.CancellationToken cancelToken = token ?? default;
             return connection.ExecuteAsync(new CommandDefinition(sb.ToString(), entityToUpdate, transaction, commandTimeout, cancellationToken: cancelToken));
         }
 
         public static Task<int> DeleteAsync<T>(this IDbConnection connection, T entityToDelete, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            var idProps = GetIdProperties(entityToDelete).ToList();
-
-            if (!idProps.Any())
+            var stringBuilder = new StringBuilder();
+            StringBuilderCache(stringBuilder, $"{typeof(T).FullName}_Delete", sb =>
             {
-                throw new ArgumentException("Entity must have at least one [Key] or Id property");
-            }
+                var tableName = DapperExtension.GetTableName<T>();
+                sb.AppendFormat("Delete from {0} where ", tableName);
+                BuildWhere<T>(sb);
+            });
 
-            var name = GetTableName(entityToDelete);
-
-            var sb = new StringBuilder();
-            sb.AppendFormat("delete from {0}", name);
-
-            sb.Append(" where ");
-            BuildWhere<T>(sb, idProps, entityToDelete);
-
-            if (Debugger.IsAttached)
-            {
-                Trace.WriteLine(string.Format("Delete: {0}", sb));
-            }
-
-            return connection.ExecuteAsync(sb.ToString(), entityToDelete, transaction, commandTimeout);
+            return connection.ExecuteAsync(stringBuilder.ToString(), entityToDelete, transaction, commandTimeout);
         }
 
         public static Task<int> DeleteAsync<T>(this IDbConnection connection, object id, IDbTransaction transaction = null, int? commandTimeout = null)

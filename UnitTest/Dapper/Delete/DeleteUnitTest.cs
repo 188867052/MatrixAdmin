@@ -57,5 +57,27 @@ namespace Core.UnitTest.Dapper
                 Assert.AreEqual(count, 1);
             }
         }
+
+        [Test]
+        public void TestDeleteByObject()
+        {
+            Log log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT * FROM [log]");
+            if (log != null)
+            {
+                var count = DapperExtension.Connection.Delete(log);
+                Assert.AreEqual(count, 1);
+            }
+        }
+
+        [Test]
+        public void TestDeleteByObjectAsync()
+        {
+            Log log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT * FROM [log]");
+            if (log != null)
+            {
+                var count = DapperExtension.Connection.DeleteAsync(log).Result;
+                Assert.AreEqual(count, 1);
+            }
+        }
     }
 }

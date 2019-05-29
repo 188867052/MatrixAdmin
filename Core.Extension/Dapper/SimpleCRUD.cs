@@ -317,24 +317,17 @@ namespace Dapper
             return connection.Execute(stringBuilder.ToString(), entity, transaction, commandTimeout);
         }
 
-        public static int Delete<T>(this IDbConnection connection, T entityToDelete, IDbTransaction transaction = null, int? commandTimeout = null)
+        public static int Delete<T>(this IDbConnection connection, T entity, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            var masterSb = new StringBuilder();
-            StringBuilderCache(masterSb, $"{typeof(T).FullName}_Delete", sb =>
+            var stringBuilder = new StringBuilder();
+            StringBuilderCache(stringBuilder, $"{typeof(T).FullName}_Delete", sb =>
             {
-                var idProps = GetIdProperties(entityToDelete).ToList();
-
-                if (!idProps.Any())
-                {
-                    throw new ArgumentException("Entity must have at least one [Key] or Id property");
-                }
-
-                var name = GetTableName(entityToDelete);
-                sb.AppendFormat("delete from {0} where ", name);
-                BuildWhere<T>(sb, idProps, entityToDelete);
+                var tableName = DapperExtension.GetTableName<T>();
+                sb.AppendFormat("delete from {0} where ", tableName);
+                BuildWhere<T>(sb);
             });
 
-            return connection.Execute(masterSb.ToString(), entityToDelete, transaction, commandTimeout);
+            return connection.Execute(stringBuilder.ToString(), entity, transaction, commandTimeout);
         }
 
         public static int Delete<T>(this IDbConnection connection, object id, IDbTransaction transaction = null, int? commandTimeout = null)
@@ -534,6 +527,13 @@ namespace Dapper
                     sb.AppendFormat(" and ");
                 }
             }
+        }
+
+        private static void BuildWhere<TEntity>(StringBuilder sb)
+        {
+            string key = DapperExtension.GetKey<TEntity>();
+            string propertyToUse = DapperExtension.ToProperty(key);
+            sb.AppendFormat("{0} = @{1}", key, propertyToUse);
         }
 
         private static void BuildInsertValues<T>(StringBuilder masterSb)
