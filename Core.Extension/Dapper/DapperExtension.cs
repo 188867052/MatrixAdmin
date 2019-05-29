@@ -11,8 +11,7 @@ namespace Core.Extension.Dapper
 {
     public static class DapperExtension
     {
-        public static Func<TableInfo, string, bool> Predicate = (o, entity) => o.TableName.Replace("_", default).Equals(entity, StringComparison.InvariantCultureIgnoreCase);
-        private static IEnumerable<TableInfo> _tables;
+        public static Func<TableInfo, string, bool> Predicate = (o, entity) => o.TableName.Replace("_", string.Empty).Equals(entity, StringComparison.InvariantCultureIgnoreCase);
         private static IDbConnection _connection;
 
         static DapperExtension()
@@ -22,27 +21,33 @@ namespace Core.Extension.Dapper
             {
                 if (property.ToString().Contains(typeof(DbSet<>).FullName))
                 {
-                    var type = property.PropertyType.GenericTypeArguments[default];
+                    var type = property.PropertyType.GenericTypeArguments[0];
                     SqlMapper.SetTypeMap(type, new ColumnAttributeTypeMapper(type));
                 }
             }
+
+            using (var connection = Connection)
+            {
+                string sql = $"SELECT a.name AS [TableName],case e.name when f.column_NAME then 'True'else 'false' end AS IsPrimaryKey,F.COLUMN_NAME AS ColumnName FROM sysobjects AS a LEFT JOIN sysobjects AS b ON a.id=b.parent_obj LEFT JOIN sysindexes AS c ON a.id=c.id AND b.name=c.name LEFT JOIN sysindexkeys AS d ON a.id=d.id AND c.indid=d.indid LEFT JOIN syscolumns AS e ON a.id=e.id AND d.colid=e.colid left join  INFORMATION_SCHEMA.COLUMNS f on a.name=f.TABLE_NAME WHERE a.xtype='U' AND b.xtype='PK'";
+                Tables = connection.Query<TableInfo>(sql);
+            }
         }
 
+        public static IEnumerable<TableInfo> Tables { get; }
 
-        public static IEnumerable<TableInfo> Tables
+        public static void OpenConnection()
         {
-            get
+            if (_connection.State == ConnectionState.Closed)
             {
-                if (_tables == null)
-                {
-                    using (Connection)
-                    {
-                        string sql = $"SELECT a.name AS [TableName],case e.name when f.column_NAME then 'True'else 'false' end AS IsPrimaryKey,F.COLUMN_NAME AS ColumnName FROM sysobjects AS a LEFT JOIN sysobjects AS b ON a.id=b.parent_obj LEFT JOIN sysindexes AS c ON a.id=c.id AND b.name=c.name LEFT JOIN sysindexkeys AS d ON a.id=d.id AND c.indid=d.indid LEFT JOIN syscolumns AS e ON a.id=e.id AND d.colid=e.colid left join  INFORMATION_SCHEMA.COLUMNS f on a.name=f.TABLE_NAME WHERE a.xtype='U' AND b.xtype='PK'";
-                        _tables = DapperExtension.Connection.Query<TableInfo>(sql);
-                    }
-                }
+                _connection.Open();
+            }
+        }
 
-                return _tables;
+        public static void CloseConnection()
+        {
+            if (_connection.State == ConnectionState.Open)
+            {
+                _connection.Close();
             }
         }
 
@@ -55,6 +60,7 @@ namespace Core.Extension.Dapper
                     _connection = new SqlConnection("Data Source=.;App=Dapper;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
                 }
 
+                OpenConnection();
                 return _connection;
             }
         }
@@ -63,6 +69,11 @@ namespace Core.Extension.Dapper
         {
             var array = field.Split('_');
             return array.Aggregate<string, string>(default, (current, item) => current + char.ToUpper(item[0]) + item.Substring(1));
+        }
+
+        public static string ToColumn<T>(string propertyName)
+        {
+            return GetColumn<T>(propertyName);
         }
 
         public static IEnumerable<string> GetColumns<T>()

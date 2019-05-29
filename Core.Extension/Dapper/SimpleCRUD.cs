@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using Core.Extension;
 using Core.Extension.Dapper;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Dapper
 {
@@ -176,6 +177,17 @@ namespace Dapper
         public static IList<T> FindAll<T>(this IDbConnection connection, Expression<Func<T, int>> expression, int value)
         {
             string propertyName = expression.GetPropertyName();
+            string columnName = DapperExtension.ToColumn<T>(propertyName);
+            string where = $"where {columnName} = @{propertyName}";
+            var parameters = new DynamicParameters();
+            parameters.Add("@" + propertyName, value);
+
+            return connection.GetList<T>(where, parameters).ToList();
+        }
+
+        public static IList<T> FindAll<T>(this IDbConnection connection, Expression<Func<T, string>> expression, string value)
+        {
+            string propertyName = expression.GetPropertyName();
             string where = $"where {propertyName} = @{propertyName}";
             var parameters = new DynamicParameters();
             parameters.Add("@" + propertyName, value);
@@ -195,6 +207,15 @@ namespace Dapper
             parameters.Add($"@{key}", value);
 
             return connection.GetList<T>($"where {key} = @{key}", parameters).FirstOrDefault();
+        }
+
+        public static IList<T> FindAll<T>(this IDbConnection connection, int value)
+        {
+            var key = DapperExtension.GetKey<T>();
+            var parameters = new DynamicParameters();
+            parameters.Add($"@{key}", value);
+
+            return connection.GetList<T>($"where {key} = @{key}", parameters).ToList();
         }
 
         public static IEnumerable<T> GetList<T>(this IDbConnection connection, string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
@@ -299,19 +320,11 @@ namespace Dapper
                     throw new ArgumentException("Entity must have at least one [Key] or Id property");
                 }
 
-                var name = GetTableName(entityToUpdate);
-
-                sb.AppendFormat("update {0}", name);
-
-                sb.AppendFormat(" set ");
-                BuildUpdateSet(entityToUpdate, sb);
+                var tableName = DapperExtension.GetTableName<T>();
+                sb.AppendFormat("update {0} set ", tableName);
+                BuildUpdateSet<T>(sb);
                 sb.Append(" where ");
                 BuildWhere<T>(sb, idProps, entityToUpdate);
-
-                if (Debugger.IsAttached)
-                {
-                    Trace.WriteLine(string.Format("Update: {0}", sb));
-                }
             });
             return connection.Execute(masterSb.ToString(), entityToUpdate, transaction, commandTimeout);
         }
@@ -436,23 +449,15 @@ namespace Dapper
         }
 
         // build update statement based on list on an entity
-        private static void BuildUpdateSet<T>(T entityToUpdate, StringBuilder masterSb)
+        private static void BuildUpdateSet<T>(StringBuilder stringBuilder)
         {
-            StringBuilderCache(masterSb, $"{typeof(T).FullName}_BuildUpdateSet", sb =>
+            var key = DapperExtension.GetKey<T>();
+            var nonIdProps = DapperExtension.GetColumns<T>().Where(o => o != key);
+            foreach (var item in nonIdProps)
             {
-                var nonIdProps = GetUpdateableProperties(entityToUpdate).ToArray();
-
-                for (var i = 0; i < nonIdProps.Length; i++)
-                {
-                    var property = nonIdProps[i];
-
-                    sb.AppendFormat("{0} = @{1}", GetColumnName(property, default), property.Name);
-                    if (i < nonIdProps.Length - 1)
-                    {
-                        sb.AppendFormat(", ");
-                    }
-                }
-            });
+                int index = nonIdProps.IndexOf(item);
+                stringBuilder.AppendFormat("{0}{1} = @{2}", index == 0 ? string.Empty : ",", item, DapperExtension.ToProperty(item));
+            }
         }
 
         // build select clause based on list of properties skipping ones with the IgnoreSelect and NotMapped attribute
@@ -508,7 +513,7 @@ namespace Dapper
         private static void BuildWhere<TEntity>(StringBuilder sb, IEnumerable<PropertyInfo> idProps, object whereConditions = null)
         {
             var propertyInfos = idProps.ToArray();
-            for (var i = 0; i < propertyInfos.Count(); i++)
+            for (var i = 0; i < propertyInfos.Length; i++)
             {
                 var useIsNull = false;
 

@@ -21,6 +21,41 @@ namespace Core.UnitTest.Dapper
                 Assert.AreEqual(count, 1);
                 count = DapperExtension.Connection.RecordCount<User>();
                 Assert.GreaterOrEqual(count, 0);
+                count = DapperExtension.Connection.RecordCountAsync<User>().Result;
+                Assert.GreaterOrEqual(count, 0);
+            }
+        }
+
+        [Test]
+        public void TestRecordCountAsync()
+        {
+            User user = DapperExtension.Connection.QueryFirstOrDefault<User>("SELECT * FROM [user]");
+            if (user != null)
+            {
+                int count = DapperExtension.Connection.RecordCountAsync<User>().Result;
+                Assert.GreaterOrEqual(count, 0);
+            }
+        }
+
+        [Test]
+        public void TestRecordCountByObjectAsync()
+        {
+            User user = DapperExtension.Connection.QueryFirstOrDefault<User>("SELECT * FROM [user]");
+            if (user != null)
+            {
+                int count = DapperExtension.Connection.RecordCountAsync<User>(new { Id = 10 }).Result;
+                Assert.GreaterOrEqual(count, 0);
+            }
+        }
+
+        [Test]
+        public void TestRecordCountByObjectAsyncEgnoreCase()
+        {
+            User user = DapperExtension.Connection.QueryFirstOrDefault<User>("SELECT * FROM [user]");
+            if (user != null)
+            {
+                int count = DapperExtension.Connection.RecordCountAsync<User>(new { ID = 10 }).Result;
+                Assert.GreaterOrEqual(count, 0);
             }
         }
     }

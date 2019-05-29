@@ -1,11 +1,11 @@
-﻿using Core.Extension.Dapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Extension.Dapper;
 
 namespace Dapper
 {
@@ -226,7 +226,7 @@ namespace Dapper
             sb.AppendFormat("update {0}", name);
 
             sb.AppendFormat(" set ");
-            BuildUpdateSet(entityToUpdate, sb);
+            BuildUpdateSet<TEntity>(sb);
             sb.Append(" where ");
             BuildWhere<TEntity>(sb, idProps, entityToUpdate);
 
