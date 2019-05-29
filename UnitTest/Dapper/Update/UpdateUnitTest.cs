@@ -33,16 +33,15 @@ namespace Core.UnitTest.Dapper.Update
             if (log != null)
             {
                 int count = 0;
-                using (var connection = DapperExtension.Connection)
+                using (var transaction = DapperExtension.BeginTransaction())
                 {
-                    using (var transaction = connection.BeginTransaction())
+                    for (int i = 0; i < 1000; i++)
                     {
-                        for (int i = 0; i < 1000; i++)
-                        {
-                            log.Message = Guid.NewGuid().ToString();
-                            count += DapperExtension.Connection.Update(log, transaction);
-                        }
+                        log.Message = Guid.NewGuid().ToString();
+                        count += DapperExtension.Connection.Update(log, transaction);
                     }
+
+                    transaction.Commit();
                 }
 
                 Assert.AreEqual(count, 1000);

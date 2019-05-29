@@ -51,6 +51,11 @@ namespace Core.Extension.Dapper
             }
         }
 
+        public static IDbTransaction BeginTransaction()
+        {
+            return Connection.BeginTransaction();
+        }
+
         public static IDbConnection Connection
         {
             get

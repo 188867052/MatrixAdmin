@@ -231,7 +231,7 @@ namespace Dapper
             }
         }
 
-        public static dynamic Insert<TEntity>(this IDbConnection connection, TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null)
+        public static dynamic InsertReturnKey<TEntity>(this IDbConnection connection, TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var tableName = DapperExtension.GetTableName<TEntity>();
             var columns = DapperExtension.GetColumns<TEntity>().ToList();
@@ -264,6 +264,35 @@ namespace Dapper
             }
 
             return result.First().id;
+        }
+
+        public static int Insert<T>(this IDbConnection connection, T entity, IDbTransaction transaction = null, int? commandTimeout = null)
+        {
+            var tableName = DapperExtension.GetTableName<T>();
+            var columns = DapperExtension.GetColumns<T>().ToList();
+            var newColumns = new List<string>();
+            var newProperties = new List<string>();
+            string key = DapperExtension.GetKey<T>();
+
+            foreach (var columnName in columns)
+            {
+                var property = typeof(T).GetProperty(DapperExtension.ToProperty(columnName));
+                dynamic value = property.GetValue(entity, null);
+                dynamic defaultValue = Default(property.PropertyType);
+                if (value != defaultValue && (DapperExtension.HasMultipleKey<T>() || columnName != key))
+                {
+                    newColumns.Add(columnName);
+                    newProperties.Add(property.Name);
+                }
+            }
+
+            StringBuilder sb = new StringBuilder($"insert into {Encapsulate(tableName)} (");
+            sb.Append($"[{string.Join("], [", newColumns)}]");
+            sb.Append(") values (");
+            sb.Append($"@{string.Join(", @", newProperties)}");
+            sb.Append(")");
+
+            return connection.Execute(sb.ToString(), entity, transaction, commandTimeout);
         }
 
         public static int Update<T>(this IDbConnection connection, T entity, IDbTransaction transaction = null, int? commandTimeout = null)

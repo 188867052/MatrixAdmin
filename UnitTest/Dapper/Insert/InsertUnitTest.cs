@@ -20,7 +20,7 @@ namespace Core.UnitTest.Dapper
         public void TestInsertWithSpecifiedPrimaryKey()
         {
             var log = new Log { LogLevel = (int)LogLevel.Information, CreateTime = DateTime.Now, Message = "TestInsertWithSpecifiedPrimaryKey" };
-            var id = DapperExtension.Connection.Insert(log);
+            var id = DapperExtension.Connection.InsertReturnKey(log);
             Assert.Greater(id, 0);
         }
 
@@ -38,7 +38,7 @@ namespace Core.UnitTest.Dapper
         public void TestInsertWithMultiplePrimaryKeys()
         {
             var keyMaster = new MultiplePrimaryKeyTable { Id = Guid.NewGuid().ToString("N"), Name = Guid.NewGuid().ToString("N") };
-            string id = DapperExtension.Connection.Insert(keyMaster);
+            string id = DapperExtension.Connection.InsertReturnKey(keyMaster);
             Assert.IsNotNull(id);
         }
 
@@ -55,7 +55,7 @@ namespace Core.UnitTest.Dapper
         public void TestInsertUsingGenericLimitedFields()
         {
             var log = new Log { LogLevel = (int)LogLevel.Information, Message = "TestInsertWithSpecifiedPrimaryKey" };
-            var id = DapperExtension.Connection.Insert(log);
+            var id = DapperExtension.Connection.InsertReturnKey(log);
             Assert.Greater(id, 0);
         }
 
@@ -66,6 +66,25 @@ namespace Core.UnitTest.Dapper
             var task = DapperExtension.Connection.InsertAsync(log);
             task.Wait();
             Assert.IsNotNull(task.Result);
+        }
+
+        [Test]
+        public void TestMassInsert()
+        {
+            // TODO:It is better to cache string builder.
+            int count = 0;
+            using (var transaction = DapperExtension.BeginTransaction())
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    Log log = new Log() { Message = SimpleCRUD.SequentialGuid().ToString(), LogLevel = (int)LogLevel.None };
+                    count += DapperExtension.Connection.Insert(log, transaction);
+                }
+
+                transaction.Commit();
+            }
+
+            Assert.AreEqual(count, 2);
         }
     }
 }
