@@ -62,4 +62,5 @@
     </Content>
   </ItemGroup>
   <Import Project="C:\Program Files\stylecop\sourceCode\stylecop\Tools\StyleCop\v4.7\StyleCop.targets" />
+  <ProjectExtensions><VisualStudio><UserProperties Properties_4launchSettings_1json__JSONSchema="rule" /></VisualStudio></ProjectExtensions>
 </Project>
