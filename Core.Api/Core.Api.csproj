@@ -8,11 +8,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <CodeAnalysisRuleSet>Core.Api.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet></CodeAnalysisRuleSet>
+    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <CodeAnalysisRuleSet>Core.Api.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet></CodeAnalysisRuleSet>
+    <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
   </PropertyGroup>
 
   <ItemGroup>
@@ -46,6 +48,6 @@
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties Properties_4launchSettings_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
-  <Import Project="C:\Program Files\stylecop\sourceCode\stylecop\Tools\StyleCop\v4.7\StyleCop.targets"/>
+  <Import Project="C:\Program Files\stylecop\sourceCode\stylecop\Tools\StyleCop\v4.7\StyleCop.targets" />
 
 </Project>
