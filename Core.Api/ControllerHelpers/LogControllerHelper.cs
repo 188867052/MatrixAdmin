@@ -15,6 +15,7 @@ namespace Core.Api.ControllerHelpers
             string sql = $"TRUNCATE TABLE [{nameof(Log)}]";
             CoreApiContext.Dapper.Execute(sql);
             return ResponseModelFactory.CreateInstance;
+
         }
     }
 }
