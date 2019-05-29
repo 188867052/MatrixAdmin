@@ -14,14 +14,14 @@ namespace Core.UnitTest.Dapper
         [Test]
         public void TestDeleteById()
         {
-            Log log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT * FROM [log]");
+            Log log = DapperExtension.Connection.FirstOrDefault<Log>();
             if (log != null)
             {
                 var count = DapperExtension.Connection.Delete<Log>(log.Id);
                 Assert.AreEqual(count, 1);
             }
 
-            log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT * FROM [log]");
+            log = DapperExtension.Connection.FirstOrDefault<Log>();
             if (log != null)
             {
                 var count = DapperExtension.Connection.DeleteAsync<Log>(log.Id);
@@ -32,14 +32,14 @@ namespace Core.UnitTest.Dapper
         [Test]
         public void TestDeleteListWithWhereClause()
         {
-            Log log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT * FROM [log]");
+            Log log = DapperExtension.Connection.FirstOrDefault<Log>();
             if (log != null)
             {
                 var count = DapperExtension.Connection.DeleteList<Log>($"Where id = {log.Id}");
                 Assert.AreEqual(count, 1);
             }
 
-            log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT * FROM [log]");
+            log = DapperExtension.Connection.FirstOrDefault<Log>();
             if (log != null)
             {
                 var count = DapperExtension.Connection.DeleteList<Log>(new { log.Id });
@@ -50,7 +50,7 @@ namespace Core.UnitTest.Dapper
         [Test]
         public void TestDeleteWithParameters()
         {
-            Log log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT * FROM [log]");
+            Log log = DapperExtension.Connection.FirstOrDefault<Log>();
             if (log != null)
             {
                 var count = DapperExtension.Connection.DeleteList<Log>("where Id = @Id", new { log.Id });
@@ -61,7 +61,7 @@ namespace Core.UnitTest.Dapper
         [Test]
         public void TestDeleteByObject()
         {
-            Log log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT * FROM [log]");
+            Log log = DapperExtension.Connection.FirstOrDefault<Log>();
             if (log != null)
             {
                 var count = DapperExtension.Connection.Delete(log);
@@ -72,7 +72,7 @@ namespace Core.UnitTest.Dapper
         [Test]
         public void TestDeleteByObjectAsync()
         {
-            Log log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT * FROM [log]");
+            Log log = DapperExtension.Connection.FirstOrDefault<Log>();
             if (log != null)
             {
                 var count = DapperExtension.Connection.DeleteAsync(log).Result;

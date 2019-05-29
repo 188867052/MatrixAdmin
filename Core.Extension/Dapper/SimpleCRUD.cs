@@ -115,6 +115,14 @@ namespace Dapper
             return connection.Query<T>(sb.ToString(), dynParms, transaction, true, commandTimeout).FirstOrDefault();
         }
 
+        public static T FirstOrDefault<T>(this IDbConnection connection)
+        {
+            string tableName = DapperExtension.GetTableName<T>();
+            string sql = $"SELECT  TOP 1 * FROM [{tableName}]";
+
+            return DapperExtension.Connection.QueryFirstOrDefault<T>(sql);
+        }
+
         public static IEnumerable<T> GetList<T>(this IDbConnection connection, object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var sb = new StringBuilder("Select ");

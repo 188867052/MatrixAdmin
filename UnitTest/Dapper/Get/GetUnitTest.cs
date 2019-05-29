@@ -17,7 +17,7 @@ namespace Core.UnitTest.Dapper
         [Test]
         public void TestFilteredGetList()
         {
-            User user = DapperExtension.Connection.QueryFirstOrDefault<User>("SELECT * FROM [user]");
+            User user = DapperExtension.Connection.FirstOrDefault<User>();
             if (user != null)
             {
                 var users = DapperExtension.Connection.GetList<User>($"where login_name = '{user.LoginName}'");
@@ -43,7 +43,7 @@ namespace Core.UnitTest.Dapper
         {
             using (var dapper = DapperExtension.Connection)
             {
-                User user = DapperExtension.Connection.QueryFirstOrDefault<User>("SELECT * FROM [user]");
+                User user = DapperExtension.Connection.FirstOrDefault<User>();
                 if (user != null)
                 {
                     var users = dapper.FindAll<User>(o => o.Id, user.Id);
@@ -75,18 +75,25 @@ namespace Core.UnitTest.Dapper
         [Test]
         public void TestFilteredGetListParameters()
         {
-            User user = DapperExtension.Connection.QueryFirstOrDefault<User>("SELECT * FROM [user]");
+            User user = DapperExtension.Connection.FirstOrDefault<User>();
             if (user != null)
             {
                 IEnumerable<User> users = DapperExtension.Connection.GetList<User>("where Id = @Id", new { user.Id });
                 Assert.IsNotNull(users);
                 users = DapperExtension.Connection.GetList<User>(new { user.Id });
                 Assert.IsNotNull(users);
-                users = DapperExtension.Connection.GetList<User>(new { });
-                Assert.IsNotNull(users);
-                users = DapperExtension.Connection.GetList<User>();
-                Assert.IsNotNull(users);
             }
+        }
+
+        [Test]
+        public void TestGetListWithNullWhere()
+        {
+            var users = DapperExtension.Connection.GetList<User>(null);
+            Assert.IsNotNull(users);
+            users = DapperExtension.Connection.GetList<User>(new { });
+            Assert.IsNotNull(users);
+            users = DapperExtension.Connection.GetList<User>();
+            Assert.IsNotNull(users);
         }
     }
 }
