@@ -22,7 +22,6 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Addons
         {
             return new List<string>
             {
-
                 "/font-awesome/css/font-awesome.css",
             };
         }
