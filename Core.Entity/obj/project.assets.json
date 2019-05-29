@@ -891,9 +891,6 @@
           }
         }
       },
-      "StyleCop.Analyzers/1.1.118": {
-        "type": "package"
-      },
       "System.AppContext/4.1.0": {
         "type": "package",
         "dependencies": {
@@ -2779,31 +2776,6 @@
         "runtimes/win-x86/native/sni.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
-      ]
-    },
-    "StyleCop.Analyzers/1.1.118": {
-      "sha512": "Onx6ovGSqXSK07n/0eM3ZusiNdB6cIlJdabQhWGgJp3Vooy9AaLS/tigeybOJAobqbtggTamoWndz72JscZBvw==",
-      "type": "package",
-      "path": "stylecop.analyzers/1.1.118",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE",
-        "THIRD-PARTY-NOTICES.txt",
-        "analyzers/dotnet/cs/StyleCop.Analyzers.CodeFixes.dll",
-        "analyzers/dotnet/cs/StyleCop.Analyzers.dll",
-        "analyzers/dotnet/cs/de-DE/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/en-GB/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/es-MX/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/fr-FR/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/pl-PL/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/pt-BR/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/ru-RU/StyleCop.Analyzers.resources.dll",
-        "stylecop.analyzers.1.1.118.nupkg.sha512",
-        "stylecop.analyzers.nuspec",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
       ]
     },
     "System.AppContext/4.1.0": {
@@ -5071,8 +5043,7 @@
       "Microsoft.Extensions.Identity.Core >= 3.0.0-preview-18579-0056",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.0.0-preview5-19264-04",
-      "Newtonsoft.Json >= 12.0.2",
-      "StyleCop.Analyzers >= 1.1.118"
+      "Newtonsoft.Json >= 12.0.2"
     ]
   },
   "packageFolders": {
@@ -5155,12 +5126,6 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[12.0.2, )"
-          },
-          "StyleCop.Analyzers": {
-            "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-            "suppressParent": "All",
-            "target": "Package",
-            "version": "[1.1.118, )"
           }
         },
         "imports": [
