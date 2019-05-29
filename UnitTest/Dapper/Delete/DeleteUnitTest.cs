@@ -79,5 +79,27 @@ namespace Core.UnitTest.Dapper
                 Assert.AreEqual(count, 1);
             }
         }
+
+        [Test]
+        public void TestDeleteByMultipleKeyObjectAsync()
+        {
+            MultiplePrimaryKeyTable entity = DapperExtension.Connection.QueryFirstOrDefault<MultiplePrimaryKeyTable>("SELECT top 1 * FROM [multiple_primary_key_table]");
+            if (entity != null)
+            {
+                var count = DapperExtension.Connection.DeleteAsync(entity).Result;
+                Assert.AreEqual(count, 1);
+            }
+        }
+
+        [Test]
+        public void TestDeleteByMultipleKeyObject()
+        {
+            MultiplePrimaryKeyTable entity = DapperExtension.Connection.QueryFirstOrDefault<MultiplePrimaryKeyTable>("SELECT top 1 * FROM [multiple_primary_key_table]");
+            if (entity != null)
+            {
+                var count = DapperExtension.Connection.Delete(entity);
+                Assert.AreEqual(count, 1);
+            }
+        }
     }
 }

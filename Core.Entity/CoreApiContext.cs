@@ -206,13 +206,9 @@ namespace Core.Entity
 
                 entity.ToTable("multiple_primary_key_table");
 
-                entity.Property(e => e.Id)
-                    .HasMaxLength(50)
-                    .IsFixedLength();
+                entity.Property(e => e.Id).HasMaxLength(50);
 
-                entity.Property(e => e.Name)
-                    .HasMaxLength(50)
-                    .IsFixedLength();
+                entity.Property(e => e.Name).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Permission>(entity =>

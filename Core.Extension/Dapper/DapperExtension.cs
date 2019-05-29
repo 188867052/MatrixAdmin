@@ -101,6 +101,11 @@ namespace Core.Extension.Dapper
             return GetTableInfo<T>().First(o => o.IsPrimaryKey).ColumnName;
         }
 
+        public static IList<string> GetKeys<T>()
+        {
+            return GetTableInfo<T>().Where(o => o.IsPrimaryKey).Select(o=>o.ColumnName).ToList();
+        }
+
         public static bool HasMultipleKey<T>()
         {
             return GetTableInfo<T>().Count(o => o.IsPrimaryKey) > 1;

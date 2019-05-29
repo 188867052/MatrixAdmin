@@ -531,9 +531,13 @@ namespace Dapper
 
         private static void BuildWhere<TEntity>(StringBuilder sb)
         {
-            string key = DapperExtension.GetKey<TEntity>();
-            string propertyToUse = DapperExtension.ToProperty(key);
-            sb.AppendFormat("{0} = @{1}", key, propertyToUse);
+            var keys = DapperExtension.GetKeys<TEntity>();
+            foreach (var key in keys)
+            {
+                int index = keys.IndexOf(key);
+                string propertyToUse = DapperExtension.ToProperty(key);
+                sb.AppendFormat("{0}{1} = @{2}", index == 0 ? string.Empty : " and ", key, propertyToUse);
+            }
         }
 
         private static void BuildInsertValues<T>(StringBuilder masterSb)
