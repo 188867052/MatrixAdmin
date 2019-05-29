@@ -55,7 +55,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestAddStringIsEmptyFilter()
         {
-            var a = this._coreApiContext.User.Where(o => o.LoginName == "").Expression.ToString();
+            var a = this._coreApiContext.User.Where(o => o.LoginName == string.Empty).Expression.ToString();
             var b = this._coreApiContext.User.AddStringIsEmptyFilter(o => o.LoginName).Expression.ToString();
 
             Assert.AreEqual(a, b, UnitTestResource.TestAddStringIsEmptyFilter);
