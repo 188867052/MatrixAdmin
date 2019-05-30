@@ -87,4 +87,10 @@
   <Rules AnalyzerId="Microsoft.EntityFrameworkCore.Analyzers" RuleNamespace="Microsoft.EntityFrameworkCore.Analyzers">
     <Rule Id="EF1001" Action="None" />
   </Rules>
+  <Rules AnalyzerId="Text.CSharp.Analyzers" RuleNamespace="Text.CSharp.Analyzers">
+    <Rule Id="CA1304" Action="None" />
+    <Rule Id="CA1305" Action="None" />
+    <Rule Id="CA1810" Action="None" />
+    <Rule Id="CA1307" Action="None" />
+  </Rules>
 </RuleSet>

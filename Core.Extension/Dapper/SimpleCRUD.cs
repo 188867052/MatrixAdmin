@@ -592,7 +592,7 @@ namespace Dapper
         {
             if (entity == null)
             {
-                return new PropertyInfo[0];
+                return Array.Empty<PropertyInfo>();
             }
 
             return entity.GetType().GetProperties();
