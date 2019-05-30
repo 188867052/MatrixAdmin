@@ -89,5 +89,10 @@ namespace Core.Extension.ExpressionBuilder.Generics
             this.CurrentStatementGroup.Add(statement);
             return new FilterStatementConnection(this, statement);
         }
+
+        public Expression<Func<T, bool>> ToExpression()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

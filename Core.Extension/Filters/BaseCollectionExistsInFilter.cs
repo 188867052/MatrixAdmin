@@ -35,8 +35,6 @@ namespace Core.Extension.Filters
 
         public object Value2 { get; set; }
 
-        public Expression Expression => throw new NotImplementedException();
-
         public void Validate()
         {
         }
