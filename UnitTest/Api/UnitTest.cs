@@ -14,7 +14,6 @@ using Core.UnitTest.Resource.Areas;
 using Dapper;
 using NUnit.Framework;
 
-
 namespace Core.UnitTest.Api
 {
     /// <summary>
