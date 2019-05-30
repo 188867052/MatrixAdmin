@@ -4,7 +4,7 @@ namespace Core.Web.Sidebar
 {
     public class CurrentAnchor : IRender
     {
-        public CurrentAnchor(string displayText, string toolTip, string @class)
+        public CurrentAnchor(string displayText, string @class)
         {
             this.Class = @class;
             this.DisplayText = displayText;

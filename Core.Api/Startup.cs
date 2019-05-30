@@ -67,8 +67,7 @@ namespace Core.Api
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
         /// <param name="app">app.</param>
-        /// <param name="loggerFactory">loggerFactory.</param>
-        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app)
         {
             this.SwaggerBuilder(app);
             app.UseCors("AllowSameDomain");

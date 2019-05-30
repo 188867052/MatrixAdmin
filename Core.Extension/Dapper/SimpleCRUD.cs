@@ -649,30 +649,6 @@ namespace Dapper
             return false;
         }
 
-        private static IEnumerable<PropertyInfo> GetUpdateableProperties<T>(T entity)
-        {
-            var updateableProperties = GetScaffoldableProperties<T>();
-
-            // remove ones with ID
-            updateableProperties = updateableProperties.Where(p => !p.Name.Equals("Id", StringComparison.OrdinalIgnoreCase));
-
-            // remove ones with key attribute
-            updateableProperties = updateableProperties.Where(p => p.GetCustomAttributes(true).Any(attr => attr.GetType().Name == typeof(KeyAttribute).Name) == false);
-
-            // remove ones that are readonly
-            updateableProperties = updateableProperties.Where(p => p.GetCustomAttributes(true).Any(attr => (attr.GetType().Name == typeof(ReadOnlyAttribute).Name) && IsReadOnly(p)) == false);
-
-            // remove ones with IgnoreUpdate attribute
-            updateableProperties = updateableProperties.Where(p => p.GetCustomAttributes(true).Any(attr => attr.GetType().Name == typeof(IgnoreUpdateAttribute).Name) == false);
-
-            // remove ones that are not mapped
-            updateableProperties = updateableProperties.Where(p => p.GetCustomAttributes(true).Any(attr => attr.GetType().Name == typeof(NotMappedAttribute).Name) == false);
-
-            return updateableProperties;
-        }
-
-        // Get all properties that are named Id or have the Key attribute
-        // For Inserts and updates we have a whole entity so this method is used
         private static IEnumerable<PropertyInfo> GetIdProperties(object entity)
         {
             var type = entity.GetType();

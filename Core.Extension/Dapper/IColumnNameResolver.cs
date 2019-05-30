@@ -2,13 +2,10 @@
 
 namespace Dapper
 {
-    public static partial class SimpleCRUD
+    public interface IColumnNameResolver
     {
-        public interface IColumnNameResolver
-        {
-            string ResolveColumnName(PropertyInfo propertyInfo, string name = default);
+        string ResolveColumnName(PropertyInfo propertyInfo, string name = default);
 
-            string ResolveColumnName<T>(string name);
-        }
+        string ResolveColumnName<T>(string name);
     }
 }

@@ -2,8 +2,8 @@
 {
     public class Pager
     {
-        private static readonly int defaultPageSize = 10;
-        private static readonly int defaultPageIndex = 1;
+        private const int DefaultPageSize = 10;
+        private const int DefaultPageIndex = 1;
 
         /// <summary>
         /// 分页大小.
@@ -21,8 +21,8 @@
         {
             Pager pager = new Pager
             {
-                PageSize = Pager.defaultPageSize,
-                PageIndex = Pager.defaultPageIndex,
+                PageSize = Pager.DefaultPageSize,
+                PageIndex = Pager.DefaultPageIndex,
             };
 
             return pager;
