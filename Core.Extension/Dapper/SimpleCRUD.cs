@@ -33,21 +33,6 @@ namespace Dapper
             _pagedListSql = "SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY {OrderBy}) AS PagedNumber, {SelectColumns} FROM {TableName} {WhereClause}) AS u WHERE PagedNumber BETWEEN (({PageNumber}-1) * {RowsPerPage} + 1) AND ({PageNumber} * {RowsPerPage})";
         }
 
-        private static void StringBuilderCache(StringBuilder sb, string cacheKey, Action<StringBuilder> stringBuilderAction)
-        {
-            if (stringBuilderCacheEnabled && StringBuilderCacheDictionary.TryGetValue(cacheKey, out string value))
-            {
-                sb.Append(value);
-                return;
-            }
-
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilderAction(stringBuilder);
-            value = stringBuilder.ToString();
-            StringBuilderCacheDictionary.AddOrUpdate(cacheKey, value, (t, v) => value);
-            sb.Append(value);
-        }
-
         /// <summary>
         /// Sets the table name resolver.
         /// </summary>
@@ -227,16 +212,6 @@ namespace Dapper
             query = query.Replace("{Offset}", ((pageNumber - 1) * rowsPerPage).ToString());
 
             return connection.Query<T>(query, parameters, transaction, true, commandTimeout);
-        }
-
-        private static void GetColumns<T>(T entity)
-        {
-            var tableName = DapperExtension.GetTableName<T>();
-            var columns = DapperExtension.GetColumns<T>();
-            foreach (var item in columns)
-            {
-                var value = entity.GetType().GetProperty(item).GetValue(item, null);
-            }
         }
 
         public static dynamic InsertReturnKey<TEntity>(this IDbConnection connection, TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null)
@@ -561,6 +536,7 @@ namespace Dapper
                     {
                         continue;
                     }
+
                     sb.AppendFormat("@{0}", property.Name);
                     if (i < props.Count() - 1)
                     {
@@ -714,8 +690,7 @@ namespace Dapper
 
         private static string GetTableName<T>()
         {
-            string tableName;
-            if (TableNames.TryGetValue(typeof(T), out tableName))
+            if (TableNames.TryGetValue(typeof(T), out string tableName))
             {
                 return tableName;
             }
@@ -728,9 +703,7 @@ namespace Dapper
 
         private static string GetTableName(Type type)
         {
-            string tableName;
-
-            if (TableNames.TryGetValue(type, out tableName))
+            if (TableNames.TryGetValue(type, out string tableName))
             {
                 return tableName;
             }
@@ -744,10 +717,8 @@ namespace Dapper
 
         private static string GetColumnName(PropertyInfo propertyInfo, string name = default)
         {
-            string columnName;
             string key = string.Format("{0}.{1}", propertyInfo.DeclaringType, propertyInfo.Name);
-
-            if (ColumnNames.TryGetValue(key, out columnName))
+            if (ColumnNames.TryGetValue(key, out string columnName))
             {
                 return columnName;
             }
@@ -761,37 +732,36 @@ namespace Dapper
 
         private static string GetColumnName<T>(string name)
         {
-            string columnName;
-            Type type = typeof(T);
-            string key = string.Format("{0}.{1}", type.DeclaringType, type.Name);
-
-            if (ColumnNames.TryGetValue(key, out columnName))
+            string key = string.Format("{0}.{1}", typeof(T).DeclaringType, typeof(T).Name);
+            if (ColumnNames.TryGetValue(key, out string columnName))
             {
                 return columnName;
             }
 
             columnName = _columnNameResolver.ResolveColumnName<T>(name);
-
             ColumnNames.AddOrUpdate(key, columnName, (t, v) => columnName);
 
             return columnName;
         }
 
-        public interface ITableNameResolver
-        {
-            string ResolveTableName(Type type);
-        }
-
-        public interface IColumnNameResolver
-        {
-            string ResolveColumnName(PropertyInfo propertyInfo, string name = default);
-
-            string ResolveColumnName<T>(string name);
-        }
-
         private static string Encapsulate(string databaseword)
         {
             return string.Format("[{0}]", databaseword);
+        }
+
+        private static void StringBuilderCache(StringBuilder sb, string cacheKey, Action<StringBuilder> stringBuilderAction)
+        {
+            if (stringBuilderCacheEnabled && StringBuilderCacheDictionary.TryGetValue(cacheKey, out string value))
+            {
+                sb.Append(value);
+                return;
+            }
+
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilderAction(stringBuilder);
+            value = stringBuilder.ToString();
+            StringBuilderCacheDictionary.AddOrUpdate(cacheKey, value, (t, v) => value);
+            sb.Append(value);
         }
     }
 }

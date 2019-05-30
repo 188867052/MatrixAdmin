@@ -12,7 +12,7 @@ namespace Core.Extension.ExpressionBuilder.Interfaces
         /// </summary>
         IEnumerable<IEnumerable<IFilterInfo>> Statements { get; }
 
-        IEnumerable<IFilterInfo> FilterInfos { get; }
+        IEnumerable<IFilterInfo> GetFilterInfos();
 
         IFilterStatementConnection By(IFilterInfo s2);
     }

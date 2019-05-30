@@ -11,7 +11,7 @@ namespace Core.Extension.Dapper
 {
     public static class DapperExtension
     {
-        public static Func<TableInfo, string, bool> Predicate = (o, entity) => o.TableName.Replace("_", string.Empty).Equals(entity, StringComparison.InvariantCultureIgnoreCase);
+        private static readonly Func<TableInfo, string, bool> predicate = (o, entity) => o.TableName.Replace("_", string.Empty).Equals(entity, StringComparison.InvariantCultureIgnoreCase);
         private static IDbConnection _connection;
 
         static DapperExtension()
@@ -93,7 +93,7 @@ namespace Core.Extension.Dapper
 
         public static IEnumerable<TableInfo> GetTableInfo<T>()
         {
-            return Tables.Where(o => Predicate(o, typeof(T).Name));
+            return Tables.Where(o => predicate(o, typeof(T).Name));
         }
 
         public static string GetKey<T>()

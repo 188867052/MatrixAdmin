@@ -8,10 +8,6 @@ using Core.Extension.ExpressionBuilder.Interfaces;
 
 namespace Core.Extension.ExpressionBuilder.Generics
 {
-    /// <summary>
-    /// Aggregates <see cref="FilterInfo{T}" /> and build them into a LINQ expression.
-    /// </summary>
-    [Serializable]
     public class Filter<T> : IFilter where T : class
     {
         private readonly List<List<IFilterInfo>> _statements;
@@ -25,10 +21,6 @@ namespace Core.Extension.ExpressionBuilder.Generics
             this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Filter{TClass}"/> class.
-        /// Instantiates a new <see cref="Filter{TClass}" />.
-        /// </summary>
         public Filter(IFilterInfo f1, IFilterInfo f2, Connector connector)
         {
             this._statements = new List<List<IFilterInfo>> { new List<IFilterInfo>() };
@@ -44,12 +36,9 @@ namespace Core.Extension.ExpressionBuilder.Generics
             }
         }
 
-        private List<IFilterInfo> CurrentStatementGroup => this._statements.Last();
-
-        /// <summary>
-        /// List of <see cref="IFilterInfo" /> groups that will be combined and built into a LINQ expression.
-        /// </summary>
         public IEnumerable<IEnumerable<IFilterInfo>> Statements => this._statements.ToArray();
+
+        private List<IFilterInfo> CurrentStatementGroup => this._statements.Last();
 
         public static implicit operator Expression<Func<T, bool>>(Filter<T> filter)
         {
@@ -87,15 +76,12 @@ namespace Core.Extension.ExpressionBuilder.Generics
 
         public void AddFilter(IFilter f1)
         {
-            this._statements.Add(f1.FilterInfos.ToList());
+            this._statements.Add(f1.GetFilterInfos().ToList());
         }
 
-        public IEnumerable<IFilterInfo> FilterInfos
+        public IEnumerable<IFilterInfo> GetFilterInfos()
         {
-            get
-            {
-                return this._statements.FirstOrDefault();
-            }
+            return this._statements.FirstOrDefault();
         }
 
         public IFilterStatementConnection By(IFilterInfo statement)

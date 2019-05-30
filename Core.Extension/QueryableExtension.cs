@@ -11,11 +11,11 @@ namespace Core.Extension
     /// </summary>
     public static class QueryableExtension
     {
-        private static MethodInfo whereTSource;
         private static readonly MethodInfo stringContainsMethod = typeof(string).GetMethod(nameof(string.Contains), new[] { typeof(string) });
         private static readonly MethodInfo stringEqualsMethod = typeof(string).GetMethod(nameof(string.Equals), new[] { typeof(string) });
         private static readonly MethodInfo stringEndsWithMethod = typeof(string).GetMethod(nameof(string.EndsWith), new[] { typeof(string) });
         private static readonly MethodInfo stringStartsWithMethod = typeof(string).GetMethod(nameof(string.StartsWith), new[] { typeof(string) });
+        private static MethodInfo whereTSource;
 
         public static IQueryable<T> AddDateTimeLessThanOrEqualFilter<T>(this IQueryable<T> query, DateTime? value, Expression<Func<T, DateTime?>> expression)
         {
