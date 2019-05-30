@@ -16,7 +16,7 @@ namespace Core.Api.CustomException
         /// <summary>
         /// OnAuthorization.
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">context.</param>
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             ClaimsPrincipal user = context.HttpContext.User;
@@ -28,7 +28,7 @@ namespace Core.Api.CustomException
                 // this also makes redirect to a login page work properly
                 // context.Result = new UnauthorizedResult();
                 return;
-                throw new UnauthorizeException();
+                throw new Exception();
             }
 
             // you can also use registered services

@@ -23,16 +23,18 @@ namespace Core.Api.Framework.MiddleWare
             }
             catch (Exception exception)
             {
-                CoreApiContext coreApiContext = new CoreApiContext();
-                coreApiContext.Log.Add(new Log
+                using (CoreApiContext coreApiContext = new CoreApiContext())
                 {
-                    Message = $"[1:]{exception.StackTrace}{Environment.NewLine}{Environment.NewLine}" +
-                              $"<p style=\"color:blue\">{exception.Message}</p>{Environment.NewLine}{Environment.NewLine}" +
-                              $"<p style=\"color:red\">{exception.InnerException.Message}</p>{Environment.NewLine}{Environment.NewLine}" +
-                              $"[4:]{exception.InnerException.StackTrace}",
-                    LogLevel = (int)LogLevel.Error
-                });
-                coreApiContext.SaveChanges();
+                    coreApiContext.Log.Add(new Log
+                    {
+                        Message = $"[1:]{exception.StackTrace}{Environment.NewLine}{Environment.NewLine}" +
+                                  $"<p style=\"color:blue\">{exception.Message}</p>{Environment.NewLine}{Environment.NewLine}" +
+                                  $"<p style=\"color:red\">{exception.InnerException.Message}</p>{Environment.NewLine}{Environment.NewLine}" +
+                                  $"[4:]{exception.InnerException.StackTrace}",
+                        LogLevel = (int)LogLevel.Error
+                    });
+                    coreApiContext.SaveChanges();
+                }
             }
         }
     }

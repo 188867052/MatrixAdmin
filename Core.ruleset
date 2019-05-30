@@ -12,7 +12,7 @@
     <Rule Id="CA1049" Action="Warning" />
     <Rule Id="CA1060" Action="Warning" />
     <Rule Id="CA1061" Action="Warning" />
-    <Rule Id="CA1063" Action="Warning" />
+    <Rule Id="CA1063" Action="None" />
     <Rule Id="CA1065" Action="None" />
     <Rule Id="CA1301" Action="Warning" />
     <Rule Id="CA1400" Action="Warning" />
@@ -57,10 +57,10 @@
     <Rule Id="CA2214" Action="Warning" />
     <Rule Id="CA2216" Action="Warning" />
     <Rule Id="CA2220" Action="Warning" />
-    <Rule Id="CA2229" Action="Warning" />
+    <Rule Id="CA2229" Action="None" />
     <Rule Id="CA2231" Action="Warning" />
     <Rule Id="CA2232" Action="Warning" />
-    <Rule Id="CA2235" Action="Warning" />
+    <Rule Id="CA2235" Action="None" />
     <Rule Id="CA2236" Action="Warning" />
     <Rule Id="CA2237" Action="Warning" />
     <Rule Id="CA2238" Action="Warning" />
@@ -101,12 +101,23 @@
     <Rule Id="CA1720" Action="None" />
     <Rule Id="CA1052" Action="None" />
     <Rule Id="CA1822" Action="None" />
+    <Rule Id="CA1716" Action="None" />
+    <Rule Id="CA1724" Action="None" />
+    <Rule Id="CA1063" Action="None" />
+    <Rule Id="CA1056" Action="None" />
+    <Rule Id="CA1040" Action="None" />
+    <Rule Id="CA1010" Action="None" />
+    <Rule Id="CA1031" Action="None" />
   </Rules>
   <Rules AnalyzerId="Microsoft.CodeQuality.CSharp.Analyzers" RuleNamespace="Microsoft.CodeQuality.CSharp.Analyzers">
     <Rule Id="CA2234" Action="None" />
     <Rule Id="CA1065" Action="None" />
+    <Rule Id="CA1032" Action="None" />
   </Rules>
   <Rules AnalyzerId="Microsoft.NetCore.Analyzers" RuleNamespace="Microsoft.NetCore.Analyzers">
     <Rule Id="CA1820" Action="None" />
+    <Rule Id="CA2235" Action="None" />
+    <Rule Id="CA2229" Action="None" />
+    <Rule Id="CA1816" Action="None" />
   </Rules>
 </RuleSet>
