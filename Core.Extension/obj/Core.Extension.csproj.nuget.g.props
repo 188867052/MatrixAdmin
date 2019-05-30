@@ -24,6 +24,7 @@
     <Pkgxunit_analyzers Condition=" '$(Pkgxunit_analyzers)' == '' ">C:\Users\54215\.nuget\packages\xunit.analyzers\0.10.0</Pkgxunit_analyzers>
     <PkgText_Analyzers Condition=" '$(PkgText_Analyzers)' == '' ">C:\Users\54215\.nuget\packages\text.analyzers\2.6.4</PkgText_Analyzers>
     <PkgStyleCop_Analyzers Condition=" '$(PkgStyleCop_Analyzers)' == '' ">C:\Users\54215\.nuget\packages\stylecop.analyzers\1.1.118</PkgStyleCop_Analyzers>
+    <PkgMicrosoft_VisualStudio_Threading_Analyzers Condition=" '$(PkgMicrosoft_VisualStudio_Threading_Analyzers)' == '' ">C:\Users\54215\.nuget\packages\microsoft.visualstudio.threading.analyzers\16.0.102</PkgMicrosoft_VisualStudio_Threading_Analyzers>
     <PkgMicrosoft_NetCore_Analyzers Condition=" '$(PkgMicrosoft_NetCore_Analyzers)' == '' ">C:\Users\54215\.nuget\packages\microsoft.netcore.analyzers\2.9.2</PkgMicrosoft_NetCore_Analyzers>
     <PkgMicrosoft_CodeQuality_Analyzers Condition=" '$(PkgMicrosoft_CodeQuality_Analyzers)' == '' ">C:\Users\54215\.nuget\packages\microsoft.codequality.analyzers\2.9.2</PkgMicrosoft_CodeQuality_Analyzers>
   </PropertyGroup>

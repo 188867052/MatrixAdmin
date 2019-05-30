@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using Core.Api.Controllers;
 using Core.Entity;
 using Core.Extension;
@@ -23,10 +24,10 @@ namespace Core.UnitTest.Api
     public class UnitTest
     {
         [Test]
-        public void TestGetUserDataList()
+        public async Task TestGetUserDataListAsync()
         {
             var url = new Url(typeof(DataListController), nameof(DataListController.GetUserDataList));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<UserModel>>(url).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<IList<UserModel>>(url);
             IList<UserModel> users = (IList<UserModel>)model.Data;
 
             Assert.GreaterOrEqual(users.Count, 0);
@@ -34,10 +35,10 @@ namespace Core.UnitTest.Api
         }
 
         [Test]
-        public void TestGetRoleDataList()
+        public async Task TestGetRoleDataListAsync()
         {
             var url = new Url(typeof(DataListController), nameof(DataListController.GetRoleDataList));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<RoleModel>>(url).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<IList<RoleModel>>(url);
             IList<RoleModel> roles = (IList<RoleModel>)model.Data;
 
             Assert.GreaterOrEqual(roles.Count, 0);
@@ -45,10 +46,10 @@ namespace Core.UnitTest.Api
         }
 
         [Test]
-        public void TestGetMenuDataList()
+        public async Task TestGetMenuDataListAsync()
         {
             var url = new Url(typeof(DataListController), nameof(DataListController.GetMenuDataList));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<MenuModel>>(url).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<IList<MenuModel>>(url);
             IList<MenuModel> menus = (IList<MenuModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
@@ -56,10 +57,10 @@ namespace Core.UnitTest.Api
         }
 
         [Test]
-        public void TestUserIndex()
+        public async Task TestUserIndexAsync()
         {
             var url = new Url(typeof(UserController), nameof(UserController.Index));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<UserModel>>(url).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<IList<UserModel>>(url);
             IList<UserModel> menus = (IList<UserModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
@@ -67,10 +68,10 @@ namespace Core.UnitTest.Api
         }
 
         [Test]
-        public void TestRoleIndex()
+        public async Task TestRoleIndexAsync()
         {
             var url = new Url(typeof(RoleController), nameof(RoleController.Index));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<RoleModel>>(url).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<IList<RoleModel>>(url);
             IList<RoleModel> menus = (IList<RoleModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
@@ -78,10 +79,10 @@ namespace Core.UnitTest.Api
         }
 
         [Test]
-        public void TestMenuIndex()
+        public async Task TestMenuIndexAsync()
         {
             var url = new Url(typeof(MenuController), nameof(MenuController.Index));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<MenuModel>>(url).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<IList<MenuModel>>(url);
             IList<MenuModel> menus = (IList<MenuModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
@@ -89,10 +90,10 @@ namespace Core.UnitTest.Api
         }
 
         [Test]
-        public void TestLogIndex()
+        public async Task TestLogIndexAsync()
         {
             var url = new Url(typeof(LogController), nameof(LogController.Index));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<LogModel>>(url).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<IList<LogModel>>(url);
             IList<LogModel> menus = (IList<LogModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
@@ -100,10 +101,10 @@ namespace Core.UnitTest.Api
         }
 
         [Test]
-        public void TestUserFindById()
+        public async Task TestUserFindByIdAsync()
         {
             var url = new Url(typeof(UserController), nameof(UserController.FindById));
-            ResponseModel model = HttpClientAsync.GetAsync<UserModel>(url, 1).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<UserModel>(url, 1);
             UserModel user = (UserModel)model.Data;
 
             Assert.IsNotNull(user);
@@ -111,10 +112,10 @@ namespace Core.UnitTest.Api
         }
 
         [Test]
-        public void TestMenuFindById()
+        public async Task TestMenuFindByIdAsync()
         {
             var url = new Url(typeof(MenuController), nameof(MenuController.FindById));
-            ResponseModel model = HttpClientAsync.GetAsync<MenuModel>(url, 1).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<MenuModel>(url, 1);
             MenuModel user = (MenuModel)model.Data;
 
             Assert.IsNotNull(user);
@@ -122,10 +123,10 @@ namespace Core.UnitTest.Api
         }
 
         [Test]
-        public void TestRoleFindById()
+        public async Task TestRoleFindByIdAsync()
         {
             var url = new Url(typeof(RoleController), nameof(RoleController.FindById));
-            ResponseModel model = HttpClientAsync.GetAsync<RoleModel>(url, 1).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<RoleModel>(url, 1);
             RoleModel user = (RoleModel)model.Data;
 
             Assert.IsNotNull(user);
@@ -135,20 +136,21 @@ namespace Core.UnitTest.Api
         /// <summary>
         /// Test enable user.
         /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous unit test.</returns>
         [Test]
-        public void TestEnableUser()
+        public async Task TestEnableUserAsync()
         {
             User user = DapperExtension.Connection.QueryFirst<User>("SELECT * FROM [User] WHERE is_enable = @IsEnable", new { IsEnable = true });
             if (user != null)
             {
                 var url = new Url(typeof(UserController), nameof(UserController.DisEnable));
-                ResponseModel model = HttpClientAsync.DeleteAsync(url, user.Id).Result;
+                ResponseModel model = await HttpClientAsync.DeleteAsync(url, user.Id);
                 Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
                 user = DapperExtension.Connection.QueryFirst<User>("SELECT * FROM [User] WHERE id = @id", new { user.Id });
                 Assert.IsFalse(user.IsEnable, UnitTestResource.DisEnableFail);
 
                 url = new Url(typeof(UserController), nameof(UserController.Enable));
-                model = HttpClientAsync.DeleteAsync(url, user.Id).Result;
+                model = await HttpClientAsync.DeleteAsync(url, user.Id);
                 Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
                 user = DapperExtension.Connection.QueryFirst<User>("SELECT * FROM [User] WHERE id = @id", new { user.Id });
                 Assert.IsTrue(user.IsEnable, UnitTestResource.EnableFail);

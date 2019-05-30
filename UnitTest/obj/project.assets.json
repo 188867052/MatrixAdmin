@@ -2175,6 +2175,12 @@
           "lib/netstandard1.0/Microsoft.UnitTestFramework.Extensions.dll": {}
         }
       },
+      "Microsoft.VisualStudio.Threading.Analyzers/16.0.102": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.VisualStudio.Threading.Analyzers.targets": {}
+        }
+      },
       "Microsoft.VisualStudio.Web.BrowserLink/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -4373,6 +4379,7 @@
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
+          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Swashbuckle.AspNetCore": "5.0.0-rc2",
@@ -4397,6 +4404,7 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.NetCore.Analyzers": "2.9.2",
+          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "xunit": "2.4.1",
@@ -4418,6 +4426,7 @@
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
           "Microsoft.NetCore.Analyzers": "2.9.2",
+          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "xunit": "2.4.1",
@@ -4454,6 +4463,7 @@
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
+          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "System.IdentityModel.Tokens.Jwt": "5.4.0",
@@ -4490,6 +4500,7 @@
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
           "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
+          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.BrowserLink": "2.2.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
@@ -4513,6 +4524,7 @@
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.NetCore.Analyzers": "2.9.2",
+          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "xunit": "2.4.1",
@@ -4548,6 +4560,7 @@
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
+          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Swashbuckle.AspNetCore.SwaggerUI": "5.0.0-rc2",
@@ -4587,6 +4600,7 @@
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
+          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Swashbuckle.AspNetCore.SwaggerUI": "5.0.0-rc2",
@@ -4610,6 +4624,7 @@
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview5.19227.1",
           "Microsoft.NetCore.Analyzers": "2.9.2",
+          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Newtonsoft.Json": "12.0.2",
           "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
@@ -4640,6 +4655,7 @@
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.NetCore.Analyzers": "2.9.2",
+          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "xunit": "2.4.1",
@@ -7136,6 +7152,40 @@
         "lib/uap10.0/Microsoft.UnitTestFramework.Extensions.xml",
         "microsoft.unittestframework.extensions.2.0.0.nupkg.sha512",
         "microsoft.unittestframework.extensions.nuspec"
+      ]
+    },
+    "Microsoft.VisualStudio.Threading.Analyzers/16.0.102": {
+      "sha512": "84LjaPupgRCopp/iDEAK3dzuUOXaM278fbgcPPs6CsAwoLHue1RLwpErVNFIAsL1LXPloSE4gvov7CNw7uqqYg==",
+      "type": "package",
+      "path": "microsoft.visualstudio.threading.analyzers/16.0.102",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "analyzers/cs/Microsoft.VisualStudio.Threading.Analyzers.CodeFixes.dll",
+        "analyzers/cs/Microsoft.VisualStudio.Threading.Analyzers.dll",
+        "analyzers/cs/cs/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
+        "analyzers/cs/de/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
+        "analyzers/cs/es/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
+        "analyzers/cs/fr/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
+        "analyzers/cs/it/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
+        "analyzers/cs/ja/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
+        "analyzers/cs/ko/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
+        "analyzers/cs/pl/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
+        "analyzers/cs/pt-BR/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
+        "analyzers/cs/ru/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
+        "analyzers/cs/tr/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
+        "analyzers/cs/zh-Hans/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
+        "analyzers/cs/zh-Hant/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
+        "build/AdditionalFiles/vs-threading.LegacyThreadSwitchingMembers.txt",
+        "build/AdditionalFiles/vs-threading.MainThreadAssertingMethods.txt",
+        "build/AdditionalFiles/vs-threading.MainThreadSwitchingMethods.txt",
+        "build/AdditionalFiles/vs-threading.MembersRequiringMainThread.txt",
+        "build/Microsoft.VisualStudio.Threading.Analyzers.targets",
+        "microsoft.visualstudio.threading.analyzers.16.0.102.nupkg.sha512",
+        "microsoft.visualstudio.threading.analyzers.nuspec",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
       ]
     },
     "Microsoft.VisualStudio.Web.BrowserLink/2.2.0": {
@@ -13227,6 +13277,7 @@
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.NetCore.Analyzers >= 2.9.2",
       "Microsoft.UnitTestFramework.Extensions >= 2.0.0",
+      "Microsoft.VisualStudio.Threading.Analyzers >= 16.0.102",
       "NUnit >= 3.12.0",
       "NUnit3TestAdapter >= 3.13.0",
       "Newtonsoft.Json >= 12.0.2",
@@ -13333,6 +13384,10 @@
           "Microsoft.UnitTestFramework.Extensions": {
             "target": "Package",
             "version": "[2.0.0, )"
+          },
+          "Microsoft.VisualStudio.Threading.Analyzers": {
+            "target": "Package",
+            "version": "[16.0.102, )"
           },
           "NUnit": {
             "target": "Package",

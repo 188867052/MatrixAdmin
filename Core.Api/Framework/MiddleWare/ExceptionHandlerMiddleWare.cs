@@ -15,7 +15,9 @@ namespace Core.Api.Framework.MiddleWare
             this._next = next;
         }
 
+#pragma warning disable VSTHRD200 // 对异步方法使用“Async”后缀
         public async Task Invoke(HttpContext context)
+#pragma warning restore VSTHRD200 // 对异步方法使用“Async”后缀
         {
             try
             {

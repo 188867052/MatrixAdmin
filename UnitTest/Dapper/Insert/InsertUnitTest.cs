@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Core.Entity;
 using Core.Extension.Dapper;
@@ -25,12 +23,11 @@ namespace Core.UnitTest.Dapper
         }
 
         [Test]
-        public void TestInsertAsyncWithSpecifiedPrimaryKey()
+        public async Task TestInsertAsyncWithSpecifiedPrimaryKeyAsync()
         {
             var log = new Log { LogLevel = (int)LogLevel.Information, CreateTime = DateTime.Now, Message = "TestInsertWithSpecifiedPrimaryKey" };
             var idTask = DapperExtension.Connection.InsertAsync(log);
-            idTask.Wait();
-            var id = idTask.Result;
+            var id = await idTask;
             Assert.Greater(id, 0);
         }
 
@@ -43,11 +40,10 @@ namespace Core.UnitTest.Dapper
         }
 
         [Test]
-        public void TestInsertAsyncWithMultiplePrimaryKeys()
+        public async Task TestInsertAsyncWithMultiplePrimaryKeysAsync()
         {
             Task<dynamic> task = DapperExtension.Connection.InsertAsync(new MultiplePrimaryKeyTable { Id = Guid.NewGuid().ToString("N"), Name = Guid.NewGuid().ToString("N") });
-            task.Wait();
-            var result = task.Result;
+            var result = await task;
             Assert.IsNotNull(result);
         }
 
@@ -60,12 +56,11 @@ namespace Core.UnitTest.Dapper
         }
 
         [Test]
-        public void TestInsertAsyncUsingGenericLimitedFields()
+        public async Task TestInsertAsyncUsingGenericLimitedFieldsAsync()
         {
             var log = new Log { LogLevel = (int)LogLevel.Information, Message = "TestInsertWithSpecifiedPrimaryKey" };
-            var task = DapperExtension.Connection.InsertAsync(log);
-            task.Wait();
-            Assert.IsNotNull(task.Result);
+            dynamic task = await DapperExtension.Connection.InsertAsync(log);
+            Assert.IsNotNull(task);
         }
 
         [Test]
