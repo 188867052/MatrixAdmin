@@ -1,34 +1,29 @@
-﻿using System.Diagnostics;
+﻿using System;
 using System.Linq;
 using System.Reflection;
+using Microsoft.CSharp.RuntimeBinder;
+using static Dapper.SimpleCRUD;
 
 namespace Dapper
 {
-    public static partial class SimpleCRUD
+    public class ColumnNameResolver : IColumnNameResolver
     {
-        public class ColumnNameResolver : IColumnNameResolver
+        public virtual string ResolveColumnName(PropertyInfo propertyInfo, string name = default)
         {
-            public virtual string ResolveColumnName(PropertyInfo propertyInfo, string name = default)
+            var columnName = Encapsulate(name);
+
+            var columnattr = propertyInfo.GetCustomAttributes(true).SingleOrDefault(attr => attr.GetType().Name == typeof(ColumnAttribute).Name) as dynamic;
+            if (columnattr != null)
             {
-                var columnName = Encapsulate(name);
-
-                var columnattr = propertyInfo.GetCustomAttributes(true).SingleOrDefault(attr => attr.GetType().Name == typeof(ColumnAttribute).Name) as dynamic;
-                if (columnattr != null)
-                {
-                    columnName = Encapsulate(name);
-                    if (Debugger.IsAttached)
-                    {
-                        Trace.WriteLine(string.Format("Column name for type overridden from {0} to {1}", propertyInfo.Name, columnName));
-                    }
-                }
-
-                return columnName;
+                columnName = Encapsulate(name);
             }
 
-            public virtual string ResolveColumnName<T>(string name)
-            {
-                return Encapsulate(name);
-            }
+            return columnName;
+        }
+
+        public virtual string ResolveColumnName<T>(string name)
+        {
+            return Encapsulate(name);
         }
     }
 }

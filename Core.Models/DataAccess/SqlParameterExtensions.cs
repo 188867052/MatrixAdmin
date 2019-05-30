@@ -30,10 +30,9 @@ namespace Core.Model.DataAccess
                     return;
                 }
 
-                QueryParamNameAttribute name = p.Names.FirstOrDefault() as QueryParamNameAttribute;
                 QueryParamInfo pinfo = new QueryParamInfo();
 
-                if (name != null && !string.IsNullOrWhiteSpace(name.Name))
+                if (p.Names.FirstOrDefault() is QueryParamNameAttribute name && !string.IsNullOrWhiteSpace(name.Name))
                 {
                     pinfo.Name = name.Name.Replace("@", string.Empty);
                 }

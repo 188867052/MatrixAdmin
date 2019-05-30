@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.Extension.Dapper
 {
-    public static class DapperExtension
+    public static partial class DapperExtension
     {
         private static readonly Func<TableInfo, string, bool> predicate = (o, entity) => o.TableName.Replace("_", string.Empty).Equals(entity, StringComparison.InvariantCultureIgnoreCase);
         private static IDbConnection _connection;
@@ -114,15 +114,6 @@ namespace Core.Extension.Dapper
         public static string GetTableName<T>()
         {
             return GetTableInfo<T>().First(o => o.IsPrimaryKey).TableName;
-        }
-
-        public class TableInfo
-        {
-            public string TableName { get; set; }
-
-            public string ColumnName { get; set; }
-
-            public bool IsPrimaryKey { get; set; }
         }
     }
 }

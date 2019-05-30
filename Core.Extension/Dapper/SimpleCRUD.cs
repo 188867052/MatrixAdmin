@@ -397,6 +397,11 @@ namespace Dapper
             return connection.ExecuteScalar<int>(sb.ToString(), parameters, transaction, commandTimeout);
         }
 
+        public static string Encapsulate(string databaseword)
+        {
+            return string.Format("[{0}]", databaseword);
+        }
+
         public static int RecordCount<T>(this IDbConnection connection, object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var tableName = DapperExtension.GetTableName<T>();
@@ -742,11 +747,6 @@ namespace Dapper
             ColumnNames.AddOrUpdate(key, columnName, (t, v) => columnName);
 
             return columnName;
-        }
-
-        private static string Encapsulate(string databaseword)
-        {
-            return string.Format("[{0}]", databaseword);
         }
 
         private static void StringBuilderCache(StringBuilder sb, string cacheKey, Action<StringBuilder> stringBuilderAction)

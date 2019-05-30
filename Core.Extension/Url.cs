@@ -8,9 +8,9 @@ namespace Core.Extension
         /// <summary>
         /// Initializes a new instance of the <see cref="Url"/> class.
         /// </summary>
-        /// <param name="controllerType"></param>
-        /// <param name="action"></param>
-        /// <param name="parameter"></param>
+        /// <param name="controllerType">controllerType.</param>
+        /// <param name="action">action.</param>
+        /// <param name="parameter">parameter.</param>
         public Url(Type controllerType, string action, string parameter = default)
         {
             this.Action = action;
@@ -21,10 +21,10 @@ namespace Core.Extension
         /// <summary>
         /// Initializes a new instance of the <see cref="Url"/> class.
         /// </summary>
-        /// <param name="area"></param>
-        /// <param name="controllerType"></param>
-        /// <param name="action"></param>
-        /// <param name="parameter"></param>
+        /// <param name="area">area.</param>
+        /// <param name="controllerType">controllerType.</param>
+        /// <param name="action">action.</param>
+        /// <param name="parameter">parameter.</param>
         public Url(string area, Type controllerType, string action, string parameter = default) : this(controllerType, action, parameter)
         {
             this.Area = area;

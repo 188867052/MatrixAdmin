@@ -13,7 +13,7 @@
     <Rule Id="CA1060" Action="Warning" />
     <Rule Id="CA1061" Action="Warning" />
     <Rule Id="CA1063" Action="Warning" />
-    <Rule Id="CA1065" Action="Warning" />
+    <Rule Id="CA1065" Action="None" />
     <Rule Id="CA1301" Action="Warning" />
     <Rule Id="CA1400" Action="Warning" />
     <Rule Id="CA1401" Action="Warning" />
@@ -83,6 +83,7 @@
     <Rule Id="SA1007" Action="None" />
     <Rule Id="SA0001" Action="None" />
     <Rule Id="SA1407" Action="None" />
+    <Rule Id="SA1601" Action="None" />
   </Rules>
   <Rules AnalyzerId="Microsoft.EntityFrameworkCore.Analyzers" RuleNamespace="Microsoft.EntityFrameworkCore.Analyzers">
     <Rule Id="EF1001" Action="None" />
@@ -95,5 +96,17 @@
   </Rules>
   <Rules AnalyzerId="Microsoft.CodeQuality.Analyzers" RuleNamespace="Microsoft.CodeQuality.Analyzers">
     <Rule Id="CA2227" Action="None" />
+    <Rule Id="CA2007" Action="None" />
+    <Rule Id="CA2225" Action="None" />
+    <Rule Id="CA1720" Action="None" />
+    <Rule Id="CA1052" Action="None" />
+    <Rule Id="CA1822" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.CodeQuality.CSharp.Analyzers" RuleNamespace="Microsoft.CodeQuality.CSharp.Analyzers">
+    <Rule Id="CA2234" Action="None" />
+    <Rule Id="CA1065" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.NetCore.Analyzers" RuleNamespace="Microsoft.NetCore.Analyzers">
+    <Rule Id="CA1820" Action="None" />
   </Rules>
 </RuleSet>

@@ -12,23 +12,6 @@ namespace Core.UnitTest.Filter
     public class UnitTest
     {
         [Test]
-        public void TestDataBaseConnection()
-        {
-            Exception exception = null;
-            try
-            {
-                string sql = $"UPDATE [User] SET is_deleted = @IsDeleted WHERE is_deleted = @IsDeleted";
-                CoreApiContext.Dapper.Execute(sql, new { IsDeleted = false });
-            }
-            catch (Exception e)
-            {
-                exception = e;
-            }
-
-            Assert.IsNull(exception, UnitTestResource.TestDataBaseConnection);
-        }
-
-        [Test]
         public void TestStringContainsFilter()
         {
             using (var coreApiContext = new CoreApiContext())
@@ -41,6 +24,7 @@ namespace Core.UnitTest.Filter
                 Assert.AreEqual(a, b, UnitTestResource.TestStringContainsFilter);
             }
         }
+
         [Test]
         public void TestAddStringIsNullFilter()
         {
@@ -131,6 +115,7 @@ namespace Core.UnitTest.Filter
                 Assert.AreEqual(a.Count, b.Count);
             }
         }
+
         [Test]
         public void TestAddIntegerBetweenFilter()
         {
@@ -155,6 +140,7 @@ namespace Core.UnitTest.Filter
                 Assert.AreEqual(a, b, UnitTestResource.TestAddStringStartsWithFilter);
             }
         }
+
         [Test]
         public void TestAddStringEqualFilter()
         {
