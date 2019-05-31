@@ -4,7 +4,7 @@
 前端：基于bootstrap4封装的一套组件，GridSearchFilter，Dialog，RowContextMenu，
 一些表单提交，做BS开发不用重复造轮子，js采用严格模式，兼容性好，代码量少，不用写开发人员不用写html，统一了UI，开发人员只需要写业务
 
-Example of the using grid search filters
+## Example of using grid search filters
 ```C#
 public IQueryable<Entity.User> GenerateQuery(IQueryable<Entity.User> query)
 {
@@ -20,7 +20,7 @@ public IQueryable<Entity.User> GenerateQuery(IQueryable<Entity.User> query)
 }
 ```
 
-Example of the using RowContextMenu
+## Example of using row context menu
 ```C#
 public class RoleRowContextMenu : RowContextMenu<RoleModel>
 {
@@ -50,7 +50,7 @@ public class RoleRowContextMenu : RowContextMenu<RoleModel>
 }
 ```
 
-Example of the using DialogConfiguration
+## Example of using dialog configuration
 ```C#
 public class EditUserDialogConfiguration<TPostModel, TModel> : DialogConfiguration<TPostModel, TModel>
     where TPostModel : UserEditPostModel
@@ -94,7 +94,7 @@ public class EditUserDialogConfiguration<TPostModel, TModel> : DialogConfigurati
 }
 ```
 
-Example of the using GridConfiguration
+## Example of using grid configuration
 ```C#
 public class RoleViewConfiguration<T> : GridConfiguration<T>
      where T : RoleModel
@@ -122,7 +122,7 @@ public class RoleViewConfiguration<T> : GridConfiguration<T>
 }
 ```
 
-Example of the using SearchFilterConfiguration
+## Example of using search filter configuration
 ```C#
  public class UserSearchFilterConfiguration<T> : SearchFilterConfiguration
         where T : UserPostModel
@@ -155,7 +155,7 @@ Example of the using SearchFilterConfiguration
 }
 ```
 
-Example of the using index.js
+## Example of using index.js
 ```C#
 (function () {
     'use strict';
@@ -213,7 +213,7 @@ Example of the using index.js
 })();
 ```
 
-Example of the using SearchGridPage
+## example of using search grid page
 ```C#
 public class UserIndex<TModel, TPostModel> : SearchGridPage<TModel>
      where TModel : UserModel
@@ -276,6 +276,204 @@ public class UserIndex<TModel, TPostModel> : SearchGridPage<TModel>
     protected override GridConfiguration<TModel> GridConfiguration()
     {
         return new UserViewConfiguration<TModel>(this._response);
+    }
+}
+```
+
+## Unit test of queryable extension
+```C#
+public class UnitTest
+{
+    [Test]
+    public void TestStringContainsFilter()
+    {
+        using (var context = new CoreContext())
+        {
+            IQueryable<User> query = context.User;
+            query = query.AddStringContainsFilter(o => o.LoginName, "a");
+            var a = context.User.Where(o => o.LoginName.Contains("a")).Expression.ToString();
+            var b = query.Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestStringContainsFilter);
+        }
+    }
+
+    [Test]
+    public void TestAddStringIsNullFilter()
+    {
+        using (var context = new CoreContext())
+        {
+            IQueryable<User> query = context.User;
+            query = query.AddStringIsNullFilter(o => o.LoginName);
+            var a = context.User.Where(o => o.LoginName == null).Expression.ToString();
+            var b = query.Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestAddStringIsNullFilter);
+        }
+    }
+
+    [Test]
+    public void TestAddStringIsEmptyFilter()
+    {
+        using (var context = new CoreContext())
+        {
+            var a = context.User.Where(o => o.LoginName == string.Empty).Expression.ToString();
+            var b = context.User.AddStringIsEmptyFilter(o => o.LoginName).Expression.ToString();
+
+            Assert.AreEqual(a.Replace("String.Empty", "\"\""), b, UnitTestResource.TestAddStringIsEmptyFilter);
+        }
+    }
+
+    [Test]
+    public void TestAddIntegerEqualFilter()
+    {
+        using (var context = new CoreContext())
+        {
+            IQueryable<User> query = context.User;
+            query = query.AddIntegerEqualFilter(1, o => o.Id);
+            var a = context.User.Where(o => o.Id == 1).Expression.ToString();
+            var b = query.Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestAddIntegerEqualFilter);
+        }
+    }
+
+    [Test]
+    public void TestAddIntegerInArrayFilter()
+    {
+        using (var context = new CoreContext())
+        {
+            var list = context.User.Take(10).Select(o => o.Id).ToArray();
+            var a = context.User.Where(o => list.Contains(o.Id)).ToList();
+            var b = context.User.AddIntegerInArrayFilter(o => o.Id, list).ToList();
+
+            Assert.AreEqual(a.Count, b.Count, UnitTestResource.TestAddIntegerInArrayFilter);
+        }
+    }
+
+    [Test]
+    public void TestAddStringInArrayFilter()
+    {
+        using (var context = new CoreContext())
+        {
+            var list = context.Role.Take(10).Select(o => o.Name).ToArray();
+            var a = context.Role.Where(o => list.Contains(o.Name)).ToList();
+            var b = context.Role.AddStringInArrayFilter(o => o.Name, list).ToList();
+
+            Assert.AreEqual(a.Count, b.Count, UnitTestResource.TestAddStringInArrayFilter);
+        }
+    }
+
+    [Test]
+    public void TestAddStringEndsWithFilter()
+    {
+        using (var context = new CoreContext())
+        {
+            var a = context.User.Where(o => o.LoginName.EndsWith("a")).Expression.ToString();
+            var b = context.User.AddStringEndsWithFilter("a", o => o.LoginName).Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestAddStringEndsWithFilter);
+        }
+    }
+
+    [Test]
+    public void TestAddDateTimeBetweenFilter()
+    {
+        using (var context = new CoreContext())
+        {
+            var list = context.User.OrderBy(o => o.CreateTime).Take(10).Select(o => o.CreateTime).ToList();
+            var a = context.User.Where(o => o.CreateTime >= list.FirstOrDefault() && o.CreateTime <= list.LastOrDefault()).ToList();
+            var b = context.User.AddDateTimeBetweenFilter(list.FirstOrDefault(), list.LastOrDefault(), o => o.CreateTime).ToList();
+
+            Assert.AreEqual(a.Count, b.Count);
+        }
+    }
+
+    [Test]
+    public void TestAddIntegerBetweenFilter()
+    {
+        using (var context = new CoreContext())
+        {
+            var list = context.User.OrderBy(o => o.CreateTime).Take(10).Select(o => o.Id).ToList();
+            var a = context.User.Where(o => o.Id >= list.FirstOrDefault() && o.Id <= list.LastOrDefault()).ToList();
+            var b = context.User.AddIntegerBetweenFilter(list.FirstOrDefault(), list.LastOrDefault(), o => o.Id).ToList();
+
+            Assert.AreEqual(a.Count, b.Count);
+        }
+    }
+
+    [Test]
+    public void TestAddStringStartsWithFilter()
+    {
+        using (var context = new CoreContext())
+        {
+            var a = context.User.Where(o => o.LoginName.StartsWith("a")).Expression.ToString();
+            var b = context.User.AddStringStartsWithFilter("a", o => o.LoginName).Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestAddStringStartsWithFilter);
+        }
+    }
+
+    [Test]
+    public void TestAddStringEqualFilter()
+    {
+        using (var context = new CoreContext())
+        {
+            var a = context.User.Where(o => o.LoginName.Equals("a")).Expression.ToString();
+            var b = context.User.AddStringEqualFilter("a", o => o.LoginName).Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestAddStringEqualFilter);
+        }
+    }
+
+    [Test]
+    public void TestAddDateTimeGreaterThanOrEqualFilters()
+    {
+        using (var context = new CoreContext())
+        {
+            var a = context.User.Where(o => o.CreateTime >= DateTime.Today).Expression.ToString().Replace("DateTime.Today", DateTime.Today.ToString());
+            var b = context.User.AddDateTimeGreaterThanOrEqualFilter(DateTime.Today, o => o.CreateTime).Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestAddDateTimeGreaterThanOrEqualFilters);
+        }
+    }
+
+    [Test]
+    public void TestAddDateTimeLessThanOrEqualFilter()
+    {
+        using (var context = new CoreContext())
+        {
+            var a = context.User.Where(o => o.CreateTime <= DateTime.Today).Expression.ToString().Replace("DateTime.Today", DateTime.Today.ToString());
+            var b = context.User.AddDateTimeLessThanOrEqualFilter(DateTime.Today, o => o.CreateTime).Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestAddDateTimeLessThanOrEqualFilter);
+        }
+    }
+
+    [Test]
+    public void TestAddStringNotNullFilter()
+    {
+        using (var context = new CoreContext())
+        {
+            var a = context.User.Where(o => o.LoginName != null).Expression.ToString();
+            var b = context.User.AddStringNotNullFilter(o => o.LoginName).Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestAddStringEqualFilter);
+        }
+    }
+
+    [Test]
+    public void TestAddBooleanFilter()
+    {
+        using (var context = new CoreContext())
+        {
+            IQueryable<User> query = context.User;
+            query = query.AddBooleanFilter(o => o.IsEnable, false);
+            var a = context.User.Where(o => o.IsEnable == false).Expression.ToString();
+            var b = query.Expression.ToString();
+
+            Assert.AreEqual(a, b, UnitTestResource.TestAddBooleanFilter);
+        }
     }
 }
 ```
