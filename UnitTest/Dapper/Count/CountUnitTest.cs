@@ -38,13 +38,16 @@ namespace Core.UnitTest.Dapper
             }
         }
 
-        [Test]
-        public async Task TestRecordCountByObjectAsync()
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        [TestCase(4)]
+        public async Task TestRecordCountByObjectAsync(int id)
         {
             User user = DapperExtension.Connection.FirstOrDefault<User>();
             if (user != null)
             {
-                int count = await DapperExtension.Connection.RecordCountAsync<User>(new { Id = 10 });
+                int count = await DapperExtension.Connection.RecordCountAsync<User>(new { id });
                 Assert.GreaterOrEqual(count, 0);
             }
         }
