@@ -125,4 +125,7 @@
     <Rule Id="VSTHRD200" Action="None" />
     <Rule Id="VSTHRD002" Action="None" />
   </Rules>
+  <Rules AnalyzerId="Microsoft.DependencyValidation.Analyzers" RuleNamespace="Microsoft.DependencyValidation.Analyzers">
+    <Rule Id="DV2001" Action="None" />
+  </Rules>
 </RuleSet>

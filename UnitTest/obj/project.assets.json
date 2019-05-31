@@ -49,6 +49,12 @@
           "lib/netstandard2.0/Dapper.dll": {}
         }
       },
+      "Google.Cloud.Diagnostics.AspNetCore.Analyzers/1.0.0-beta02": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1"
+        }
+      },
       "jQuery/3.0.0": {
         "type": "package"
       },
@@ -533,7 +539,7 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Abstractions.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Mvc.Analyzers/2.2.0": {
+      "Microsoft.AspNetCore.Mvc.Analyzers/3.0.0-preview3-19153-02": {
         "type": "package"
       },
       "Microsoft.AspNetCore.Mvc.ApiExplorer/2.2.0": {
@@ -950,6 +956,12 @@
       "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
         "type": "package"
       },
+      "Microsoft.CodeAnalysis.BannedApiAnalyzers/2.9.2": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.CodeAnalysis.BannedApiAnalyzers.props": {}
+        }
+      },
       "Microsoft.CodeAnalysis.Common/2.8.0": {
         "type": "package",
         "dependencies": {
@@ -1012,6 +1024,12 @@
           "lib/netstandard1.3/Microsoft.CodeAnalysis.CSharp.dll": {}
         }
       },
+      "Microsoft.CodeAnalysis.PublicApiAnalyzers/2.9.2": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.CodeAnalysis.PublicApiAnalyzers.props": {}
+        }
+      },
       "Microsoft.CodeAnalysis.Razor/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -1026,7 +1044,7 @@
           "lib/netstandard2.0/Microsoft.CodeAnalysis.Razor.dll": {}
         }
       },
-      "Microsoft.CodeCoverage/16.1.0": {
+      "Microsoft.CodeCoverage/16.1.1": {
         "type": "package",
         "compile": {
           "lib/netcoreapp1.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll": {}
@@ -1053,6 +1071,9 @@
         "runtime": {
           "lib/netcoreapp2.0/_._": {}
         }
+      },
+      "Microsoft.DependencyValidation.Analyzers/0.10.0": {
+        "type": "package"
       },
       "Microsoft.DotNet.InternalAbstractions/1.0.0": {
         "type": "package",
@@ -1683,11 +1704,11 @@
           "lib/netstandard2.0/Microsoft.Net.Http.Headers.dll": {}
         }
       },
-      "Microsoft.NET.Test.Sdk/16.1.0": {
+      "Microsoft.NET.Test.Sdk/16.1.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.CodeCoverage": "16.1.0",
-          "Microsoft.TestPlatform.TestHost": "16.1.0"
+          "Microsoft.CodeCoverage": "16.1.1",
+          "Microsoft.TestPlatform.TestHost": "16.1.1"
         },
         "build": {
           "build/netcoreapp1.0/Microsoft.NET.Test.Sdk.props": {},
@@ -1903,7 +1924,7 @@
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {}
         }
       },
-      "Microsoft.TestPlatform.ObjectModel/16.1.0": {
+      "Microsoft.TestPlatform.ObjectModel/16.1.1": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
@@ -2012,11 +2033,11 @@
           }
         }
       },
-      "Microsoft.TestPlatform.TestHost/16.1.0": {
+      "Microsoft.TestPlatform.TestHost/16.1.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyModel": "1.0.3",
-          "Microsoft.TestPlatform.ObjectModel": "16.1.0",
+          "Microsoft.TestPlatform.ObjectModel": "16.1.1",
           "Newtonsoft.Json": "9.0.1"
         },
         "compile": {
@@ -2332,6 +2353,29 @@
       "popper.js/1.14.0": {
         "type": "package"
       },
+      "Quartz/3.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.5.0",
+          "System.Collections.NonGeneric": "4.3.0",
+          "System.Collections.Specialized": "4.3.0",
+          "System.ComponentModel.TypeConverter": "4.3.0",
+          "System.Configuration.ConfigurationManager": "4.5.0",
+          "System.Data.Common": "4.3.0",
+          "System.Data.SqlClient": "4.5.1",
+          "System.Net.NameResolution": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.5.0",
+          "System.Runtime.Serialization.Xml": "4.3.0",
+          "System.Threading.Thread": "4.3.0",
+          "System.Xml.XmlSerializer": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Quartz.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Quartz.dll": {}
+        }
+      },
       "Remotion.Linq/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -2352,6 +2396,16 @@
         },
         "runtime": {
           "lib/netstandard1.0/Remotion.Linq.dll": {}
+        }
+      },
+      "Roslyn.Diagnostics.Analyzers/2.9.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CodeAnalysis.BannedApiAnalyzers": "[2.9.2]",
+          "Microsoft.CodeAnalysis.PublicApiAnalyzers": "[2.9.2]"
+        },
+        "build": {
+          "build/Roslyn.Diagnostics.Analyzers.props": {}
         }
       },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -2795,6 +2849,19 @@
           "lib/netstandard1.5/System.ComponentModel.TypeConverter.dll": {}
         }
       },
+      "System.Configuration.ConfigurationManager/4.5.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Security.Cryptography.ProtectedData": "4.5.0",
+          "System.Security.Permissions": "4.5.0"
+        },
+        "compile": {
+          "ref/netstandard2.0/System.Configuration.ConfigurationManager.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll": {}
+        }
+      },
       "System.Console/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -2806,6 +2873,25 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Console.dll": {}
+        }
+      },
+      "System.Data.Common/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Text.RegularExpressions": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.2/System.Data.Common.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.2/System.Data.Common.dll": {}
         }
       },
       "System.Data.SqlClient/4.7.0-preview5.19224.8": {
@@ -3314,6 +3400,38 @@
           }
         }
       },
+      "System.Net.NameResolution/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Tracing": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.Net.Primitives": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.Handles": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Security.Principal.Windows": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Tasks": "4.3.0",
+          "runtime.native.System": "4.3.0"
+        },
+        "compile": {
+          "ref/netstandard1.3/System.Net.NameResolution.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.3/System.Net.NameResolution.dll": {
+            "assetType": "runtime",
+            "rid": "unix"
+          },
+          "runtimes/win/lib/netstandard1.3/System.Net.NameResolution.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
       "System.Net.Primitives/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -3477,7 +3595,7 @@
           "ref/netstandard1.0/System.Reflection.Primitives.dll": {}
         }
       },
-      "System.Reflection.TypeExtensions/4.4.0": {
+      "System.Reflection.TypeExtensions/4.5.0": {
         "type": "package",
         "compile": {
           "ref/netcoreapp2.0/_._": {}
@@ -3870,6 +3988,21 @@
           "lib/netstandard1.3/System.Security.Cryptography.Primitives.dll": {}
         }
       },
+      "System.Security.Cryptography.ProtectedData/4.5.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
       "System.Security.Cryptography.X509Certificates/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -4218,7 +4351,7 @@
           "System.Xml.XmlDocument": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.3/_._": {}
+          "ref/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
@@ -4374,14 +4507,19 @@
           "Core.Model": "1.0.0",
           "Core.Service": "1.0.0",
           "Dapper": "1.60.6",
+          "Google.Cloud.Diagnostics.AspNetCore.Analyzers": "1.0.0-beta02",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
+          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
+          "Quartz": "3.0.7",
+          "Roslyn.Diagnostics.Analyzers": "2.9.2",
           "Swashbuckle.AspNetCore": "5.0.0-rc2",
           "Swashbuckle.AspNetCore.Swagger": "5.0.0-rc2",
           "xunit": "2.4.1",
@@ -4399,14 +4537,19 @@
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
           "Dapper": "1.60.6",
+          "Google.Cloud.Diagnostics.AspNetCore.Analyzers": "1.0.0-beta02",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
+          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
+          "Quartz": "3.0.7",
+          "Roslyn.Diagnostics.Analyzers": "2.9.2",
           "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
         },
@@ -4423,12 +4566,17 @@
         "dependencies": {
           "Core.Entity": "1.0.0",
           "Dapper": "1.60.6",
+          "Google.Cloud.Diagnostics.AspNetCore.Analyzers": "1.0.0-beta02",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
+          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
+          "Quartz": "3.0.7",
+          "Roslyn.Diagnostics.Analyzers": "2.9.2",
           "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
         },
@@ -4448,6 +4596,7 @@
           "Core.Entity": "1.0.0",
           "Core.Extension": "1.0.0",
           "Dapper": "1.60.6",
+          "Google.Cloud.Diagnostics.AspNetCore.Analyzers": "1.0.0-beta02",
           "Microsoft.AspNetCore": "2.2.0",
           "Microsoft.AspNetCore.Authentication": "2.2.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "2.2.0",
@@ -4457,15 +4606,19 @@
           "Microsoft.AspNetCore.Hosting.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.HttpsPolicy": "2.2.0",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.StaticFiles": "2.2.0",
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
+          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
+          "Quartz": "3.0.7",
+          "Roslyn.Diagnostics.Analyzers": "2.9.2",
           "System.IdentityModel.Tokens.Jwt": "5.4.0",
           "System.Security.Claims": "4.3.0",
           "xunit": "2.4.1",
@@ -4489,21 +4642,26 @@
           "Core.Mvc.Resource": "1.0.0",
           "Core.Web": "1.0.0",
           "Dapper": "1.60.6",
+          "Google.Cloud.Diagnostics.AspNetCore.Analyzers": "1.0.0-beta02",
           "Microsoft.AspNetCore": "2.2.0",
           "Microsoft.AspNetCore.Authentication": "2.2.0",
           "Microsoft.AspNetCore.CookiePolicy": "2.2.0",
           "Microsoft.AspNetCore.Hosting": "2.2.0",
           "Microsoft.AspNetCore.Hosting.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.HttpsPolicy": "2.2.0",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.StaticFiles": "2.2.0",
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
+          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.BrowserLink": "2.2.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
+          "Quartz": "3.0.7",
+          "Roslyn.Diagnostics.Analyzers": "2.9.2",
           "bootstrap": "4.3.1",
           "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
@@ -4520,13 +4678,18 @@
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
           "Dapper": "1.60.6",
+          "Google.Cloud.Diagnostics.AspNetCore.Analyzers": "1.0.0-beta02",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
+          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
+          "Quartz": "3.0.7",
+          "Roslyn.Diagnostics.Analyzers": "2.9.2",
           "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
         },
@@ -4545,6 +4708,7 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.1.0",
           "Core.Model": "1.0.0",
           "Dapper": "1.60.6",
+          "Google.Cloud.Diagnostics.AspNetCore.Analyzers": "1.0.0-beta02",
           "Microsoft.AspNetCore": "2.2.0",
           "Microsoft.AspNetCore.Authentication": "2.2.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "2.2.0",
@@ -4554,15 +4718,19 @@
           "Microsoft.AspNetCore.Hosting.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.HttpsPolicy": "2.2.0",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.StaticFiles": "2.2.0",
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
+          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
+          "Quartz": "3.0.7",
+          "Roslyn.Diagnostics.Analyzers": "2.9.2",
           "Swashbuckle.AspNetCore.SwaggerUI": "5.0.0-rc2",
           "System.IdentityModel.Tokens.Jwt": "5.4.0",
           "System.Security.Claims": "4.3.0",
@@ -4585,6 +4753,7 @@
           "Core.Model": "1.0.0",
           "Core.Repository": "1.0.0",
           "Dapper": "1.60.6",
+          "Google.Cloud.Diagnostics.AspNetCore.Analyzers": "1.0.0-beta02",
           "Microsoft.AspNetCore": "2.2.0",
           "Microsoft.AspNetCore.Authentication": "2.2.0",
           "Microsoft.AspNetCore.Authentication.Cookies": "2.2.0",
@@ -4594,15 +4763,19 @@
           "Microsoft.AspNetCore.Hosting.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.HttpsPolicy": "2.2.0",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.StaticFiles": "2.2.0",
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
+          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
+          "Quartz": "3.0.7",
+          "Roslyn.Diagnostics.Analyzers": "2.9.2",
           "Swashbuckle.AspNetCore.SwaggerUI": "5.0.0-rc2",
           "System.IdentityModel.Tokens.Jwt": "5.4.0",
           "System.Security.Claims": "4.3.0",
@@ -4620,12 +4793,17 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
+          "Google.Cloud.Diagnostics.AspNetCore.Analyzers": "1.0.0-beta02",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
+          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview5.19227.1",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Newtonsoft.Json": "12.0.2",
+          "Quartz": "3.0.7",
+          "Roslyn.Diagnostics.Analyzers": "2.9.2",
           "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
         },
@@ -4645,19 +4823,24 @@
           "Core.Extension": "1.0.0",
           "Core.Model": "1.0.0",
           "Dapper": "1.60.6",
+          "Google.Cloud.Diagnostics.AspNetCore.Analyzers": "1.0.0-beta02",
           "Microsoft.AspNetCore": "2.2.0",
           "Microsoft.AspNetCore.Authentication": "2.2.0",
           "Microsoft.AspNetCore.Hosting": "2.2.0",
           "Microsoft.AspNetCore.Hosting.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.HttpsPolicy": "2.2.0",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.StaticFiles": "2.2.0",
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
+          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
+          "Quartz": "3.0.7",
+          "Roslyn.Diagnostics.Analyzers": "2.9.2",
           "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
         },
@@ -4768,6 +4951,21 @@
         "lib/netstandard1.3/Dapper.xml",
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml"
+      ]
+    },
+    "Google.Cloud.Diagnostics.AspNetCore.Analyzers/1.0.0-beta02": {
+      "sha512": "lJuOO5mdAEBD6dgxVgAAmHRjr1RsCZf6i2l85nZ1Ssbn/6rV1Op2Rl91Pgl6ddRwttZD+n+DEypmeipCPBXxKg==",
+      "type": "package",
+      "path": "google.cloud.diagnostics.aspnetcore.analyzers/1.0.0-beta02",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "analyzers/dotnet/cs/Google.Cloud.Diagnostics.AspNetCore.Analyzers.dll",
+        "google.cloud.diagnostics.aspnetcore.analyzers.1.0.0-beta02.nupkg.sha512",
+        "google.cloud.diagnostics.aspnetcore.analyzers.nuspec",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
       ]
     },
     "jQuery/3.0.0": {
@@ -5209,15 +5407,15 @@
         "microsoft.aspnetcore.mvc.abstractions.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Mvc.Analyzers/2.2.0": {
-      "sha512": "oyKy2Ey3z+TW+XRZGYJ0qATGzzHYVfpVat+n/rzhYi9GaqedGVYK7q+KFpzmytEMd+qVEztCTklomjLjidxeXg==",
+    "Microsoft.AspNetCore.Mvc.Analyzers/3.0.0-preview3-19153-02": {
+      "sha512": "gw1Gx0nXEah01tGPm0uEJUsWDYIFcOtBSSAzXlDBC+iouay0YP7I4WbD7ckG2fgtz+nSqVdIdYlxIUztVzn7cw==",
       "type": "package",
-      "path": "microsoft.aspnetcore.mvc.analyzers/2.2.0",
+      "path": "microsoft.aspnetcore.mvc.analyzers/3.0.0-preview3-19153-02",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "analyzers/dotnet/cs/Microsoft.AspNetCore.Mvc.Analyzers.dll",
-        "microsoft.aspnetcore.mvc.analyzers.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.analyzers.3.0.0-preview3-19153-02.nupkg.sha512",
         "microsoft.aspnetcore.mvc.analyzers.nuspec"
       ]
     },
@@ -5621,6 +5819,32 @@
         "tools/uninstall.ps1"
       ]
     },
+    "Microsoft.CodeAnalysis.BannedApiAnalyzers/2.9.2": {
+      "sha512": "l+QgEzBKeR0/XlcrGR3zD0AaNY3i1lbjl4BnrHLW27oqbFJ7sGb53DXxWs9EgvCymcsJZpi21O1hsreTxc4/Cg==",
+      "type": "package",
+      "path": "microsoft.codeanalysis.bannedapianalyzers/2.9.2",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.rtf",
+        "analyzers/dotnet/cs/Microsoft.CodeAnalysis.BannedApiAnalyzers.dll",
+        "analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.BannedApiAnalyzers.dll",
+        "analyzers/dotnet/vb/Microsoft.CodeAnalysis.BannedApiAnalyzers.dll",
+        "analyzers/dotnet/vb/Microsoft.CodeAnalysis.VisualBasic.BannedApiAnalyzers.dll",
+        "build/Microsoft.CodeAnalysis.BannedApiAnalyzers.props",
+        "documentation/Microsoft.CodeAnalysis.BannedApiAnalyzers.md",
+        "microsoft.codeanalysis.bannedapianalyzers.2.9.2.nupkg.sha512",
+        "microsoft.codeanalysis.bannedapianalyzers.nuspec",
+        "rulesets/AllRulesDefault.ruleset",
+        "rulesets/AllRulesDisabled.ruleset",
+        "rulesets/AllRulesEnabled.ruleset",
+        "rulesets/ApiDesignRulesDefault.ruleset",
+        "rulesets/ApiDesignRulesEnabled.ruleset",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
+      ]
+    },
     "Microsoft.CodeAnalysis.Common/2.8.0": {
       "sha512": "A2a4NejNvWVz+8FPXkZK/cd2j4/P3laHwpz56UU3fDcOAVu4Xb98T6FXGAIgqE/LzSVpHnn9Cgg7rhT59qsO8w==",
       "type": "package",
@@ -5649,6 +5873,30 @@
         "microsoft.codeanalysis.csharp.nuspec"
       ]
     },
+    "Microsoft.CodeAnalysis.PublicApiAnalyzers/2.9.2": {
+      "sha512": "MPuhe/wMkYQGrxSa8JL1LWg7AOzSo1aKA4aNJIeLQ0h1M3t+3Rpk68JuK8whIoJCWM7Rh4cepgwkKhX/xuoRpg==",
+      "type": "package",
+      "path": "microsoft.codeanalysis.publicapianalyzers/2.9.2",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.rtf",
+        "analyzers/dotnet/Microsoft.CodeAnalysis.PublicApiAnalyzers.CodeFixes.dll",
+        "analyzers/dotnet/Microsoft.CodeAnalysis.PublicApiAnalyzers.dll",
+        "build/Microsoft.CodeAnalysis.PublicApiAnalyzers.props",
+        "documentation/Microsoft.CodeAnalysis.PublicApiAnalyzers.md",
+        "microsoft.codeanalysis.publicapianalyzers.2.9.2.nupkg.sha512",
+        "microsoft.codeanalysis.publicapianalyzers.nuspec",
+        "rulesets/AllRulesDefault.ruleset",
+        "rulesets/AllRulesDisabled.ruleset",
+        "rulesets/AllRulesEnabled.ruleset",
+        "rulesets/ApiDesignRulesDefault.ruleset",
+        "rulesets/ApiDesignRulesEnabled.ruleset",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
+      ]
+    },
     "Microsoft.CodeAnalysis.Razor/2.2.0": {
       "sha512": "ZgS8JXCk16LyoKuAiuArba2uAZSwbG+d5pitNecN1SjJqJZhvzW0DP8wX2lLq823Tar3jhxLHMjlSVLowj9c9A==",
       "type": "package",
@@ -5664,10 +5912,10 @@
         "microsoft.codeanalysis.razor.nuspec"
       ]
     },
-    "Microsoft.CodeCoverage/16.1.0": {
-      "sha512": "3L0coJd+INnu0E/gPqB9AkAW+mtYDZBoN9R06F54V2N+K5jp0e+IZF07goWx5X05K87qOkVAo/dn+/CG3V1KUA==",
+    "Microsoft.CodeCoverage/16.1.1": {
+      "sha512": "PyWoU5QNma20JDmee8s9oT5WuG67ZKYj1q2mNsVKnWM15tjW9aa44nwMEOWsMyrd5+Vhx16VgqcnQ9BozWJCJA==",
       "type": "package",
-      "path": "microsoft.codecoverage/16.1.0",
+      "path": "microsoft.codecoverage/16.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5696,7 +5944,7 @@
         "build/netstandard1.0/zh-Hant/Microsoft.VisualStudio.TraceDataCollector.resources.dll",
         "lib/net45/Microsoft.VisualStudio.CodeCoverage.Shim.dll",
         "lib/netcoreapp1.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll",
-        "microsoft.codecoverage.16.1.0.nupkg.sha512",
+        "microsoft.codecoverage.16.1.1.nupkg.sha512",
         "microsoft.codecoverage.nuspec"
       ]
     },
@@ -5809,6 +6057,34 @@
         "ref/xamarinwatchos10/_._",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "Microsoft.DependencyValidation.Analyzers/0.10.0": {
+      "sha512": "VXi/pc6FFBhDIhm+WylrAKxN4/CtYVo9fNnD1Hq+XwzqN6KF1gvC3G2bDqETbTLsML/u60c658+0veyQK5M1IQ==",
+      "type": "package",
+      "path": "microsoft.dependencyvalidation.analyzers/0.10.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "analyzers/dotnet/Microsoft.DependencyValidation.Analyzers.dll",
+        "analyzers/dotnet/cs/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/de/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/es/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/fr/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/it/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/ja/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/ko/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/pl/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/pt-BR/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/ru/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/tr/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/zh-HANS/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "analyzers/dotnet/zh-HANT/Microsoft.DependencyValidation.Analyzers.resources.dll",
+        "microsoft.dependencyvalidation.analyzers.0.10.0.nupkg.sha512",
+        "microsoft.dependencyvalidation.analyzers.nuspec",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
       ]
     },
     "Microsoft.DotNet.InternalAbstractions/1.0.0": {
@@ -6503,10 +6779,10 @@
         "microsoft.net.http.headers.nuspec"
       ]
     },
-    "Microsoft.NET.Test.Sdk/16.1.0": {
-      "sha512": "iFis0ZiqN/HZMQQ7ya1jSt9AC4YTQUU6k1xFZcxTQsfVi5+eRfnMHGSbg8QHyt0LbbnP77TBBoEDjCKSBUp2yA==",
+    "Microsoft.NET.Test.Sdk/16.1.1": {
+      "sha512": "HypqmcOK2F/PbXFG02xeCj52Fin/9UF9u9IMH5Ohgn0+iEx7vYjBtXg5SkOf/p84golyLY8cO2S1jchem/1dRQ==",
       "type": "package",
-      "path": "microsoft.net.test.sdk/16.1.0",
+      "path": "microsoft.net.test.sdk/16.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6519,7 +6795,7 @@
         "build/netcoreapp1.0/Microsoft.NET.Test.Sdk.targets",
         "build/uap10.0/Microsoft.NET.Test.Sdk.props",
         "buildMultiTargeting/Microsoft.NET.Test.Sdk.props",
-        "microsoft.net.test.sdk.16.1.0.nupkg.sha512",
+        "microsoft.net.test.sdk.16.1.1.nupkg.sha512",
         "microsoft.net.test.sdk.nuspec"
       ]
     },
@@ -6918,10 +7194,10 @@
         "microsoft.openapi.nuspec"
       ]
     },
-    "Microsoft.TestPlatform.ObjectModel/16.1.0": {
-      "sha512": "VytiQu6rxNy3BDhoLDRki8hq1YuM+8Z0NQIfgmL7IhvvNjyWjr3Ru0w68EAaN3K8nG0vIFpLhACXxdd0FfB0Jw==",
+    "Microsoft.TestPlatform.ObjectModel/16.1.1": {
+      "sha512": "BIJqcBBCcDXQw4UHO0xka9JtrnkJCsDKNBaczG2rkHYWpCBCSgA3rr/9xquB9j46PWK1LtrFoRoX/XDRY7KmqQ==",
       "type": "package",
-      "path": "microsoft.testplatform.objectmodel/16.1.0",
+      "path": "microsoft.testplatform.objectmodel/16.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6986,14 +7262,14 @@
         "lib/netstandard1.5/zh-Hans/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
         "lib/netstandard1.5/zh-Hant/Microsoft.TestPlatform.CoreUtilities.resources.dll",
         "lib/netstandard1.5/zh-Hant/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
-        "microsoft.testplatform.objectmodel.16.1.0.nupkg.sha512",
+        "microsoft.testplatform.objectmodel.16.1.1.nupkg.sha512",
         "microsoft.testplatform.objectmodel.nuspec"
       ]
     },
-    "Microsoft.TestPlatform.TestHost/16.1.0": {
-      "sha512": "NArLjTGYkyS6JWx+kSF/uq/g98huVuNBLVnZX1vq5cwhAHXecAbY7IK30JCoCWNCS7EOLS8W5oLRFRi5gieVbQ==",
+    "Microsoft.TestPlatform.TestHost/16.1.1": {
+      "sha512": "F1ftKuNtJ1ADMFYiiRFS4fEJ5pLMiyrmhhErqVpv/QXCxsQvbJw0mUzvZqEx+AkS3GBK+8N3dDGVOJVPQAQ2Hw==",
       "type": "package",
-      "path": "microsoft.testplatform.testhost/16.1.0",
+      "path": "microsoft.testplatform.testhost/16.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -7133,7 +7409,7 @@
         "lib/uap10.0/Microsoft.TestPlatform.Utilities.dll",
         "lib/uap10.0/Microsoft.VisualStudio.TestPlatform.Common.dll",
         "lib/uap10.0/testhost.dll",
-        "microsoft.testplatform.testhost.16.1.0.nupkg.sha512",
+        "microsoft.testplatform.testhost.16.1.1.nupkg.sha512",
         "microsoft.testplatform.testhost.nuspec"
       ]
     },
@@ -7733,6 +8009,23 @@
         "popper.js.nuspec"
       ]
     },
+    "Quartz/3.0.7": {
+      "sha512": "3vCJ/eJQzEne1ZocNftmPBjuA0vFHs8rOG3bQcSsB9fbQuZpmkrmOH+0Iq7mlibSbR9f1VV4TUMnkkbPUd7Kqw==",
+      "type": "package",
+      "path": "quartz/3.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net452/Quartz.dll",
+        "lib/net452/Quartz.pdb",
+        "lib/net452/Quartz.xml",
+        "lib/netstandard2.0/Quartz.dll",
+        "lib/netstandard2.0/Quartz.pdb",
+        "lib/netstandard2.0/Quartz.xml",
+        "quartz.3.0.7.nupkg.sha512",
+        "quartz.nuspec"
+      ]
+    },
     "Remotion.Linq/2.2.0": {
       "sha512": "twDAH8dAXXCAf3sRv1Tf94u66eEHvgU75hfn1nn2v4fSWXD50XoDOAk8WpSrbViNuMkB4kN1ElnOGm1c519IHg==",
       "type": "package",
@@ -7752,6 +8045,38 @@
         "lib/portable-net45+win+wpa81+wp80/Remotion.Linq.xml",
         "remotion.linq.2.2.0.nupkg.sha512",
         "remotion.linq.nuspec"
+      ]
+    },
+    "Roslyn.Diagnostics.Analyzers/2.9.2": {
+      "sha512": "wDmJyHSi2TgPra0QQjSl3NWMP3kdBNKtf+dXy+F/WuMgz3C1UjfGYl4jVn0rEKQCMR6I+7au6R8abawr9OxWBw==",
+      "type": "package",
+      "path": "roslyn.diagnostics.analyzers/2.9.2",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.rtf",
+        "analyzers/dotnet/cs/Roslyn.Diagnostics.Analyzers.dll",
+        "analyzers/dotnet/cs/Roslyn.Diagnostics.CSharp.Analyzers.dll",
+        "analyzers/dotnet/vb/Roslyn.Diagnostics.Analyzers.dll",
+        "analyzers/dotnet/vb/Roslyn.Diagnostics.VisualBasic.Analyzers.dll",
+        "build/Roslyn.Diagnostics.Analyzers.props",
+        "documentation/Roslyn.Diagnostics.Analyzers.md",
+        "roslyn.diagnostics.analyzers.2.9.2.nupkg.sha512",
+        "roslyn.diagnostics.analyzers.nuspec",
+        "rulesets/AllRulesDefault.ruleset",
+        "rulesets/AllRulesDisabled.ruleset",
+        "rulesets/AllRulesEnabled.ruleset",
+        "rulesets/ApiDesignRulesDefault.ruleset",
+        "rulesets/ApiDesignRulesEnabled.ruleset",
+        "rulesets/RoslyDiagnosticsPerformanceRulesDefault.ruleset",
+        "rulesets/RoslyDiagnosticsPerformanceRulesEnabled.ruleset",
+        "rulesets/RoslyDiagnosticsReliabilityRulesDefault.ruleset",
+        "rulesets/RoslyDiagnosticsReliabilityRulesEnabled.ruleset",
+        "rulesets/UsageRulesDefault.ruleset",
+        "rulesets/UsageRulesEnabled.ruleset",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
       ]
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -8754,6 +9079,27 @@
         "system.componentmodel.typeconverter.nuspec"
       ]
     },
+    "System.Configuration.ConfigurationManager/4.5.0": {
+      "sha512": "+2SYYKwbN0n+9SrBanflZdaVleFkytEfTNzOu+f3SK0vROMMrorpw1UJyHJQ1ZooughRxPmLj8Fh5N2tSe7sdA==",
+      "type": "package",
+      "path": "system.configuration.configurationmanager/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Configuration.ConfigurationManager.dll",
+        "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll",
+        "ref/net461/System.Configuration.ConfigurationManager.dll",
+        "ref/net461/System.Configuration.ConfigurationManager.xml",
+        "ref/netstandard2.0/System.Configuration.ConfigurationManager.dll",
+        "ref/netstandard2.0/System.Configuration.ConfigurationManager.xml",
+        "system.configuration.configurationmanager.4.5.0.nupkg.sha512",
+        "system.configuration.configurationmanager.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "System.Console/4.3.0": {
       "sha512": "NXaPmAD2UQOwcXA0CdsTCi1g/BUmuxwwGok2guCrS/pLpAv79v5TQLWYPnUoysNbn3p8v1WLguJHLMa782C5Yw==",
       "type": "package",
@@ -8790,6 +9136,57 @@
         "ref/xamarinwatchos10/_._",
         "system.console.4.3.0.nupkg.sha512",
         "system.console.nuspec"
+      ]
+    },
+    "System.Data.Common/4.3.0": {
+      "sha512": "OGX4ifHI67s/2KRrXGMmEjmszCptbhWS4BieBdiBPl/8pn0A1xPMx0Gn0dKK0zKtEaelYNh5M7M5lCZL0EA4eA==",
+      "type": "package",
+      "path": "system.data.common/4.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net451/System.Data.Common.dll",
+        "lib/netstandard1.2/System.Data.Common.dll",
+        "lib/portable-net451+win8+wp8+wpa81/System.Data.Common.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net451/System.Data.Common.dll",
+        "ref/netstandard1.2/System.Data.Common.dll",
+        "ref/netstandard1.2/System.Data.Common.xml",
+        "ref/netstandard1.2/de/System.Data.Common.xml",
+        "ref/netstandard1.2/es/System.Data.Common.xml",
+        "ref/netstandard1.2/fr/System.Data.Common.xml",
+        "ref/netstandard1.2/it/System.Data.Common.xml",
+        "ref/netstandard1.2/ja/System.Data.Common.xml",
+        "ref/netstandard1.2/ko/System.Data.Common.xml",
+        "ref/netstandard1.2/ru/System.Data.Common.xml",
+        "ref/netstandard1.2/zh-hans/System.Data.Common.xml",
+        "ref/netstandard1.2/zh-hant/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/System.Data.Common.dll",
+        "ref/portable-net451+win8+wp8+wpa81/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/de/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/es/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/fr/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/it/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/ja/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/ko/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/ru/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/zh-hans/System.Data.Common.xml",
+        "ref/portable-net451+win8+wp8+wpa81/zh-hant/System.Data.Common.xml",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.data.common.4.3.0.nupkg.sha512",
+        "system.data.common.nuspec"
       ]
     },
     "System.Data.SqlClient/4.7.0-preview5.19224.8": {
@@ -10230,6 +10627,48 @@
         "system.net.http.nuspec"
       ]
     },
+    "System.Net.NameResolution/4.3.0": {
+      "sha512": "1l9f8R71sLauRbfLq6p1Y3VdAHwUv+vybnsw1shbE8wzIE6iXI04E8gn0TpSAwUVFSxCuKfrX9EIXj75bisd/Q==",
+      "type": "package",
+      "path": "system.net.nameresolution/4.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net46/System.Net.NameResolution.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net46/System.Net.NameResolution.dll",
+        "ref/netstandard1.3/System.Net.NameResolution.dll",
+        "ref/netstandard1.3/System.Net.NameResolution.xml",
+        "ref/netstandard1.3/de/System.Net.NameResolution.xml",
+        "ref/netstandard1.3/es/System.Net.NameResolution.xml",
+        "ref/netstandard1.3/fr/System.Net.NameResolution.xml",
+        "ref/netstandard1.3/it/System.Net.NameResolution.xml",
+        "ref/netstandard1.3/ja/System.Net.NameResolution.xml",
+        "ref/netstandard1.3/ko/System.Net.NameResolution.xml",
+        "ref/netstandard1.3/ru/System.Net.NameResolution.xml",
+        "ref/netstandard1.3/zh-hans/System.Net.NameResolution.xml",
+        "ref/netstandard1.3/zh-hant/System.Net.NameResolution.xml",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/unix/lib/netstandard1.3/System.Net.NameResolution.dll",
+        "runtimes/win/lib/net46/System.Net.NameResolution.dll",
+        "runtimes/win/lib/netcore50/System.Net.NameResolution.dll",
+        "runtimes/win/lib/netstandard1.3/System.Net.NameResolution.dll",
+        "system.net.nameresolution.4.3.0.nupkg.sha512",
+        "system.net.nameresolution.nuspec"
+      ]
+    },
     "System.Net.Primitives/4.3.0": {
       "sha512": "zpJLsVc5gRgTZR1QEi0H3s0bV26t7yug0WcersFr/pVqDvEBiqQm6z3YjYtWkVlMJ65ko1sSvGW5WXqaykOQ+g==",
       "type": "package",
@@ -10784,10 +11223,10 @@
         "system.reflection.primitives.nuspec"
       ]
     },
-    "System.Reflection.TypeExtensions/4.4.0": {
-      "sha512": "BWYdrACMy1Sbq7Kh1oISS+2qKX1dHhXNpRByG3c6M9i2fhU9BZqO3nFYIabmbZuQwd7svR5zfxNHgmgv2XkkIg==",
+    "System.Reflection.TypeExtensions/4.5.0": {
+      "sha512": "Si8PkGGxxDKLm6ap31x4hoDBsL3yX+gwmGJWqVJUwHofyTubjj8MjC6ckhAmjGWszWLA1wGNC+QAQMQkWG8qbw==",
       "type": "package",
-      "path": "system.reflection.typeextensions/4.4.0",
+      "path": "system.reflection.typeextensions/4.5.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -10803,6 +11242,7 @@
         "lib/netstandard1.3/System.Reflection.TypeExtensions.dll",
         "lib/netstandard1.5/System.Reflection.TypeExtensions.dll",
         "lib/netstandard2.0/System.Reflection.TypeExtensions.dll",
+        "lib/uap10.0.16299/_._",
         "lib/xamarinios10/_._",
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
@@ -10837,12 +11277,14 @@
         "ref/netstandard1.5/zh-hant/System.Reflection.TypeExtensions.xml",
         "ref/netstandard2.0/System.Reflection.TypeExtensions.dll",
         "ref/netstandard2.0/System.Reflection.TypeExtensions.xml",
+        "ref/uap10.0.16299/_._",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
         "runtimes/aot/lib/netcore50/System.Reflection.TypeExtensions.dll",
-        "system.reflection.typeextensions.4.4.0.nupkg.sha512",
+        "runtimes/aot/lib/uap10.0.16299/_._",
+        "system.reflection.typeextensions.4.5.0.nupkg.sha512",
         "system.reflection.typeextensions.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
@@ -11894,6 +12336,47 @@
         "ref/xamarinwatchos10/_._",
         "system.security.cryptography.primitives.4.3.0.nupkg.sha512",
         "system.security.cryptography.primitives.nuspec"
+      ]
+    },
+    "System.Security.Cryptography.ProtectedData/4.5.0": {
+      "sha512": "s/MFK8BvgtejZj5a8qAPDXEGBtWkpFX98qwQP/wqVa9CgIC7LrKHxDFdlN5x6afGAb0ZVBVGIZlCdBLnO2QjZw==",
+      "type": "package",
+      "path": "system.security.cryptography.protecteddata/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net46/System.Security.Cryptography.ProtectedData.dll",
+        "lib/net461/System.Security.Cryptography.ProtectedData.dll",
+        "lib/netstandard1.3/System.Security.Cryptography.ProtectedData.dll",
+        "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net46/System.Security.Cryptography.ProtectedData.dll",
+        "ref/net461/System.Security.Cryptography.ProtectedData.dll",
+        "ref/net461/System.Security.Cryptography.ProtectedData.xml",
+        "ref/netstandard1.3/System.Security.Cryptography.ProtectedData.dll",
+        "ref/netstandard2.0/System.Security.Cryptography.ProtectedData.dll",
+        "ref/netstandard2.0/System.Security.Cryptography.ProtectedData.xml",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "runtimes/win/lib/net46/System.Security.Cryptography.ProtectedData.dll",
+        "runtimes/win/lib/net461/System.Security.Cryptography.ProtectedData.dll",
+        "runtimes/win/lib/netstandard1.3/System.Security.Cryptography.ProtectedData.dll",
+        "runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll",
+        "system.security.cryptography.protecteddata.4.5.0.nupkg.sha512",
+        "system.security.cryptography.protecteddata.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "System.Security.Cryptography.X509Certificates/4.3.0": {
@@ -13267,13 +13750,17 @@
       "Core.Model >= 1.0.0",
       "Core.Mvc >= 1.0.0",
       "Core.UnitTest.Resource >= 1.0.0",
+      "Google.Cloud.Diagnostics.AspNetCore.Analyzers >= 1.0.0-beta02",
       "MSTest.TestAdapter >= 2.0.0-beta4",
       "MSTest.TestFramework >= 2.0.0-beta4",
+      "Microsoft.AspNetCore.Mvc.Analyzers >= 3.0.0-preview3-19153-02",
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
       "Microsoft.CodeQuality.Analyzers >= 2.9.2",
+      "Microsoft.DependencyValidation.Analyzers >= 0.10.0",
+      "Microsoft.EntityFrameworkCore.Analyzers >= 3.0.0-preview5.19227.1",
       "Microsoft.EntityFrameworkCore.Design >= 3.0.0-preview5.19227.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.0.0-preview5.19227.1",
-      "Microsoft.NET.Test.Sdk >= 16.1.0",
+      "Microsoft.NET.Test.Sdk >= 16.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.NetCore.Analyzers >= 2.9.2",
       "Microsoft.UnitTestFramework.Extensions >= 2.0.0",
@@ -13281,6 +13768,8 @@
       "NUnit >= 3.12.0",
       "NUnit3TestAdapter >= 3.13.0",
       "Newtonsoft.Json >= 12.0.2",
+      "Quartz >= 3.0.7",
+      "Roslyn.Diagnostics.Analyzers >= 2.9.2",
       "StyleCop.Analyzers >= 1.1.118",
       "Text.Analyzers >= 2.6.4",
       "xunit >= 2.4.1",
@@ -13342,6 +13831,10 @@
     "frameworks": {
       "netcoreapp2.1": {
         "dependencies": {
+          "Google.Cloud.Diagnostics.AspNetCore.Analyzers": {
+            "target": "Package",
+            "version": "[1.0.0-beta02, )"
+          },
           "MSTest.TestAdapter": {
             "target": "Package",
             "version": "[2.0.0-beta4, )"
@@ -13350,6 +13843,10 @@
             "target": "Package",
             "version": "[2.0.0-beta4, )"
           },
+          "Microsoft.AspNetCore.Mvc.Analyzers": {
+            "target": "Package",
+            "version": "[3.0.0-preview3-19153-02, )"
+          },
           "Microsoft.AspNetCore.Mvc.Core": {
             "target": "Package",
             "version": "[2.2.5, )"
@@ -13357,6 +13854,14 @@
           "Microsoft.CodeQuality.Analyzers": {
             "target": "Package",
             "version": "[2.9.2, )"
+          },
+          "Microsoft.DependencyValidation.Analyzers": {
+            "target": "Package",
+            "version": "[0.10.0, )"
+          },
+          "Microsoft.EntityFrameworkCore.Analyzers": {
+            "target": "Package",
+            "version": "[3.0.0-preview5.19227.1, )"
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers",
@@ -13370,7 +13875,7 @@
           },
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
-            "version": "[16.1.0, )"
+            "version": "[16.1.1, )"
           },
           "Microsoft.NETCore.App": {
             "target": "Package",
@@ -13400,6 +13905,14 @@
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[12.0.2, )"
+          },
+          "Quartz": {
+            "target": "Package",
+            "version": "[3.0.7, )"
+          },
+          "Roslyn.Diagnostics.Analyzers": {
+            "target": "Package",
+            "version": "[2.9.2, )"
           },
           "StyleCop.Analyzers": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers",

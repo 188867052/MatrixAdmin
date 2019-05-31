@@ -83,7 +83,7 @@ namespace Core.UnitTest.Dapper
         [Test]
         public void TestDeleteByMultipleKeyObjectAsync()
         {
-            MultiplePrimaryKeyTable entity = DapperExtension.Connection.QueryFirstOrDefault<MultiplePrimaryKeyTable>("SELECT top 1 * FROM [multiple_primary_key_table]");
+            MultiplePrimaryKeyTable entity = DapperExtension.Connection.FirstOrDefault<MultiplePrimaryKeyTable>();
             if (entity != null)
             {
                 var count = DapperExtension.Connection.DeleteAsync(entity).Result;
@@ -94,7 +94,7 @@ namespace Core.UnitTest.Dapper
         [Test]
         public void TestDeleteByMultipleKeyObject()
         {
-            MultiplePrimaryKeyTable entity = DapperExtension.Connection.QueryFirstOrDefault<MultiplePrimaryKeyTable>("SELECT top 1 * FROM [multiple_primary_key_table]");
+            MultiplePrimaryKeyTable entity = DapperExtension.Connection.FirstOrDefault<MultiplePrimaryKeyTable>();
             if (entity != null)
             {
                 var count = DapperExtension.Connection.Delete(entity);
