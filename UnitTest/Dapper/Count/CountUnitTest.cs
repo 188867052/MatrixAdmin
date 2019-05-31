@@ -6,7 +6,6 @@ using NUnit.Framework;
 
 namespace Core.UnitTest.Dapper
 {
-
     /// <summary>
     /// Api unit test.
     /// </summary>
