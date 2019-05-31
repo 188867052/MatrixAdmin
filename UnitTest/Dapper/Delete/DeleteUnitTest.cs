@@ -24,8 +24,8 @@ namespace Core.UnitTest.Dapper
             log = DapperExtension.Connection.FirstOrDefault<Log>();
             if (log != null)
             {
-                var count = DapperExtension.Connection.DeleteAsync<Log>(log.Id);
-                Assert.AreEqual(count.Result, 1);
+                int count = DapperExtension.Connection.DeleteAsync<Log>(log.Id).Result;
+                Assert.AreEqual(count, 1);
             }
         }
 
@@ -75,7 +75,7 @@ namespace Core.UnitTest.Dapper
             Log log = DapperExtension.Connection.FirstOrDefault<Log>();
             if (log != null)
             {
-                var count = DapperExtension.Connection.DeleteAsync(log).Result;
+                int count = DapperExtension.Connection.DeleteAsync(log).Result;
                 Assert.AreEqual(count, 1);
             }
         }

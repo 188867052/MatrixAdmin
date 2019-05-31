@@ -24,7 +24,7 @@ namespace Core.Mvc.Framework
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
-            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
+            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
             model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
 
             return model;
@@ -52,7 +52,7 @@ namespace Core.Mvc.Framework
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
-            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
+            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
             model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
 
             return model;
@@ -79,7 +79,7 @@ namespace Core.Mvc.Framework
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
-            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
+            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
 
             return model;
         }
@@ -104,7 +104,7 @@ namespace Core.Mvc.Framework
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
-            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
+            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
             model.Data = JsonConvert.DeserializeObject<TModel>(model.Data.ToString());
 
             return model;
@@ -129,7 +129,7 @@ namespace Core.Mvc.Framework
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
-            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json.Result);
+            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
 
             return model;
         }

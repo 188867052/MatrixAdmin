@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Core.Entity;
 using Core.Extension.Dapper;
 using Dapper;
@@ -12,7 +13,7 @@ namespace Core.UnitTest.Dapper
     public class CountUnitTest
     {
         [Test]
-        public void TestRecordCount()
+        public async Task TestRecordCountAsync()
         {
             User user = DapperExtension.Connection.FirstOrDefault<User>();
             if (user != null)
@@ -21,40 +22,40 @@ namespace Core.UnitTest.Dapper
                 Assert.AreEqual(count, 1);
                 count = DapperExtension.Connection.RecordCount<User>();
                 Assert.GreaterOrEqual(count, 0);
-                count = DapperExtension.Connection.RecordCountAsync<User>().Result;
+                count = await DapperExtension.Connection.RecordCountAsync<User>();
                 Assert.GreaterOrEqual(count, 0);
             }
         }
 
         [Test]
-        public void TestRecordCountAsync()
+        public async Task TestRecordCount()
         {
             User user = DapperExtension.Connection.FirstOrDefault<User>();
             if (user != null)
             {
-                int count = DapperExtension.Connection.RecordCountAsync<User>().Result;
+                int count = await DapperExtension.Connection.RecordCountAsync<User>();
                 Assert.GreaterOrEqual(count, 0);
             }
         }
 
         [Test]
-        public void TestRecordCountByObjectAsync()
+        public async Task TestRecordCountByObjectAsync()
         {
             User user = DapperExtension.Connection.FirstOrDefault<User>();
             if (user != null)
             {
-                int count = DapperExtension.Connection.RecordCountAsync<User>(new { Id = 10 }).Result;
+                int count = await DapperExtension.Connection.RecordCountAsync<User>(new { Id = 10 });
                 Assert.GreaterOrEqual(count, 0);
             }
         }
 
         [Test]
-        public void TestRecordCountByObjectAsyncEgnoreCase()
+        public async Task TestRecordCountByObjectAsyncEgnoreCaseAsync()
         {
             User user = DapperExtension.Connection.FirstOrDefault<User>();
             if (user != null)
             {
-                int count = DapperExtension.Connection.RecordCountAsync<User>(new { ID = 10 }).Result;
+                int count = await DapperExtension.Connection.RecordCountAsync<User>(new { ID = 10 });
                 Assert.GreaterOrEqual(count, 0);
             }
         }
