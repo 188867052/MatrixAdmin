@@ -18,6 +18,13 @@ public IQueryable<Entity.User> GenerateQuery(IQueryable<Entity.User> query)
     query = query.OrderByDescending(o => o.CreateTime);
     return query;
 }
+
+ IQueryable<Role> query = this.DbContext.Role;
+ query = query.AddStringContainsFilter(o => o.Name, model.RoleName);
+ query = query.AddStringContainsFilter(o => o.Description, model.Description);
+ query = query.AddDateTimeBetweenFilter(model.StartCreateTime, model.EndCreateTime, o => o.CreateTime);
+ query = query.OrderBy(o => o.IsForbidden).ThenByDescending(o => o.CreateTime);
+
 ```
 
 ## Example of using row context menu
@@ -476,4 +483,196 @@ public class UnitTest
         }
     }
 }
+```
+
+## QueryableExtension
+```C#
+public static IQueryable<T> AddStringContainsFilter<T>(this IQueryable<T> query, Expression<Func<T, string>> expression, string value)
+{
+    return query.AddStringFilter(value, expression, stringContainsMethod);
+}
+
+public static IQueryable<T> AddStringEqualFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
+{
+    return query.AddStringFilter(value, expression, stringEqualsMethod);
+}
+
+public static IQueryable<T> AddStringEndsWithFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
+{
+    return query.AddStringFilter(value, expression, stringEndsWithMethod);
+}
+
+public static IQueryable<T> AddStringStartsWithFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression)
+{
+    return query.AddStringFilter(value, expression, stringStartsWithMethod);
+}
+
+public static IQueryable<T> AddStringIsNullFilter<T>(this IQueryable<T> query, Expression<Func<T, string>> expression)
+{
+    return query.AddIsNullFilter(expression.GetPropertyName());
+}
+
+public static IQueryable<T> AddStringIsEmptyFilter<T>(this IQueryable<T> query, Expression<Func<T, string>> expression)
+{
+    return query.AddIsEmptyFilter(expression.GetPropertyName());
+}
+
+public static IQueryable<T> AddStringNotNullFilter<T>(this IQueryable<T> query, Expression<Func<T, string>> expression)
+{
+    BinaryExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.NotEqual(a, b);
+    return query.CreateQuery(null, expression.GetPropertyName(), Predicate);
+}
+
+private static IQueryable<T> AddStringFilter<T>(this IQueryable<T> query, string value, Expression<Func<T, string>> expression, MethodInfo method)
+{
+    if (!string.IsNullOrWhiteSpace(value))
+    {
+        MethodCallExpression Predicate(MemberExpression a, ConstantExpression b) => Expression.Call(a, method, b);
+        return query.CreateQuery(value, expression.GetPropertyName(), Predicate);
+    }
+
+    return query;
+}
+```
+## DapperExtension
+```C#
+ [Test]
+public void TestUpdateWithSpecifiedColumnName()
+{
+    var log = DapperExtension.Connection.FindAll<Log>().FirstOrDefault();
+    if (log != null)
+    {
+        int count = DapperExtension.Connection.Delete<Log>(log.Id);
+        Assert.AreEqual(count, 1);
+    }
+}
+
+[Test]
+public void TestFindAllByExpression()
+{
+    using (var dapper = DapperExtension.Connection)
+    {
+        User user = DapperExtension.Connection.QueryFirst<User>();
+        if (user != null)
+        {
+            var users = dapper.FindAll<User>(o => o.Id, user.Id);
+            Assert.AreEqual(users.Count, 1);
+            user = dapper.Find<User>(user.Id);
+            Assert.IsNotNull(user);
+            var roles = dapper.FindAll<Role>();
+            Assert.IsNotNull(roles);
+        }
+    }
+}
+
+ [Test]
+public async Task TestRecordCount()
+{
+    User user = DapperExtension.Connection.QueryFirst<User>();
+    if (user != null)
+    {
+        int count = await DapperExtension.Connection.RecordCountAsync<User>();
+        Assert.GreaterOrEqual(count, 0);
+    }
+}
+
+
+  [Test]
+public void TestDeleteById()
+{
+    Log log = DapperExtension.Connection.QueryFirst<Log>();
+    if (log != null)
+    {
+        var count = DapperExtension.Connection.Delete<Log>(log.Id);
+        Assert.AreEqual(count, 1);
+    }
+
+    log = DapperExtension.Connection.QueryFirst<Log>();
+    if (log != null)
+    {
+        int count = DapperExtension.Connection.DeleteAsync<Log>(log.Id).Result;
+        Assert.AreEqual(count, 1);
+    }
+}
+
+
+[Test]
+public void TestDeleteByObject()
+{
+    Log log = DapperExtension.Connection.QueryFirst<Log>();
+    if (log != null)
+    {
+        var count = DapperExtension.Connection.Delete(log);
+        Assert.AreEqual(count, 1);
+    }
+}
+
+[Test]
+public void TestDeleteByObjectAsync()
+{
+    Log log = DapperExtension.Connection.QueryFirst<Log>();
+    if (log != null)
+    {
+        int count = DapperExtension.Connection.DeleteAsync(log).Result;
+        Assert.AreEqual(count, 1);
+    }
+}
+
+[Test]
+public void TestDeleteByMultipleKeyObjectAsync()
+{
+    MultiplePrimaryKeyTable entity = DapperExtension.Connection.QueryFirst<MultiplePrimaryKeyTable>();
+    if (entity != null)
+    {
+        var count = DapperExtension.Connection.DeleteAsync(entity).Result;
+        Assert.AreEqual(count, 1);
+    }
+}
+
+[Test]
+public void TestDeleteByMultipleKeyObject()
+{
+    MultiplePrimaryKeyTable entity = DapperExtension.Connection.QueryFirst<MultiplePrimaryKeyTable>();
+    if (entity != null)
+    {
+        var count = DapperExtension.Connection.Delete(entity);
+        Assert.AreEqual(count, 1);
+    }
+}
+
+ [Test]
+public async Task TestInsertAsyncWithSpecifiedPrimaryKeyAsync()
+{
+    var log = new Log { LogLevel = (int)LogLevel.Information, CreateTime = DateTime.Now, Message = "TestInsertWithSpecifiedPrimaryKey" };
+    var idTask = DapperExtension.Connection.InsertAsync(log);
+    var id = await idTask;
+    Assert.Greater(id, 0);
+}
+
+[Test]
+public void TestInsertWithMultiplePrimaryKeys()
+{
+    var keyMaster = new MultiplePrimaryKeyTable { Id = Guid.NewGuid().ToString("N"), Name = Guid.NewGuid().ToString("N") };
+    string id = DapperExtension.Connection.InsertReturnKey(keyMaster);
+    Assert.IsNotNull(id);
+}
+
+[Test]
+public async Task TestInsertAsyncWithMultiplePrimaryKeysAsync()
+{
+    Task<dynamic> task = DapperExtension.Connection.InsertAsync(new MultiplePrimaryKeyTable { Id = Guid.NewGuid().ToString("N"), Name = Guid.NewGuid().ToString("N") });
+    var result = await task;
+    Assert.IsNotNull(result);
+}
+
+ [Test]
+public void TestUpdate()
+{
+    var message = Guid.NewGuid().ToString();
+    var log = DapperExtension.Connection.QueryFirst<Log>();
+    log.Message = message;
+    DapperExtension.Connection.Update(log);
+    var logFind = DapperExtension.Connection.Find<Log>(log.Id);
+
+    Assert.AreEqual
 ```
