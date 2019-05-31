@@ -13,6 +13,8 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.net.test.sdk\15.0.0\build\netcoreapp1.0\Microsoft.Net.Test.Sdk.props" Condition="Exists('$(NuGetPackageRoot)microsoft.net.test.sdk\15.0.0\build\netcoreapp1.0\Microsoft.Net.Test.Sdk.props')" />
+    <Import Project="$(NuGetPackageRoot)xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.visualstudio.props" Condition="Exists('$(NuGetPackageRoot)xunit.runner.visualstudio\2.4.1\build\netcoreapp1.0\xunit.runner.visualstudio.props')" />
     <Import Project="$(NuGetPackageRoot)xunit.core\2.4.1\build\xunit.core.props" Condition="Exists('$(NuGetPackageRoot)xunit.core\2.4.1\build\xunit.core.props')" />
     <Import Project="$(NuGetPackageRoot)text.analyzers\2.6.4\build\Text.Analyzers.props" Condition="Exists('$(NuGetPackageRoot)text.analyzers\2.6.4\build\Text.Analyzers.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.codeanalysis.publicapianalyzers\2.9.2\build\Microsoft.CodeAnalysis.PublicApiAnalyzers.props" Condition="Exists('$(NuGetPackageRoot)microsoft.codeanalysis.publicapianalyzers\2.9.2\build\Microsoft.CodeAnalysis.PublicApiAnalyzers.props')" />

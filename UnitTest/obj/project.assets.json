@@ -4494,6 +4494,15 @@
           "lib/netstandard1.1/xunit.execution.dotnet.dll": {}
         }
       },
+      "xunit.runner.visualstudio/2.4.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NET.Test.Sdk": "15.0.0"
+        },
+        "build": {
+          "build/netcoreapp1.0/xunit.runner.visualstudio.props": {}
+        }
+      },
       "Core.Api/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
@@ -4541,6 +4550,7 @@
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
+          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
@@ -4568,6 +4578,7 @@
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
+          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
@@ -4610,6 +4621,7 @@
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
+          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
@@ -4681,6 +4693,7 @@
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
+          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
@@ -4722,6 +4735,7 @@
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
+          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
@@ -4767,6 +4781,7 @@
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
+          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
@@ -4796,6 +4811,7 @@
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview5.19227.1",
+          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Newtonsoft.Json": "12.0.2",
@@ -4832,6 +4848,7 @@
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
+          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
@@ -13661,6 +13678,36 @@
         "xunit.extensibility.execution.nuspec"
       ]
     },
+    "xunit.runner.visualstudio/2.4.1": {
+      "sha512": "70iTd44VD/UcP5kX7Bm6DjNayi9pquI7NhnU7Nl46qWVQBDHVqRrFDXgNrGP936YxefJxzC+2bp1yQUwPJIEvg==",
+      "type": "package",
+      "path": "xunit.runner.visualstudio/2.4.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/_common/xunit.abstractions.dll",
+        "build/_common/xunit.runner.reporters.net452.dll",
+        "build/_common/xunit.runner.utility.net452.dll",
+        "build/_common/xunit.runner.visualstudio.testadapter.dll",
+        "build/net20/xunit.runner.visualstudio.props",
+        "build/netcoreapp1.0/xunit.abstractions.dll",
+        "build/netcoreapp1.0/xunit.runner.reporters.netcoreapp10.dll",
+        "build/netcoreapp1.0/xunit.runner.utility.netcoreapp10.dll",
+        "build/netcoreapp1.0/xunit.runner.utility.netcoreapp10.xml",
+        "build/netcoreapp1.0/xunit.runner.visualstudio.dotnetcore.testadapter.deps.json",
+        "build/netcoreapp1.0/xunit.runner.visualstudio.dotnetcore.testadapter.dll",
+        "build/netcoreapp1.0/xunit.runner.visualstudio.props",
+        "build/uap10.0/xunit.runner.reporters.netstandard11.dll",
+        "build/uap10.0/xunit.runner.utility.uwp10.dll",
+        "build/uap10.0/xunit.runner.utility.uwp10.pri",
+        "build/uap10.0/xunit.runner.visualstudio.props",
+        "build/uap10.0/xunit.runner.visualstudio.targets",
+        "build/uap10.0/xunit.runner.visualstudio.uwp.testadapter.dll",
+        "build/uap10.0/xunit.runner.visualstudio.uwp.testadapter.pri",
+        "xunit.runner.visualstudio.2.4.1.nupkg.sha512",
+        "xunit.runner.visualstudio.nuspec"
+      ]
+    },
     "Core.Api/1.0.0": {
       "type": "project",
       "path": "../Core.Api/Core.Api.csproj",
@@ -13741,7 +13788,8 @@
       "StyleCop.Analyzers >= 1.1.118",
       "Text.Analyzers >= 2.6.4",
       "xunit >= 2.4.1",
-      "xunit.analyzers >= 0.10.0"
+      "xunit.analyzers >= 0.10.0",
+      "xunit.runner.visualstudio >= 2.4.1"
     ]
   },
   "packageFolders": {
@@ -13897,6 +13945,12 @@
           "xunit.analyzers": {
             "target": "Package",
             "version": "[0.10.0, )"
+          },
+          "xunit.runner.visualstudio": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[2.4.1, )"
           }
         },
         "imports": [
