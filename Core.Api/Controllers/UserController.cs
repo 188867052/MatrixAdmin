@@ -184,7 +184,7 @@ namespace Core.Api.Controllers
         /// <param name="ids">ids.</param>
         /// <returns>IActionResult.</returns>
         [HttpGet]
-        public IActionResult DisEnable(int[] ids)
+        public IActionResult Disable(int[] ids)
         {
             ResponseModel response = UserControllerHelper.UpdateIsEnable(false, ids);
             return this.Ok(response);

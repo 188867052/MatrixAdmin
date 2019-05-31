@@ -169,6 +169,21 @@ namespace Dapper
             return connection.GetList<T>($"where {key} = @{key}", parameters).ToList();
         }
 
+        public static T QueryFirst<T>(this IDbConnection connection, Expression<Func<T, bool>> expression, bool value)
+        {
+            return connection.QueryTopOne(expression, value);
+        }
+
+        public static T QueryFirst<T>(this IDbConnection connection, Expression<Func<T, int>> expression, int value)
+        {
+            return connection.QueryTopOne(expression, value);
+        }
+
+        public static T QueryFirst<T>(this IDbConnection connection, Expression<Func<T, string>> expression, string value)
+        {
+            return connection.QueryTopOne(expression, value);
+        }
+
         public static IEnumerable<T> GetList<T>(this IDbConnection connection, string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var currenttype = typeof(T);
@@ -738,6 +753,17 @@ namespace Dapper
             value = stringBuilder.ToString();
             StringBuilderCacheDictionary.AddOrUpdate(cacheKey, value, (t, v) => value);
             sb.Append(value);
+        }
+
+        private static T QueryTopOne<T, TProperty>(this IDbConnection connection, Expression<Func<T, TProperty>> expression, TProperty value)
+        {
+            string propertyName = expression.Body.GetName();
+            string column = DapperExtension.ToColumn<T>(propertyName);
+            var table = DapperExtension.GetTableName<T>();
+            var parameters = new DynamicParameters();
+            parameters.Add($"@{propertyName}", value);
+
+            return connection.QueryFirst<T>($"SELECT TOP 1 * FROM [{table}] WHERE {column} = @{propertyName}", parameters);
         }
     }
 }

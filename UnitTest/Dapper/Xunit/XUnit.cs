@@ -3,7 +3,7 @@
 namespace Core.UnitTest.XUnit
 {
     /// <summary>
-    /// Api unit test.
+    /// unit test.
     /// </summary>
     public class XUnit
     {

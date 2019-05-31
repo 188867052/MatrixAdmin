@@ -140,19 +140,19 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestEnableUserAsync()
         {
-            User user = DapperExtension.Connection.QueryFirst<User>("SELECT * FROM [User] WHERE is_enable = @IsEnable", new { IsEnable = true });
+            User user = DapperExtension.Connection.QueryFirst<User>(o => o.IsEnable, true);
             if (user != null)
             {
-                var url = new Url(typeof(UserController), nameof(UserController.DisEnable));
+                var url = new Url(typeof(UserController), nameof(UserController.Disable));
                 ResponseModel model = await HttpClientAsync.DeleteAsync(url, user.Id);
                 Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
-                user = DapperExtension.Connection.QueryFirst<User>("SELECT * FROM [User] WHERE id = @id", new { user.Id });
-                Assert.IsFalse(user.IsEnable, UnitTestResource.DisEnableFail);
+                user = DapperExtension.Connection.QueryFirst<User>(o => o.Id, user.Id);
+                Assert.IsFalse(user.IsEnable, UnitTestResource.DisableFail);
 
                 url = new Url(typeof(UserController), nameof(UserController.Enable));
                 model = await HttpClientAsync.DeleteAsync(url, user.Id);
                 Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
-                user = DapperExtension.Connection.QueryFirst<User>("SELECT * FROM [User] WHERE id = @id", new { user.Id });
+                user = DapperExtension.Connection.QueryFirst<User>(o => o.Id, user.Id);
                 Assert.IsTrue(user.IsEnable, UnitTestResource.EnableFail);
             }
         }

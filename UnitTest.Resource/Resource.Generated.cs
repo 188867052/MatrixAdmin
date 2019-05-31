@@ -37,9 +37,9 @@ namespace Core.UnitTest.Resource.Areas
         }
 		
 		/// <summary>
-		/// Gets the localized string for DisEnableFail.
+		/// Gets the localized string for DisableFail.
 		/// </summary>
-		public static string DisEnableFail { get { return GetResourceString("DisEnableFail"); } }
+		public static string DisableFail { get { return GetResourceString("DisableFail"); } }
 
 		/// <summary>
 		/// Gets the localized string for EnableFail.

@@ -147,7 +147,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public IActionResult Forbidden(int id)
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.DisEnable));
+            var url = new Url(typeof(ApiController), nameof(ApiController.Disable));
             ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
 
             return this.Submit(model);
