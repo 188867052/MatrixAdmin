@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Dapper
+namespace Core.Extension.Dapper
 {
     public interface IColumnNameResolver
     {

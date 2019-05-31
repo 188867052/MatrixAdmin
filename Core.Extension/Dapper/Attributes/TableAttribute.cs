@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dapper
+namespace Core.Extension.Dapper.Attributes
 {
     /// <summary>
     /// Optional Table attribute.
@@ -12,7 +12,7 @@ namespace Dapper
         /// <summary>
         /// Initializes a new instance of the <see cref="TableAttribute"/> class.
         /// </summary>
-        /// <param name="tableName"></param>
+        /// <param name="tableName">tableName.</param>
         public TableAttribute(string tableName)
         {
             this.Name = tableName;

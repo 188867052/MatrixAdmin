@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dapper
+namespace Core.Extension.Dapper.Attributes
 {
     /// <summary>
     /// Optional Column attribute.
@@ -13,7 +13,7 @@ namespace Dapper
         /// Initializes a new instance of the <see cref="ColumnAttribute"/> class.
         /// Optional Column attribute.
         /// </summary>
-        /// <param name="columnName"></param>
+        /// <param name="columnName">columnName.</param>
         public ColumnAttribute(string columnName)
         {
             this.Name = columnName;

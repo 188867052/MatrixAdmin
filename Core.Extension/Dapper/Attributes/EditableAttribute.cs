@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dapper
+namespace Core.Extension.Dapper.Attributes
 {
     /// <summary>
     /// Optional Editable attribute.
@@ -13,7 +13,7 @@ namespace Dapper
         /// Initializes a new instance of the <see cref="EditableAttribute"/> class.
         /// Optional Editable attribute.
         /// </summary>
-        /// <param name="iseditable"></param>
+        /// <param name="iseditable">iseditable.</param>
         public EditableAttribute(bool iseditable)
         {
             this.AllowEdit = iseditable;

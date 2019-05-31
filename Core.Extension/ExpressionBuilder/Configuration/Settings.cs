@@ -34,22 +34,6 @@ namespace Core.Extension.ExpressionBuilder.Configuration
                 { TypeGroup.Date, new HashSet<Type> { typeof(DateTime) } },
                 { TypeGroup.Nullable, new HashSet<Type> { typeof(Nullable<>), typeof(string) } }
             };
-
-            // var configSection = ConfigurationManager.GetSection(ExpressionBuilderConfig.SectionName) as ExpressionBuilderConfig;
-            // if (configSection == null)
-            // {
-            //    return;
-            // }
-
-            // settings.SupportedTypes = new List<SupportedType>();
-            // foreach (ExpressionBuilderConfig.SupportedTypeElement supportedType in configSection.SupportedTypes)
-            // {
-            //    Type type = Type.GetType(supportedType.Type, false, true);
-            //    if (type != null)
-            //    {
-            //        settings.SupportedTypes.Add(new SupportedType { TypeGroup = supportedType.TypeGroup, Type = type });
-            //    }
-            // }
         }
 
         public List<SupportedType> SupportedTypes { get; }

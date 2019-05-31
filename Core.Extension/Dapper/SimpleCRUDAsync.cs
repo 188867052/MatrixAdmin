@@ -5,9 +5,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Core.Extension.Dapper;
+using Dapper;
 
-namespace Dapper
+namespace Core.Extension.Dapper
 {
     /// <summary>
     /// Main class for Dapper.SimpleCRUD extensions.

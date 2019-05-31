@@ -9,7 +9,6 @@ namespace Core.Extension.ExpressionBuilder.Operations
     /// </summary>
     public class Between : OperationBase
     {
-        /// <inheritdoc />
         public Between() : base("Between", 2, TypeGroup.Number | TypeGroup.Date)
         {
         }

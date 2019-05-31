@@ -1,21 +1,19 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
-using Microsoft.CSharp.RuntimeBinder;
-using static Dapper.SimpleCRUD;
+using Core.Extension.Dapper.Attributes;
 
-namespace Dapper
+namespace Core.Extension.Dapper
 {
     public class ColumnNameResolver : IColumnNameResolver
     {
         public virtual string ResolveColumnName(PropertyInfo propertyInfo, string name = default)
         {
-            var columnName = Encapsulate(name);
+            var columnName = SimpleCRUD.Encapsulate(name);
 
             var columnattr = propertyInfo.GetCustomAttributes(true).SingleOrDefault(attr => attr.GetType().Name == typeof(ColumnAttribute).Name) as dynamic;
             if (columnattr != null)
             {
-                columnName = Encapsulate(name);
+                columnName = SimpleCRUD.Encapsulate(name);
             }
 
             return columnName;
@@ -23,7 +21,7 @@ namespace Dapper
 
         public virtual string ResolveColumnName<T>(string name)
         {
-            return Encapsulate(name);
+            return SimpleCRUD.Encapsulate(name);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dapper
+namespace Core.Extension.Dapper.Attributes
 {
     /// <summary>
     /// Optional NotMapped attribute.

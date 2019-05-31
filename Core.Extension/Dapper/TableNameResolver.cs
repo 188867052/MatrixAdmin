@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
+using Core.Extension.Dapper.Attributes;
 using Microsoft.CSharp.RuntimeBinder;
-using static Dapper.SimpleCRUD;
 
-namespace Dapper
+namespace Core.Extension.Dapper
 {
     public class TableNameResolver : ITableNameResolver
     {
         public virtual string ResolveTableName(Type type)
         {
-            var tableName = Encapsulate(type.Name);
+            var tableName = SimpleCRUD.Encapsulate(type.Name);
 
             var tableattr = type.GetCustomAttributes(true).SingleOrDefault(attr => attr.GetType().Name == typeof(TableAttribute).Name) as dynamic;
             if (tableattr != null)
             {
-                tableName = Encapsulate(tableattr.Name);
+                tableName = SimpleCRUD.Encapsulate(tableattr.Name);
                 try
                 {
                     if (!string.IsNullOrEmpty(tableattr.Schema))
                     {
-                        string schemaName = Encapsulate(tableattr.Schema);
+                        string schemaName = SimpleCRUD.Encapsulate(tableattr.Schema);
                         tableName = string.Format("{0}.{1}", schemaName, tableName);
                     }
                 }
