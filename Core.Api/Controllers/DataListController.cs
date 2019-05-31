@@ -21,7 +21,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="dbContext">The dbContext.</param>
         /// <param name="mapper">The mapper.</param>
-        public DataListController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public DataListController(CoreContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 

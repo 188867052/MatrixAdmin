@@ -16,14 +16,14 @@ namespace Core.Api.Controllers
     public class OauthController : ControllerBase
     {
         private readonly AppAuthenticationSettings _appSettings;
-        private readonly CoreApiContext _dbContext;
+        private readonly CoreContext _dbContext;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OauthController"/> class.
         /// </summary>
         /// <param name="appSettings">appSettings.</param>
         /// <param name="dbContext">The dbContext.</param>
-        public OauthController(IOptions<AppAuthenticationSettings> appSettings, CoreApiContext dbContext)
+        public OauthController(IOptions<AppAuthenticationSettings> appSettings, CoreContext dbContext)
         {
             this._appSettings = appSettings.Value;
             this._dbContext = dbContext;

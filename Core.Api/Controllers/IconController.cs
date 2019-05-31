@@ -24,7 +24,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="dbContext">The dbContext.</param>
         /// <param name="mapper">The mapper.</param>
-        public IconController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public IconController(CoreContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 
@@ -252,7 +252,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 string sql = @"UPDATE Icon SET IsEnable = @IsEnable WHERE Id IN @Id";
-                CoreApiContext.Dapper.Execute(sql, new { IsEnable = isEnable, Id = ids });
+                CoreContext.Dapper.Execute(sql, new { IsEnable = isEnable, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }
@@ -268,7 +268,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 string sql = @"UPDATE Icon SET Status = @Status WHERE Id IN @Id";
-                CoreApiContext.Dapper.Execute(sql, new { Status = status, Id = ids });
+                CoreContext.Dapper.Execute(sql, new { Status = status, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }

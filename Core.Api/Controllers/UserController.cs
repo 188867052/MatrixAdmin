@@ -20,7 +20,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="dbContext">The dbContext.</param>
         /// <param name="mapper">The mapper.</param>
-        public UserController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public UserController(CoreContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 

@@ -18,13 +18,13 @@ namespace Core.Api.Framework
         /// </summary>
         /// <param name="dbContext">The dbContext.</param>
         /// <param name="mapper">The mapper.</param>
-        protected StandardController(CoreApiContext dbContext, IMapper mapper)
+        protected StandardController(CoreContext dbContext, IMapper mapper)
         {
             this.DbContext = dbContext;
             this.Mapper = mapper;
         }
 
-        protected CoreApiContext DbContext { get; set; }
+        protected CoreContext DbContext { get; set; }
 
         protected IMapper Mapper { get; set; }
 

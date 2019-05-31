@@ -16,7 +16,7 @@ namespace Core.Extension.Dapper
 
         static DapperExtension()
         {
-            var properties = typeof(CoreApiContext).GetProperties();
+            var properties = typeof(CoreContext).GetProperties();
             foreach (var property in properties)
             {
                 if (property.ToString().Contains(typeof(DbSet<>).FullName))
@@ -39,7 +39,7 @@ namespace Core.Extension.Dapper
             {
                 if (_connection == null || _connection.State == ConnectionState.Closed)
                 {
-                    _connection = new SqlConnection("Data Source=.;App=Dapper;Initial Catalog=CoreApi;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                    _connection = new SqlConnection("Data Source=.;App=Dapper;Initial Catalog=Core;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
                 }
 
                 OpenConnection();

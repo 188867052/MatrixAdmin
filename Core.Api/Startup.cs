@@ -55,7 +55,7 @@ namespace Core.Api
 #pragma warning disable 618
             services.AddAutoMapper();
 #pragma warning disable 618
-            services.AddDbContext<CoreApiContext>(options =>
+            services.AddDbContext<CoreContext>(options =>
             {
                 var loggerFactory = new LoggerFactory();
                 loggerFactory.AddProvider(new EntityFrameworkLoggerProvider());

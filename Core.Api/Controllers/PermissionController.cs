@@ -24,7 +24,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="dbContext">The dbContext.</param>
         /// <param name="mapper">The mapper.</param>
-        public PermissionController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public PermissionController(CoreContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 
@@ -227,7 +227,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 string sql = @"UPDATE Permission SET IsEnable = @IsEnable WHERE Id IN @Id";
-                CoreApiContext.Dapper.Execute(sql, new { IsEnable = isEnable, Id = ids });
+                CoreContext.Dapper.Execute(sql, new { IsEnable = isEnable, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }
@@ -243,7 +243,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 string sql = @"UPDATE Permission SET Status = @Status WHERE Id IN @Id";
-                CoreApiContext.Dapper.Execute(sql, new { Status = status, Id = ids });
+                CoreContext.Dapper.Execute(sql, new { Status = status, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }

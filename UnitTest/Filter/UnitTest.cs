@@ -14,7 +14,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestStringContainsFilter()
         {
-            using (var coreApiContext = new CoreApiContext())
+            using (var coreApiContext = new CoreContext())
             {
                 IQueryable<User> query = coreApiContext.User;
                 query = query.AddStringContainsFilter(o => o.LoginName, "a");
@@ -28,7 +28,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestAddStringIsNullFilter()
         {
-            using (var coreApiContext = new CoreApiContext())
+            using (var coreApiContext = new CoreContext())
             {
                 IQueryable<User> query = coreApiContext.User;
                 query = query.AddStringIsNullFilter(o => o.LoginName);
@@ -42,7 +42,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestAddStringIsEmptyFilter()
         {
-            using (var coreApiContext = new CoreApiContext())
+            using (var coreApiContext = new CoreContext())
             {
                 var a = coreApiContext.User.Where(o => o.LoginName == string.Empty).Expression.ToString();
                 var b = coreApiContext.User.AddStringIsEmptyFilter(o => o.LoginName).Expression.ToString();
@@ -54,7 +54,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestAddIntegerEqualFilter()
         {
-            using (var coreApiContext = new CoreApiContext())
+            using (var coreApiContext = new CoreContext())
             {
                 IQueryable<User> query = coreApiContext.User;
                 query = query.AddIntegerEqualFilter(1, o => o.Id);
@@ -68,7 +68,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestAddIntegerInArrayFilter()
         {
-            using (var coreApiContext = new CoreApiContext())
+            using (var coreApiContext = new CoreContext())
             {
                 var list = coreApiContext.User.Take(10).Select(o => o.Id).ToArray();
                 var a = coreApiContext.User.Where(o => list.Contains(o.Id)).ToList();
@@ -81,7 +81,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestAddStringInArrayFilter()
         {
-            using (var coreApiContext = new CoreApiContext())
+            using (var coreApiContext = new CoreContext())
             {
                 var list = coreApiContext.Role.Take(10).Select(o => o.Name).ToArray();
                 var a = coreApiContext.Role.Where(o => list.Contains(o.Name)).ToList();
@@ -94,7 +94,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestAddStringEndsWithFilter()
         {
-            using (var coreApiContext = new CoreApiContext())
+            using (var coreApiContext = new CoreContext())
             {
                 var a = coreApiContext.User.Where(o => o.LoginName.EndsWith("a")).Expression.ToString();
                 var b = coreApiContext.User.AddStringEndsWithFilter("a", o => o.LoginName).Expression.ToString();
@@ -106,7 +106,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestAddDateTimeBetweenFilter()
         {
-            using (var coreApiContext = new CoreApiContext())
+            using (var coreApiContext = new CoreContext())
             {
                 var list = coreApiContext.User.OrderBy(o => o.CreateTime).Take(10).Select(o => o.CreateTime).ToList();
                 var a = coreApiContext.User.Where(o => o.CreateTime >= list.FirstOrDefault() && o.CreateTime <= list.LastOrDefault()).ToList();
@@ -119,7 +119,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestAddIntegerBetweenFilter()
         {
-            using (var coreApiContext = new CoreApiContext())
+            using (var coreApiContext = new CoreContext())
             {
                 var list = coreApiContext.User.OrderBy(o => o.CreateTime).Take(10).Select(o => o.Id).ToList();
                 var a = coreApiContext.User.Where(o => o.Id >= list.FirstOrDefault() && o.Id <= list.LastOrDefault()).ToList();
@@ -132,7 +132,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestAddStringStartsWithFilter()
         {
-            using (var coreApiContext = new CoreApiContext())
+            using (var coreApiContext = new CoreContext())
             {
                 var a = coreApiContext.User.Where(o => o.LoginName.StartsWith("a")).Expression.ToString();
                 var b = coreApiContext.User.AddStringStartsWithFilter("a", o => o.LoginName).Expression.ToString();
@@ -144,7 +144,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestAddStringEqualFilter()
         {
-            using (var coreApiContext = new CoreApiContext())
+            using (var coreApiContext = new CoreContext())
             {
                 var a = coreApiContext.User.Where(o => o.LoginName.Equals("a")).Expression.ToString();
                 var b = coreApiContext.User.AddStringEqualFilter("a", o => o.LoginName).Expression.ToString();
@@ -156,7 +156,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestAddDateTimeGreaterThanOrEqualFilters()
         {
-            using (var coreApiContext = new CoreApiContext())
+            using (var coreApiContext = new CoreContext())
             {
                 var a = coreApiContext.User.Where(o => o.CreateTime >= DateTime.Today).Expression.ToString().Replace("DateTime.Today", DateTime.Today.ToString());
                 var b = coreApiContext.User.AddDateTimeGreaterThanOrEqualFilter(DateTime.Today, o => o.CreateTime).Expression.ToString();
@@ -168,7 +168,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestAddDateTimeLessThanOrEqualFilter()
         {
-            using (var coreApiContext = new CoreApiContext())
+            using (var coreApiContext = new CoreContext())
             {
                 var a = coreApiContext.User.Where(o => o.CreateTime <= DateTime.Today).Expression.ToString().Replace("DateTime.Today", DateTime.Today.ToString());
                 var b = coreApiContext.User.AddDateTimeLessThanOrEqualFilter(DateTime.Today, o => o.CreateTime).Expression.ToString();
@@ -180,7 +180,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestAddStringNotNullFilter()
         {
-            using (var coreApiContext = new CoreApiContext())
+            using (var coreApiContext = new CoreContext())
             {
                 var a = coreApiContext.User.Where(o => o.LoginName != null).Expression.ToString();
                 var b = coreApiContext.User.AddStringNotNullFilter(o => o.LoginName).Expression.ToString();
@@ -192,7 +192,7 @@ namespace Core.UnitTest.Filter
         [Test]
         public void TestAddBooleanFilter()
         {
-            using (var coreApiContext = new CoreApiContext())
+            using (var coreApiContext = new CoreContext())
             {
                 IQueryable<User> query = coreApiContext.User;
                 query = query.AddBooleanFilter(o => o.IsEnable, false);

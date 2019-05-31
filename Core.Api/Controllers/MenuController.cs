@@ -24,7 +24,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="dbContext">The dbContext.</param>
         /// <param name="mapper">The mapper.</param>
-        public MenuController(CoreApiContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public MenuController(CoreContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 
@@ -218,7 +218,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 string sql = @"UPDATE Menu SET IsEnable = @IsEnable WHERE Id IN @Ids";
-                CoreApiContext.Dapper.Execute(sql, new { IsEnable = isEnable, Ids = ids });
+                CoreContext.Dapper.Execute(sql, new { IsEnable = isEnable, Ids = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }
@@ -234,7 +234,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 string sql = @"UPDATE Menu SET Status = @Status WHERE Guid IN @Id";
-                CoreApiContext.Dapper.Execute(sql, new { Status = status, Id = ids });
+                CoreContext.Dapper.Execute(sql, new { Status = status, Id = ids });
                 return ResponseModelFactory.CreateInstance;
             }
         }

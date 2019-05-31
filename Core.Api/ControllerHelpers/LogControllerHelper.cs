@@ -13,7 +13,7 @@ namespace Core.Api.ControllerHelpers
         public static ResponseModel DeleteAll()
         {
             string sql = $"TRUNCATE TABLE [{nameof(Log)}]";
-            CoreApiContext.Dapper.Execute(sql);
+            CoreContext.Dapper.Execute(sql);
             return ResponseModelFactory.CreateInstance;
         }
     }

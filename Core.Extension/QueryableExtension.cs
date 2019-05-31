@@ -221,7 +221,7 @@ namespace Core.Extension
         {
             if (QueryableExtension.whereTSource is null)
             {
-                QueryableExtension.whereTSource = new Func<IQueryable<object>, Expression<Func<object, bool>>, IQueryable<object>>(Queryable.Where<object>).GetMethodInfo().GetGenericMethodDefinition();
+                QueryableExtension.whereTSource = new Func<IQueryable<object>, Expression<Func<object, bool>>, IQueryable<object>>(Queryable.Where).GetMethodInfo().GetGenericMethodDefinition();
             }
 
             return QueryableExtension.whereTSource.MakeGenericMethod(source);

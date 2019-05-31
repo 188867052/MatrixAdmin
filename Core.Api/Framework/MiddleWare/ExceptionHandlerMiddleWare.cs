@@ -25,7 +25,7 @@ namespace Core.Api.Framework.MiddleWare
             }
             catch (Exception exception)
             {
-                using (CoreApiContext coreApiContext = new CoreApiContext())
+                using (CoreContext coreApiContext = new CoreContext())
                 {
                     coreApiContext.Log.Add(new Log
                     {
