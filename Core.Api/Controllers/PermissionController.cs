@@ -81,7 +81,7 @@ namespace Core.Api.Controllers
 
                 Permission entity = this.Mapper.Map<PermissionCreateViewModel, Permission>(model);
                 entity.CreateTime = DateTime.Now;
-                entity.Id = RandomHelper.GetRandom(8, true, false, true, true);
+                entity.Id = Guid.NewGuid().ToString("N");
                 entity.CreateByUserId = AuthContextService.CurrentUser.Id;
                 entity.CreateByUserName = AuthContextService.CurrentUser.DisplayName;
                 this.DbContext.Permission.Add(entity);

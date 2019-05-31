@@ -42,49 +42,12 @@ namespace Core.Extension
 
         public static IQueryable<T> AddIntegerInArrayFilter<T>(this IQueryable<T> query, Expression<Func<T, int>> expression, int[] value)
         {
-            if (value.Length > 0)
-            {
-                string name = expression.GetPropertyName();
-                Type constructedListType = typeof(List<>).MakeGenericType(typeof(int[]).GetElementType());
-                MethodInfo method = constructedListType.GetMethod(nameof(List<int>.Contains), new[] { typeof(int) });
-                var value1 = Activator.CreateInstance(constructedListType, (object)value);
-                var constant = Expression.Constant(value1);
-                ParameterExpression parameter = Expression.Parameter(typeof(T), "o");
-                MemberExpression member = Expression.Property(parameter, typeof(T).GetProperty(name));
-                Expression<Func<T, bool>> Lambda(ParameterExpression c) => Expression.Lambda<Func<T, bool>>(Expression.Call(constant, method, member), c);
-
-                return query.Provider.CreateQuery<T>(Expression.Call(
-                    null,
-                    WhereTSource(typeof(T)),
-                    query.Expression,
-                    Expression.Quote(Lambda(parameter))));
-            }
-
-            return query;
+            return query.AddInArrayFilter(expression, value);
         }
 
         public static IQueryable<T> AddStringInArrayFilter<T>(this IQueryable<T> query, Expression<Func<T, string>> expression, string[] value)
         {
-            if (value.Length > 0)
-            {
-                string name = expression.GetPropertyName();
-                Type constructedListType = typeof(List<>).MakeGenericType(typeof(string[]).GetElementType());
-                MethodInfo method = constructedListType.GetMethod(nameof(List<string>.Contains), new[] { typeof(string) });
-                var value1 = Activator.CreateInstance(constructedListType, (object)value);
-                var a = value1.GetType();
-                var constant = Expression.Constant(value1);
-                ParameterExpression parameter = Expression.Parameter(typeof(T), "o");
-                MemberExpression member = Expression.Property(parameter, typeof(T).GetProperty(name));
-                Expression<Func<T, bool>> Lambda(ParameterExpression c) => Expression.Lambda<Func<T, bool>>(Expression.Call(constant, method, member), c);
-
-                return query.Provider.CreateQuery<T>(Expression.Call(
-                    null,
-                    WhereTSource(typeof(T)),
-                    query.Expression,
-                    Expression.Quote(Lambda(parameter))));
-            }
-
-            return query;
+            return query.AddInArrayFilter(expression, value);
         }
 
         public static IQueryable<T> AddDateTimeBetweenFilter<T>(this IQueryable<T> query, DateTime? starTime, DateTime? endTime, Expression<Func<T, DateTime?>> expression)
@@ -262,6 +225,29 @@ namespace Core.Extension
             }
 
             return QueryableExtension.whereTSource.MakeGenericMethod(source);
+        }
+
+        private static IQueryable<TEntity> AddInArrayFilter<TEntity, TValue>(this IQueryable<TEntity> query, Expression<Func<TEntity, TValue>> expression, TValue[] value)
+        {
+            if (value.Length > 0)
+            {
+                string name = expression.Body.GetName();
+                Type constructedListType = typeof(List<>).MakeGenericType(typeof(TValue[]).GetElementType());
+                MethodInfo method = constructedListType.GetMethod(nameof(List<TValue>.Contains), new[] { typeof(TValue) });
+                var value1 = Activator.CreateInstance(constructedListType, (object)value);
+                var constant = Expression.Constant(value1);
+                ParameterExpression parameter = Expression.Parameter(typeof(TEntity), "o");
+                MemberExpression member = Expression.Property(parameter, typeof(TEntity).GetProperty(name));
+                Expression<Func<TEntity, bool>> Lambda(ParameterExpression c) => Expression.Lambda<Func<TEntity, bool>>(Expression.Call(constant, method, member), c);
+
+                return query.Provider.CreateQuery<TEntity>(Expression.Call(
+                    null,
+                    WhereTSource(typeof(TEntity)),
+                    query.Expression,
+                    Expression.Quote(Lambda(parameter))));
+            }
+
+            return query;
         }
     }
 }

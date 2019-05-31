@@ -60,7 +60,7 @@ namespace Core.Extension
             return expression.Body.GetName();
         }
 
-        private static string GetName(this Expression expression)
+        public static string GetName(this Expression expression)
         {
             string name;
             switch (expression)
