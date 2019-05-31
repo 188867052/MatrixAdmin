@@ -17,7 +17,7 @@ namespace Core.UnitTest.Dapper.Update
         public void TestUpdate()
         {
             var message = Guid.NewGuid().ToString();
-            var log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT TOP 1 * FROM [LOG]");
+            var log = DapperExtension.Connection.QueryFirst<Log>();
             log.Message = message;
             DapperExtension.Connection.Update(log);
             var logFind = DapperExtension.Connection.Find<Log>(log.Id);
@@ -29,7 +29,7 @@ namespace Core.UnitTest.Dapper.Update
         public void TestMassUpdate()
         {
             // TODO:It is better to cache string builder.
-            var log = DapperExtension.Connection.QueryFirstOrDefault<Log>("SELECT TOP 1 * FROM [LOG]");
+            var log = DapperExtension.Connection.QueryFirst<Log>();
             if (log != null)
             {
                 int count = 0;

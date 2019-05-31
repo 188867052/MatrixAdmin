@@ -15,7 +15,7 @@ namespace Core.UnitTest.Dapper
         [Test]
         public async Task TestRecordCountAsync()
         {
-            User user = DapperExtension.Connection.FirstOrDefault<User>();
+            User user = DapperExtension.Connection.QueryFirst<User>();
             if (user != null)
             {
                 var count = DapperExtension.Connection.RecordCount<User>($"where Id = '{user.Id}'");
@@ -30,7 +30,7 @@ namespace Core.UnitTest.Dapper
         [Test]
         public async Task TestRecordCount()
         {
-            User user = DapperExtension.Connection.FirstOrDefault<User>();
+            User user = DapperExtension.Connection.QueryFirst<User>();
             if (user != null)
             {
                 int count = await DapperExtension.Connection.RecordCountAsync<User>();
@@ -44,7 +44,7 @@ namespace Core.UnitTest.Dapper
         [TestCase(4)]
         public async Task TestRecordCountByObjectAsync(int id)
         {
-            User user = DapperExtension.Connection.FirstOrDefault<User>();
+            User user = DapperExtension.Connection.QueryFirst<User>();
             if (user != null)
             {
                 int count = await DapperExtension.Connection.RecordCountAsync<User>(new { id });
@@ -55,7 +55,7 @@ namespace Core.UnitTest.Dapper
         [Test]
         public async Task TestRecordCountByObjectAsyncEgnoreCaseAsync()
         {
-            User user = DapperExtension.Connection.FirstOrDefault<User>();
+            User user = DapperExtension.Connection.QueryFirst<User>();
             if (user != null)
             {
                 int count = await DapperExtension.Connection.RecordCountAsync<User>(new { ID = 10 });

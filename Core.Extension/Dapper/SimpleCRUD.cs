@@ -100,12 +100,12 @@ namespace Dapper
             return connection.Query<T>(sb.ToString(), dynParms, transaction, true, commandTimeout).FirstOrDefault();
         }
 
-        public static T FirstOrDefault<T>(this IDbConnection connection)
+        public static T QueryFirst<T>(this IDbConnection connection)
         {
             string tableName = DapperExtension.GetTableName<T>();
             string sql = $"SELECT  TOP 1 * FROM [{tableName}]";
 
-            return DapperExtension.Connection.QueryFirstOrDefault<T>(sql);
+            return DapperExtension.Connection.QueryFirst<T>(sql);
         }
 
         public static IEnumerable<T> GetList<T>(this IDbConnection connection, object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
@@ -155,18 +155,20 @@ namespace Dapper
         {
             var key = DapperExtension.GetKey<T>();
             var parameters = new DynamicParameters();
+            string column = DapperExtension.ToColumn<T>(key);
             parameters.Add($"@{key}", value);
 
-            return connection.GetList<T>($"where {key} = @{key}", parameters).FirstOrDefault();
+            return connection.GetList<T>($"where {column} = @{key}", parameters).FirstOrDefault();
         }
 
         public static IList<T> FindAll<T>(this IDbConnection connection, int value)
         {
             var key = DapperExtension.GetKey<T>();
             var parameters = new DynamicParameters();
+            string column = DapperExtension.ToColumn<T>(key);
             parameters.Add($"@{key}", value);
 
-            return connection.GetList<T>($"where {key} = @{key}", parameters).ToList();
+            return connection.GetList<T>($"where {column} = @{key}", parameters).ToList();
         }
 
         public static T QueryFirst<T>(this IDbConnection connection, Expression<Func<T, bool>> expression, bool value)
@@ -755,11 +757,11 @@ namespace Dapper
             sb.Append(value);
         }
 
-        private static T QueryTopOne<T, TProperty>(this IDbConnection connection, Expression<Func<T, TProperty>> expression, TProperty value)
+        private static T QueryTopOne<T, TProperty>(this IDbConnection connection, Expression<Func<T, TProperty>> expression, TProperty value = default)
         {
+            var table = DapperExtension.GetTableName<T>();
             string propertyName = expression.Body.GetName();
             string column = DapperExtension.ToColumn<T>(propertyName);
-            var table = DapperExtension.GetTableName<T>();
             var parameters = new DynamicParameters();
             parameters.Add($"@{propertyName}", value);
 

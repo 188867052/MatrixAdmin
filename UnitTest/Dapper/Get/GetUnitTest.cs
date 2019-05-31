@@ -17,7 +17,7 @@ namespace Core.UnitTest.Dapper
         [Test]
         public void TestFilteredGetList()
         {
-            User user = DapperExtension.Connection.FirstOrDefault<User>();
+            User user = DapperExtension.Connection.QueryFirst<User>();
             if (user != null)
             {
                 var users = DapperExtension.Connection.GetList<User>($"where login_name = '{user.LoginName}'");
@@ -43,7 +43,7 @@ namespace Core.UnitTest.Dapper
         {
             using (var dapper = DapperExtension.Connection)
             {
-                User user = DapperExtension.Connection.FirstOrDefault<User>();
+                User user = DapperExtension.Connection.QueryFirst<User>();
                 if (user != null)
                 {
                     var users = dapper.FindAll<User>(o => o.Id, user.Id);
@@ -75,7 +75,7 @@ namespace Core.UnitTest.Dapper
         [Test]
         public void TestFilteredGetListParameters()
         {
-            User user = DapperExtension.Connection.FirstOrDefault<User>();
+            User user = DapperExtension.Connection.QueryFirst<User>();
             if (user != null)
             {
                 IEnumerable<User> users = DapperExtension.Connection.GetList<User>("where Id = @Id", new { user.Id });
