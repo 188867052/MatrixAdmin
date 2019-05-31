@@ -15,9 +15,7 @@ namespace Core.Api.Framework.MiddleWare
             this._next = next;
         }
 
-#pragma warning disable VSTHRD200 // 对异步方法使用“Async”后缀
         public async Task Invoke(HttpContext context)
-#pragma warning restore VSTHRD200 // 对异步方法使用“Async”后缀
         {
             try
             {
@@ -25,9 +23,9 @@ namespace Core.Api.Framework.MiddleWare
             }
             catch (Exception exception)
             {
-                using (CoreContext coreApiContext = new CoreContext())
+                using (CoreContext coreContext = new CoreContext())
                 {
-                    coreApiContext.Log.Add(new Log
+                    coreContext.Log.Add(new Log
                     {
                         Message = $"[1:]{exception.StackTrace}{Environment.NewLine}{Environment.NewLine}" +
                                   $"<p style=\"color:blue\">{exception.Message}</p>{Environment.NewLine}{Environment.NewLine}" +
@@ -35,7 +33,7 @@ namespace Core.Api.Framework.MiddleWare
                                   $"[4:]{exception.InnerException.StackTrace}",
                         LogLevel = (int)LogLevel.Error
                     });
-                    coreApiContext.SaveChanges();
+                    coreContext.SaveChanges();
                 }
             }
         }
