@@ -4528,7 +4528,6 @@
           "Roslyn.Diagnostics.Analyzers": "2.9.2",
           "Swashbuckle.AspNetCore": "5.0.0-rc2",
           "Swashbuckle.AspNetCore.Swagger": "5.0.0-rc2",
-          "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
         },
         "compile": {
@@ -4550,14 +4549,12 @@
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
-          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Quartz": "3.0.7",
           "Roslyn.Diagnostics.Analyzers": "2.9.2",
-          "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
         },
         "compile": {
@@ -4578,14 +4575,12 @@
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
-          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Quartz": "3.0.7",
           "Roslyn.Diagnostics.Analyzers": "2.9.2",
-          "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
         },
         "compile": {
@@ -4621,7 +4616,6 @@
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
-          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
@@ -4630,7 +4624,6 @@
           "Roslyn.Diagnostics.Analyzers": "2.9.2",
           "System.IdentityModel.Tokens.Jwt": "5.4.0",
           "System.Security.Claims": "4.3.0",
-          "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
         },
         "compile": {
@@ -4672,7 +4665,6 @@
           "Quartz": "3.0.7",
           "Roslyn.Diagnostics.Analyzers": "2.9.2",
           "bootstrap": "4.3.1",
-          "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
         },
         "compile": {
@@ -4693,14 +4685,12 @@
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
-          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Quartz": "3.0.7",
           "Roslyn.Diagnostics.Analyzers": "2.9.2",
-          "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
         },
         "compile": {
@@ -4735,7 +4725,6 @@
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
-          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
@@ -4745,7 +4734,6 @@
           "Swashbuckle.AspNetCore.SwaggerUI": "5.0.0-rc2",
           "System.IdentityModel.Tokens.Jwt": "5.4.0",
           "System.Security.Claims": "4.3.0",
-          "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
         },
         "compile": {
@@ -4781,7 +4769,6 @@
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
-          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
@@ -4791,7 +4778,6 @@
           "Swashbuckle.AspNetCore.SwaggerUI": "5.0.0-rc2",
           "System.IdentityModel.Tokens.Jwt": "5.4.0",
           "System.Security.Claims": "4.3.0",
-          "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
         },
         "compile": {
@@ -4811,13 +4797,11 @@
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview5.19227.1",
-          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Newtonsoft.Json": "12.0.2",
           "Quartz": "3.0.7",
           "Roslyn.Diagnostics.Analyzers": "2.9.2",
-          "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
         },
         "compile": {
@@ -4848,14 +4832,12 @@
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
-          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Quartz": "3.0.7",
           "Roslyn.Diagnostics.Analyzers": "2.9.2",
-          "xunit": "2.4.1",
           "xunit.analyzers": "0.10.0"
         },
         "compile": {

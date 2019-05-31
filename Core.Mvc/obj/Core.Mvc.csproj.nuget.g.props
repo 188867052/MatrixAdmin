@@ -13,7 +13,6 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)xunit.core\2.4.1\build\xunit.core.props" Condition="Exists('$(NuGetPackageRoot)xunit.core\2.4.1\build\xunit.core.props')" />
     <Import Project="$(NuGetPackageRoot)text.analyzers\2.6.4\build\Text.Analyzers.props" Condition="Exists('$(NuGetPackageRoot)text.analyzers\2.6.4\build\Text.Analyzers.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.codeanalysis.publicapianalyzers\2.9.2\build\Microsoft.CodeAnalysis.PublicApiAnalyzers.props" Condition="Exists('$(NuGetPackageRoot)microsoft.codeanalysis.publicapianalyzers\2.9.2\build\Microsoft.CodeAnalysis.PublicApiAnalyzers.props')" />
     <Import Project="$(NuGetPackageRoot)microsoft.codeanalysis.bannedapianalyzers\2.9.2\build\Microsoft.CodeAnalysis.BannedApiAnalyzers.props" Condition="Exists('$(NuGetPackageRoot)microsoft.codeanalysis.bannedapianalyzers\2.9.2\build\Microsoft.CodeAnalysis.BannedApiAnalyzers.props')" />
