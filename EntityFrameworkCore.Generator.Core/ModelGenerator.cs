@@ -1,4 +1,9 @@
-﻿using EntityFrameworkCore.Generator.Extensions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using EntityFrameworkCore.Generator.Extensions;
 using EntityFrameworkCore.Generator.Metadata.Generation;
 using EntityFrameworkCore.Generator.Options;
 using EntityFrameworkCore.Generator.Providers;
@@ -7,11 +12,6 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace EntityFrameworkCore.Generator
 {
@@ -24,34 +24,36 @@ namespace EntityFrameworkCore.Generator
 
         public ModelGenerator(ILoggerFactory logger)
         {
-            _logger = logger.CreateLogger<ModelGenerator>();
-            _namer = new UniqueNamer();
+            this._logger = logger.CreateLogger<ModelGenerator>();
+            this._namer = new UniqueNamer();
         }
 
         public EntityContext Generate(GeneratorOptions options, DatabaseModel databaseModel)
         {
             if (databaseModel == null)
+            {
                 throw new ArgumentNullException(nameof(databaseModel));
+            }
 
-            _logger.LogInformation($"Building code generation model from database: {databaseModel.DatabaseName}");
+            this._logger.LogInformation($"Building code generation model from database: {databaseModel.DatabaseName}");
 
-            _options = options ?? throw new ArgumentNullException(nameof(options));
-            _typeMapper = GetTypeMapper();
+            this._options = options ?? throw new ArgumentNullException(nameof(options));
+            this._typeMapper = this.GetTypeMapper();
 
             var entityContext = new EntityContext();
             entityContext.DatabaseName = databaseModel.DatabaseName;
 
             // update database variables
-            _options.Database.Name = ToLegalName(databaseModel.DatabaseName);
+            this._options.Database.Name = this.ToLegalName(databaseModel.DatabaseName);
 
-            string projectNamespace = _options.Project.Namespace;
-            _options.Project.Namespace = projectNamespace;
+            string projectNamespace = this._options.Project.Namespace;
+            this._options.Project.Namespace = projectNamespace;
 
-            string contextClass = _options.Data.Context.Name;
-            contextClass = _namer.UniqueClassName(contextClass);
+            string contextClass = this._options.Data.Context.Name;
+            contextClass = this._namer.UniqueClassName(contextClass);
 
-            string contextNamespace = _options.Data.Context.Namespace;
-            string contextBaseClass = _options.Data.Context.BaseClass;
+            string contextNamespace = this._options.Data.Context.Namespace;
+            string contextBaseClass = this._options.Data.Context.BaseClass;
 
             entityContext.ContextClass = contextClass;
             entityContext.ContextNamespace = contextNamespace;
@@ -61,29 +63,101 @@ namespace EntityFrameworkCore.Generator
 
             foreach (var t in tables)
             {
-                _logger.LogDebug($"  Processing Table : {t.Name}");
+                this._logger.LogDebug($"  Processing Table : {t.Name}");
 
-                var entity = GetEntity(entityContext, t);
-                GetModels(entity);
+                var entity = this.GetEntity(entityContext, t);
+                this.GetModels(entity);
             }
 
             return entityContext;
         }
 
+        private static bool IsIgnored<TOption>(Property property, TOption options, SharedModelOptions sharedOptions)
+      where TOption : ModelOptionsBase
+        {
+            var name = $"{property.Entity.EntityClass}.{property.PropertyName}";
+
+            var includeExpressions = new HashSet<string>(sharedOptions.Include.Properties);
+            var excludeExpressions = new HashSet<string>(sharedOptions.Exclude.Properties);
+
+            var includeProperties = options?.Include?.Properties ?? Enumerable.Empty<string>();
+            foreach (var expression in includeProperties)
+            {
+                includeExpressions.Add(expression);
+            }
+
+            var excludeProperties = options?.Exclude?.Properties ?? Enumerable.Empty<string>();
+            foreach (var expression in excludeProperties)
+            {
+                excludeExpressions.Add(expression);
+            }
+
+            return IsIgnored(name, excludeExpressions, includeExpressions);
+        }
+
+        private static bool IsIgnored<TOption>(Entity entity, TOption options, SharedModelOptions sharedOptions)
+            where TOption : ModelOptionsBase
+        {
+            var name = entity.EntityClass;
+
+            var includeExpressions = new HashSet<string>(sharedOptions.Include.Entities);
+            var excludeExpressions = new HashSet<string>(sharedOptions.Exclude.Entities);
+
+            var includeEntities = options?.Include?.Entities ?? Enumerable.Empty<string>();
+            foreach (var expression in includeEntities)
+            {
+                includeExpressions.Add(expression);
+            }
+
+            var excludeEntities = options?.Exclude?.Entities ?? Enumerable.Empty<string>();
+            foreach (var expression in excludeEntities)
+            {
+                excludeExpressions.Add(expression);
+            }
+
+            return IsIgnored(name, excludeExpressions, includeExpressions);
+        }
+
+        private static bool IsIgnored(string name, IEnumerable<string> excludeExpressions, IEnumerable<string> includeExpressions)
+        {
+            foreach (var expression in includeExpressions)
+            {
+                if (Regex.IsMatch(name, expression))
+                {
+                    return false;
+                }
+            }
+
+            foreach (var expression in excludeExpressions)
+            {
+                if (Regex.IsMatch(name, expression))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         private Entity GetEntity(EntityContext entityContext, DatabaseTable tableSchema, bool processRelationships = true, bool processMethods = true)
         {
             Entity entity = entityContext.Entities.ByTable(tableSchema.Name, tableSchema.Schema)
-                ?? CreateEntity(entityContext, tableSchema);
+                ?? this.CreateEntity(entityContext, tableSchema);
 
             if (!entity.Properties.IsProcessed)
-                CreateProperties(entity, tableSchema.Columns);
+            {
+                this.CreateProperties(entity, tableSchema.Columns);
+            }
 
             if (processRelationships && !entity.Relationships.IsProcessed)
-                CreateRelationships(entityContext, entity, tableSchema);
+            {
+                this.CreateRelationships(entityContext, entity, tableSchema);
+            }
 
             if (processMethods && !entity.Methods.IsProcessed)
-                CreateMethods(entity, tableSchema);
+            {
+                this.CreateMethods(entity, tableSchema);
+            }
 
             entity.IsProcessed = true;
             return entity;
@@ -98,21 +172,20 @@ namespace EntityFrameworkCore.Generator
                 TableSchema = tableSchema.Schema
             };
 
-            string entityClass = ToClassName(tableSchema.Name, tableSchema.Schema);
-            entityClass = _namer.UniqueClassName(entityClass);
+            string entityClass = this.ToClassName(tableSchema.Name, tableSchema.Schema);
+            entityClass = this._namer.UniqueClassName(entityClass);
 
-            string entityNamespace = _options.Data.Entity.Namespace;
-            string entiyBaseClass = _options.Data.Entity.BaseClass;
-
+            string entityNamespace = this._options.Data.Entity.Namespace;
+            string entiyBaseClass = this._options.Data.Entity.BaseClass;
 
             string mappingName = entityClass + "Map";
-            mappingName = _namer.UniqueClassName(mappingName);
+            mappingName = this._namer.UniqueClassName(mappingName);
 
-            string mappingNamespace = _options.Data.Mapping.Namespace;
+            string mappingNamespace = this._options.Data.Mapping.Namespace;
 
-            string contextName = ContextName(entityClass);
-            contextName = ToPropertyName(entityContext.ContextClass, contextName);
-            contextName = _namer.UniqueContextName(contextName);
+            string contextName = this.ContextName(entityClass);
+            contextName = this.ToPropertyName(entityContext.ContextClass, contextName);
+            contextName = this._namer.UniqueContextName(contextName);
 
             entity.EntityClass = entityClass;
             entity.EntityNamespace = entityNamespace;
@@ -127,7 +200,6 @@ namespace EntityFrameworkCore.Generator
 
             return entity;
         }
-
 
         private void CreateProperties(Entity entity, IEnumerable<DatabaseColumn> columns)
         {
@@ -146,8 +218,8 @@ namespace EntityFrameworkCore.Generator
                     entity.Properties.Add(property);
                 }
 
-                string propertyName = ToPropertyName(entity.EntityClass, column.Name);
-                propertyName = _namer.UniqueName(entity.EntityClass, propertyName);
+                string propertyName = this.ToPropertyName(entity.EntityClass, column.Name);
+                propertyName = this._namer.UniqueName(entity.EntityClass, propertyName);
 
                 property.PropertyName = propertyName;
 
@@ -165,7 +237,7 @@ namespace EntityFrameworkCore.Generator
                 property.Default = column.DefaultValueSql;
                 property.ValueGenerated = column.ValueGenerated;
 
-                var mapping = _typeMapper.ParseType(column.StoreType);
+                var mapping = this._typeMapper.ParseType(column.StoreType);
                 property.StoreType = mapping.StoreType;
                 property.NativeType = mapping.NativeType;
                 property.DataType = mapping.DataType;
@@ -181,12 +253,11 @@ namespace EntityFrameworkCore.Generator
             entity.Properties.IsProcessed = true;
         }
 
-
         private void CreateRelationships(EntityContext entityContext, Entity entity, DatabaseTable tableSchema)
         {
             foreach (var foreignKey in tableSchema.ForeignKeys)
             {
-                CreateRelationship(entityContext, entity, foreignKey);
+                this.CreateRelationship(entityContext, entity, foreignKey);
             }
 
             entity.Relationships.IsProcessed = true;
@@ -194,23 +265,25 @@ namespace EntityFrameworkCore.Generator
 
         private void CreateRelationship(EntityContext entityContext, Entity foreignEntity, DatabaseForeignKey tableKeySchema)
         {
-            Entity primaryEntity = GetEntity(entityContext, tableKeySchema.PrincipalTable, false, false);
+            Entity primaryEntity = this.GetEntity(entityContext, tableKeySchema.PrincipalTable, false, false);
 
             string primaryName = primaryEntity.EntityClass;
             string foreignName = foreignEntity.EntityClass;
 
             string relationshipName = tableKeySchema.Name;
-            relationshipName = _namer.UniqueRelationshipName(relationshipName);
+            relationshipName = this._namer.UniqueRelationshipName(relationshipName);
 
-            var foreignMembers = GetKeyMembers(foreignEntity, tableKeySchema.Columns, tableKeySchema.Name);
+            var foreignMembers = this.GetKeyMembers(foreignEntity, tableKeySchema.Columns, tableKeySchema.Name);
             bool foreignMembersRequired = foreignMembers.Any(c => c.IsRequired);
 
-            var primaryMembers = GetKeyMembers(primaryEntity, tableKeySchema.PrincipalColumns, tableKeySchema.Name);
+            var primaryMembers = this.GetKeyMembers(primaryEntity, tableKeySchema.PrincipalColumns, tableKeySchema.Name);
             bool primaryMembersRequired = primaryMembers.Any(c => c.IsRequired);
 
             // skip invalid fkeys
             if (foreignMembers.Count == 0 || primaryMembers.Count == 0)
+            {
                 return;
+            }
 
             Relationship foreignRelationship = foreignEntity.Relationships
                 .FirstOrDefault(r => r.RelationshipName == relationshipName && r.IsForeignKey);
@@ -223,6 +296,7 @@ namespace EntityFrameworkCore.Generator
                 };
                 foreignEntity.Relationships.Add(foreignRelationship);
             }
+
             foreignRelationship.IsMapped = true;
             foreignRelationship.IsForeignKey = true;
             foreignRelationship.Cardinality = foreignMembersRequired ? Cardinality.One : Cardinality.ZeroOrOne;
@@ -233,10 +307,10 @@ namespace EntityFrameworkCore.Generator
             foreignRelationship.Entity = foreignEntity;
             foreignRelationship.Properties = new PropertyCollection(foreignMembers);
 
-            string prefix = GetMemberPrefix(foreignRelationship, primaryName, foreignName);
+            string prefix = this.GetMemberPrefix(foreignRelationship, primaryName, foreignName);
 
-            string foreignPropertyName = ToPropertyName(foreignEntity.EntityClass, prefix + primaryName);
-            foreignPropertyName = _namer.UniqueName(foreignEntity.EntityClass, foreignPropertyName);
+            string foreignPropertyName = this.ToPropertyName(foreignEntity.EntityClass, prefix + primaryName);
+            foreignPropertyName = this._namer.UniqueName(foreignEntity.EntityClass, foreignPropertyName);
             foreignRelationship.PropertyName = foreignPropertyName;
 
             // add reverse
@@ -258,18 +332,24 @@ namespace EntityFrameworkCore.Generator
             primaryRelationship.Entity = primaryEntity;
             primaryRelationship.Properties = new PropertyCollection(primaryMembers);
 
-            bool isOneToOne = IsOneToOne(tableKeySchema, foreignRelationship);
+            bool isOneToOne = this.IsOneToOne(tableKeySchema, foreignRelationship);
             if (isOneToOne)
+            {
                 primaryRelationship.Cardinality = primaryMembersRequired ? Cardinality.One : Cardinality.ZeroOrOne;
+            }
             else
+            {
                 primaryRelationship.Cardinality = Cardinality.Many;
+            }
 
             string primaryPropertyName = prefix + foreignName;
             if (!isOneToOne)
-                primaryPropertyName = RelationshipName(primaryPropertyName);
+            {
+                primaryPropertyName = this.RelationshipName(primaryPropertyName);
+            }
 
-            primaryPropertyName = ToPropertyName(primaryEntity.EntityClass, primaryPropertyName);
-            primaryPropertyName = _namer.UniqueName(primaryEntity.EntityClass, primaryPropertyName);
+            primaryPropertyName = this.ToPropertyName(primaryEntity.EntityClass, primaryPropertyName);
+            primaryPropertyName = this._namer.UniqueName(primaryEntity.EntityClass, primaryPropertyName);
 
             primaryRelationship.PropertyName = primaryPropertyName;
 
@@ -283,24 +363,25 @@ namespace EntityFrameworkCore.Generator
             primaryRelationship.IsProcessed = true;
         }
 
-
         private void CreateMethods(Entity entity, DatabaseTable tableSchema)
         {
             if (tableSchema.PrimaryKey != null)
             {
-                var method = GetMethodFromColumns(entity, tableSchema.PrimaryKey.Columns);
+                var method = this.GetMethodFromColumns(entity, tableSchema.PrimaryKey.Columns);
                 if (method != null)
                 {
                     method.IsKey = true;
                     method.SourceName = tableSchema.PrimaryKey.Name;
 
                     if (entity.Methods.All(m => m.NameSuffix != method.NameSuffix))
+                    {
                         entity.Methods.Add(method);
+                    }
                 }
             }
 
-            GetIndexMethods(entity, tableSchema);
-            GetForeignKeyMethods(entity, tableSchema);
+            this.GetIndexMethods(entity, tableSchema);
+            this.GetForeignKeyMethods(entity, tableSchema);
 
             entity.Methods.IsProcessed = true;
         }
@@ -313,9 +394,11 @@ namespace EntityFrameworkCore.Generator
             {
                 columns.Add(column);
 
-                var method = GetMethodFromColumns(entity, columns);
+                var method = this.GetMethodFromColumns(entity, columns);
                 if (method != null && entity.Methods.All(m => m.NameSuffix != method.NameSuffix))
+                {
                     entity.Methods.Add(method);
+                }
 
                 columns.Clear();
             }
@@ -325,16 +408,20 @@ namespace EntityFrameworkCore.Generator
         {
             foreach (var index in table.Indexes)
             {
-                var method = GetMethodFromColumns(entity, index.Columns);
+                var method = this.GetMethodFromColumns(entity, index.Columns);
                 if (method == null)
+                {
                     continue;
+                }
 
                 method.SourceName = index.Name;
                 method.IsUnique = index.IsUnique;
                 method.IsIndex = true;
 
                 if (entity.Methods.All(m => m.NameSuffix != method.NameSuffix))
+                {
                     entity.Methods.Add(method);
+                }
             }
         }
 
@@ -347,47 +434,60 @@ namespace EntityFrameworkCore.Generator
             {
                 var property = entity.Properties.ByColumn(column.Name);
                 if (property == null)
+                {
                     continue;
+                }
 
                 method.Properties.Add(property);
                 methodName.Append(property.PropertyName);
             }
 
             if (method.Properties.Count == 0)
+            {
                 return null;
+            }
 
             method.NameSuffix = methodName.ToString();
             return method;
         }
 
-
         private void GetModels(Entity entity)
         {
             if (entity == null || entity.Models.IsProcessed)
+            {
                 return;
+            }
 
-            _options.Variables.Set("Entity.Name", entity.EntityClass);
+            this._options.Variables.Set("Entity.Name", entity.EntityClass);
 
-            if (_options.Model.Read.Generate)
-                CreateModel(entity, _options.Model.Read, ModelType.Read);
-            if (_options.Model.Create.Generate)
-                CreateModel(entity, _options.Model.Create, ModelType.Create);
-            if (_options.Model.Update.Generate)
-                CreateModel(entity, _options.Model.Update, ModelType.Update);
+            if (this._options.Model.Read.Generate)
+            {
+                this.CreateModel(entity, this._options.Model.Read, ModelType.Read);
+            }
+
+            if (this._options.Model.Create.Generate)
+            {
+                this.CreateModel(entity, this._options.Model.Create, ModelType.Create);
+            }
+
+            if (this._options.Model.Update.Generate)
+            {
+                this.CreateModel(entity, this._options.Model.Update, ModelType.Update);
+            }
 
             if (entity.Models.Count > 0)
             {
-                var mapperNamespace = _options.Model.Mapper.Namespace;
+                var mapperNamespace = this._options.Model.Mapper.Namespace;
 
-                var mapperClass = ToLegalName(_options.Model.Mapper.Name);
-                mapperClass = _namer.UniqueModelName(mapperNamespace, mapperClass);
+                var mapperClass = this.ToLegalName(this._options.Model.Mapper.Name);
+                mapperClass = this._namer.UniqueModelName(mapperNamespace, mapperClass);
 
                 entity.MapperClass = mapperClass;
                 entity.MapperNamespace = mapperNamespace;
-                entity.MapperBaseClass = _options.Model.Mapper.BaseClass;
+                entity.MapperBaseClass = this._options.Model.Mapper.BaseClass;
             }
 
-            _options.Variables.Remove("Entity.Name");
+            this._options.Variables.Remove("Entity.Name");
 
             entity.Models.IsProcessed = true;
         }
@@ -395,15 +495,17 @@ namespace EntityFrameworkCore.Generator
         private void CreateModel<TOption>(Entity entity, TOption options, ModelType modelType)
             where TOption : ModelOptionsBase
         {
-            if (IsIgnored(entity, options, _options.Model.Shared))
+            if (IsIgnored(entity, options, this._options.Model.Shared))
+            {
                 return;
+            }
 
             var modelNamespace = options.Namespace.HasValue()
                 ? options.Namespace
-                : _options.Model.Shared.Namespace;
+                : this._options.Model.Shared.Namespace;
 
-            var modelClass = ToLegalName(options.Name);
-            modelClass = _namer.UniqueModelName(modelNamespace, modelClass);
+            var modelClass = this.ToLegalName(options.Name);
+            modelClass = this._namer.UniqueModelName(modelNamespace, modelClass);
 
             var model = new Model
             {
@@ -416,27 +518,28 @@ namespace EntityFrameworkCore.Generator
 
             foreach (var property in entity.Properties)
             {
-                if (IsIgnored(property, options, _options.Model.Shared))
+                if (IsIgnored(property, options, this._options.Model.Shared))
+                {
                     continue;
+                }
 
                 model.Properties.Add(property);
             }
 
-            _options.Variables.Set("Model.Name", model.ModelClass);
+            this._options.Variables.Set("Model.Name", model.ModelClass);
 
-            var validatorNamespace = _options.Model.Validator.Namespace;
-            var validatorClass = ToLegalName(_options.Model.Validator.Name);
-            validatorClass = _namer.UniqueModelName(validatorNamespace, validatorClass);
+            var validatorNamespace = this._options.Model.Validator.Namespace;
+            var validatorClass = this.ToLegalName(this._options.Model.Validator.Name);
+            validatorClass = this._namer.UniqueModelName(validatorNamespace, validatorClass);
 
-            model.ValidatorBaseClass = _options.Model.Validator.BaseClass;
+            model.ValidatorBaseClass = this._options.Model.Validator.BaseClass;
             model.ValidatorClass = validatorClass;
             model.ValidatorNamespace = validatorNamespace;
 
             entity.Models.Add(model);
 
-            _options.Variables.Remove("Model.Name");
+            this._options.Variables.Remove("Model.Name");
         }
-
 
         private List<Property> GetKeyMembers(Entity entity, IEnumerable<DatabaseColumn> members, string relationshipName)
         {
@@ -447,9 +550,13 @@ namespace EntityFrameworkCore.Generator
                 var property = entity.Properties.ByColumn(member.Name);
 
                 if (property == null)
-                    _logger.LogWarning("Could not find column {0} for relationship {1}.", member.Name, relationshipName);
+                {
+                    this._logger.LogWarning("Could not find column {0} for relationship {1}.", member.Name, relationshipName);
+                }
                 else
+                {
                     keyMembers.Add(property);
+                }
             }
 
             return keyMembers;
@@ -466,17 +573,19 @@ namespace EntityFrameworkCore.Generator
                 .FirstOrDefault() ?? string.Empty;
 
             bool isSameName = thisKey.Equals(otherKey, StringComparison.OrdinalIgnoreCase);
-            isSameName = (isSameName || thisKey.Equals(primaryClass + otherKey, StringComparison.OrdinalIgnoreCase));
+            isSameName = isSameName || thisKey.Equals(primaryClass + otherKey, StringComparison.OrdinalIgnoreCase);
 
             string prefix = string.Empty;
             if (isSameName)
+            {
                 return prefix;
+            }
 
-            prefix = thisKey.Replace(otherKey, "");
-            prefix = prefix.Replace(primaryClass, "");
-            prefix = prefix.Replace(foreignClass, "");
-            prefix = Regex.Replace(prefix, @"(_ID|_id|_Id|\.ID|\.id|\.Id|ID|Id)$", "");
-            prefix = Regex.Replace(prefix, @"^\d", "");
+            prefix = thisKey.Replace(otherKey, string.Empty);
+            prefix = prefix.Replace(primaryClass, string.Empty);
+            prefix = prefix.Replace(foreignClass, string.Empty);
+            prefix = Regex.Replace(prefix, @"(_ID|_id|_Id|\.ID|\.id|\.Id|ID|Id)$", string.Empty);
+            prefix = Regex.Replace(prefix, @"^\d", string.Empty);
 
             return prefix;
         }
@@ -493,71 +602,84 @@ namespace EntityFrameworkCore.Generator
                               && tableKeySchema.Table.PrimaryKey.Columns.Any(c => c.Name == foreignColumn);
 
             if (isFkeyPkey)
+            {
                 return true;
+            }
 
             return false;
-
-            // if f.key is unique
-            //return tableKeySchema.ForeignKeyMemberColumns.All(column => column.IsUnique);
         }
-
 
         private string RelationshipName(string name)
         {
-            var naming = _options.Data.Entity.RelationshipNaming;
+            var naming = this._options.Data.Entity.RelationshipNaming;
             if (naming == RelationshipNaming.Preserve)
+            {
                 return name;
+            }
 
             if (naming == RelationshipNaming.Suffix)
+            {
                 return name + "List";
+            }
 
             return name.Pluralize();
         }
 
         private string ContextName(string name)
         {
-            var naming = _options.Data.Context.PropertyNaming;
+            var naming = this._options.Data.Context.PropertyNaming;
             if (naming == ContextNaming.Preserve)
+            {
                 return name;
+            }
 
             if (naming == ContextNaming.Suffix)
+            {
                 return name + "DataSet";
+            }
 
             return name.Pluralize();
         }
 
         private string EntityName(string name)
         {
-            var tableNaming = _options.Database.TableNaming;
-            var entityNaming = _options.Data.Entity.EntityNaming;
+            var tableNaming = this._options.Database.TableNaming;
+            var entityNaming = this._options.Data.Entity.EntityNaming;
 
             if (tableNaming != TableNaming.Plural && entityNaming == EntityNaming.Plural)
+            {
                 name = name.Pluralize();
+            }
             else if (tableNaming != TableNaming.Singular && entityNaming == EntityNaming.Singular)
+            {
                 name = name.Singularize();
+            }
 
             return name;
         }
 
-
         private string ToClassName(string tableName, string tableSchema)
         {
-            tableName = EntityName(tableName);
+            tableName = this.EntityName(tableName);
             var className = tableName;
 
-            if (_options.Data.Entity.PrefixWithSchemaName && tableSchema != null)
+            if (this._options.Data.Entity.PrefixWithSchemaName && tableSchema != null)
+            {
                 className = $"{tableSchema}{tableName}";
+            }
 
-            string legalName = ToLegalName(className);
+            string legalName = this.ToLegalName(className);
 
             return legalName;
         }
 
         private string ToPropertyName(string className, string name)
         {
-            string propertyName = ToLegalName(name);
+            string propertyName = this.ToLegalName(name);
             if (className.Equals(propertyName, StringComparison.OrdinalIgnoreCase))
+            {
                 propertyName += "Member";
+            }
 
             return propertyName;
         }
@@ -568,86 +690,32 @@ namespace EntityFrameworkCore.Generator
 
             // remove invalid leading identifiers
             if (Regex.IsMatch(name, @"^[^a-zA-Z_]+"))
-                legalName = Regex.Replace(legalName, @"^[^a-zA-Z_]+", "");
+            {
+                legalName = Regex.Replace(legalName, @"^[^a-zA-Z_]+", string.Empty);
+            }
 
             // prefix with column when all characters removed
             if (legalName.IsNullOrWhiteSpace())
-                legalName =  "Number" + name;
+            {
+                legalName = "Number" + name;
+            }
 
             legalName = legalName.ToPascalCase();
 
             return legalName;
         }
 
-
-        private static bool IsIgnored<TOption>(Property property, TOption options, SharedModelOptions sharedOptions)
-            where TOption : ModelOptionsBase
-        {
-            var name = $"{property.Entity.EntityClass}.{property.PropertyName}";
-
-            var includeExpressions = new HashSet<string>(sharedOptions.Include.Properties);
-            var excludeExpressions = new HashSet<string>(sharedOptions.Exclude.Properties);
-
-            var includeProperties = options?.Include?.Properties ?? Enumerable.Empty<string>();
-            foreach (var expression in includeProperties)
-                includeExpressions.Add(expression);
-
-            var excludeProperties = options?.Exclude?.Properties ?? Enumerable.Empty<string>();
-            foreach (var expression in excludeProperties)
-                excludeExpressions.Add(expression);
-
-            return IsIgnored(name, excludeExpressions, includeExpressions);
-        }
-
-        private static bool IsIgnored<TOption>(Entity entity, TOption options, SharedModelOptions sharedOptions)
-            where TOption : ModelOptionsBase
-        {
-            var name = entity.EntityClass;
-
-            var includeExpressions = new HashSet<string>(sharedOptions.Include.Entities);
-            var excludeExpressions = new HashSet<string>(sharedOptions.Exclude.Entities);
-
-            var includeEntities = options?.Include?.Entities ?? Enumerable.Empty<string>();
-            foreach (var expression in includeEntities)
-                includeExpressions.Add(expression);
-
-            var excludeEntities = options?.Exclude?.Entities ?? Enumerable.Empty<string>();
-            foreach (var expression in excludeEntities)
-                excludeExpressions.Add(expression);
-
-            return IsIgnored(name, excludeExpressions, includeExpressions);
-        }
-
-        private static bool IsIgnored(string name, IEnumerable<string> excludeExpressions, IEnumerable<string> includeExpressions)
-        {
-            foreach (var expression in includeExpressions)
-                if (Regex.IsMatch(name, expression))
-                    return false;
-
-            foreach (var expression in excludeExpressions)
-                if (Regex.IsMatch(name, expression))
-                    return true;
-
-            return false;
-        }
-
-
         private IProviderTypeMapping GetTypeMapper()
         {
-            var provider = _options.Database.Provider;
+            var provider = this._options.Database.Provider;
 
-            _logger.LogTrace($"Creating database model factory for: {provider}");
+            this._logger.LogTrace($"Creating database model factory for: {provider}");
             if (provider == DatabaseProviders.SqlServer)
+            {
                 return new SqlServerTypeMapping();
-
-            //if (provider == DatabaseProviders.PostgreSQL)
-            //    return new Npgsql.EntityFrameworkCore.PostgreSQL.Scaffolding.Internal.NpgsqlDatabaseModelFactory(_diagnosticsLogger);
-
-            //if (Options.Database.Provider == DatabaseProviders.Sqlite)
-            //    return new Microsoft.EntityFrameworkCore.Sqlite.Scaffolding.Internal.SqliteDatabaseModelFactory(_diagnosticsLogger, null);
+            }
 
             throw new NotSupportedException($"The specified provider '{provider}' is not supported.");
         }
-
     }
 }

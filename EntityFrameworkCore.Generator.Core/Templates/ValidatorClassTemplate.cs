@@ -10,99 +10,108 @@ namespace EntityFrameworkCore.Generator.Templates
 
         public ValidatorClassTemplate(Model model, GeneratorOptions options) : base(options)
         {
-            _model = model;
+            this._model = model;
         }
 
         public override string WriteCode()
         {
-            CodeBuilder.Clear();
+            this.CodeBuilder.Clear();
 
-            CodeBuilder.AppendLine("using System;");
-            CodeBuilder.AppendLine("using FluentValidation;");
+            this.CodeBuilder.AppendLine("using System;");
+            this.CodeBuilder.AppendLine("using FluentValidation;");
 
-            if (_model.ModelNamespace != _model.ValidatorNamespace)
-                CodeBuilder.AppendLine($"using {_model.ModelNamespace};");
-
-            CodeBuilder.AppendLine();
-
-            CodeBuilder.AppendLine($"namespace {_model.ValidatorNamespace}");
-            CodeBuilder.AppendLine("{");
-
-            using (CodeBuilder.Indent())
+            if (this._model.ModelNamespace != this._model.ValidatorNamespace)
             {
-                GenerateClass();
+                this.CodeBuilder.AppendLine($"using {this._model.ModelNamespace};");
             }
 
-            CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine();
 
-            return CodeBuilder.ToString();
+            this.CodeBuilder.AppendLine($"namespace {this._model.ValidatorNamespace}");
+            this.CodeBuilder.AppendLine("{");
+
+            using (this.CodeBuilder.Indent())
+            {
+                this.GenerateClass();
+            }
+
+            this.CodeBuilder.AppendLine("}");
+
+            return this.CodeBuilder.ToString();
         }
 
         private void GenerateClass()
         {
-            var validatorClass = _model.ValidatorClass.ToSafeName();
-            var modelClass = _model.ModelClass.ToSafeName();
+            var validatorClass = this._model.ValidatorClass.ToSafeName();
+            var modelClass = this._model.ModelClass.ToSafeName();
 
-            if (Options.Model.Validator.Document)
+            if (this.Options.Model.Validator.Document)
             {
-                CodeBuilder.AppendLine("/// <summary>");
-                CodeBuilder.AppendLine($"/// Validator class for <see cref=\"{modelClass}\"/> .");
-                CodeBuilder.AppendLine("/// </summary>");
+                this.CodeBuilder.AppendLine("/// <summary>");
+                this.CodeBuilder.AppendLine($"/// Validator class for <see cref=\"{modelClass}\"/> .");
+                this.CodeBuilder.AppendLine("/// </summary>");
             }
 
-            CodeBuilder.AppendLine($"public partial class {validatorClass}");
+            this.CodeBuilder.AppendLine($"public partial class {validatorClass}");
 
-            if (_model.ValidatorBaseClass.HasValue())
+            if (this._model.ValidatorBaseClass.HasValue())
             {
-                var validatorBase = _model.ValidatorBaseClass.ToSafeName();
-                using (CodeBuilder.Indent())
-                    CodeBuilder.AppendLine($": {validatorBase}");
+                var validatorBase = this._model.ValidatorBaseClass.ToSafeName();
+                using (this.CodeBuilder.Indent())
+                {
+                    this.CodeBuilder.AppendLine($": {validatorBase}");
+                }
             }
 
-            CodeBuilder.AppendLine("{");
+            this.CodeBuilder.AppendLine("{");
 
-            using (CodeBuilder.Indent())
+            using (this.CodeBuilder.Indent())
             {
-                GenerateConstructor();
+                this.GenerateConstructor();
             }
 
-            CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine("}");
         }
 
         private void GenerateConstructor()
         {
-            var validatorClass = _model.ValidatorClass.ToSafeName();
+            var validatorClass = this._model.ValidatorClass.ToSafeName();
 
-            if (Options.Model.Validator.Document)
+            if (this.Options.Model.Validator.Document)
             {
-                CodeBuilder.AppendLine("/// <summary>");
-                CodeBuilder.AppendLine($"/// Initializes a new instance of the <see cref=\"{validatorClass}\"/> class.");
-                CodeBuilder.AppendLine("/// </summary>");
+                this.CodeBuilder.AppendLine("/// <summary>");
+                this.CodeBuilder.AppendLine($"/// Initializes a new instance of the <see cref=\"{validatorClass}\"/> class.");
+                this.CodeBuilder.AppendLine("/// </summary>");
             }
 
-            CodeBuilder.AppendLine($"public {validatorClass}()");
-            CodeBuilder.AppendLine("{");
+            this.CodeBuilder.AppendLine($"public {validatorClass}()");
+            this.CodeBuilder.AppendLine("{");
 
-            using (CodeBuilder.Indent())
+            using (this.CodeBuilder.Indent())
             {
-                foreach (var property in _model.Properties)
+                foreach (var property in this._model.Properties)
                 {
                     if (property.ValueGenerated.HasValue)
+                    {
                         continue;
+                    }
 
                     var propertyName = property.PropertyName.ToSafeName();
 
                     if (property.IsRequired && property.SystemType == typeof(string))
-                        CodeBuilder.AppendLine($"RuleFor(p => p.{propertyName}).NotEmpty();");
-                    if (property.Size.HasValue && property.SystemType == typeof(string))
-                        CodeBuilder.AppendLine($"RuleFor(p => p.{propertyName}).MaximumLength({property.Size});");
+                    {
+                        this.CodeBuilder.AppendLine($"RuleFor(p => p.{propertyName}).NotEmpty();");
+                    }
 
+                    if (property.Size.HasValue && property.SystemType == typeof(string))
+                    {
+                        this.CodeBuilder.AppendLine($"RuleFor(p => p.{propertyName}).MaximumLength({property.Size});");
+                    }
                 }
             }
 
-            CodeBuilder.AppendLine("}");
-            CodeBuilder.AppendLine();
+            this.CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine();
         }
-
     }
 }

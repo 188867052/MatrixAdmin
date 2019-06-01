@@ -1,7 +1,7 @@
 ﻿namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// Relationship property naming strategy
+    /// Relationship property naming strategy.
     /// </summary>
     public enum RelationshipNaming
     {

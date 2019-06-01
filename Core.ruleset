@@ -84,6 +84,8 @@
     <Rule Id="SA0001" Action="None" />
     <Rule Id="SA1407" Action="None" />
     <Rule Id="SA1601" Action="None" />
+    <Rule Id="SA1611" Action="None" />
+    <Rule Id="SA1602" Action="None" />
   </Rules>
   <Rules AnalyzerId="Microsoft.EntityFrameworkCore.Analyzers" RuleNamespace="Microsoft.EntityFrameworkCore.Analyzers">
     <Rule Id="EF1001" Action="None" />

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EntityFrameworkCore.Generator.Metadata.Generation
+﻿namespace EntityFrameworkCore.Generator.Metadata.Generation
 {
     public enum Cardinality
     {

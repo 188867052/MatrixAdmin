@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace EntityFrameworkCore.Generator.Options
+﻿namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// Model options group
+    /// Model options group.
     /// </summary>
     public class ModelOptions : OptionsBase
     {
@@ -15,16 +13,16 @@ namespace EntityFrameworkCore.Generator.Options
         public ModelOptions(VariableDictionary variables, string prefix)
             : base(variables, AppendPrefix(prefix, "Model"))
         {
-            Shared = new SharedModelOptions(Variables, Prefix);
-            Read = new ReadModelOptions(Variables, Prefix);
-            Create = new CreateModelOptions(Variables, Prefix);
-            Update = new UpdateModelOptions(Variables, Prefix);
-            Mapper = new MapperClassOptions(Variables, Prefix);
-            Validator = new ValidatorClassOptions(Variables, Prefix);
+            this.Shared = new SharedModelOptions(this.Variables, this.Prefix);
+            this.Read = new ReadModelOptions(this.Variables, this.Prefix);
+            this.Create = new CreateModelOptions(this.Variables, this.Prefix);
+            this.Update = new UpdateModelOptions(this.Variables, this.Prefix);
+            this.Mapper = new MapperClassOptions(this.Variables, this.Prefix);
+            this.Validator = new ValidatorClassOptions(this.Variables, this.Prefix);
         }
 
         /// <summary>
-        /// Gets or sets the shared options between read,create and update models
+        /// Gets or sets the shared options between read,create and update models.
         /// </summary>
         /// <value>
         /// The shared options between read,create and update models.
@@ -70,6 +68,5 @@ namespace EntityFrameworkCore.Generator.Options
         /// The model validator options.
         /// </value>
         public ValidatorClassOptions Validator { get; set; }
-
     }
 }

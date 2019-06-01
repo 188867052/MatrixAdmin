@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace EntityFrameworkCore.Generator.Metadata.Generation
 {
@@ -15,10 +14,10 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
         /// </summary>
         public Entity()
         {
-            Properties = new PropertyCollection();
-            Relationships = new RelationshipCollection();
-            Methods = new MethodCollection();
-            Models = new ModelCollection();
+            this.Properties = new PropertyCollection();
+            this.Relationships = new RelationshipCollection();
+            this.Methods = new MethodCollection();
+            this.Models = new ModelCollection();
         }
 
         /// <summary>
@@ -37,7 +36,6 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
         /// </value>
         public string ContextProperty { get; set; }
 
-
         public string EntityNamespace { get; set; }
 
         /// <summary>
@@ -50,7 +48,6 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
 
         public string EntityBaseClass { get; set; }
 
-
         public string MappingNamespace { get; set; }
 
         /// <summary>
@@ -61,13 +58,11 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
         /// </value>
         public string MappingClass { get; set; }
 
-
         public string MapperClass { get; set; }
 
         public string MapperNamespace { get; set; }
 
         public string MapperBaseClass { get; set; }
-
 
         /// <summary>
         /// Gets or sets the table schema.
@@ -84,7 +79,6 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
         /// The name of the table.
         /// </value>
         public string TableName { get; set; }
-
 
         /// <summary>
         /// Gets or sets the entity's properties.
@@ -110,7 +104,6 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
         /// </value>
         public MethodCollection Methods { get; set; }
 
-
         /// <summary>
         /// Gets or sets the models for this entity.
         /// </summary>
@@ -118,6 +111,5 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
         /// The models for this entity.
         /// </value>
         public ModelCollection Models { get; set; }
-
     }
 }

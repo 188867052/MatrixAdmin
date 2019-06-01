@@ -1,19 +1,15 @@
 ﻿namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// Project options
+    /// Project options.
     /// </summary>
     public class ProjectOptions : OptionsBase
     {
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProjectOptions"/> class.
-        /// </summary>
         public ProjectOptions(VariableDictionary variables, string prefix)
             : base(variables, AppendPrefix(prefix, "Project"))
         {
-            Namespace = "{Database.Name}";
-            Directory = @".\";
+            this.Namespace = "{Database.Name}";
+            this.Directory = @".\";
         }
 
         /// <summary>
@@ -24,8 +20,8 @@
         /// </value>
         public string Namespace
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
 
         /// <summary>
@@ -36,9 +32,8 @@
         /// </value>
         public string Directory
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
-
     }
 }

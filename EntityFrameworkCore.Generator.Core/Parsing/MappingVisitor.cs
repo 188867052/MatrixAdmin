@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using EntityFrameworkCore.Generator.Metadata.Parsing;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -11,55 +10,51 @@ namespace EntityFrameworkCore.Generator.Parsing
         private ParsedProperty _currentProperty;
         private ParsedRelationship _currentRelationship;
 
-
         public MappingVisitor()
         {
-            MappingBaseType = "IEntityTypeConfiguration";
+            this.MappingBaseType = "IEntityTypeConfiguration";
         }
 
         public string MappingBaseType { get; set; }
 
         public ParsedEntity ParsedEntity { get; set; }
 
-
         public override void VisitClassDeclaration(ClassDeclarationSyntax node)
         {
-            ParseClassNames(node);
+            this.ParseClassNames(node);
             base.VisitClassDeclaration(node);
         }
 
         public override void VisitInvocationExpression(InvocationExpressionSyntax node)
         {
-
-            var methodName = ParseMethodName(node);
+            var methodName = this.ParseMethodName(node);
 
             switch (methodName)
             {
                 case "HasForeignKey":
-                    ParseForeignKey(node);
+                    this.ParseForeignKey(node);
                     break;
                 case "WithMany":
                 case "WithOne":
-                    ParseWithMany(node);
+                    this.ParseWithMany(node);
                     break;
                 case "HasMany":
                 case "HasOne":
-                    ParseHasOne(node);
+                    this.ParseHasOne(node);
                     break;
                 case "HasColumnName":
-                    ParseColumnName(node);
+                    this.ParseColumnName(node);
                     break;
                 case "Property":
-                    ParseProperty(node);
+                    this.ParseProperty(node);
                     break;
                 case "ToTable":
-                    ParseTable(node);
+                    this.ParseTable(node);
                     break;
             }
 
             base.VisitInvocationExpression(node);
         }
-
 
         private string ParseMethodName(InvocationExpressionSyntax node)
         {
@@ -69,7 +64,9 @@ namespace EntityFrameworkCore.Generator.Parsing
                 .FirstOrDefault();
 
             if (memberAccess == null)
+            {
                 return string.Empty;
+            }
 
             var methodName = memberAccess
                 .ChildNodes()
@@ -83,7 +80,9 @@ namespace EntityFrameworkCore.Generator.Parsing
         private string ParseLambaExpression(InvocationExpressionSyntax node)
         {
             if (node == null)
+            {
                 return null;
+            }
 
             var lambaExpression = node
                 .ArgumentList
@@ -92,7 +91,9 @@ namespace EntityFrameworkCore.Generator.Parsing
                 .FirstOrDefault();
 
             if (lambaExpression == null)
+            {
                 return null;
+            }
 
             var simpleExpression = lambaExpression
                 .ChildNodes()
@@ -100,7 +101,9 @@ namespace EntityFrameworkCore.Generator.Parsing
                 .FirstOrDefault();
 
             if (simpleExpression == null)
+            {
                 return null;
+            }
 
             var propertyName = simpleExpression
                 .ChildNodes()
@@ -111,70 +114,91 @@ namespace EntityFrameworkCore.Generator.Parsing
             return propertyName;
         }
 
-
         private void ParseHasOne(InvocationExpressionSyntax node)
         {
-            if (node == null || ParsedEntity == null || _currentRelationship == null)
+            if (node == null || this.ParsedEntity == null || this._currentRelationship == null)
+            {
                 return;
+            }
 
-            var propertyName = ParseLambaExpression(node);
+            var propertyName = this.ParseLambaExpression(node);
             if (!string.IsNullOrEmpty(propertyName))
-                _currentRelationship.ThisPropertyName = propertyName;
+            {
+                this._currentRelationship.ThisPropertyName = propertyName;
+            }
 
             // add and reset current relationship
-            if (_currentRelationship.IsValid())
-                ParsedEntity.Relationships.Add(_currentRelationship);
+            if (this._currentRelationship.IsValid())
+            {
+                this.ParsedEntity.Relationships.Add(this._currentRelationship);
+            }
 
-            _currentRelationship = null;
+            this._currentRelationship = null;
         }
 
         private void ParseWithMany(InvocationExpressionSyntax node)
         {
-            if (node == null || ParsedEntity == null || _currentRelationship == null)
+            if (node == null || this.ParsedEntity == null || this._currentRelationship == null)
+            {
                 return;
+            }
 
-            var propertyName = ParseLambaExpression(node);
+            var propertyName = this.ParseLambaExpression(node);
             if (string.IsNullOrEmpty(propertyName))
+            {
                 return;
+            }
 
-            _currentRelationship.OtherPropertyName = propertyName;
+            this._currentRelationship.OtherPropertyName = propertyName;
         }
 
         private void ParseForeignKey(InvocationExpressionSyntax node)
         {
-            if (node == null || ParsedEntity == null)
+            if (node == null || this.ParsedEntity == null)
+            {
                 return;
+            }
 
-            var propertyName = ParseLambaExpression(node);
+            var propertyName = this.ParseLambaExpression(node);
 
             if (string.IsNullOrEmpty(propertyName))
+            {
                 return;
+            }
 
             // start new relationship
-            _currentRelationship = new ParsedRelationship();
-            _currentRelationship.ThisProperties.Add(propertyName);
+            this._currentRelationship = new ParsedRelationship();
+            this._currentRelationship.ThisProperties.Add(propertyName);
         }
 
         private void ParseProperty(InvocationExpressionSyntax node)
         {
-            if (node == null || _currentProperty == null)
+            if (node == null || this._currentProperty == null)
+            {
                 return;
+            }
 
-            var propertyName = ParseLambaExpression(node);
+            var propertyName = this.ParseLambaExpression(node);
             if (!string.IsNullOrEmpty(propertyName))
-                _currentProperty.PropertyName = propertyName;
+            {
+                this._currentProperty.PropertyName = propertyName;
+            }
 
             // add and reset current property
-            if (_currentProperty.IsValid())
-                ParsedEntity.Properties.Add(_currentProperty);
+            if (this._currentProperty.IsValid())
+            {
+                this.ParsedEntity.Properties.Add(this._currentProperty);
+            }
 
-            _currentProperty = null;
+            this._currentProperty = null;
         }
 
         private void ParseColumnName(InvocationExpressionSyntax node)
         {
-            if (node == null || ParsedEntity == null)
+            if (node == null || this.ParsedEntity == null)
+            {
                 return;
+            }
 
             var columnName = node
                 .ArgumentList
@@ -184,15 +208,19 @@ namespace EntityFrameworkCore.Generator.Parsing
                 .FirstOrDefault();
 
             if (string.IsNullOrEmpty(columnName))
+            {
                 return;
+            }
 
-            _currentProperty = new ParsedProperty { ColumnName = columnName };
+            this._currentProperty = new ParsedProperty { ColumnName = columnName };
         }
 
         private void ParseTable(InvocationExpressionSyntax node)
         {
-            if (node == null || ParsedEntity == null)
+            if (node == null || this.ParsedEntity == null)
+            {
                 return;
+            }
 
             var arguments = node
                 .ArgumentList
@@ -202,27 +230,37 @@ namespace EntityFrameworkCore.Generator.Parsing
                 .ToList();
 
             if (arguments.Count == 0)
+            {
                 return;
+            }
 
             if (arguments.Count >= 1)
-                ParsedEntity.TableName = arguments[0];
+            {
+                this.ParsedEntity.TableName = arguments[0];
+            }
 
             if (arguments.Count >= 2)
-                ParsedEntity.TableSchema = arguments[1];
+            {
+                this.ParsedEntity.TableSchema = arguments[1];
+            }
         }
 
         private void ParseClassNames(ClassDeclarationSyntax node)
         {
             if (node == null)
+            {
                 return;
+            }
 
             var baseType = node.BaseList
                 .DescendantNodes()
                 .OfType<GenericNameSyntax>()
-                .FirstOrDefault(t => t.Identifier.ValueText == MappingBaseType);
+                .FirstOrDefault(t => t.Identifier.ValueText == this.MappingBaseType);
 
             if (baseType == null)
+            {
                 return;
+            }
 
             var firstArgument = baseType
                 .TypeArgumentList
@@ -239,13 +277,17 @@ namespace EntityFrameworkCore.Generator.Parsing
             var mappingClass = node.Identifier.Text;
 
             if (string.IsNullOrEmpty(entityClass) || string.IsNullOrEmpty(mappingClass))
+            {
                 return;
+            }
 
-            if (ParsedEntity == null)
-                ParsedEntity = new ParsedEntity();
+            if (this.ParsedEntity == null)
+            {
+                this.ParsedEntity = new ParsedEntity();
+            }
 
-            ParsedEntity.MappingClass = mappingClass;
-            ParsedEntity.EntityClass = entityClass;
+            this.ParsedEntity.MappingClass = mappingClass;
+            this.ParsedEntity.EntityClass = entityClass;
         }
     }
 }

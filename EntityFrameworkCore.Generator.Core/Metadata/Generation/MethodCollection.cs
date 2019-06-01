@@ -3,7 +3,7 @@
 namespace EntityFrameworkCore.Generator.Metadata.Generation
 {
     /// <summary>
-    /// A collection of <see cref="Method"/> instances
+    /// A collection of <see cref="Method"/> instances.
     /// </summary>
     public class MethodCollection
         : List<Method>

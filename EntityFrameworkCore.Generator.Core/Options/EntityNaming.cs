@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace EntityFrameworkCore.Generator.Options
+﻿namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// Entity class naming strategy
+    /// Entity class naming strategy.
     /// </summary>
     public enum EntityNaming
     {

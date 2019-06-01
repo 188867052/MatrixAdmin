@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace EntityFrameworkCore.Generator.Metadata.Parsing
@@ -9,20 +8,20 @@ namespace EntityFrameworkCore.Generator.Metadata.Parsing
     {
         public ParsedRelationship()
         {
-            ThisProperties = new List<string>();
+            this.ThisProperties = new List<string>();
         }
 
         public string ThisPropertyName { get; set; }
+
         public List<string> ThisProperties { get; private set; }
 
         public string OtherPropertyName { get; set; }
 
         public bool IsValid()
         {
-            return !string.IsNullOrEmpty(ThisPropertyName)
-                && !string.IsNullOrEmpty(OtherPropertyName)
-                && ThisProperties.Count > 0;
+            return !string.IsNullOrEmpty(this.ThisPropertyName)
+                && !string.IsNullOrEmpty(this.OtherPropertyName)
+                && this.ThisProperties.Count > 0;
         }
-
     }
 }

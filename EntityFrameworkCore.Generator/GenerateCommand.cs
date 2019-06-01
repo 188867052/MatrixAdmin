@@ -1,8 +1,8 @@
-﻿using EntityFrameworkCore.Generator.Extensions;
+﻿using System;
+using EntityFrameworkCore.Generator.Extensions;
 using EntityFrameworkCore.Generator.Options;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace EntityFrameworkCore.Generator
 {
@@ -14,7 +14,7 @@ namespace EntityFrameworkCore.Generator
         public GenerateCommand(ILoggerFactory logger, IConsole console, IGeneratorOptionsSerializer serializer, ICodeGenerator codeGenerator)
             : base(logger, console, serializer)
         {
-            _codeGenerator = codeGenerator;
+            this._codeGenerator = codeGenerator;
         }
 
         [Option("-p <Provider>", Description = "Database provider to reverse engineer")]
@@ -22,7 +22,6 @@ namespace EntityFrameworkCore.Generator
 
         [Option("-c <ConnectionString>", Description = "Database connection string to reverse engineer")]
         public string ConnectionString { get; set; }
-
 
         [Option("--extensions", Description = "Include query extensions in generation")]
         public bool? Extensions { get; set; }
@@ -36,47 +35,54 @@ namespace EntityFrameworkCore.Generator
         [Option("--validator", Description = "Include model validation in generation")]
         public bool? Validator { get; set; }
 
-
         protected override int OnExecute(CommandLineApplication application)
         {
-            var workingDirectory = WorkingDirectory ?? Environment.CurrentDirectory;
-            var optionsFile = OptionsFile ?? GeneratorOptionsSerializer.OptionsFileName;
+            var workingDirectory = this.WorkingDirectory ?? Environment.CurrentDirectory;
+            var optionsFile = this.OptionsFile ?? GeneratorOptionsSerializer.OptionsFileName;
 
-            var options = Serializer.Load(workingDirectory, optionsFile);
+            var options = this.Serializer.Load(workingDirectory, optionsFile);
             if (options == null)
             {
-                Logger.LogInformation("Using default options");
+                this.Logger.LogInformation("Using default options");
                 options = new GeneratorOptions();
             }
 
             // override options
-            if (ConnectionString.HasValue())
-                options.Database.ConnectionString = ConnectionString;
-
-            if (Provider.HasValue)
-                options.Database.Provider = Provider.Value;
-
-            if (Extensions.HasValue)
-                options.Data.Query.Generate = Extensions.Value;
-
-
-            if (Models.HasValue)
+            if (this.ConnectionString.HasValue())
             {
-                options.Model.Read.Generate = Models.Value;
-                options.Model.Create.Generate = Models.Value;
-                options.Model.Update.Generate = Models.Value;
+                options.Database.ConnectionString = this.ConnectionString;
             }
 
-            if (Mapper.HasValue)
-                options.Model.Mapper.Generate = Mapper.Value;
+            if (this.Provider.HasValue)
+            {
+                options.Database.Provider = this.Provider.Value;
+            }
 
-            if (Validator.HasValue)
-                options.Model.Validator.Generate = Validator.Value;
+            if (this.Extensions.HasValue)
+            {
+                options.Data.Query.Generate = this.Extensions.Value;
+            }
 
-            var result = _codeGenerator.Generate(options);
+            if (this.Models.HasValue)
+            {
+                options.Model.Read.Generate = this.Models.Value;
+                options.Model.Create.Generate = this.Models.Value;
+                options.Model.Update.Generate = this.Models.Value;
+            }
+
+            if (this.Mapper.HasValue)
+            {
+                options.Model.Mapper.Generate = this.Mapper.Value;
+            }
+
+            if (this.Validator.HasValue)
+            {
+                options.Model.Validator.Generate = this.Validator.Value;
+            }
+
+            var result = this._codeGenerator.Generate(options);
 
             return result ? 0 : 1;
         }
-
     }
 }

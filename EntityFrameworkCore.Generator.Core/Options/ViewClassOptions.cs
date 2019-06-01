@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace EntityFrameworkCore.Generator.Options
 {
@@ -9,16 +8,13 @@ namespace EntityFrameworkCore.Generator.Options
     /// <seealso cref="ClassOptionsBase" />
     public class ViewClassOptions : ClassOptionsBase
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ViewClassOptions"/> class.
-        /// </summary>
         public ViewClassOptions(VariableDictionary variables, string prefix)
             : base(variables, AppendPrefix(prefix, "View"))
         {
-            Namespace = "{Project.Namespace}.Data.Entities";
-            Directory = @"{Project.Directory}\Data\Entities";
+            this.Namespace = "{Project.Namespace}.Data.Entities";
+            this.Directory = @"{Project.Directory}\Data\Entities";
 
-            Generate = true;
+            this.Generate = true;
         }
 
         /// <summary>
@@ -37,8 +33,8 @@ namespace EntityFrameworkCore.Generator.Options
         /// </value>
         public string BaseClass
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
 
         /// <summary>

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// Selection options
+    /// Selection options.
     /// </summary>
     public class SelectionOptions
     {
@@ -13,8 +12,8 @@ namespace EntityFrameworkCore.Generator.Options
         /// </summary>
         public SelectionOptions()
         {
-            Entities = new List<string>();
-            Properties = new List<string>();
+            this.Entities = new List<string>();
+            this.Properties = new List<string>();
         }
 
         /// <summary>
@@ -25,7 +24,6 @@ namespace EntityFrameworkCore.Generator.Options
         /// </value>
         public List<string> Entities { get; set; }
 
-
         /// <summary>
         /// Gets or sets a list of regular expression of properties to select.
         /// </summary>
@@ -33,6 +31,5 @@ namespace EntityFrameworkCore.Generator.Options
         /// The list of regular expression of properties to select.
         /// </value>
         public List<string> Properties { get; set; }
-
     }
 }

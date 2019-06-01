@@ -8,10 +8,11 @@ using YamlDotNet.Serialization.NamingConventions;
 namespace EntityFrameworkCore.Generator
 {
     /// <summary>
-    /// Serialization and Deserialization for the <see cref="GeneratorOptions"/> class
+    /// Serialization and Deserialization for the <see cref="GeneratorOptions"/> class.
     /// </summary>
     public class GeneratorOptionsSerializer : IGeneratorOptionsSerializer
     {
+        public const string OptionsFileName = "generation.yml";
         private readonly ILogger<GeneratorOptionsSerializer> _logger;
 
         /// <summary>
@@ -20,13 +21,8 @@ namespace EntityFrameworkCore.Generator
         /// <param name="logger">The logger.</param>
         public GeneratorOptionsSerializer(ILogger<GeneratorOptionsSerializer> logger)
         {
-            _logger = logger;
+            this._logger = logger;
         }
-
-        /// <summary>
-        /// The options file name. Default 'generation.yml'
-        /// </summary>
-        public const string OptionsFileName = "generation.yml";
 
         /// <summary>
         /// Loads the options file using the specified <paramref name="directory"/> and <paramref name="file"/>.
@@ -39,7 +35,7 @@ namespace EntityFrameworkCore.Generator
             var path = GetPath(directory, file);
             if (!File.Exists(path))
             {
-                _logger.LogWarning($"Option file not found: {file}");
+                this._logger.LogWarning($"Option file not found: {file}");
                 return null;
             }
 
@@ -50,10 +46,12 @@ namespace EntityFrameworkCore.Generator
                 .WithObjectFactory(factory)
                 .Build();
 
-            _logger.LogInformation($"Loading options file: {file}");
+            this._logger.LogInformation($"Loading options file: {file}");
             GeneratorOptions generatorOptions;
             using (var streamReader = File.OpenText(path))
+            {
                 generatorOptions = deserializer.Deserialize<GeneratorOptions>(streamReader);
+            }
 
             generatorOptions.Variables.ShouldEvaluate = true;
             return generatorOptions;
@@ -69,18 +67,22 @@ namespace EntityFrameworkCore.Generator
         public string Save(GeneratorOptions generatorOptions, string directory = null, string file = OptionsFileName)
         {
             if (string.IsNullOrWhiteSpace(directory))
+            {
                 directory = Environment.CurrentDirectory;
+            }
 
             if (string.IsNullOrWhiteSpace(file))
+            {
                 file = OptionsFileName;
+            }
 
             if (!Directory.Exists(directory))
             {
-                _logger.LogTrace($"Creating Directory: {directory}");
+                this._logger.LogTrace($"Creating Directory: {directory}");
                 Directory.CreateDirectory(directory);
             }
 
-            _logger.LogInformation($"Saving options file: {file}");
+            this._logger.LogInformation($"Saving options file: {file}");
 
             var path = Path.Combine(directory, file);
 
@@ -91,7 +93,9 @@ namespace EntityFrameworkCore.Generator
             generatorOptions.Variables.ShouldEvaluate = false;
 
             using (var streamWriter = File.CreateText(path))
+            {
                 serializer.Serialize(streamWriter, generatorOptions);
+            }
 
             generatorOptions.Variables.ShouldEvaluate = true;
 
@@ -110,14 +114,17 @@ namespace EntityFrameworkCore.Generator
             return File.Exists(path);
         }
 
-
         private static string GetPath(string directory, string file)
         {
             if (string.IsNullOrWhiteSpace(directory))
+            {
                 directory = Environment.CurrentDirectory;
+            }
 
             if (string.IsNullOrWhiteSpace(file))
+            {
                 file = OptionsFileName;
+            }
 
             var path = Path.Combine(directory, file);
             return path;

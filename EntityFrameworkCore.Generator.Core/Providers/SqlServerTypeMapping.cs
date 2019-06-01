@@ -50,40 +50,40 @@ namespace EntityFrameworkCore.Generator.Providers
         {
             switch (nativeType.Trim().ToLower())
             {
-                case "bigint": return typeof(Int64);
-                case "binary": return typeof(Byte[]);
-                case "bit": return typeof(Boolean);
-                case "char": return typeof(String);
+                case "bigint": return typeof(long);
+                case "binary": return typeof(byte[]);
+                case "bit": return typeof(bool);
+                case "char": return typeof(string);
                 case "date": return typeof(DateTime);
                 case "datetime": return typeof(DateTime);
                 case "datetime2": return typeof(DateTime);
                 case "datetimeoffset": return typeof(DateTimeOffset);
-                case "decimal": return typeof(Decimal);
-                case "float": return typeof(Double);
+                case "decimal": return typeof(decimal);
+                case "float": return typeof(double);
                 case "image": return typeof(byte[]);
-                case "int": return typeof(Int32);
-                case "money": return typeof(Decimal);
-                case "nchar": return typeof(String);
-                case "ntext": return typeof(String);
-                case "numeric": return typeof(Decimal);
-                case "nvarchar": return typeof(String);
-                case "real": return typeof(Single);
-                case "rowversion": return typeof(Byte[]);
+                case "int": return typeof(int);
+                case "money": return typeof(decimal);
+                case "nchar": return typeof(string);
+                case "ntext": return typeof(string);
+                case "numeric": return typeof(decimal);
+                case "nvarchar": return typeof(string);
+                case "real": return typeof(float);
+                case "rowversion": return typeof(byte[]);
                 case "smalldatetime": return typeof(DateTime);
-                case "smallint": return typeof(Int16);
-                case "smallmoney": return typeof(Decimal);
-                case "sql_variant": return typeof(Object);
-                case "sysname": return typeof(String);
-                case "text": return typeof(String);
+                case "smallint": return typeof(short);
+                case "smallmoney": return typeof(decimal);
+                case "sql_variant": return typeof(object);
+                case "sysname": return typeof(string);
+                case "text": return typeof(string);
                 case "time": return typeof(TimeSpan);
                 case "timestamp": return typeof(byte[]);
-                case "tinyint": return typeof(Byte);
+                case "tinyint": return typeof(byte);
                 case "uniqueidentifier": return typeof(Guid);
                 case "varbinary": return typeof(byte[]);
-                case "varchar": return typeof(String);
-                case "xml": return typeof(String);
+                case "varchar": return typeof(string);
+                case "xml": return typeof(string);
 
-                default: return typeof(Object);
+                default: return typeof(object);
             }
         }
     }

@@ -4,7 +4,7 @@ using System.Linq;
 namespace EntityFrameworkCore.Generator.Metadata.Generation
 {
     /// <summary>
-    /// A collection of <see cref="Entity"/>
+    /// A collection of <see cref="Entity"/>.
     /// </summary>
     public class EntityCollection
       : List<Entity>

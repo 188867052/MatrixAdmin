@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace EntityFrameworkCore.Generator.Metadata.Generation
 {
@@ -9,16 +7,19 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
     {
         public Method()
         {
-            Properties = new PropertyCollection();
+            this.Properties = new PropertyCollection();
         }
 
         public Entity Entity { get; set; }
 
         public string NameSuffix { get; set; }
+
         public string SourceName { get; set; }
 
         public bool IsKey { get; set; }
+
         public bool IsUnique { get; set; }
+
         public bool IsIndex { get; set; }
 
         public PropertyCollection Properties { get; set; }

@@ -44,22 +44,22 @@ namespace EntityFrameworkCore.Generator.Extensions
 
         private static readonly Dictionary<string, string> _csharpTypeAlias = new Dictionary<string, string>(16)
         {
-            {"System.Int16", "short"},
-            {"System.Int32", "int"},
-            {"System.Int64", "long"},
-            {"System.String", "string"},
-            {"System.Object", "object"},
-            {"System.Boolean", "bool"},
-            {"System.Void", "void"},
-            {"System.Char", "char"},
-            {"System.Byte", "byte"},
-            {"System.UInt16", "ushort"},
-            {"System.UInt32", "uint"},
-            {"System.UInt64", "ulong"},
-            {"System.SByte", "sbyte"},
-            {"System.Single", "float"},
-            {"System.Double", "double"},
-            {"System.Decimal", "decimal"}
+            { "System.Int16", "short" },
+            { "System.Int32", "int" },
+            { "System.Int64", "long" },
+            { "System.String", "string" },
+            { "System.Object", "object" },
+            { "System.Boolean", "bool" },
+            { "System.Void", "void" },
+            { "System.Char", "char" },
+            { "System.Byte", "byte" },
+            { "System.UInt16", "ushort" },
+            { "System.UInt32", "uint" },
+            { "System.UInt64", "ulong" },
+            { "System.SByte", "sbyte" },
+            { "System.Single", "float" },
+            { "System.Double", "double" },
+            { "System.Decimal", "decimal" }
         };
 
         public static string ToFieldName(this string name)
@@ -73,7 +73,9 @@ namespace EntityFrameworkCore.Generator.Extensions
             int count = 1;
 
             while (exists(uniqueName))
+            {
                 uniqueName = string.Concat(name, count++);
+            }
 
             return uniqueName;
         }
@@ -88,7 +90,9 @@ namespace EntityFrameworkCore.Generator.Extensions
         public static string ToSafeName(this string name, CodeLanguage language = CodeLanguage.CSharp)
         {
             if (!name.IsKeyword(language))
+            {
                 return name;
+            }
 
             return language == CodeLanguage.VisualBasic
                 ? string.Format("[{0}]", name)
@@ -103,15 +107,21 @@ namespace EntityFrameworkCore.Generator.Extensions
         public static string ToType(this string type, CodeLanguage language = CodeLanguage.CSharp)
         {
             if (type == "System.Xml.XmlDocument")
+            {
                 type = "System.String";
+            }
 
             if (language == CodeLanguage.CSharp && _csharpTypeAlias.TryGetValue(type, out string t))
+            {
                 return t;
+            }
 
             // drop system from namespace
             string[] parts = type.Split('.');
             if (parts.Length == 2 && parts[0] == "System")
+            {
                 return parts[1];
+            }
 
             return type;
         }
@@ -128,7 +138,9 @@ namespace EntityFrameworkCore.Generator.Extensions
             type = type.ToType(language);
 
             if (!isValueType || !isNullable)
+            {
                 return type;
+            }
 
             return language == CodeLanguage.VisualBasic
                 ? string.Format("Nullable(Of {0})", type)
@@ -138,7 +150,9 @@ namespace EntityFrameworkCore.Generator.Extensions
         public static bool IsValueType(this string type)
         {
             if (!type.StartsWith("System."))
+            {
                 return false;
+            }
 
             var t = Type.GetType(type, false);
             return t != null && t.IsValueType;

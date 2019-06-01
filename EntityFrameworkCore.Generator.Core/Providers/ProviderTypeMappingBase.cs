@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using EntityFrameworkCore.Generator.Metadata.Generation;
 
 namespace EntityFrameworkCore.Generator.Providers
 {
@@ -8,10 +7,10 @@ namespace EntityFrameworkCore.Generator.Providers
     {
         public virtual IPropertyMapping ParseType(string storeTypeName)
         {
-            var property = ParseNativeType(storeTypeName);
+            var property = this.ParseNativeType(storeTypeName);
 
-            property.SystemType = MapSystemType(property.NativeType);
-            property.DataType = MapDataType(property.NativeType);
+            property.SystemType = this.MapSystemType(property.NativeType);
+            property.DataType = this.MapDataType(property.NativeType);
 
             return property;
         }
@@ -28,24 +27,34 @@ namespace EntityFrameworkCore.Generator.Providers
             property.NativeType = storeTypeName;
 
             if (storeTypeName == null)
+            {
                 return property;
+            }
 
             var openParen = storeTypeName.IndexOf("(", StringComparison.Ordinal);
             if (openParen <= 0)
+            {
                 return property;
+            }
 
             var closeParen = storeTypeName.IndexOf(")", openParen + 1, StringComparison.Ordinal);
             if (closeParen <= openParen)
+            {
                 return property;
+            }
 
             var comma = storeTypeName.IndexOf(",", openParen + 1, StringComparison.Ordinal);
             if (comma > openParen && comma < closeParen)
             {
                 if (int.TryParse(storeTypeName.Substring(openParen + 1, comma - openParen - 1), out var parsedPrecision))
+                {
                     property.Precision = parsedPrecision;
+                }
 
                 if (int.TryParse(storeTypeName.Substring(comma + 1, closeParen - comma - 1), out var parsedScale))
+                {
                     property.Scale = parsedScale;
+                }
             }
             else
             {

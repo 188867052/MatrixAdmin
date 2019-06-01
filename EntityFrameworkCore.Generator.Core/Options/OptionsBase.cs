@@ -12,36 +12,36 @@ namespace EntityFrameworkCore.Generator.Options
         /// <param name="prefix">The variable key prefix.</param>
         public OptionsBase(VariableDictionary variables, string prefix)
         {
-            Variables = variables;
-            Prefix = prefix;
+            this.Variables = variables;
+            this.Prefix = prefix;
         }
 
         protected VariableDictionary Variables { get; }
 
         protected string Prefix { get; }
 
-
-        protected string GetProperty([CallerMemberName] string propertyName = null)
-        {
-            var name = AppendPrefix(Prefix, propertyName);
-            return Variables.Get(name);
-        }
-
-        protected void SetProperty(string value, [CallerMemberName] string propertyName = null)
-        {
-            var name = AppendPrefix(Prefix, propertyName);
-            Variables.Set(name, value);
-        }
-
-
         protected static string AppendPrefix(string root, string prefix)
         {
             if (prefix.IsNullOrWhiteSpace())
+            {
                 return root;
+            }
 
             return root.HasValue()
                 ? $"{root}.{prefix}"
                 : prefix;
+        }
+
+        protected string GetProperty([CallerMemberName] string propertyName = null)
+        {
+            var name = AppendPrefix(this.Prefix, propertyName);
+            return this.Variables.Get(name);
+        }
+
+        protected void SetProperty(string value, [CallerMemberName] string propertyName = null)
+        {
+            var name = AppendPrefix(this.Prefix, propertyName);
+            this.Variables.Set(name, value);
         }
     }
 }

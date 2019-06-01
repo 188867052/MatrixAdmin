@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace EntityFrameworkCore.Generator.Options
+﻿namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// The database to generate code for
+    /// The database to generate code for.
     /// </summary>
     public enum DatabaseProviders
     {

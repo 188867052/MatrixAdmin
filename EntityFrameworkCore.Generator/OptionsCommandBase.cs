@@ -9,15 +9,15 @@ namespace EntityFrameworkCore.Generator
         protected OptionsCommandBase(ILoggerFactory logger, IConsole console, IGeneratorOptionsSerializer serializer)
             : base(logger, console)
         {
-            Serializer = serializer;
+            this.Serializer = serializer;
         }
-
-        protected IGeneratorOptionsSerializer Serializer { get; }
 
         [Option("-d <directory>", Description = "The root working directory")]
         public string WorkingDirectory { get; set; } = Environment.CurrentDirectory;
 
         [Option("-f <file>", Description = "The options file name")]
         public string OptionsFile { get; set; } = GeneratorOptionsSerializer.OptionsFileName;
+
+        protected IGeneratorOptionsSerializer Serializer { get; }
     }
 }

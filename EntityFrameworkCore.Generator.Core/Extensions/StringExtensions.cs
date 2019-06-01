@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -7,13 +6,12 @@ namespace EntityFrameworkCore.Generator.Extensions
 {
     public static class StringExtensions
     {
-
         private static readonly Regex _splitNameRegex = new Regex(@"[\W_]+");
 
         /// <summary>
-        /// Indicates whether the specified String object is null or an empty string
+        /// Indicates whether the specified String object is null or an empty string.
         /// </summary>
-        /// <param name="item">A String reference</param>
+        /// <param name="item">A String reference.</param>
         /// <returns>
         ///     <c>true</c> if is null or empty; otherwise, <c>false</c>.
         /// </returns>
@@ -23,20 +21,26 @@ namespace EntityFrameworkCore.Generator.Extensions
         }
 
         /// <summary>
-        /// Indicates whether a specified string is null, empty, or consists only of white-space characters
+        /// Indicates whether a specified string is null, empty, or consists only of white-space characters.
         /// </summary>
-        /// <param name="item">A String reference</param>
+        /// <param name="item">A String reference.</param>
         /// <returns>
         ///      <c>true</c> if is null or empty; otherwise, <c>false</c>.
         /// </returns>
         public static bool IsNullOrWhiteSpace(this string item)
         {
             if (item == null)
+            {
                 return true;
+            }
 
             for (int i = 0; i < item.Length; i++)
+            {
                 if (!char.IsWhiteSpace(item[i]))
+                {
                     return false;
+                }
+            }
 
             return true;
         }
@@ -54,17 +58,19 @@ namespace EntityFrameworkCore.Generator.Extensions
         }
 
         /// <summary>
-        /// Does string contain both uppercase and lowercase characters?
+        /// Does string contain both uppercase and lowercase characters?.
         /// </summary>
         /// <param name="s">The value.</param>
         /// <returns>True if contain mixed case.</returns>
         public static bool IsMixedCase(this string s)
         {
             if (s.IsNullOrEmpty())
+            {
                 return false;
+            }
 
-            var containsUpper = s.Any(Char.IsUpper);
-            var containsLower = s.Any(Char.IsLower);
+            var containsUpper = s.Any(char.IsUpper);
+            var containsLower = s.Any(char.IsLower);
 
             return containsLower && containsUpper;
         }
@@ -77,11 +83,15 @@ namespace EntityFrameworkCore.Generator.Extensions
         public static string ToCamelCase(this string value)
         {
             if (string.IsNullOrEmpty(value))
+            {
                 return value;
+            }
 
             string output = ToPascalCase(value);
             if (output.Length > 2)
+            {
                 return char.ToLower(output[0]) + output.Substring(1);
+            }
 
             return output.ToLower();
         }
@@ -89,8 +99,8 @@ namespace EntityFrameworkCore.Generator.Extensions
         /// <summary>
         /// Converts a string to use PascalCase.
         /// </summary>
-        /// <param name="value">Text to convert</param>
-        /// <returns>The string</returns>
+        /// <param name="value">Text to convert.</param>
+        /// <returns>The string.</returns>
         public static string ToPascalCase(this string value)
         {
             return value.ToPascalCase(_splitNameRegex);
@@ -99,13 +109,15 @@ namespace EntityFrameworkCore.Generator.Extensions
         /// <summary>
         /// Converts a string to use PascalCase.
         /// </summary>
-        /// <param name="value">Text to convert</param>
+        /// <param name="value">Text to convert.</param>
         /// <param name="splitRegex">Regular Expression to split words on.</param>
-        /// <returns>The string</returns>
+        /// <returns>The string.</returns>
         public static string ToPascalCase(this string value, Regex splitRegex)
         {
             if (string.IsNullOrEmpty(value))
+            {
                 return value;
+            }
 
             var mixedCase = value.IsMixedCase();
             var names = splitRegex.Split(value);
@@ -138,7 +150,5 @@ namespace EntityFrameworkCore.Generator.Extensions
 
             return output.ToString();
         }
-
-
     }
 }

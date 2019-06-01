@@ -1,7 +1,7 @@
 ﻿namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// The data options group
+    /// The data options group.
     /// </summary>
     public class DataOptions : OptionsBase
     {
@@ -13,20 +13,19 @@
         public DataOptions(VariableDictionary variables, string prefix)
             : base(variables, AppendPrefix(prefix, "Data"))
         {
-            Mapping = new MappingClassOptions(Variables, Prefix);
-            Entity = new EntityClassOptions(Variables, Prefix);
-            Context = new ContextClassOptions(Variables, Prefix);
-            Query = new QueryExtensionOptions(Variables, Prefix);
+            this.Mapping = new MappingClassOptions(this.Variables, this.Prefix);
+            this.Entity = new EntityClassOptions(this.Variables, this.Prefix);
+            this.Context = new ContextClassOptions(this.Variables, this.Prefix);
+            this.Query = new QueryExtensionOptions(this.Variables, this.Prefix);
         }
 
         /// <summary>
         /// Gets or sets the data context generation options.
         /// </summary>
         /// <value>
-        /// The data context options
+        /// The data context options.
         /// </value>
         public ContextClassOptions Context { get; set; }
-
 
         /// <summary>
         /// Gets or sets the entity class generation options.

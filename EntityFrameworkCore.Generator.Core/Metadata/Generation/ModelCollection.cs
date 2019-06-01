@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace EntityFrameworkCore.Generator.Metadata.Generation
 {
     /// <summary>
-    /// A collection of <see cref="Model"/>
+    /// A collection of <see cref="Model"/>.
     /// </summary>
     public class ModelCollection
         : List<Model>

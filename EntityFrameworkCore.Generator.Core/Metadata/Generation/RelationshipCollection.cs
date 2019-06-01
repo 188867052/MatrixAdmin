@@ -4,7 +4,7 @@ using System.Linq;
 namespace EntityFrameworkCore.Generator.Metadata.Generation
 {
     /// <summary>
-    /// A collection of <see cref="Relationship"/> instances
+    /// A collection of <see cref="Relationship"/> instances.
     /// </summary>
     public class RelationshipCollection
       : List<Relationship>

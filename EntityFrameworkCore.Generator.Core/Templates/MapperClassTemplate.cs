@@ -11,87 +11,95 @@ namespace EntityFrameworkCore.Generator.Templates
 
         public MapperClassTemplate(Entity entity, GeneratorOptions options) : base(options)
         {
-            _entity = entity;
+            this._entity = entity;
         }
 
         public override string WriteCode()
         {
-            CodeBuilder.Clear();
-            CodeBuilder.AppendLine("using System;");
-            CodeBuilder.AppendLine("using AutoMapper;");
+            this.CodeBuilder.Clear();
+            this.CodeBuilder.AppendLine("using System;");
+            this.CodeBuilder.AppendLine("using AutoMapper;");
 
             var imports = new SortedSet<string>();
-            imports.Add(_entity.EntityNamespace);
+            imports.Add(this._entity.EntityNamespace);
 
-            foreach (var model in _entity.Models)
-                imports.Add(model.ModelNamespace);
-
-            foreach (var import in imports)
-                if (_entity.MapperNamespace != import)
-                    CodeBuilder.AppendLine($"using {import};");
-
-            CodeBuilder.AppendLine();
-
-            CodeBuilder.AppendLine($"namespace {_entity.MapperNamespace}");
-            CodeBuilder.AppendLine("{");
-            using (CodeBuilder.Indent())
+            foreach (var model in this._entity.Models)
             {
-                GenerateClass();
+                imports.Add(model.ModelNamespace);
             }
 
-            CodeBuilder.AppendLine("}");
+            foreach (var import in imports)
+            {
+                if (this._entity.MapperNamespace != import)
+                {
+                    this.CodeBuilder.AppendLine($"using {import};");
+                }
+            }
 
-            return CodeBuilder.ToString();
+            this.CodeBuilder.AppendLine();
+
+            this.CodeBuilder.AppendLine($"namespace {this._entity.MapperNamespace}");
+            this.CodeBuilder.AppendLine("{");
+            using (this.CodeBuilder.Indent())
+            {
+                this.GenerateClass();
+            }
+
+            this.CodeBuilder.AppendLine("}");
+
+            return this.CodeBuilder.ToString();
         }
 
         private void GenerateClass()
         {
-            var entityClass = _entity.EntityClass.ToSafeName();
-            var mapperClass = _entity.MapperClass.ToSafeName();
-            if (Options.Model.Mapper.Document)
+            var entityClass = this._entity.EntityClass.ToSafeName();
+            var mapperClass = this._entity.MapperClass.ToSafeName();
+            if (this.Options.Model.Mapper.Document)
             {
-                CodeBuilder.AppendLine("/// <summary>");
-                CodeBuilder.AppendLine($"/// Mapper class for entity <see cref=\"{entityClass}\"/> .");
-                CodeBuilder.AppendLine("/// </summary>");
+                this.CodeBuilder.AppendLine("/// <summary>");
+                this.CodeBuilder.AppendLine($"/// Mapper class for entity <see cref=\"{entityClass}\"/> .");
+                this.CodeBuilder.AppendLine("/// </summary>");
             }
 
-            CodeBuilder.AppendLine($"public partial class {mapperClass}");
-            if (_entity.MapperBaseClass.HasValue())
+            this.CodeBuilder.AppendLine($"public partial class {mapperClass}");
+            if (this._entity.MapperBaseClass.HasValue())
             {
-                var mapperBaseClass = _entity.MapperBaseClass.ToSafeName();
-                using (CodeBuilder.Indent())
-                    CodeBuilder.AppendLine($": {mapperBaseClass}");
+                var mapperBaseClass = this._entity.MapperBaseClass.ToSafeName();
+                using (this.CodeBuilder.Indent())
+                {
+                    this.CodeBuilder.AppendLine($": {mapperBaseClass}");
+                }
             }
 
-            CodeBuilder.AppendLine("{");
+            this.CodeBuilder.AppendLine("{");
 
-            using (CodeBuilder.Indent())
+            using (this.CodeBuilder.Indent())
             {
-                GenerateConstructor();
+                this.GenerateConstructor();
             }
 
-            CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine("}");
         }
 
         private void GenerateConstructor()
         {
-            var mapperClass = _entity.MapperClass.ToSafeName();
+            var mapperClass = this._entity.MapperClass.ToSafeName();
 
-            var entityClass = _entity.EntityClass.ToSafeName();
-            var entityFullName = $"{_entity.EntityNamespace}.{entityClass}";
+            var entityClass = this._entity.EntityClass.ToSafeName();
+            var entityFullName = $"{this._entity.EntityNamespace}.{entityClass}";
 
-            if (Options.Model.Mapper.Document)
+            if (this.Options.Model.Mapper.Document)
             {
-                CodeBuilder.AppendLine("/// <summary>");
-                CodeBuilder.AppendLine($"/// Initializes a new instance of the <see cref=\"{mapperClass}\"/> class.");
-                CodeBuilder.AppendLine("/// </summary>");
+                this.CodeBuilder.AppendLine("/// <summary>");
+                this.CodeBuilder.AppendLine($"/// Initializes a new instance of the <see cref=\"{mapperClass}\"/> class.");
+                this.CodeBuilder.AppendLine("/// </summary>");
             }
 
-            CodeBuilder.AppendLine($"public {mapperClass}()");
-            CodeBuilder.AppendLine("{");
-            using (CodeBuilder.Indent())
+            this.CodeBuilder.AppendLine($"public {mapperClass}()");
+            this.CodeBuilder.AppendLine("{");
+            using (this.CodeBuilder.Indent())
             {
-                foreach (var model in _entity.Models)
+                foreach (var model in this._entity.Models)
                 {
                     var modelClass = model.ModelClass.ToSafeName();
                     var modelFullName = $"{model.ModelNamespace}.{modelClass}";
@@ -99,21 +107,21 @@ namespace EntityFrameworkCore.Generator.Templates
                     switch (model.ModelType)
                     {
                         case ModelType.Read:
-                            CodeBuilder.AppendLine($"CreateMap<{entityFullName}, {modelFullName}>();");
+                            this.CodeBuilder.AppendLine($"CreateMap<{entityFullName}, {modelFullName}>();");
                             break;
                         case ModelType.Create:
-                            CodeBuilder.AppendLine($"CreateMap<{modelFullName}, {entityFullName}>();");
+                            this.CodeBuilder.AppendLine($"CreateMap<{modelFullName}, {entityFullName}>();");
                             break;
                         case ModelType.Update:
-                            CodeBuilder.AppendLine($"CreateMap<{entityFullName}, {modelFullName}>();");
-                            CodeBuilder.AppendLine($"CreateMap<{modelFullName}, {entityFullName}>();");
+                            this.CodeBuilder.AppendLine($"CreateMap<{entityFullName}, {modelFullName}>();");
+                            this.CodeBuilder.AppendLine($"CreateMap<{modelFullName}, {entityFullName}>();");
                             break;
                     }
                 }
             }
 
-            CodeBuilder.AppendLine("}");
-            CodeBuilder.AppendLine();
+            this.CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine();
         }
     }
 }

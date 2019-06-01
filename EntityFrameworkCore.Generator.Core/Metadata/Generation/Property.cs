@@ -24,9 +24,9 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
 
         public bool? IsNullable { get; set; }
 
-        public bool IsRequired => IsNullable == false;
+        public bool IsRequired => this.IsNullable == false;
 
-        public bool IsOptional => IsNullable == true;
+        public bool IsOptional => this.IsNullable == true;
 
         public bool? IsPrimaryKey { get; set; }
 

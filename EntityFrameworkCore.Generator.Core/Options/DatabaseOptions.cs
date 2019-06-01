@@ -4,17 +4,17 @@ using System.ComponentModel;
 namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// Database options for reverse engineering the database
+    /// Database options for reverse engineering the database.
     /// </summary>
     public class DatabaseOptions : OptionsBase
     {
         public DatabaseOptions(VariableDictionary variables, string prefix)
             : base(variables, AppendPrefix(prefix, "Database"))
         {
-            Provider = DatabaseProviders.SqlServer;
-            TableNaming = TableNaming.Singular;
-            Tables = new List<string>();
-            Schemas = new List<string>();
+            this.Provider = DatabaseProviders.SqlServer;
+            this.TableNaming = TableNaming.Singular;
+            this.Tables = new List<string>();
+            this.Schemas = new List<string>();
         }
 
         /// <summary>
@@ -25,10 +25,9 @@ namespace EntityFrameworkCore.Generator.Options
         /// </value>
         public string Name
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
-
 
         /// <summary>
         /// Gets or sets the database to generate code for.
@@ -39,17 +38,16 @@ namespace EntityFrameworkCore.Generator.Options
         [DefaultValue(DatabaseProviders.SqlServer)]
         public DatabaseProviders Provider { get; set; }
 
-
         /// <summary>
-        /// Gets or sets the connection string for reverse engineering the database
+        /// Gets or sets the connection string for reverse engineering the database.
         /// </summary>
         /// <value>
-        /// The connection string for reverse engineering the database
+        /// The connection string for reverse engineering the database.
         /// </value>
         public string ConnectionString
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
 
         /// <summary>
@@ -60,8 +58,8 @@ namespace EntityFrameworkCore.Generator.Options
         /// </value>
         public string ConnectionName
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
 
         /// <summary>
@@ -72,10 +70,9 @@ namespace EntityFrameworkCore.Generator.Options
         /// </value>
         public string UserSecretsId
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
-
 
         /// <summary>
         /// Gets or sets the table naming hint for how existing tables are named. This is used to determine if the name should be converted.
@@ -86,13 +83,11 @@ namespace EntityFrameworkCore.Generator.Options
         [DefaultValue(TableNaming.Singular)]
         public TableNaming TableNaming { get; set; }
 
-
-
         /// <summary>
-        /// Gets or sets the tables to include in the model, or an empty enumerable to include all
+        /// Gets or sets the tables to include in the model, or an empty enumerable to include all.
         /// </summary>
         /// <value>
-        /// The tables to include in the model, or an empty enumerable to include all
+        /// The tables to include in the model, or an empty enumerable to include all.
         /// </value>
         public List<string> Tables { get; set; }
 

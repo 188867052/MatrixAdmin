@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using EntityFrameworkCore.Generator.Extensions;
 using EntityFrameworkCore.Generator.Metadata.Parsing;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -14,7 +13,7 @@ namespace EntityFrameworkCore.Generator.Parsing
 
         public ContextVisitor()
         {
-            DataSetTypes = new HashSet<string> { "DbSet", "IDbSet" };
+            this.DataSetTypes = new HashSet<string> { "DbSet", "IDbSet" };
         }
 
         public HashSet<string> DataSetTypes { get; set; }
@@ -29,14 +28,16 @@ namespace EntityFrameworkCore.Generator.Parsing
                 .Any();
 
             if (hasBaseType)
-                _currentClass = node.Identifier.Text;
+            {
+                this._currentClass = node.Identifier.Text;
+            }
 
             base.VisitClassDeclaration(node);
         }
 
         public override void VisitPropertyDeclaration(PropertyDeclarationSyntax node)
         {
-            ParseProperty(node);
+            this.ParseProperty(node);
             base.VisitPropertyDeclaration(node);
         }
 
@@ -49,11 +50,15 @@ namespace EntityFrameworkCore.Generator.Parsing
 
             // expecting generic return type with 1 argument
             if (returnType == null || returnType.TypeArgumentList.Arguments.Count != 1)
+            {
                 return;
+            }
 
             var returnName = returnType.Identifier.ValueText;
-            if (!DataSetTypes.Contains(returnName))
+            if (!this.DataSetTypes.Contains(returnName))
+            {
                 return;
+            }
 
             var firstArgument = returnType
                 .TypeArgumentList
@@ -70,10 +75,14 @@ namespace EntityFrameworkCore.Generator.Parsing
             var propertyName = node.Identifier.ValueText;
 
             if (string.IsNullOrEmpty(className) || string.IsNullOrEmpty(propertyName))
+            {
                 return;
+            }
 
-            if (ParsedContext == null)
-                ParsedContext = new ParsedContext { ContextClass = _currentClass };
+            if (this.ParsedContext == null)
+            {
+                this.ParsedContext = new ParsedContext { ContextClass = this._currentClass };
+            }
 
             var entitySet = new ParsedEntitySet
             {
@@ -81,7 +90,7 @@ namespace EntityFrameworkCore.Generator.Parsing
                 ContextProperty = propertyName
             };
 
-            ParsedContext.Properties.Add(entitySet);
+            this.ParsedContext.Properties.Add(entitySet);
         }
     }
 }

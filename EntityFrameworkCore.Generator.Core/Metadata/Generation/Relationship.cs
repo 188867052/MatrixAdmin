@@ -7,12 +7,11 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
     {
         public Relationship()
         {
-            Properties = new PropertyCollection();
-            PrimaryProperties = new PropertyCollection();
+            this.Properties = new PropertyCollection();
+            this.PrimaryProperties = new PropertyCollection();
         }
 
         public string RelationshipName { get; set; }
-
 
         public Entity Entity { get; set; }
 
@@ -22,7 +21,6 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
 
         public Cardinality Cardinality { get; set; }
 
-
         public Entity PrimaryEntity { get; set; }
 
         public PropertyCollection PrimaryProperties { get; set; }
@@ -31,11 +29,12 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
 
         public Cardinality PrimaryCardinality { get; set; }
 
-
         public bool? CascadeDelete { get; set; }
+
         public bool IsForeignKey { get; set; }
+
         public bool IsMapped { get; set; }
 
-        public bool IsOneToOne => Cardinality != Cardinality.Many && PrimaryCardinality != Cardinality.Many;
+        public bool IsOneToOne => this.Cardinality != Cardinality.Many && this.PrimaryCardinality != Cardinality.Many;
     }
 }

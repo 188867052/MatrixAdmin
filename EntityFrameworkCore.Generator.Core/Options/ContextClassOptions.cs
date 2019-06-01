@@ -1,11 +1,10 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// EntityFramework <see cref="DbContext"/> generation options
+    /// EntityFramework <see cref="DbContext"/> generation options.
     /// </summary>
     /// <seealso cref="ClassOptionsBase" />
     public class ContextClassOptions : ClassOptionsBase
@@ -16,12 +15,12 @@ namespace EntityFrameworkCore.Generator.Options
         public ContextClassOptions(VariableDictionary variables, string prefix)
             : base(variables, AppendPrefix(prefix, "Context"))
         {
-            Namespace = "{Project.Namespace}.Data";
-            Directory = @"{Project.Directory}\Data";
+            this.Namespace = "{Project.Namespace}.Data";
+            this.Directory = @"{Project.Directory}\Data";
 
-            Name = "{Database.Name}Context";
-            BaseClass = "DbContext";
-            PropertyNaming = ContextNaming.Plural;
+            this.Name = "{Database.Name}Context";
+            this.BaseClass = "DbContext";
+            this.PropertyNaming = ContextNaming.Plural;
         }
 
         /// <summary>
@@ -32,8 +31,8 @@ namespace EntityFrameworkCore.Generator.Options
         /// </value>
         public string Name
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
 
         /// <summary>
@@ -44,8 +43,8 @@ namespace EntityFrameworkCore.Generator.Options
         /// </value>
         public string BaseClass
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
 
         /// <summary>

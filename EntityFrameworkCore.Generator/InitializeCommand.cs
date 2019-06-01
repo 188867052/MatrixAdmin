@@ -27,42 +27,51 @@ namespace EntityFrameworkCore.Generator
         [Option("--name <ConnectionName>", Description = "The user secret configuration name")]
         public string ConnectionName { get; set; }
 
-
         protected override int OnExecute(CommandLineApplication application)
         {
-            var workingDirectory = WorkingDirectory ?? Environment.CurrentDirectory;
+            var workingDirectory = this.WorkingDirectory ?? Environment.CurrentDirectory;
 
             if (!Directory.Exists(workingDirectory))
             {
-                Logger.LogTrace($"Creating directory: {workingDirectory}");
+                this.Logger.LogTrace($"Creating directory: {workingDirectory}");
                 Directory.CreateDirectory(workingDirectory);
             }
 
-            var optionsFile = OptionsFile ?? GeneratorOptionsSerializer.OptionsFileName;
+            var optionsFile = this.OptionsFile ?? GeneratorOptionsSerializer.OptionsFileName;
 
             GeneratorOptions options = null;
 
-            if (Serializer.Exists(workingDirectory, optionsFile))
-                options = Serializer.Load(workingDirectory, optionsFile);
+            if (this.Serializer.Exists(workingDirectory, optionsFile))
+            {
+                options = this.Serializer.Load(workingDirectory, optionsFile);
+            }
 
             if (options == null)
-                options = CreateOptionsFile(optionsFile);
+            {
+                options = this.CreateOptionsFile(optionsFile);
+            }
 
-            if (UserSecretsId.HasValue())
-                options.Database.UserSecretsId = UserSecretsId;
+            if (this.UserSecretsId.HasValue())
+            {
+                options.Database.UserSecretsId = this.UserSecretsId;
+            }
 
-            if (ConnectionName.HasValue())
-                options.Database.ConnectionName = ConnectionName;
+            if (this.ConnectionName.HasValue())
+            {
+                options.Database.ConnectionName = this.ConnectionName;
+            }
 
-            if (Provider.HasValue)
-                options.Database.Provider = Provider.Value;
+            if (this.Provider.HasValue)
+            {
+                options.Database.Provider = this.Provider.Value;
+            }
 
-            if (ConnectionString.HasValue())
-                options = CreateUserSecret(options);
+            if (this.ConnectionString.HasValue())
+            {
+                options = this.CreateUserSecret(options);
+            }
 
-
-
-            Serializer.Save(options, workingDirectory, optionsFile);
+            this.Serializer.Save(options, workingDirectory, optionsFile);
 
             return 0;
         }
@@ -70,16 +79,20 @@ namespace EntityFrameworkCore.Generator
         private GeneratorOptions CreateUserSecret(GeneratorOptions options)
         {
             if (options.Database.UserSecretsId.IsNullOrWhiteSpace())
+            {
                 options.Database.UserSecretsId = Guid.NewGuid().ToString();
+            }
 
             if (options.Database.ConnectionName.IsNullOrWhiteSpace())
+            {
                 options.Database.ConnectionName = "ConnectionStrings:Generator";
+            }
 
-            Logger.LogInformation("Adding Connection String to User Secrets file");
+            this.Logger.LogInformation("Adding Connection String to User Secrets file");
 
             // save connection string to user secrets file
             var secretsStore = new SecretsStore(options.Database.UserSecretsId);
-            secretsStore.Set(options.Database.ConnectionName, ConnectionString);
+            secretsStore.Set(options.Database.ConnectionName, this.ConnectionString);
             secretsStore.Save();
 
             return options;
@@ -113,7 +126,7 @@ namespace EntityFrameworkCore.Generator
             options.Model.Update.Include = null;
             options.Model.Update.Exclude = null;
 
-            Logger.LogInformation($"Creating options file: {optionsFile}");
+            this.Logger.LogInformation($"Creating options file: {optionsFile}");
 
             return options;
         }

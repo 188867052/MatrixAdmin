@@ -3,7 +3,7 @@
 namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// Base class for Class generation
+    /// Base class for Class generation.
     /// </summary>
     public abstract class ClassOptionsBase : OptionsBase
     {
@@ -13,9 +13,9 @@ namespace EntityFrameworkCore.Generator.Options
         protected ClassOptionsBase(VariableDictionary variables, string prefix)
             : base(variables, prefix)
         {
-            Namespace = "{Project.Namespace}";
-            Directory = @"{Project.Directory}\";
-            Document = false;
+            this.Namespace = "{Project.Namespace}";
+            this.Directory = @"{Project.Directory}\";
+            this.Document = false;
         }
 
         /// <summary>
@@ -26,8 +26,8 @@ namespace EntityFrameworkCore.Generator.Options
         /// </value>
         public string Namespace
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
 
         /// <summary>
@@ -38,8 +38,8 @@ namespace EntityFrameworkCore.Generator.Options
         /// </value>
         public string Directory
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
 
         /// <summary>

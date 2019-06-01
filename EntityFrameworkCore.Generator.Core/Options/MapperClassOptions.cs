@@ -1,7 +1,7 @@
 ﻿namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// View model mapper class options
+    /// View model mapper class options.
     /// </summary>
     /// <seealso cref="EntityFrameworkCore.Generator.Options.ClassOptionsBase" />
     public class MapperClassOptions : ClassOptionsBase
@@ -12,12 +12,12 @@
         public MapperClassOptions(VariableDictionary variables, string prefix)
             : base(variables, AppendPrefix(prefix, "Mapper"))
         {
-            Generate = false;
-            Namespace = "{Project.Namespace}.Domain.Mapping";
-            Directory = @"{Project.Directory}\Domain\Mapping";
+            this.Generate = false;
+            this.Namespace = "{Project.Namespace}.Domain.Mapping";
+            this.Directory = @"{Project.Directory}\Domain\Mapping";
 
-            BaseClass = "AutoMapper.Profile";
-            Name = "{Entity.Name}Profile";
+            this.BaseClass = "AutoMapper.Profile";
+            this.Name = "{Entity.Name}Profile";
         }
 
         /// <summary>
@@ -36,8 +36,8 @@
         /// </value>
         public string Name
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
 
         /// <summary>
@@ -48,8 +48,8 @@
         /// </value>
         public string BaseClass
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
     }
 }

@@ -1,10 +1,9 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// EntityFramework entity class generation options
+    /// EntityFramework entity class generation options.
     /// </summary>
     /// <seealso cref="ClassOptionsBase" />
     public class EntityClassOptions : ClassOptionsBase
@@ -15,12 +14,12 @@ namespace EntityFrameworkCore.Generator.Options
         public EntityClassOptions(VariableDictionary variables, string prefix)
             : base(variables, AppendPrefix(prefix, "Entity"))
         {
-            Namespace = "{Project.Namespace}.Data.Entities";
-            Directory = @"{Project.Directory}\Data\Entities";
+            this.Namespace = "{Project.Namespace}.Data.Entities";
+            this.Directory = @"{Project.Directory}\Data\Entities";
 
-            RelationshipNaming = RelationshipNaming.Plural;
-            EntityNaming = EntityNaming.Singular;
-            PrefixWithSchemaName = false;
+            this.RelationshipNaming = RelationshipNaming.Plural;
+            this.EntityNaming = EntityNaming.Singular;
+            this.PrefixWithSchemaName = false;
         }
 
         /// <summary>
@@ -31,8 +30,8 @@ namespace EntityFrameworkCore.Generator.Options
         /// </value>
         public string BaseClass
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
 
         /// <summary>
@@ -54,7 +53,7 @@ namespace EntityFrameworkCore.Generator.Options
         public RelationshipNaming RelationshipNaming { get; set; }
 
         /// <summary>
-        /// If true prefix classname with schema name to prevent naming conflicts
+        /// If true prefix classname with schema name to prevent naming conflicts.
         /// </summary>
         [DefaultValue(false)]
         public bool PrefixWithSchemaName { get; set; }

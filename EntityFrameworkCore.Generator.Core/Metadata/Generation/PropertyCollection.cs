@@ -4,7 +4,7 @@ using System.Linq;
 namespace EntityFrameworkCore.Generator.Metadata.Generation
 {
     /// <summary>
-    /// A collection of <see cref="Property"/> instances
+    /// A collection of <see cref="Property"/> instances.
     /// </summary>
     public class PropertyCollection
       : List<Property>
@@ -63,7 +63,7 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
         }
 
         /// <summary>
-        /// Gets the property by column name
+        /// Gets the property by column name.
         /// </summary>
         /// <param name="columnName">Name of the column.</param>
         /// <returns></returns>
@@ -73,7 +73,7 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
         }
 
         /// <summary>
-        /// Gets the property by property name
+        /// Gets the property by property name.
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
         /// <returns></returns>

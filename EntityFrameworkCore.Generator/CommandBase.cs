@@ -9,8 +9,8 @@ namespace EntityFrameworkCore.Generator
     {
         protected CommandBase(ILoggerFactory logger, IConsole console)
         {
-            Logger = logger.CreateLogger(GetType());
-            Console = console;            
+            this.Logger = logger.CreateLogger(this.GetType());
+            this.Console = console;
         }
 
         protected ILogger Logger { get; }

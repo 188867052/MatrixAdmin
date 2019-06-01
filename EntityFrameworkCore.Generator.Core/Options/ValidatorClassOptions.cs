@@ -1,7 +1,7 @@
 ﻿namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// Validator class options
+    /// Validator class options.
     /// </summary>
     /// <seealso cref="ClassOptionsBase" />
     public class ValidatorClassOptions : ClassOptionsBase
@@ -12,13 +12,14 @@
         public ValidatorClassOptions(VariableDictionary variables, string prefix)
             : base(variables, AppendPrefix(prefix, "Validator"))
         {
-            Generate = false;
-            Namespace = "{Project.Namespace}.Domain.Validation";
-            Directory = @"{Project.Directory}\Domain\Validation";
+            this.Generate = false;
+            this.Namespace = "{Project.Namespace}.Domain.Validation";
+            this.Directory = @"{Project.Directory}\Domain\Validation";
 
-            BaseClass = "AbstractValidator<{Model.Name}>";
-            Name = "{Model.Name}Validator";
+            this.BaseClass = "AbstractValidator<{Model.Name}>";
+            this.Name = "{Model.Name}Validator";
         }
+
         /// <summary>
         /// Gets or sets a value indicating whether this option is generated.
         /// </summary>
@@ -35,8 +36,8 @@
         /// </value>
         public string Name
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
 
         /// <summary>
@@ -47,8 +48,8 @@
         /// </value>
         public string BaseClass
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
     }
 }

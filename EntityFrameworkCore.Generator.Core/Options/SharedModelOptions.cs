@@ -1,7 +1,7 @@
 ﻿namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    ///
+    /// SharedModelOptions.
     /// </summary>
     /// <seealso cref="OptionsBase" />
     public class SharedModelOptions : OptionsBase
@@ -13,11 +13,11 @@
         /// <param name="prefix">The variable key prefix.</param>
         public SharedModelOptions(VariableDictionary variables, string prefix) : base(variables, prefix)
         {
-            Namespace = "{Project.Namespace}.Domain.Models";
-            Directory = @"{Project.Directory}\Domain\Models";
+            this.Namespace = "{Project.Namespace}.Domain.Models";
+            this.Directory = @"{Project.Directory}\Domain\Models";
 
-            Include = new SelectionOptions();
-            Exclude = new SelectionOptions();
+            this.Include = new SelectionOptions();
+            this.Exclude = new SelectionOptions();
         }
 
         /// <summary>
@@ -28,8 +28,8 @@
         /// </value>
         public string Namespace
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
 
         /// <summary>
@@ -40,8 +40,8 @@
         /// </value>
         public string Directory
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
 
         /// <summary>
@@ -59,6 +59,5 @@
         /// The exclude selection options.
         /// </value>
         public SelectionOptions Exclude { get; set; }
-
     }
 }

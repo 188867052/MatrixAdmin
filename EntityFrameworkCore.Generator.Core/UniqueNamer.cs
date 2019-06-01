@@ -10,22 +10,22 @@ namespace EntityFrameworkCore.Generator
 
         public UniqueNamer()
         {
-            _names = new ConcurrentDictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
-            Comparer = StringComparer.OrdinalIgnoreCase;
+            this._names = new ConcurrentDictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
+            this.Comparer = StringComparer.OrdinalIgnoreCase;
 
             // add existing
-            UniqueContextName("ChangeTracker");
-            UniqueContextName("Configuration");
-            UniqueContextName("Database");
-            UniqueContextName("InternalContext");
+            this.UniqueContextName("ChangeTracker");
+            this.UniqueContextName("Configuration");
+            this.UniqueContextName("Database");
+            this.UniqueContextName("InternalContext");
         }
 
         public IEqualityComparer<string> Comparer { get; set; }
 
         public string UniqueName(string bucketName, string name)
         {
-            var hashSet = _names.GetOrAdd(bucketName, k => new HashSet<string>(Comparer));
-            string result = MakeUnique(name, hashSet.Contains);
+            var hashSet = this._names.GetOrAdd(bucketName, k => new HashSet<string>(this.Comparer));
+            string result = this.MakeUnique(name, hashSet.Contains);
             hashSet.Add(result);
 
             return result;
@@ -34,26 +34,25 @@ namespace EntityFrameworkCore.Generator
         public string UniqueClassName(string className)
         {
             const string globalClassName = "global::ClassName";
-            return UniqueName(globalClassName, className);
+            return this.UniqueName(globalClassName, className);
         }
 
         public string UniqueModelName(string @namespace, string className)
         {
             string globalClassName = "global::ModelClass::" + @namespace;
-            return UniqueName(globalClassName, className);
+            return this.UniqueName(globalClassName, className);
         }
-
 
         public string UniqueContextName(string name)
         {
             const string globalContextname = "global::ContextName";
-            return UniqueName(globalContextname, name);
+            return this.UniqueName(globalContextname, name);
         }
 
         public string UniqueRelationshipName(string name)
         {
             const string globalContextname = "global::RelationshipName";
-            return UniqueName(globalContextname, name);
+            return this.UniqueName(globalContextname, name);
         }
 
         public string MakeUnique(string name, Func<string, bool> exists)
@@ -62,10 +61,11 @@ namespace EntityFrameworkCore.Generator
             int count = 1;
 
             while (exists(uniqueName))
+            {
                 uniqueName = string.Concat(name, count++);
+            }
 
             return uniqueName;
         }
-
     }
 }

@@ -3,7 +3,7 @@
 namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// Naming strategies for entity data set property on the generated <see cref="DbContext"/>
+    /// Naming strategies for entity data set property on the generated <see cref="DbContext"/>.
     /// </summary>
     public enum ContextNaming
     {

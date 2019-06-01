@@ -18,13 +18,6 @@ namespace EntityFrameworkCore.Generator
         {
         }
 
-        protected override int OnExecute(CommandLineApplication application)
-        {
-            application.ShowHelp();
-            return 1;
-        }
-
-
         public static int Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
@@ -38,8 +31,7 @@ namespace EntityFrameworkCore.Generator
                 var services = new ServiceCollection()
                     .AddLogging(logger => logger
                         .AddSerilog()
-                        .SetMinimumLevel(LogLevel.Information)
-                    )
+                        .SetMinimumLevel(LogLevel.Information))
                     .AddSingleton(PhysicalConsole.Singleton)
                     .AddTransient<IGeneratorOptionsSerializer, GeneratorOptionsSerializer>()
                     .AddTransient<ICodeGenerator, CodeGenerator>()
@@ -64,6 +56,11 @@ namespace EntityFrameworkCore.Generator
             }
         }
 
+        protected override int OnExecute(CommandLineApplication application)
+        {
+            application.ShowHelp();
+            return 1;
+        }
 
         private static string GetVersion()
         {

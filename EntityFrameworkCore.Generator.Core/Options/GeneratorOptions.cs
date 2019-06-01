@@ -1,10 +1,9 @@
-﻿using System;
-using YamlDotNet.Serialization;
+﻿using YamlDotNet.Serialization;
 
 namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// Top level generator configuration options
+    /// Top level generator configuration options.
     /// </summary>
     public class GeneratorOptions
     {
@@ -13,12 +12,12 @@ namespace EntityFrameworkCore.Generator.Options
         /// </summary>
         public GeneratorOptions()
         {
-            Variables = new VariableDictionary();
+            this.Variables = new VariableDictionary();
 
-            Project = new ProjectOptions(Variables, null);
-            Database = new DatabaseOptions(Variables, null);
-            Data = new DataOptions(Variables, null);
-            Model = new ModelOptions(Variables, null);
+            this.Project = new ProjectOptions(this.Variables, null);
+            this.Database = new DatabaseOptions(this.Variables, null);
+            this.Data = new DataOptions(this.Variables, null);
+            this.Model = new ModelOptions(this.Variables, null);
         }
 
         [YamlIgnore]

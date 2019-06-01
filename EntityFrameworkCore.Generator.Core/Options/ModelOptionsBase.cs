@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace EntityFrameworkCore.Generator.Options
+﻿namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// Base class for the Model generation
+    /// Base class for the Model generation.
     /// </summary>
     /// <seealso cref="ClassOptionsBase" />
     public abstract class ModelOptionsBase : ClassOptionsBase
@@ -15,13 +13,13 @@ namespace EntityFrameworkCore.Generator.Options
             : base(variables, prefix)
         {
             // null so shared option is used
-            Namespace = null;
-            Directory = null;
+            this.Namespace = null;
+            this.Directory = null;
 
-            Generate = false;
+            this.Generate = false;
 
-            Include = new SelectionOptions();
-            Exclude = new SelectionOptions();
+            this.Include = new SelectionOptions();
+            this.Exclude = new SelectionOptions();
         }
 
         /// <summary>
@@ -40,8 +38,8 @@ namespace EntityFrameworkCore.Generator.Options
         /// </value>
         public string Name
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
 
         /// <summary>
@@ -52,10 +50,9 @@ namespace EntityFrameworkCore.Generator.Options
         /// </value>
         public string BaseClass
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
-
 
         /// <summary>
         /// Gets or sets the include selection options.

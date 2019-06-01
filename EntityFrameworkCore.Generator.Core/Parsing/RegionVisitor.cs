@@ -14,7 +14,7 @@ namespace EntityFrameworkCore.Generator.Parsing
 
         public RegionVisitor() : base(SyntaxWalkerDepth.StructuredTrivia)
         {
-            Regions = new Dictionary<string, CodeRegion>(StringComparer.OrdinalIgnoreCase);
+            this.Regions = new Dictionary<string, CodeRegion>(StringComparer.OrdinalIgnoreCase);
         }
 
         public Dictionary<string, CodeRegion> Regions { get; }
@@ -24,22 +24,24 @@ namespace EntityFrameworkCore.Generator.Parsing
             var region = new CodeRegion
             {
                 StartIndex = node.FullSpan.Start,
-                Name = ParseRegionName(node)
+                Name = this.ParseRegionName(node)
             };
-            _stack.Push(region);
+            this._stack.Push(region);
 
             base.VisitRegionDirectiveTrivia(node);
         }
 
         public override void VisitEndRegionDirectiveTrivia(EndRegionDirectiveTriviaSyntax node)
         {
-            if (_stack.Count == 0)
+            if (this._stack.Count == 0)
+            {
                 return;
+            }
 
-            var region = _stack.Pop();
+            var region = this._stack.Pop();
             region.EndIndex = node.FullSpan.End;
 
-            Regions[region.Name] = region;
+            this.Regions[region.Name] = region;
 
             base.VisitEndRegionDirectiveTrivia(node);
         }
@@ -49,7 +51,6 @@ namespace EntityFrameworkCore.Generator.Parsing
             var preprocessingMessage = node
                 .DescendantTrivia()
                 .FirstOrDefault(t => t.Kind() == SyntaxKind.PreprocessingMessageTrivia);
-
 
             return preprocessingMessage.ToString();
         }

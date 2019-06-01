@@ -1,5 +1,4 @@
-﻿using System;
-using EntityFrameworkCore.Generator.Options;
+﻿using EntityFrameworkCore.Generator.Options;
 
 namespace EntityFrameworkCore.Generator
 {

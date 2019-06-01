@@ -10,46 +10,87 @@ namespace EntityFrameworkCore.Generator
 
         public GeneratorOptionsFactory()
         {
-            _generatorOptions = new GeneratorOptions();
-            _generatorOptions.Variables.ShouldEvaluate = false;
+            this._generatorOptions = new GeneratorOptions();
+            this._generatorOptions.Variables.ShouldEvaluate = false;
         }
 
         public object Create(Type type)
         {
             // work around YamlDotNet requiring parameterless constructor
             if (type == typeof(GeneratorOptions))
-                return _generatorOptions;
+            {
+                return this._generatorOptions;
+            }
 
             if (type == typeof(ProjectOptions))
-                return _generatorOptions.Project;
+            {
+                return this._generatorOptions.Project;
+            }
+
             if (type == typeof(DatabaseOptions))
-                return _generatorOptions.Database;
+            {
+                return this._generatorOptions.Database;
+            }
+
             if (type == typeof(DataOptions))
-                return _generatorOptions.Data;
+            {
+                return this._generatorOptions.Data;
+            }
+
             if (type == typeof(ModelOptions))
-                return _generatorOptions.Model;
+            {
+                return this._generatorOptions.Model;
+            }
 
             if (type == typeof(ContextClassOptions))
-                return _generatorOptions.Data.Context;
+            {
+                return this._generatorOptions.Data.Context;
+            }
+
             if (type == typeof(EntityClassOptions))
-                return _generatorOptions.Data.Entity;
+            {
+                return this._generatorOptions.Data.Entity;
+            }
+
             if (type == typeof(MappingClassOptions))
-                return _generatorOptions.Data.Mapping;
+            {
+                return this._generatorOptions.Data.Mapping;
+            }
+
             if (type == typeof(QueryExtensionOptions))
-                return _generatorOptions.Data.Query;
+            {
+                return this._generatorOptions.Data.Query;
+            }
 
             if (type == typeof(SharedModelOptions))
-                return _generatorOptions.Model.Shared;
+            {
+                return this._generatorOptions.Model.Shared;
+            }
+
             if (type == typeof(ReadModelOptions))
-                return _generatorOptions.Model.Read;
+            {
+                return this._generatorOptions.Model.Read;
+            }
+
             if (type == typeof(CreateModelOptions))
-                return _generatorOptions.Model.Create;
+            {
+                return this._generatorOptions.Model.Create;
+            }
+
             if (type == typeof(UpdateModelOptions))
-                return _generatorOptions.Model.Update;
+            {
+                return this._generatorOptions.Model.Update;
+            }
+
             if (type == typeof(MapperClassOptions))
-                return _generatorOptions.Model.Mapper;
+            {
+                return this._generatorOptions.Model.Mapper;
+            }
+
             if (type == typeof(ValidatorClassOptions))
-                return _generatorOptions.Model.Validator;
+            {
+                return this._generatorOptions.Model.Validator;
+            }
 
             return Activator.CreateInstance(type);
         }

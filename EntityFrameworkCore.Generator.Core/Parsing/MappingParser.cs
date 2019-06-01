@@ -12,26 +12,30 @@ namespace EntityFrameworkCore.Generator.Parsing
 
         public MappingParser(ILoggerFactory loggerFactory)
         {
-            _logger = loggerFactory.CreateLogger<MappingParser>();
+            this._logger = loggerFactory.CreateLogger<MappingParser>();
         }
 
         public ParsedEntity ParseFile(string mappingFile)
         {
             if (string.IsNullOrEmpty(mappingFile) || !File.Exists(mappingFile))
+            {
                 return null;
+            }
 
-            _logger.LogDebug(
+            this._logger.LogDebug(
                 "Parsing Mapping File: '{0}'",
                 Path.GetFileName(mappingFile));
 
             var code = File.ReadAllText(mappingFile);
-            return ParseCode(code);
+            return this.ParseCode(code);
         }
 
         public ParsedEntity ParseCode(string code)
         {
             if (string.IsNullOrWhiteSpace(code))
+            {
                 return null;
+            }
 
             var syntaxTree = CSharpSyntaxTree.ParseText(code);
             var root = (CompilationUnitSyntax)syntaxTree.GetRoot();
@@ -42,9 +46,11 @@ namespace EntityFrameworkCore.Generator.Parsing
             var parsedEntity = visitor.ParsedEntity;
 
             if (parsedEntity == null)
+            {
                 return null;
+            }
 
-            _logger.LogDebug(
+            this._logger.LogDebug(
                 "Parsed Mapping Class: '{0}'; Properties: {1}; Relationships: {2}",
                 parsedEntity.MappingClass,
                 parsedEntity.Properties.Count,

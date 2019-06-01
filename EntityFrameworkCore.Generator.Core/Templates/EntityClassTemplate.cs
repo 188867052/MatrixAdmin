@@ -11,162 +11,166 @@ namespace EntityFrameworkCore.Generator.Templates
 
         public EntityClassTemplate(Entity entity, GeneratorOptions options) : base(options)
         {
-            _entity = entity;
+            this._entity = entity;
         }
 
         public override string WriteCode()
         {
-            CodeBuilder.Clear();
-            CodeBuilder.AppendLine("using System;");
-            CodeBuilder.AppendLine("using System.Collections.Generic;");
-            CodeBuilder.AppendLine();
-            CodeBuilder.AppendLine($"namespace {_entity.EntityNamespace}");
-            CodeBuilder.AppendLine("{");
-            using (CodeBuilder.Indent())
+            this.CodeBuilder.Clear();
+            this.CodeBuilder.AppendLine("using System;");
+            this.CodeBuilder.AppendLine("using System.Collections.Generic;");
+            this.CodeBuilder.AppendLine();
+            this.CodeBuilder.AppendLine($"namespace {this._entity.EntityNamespace}");
+            this.CodeBuilder.AppendLine("{");
+            using (this.CodeBuilder.Indent())
             {
-                GenerateClass();
+                this.GenerateClass();
             }
 
-            CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine("}");
 
-            return CodeBuilder.ToString();
+            return this.CodeBuilder.ToString();
         }
 
         private void GenerateClass()
         {
-            var entityClass = _entity.EntityClass.ToSafeName();
-            if (Options.Data.Entity.Document)
+            var entityClass = this._entity.EntityClass.ToSafeName();
+            if (this.Options.Data.Entity.Document)
             {
-                CodeBuilder.AppendLine("/// <summary>");
-                CodeBuilder.AppendLine($"/// Entity class representing data for table '{_entity.TableName}'.");
-                CodeBuilder.AppendLine("/// </summary>");
+                this.CodeBuilder.AppendLine("/// <summary>");
+                this.CodeBuilder.AppendLine($"/// Entity class representing data for table '{this._entity.TableName}'.");
+                this.CodeBuilder.AppendLine("/// </summary>");
             }
 
-            CodeBuilder.AppendLine($"public partial class {entityClass}");
-            if (_entity.EntityBaseClass.HasValue())
+            this.CodeBuilder.AppendLine($"public partial class {entityClass}");
+            if (this._entity.EntityBaseClass.HasValue())
             {
-                var entityBaseClass = _entity.EntityBaseClass.ToSafeName();
-                using (CodeBuilder.Indent())
-                    CodeBuilder.AppendLine($": {entityBaseClass}");
+                var entityBaseClass = this._entity.EntityBaseClass.ToSafeName();
+                using (this.CodeBuilder.Indent())
+                {
+                    this.CodeBuilder.AppendLine($": {entityBaseClass}");
+                }
             }
 
-            CodeBuilder.AppendLine("{");
-            using (CodeBuilder.Indent())
+            this.CodeBuilder.AppendLine("{");
+            using (this.CodeBuilder.Indent())
             {
-                GenerateConstructor();
+                this.GenerateConstructor();
 
-                GenerateProperties();
-                GenerateRelationshipProperties();
+                this.GenerateProperties();
+                this.GenerateRelationshipProperties();
             }
 
-            CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine("}");
         }
 
         private void GenerateConstructor()
         {
-            var relationships = _entity.Relationships
+            var relationships = this._entity.Relationships
                 .Where(r => r.Cardinality == Cardinality.Many)
                 .OrderBy(r => r.PropertyName)
                 .ToList();
 
-            var entityClass = _entity.EntityClass.ToSafeName();
+            var entityClass = this._entity.EntityClass.ToSafeName();
 
-            if (Options.Data.Entity.Document)
+            if (this.Options.Data.Entity.Document)
             {
-                CodeBuilder.AppendLine("/// <summary>");
-                CodeBuilder.AppendLine($"/// Initializes a new instance of the <see cref=\"{entityClass}\"/> class.");
-                CodeBuilder.AppendLine("/// </summary>");
+                this.CodeBuilder.AppendLine("/// <summary>");
+                this.CodeBuilder.AppendLine($"/// Initializes a new instance of the <see cref=\"{entityClass}\"/> class.");
+                this.CodeBuilder.AppendLine("/// </summary>");
             }
 
-            CodeBuilder.AppendLine($"public {entityClass}()");
-            CodeBuilder.AppendLine("{");
+            this.CodeBuilder.AppendLine($"public {entityClass}()");
+            this.CodeBuilder.AppendLine("{");
 
-            using (CodeBuilder.Indent())
+            using (this.CodeBuilder.Indent())
             {
                 foreach (var relationship in relationships)
                 {
                     var propertyName = relationship.PropertyName.ToSafeName();
                     var primaryName = relationship.PrimaryEntity.EntityClass.ToSafeName();
 
-                    CodeBuilder.AppendLine($"{propertyName} = new HashSet<{primaryName}>();");
+                    this.CodeBuilder.AppendLine($"{propertyName} = new HashSet<{primaryName}>();");
                 }
             }
 
-            CodeBuilder.AppendLine("}");
-            CodeBuilder.AppendLine();
+            this.CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine();
         }
 
         private void GenerateProperties()
         {
-            foreach (var property in _entity.Properties)
+            foreach (var property in this._entity.Properties)
             {
                 var propertyType = property.SystemType.ToNullableType(property.IsNullable == true);
                 var propertyName = property.PropertyName.ToSafeName();
 
-                if (Options.Data.Entity.Document)
+                if (this.Options.Data.Entity.Document)
                 {
-                    CodeBuilder.AppendLine("/// <summary>");
-                    CodeBuilder.AppendLine($"/// Gets or sets the property value representing column '{property.ColumnName}'.");
-                    CodeBuilder.AppendLine("/// </summary>");
-                    CodeBuilder.AppendLine("/// <value>");
-                    CodeBuilder.AppendLine($"/// The property value representing column '{property.ColumnName}'.");
-                    CodeBuilder.AppendLine("/// </value>");
+                    this.CodeBuilder.AppendLine("/// <summary>");
+                    this.CodeBuilder.AppendLine($"/// Gets or sets the property value representing column '{property.ColumnName}'.");
+                    this.CodeBuilder.AppendLine("/// </summary>");
+                    this.CodeBuilder.AppendLine("/// <value>");
+                    this.CodeBuilder.AppendLine($"/// The property value representing column '{property.ColumnName}'.");
+                    this.CodeBuilder.AppendLine("/// </value>");
                 }
 
-                CodeBuilder.AppendLine($"public {propertyType} {propertyName} {{ get; set; }}");
-                if (!IsLastIndex(_entity.Properties, property))
+                this.CodeBuilder.AppendLine($"public {propertyType} {propertyName} {{ get; set; }}");
+                if (!IsLastIndex(this._entity.Properties, property))
                 {
-                    CodeBuilder.AppendLine();
+                    this.CodeBuilder.AppendLine();
                 }
             }
 
-            if (_entity.Relationships.Any())
+            if (this._entity.Relationships.Any())
             {
-                CodeBuilder.AppendLine();
+                this.CodeBuilder.AppendLine();
             }
         }
 
         private void GenerateRelationshipProperties()
         {
-            foreach (var relationship in _entity.Relationships)
+            foreach (var relationship in this._entity.Relationships)
             {
                 var propertyName = relationship.PropertyName.ToSafeName();
                 var primaryName = relationship.PrimaryEntity.EntityClass.ToSafeName();
                 if (relationship.Cardinality == Cardinality.Many)
                 {
-                    if (Options.Data.Entity.Document)
+                    if (this.Options.Data.Entity.Document)
                     {
-                        CodeBuilder.AppendLine("/// <summary>");
-                        CodeBuilder.AppendLine($"/// Gets or sets the navigation collection for entity <see cref=\"{primaryName}\" />.");
-                        CodeBuilder.AppendLine("/// </summary>");
-                        CodeBuilder.AppendLine("/// <value>");
-                        CodeBuilder.AppendLine($"/// The the navigation collection for entity <see cref=\"{primaryName}\" />.");
-                        CodeBuilder.AppendLine("/// </value>");
+                        this.CodeBuilder.AppendLine("/// <summary>");
+                        this.CodeBuilder.AppendLine($"/// Gets or sets the navigation collection for entity <see cref=\"{primaryName}\" />.");
+                        this.CodeBuilder.AppendLine("/// </summary>");
+                        this.CodeBuilder.AppendLine("/// <value>");
+                        this.CodeBuilder.AppendLine($"/// The the navigation collection for entity <see cref=\"{primaryName}\" />.");
+                        this.CodeBuilder.AppendLine("/// </value>");
                     }
 
-                    CodeBuilder.AppendLine($"public virtual ICollection<{primaryName}> {propertyName} {{ get; set; }}");
+                    this.CodeBuilder.AppendLine($"public virtual ICollection<{primaryName}> {propertyName} {{ get; set; }}");
                 }
                 else
                 {
-                    if (Options.Data.Entity.Document)
+                    if (this.Options.Data.Entity.Document)
                     {
-                        CodeBuilder.AppendLine("/// <summary>");
-                        CodeBuilder.AppendLine($"/// Gets or sets the navigation property for entity <see cref=\"{primaryName}\" />.");
-                        CodeBuilder.AppendLine("/// </summary>");
-                        CodeBuilder.AppendLine("/// <value>");
-                        CodeBuilder.AppendLine($"/// The the navigation property for entity <see cref=\"{primaryName}\" />.");
-                        CodeBuilder.AppendLine("/// </value>");
+                        this.CodeBuilder.AppendLine("/// <summary>");
+                        this.CodeBuilder.AppendLine($"/// Gets or sets the navigation property for entity <see cref=\"{primaryName}\" />.");
+                        this.CodeBuilder.AppendLine("/// </summary>");
+                        this.CodeBuilder.AppendLine("/// <value>");
+                        this.CodeBuilder.AppendLine($"/// The the navigation property for entity <see cref=\"{primaryName}\" />.");
+                        this.CodeBuilder.AppendLine("/// </value>");
 
                         foreach (var property in relationship.Properties)
-                            CodeBuilder.AppendLine($"/// <seealso cref=\"{property.PropertyName}\" />");
+                        {
+                            this.CodeBuilder.AppendLine($"/// <seealso cref=\"{property.PropertyName}\" />");
+                        }
                     }
 
-                    CodeBuilder.AppendLine($"public virtual {primaryName} {propertyName} {{ get; set; }}");
+                    this.CodeBuilder.AppendLine($"public virtual {primaryName} {propertyName} {{ get; set; }}");
                 }
 
-                if (!IsLastIndex(_entity.Relationships, relationship))
+                if (!IsLastIndex(this._entity.Relationships, relationship))
                 {
-                    CodeBuilder.AppendLine();
+                    this.CodeBuilder.AppendLine();
                 }
             }
         }

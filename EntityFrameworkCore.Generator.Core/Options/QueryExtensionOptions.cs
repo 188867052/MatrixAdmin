@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace EntityFrameworkCore.Generator.Options
+﻿namespace EntityFrameworkCore.Generator.Options
 {
     /// <summary>
-    /// Query extensions options
+    /// Query extensions options.
     /// </summary>
     /// <seealso cref="EntityFrameworkCore.Generator.Options.ClassOptionsBase" />
     public class QueryExtensionOptions : ClassOptionsBase
@@ -14,12 +12,12 @@ namespace EntityFrameworkCore.Generator.Options
         public QueryExtensionOptions(VariableDictionary variables, string prefix)
             : base(variables, AppendPrefix(prefix, "Query"))
         {
-            Namespace = "{Project.Namespace}.Data.Queries";
-            Directory = @"{Project.Directory}\Data\Queries";
+            this.Namespace = "{Project.Namespace}.Data.Queries";
+            this.Directory = @"{Project.Directory}\Data\Queries";
 
-            Generate = false;
-            IndexPrefix = "By";
-            UniquePrefix = "GetBy";
+            this.Generate = false;
+            this.IndexPrefix = "By";
+            this.UniquePrefix = "GetBy";
         }
 
         /// <summary>
@@ -34,12 +32,12 @@ namespace EntityFrameworkCore.Generator.Options
         /// Gets or sets the prefix of query method names.
         /// </summary>
         /// <value>
-        /// The prefix of query method names
+        /// The prefix of query method names.
         /// </value>
         public string IndexPrefix
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
 
         /// <summary>
@@ -50,8 +48,8 @@ namespace EntityFrameworkCore.Generator.Options
         /// </value>
         public string UniquePrefix
         {
-            get => GetProperty();
-            set => SetProperty(value);
+            get => this.GetProperty();
+            set => this.SetProperty(value);
         }
     }
 }

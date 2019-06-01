@@ -9,169 +9,170 @@ namespace EntityFrameworkCore.Generator.Templates
 {
     public class MappingClassTemplate : CodeTemplateBase
     {
-        private Entity _entity;
+        private readonly Entity _entity;
 
         public MappingClassTemplate(Entity entity, GeneratorOptions options) : base(options)
         {
-            _entity = entity;
+            this._entity = entity;
         }
-
 
         public override string WriteCode()
         {
-            CodeBuilder.Clear();
+            this.CodeBuilder.Clear();
 
-            CodeBuilder.AppendLine("using System;");
-            CodeBuilder.AppendLine("using System.Collections.Generic;");
-            CodeBuilder.AppendLine("using Microsoft.EntityFrameworkCore;");
-            CodeBuilder.AppendLine();
+            this.CodeBuilder.AppendLine("using System;");
+            this.CodeBuilder.AppendLine("using System.Collections.Generic;");
+            this.CodeBuilder.AppendLine("using Microsoft.EntityFrameworkCore;");
+            this.CodeBuilder.AppendLine();
 
-            CodeBuilder.AppendLine($"namespace {_entity.MappingNamespace}");
-            CodeBuilder.AppendLine("{");
+            this.CodeBuilder.AppendLine($"namespace {this._entity.MappingNamespace}");
+            this.CodeBuilder.AppendLine("{");
 
-            using (CodeBuilder.Indent())
+            using (this.CodeBuilder.Indent())
             {
-                GenerateClass();
+                this.GenerateClass();
             }
 
-            CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine("}");
 
-            return CodeBuilder.ToString();
+            return this.CodeBuilder.ToString();
         }
-
 
         private void GenerateClass()
         {
-            var mappingClass = _entity.MappingClass.ToSafeName();
-            var entityClass = _entity.EntityClass.ToSafeName();
-            var safeName = $"{_entity.EntityNamespace}.{entityClass}";
+            var mappingClass = this._entity.MappingClass.ToSafeName();
+            var entityClass = this._entity.EntityClass.ToSafeName();
+            var safeName = $"{this._entity.EntityNamespace}.{entityClass}";
 
-            if (Options.Data.Mapping.Document)
+            if (this.Options.Data.Mapping.Document)
             {
-                CodeBuilder.AppendLine("/// <summary>");
-                CodeBuilder.AppendLine($"/// Allows configuration for an entity type <see cref=\"{safeName}\" />");
-                CodeBuilder.AppendLine("/// </summary>");
+                this.CodeBuilder.AppendLine("/// <summary>");
+                this.CodeBuilder.AppendLine($"/// Allows configuration for an entity type <see cref=\"{safeName}\" />");
+                this.CodeBuilder.AppendLine("/// </summary>");
             }
 
-            CodeBuilder.AppendLine($"public partial class {mappingClass}");
+            this.CodeBuilder.AppendLine($"public partial class {mappingClass}");
 
-            using (CodeBuilder.Indent())
-                CodeBuilder.AppendLine($": IEntityTypeConfiguration<{safeName}>");
-
-            CodeBuilder.AppendLine("{");
-
-            using (CodeBuilder.Indent())
+            using (this.CodeBuilder.Indent())
             {
-                GenerateConfigure();
+                this.CodeBuilder.AppendLine($": IEntityTypeConfiguration<{safeName}>");
             }
 
-            CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine("{");
 
+            using (this.CodeBuilder.Indent())
+            {
+                this.GenerateConfigure();
+            }
+
+            this.CodeBuilder.AppendLine("}");
         }
 
         private void GenerateConfigure()
         {
-            var entityClass = _entity.EntityClass.ToSafeName();
-            var entityFullName = $"{_entity.EntityNamespace}.{entityClass}";
+            var entityClass = this._entity.EntityClass.ToSafeName();
+            var entityFullName = $"{this._entity.EntityNamespace}.{entityClass}";
 
-            if (Options.Data.Mapping.Document)
+            if (this.Options.Data.Mapping.Document)
             {
-                CodeBuilder.AppendLine("/// <summary>");
-                CodeBuilder.AppendLine($"/// Configures the entity of type <see cref=\"{entityFullName}\" />");
-                CodeBuilder.AppendLine("/// </summary>");
-                CodeBuilder.AppendLine("/// <param name=\"builder\">The builder to be used to configure the entity type.</param>");
+                this.CodeBuilder.AppendLine("/// <summary>");
+                this.CodeBuilder.AppendLine($"/// Configures the entity of type <see cref=\"{entityFullName}\" />");
+                this.CodeBuilder.AppendLine("/// </summary>");
+                this.CodeBuilder.AppendLine("/// <param name=\"builder\">The builder to be used to configure the entity type.</param>");
             }
 
-            CodeBuilder.AppendLine($"public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<{entityFullName}> builder)");
-            CodeBuilder.AppendLine("{");
-            using (CodeBuilder.Indent())
+            this.CodeBuilder.AppendLine($"public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<{entityFullName}> builder)");
+            this.CodeBuilder.AppendLine("{");
+            using (this.CodeBuilder.Indent())
             {
-                GenerateTableMapping();
-                GenerateKeyMapping();
-                GeneratePropertyMapping();
-                GenerateRelationshipMapping();
+                this.GenerateTableMapping();
+                this.GenerateKeyMapping();
+                this.GeneratePropertyMapping();
+                this.GenerateRelationshipMapping();
             }
 
-            CodeBuilder.AppendLine("}");
-            CodeBuilder.AppendLine();
+            this.CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine();
         }
-
 
         private void GenerateRelationshipMapping()
         {
-            CodeBuilder.AppendLine("// relationships");
-            foreach (var relationship in _entity.Relationships.Where(e => e.IsMapped))
+            this.CodeBuilder.AppendLine("// relationships");
+            foreach (var relationship in this._entity.Relationships.Where(e => e.IsMapped))
             {
-                GenerateRelationshipMapping(relationship);
-                CodeBuilder.AppendLine();
+                this.GenerateRelationshipMapping(relationship);
+                this.CodeBuilder.AppendLine();
             }
         }
 
         private void GenerateRelationshipMapping(Relationship relationship)
         {
-            CodeBuilder.Append("builder.HasOne(t => t.");
-            CodeBuilder.Append(relationship.PropertyName);
-            CodeBuilder.Append(")");
-            CodeBuilder.AppendLine();
-            CodeBuilder.IncrementIndent();
-            CodeBuilder.Append(relationship.PrimaryCardinality == Cardinality.Many
+            this.CodeBuilder.Append("builder.HasOne(t => t.");
+            this.CodeBuilder.Append(relationship.PropertyName);
+            this.CodeBuilder.Append(")");
+            this.CodeBuilder.AppendLine();
+            this.CodeBuilder.IncrementIndent();
+            this.CodeBuilder.Append(relationship.PrimaryCardinality == Cardinality.Many
                 ? ".WithMany(t => t."
                 : ".WithOne(t => t.");
-            CodeBuilder.Append(relationship.PrimaryPropertyName);
-            CodeBuilder.Append(")");
-            CodeBuilder.AppendLine();
-            CodeBuilder.Append(".HasForeignKey");
+            this.CodeBuilder.Append(relationship.PrimaryPropertyName);
+            this.CodeBuilder.Append(")");
+            this.CodeBuilder.AppendLine();
+            this.CodeBuilder.Append(".HasForeignKey");
             if (relationship.IsOneToOne)
             {
-                CodeBuilder.Append("<");
-                CodeBuilder.Append(_entity.EntityNamespace);
-                CodeBuilder.Append(".");
-                CodeBuilder.Append(_entity.EntityClass.ToSafeName());
-                CodeBuilder.Append(">");
+                this.CodeBuilder.Append("<");
+                this.CodeBuilder.Append(this._entity.EntityNamespace);
+                this.CodeBuilder.Append(".");
+                this.CodeBuilder.Append(this._entity.EntityClass.ToSafeName());
+                this.CodeBuilder.Append(">");
             }
 
-            CodeBuilder.Append("(d => ");
+            this.CodeBuilder.Append("(d => ");
             var keys = relationship.Properties;
             bool wroteLine = false;
             if (keys.Count == 1)
             {
                 var propertyName = keys.First().PropertyName.ToSafeName();
-                CodeBuilder.Append($"d.{propertyName}");
+                this.CodeBuilder.Append($"d.{propertyName}");
             }
             else
             {
-                CodeBuilder.Append("new { ");
+                this.CodeBuilder.Append("new { ");
                 foreach (var p in keys)
                 {
                     if (wroteLine)
-                        CodeBuilder.Append(", ");
+                    {
+                        this.CodeBuilder.Append(", ");
+                    }
 
-                    CodeBuilder.Append($"d.{p.PropertyName}");
+                    this.CodeBuilder.Append($"d.{p.PropertyName}");
                     wroteLine = true;
                 }
-                CodeBuilder.Append("}");
+
+                this.CodeBuilder.Append("}");
             }
 
-            CodeBuilder.Append(")");
+            this.CodeBuilder.Append(")");
             if (!string.IsNullOrEmpty(relationship.RelationshipName))
             {
-                CodeBuilder.AppendLine();
-                CodeBuilder.Append(".HasConstraintName(\"");
-                CodeBuilder.Append(relationship.RelationshipName);
-                CodeBuilder.Append("\")");
+                this.CodeBuilder.AppendLine();
+                this.CodeBuilder.Append(".HasConstraintName(\"");
+                this.CodeBuilder.Append(relationship.RelationshipName);
+                this.CodeBuilder.Append("\")");
             }
 
-            CodeBuilder.DecrementIndent();
-            CodeBuilder.AppendLine(";");
+            this.CodeBuilder.DecrementIndent();
+            this.CodeBuilder.AppendLine(";");
         }
 
         private void GeneratePropertyMapping()
         {
-            CodeBuilder.AppendLine("// properties");
-            foreach (var property in _entity.Properties)
+            this.CodeBuilder.AppendLine("// properties");
+            foreach (var property in this._entity.Properties)
             {
-                GeneratePropertyMapping(property);
-                CodeBuilder.AppendLine();
+                this.GeneratePropertyMapping(property);
+                this.CodeBuilder.AppendLine();
             }
         }
 
@@ -179,103 +180,107 @@ namespace EntityFrameworkCore.Generator.Templates
         {
             bool isString = property.SystemType == typeof(string);
             bool isByteArray = property.SystemType == typeof(byte[]);
-            CodeBuilder.Append($"builder.Property(t => t.{property.PropertyName})");
-            CodeBuilder.IncrementIndent();
+            this.CodeBuilder.Append($"builder.Property(t => t.{property.PropertyName})");
+            this.CodeBuilder.IncrementIndent();
             if (property.IsRequired)
             {
-                CodeBuilder.AppendLine();
-                CodeBuilder.Append(".IsRequired()");
+                this.CodeBuilder.AppendLine();
+                this.CodeBuilder.Append(".IsRequired()");
             }
 
             if (property.IsRowVersion == true)
             {
-                CodeBuilder.AppendLine();
-                CodeBuilder.Append(".IsRowVersion()");
+                this.CodeBuilder.AppendLine();
+                this.CodeBuilder.Append(".IsRowVersion()");
             }
 
-            CodeBuilder.AppendLine();
-            CodeBuilder.Append($".HasColumnName({property.ColumnName.ToLiteral()})");
+            this.CodeBuilder.AppendLine();
+            this.CodeBuilder.Append($".HasColumnName({property.ColumnName.ToLiteral()})");
             if (!string.IsNullOrEmpty(property.StoreType))
             {
-                CodeBuilder.AppendLine();
-                CodeBuilder.Append($".HasColumnType({property.StoreType.ToLiteral()})");
+                this.CodeBuilder.AppendLine();
+                this.CodeBuilder.Append($".HasColumnType({property.StoreType.ToLiteral()})");
             }
 
             if ((isString || isByteArray) && property.Size > 0 && property.IsMaxLength != true)
             {
-                CodeBuilder.AppendLine();
-                CodeBuilder.Append($".HasMaxLength({property.Size.Value.ToString(CultureInfo.InvariantCulture)})");
+                this.CodeBuilder.AppendLine();
+                this.CodeBuilder.Append($".HasMaxLength({property.Size.Value.ToString(CultureInfo.InvariantCulture)})");
             }
 
             if (!string.IsNullOrEmpty(property.Default))
             {
-                CodeBuilder.AppendLine();
-                CodeBuilder.Append($".HasDefaultValueSql({property.Default.ToLiteral()})");
+                this.CodeBuilder.AppendLine();
+                this.CodeBuilder.Append($".HasDefaultValueSql({property.Default.ToLiteral()})");
             }
 
             switch (property.ValueGenerated)
             {
                 case ValueGenerated.OnAdd:
-                    CodeBuilder.AppendLine();
-                    CodeBuilder.Append(".ValueGeneratedOnAdd()");
+                    this.CodeBuilder.AppendLine();
+                    this.CodeBuilder.Append(".ValueGeneratedOnAdd()");
                     break;
                 case ValueGenerated.OnAddOrUpdate:
-                    CodeBuilder.AppendLine();
-                    CodeBuilder.Append(".ValueGeneratedOnAddOrUpdate()");
+                    this.CodeBuilder.AppendLine();
+                    this.CodeBuilder.Append(".ValueGeneratedOnAddOrUpdate()");
                     break;
                 case ValueGenerated.OnUpdate:
-                    CodeBuilder.AppendLine();
-                    CodeBuilder.Append(".ValueGeneratedOnUpdate()");
+                    this.CodeBuilder.AppendLine();
+                    this.CodeBuilder.Append(".ValueGeneratedOnUpdate()");
                     break;
             }
 
-            CodeBuilder.DecrementIndent();
-            CodeBuilder.AppendLine(";");
+            this.CodeBuilder.DecrementIndent();
+            this.CodeBuilder.AppendLine(";");
         }
 
         private void GenerateKeyMapping()
         {
-            var keys = _entity.Properties.Where(p => p.IsPrimaryKey == true).ToList();
+            var keys = this._entity.Properties.Where(p => p.IsPrimaryKey == true).ToList();
             if (keys.Count == 0)
+            {
                 return;
+            }
 
-            CodeBuilder.AppendLine("// key");
-            CodeBuilder.Append("builder.HasKey(t => ");
+            this.CodeBuilder.AppendLine("// key");
+            this.CodeBuilder.Append("builder.HasKey(t => ");
 
             if (keys.Count == 1)
             {
                 var propertyName = keys.First().PropertyName.ToSafeName();
-                CodeBuilder.AppendLine($"t.{propertyName});");
-                CodeBuilder.AppendLine();
+                this.CodeBuilder.AppendLine($"t.{propertyName});");
+                this.CodeBuilder.AppendLine();
 
                 return;
             }
 
             bool wroteLine = false;
-            CodeBuilder.Append("new { ");
+            this.CodeBuilder.Append("new { ");
             foreach (var p in keys)
             {
                 if (wroteLine)
-                    CodeBuilder.Append(", ");
+                {
+                    this.CodeBuilder.Append(", ");
+                }
 
-                CodeBuilder.Append("t.");
-                CodeBuilder.Append(p.PropertyName);
+                this.CodeBuilder.Append("t.");
+                this.CodeBuilder.Append(p.PropertyName);
                 wroteLine = true;
             }
 
-            CodeBuilder.AppendLine(" });");
-            CodeBuilder.AppendLine();
+            this.CodeBuilder.AppendLine(" });");
+            this.CodeBuilder.AppendLine();
         }
 
         private void GenerateTableMapping()
         {
-            CodeBuilder.AppendLine("// table");
+            this.CodeBuilder.AppendLine("// table");
 
-            CodeBuilder.AppendLine(_entity.TableSchema.HasValue()
-                ? $"builder.ToTable(\"{_entity.TableName}\", \"{_entity.TableSchema}\");"
-                : $"builder.ToTable(\"{_entity.TableName}\");");
+            this.CodeBuilder.AppendLine(this._entity.TableSchema.HasValue()
+                ? $"builder.ToTable(\"{this._entity.TableName}\", \"{this._entity.TableSchema}\");"
+                : $"builder.ToTable(\"{this._entity.TableName}\");");
 
-            CodeBuilder.AppendLine();
+            this.CodeBuilder.AppendLine();
         }
     }
 }

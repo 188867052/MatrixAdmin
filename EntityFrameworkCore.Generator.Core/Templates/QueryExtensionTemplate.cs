@@ -11,189 +11,190 @@ namespace EntityFrameworkCore.Generator.Templates
 
         public QueryExtensionTemplate(Entity entity, GeneratorOptions options) : base(options)
         {
-            _entity = entity;
+            this._entity = entity;
         }
 
         public override string WriteCode()
         {
-            CodeBuilder.Clear();
+            this.CodeBuilder.Clear();
 
-            CodeBuilder.AppendLine("using System;");
-            CodeBuilder.AppendLine("using System.Collections.Generic;");
-            CodeBuilder.AppendLine("using System.Linq;");
-            CodeBuilder.AppendLine("using System.Threading.Tasks;");
-            CodeBuilder.AppendLine("using Microsoft.EntityFrameworkCore;");
-            CodeBuilder.AppendLine();
+            this.CodeBuilder.AppendLine("using System;");
+            this.CodeBuilder.AppendLine("using System.Collections.Generic;");
+            this.CodeBuilder.AppendLine("using System.Linq;");
+            this.CodeBuilder.AppendLine("using System.Threading.Tasks;");
+            this.CodeBuilder.AppendLine("using Microsoft.EntityFrameworkCore;");
+            this.CodeBuilder.AppendLine();
 
-            var extensionNamespace = Options.Data.Query.Namespace;
+            var extensionNamespace = this.Options.Data.Query.Namespace;
 
-            CodeBuilder.AppendLine($"namespace {extensionNamespace}");
-            CodeBuilder.AppendLine("{");
+            this.CodeBuilder.AppendLine($"namespace {extensionNamespace}");
+            this.CodeBuilder.AppendLine("{");
 
-            using (CodeBuilder.Indent())
+            using (this.CodeBuilder.Indent())
             {
-                GenerateClass();
+                this.GenerateClass();
             }
 
-            CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine("}");
 
-            return CodeBuilder.ToString();
+            return this.CodeBuilder.ToString();
         }
 
         private void GenerateClass()
         {
-            var entityClass = _entity.EntityClass.ToSafeName();
-            string safeName = _entity.EntityNamespace + "." + entityClass;
+            var entityClass = this._entity.EntityClass.ToSafeName();
+            string safeName = this._entity.EntityNamespace + "." + entityClass;
 
-            if (Options.Data.Query.Document)
+            if (this.Options.Data.Query.Document)
             {
-                CodeBuilder.AppendLine("/// <summary>");
-                CodeBuilder.AppendLine($"/// Query extensions for entity <see cref=\"{safeName}\" />.");
-                CodeBuilder.AppendLine("/// </summary>");
+                this.CodeBuilder.AppendLine("/// <summary>");
+                this.CodeBuilder.AppendLine($"/// Query extensions for entity <see cref=\"{safeName}\" />.");
+                this.CodeBuilder.AppendLine("/// </summary>");
             }
 
-            CodeBuilder.AppendLine($"public static partial class {entityClass}Extensions");
-            CodeBuilder.AppendLine("{");
+            this.CodeBuilder.AppendLine($"public static partial class {entityClass}Extensions");
+            this.CodeBuilder.AppendLine("{");
 
-            using (CodeBuilder.Indent())
+            using (this.CodeBuilder.Indent())
             {
-                GenerateMethods();
+                this.GenerateMethods();
             }
 
-            CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine("}");
         }
 
         private void GenerateMethods()
         {
-            foreach (var method in _entity.Methods.OrderBy(m => m.NameSuffix))
+            foreach (var method in this._entity.Methods.OrderBy(m => m.NameSuffix))
             {
                 if (method.IsKey)
                 {
-                    GenerateKeyMethod(method);
-                    GenerateKeyMethod(method, true);
+                    this.GenerateKeyMethod(method);
+                    this.GenerateKeyMethod(method, true);
                 }
                 else if (method.IsUnique)
                 {
-                    GenerateUniqueMethod(method);
-                    GenerateUniqueMethod(method, true);
+                    this.GenerateUniqueMethod(method);
+                    this.GenerateUniqueMethod(method, true);
                 }
                 else
                 {
-                    GenerateMethod(method);
+                    this.GenerateMethod(method);
                 }
             }
-            CodeBuilder.AppendLine();
+
+            this.CodeBuilder.AppendLine();
         }
 
         private void GenerateMethod(Method method)
         {
-            string safeName = _entity.EntityNamespace + "." + _entity.EntityClass.ToSafeName();
-            string prefix = Options.Data.Query.IndexPrefix;
+            string safeName = this._entity.EntityNamespace + "." + this._entity.EntityClass.ToSafeName();
+            string prefix = this.Options.Data.Query.IndexPrefix;
             string suffix = method.NameSuffix;
 
-            if (Options.Data.Query.Document)
+            if (this.Options.Data.Query.Document)
             {
-                CodeBuilder.AppendLine("/// <summary>");
-                CodeBuilder.AppendLine("/// Filters a sequence of values based on a predicate.");
-                CodeBuilder.AppendLine("/// </summary>");
-                CodeBuilder.AppendLine("/// <param name=\"queryable\">An <see cref=\"T:System.Linq.IQueryable`1\" /> to filter.</param>");
-                AppendDocumentation(method);
-                CodeBuilder.AppendLine("/// <returns>An <see cref=\"T: System.Linq.IQueryable`1\" /> that contains elements from the input sequence that satisfy the condition specified.</returns>");
+                this.CodeBuilder.AppendLine("/// <summary>");
+                this.CodeBuilder.AppendLine("/// Filters a sequence of values based on a predicate.");
+                this.CodeBuilder.AppendLine("/// </summary>");
+                this.CodeBuilder.AppendLine("/// <param name=\"queryable\">An <see cref=\"T:System.Linq.IQueryable`1\" /> to filter.</param>");
+                this.AppendDocumentation(method);
+                this.CodeBuilder.AppendLine("/// <returns>An <see cref=\"T: System.Linq.IQueryable`1\" /> that contains elements from the input sequence that satisfy the condition specified.</returns>");
             }
 
-            CodeBuilder.Append($"public static IQueryable<{safeName}> {prefix}{suffix}(this IQueryable<{safeName}> queryable, ");
-            AppendParameters(method);
-            CodeBuilder.AppendLine(")");
-            CodeBuilder.AppendLine("{");
+            this.CodeBuilder.Append($"public static IQueryable<{safeName}> {prefix}{suffix}(this IQueryable<{safeName}> queryable, ");
+            this.AppendParameters(method);
+            this.CodeBuilder.AppendLine(")");
+            this.CodeBuilder.AppendLine("{");
 
-            using (CodeBuilder.Indent())
+            using (this.CodeBuilder.Indent())
             {
-                CodeBuilder.Append($"return queryable.Where(");
-                AppendLamba(method);
-                CodeBuilder.AppendLine(");");
+                this.CodeBuilder.Append($"return queryable.Where(");
+                this.AppendLamba(method);
+                this.CodeBuilder.AppendLine(");");
             }
 
-            CodeBuilder.AppendLine("}");
-            CodeBuilder.AppendLine();
+            this.CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine();
         }
 
         private void GenerateUniqueMethod(Method method, bool async = false)
         {
-            string safeName = _entity.EntityNamespace + "." + _entity.EntityClass.ToSafeName();
-            string uniquePrefix = Options.Data.Query.UniquePrefix;
+            string safeName = this._entity.EntityNamespace + "." + this._entity.EntityClass.ToSafeName();
+            string uniquePrefix = this.Options.Data.Query.UniquePrefix;
             string suffix = method.NameSuffix;
 
             string asyncSuffix = async ? "Async" : string.Empty;
             string returnType = async ? $"Task<{safeName}>" : safeName;
 
-            if (Options.Data.Query.Document)
+            if (this.Options.Data.Query.Document)
             {
-                CodeBuilder.AppendLine("/// <summary>");
-                CodeBuilder.AppendLine($"/// Gets an instance of <see cref=\"T:{safeName}\"/> by using a unique index.");
-                CodeBuilder.AppendLine("/// </summary>");
-                CodeBuilder.AppendLine("/// <param name=\"queryable\">An <see cref=\"T:System.Linq.IQueryable`1\" /> to filter.</param>");
-                AppendDocumentation(method);
-                CodeBuilder.AppendLine($"/// <returns>An instance of <see cref=\"T:{safeName}\"/> or null if not found.</returns>");
+                this.CodeBuilder.AppendLine("/// <summary>");
+                this.CodeBuilder.AppendLine($"/// Gets an instance of <see cref=\"T:{safeName}\"/> by using a unique index.");
+                this.CodeBuilder.AppendLine("/// </summary>");
+                this.CodeBuilder.AppendLine("/// <param name=\"queryable\">An <see cref=\"T:System.Linq.IQueryable`1\" /> to filter.</param>");
+                this.AppendDocumentation(method);
+                this.CodeBuilder.AppendLine($"/// <returns>An instance of <see cref=\"T:{safeName}\"/> or null if not found.</returns>");
             }
 
-            CodeBuilder.Append($"public static {returnType} {uniquePrefix}{suffix}{asyncSuffix}(this IQueryable<{safeName}> queryable, ");
-            AppendParameters(method);
-            CodeBuilder.AppendLine(")");
-            CodeBuilder.AppendLine("{");
+            this.CodeBuilder.Append($"public static {returnType} {uniquePrefix}{suffix}{asyncSuffix}(this IQueryable<{safeName}> queryable, ");
+            this.AppendParameters(method);
+            this.CodeBuilder.AppendLine(")");
+            this.CodeBuilder.AppendLine("{");
 
-            using (CodeBuilder.Indent())
+            using (this.CodeBuilder.Indent())
             {
-                CodeBuilder.Append($"return queryable.FirstOrDefault{asyncSuffix}(");
-                AppendLamba(method);
-                CodeBuilder.AppendLine(");");
+                this.CodeBuilder.Append($"return queryable.FirstOrDefault{asyncSuffix}(");
+                this.AppendLamba(method);
+                this.CodeBuilder.AppendLine(");");
             }
 
-            CodeBuilder.AppendLine("}");
-            CodeBuilder.AppendLine();
+            this.CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine();
         }
 
         private void GenerateKeyMethod(Method method, bool async = false)
         {
-            string safeName = _entity.EntityNamespace + "." + _entity.EntityClass.ToSafeName();
-            string uniquePrefix = Options.Data.Query.UniquePrefix;
+            string safeName = this._entity.EntityNamespace + "." + this._entity.EntityClass.ToSafeName();
+            string uniquePrefix = this.Options.Data.Query.UniquePrefix;
 
             string asyncSuffix = async ? "Async" : string.Empty;
             string returnType = async ? $"Task<{safeName}>" : safeName;
 
-            if (Options.Data.Query.Document)
+            if (this.Options.Data.Query.Document)
             {
-                CodeBuilder.AppendLine("/// <summary>");
-                CodeBuilder.AppendLine("/// Gets an instance by the primary key.");
-                CodeBuilder.AppendLine("/// </summary>");
-                CodeBuilder.AppendLine("/// <param name=\"queryable\">An <see cref=\"T:System.Linq.IQueryable`1\" /> to filter.</param>");
-                AppendDocumentation(method);
-                CodeBuilder.AppendLine($"/// <returns>An instance of <see cref=\"T:{safeName}\"/> or null if not found.</returns>");
+                this.CodeBuilder.AppendLine("/// <summary>");
+                this.CodeBuilder.AppendLine("/// Gets an instance by the primary key.");
+                this.CodeBuilder.AppendLine("/// </summary>");
+                this.CodeBuilder.AppendLine("/// <param name=\"queryable\">An <see cref=\"T:System.Linq.IQueryable`1\" /> to filter.</param>");
+                this.AppendDocumentation(method);
+                this.CodeBuilder.AppendLine($"/// <returns>An instance of <see cref=\"T:{safeName}\"/> or null if not found.</returns>");
             }
 
-            CodeBuilder.Append($"public static {returnType} {uniquePrefix}Key{asyncSuffix}(this IQueryable<{safeName}> queryable, ");
-            AppendParameters(method);
-            CodeBuilder.AppendLine(")");
-            CodeBuilder.AppendLine("{");
+            this.CodeBuilder.Append($"public static {returnType} {uniquePrefix}Key{asyncSuffix}(this IQueryable<{safeName}> queryable, ");
+            this.AppendParameters(method);
+            this.CodeBuilder.AppendLine(")");
+            this.CodeBuilder.AppendLine("{");
 
-            using (CodeBuilder.Indent())
+            using (this.CodeBuilder.Indent())
             {
-                CodeBuilder.AppendLine($"if (queryable is DbSet<{safeName}> dbSet)");
-                using (CodeBuilder.Indent())
+                this.CodeBuilder.AppendLine($"if (queryable is DbSet<{safeName}> dbSet)");
+                using (this.CodeBuilder.Indent())
                 {
-                    CodeBuilder.Append($"return dbSet.Find{asyncSuffix}(");
-                    AppendNames(method);
-                    CodeBuilder.AppendLine(");");
+                    this.CodeBuilder.Append($"return dbSet.Find{asyncSuffix}(");
+                    this.AppendNames(method);
+                    this.CodeBuilder.AppendLine(");");
                 }
 
-                CodeBuilder.AppendLine("");
-                CodeBuilder.Append($"return queryable.FirstOrDefault{asyncSuffix}(");
-                AppendLamba(method);
-                CodeBuilder.AppendLine(");");
+                this.CodeBuilder.AppendLine(string.Empty);
+                this.CodeBuilder.Append($"return queryable.FirstOrDefault{asyncSuffix}(");
+                this.AppendLamba(method);
+                this.CodeBuilder.AppendLine(");");
             }
-            CodeBuilder.AppendLine("}");
-            CodeBuilder.AppendLine();
-        }
 
+            this.CodeBuilder.AppendLine("}");
+            this.CodeBuilder.AppendLine();
+        }
 
         private void AppendDocumentation(Method method)
         {
@@ -203,7 +204,7 @@ namespace EntityFrameworkCore.Generator.Templates
                     .ToCamelCase()
                     .ToSafeName();
 
-                CodeBuilder.AppendLine($"/// <param name=\"{paramName}\">The value to filter by.</param>");
+                this.CodeBuilder.AppendLine($"/// <param name=\"{paramName}\">The value to filter by.</param>");
             }
         }
 
@@ -214,7 +215,9 @@ namespace EntityFrameworkCore.Generator.Templates
             foreach (var property in method.Properties)
             {
                 if (wrote)
-                    CodeBuilder.Append(", ");
+                {
+                    this.CodeBuilder.Append(", ");
+                }
 
                 string paramName = property.PropertyName
                     .ToCamelCase()
@@ -223,7 +226,7 @@ namespace EntityFrameworkCore.Generator.Templates
                 string paramType = property.SystemType
                     .ToNullableType(property.IsNullable == true);
 
-                CodeBuilder.Append($"{paramType} {paramName}");
+                this.CodeBuilder.Append($"{paramType} {paramName}");
 
                 wrote = true;
             }
@@ -235,13 +238,15 @@ namespace EntityFrameworkCore.Generator.Templates
             foreach (var property in method.Properties)
             {
                 if (wrote)
-                    CodeBuilder.Append(", ");
+                {
+                    this.CodeBuilder.Append(", ");
+                }
 
                 string paramName = property.PropertyName
                     .ToCamelCase()
                     .ToSafeName();
 
-                CodeBuilder.Append(paramName);
+                this.CodeBuilder.Append(paramName);
                 wrote = true;
             }
         }
@@ -259,27 +264,33 @@ namespace EntityFrameworkCore.Generator.Templates
 
                 if (!wrote)
                 {
-                    CodeBuilder.Append("q => ");
+                    this.CodeBuilder.Append("q => ");
                 }
                 else
                 {
-                    CodeBuilder.AppendLine();
-                    CodeBuilder.IncrementIndent();
-                    CodeBuilder.Append("&& ");
+                    this.CodeBuilder.AppendLine();
+                    this.CodeBuilder.IncrementIndent();
+                    this.CodeBuilder.Append("&& ");
 
                     indented = true;
                 }
 
                 if (property.IsNullable == true)
-                    CodeBuilder.Append($"(q.{property.PropertyName} == {paramName} || ({paramName} == null && q.{property.PropertyName} == null))");
+                {
+                    this.CodeBuilder.Append($"(q.{property.PropertyName} == {paramName} || ({paramName} == null && q.{property.PropertyName} == null))");
+                }
                 else
-                    CodeBuilder.Append($"q.{property.PropertyName} == {paramName}");
+                {
+                    this.CodeBuilder.Append($"q.{property.PropertyName} == {paramName}");
+                }
 
                 wrote = true;
             }
 
             if (indented)
-                CodeBuilder.DecrementIndent();
+            {
+                this.CodeBuilder.DecrementIndent();
+            }
         }
     }
 }

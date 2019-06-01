@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace EntityFrameworkCore.Generator.Metadata.Generation
 {
@@ -8,7 +7,7 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
     {
         public EntityContext()
         {
-            Entities = new EntityCollection();
+            this.Entities = new EntityCollection();
         }
 
         public string ContextNamespace { get; set; }
@@ -20,7 +19,5 @@ namespace EntityFrameworkCore.Generator.Metadata.Generation
         public string DatabaseName { get; set; }
 
         public EntityCollection Entities { get; set; }
-
-
     }
 }
