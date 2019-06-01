@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.UnitTest.Resource", "U
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFrameworkCore.Generator", "EntityFrameworkCore.Generator\EntityFrameworkCore.Generator.csproj", "{B32BBD06-0CBE-4942-80CD-A34C721A8B3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkCore.Generator.Core", "EntityFrameworkCore.Generator.Core\EntityFrameworkCore.Generator.Core.csproj", "{ED772E65-FBCE-4373-80DF-C2DFF90A7ABD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFrameworkCore.Generator.Core", "EntityFrameworkCore.Generator.Core\EntityFrameworkCore.Generator.Core.csproj", "{ED772E65-FBCE-4373-80DF-C2DFF90A7ABD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFrameworkCore.Generator.Core.Tests", "EntityFrameworkCore.Generator.Core.Tests\EntityFrameworkCore.Generator.Core.Tests.csproj", "{03A83D5B-1087-4C66-B9B5-52BD1F85F409}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{ED772E65-FBCE-4373-80DF-C2DFF90A7ABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED772E65-FBCE-4373-80DF-C2DFF90A7ABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED772E65-FBCE-4373-80DF-C2DFF90A7ABD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03A83D5B-1087-4C66-B9B5-52BD1F85F409}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03A83D5B-1087-4C66-B9B5-52BD1F85F409}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03A83D5B-1087-4C66-B9B5-52BD1F85F409}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03A83D5B-1087-4C66-B9B5-52BD1F85F409}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
