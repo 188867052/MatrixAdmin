@@ -1,6 +1,5 @@
 using Core.Entity;
 using Core.Extension.Dapper;
-using Dapper;
 using NUnit.Framework;
 
 namespace Core.UnitTest.Dapper

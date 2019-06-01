@@ -8,12 +8,12 @@ namespace Core.Extension.Dapper
     {
         public virtual string ResolveColumnName(PropertyInfo propertyInfo, string name = default)
         {
-            var columnName = SimpleCRUD.Encapsulate(name);
+            var columnName = DapperExtension.Encapsulate(name);
 
-            var columnattr = propertyInfo.GetCustomAttributes(true).SingleOrDefault(attr => attr.GetType().Name == typeof(ColumnAttribute).Name) as dynamic;
-            if (columnattr != null)
+            dynamic columnAttribute = propertyInfo.GetCustomAttributes(true).SingleOrDefault(attr => attr.GetType().Name == typeof(ColumnAttribute).Name) as dynamic;
+            if (columnAttribute != null)
             {
-                columnName = SimpleCRUD.Encapsulate(name);
+                columnName = DapperExtension.Encapsulate(name);
             }
 
             return columnName;
@@ -21,7 +21,7 @@ namespace Core.Extension.Dapper
 
         public virtual string ResolveColumnName<T>(string name)
         {
-            return SimpleCRUD.Encapsulate(name);
+            return DapperExtension.Encapsulate(name);
         }
     }
 }

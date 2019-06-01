@@ -31,6 +31,10 @@ namespace Core.Extension.Dapper
                 string sql = $"SELECT a.name AS [TableName],case e.name when f.column_NAME then 'True'else 'false' end AS IsPrimaryKey,F.COLUMN_NAME AS ColumnName FROM sysobjects AS a LEFT JOIN sysobjects AS b ON a.id=b.parent_obj LEFT JOIN sysindexes AS c ON a.id=c.id AND b.name=c.name LEFT JOIN sysindexkeys AS d ON a.id=d.id AND c.indid=d.indid LEFT JOIN syscolumns AS e ON a.id=e.id AND d.colid=e.colid left join  INFORMATION_SCHEMA.COLUMNS f on a.name=f.TABLE_NAME WHERE a.xtype='U' AND b.xtype='PK'";
                 Tables = connection.Query<TableInfo>(sql);
             }
+
+
+            _getIdentitySql = "SELECT CAST(SCOPE_IDENTITY()  AS BIGINT) AS [id]";
+            _pagedListSql = "SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY {OrderBy}) AS PagedNumber, {SelectColumns} FROM {TableName} {WhereClause}) AS u WHERE PagedNumber BETWEEN (({PageNumber}-1) * {RowsPerPage} + 1) AND ({PageNumber} * {RowsPerPage})";
         }
 
         public static IDbConnection Connection

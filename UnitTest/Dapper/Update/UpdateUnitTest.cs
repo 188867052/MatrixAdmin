@@ -1,8 +1,6 @@
 using System;
-using System.Data;
 using Core.Entity;
 using Core.Extension.Dapper;
-using Dapper;
 using NUnit.Framework;
 
 namespace Core.UnitTest.Dapper.Update

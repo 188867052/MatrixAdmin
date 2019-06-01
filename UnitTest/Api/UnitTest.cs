@@ -12,7 +12,6 @@ using Core.Model.Administration.User;
 using Core.Model.Log;
 using Core.Mvc.Framework;
 using Core.UnitTest.Resource.Areas;
-using Dapper;
 using NUnit.Framework;
 
 namespace Core.UnitTest.Api

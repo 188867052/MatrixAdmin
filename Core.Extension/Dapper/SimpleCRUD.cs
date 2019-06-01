@@ -13,9 +13,9 @@ using Microsoft.EntityFrameworkCore.Internal;
 namespace Core.Extension.Dapper
 {
     /// <summary>
-    /// Main class for Dapper.SimpleCRUD extensions.
+    /// Main class for Dapper extensions.
     /// </summary>
-    public static partial class SimpleCRUD
+    public static partial class DapperExtension
     {
         private static readonly string _getIdentitySql;
         private static readonly string _pagedListSql;
@@ -25,12 +25,6 @@ namespace Core.Extension.Dapper
         private static bool stringBuilderCacheEnabled = true;
         private static ITableNameResolver _tableNameResolver = new TableNameResolver();
         private static IColumnNameResolver _columnNameResolver = new ColumnNameResolver();
-
-        static SimpleCRUD()
-        {
-            _getIdentitySql = "SELECT CAST(SCOPE_IDENTITY()  AS BIGINT) AS [id]";
-            _pagedListSql = "SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY {OrderBy}) AS PagedNumber, {SelectColumns} FROM {TableName} {WhereClause}) AS u WHERE PagedNumber BETWEEN (({PageNumber}-1) * {RowsPerPage} + 1) AND ({PageNumber} * {RowsPerPage})";
-        }
 
         public static T Get<T>(this IDbConnection connection, object id, IDbTransaction transaction = null, int? commandTimeout = null)
         {
@@ -42,7 +36,7 @@ namespace Core.Extension.Dapper
                 throw new ArgumentException("Get<T> only supports an entity with a [Key] or Id property");
             }
 
-            var name = GetTableName(currentType);
+            var name = DapperExtension.GetTableName<T>();
             var sb = new StringBuilder();
             sb.Append("Select ");
 
@@ -308,20 +302,13 @@ namespace Core.Extension.Dapper
 
         public static int Delete<T>(this IDbConnection connection, object id, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            var currentType = typeof(T);
-            var idProperty = GetIdProperties(currentType).ToList().FirstOrDefault();
-
-            var name = GetTableName(currentType);
-
+            var name = GetTableName<T>();
             var sb = new StringBuilder();
             sb.AppendFormat("Delete from {0} where ", name);
-
             string key = DapperExtension.GetKey<T>();
-
-            sb.AppendFormat("{0} = @{1}", GetColumnName(idProperty, key), key);
-
+            sb.AppendFormat("{0} = @{1}", key, DapperExtension.ToProperty(key));
             var parameters = new DynamicParameters();
-            parameters.Add("@" + idProperty.Name, id);
+            parameters.Add("@" + key, id);
 
             return connection.Execute(sb.ToString(), parameters, transaction, commandTimeout);
         }
@@ -562,39 +549,6 @@ namespace Core.Extension.Dapper
             return tp.Any() ? tp : type.GetProperties().Where(p => p.Name.Equals("Id", StringComparison.OrdinalIgnoreCase));
         }
 
-        private static string GetTableName(object entity)
-        {
-            var type = entity.GetType();
-            return GetTableName(type);
-        }
-
-        private static string GetTableName<T>()
-        {
-            if (TableNames.TryGetValue(typeof(T), out string tableName))
-            {
-                return tableName;
-            }
-
-            tableName = _tableNameResolver.ResolveTableName(typeof(T));
-            TableNames.AddOrUpdate(typeof(T), tableName, (t, v) => tableName);
-
-            return tableName;
-        }
-
-        private static string GetTableName(Type type)
-        {
-            if (TableNames.TryGetValue(type, out string tableName))
-            {
-                return tableName;
-            }
-
-            tableName = _tableNameResolver.ResolveTableName(type);
-
-            TableNames.AddOrUpdate(type, tableName, (t, v) => tableName);
-
-            return tableName;
-        }
-
         private static string GetColumnName(PropertyInfo propertyInfo, string name = default)
         {
             string key = $"{propertyInfo.DeclaringType}.{propertyInfo.Name}";
@@ -604,7 +558,6 @@ namespace Core.Extension.Dapper
             }
 
             columnName = _columnNameResolver.ResolveColumnName(propertyInfo, name);
-
             ColumnNames.AddOrUpdate(key, columnName, (t, v) => columnName);
 
             return columnName;

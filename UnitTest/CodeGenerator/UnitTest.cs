@@ -1,8 +1,5 @@
-using System;
 using System.Linq;
 using Core.Entity;
-using Core.Extension;
-using Core.UnitTest.Resource.Areas;
 using NUnit.Framework;
 
 namespace Core.UnitTest.CodeGenerator

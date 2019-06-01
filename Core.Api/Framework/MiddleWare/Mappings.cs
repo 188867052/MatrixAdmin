@@ -9,8 +9,7 @@ namespace Core.Api.Framework.MiddleWare
         public static void RegisterMappings()
         {
             // 获取所有IProfile实现类
-            var allType =
-                Assembly
+            var allType = Assembly
                     .GetEntryAssembly() // 获取默认程序集
                     .GetReferencedAssemblies() // 获取所有引用程序集
                     .Select(Assembly.Load)
@@ -25,7 +24,7 @@ namespace Core.Api.Framework.MiddleWare
                     // 注册映射
                     Mapper.Initialize(y =>
                     {
-                        y.AddMaps(type); // Initialise each Profile classe
+                        y.AddMaps(type); // Initialise each Profile classes
                     });
                 }
             }

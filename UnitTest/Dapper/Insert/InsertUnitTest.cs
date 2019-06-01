@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using Core.Entity;
 using Core.Extension.Dapper;
-using Dapper;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 

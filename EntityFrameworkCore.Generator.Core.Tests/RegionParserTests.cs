@@ -4,7 +4,7 @@ using EntityFrameworkCore.Generator.Core.Parsing;
 using FluentAssertions;
 using Xunit;
 
-namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
+namespace EntityFrameworkCore.Generator.Core.Tests
 {
     public class RegionParserTests
     {

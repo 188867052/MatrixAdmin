@@ -9,18 +9,18 @@ namespace Core.Extension.Dapper
     {
         public virtual string ResolveTableName(Type type)
         {
-            var tableName = SimpleCRUD.Encapsulate(type.Name);
+            var tableName = DapperExtension.Encapsulate(type.Name);
 
             var tableattr = type.GetCustomAttributes(true).SingleOrDefault(attr => attr.GetType().Name == typeof(TableAttribute).Name) as dynamic;
             if (tableattr != null)
             {
-                tableName = SimpleCRUD.Encapsulate(tableattr.Name);
+                tableName = DapperExtension.Encapsulate(tableattr.Name);
                 try
                 {
                     if (!string.IsNullOrEmpty(tableattr.Schema))
                     {
-                        string schemaName = SimpleCRUD.Encapsulate(tableattr.Schema);
-                        tableName = string.Format("{0}.{1}", schemaName, tableName);
+                        string schemaName = DapperExtension.Encapsulate(tableattr.Schema);
+                        tableName = $"{schemaName}.{tableName}";
                     }
                 }
                 catch (RuntimeBinderException)
