@@ -679,7 +679,7 @@ public void TestUpdate()
 ```
 
 PM>
- dotnet pack .\EntityFrameworkCore.Generator\EntityFrameworkCore.Generator.csproj -o C:\Users\54215\.nuget\localpackages -c Release
+ dotnet pack .\EntityFrameworkCore.Generator\EntityFrameworkCore.Generator.csproj -o ..\..\..\.nuget\localpackages -c Release
  dotnet tool uninstall --global EFCore.Generator
  dotnet tool install --global EFCore.Generator
  efg generate -c "Data Source=.;App=EntityFrameworkCore;Initial Catalog=Core;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
