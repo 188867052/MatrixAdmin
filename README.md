@@ -4,7 +4,7 @@
 前端：基于bootstrap4封装的一套组件，GridSearchFilter，Dialog，RowContextMenu，
 一些表单提交，做BS开发不用重复造轮子，js采用严格模式，兼容性好，代码量少，不用写开发人员不用写html，统一了UI，开发人员只需要写业务
 
-## Example of using grid search filters
+## Example of using grid search filters [See Code](https://github.com/188867052/Asp.Net/blob/37fc5e0a587a0dc6feb816d3b462864b0153cc43/Core.Models/Administration/User/UserPostModel.cs)
 ```C#
 public IQueryable<Entity.User> GenerateQuery(IQueryable<Entity.User> query)
 {
