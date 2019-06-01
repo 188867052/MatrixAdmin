@@ -50,17 +50,16 @@ namespace Core.Data.Entities
 
         public int UserStatusId { get; set; }
 
-        public virtual ICollection<Menu> CreateByMenus { get; set; }
-
-        public virtual ICollection<Role> CreateByRoles { get; set; }
-
-        public virtual ICollection<Menu> UpdateByMenus { get; set; }
-
-        public virtual ICollection<Role> UpdateByRoles { get; set; }
-
         public virtual ICollection<UserRoleMapping> UserRoleMappings { get; set; }
 
         public virtual UserStatus UserStatus { get; set; }
 
+        public virtual ICollection<Menu> UpdateByMenus { get; set; }
+
+        public virtual ICollection<Menu> CreateByMenus { get; set; }
+
+        public virtual ICollection<Role> CreateByRoles { get; set; }
+
+        public virtual ICollection<Role> UpdateByRoles { get; set; }
     }
 }

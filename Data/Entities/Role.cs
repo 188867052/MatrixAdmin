@@ -35,12 +35,12 @@ namespace Core.Data.Entities
 
         public int CreateByUserId { get; set; }
 
-        public virtual User CreateByUser { get; set; }
-
         public virtual ICollection<RolePermissionMapping> RolePermissionMappings { get; set; }
 
-        public virtual User UpdateByUser { get; set; }
         public virtual ICollection<UserRoleMapping> UserRoleMappings { get; set; }
 
+        public virtual User CreateByUser { get; set; }
+
+        public virtual User UpdateByUser { get; set; }
     }
 }

@@ -25,6 +25,7 @@
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Pkgxunit_analyzers Condition=" '$(Pkgxunit_analyzers)' == '' ">C:\Users\54215\.nuget\packages\xunit.analyzers\0.10.0</Pkgxunit_analyzers>
     <PkgText_Analyzers Condition=" '$(PkgText_Analyzers)' == '' ">C:\Users\54215\.nuget\packages\text.analyzers\2.6.4</PkgText_Analyzers>
+    <PkgStyleCop_Analyzers Condition=" '$(PkgStyleCop_Analyzers)' == '' ">C:\Users\54215\.nuget\packages\stylecop.analyzers\1.1.118</PkgStyleCop_Analyzers>
     <PkgMicrosoft_CodeAnalysis_PublicApiAnalyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_PublicApiAnalyzers)' == '' ">C:\Users\54215\.nuget\packages\microsoft.codeanalysis.publicapianalyzers\2.9.2</PkgMicrosoft_CodeAnalysis_PublicApiAnalyzers>
     <PkgMicrosoft_CodeAnalysis_BannedApiAnalyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_BannedApiAnalyzers)' == '' ">C:\Users\54215\.nuget\packages\microsoft.codeanalysis.bannedapianalyzers\2.9.2</PkgMicrosoft_CodeAnalysis_BannedApiAnalyzers>
     <PkgRoslyn_Diagnostics_Analyzers Condition=" '$(PkgRoslyn_Diagnostics_Analyzers)' == '' ">C:\Users\54215\.nuget\packages\roslyn.diagnostics.analyzers\2.9.2</PkgRoslyn_Diagnostics_Analyzers>

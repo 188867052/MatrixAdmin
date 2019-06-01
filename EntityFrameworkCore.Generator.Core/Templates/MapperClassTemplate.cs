@@ -17,7 +17,6 @@ namespace EntityFrameworkCore.Generator.Templates
         public override string WriteCode()
         {
             CodeBuilder.Clear();
-
             CodeBuilder.AppendLine("using System;");
             CodeBuilder.AppendLine("using AutoMapper;");
 
@@ -35,7 +34,6 @@ namespace EntityFrameworkCore.Generator.Templates
 
             CodeBuilder.AppendLine($"namespace {_entity.MapperNamespace}");
             CodeBuilder.AppendLine("{");
-
             using (CodeBuilder.Indent())
             {
                 GenerateClass();
@@ -50,7 +48,6 @@ namespace EntityFrameworkCore.Generator.Templates
         {
             var entityClass = _entity.EntityClass.ToSafeName();
             var mapperClass = _entity.MapperClass.ToSafeName();
-
             if (Options.Model.Mapper.Document)
             {
                 CodeBuilder.AppendLine("/// <summary>");
@@ -59,7 +56,6 @@ namespace EntityFrameworkCore.Generator.Templates
             }
 
             CodeBuilder.AppendLine($"public partial class {mapperClass}");
-
             if (_entity.MapperBaseClass.HasValue())
             {
                 var mapperBaseClass = _entity.MapperBaseClass.ToSafeName();
@@ -93,7 +89,6 @@ namespace EntityFrameworkCore.Generator.Templates
 
             CodeBuilder.AppendLine($"public {mapperClass}()");
             CodeBuilder.AppendLine("{");
-
             using (CodeBuilder.Indent())
             {
                 foreach (var model in _entity.Models)
@@ -120,6 +115,5 @@ namespace EntityFrameworkCore.Generator.Templates
             CodeBuilder.AppendLine("}");
             CodeBuilder.AppendLine();
         }
-
     }
 }

@@ -7235,7 +7235,8 @@
         "netcoreapp2.1"
       ],
       "sources": {
-        "C:\\Users\\54215\\.nuget\\localpackages": {}
+        "C:\\Users\\54215\\.nuget\\localpackages": {},
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.1": {

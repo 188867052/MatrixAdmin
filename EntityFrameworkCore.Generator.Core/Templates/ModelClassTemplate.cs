@@ -16,11 +16,9 @@ namespace EntityFrameworkCore.Generator.Templates
         public override string WriteCode()
         {
             CodeBuilder.Clear();
-
             CodeBuilder.AppendLine("using System;");
             CodeBuilder.AppendLine("using System.Collections.Generic;");
             CodeBuilder.AppendLine();
-
             CodeBuilder.AppendLine($"namespace {_model.ModelNamespace}");
             CodeBuilder.AppendLine("{");
 
@@ -37,7 +35,6 @@ namespace EntityFrameworkCore.Generator.Templates
         private void GenerateClass()
         {
             var modelClass = _model.ModelClass.ToSafeName();
-
 
             if (ShouldDocument())
             {
@@ -63,9 +60,7 @@ namespace EntityFrameworkCore.Generator.Templates
             }
 
             CodeBuilder.AppendLine("}");
-
         }
-
 
         private void GenerateProperties()
         {
@@ -89,7 +84,6 @@ namespace EntityFrameworkCore.Generator.Templates
             }
             CodeBuilder.AppendLine();
         }
-
 
         private bool ShouldDocument()
         {

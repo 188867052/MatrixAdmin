@@ -84,7 +84,6 @@ namespace EntityFrameworkCore.Generator.Templates
 
             CodeBuilder.AppendLine($"public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<{entityFullName}> builder)");
             CodeBuilder.AppendLine("{");
-
             using (CodeBuilder.Indent())
             {
                 GenerateTableMapping();
@@ -106,7 +105,6 @@ namespace EntityFrameworkCore.Generator.Templates
                 GenerateRelationshipMapping(relationship);
                 CodeBuilder.AppendLine();
             }
-
         }
 
         private void GenerateRelationshipMapping(Relationship relationship)
@@ -115,16 +113,12 @@ namespace EntityFrameworkCore.Generator.Templates
             CodeBuilder.Append(relationship.PropertyName);
             CodeBuilder.Append(")");
             CodeBuilder.AppendLine();
-
             CodeBuilder.IncrementIndent();
-
             CodeBuilder.Append(relationship.PrimaryCardinality == Cardinality.Many
                 ? ".WithMany(t => t."
                 : ".WithOne(t => t.");
-
             CodeBuilder.Append(relationship.PrimaryPropertyName);
             CodeBuilder.Append(")");
-
             CodeBuilder.AppendLine();
             CodeBuilder.Append(".HasForeignKey");
             if (relationship.IsOneToOne)
@@ -135,11 +129,10 @@ namespace EntityFrameworkCore.Generator.Templates
                 CodeBuilder.Append(_entity.EntityClass.ToSafeName());
                 CodeBuilder.Append(">");
             }
-            CodeBuilder.Append("(d => ");
 
+            CodeBuilder.Append("(d => ");
             var keys = relationship.Properties;
             bool wroteLine = false;
-
             if (keys.Count == 1)
             {
                 var propertyName = keys.First().PropertyName.ToSafeName();
@@ -158,8 +151,8 @@ namespace EntityFrameworkCore.Generator.Templates
                 }
                 CodeBuilder.Append("}");
             }
-            CodeBuilder.Append(")");
 
+            CodeBuilder.Append(")");
             if (!string.IsNullOrEmpty(relationship.RelationshipName))
             {
                 CodeBuilder.AppendLine();
@@ -169,10 +162,8 @@ namespace EntityFrameworkCore.Generator.Templates
             }
 
             CodeBuilder.DecrementIndent();
-
             CodeBuilder.AppendLine(";");
         }
-
 
         private void GeneratePropertyMapping()
         {
@@ -188,9 +179,7 @@ namespace EntityFrameworkCore.Generator.Templates
         {
             bool isString = property.SystemType == typeof(string);
             bool isByteArray = property.SystemType == typeof(byte[]);
-
             CodeBuilder.Append($"builder.Property(t => t.{property.PropertyName})");
-
             CodeBuilder.IncrementIndent();
             if (property.IsRequired)
             {
@@ -206,7 +195,6 @@ namespace EntityFrameworkCore.Generator.Templates
 
             CodeBuilder.AppendLine();
             CodeBuilder.Append($".HasColumnName({property.ColumnName.ToLiteral()})");
-
             if (!string.IsNullOrEmpty(property.StoreType))
             {
                 CodeBuilder.AppendLine();
@@ -240,11 +228,10 @@ namespace EntityFrameworkCore.Generator.Templates
                     CodeBuilder.Append(".ValueGeneratedOnUpdate()");
                     break;
             }
-            CodeBuilder.DecrementIndent();
 
+            CodeBuilder.DecrementIndent();
             CodeBuilder.AppendLine(";");
         }
-
 
         private void GenerateKeyMapping()
         {
@@ -265,7 +252,6 @@ namespace EntityFrameworkCore.Generator.Templates
             }
 
             bool wroteLine = false;
-
             CodeBuilder.Append("new { ");
             foreach (var p in keys)
             {

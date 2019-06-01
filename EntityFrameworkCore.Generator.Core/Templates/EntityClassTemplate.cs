@@ -17,14 +17,11 @@ namespace EntityFrameworkCore.Generator.Templates
         public override string WriteCode()
         {
             CodeBuilder.Clear();
-
             CodeBuilder.AppendLine("using System;");
             CodeBuilder.AppendLine("using System.Collections.Generic;");
             CodeBuilder.AppendLine();
-
             CodeBuilder.AppendLine($"namespace {_entity.EntityNamespace}");
             CodeBuilder.AppendLine("{");
-
             using (CodeBuilder.Indent())
             {
                 GenerateClass();
@@ -38,7 +35,6 @@ namespace EntityFrameworkCore.Generator.Templates
         private void GenerateClass()
         {
             var entityClass = _entity.EntityClass.ToSafeName();
-
             if (Options.Data.Entity.Document)
             {
                 CodeBuilder.AppendLine("/// <summary>");
@@ -47,7 +43,6 @@ namespace EntityFrameworkCore.Generator.Templates
             }
 
             CodeBuilder.AppendLine($"public partial class {entityClass}");
-
             if (_entity.EntityBaseClass.HasValue())
             {
                 var entityBaseClass = _entity.EntityBaseClass.ToSafeName();
@@ -56,7 +51,6 @@ namespace EntityFrameworkCore.Generator.Templates
             }
 
             CodeBuilder.AppendLine("{");
-
             using (CodeBuilder.Indent())
             {
                 GenerateConstructor();
@@ -66,7 +60,6 @@ namespace EntityFrameworkCore.Generator.Templates
             }
 
             CodeBuilder.AppendLine("}");
-
         }
 
         private void GenerateConstructor()
@@ -135,11 +128,10 @@ namespace EntityFrameworkCore.Generator.Templates
 
         private void GenerateRelationshipProperties()
         {
-            foreach (var relationship in _entity.Relationships.OrderBy(r => r.PropertyName))
+            foreach (var relationship in _entity.Relationships)
             {
                 var propertyName = relationship.PropertyName.ToSafeName();
                 var primaryName = relationship.PrimaryEntity.EntityClass.ToSafeName();
-
                 if (relationship.Cardinality == Cardinality.Many)
                 {
                     if (Options.Data.Entity.Document)
@@ -153,7 +145,6 @@ namespace EntityFrameworkCore.Generator.Templates
                     }
 
                     CodeBuilder.AppendLine($"public virtual ICollection<{primaryName}> {propertyName} {{ get; set; }}");
-                    CodeBuilder.AppendLine();
                 }
                 else
                 {
@@ -171,10 +162,11 @@ namespace EntityFrameworkCore.Generator.Templates
                     }
 
                     CodeBuilder.AppendLine($"public virtual {primaryName} {propertyName} {{ get; set; }}");
-                    if (!IsLastIndex(_entity.Relationships, relationship))
-                    {
-                        CodeBuilder.AppendLine();
-                    }
+                }
+
+                if (!IsLastIndex(_entity.Relationships, relationship))
+                {
+                    CodeBuilder.AppendLine();
                 }
             }
         }
