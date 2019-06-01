@@ -120,6 +120,7 @@ namespace EntityFrameworkCore.Generator
                     : $"Creating entity class: {file}");
 
                 var template = new EntityClassTemplate(entity, this.Options);
+
                 template.WriteCode(path);
             }
 

@@ -149,26 +149,24 @@ namespace EntityFrameworkCore.Generator.Templates
 
                         this.CodeBuilder.AppendLine($"public virtual ICollection<{primaryName}> {propertyName} {{ get; set; }}");
                         break;
-                    case Cardinality.One:
+                    default:
+                        if (this.Options.Data.Entity.Document)
                         {
-                            if (this.Options.Data.Entity.Document)
+                            this.CodeBuilder.AppendLine("/// <summary>");
+                            this.CodeBuilder.AppendLine($"/// Gets or sets the navigation property for entity <see cref=\"{primaryName}\" />.");
+                            this.CodeBuilder.AppendLine("/// </summary>");
+                            this.CodeBuilder.AppendLine("/// <value>");
+                            this.CodeBuilder.AppendLine($"/// The the navigation property for entity <see cref=\"{primaryName}\" />.");
+                            this.CodeBuilder.AppendLine("/// </value>");
+
+                            foreach (var property in relationship.Properties)
                             {
-                                this.CodeBuilder.AppendLine("/// <summary>");
-                                this.CodeBuilder.AppendLine($"/// Gets or sets the navigation property for entity <see cref=\"{primaryName}\" />.");
-                                this.CodeBuilder.AppendLine("/// </summary>");
-                                this.CodeBuilder.AppendLine("/// <value>");
-                                this.CodeBuilder.AppendLine($"/// The the navigation property for entity <see cref=\"{primaryName}\" />.");
-                                this.CodeBuilder.AppendLine("/// </value>");
-
-                                foreach (var property in relationship.Properties)
-                                {
-                                    this.CodeBuilder.AppendLine($"/// <seealso cref=\"{property.PropertyName}\" />");
-                                }
+                                this.CodeBuilder.AppendLine($"/// <seealso cref=\"{property.PropertyName}\" />");
                             }
-
-                            this.CodeBuilder.AppendLine($"public virtual {primaryName} {propertyName} {{ get; set; }}");
-                            break;
                         }
+
+                        this.CodeBuilder.AppendLine($"public virtual {primaryName} {propertyName} {{ get; set; }}");
+                        break;
                 }
 
                 if (!IsLastIndex(relationships, relationship))
