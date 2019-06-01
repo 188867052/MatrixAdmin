@@ -34,7 +34,7 @@ namespace EntityFrameworkCore.Generator
 
             if (!Directory.Exists(workingDirectory))
             {
-                Logger.LogTrace($"Creating111 directory: {workingDirectory}");
+                Logger.LogTrace($"Creating directory: {workingDirectory}");
                 Directory.CreateDirectory(workingDirectory);
             }
 
@@ -113,7 +113,7 @@ namespace EntityFrameworkCore.Generator
             options.Model.Update.Include = null;
             options.Model.Update.Exclude = null;
 
-            Logger.LogInformation($"Creating111 options file: {optionsFile}");
+            Logger.LogInformation($"Creating options file: {optionsFile}");
 
             return options;
         }

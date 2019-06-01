@@ -119,7 +119,7 @@ namespace EntityFrameworkCore.Generator.Templates
                 CodeBuilder.AppendLine("/// <param name=\"modelBuilder\">The builder being used to construct the model for this context.</param>");
             }
 
-            CodeBuilder.AppendLine("protected override void OnModelCreating111(ModelBuilder modelBuilder)");
+            CodeBuilder.AppendLine("protected override void OnModelCreating(ModelBuilder modelBuilder)");
             CodeBuilder.AppendLine("{");
 
             using (CodeBuilder.Indent())

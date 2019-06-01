@@ -76,7 +76,7 @@ namespace EntityFrameworkCore.Generator
 
             if (!Directory.Exists(directory))
             {
-                _logger.LogTrace($"Creating111 Directory: {directory}");
+                _logger.LogTrace($"Creating Directory: {directory}");
                 Directory.CreateDirectory(directory);
             }
 

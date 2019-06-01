@@ -76,8 +76,8 @@ namespace EntityFrameworkCore.Generator
                 var path = Path.Combine(directory, file);
 
                 _logger.LogInformation(File.Exists(path)
-                    ? $"Updating111 query extensions class: {file}"
-                    : $"Creating111 query extensions class: {file}");
+                    ? $"Updating query extensions class: {file}"
+                    : $"Creating query extensions class: {file}");
 
                 var template = new QueryExtensionTemplate(entity, Options);
                 template.WriteCode(path);
@@ -94,8 +94,8 @@ namespace EntityFrameworkCore.Generator
                 var path = Path.Combine(directory, file);
 
                 _logger.LogInformation(File.Exists(path)
-                    ? $"Updating111 mapping class: {file}"
-                    : $"Creating111 mapping class: {file}");
+                    ? $"Updating mapping class: {file}"
+                    : $"Creating mapping class: {file}");
 
                 var template = new MappingClassTemplate(entity, Options);
                 template.WriteCode(path);
@@ -113,8 +113,8 @@ namespace EntityFrameworkCore.Generator
                 var path = Path.Combine(directory, file);
 
                 _logger.LogInformation(File.Exists(path)
-                    ? $"Updating111 entity class: {file}"
-                    : $"Creating111 entity class: {file}");
+                    ? $"Updating entity class: {file}"
+                    : $"Creating entity class: {file}");
 
                 var template = new EntityClassTemplate(entity, Options);
                 template.WriteCode(path);
@@ -131,8 +131,8 @@ namespace EntityFrameworkCore.Generator
             var path = Path.Combine(directory, file);
 
             _logger.LogInformation(File.Exists(path)
-                ? $"Updating111 data context class: {file}"
-                : $"Creating111 data context class: {file}");
+                ? $"Updating data context class: {file}"
+                : $"Creating data context class: {file}");
 
             var template = new DataContextTemplate(entityContext, Options);
             template.WriteCode(path);
@@ -167,8 +167,8 @@ namespace EntityFrameworkCore.Generator
                 var path = Path.Combine(directory, file);
 
                 _logger.LogInformation(File.Exists(path)
-                    ? $"Updating111 model class: {file}"
-                    : $"Creating111 model class: {file}");
+                    ? $"Updating model class: {file}"
+                    : $"Creating model class: {file}");
 
 
                 var template = new ModelClassTemplate(model, Options);
@@ -214,8 +214,8 @@ namespace EntityFrameworkCore.Generator
                 var path = Path.Combine(directory, file);
 
                 _logger.LogInformation(File.Exists(path)
-                    ? $"Updating111 validation class: {file}"
-                    : $"Creating111 validation class: {file}");
+                    ? $"Updating validation class: {file}"
+                    : $"Creating validation class: {file}");
 
                 var template = new ValidatorClassTemplate(model, Options);
                 template.WriteCode(path);
@@ -235,8 +235,8 @@ namespace EntityFrameworkCore.Generator
             var path = Path.Combine(directory, file);
 
             _logger.LogInformation(File.Exists(path)
-                ? $"Updating111 object mapper class: {file}"
-                : $"Creating111 object mapper class: {file}");
+                ? $"Updating object mapper class: {file}"
+                : $"Creating object mapper class: {file}");
 
             var template = new MapperClassTemplate(entity, Options);
             template.WriteCode(path);
@@ -272,7 +272,7 @@ namespace EntityFrameworkCore.Generator
         {
             var provider = Options.Database.Provider;
 
-            _logger.LogDebug($"Creating111 database model factory for: {provider}");
+            _logger.LogDebug($"Creating database model factory for: {provider}");
             if (provider == DatabaseProviders.SqlServer)
                 return new Microsoft.EntityFrameworkCore.SqlServer.Scaffolding.Internal.SqlServerDatabaseModelFactory(_diagnosticsLogger);
 

@@ -636,7 +636,7 @@ namespace EntityFrameworkCore.Generator
         {
             var provider = _options.Database.Provider;
 
-            _logger.LogTrace($"Creating111 database model factory for: {provider}");
+            _logger.LogTrace($"Creating database model factory for: {provider}");
             if (provider == DatabaseProviders.SqlServer)
                 return new SqlServerTypeMapping();
 
