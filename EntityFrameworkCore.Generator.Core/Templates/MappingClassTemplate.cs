@@ -87,14 +87,10 @@ namespace EntityFrameworkCore.Generator.Templates
 
             using (CodeBuilder.Indent())
             {
-                CodeBuilder.AppendLine("#region Generated Configure");
-
                 GenerateTableMapping();
                 GenerateKeyMapping();
                 GeneratePropertyMapping();
                 GenerateRelationshipMapping();
-
-                CodeBuilder.AppendLine("#endregion");
             }
 
             CodeBuilder.AppendLine("}");

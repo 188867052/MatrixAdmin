@@ -90,7 +90,6 @@ namespace EntityFrameworkCore.Generator.Templates
 
             using (CodeBuilder.Indent())
             {
-                CodeBuilder.AppendLine("#region Generated Constructor");
                 foreach (var relationship in relationships)
                 {
                     var propertyName = relationship.PropertyName.ToSafeName();
@@ -98,7 +97,6 @@ namespace EntityFrameworkCore.Generator.Templates
 
                     CodeBuilder.AppendLine($"{propertyName} = new HashSet<{primaryName}>();");
                 }
-                CodeBuilder.AppendLine("#endregion");
             }
 
             CodeBuilder.AppendLine("}");
@@ -107,7 +105,6 @@ namespace EntityFrameworkCore.Generator.Templates
 
         private void GenerateProperties()
         {
-            CodeBuilder.AppendLine("#region Generated Properties");
             foreach (var property in _entity.Properties)
             {
                 var propertyType = property.SystemType.ToNullableType(property.IsNullable == true);
@@ -126,13 +123,11 @@ namespace EntityFrameworkCore.Generator.Templates
                 CodeBuilder.AppendLine($"public {propertyType} {propertyName} {{ get; set; }}");
                 CodeBuilder.AppendLine();
             }
-            CodeBuilder.AppendLine("#endregion");
             CodeBuilder.AppendLine();
         }
 
         private void GenerateRelationshipProperties()
         {
-            CodeBuilder.AppendLine("#region Generated Relationships");
             foreach (var relationship in _entity.Relationships.OrderBy(r => r.PropertyName))
             {
                 var propertyName = relationship.PropertyName.ToSafeName();
@@ -172,7 +167,6 @@ namespace EntityFrameworkCore.Generator.Templates
                     CodeBuilder.AppendLine();
                 }
             }
-            CodeBuilder.AppendLine("#endregion");
             CodeBuilder.AppendLine();
         }
     }

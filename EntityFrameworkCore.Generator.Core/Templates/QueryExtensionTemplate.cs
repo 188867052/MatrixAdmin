@@ -67,7 +67,6 @@ namespace EntityFrameworkCore.Generator.Templates
 
         private void GenerateMethods()
         {
-            CodeBuilder.AppendLine("#region Generated Extensions");
             foreach (var method in _entity.Methods.OrderBy(m => m.NameSuffix))
             {
                 if (method.IsKey)
@@ -85,7 +84,6 @@ namespace EntityFrameworkCore.Generator.Templates
                     GenerateMethod(method);
                 }
             }
-            CodeBuilder.AppendLine("#endregion");
             CodeBuilder.AppendLine();
 
         }

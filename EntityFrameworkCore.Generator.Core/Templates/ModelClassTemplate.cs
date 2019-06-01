@@ -69,7 +69,6 @@ namespace EntityFrameworkCore.Generator.Templates
 
         private void GenerateProperties()
         {
-            CodeBuilder.AppendLine("#region Generated Properties");
             foreach (var property in _model.Properties)
             {
                 var propertyType = property.SystemType.ToNullableType(property.IsNullable == true);
@@ -88,7 +87,6 @@ namespace EntityFrameworkCore.Generator.Templates
                 CodeBuilder.AppendLine($"public {propertyType} {propertyName} {{ get; set; }}");
                 CodeBuilder.AppendLine();
             }
-            CodeBuilder.AppendLine("#endregion");
             CodeBuilder.AppendLine();
         }
 

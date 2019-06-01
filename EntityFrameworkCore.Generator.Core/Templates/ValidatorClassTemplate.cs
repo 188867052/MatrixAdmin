@@ -85,7 +85,6 @@ namespace EntityFrameworkCore.Generator.Templates
 
             using (CodeBuilder.Indent())
             {
-                CodeBuilder.AppendLine("#region Generated Constructor");
                 foreach (var property in _model.Properties)
                 {
                     if (property.ValueGenerated.HasValue)
@@ -99,7 +98,6 @@ namespace EntityFrameworkCore.Generator.Templates
                         CodeBuilder.AppendLine($"RuleFor(p => p.{propertyName}).MaximumLength({property.Size});");
 
                 }
-                CodeBuilder.AppendLine("#endregion");
             }
 
             CodeBuilder.AppendLine("}");

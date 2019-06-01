@@ -85,7 +85,6 @@ namespace EntityFrameworkCore.Generator.Templates
 
         private void GenerateDbSets()
         {
-            CodeBuilder.AppendLine("#region Generated Properties");
             foreach (var entityType in _entityContext.Entities.OrderBy(e => e.ContextProperty))
             {
                 var entityClass = entityType.EntityClass.ToSafeName();
@@ -106,8 +105,6 @@ namespace EntityFrameworkCore.Generator.Templates
                 CodeBuilder.AppendLine();
             }
 
-            CodeBuilder.AppendLine("#endregion");
-
             if (_entityContext.Entities.Any())
                 CodeBuilder.AppendLine();
         }
@@ -127,15 +124,11 @@ namespace EntityFrameworkCore.Generator.Templates
 
             using (CodeBuilder.Indent())
             {
-                CodeBuilder.AppendLine("#region Generated Configuration");
                 foreach (var entityType in _entityContext.Entities.OrderBy(e => e.MappingClass))
                 {
                     var mappingClass = entityType.MappingClass.ToSafeName();
-
                     CodeBuilder.AppendLine($"modelBuilder.ApplyConfiguration(new {entityType.MappingNamespace}.{mappingClass}());");
                 }
-
-                CodeBuilder.AppendLine("#endregion");
             }
 
             CodeBuilder.AppendLine("}");

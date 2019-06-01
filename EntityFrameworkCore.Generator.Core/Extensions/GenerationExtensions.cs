@@ -7,7 +7,6 @@ namespace EntityFrameworkCore.Generator.Extensions
 {
     public static class GenerationExtensions
     {
-        #region Data
         private static readonly HashSet<string> _csharpKeywords = new HashSet<string>(StringComparer.Ordinal)
         {
             "as", "do", "if", "in", "is",
@@ -62,7 +61,6 @@ namespace EntityFrameworkCore.Generator.Extensions
             {"System.Double", "double"},
             {"System.Decimal", "decimal"}
         };
-        #endregion
 
         public static string ToFieldName(this string name)
         {
