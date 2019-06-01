@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\build\common.props" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <ToolCommandName>efg</ToolCommandName>
+    <PackAsTool>true</PackAsTool>
+    <Authors>Core</Authors>
+    <Product>EFCore.Generator</Product>
+    <Copyright>Copyright © 2019 Core</Copyright>
+    <PackageProjectUrl />
+    <RepositoryUrl />
+    <PackageId>EFCore.Generator</PackageId>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <Company>Core</Company>
+    <PackageLicenseUrl />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.3.4" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="2.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EntityFrameworkCore.Generator.Core\EntityFrameworkCore.Generator.Core.csproj" />
+  </ItemGroup>
+
+</Project>

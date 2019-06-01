@@ -677,3 +677,5 @@ public void TestUpdate()
 
     Assert.AreEqual
 ```
+
+ dotnet pack .\EntityFrameworkCore.Generator\EntityFrameworkCore.Generator.csproj -o C:\Users\54215\.nuget\localpackages -c Release /p:Version=1.2.3

@@ -4002,7 +4002,7 @@
       ]
     },
     "Microsoft.AspNetCore/2.2.0": {
-      "sha512": "kkktm2qclx/caMJcwxMstxcowWgUGR4gvKdJwb2Z2mPa8zeOfWwc30Ou0S6ZBJUB6Nre/2ub6tAylMJURpkjhg==",
+      "sha512": "Bs75iht4lXS8uVWy/Cbsr9i0m2jRtnrfPEWU+6t0dQTZcJEfF9b7G2F7XvstLFWkAKSgYRzFkAwi/KypY0Qtew==",
       "type": "package",
       "path": "microsoft.aspnetcore/2.2.0",
       "files": [
@@ -4015,7 +4015,7 @@
       ]
     },
     "Microsoft.AspNetCore.Antiforgery/2.2.0": {
-      "sha512": "Z3NuQZ+nJvw5NGsDXKwlfJoXoHESXESd7dySekp+BMGusbb7f18eISRrgqabmMLQzAetVIoXm3HC00g4Xc8r/A==",
+      "sha512": "fVQsSXNZz38Ysx8iKwwqfOLHhLrAeKEMBS5Ia3Lh7BJjOC2vPV28/yk08AovOMsB3SNQPGnE7bv+lsIBTmAkvw==",
       "type": "package",
       "path": "microsoft.aspnetcore.antiforgery/2.2.0",
       "files": [
@@ -4028,7 +4028,7 @@
       ]
     },
     "Microsoft.AspNetCore.Authentication/2.2.0": {
-      "sha512": "Kue17sFudI+tkqE8zsiPW6KI/yYnIISh8RV69b+SprV8nx+yIrotT2Inv4r6Ww5fZN0DADj2zKS0tGNZXXcZaA==",
+      "sha512": "b0R9X7L6zMqNsssKDvhYHuNi5x0s4DyHTeXybIAyGaitKiW1Q5aAGKdV2codHPiePv9yHfC9hAMyScXQ/xXhPw==",
       "type": "package",
       "path": "microsoft.aspnetcore.authentication/2.2.0",
       "files": [
@@ -4041,7 +4041,7 @@
       ]
     },
     "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
-      "sha512": "Z60lbge9Va4A6EUME3YX8RuGEmmzkZA1mExxUjfrqb/3GlmcpZyMDQe2l4/UmEACdKSQekCUIyPV46rUE70rWA==",
+      "sha512": "VloMLDJMf3n/9ic5lCBOa42IBYJgyB1JhzLsL68Zqg+2bEPWfGBj/xCJy/LrKTArN0coOcZp3wyVTZlx0y9pHQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.authentication.abstractions/2.2.0",
       "files": [
@@ -4054,7 +4054,7 @@
       ]
     },
     "Microsoft.AspNetCore.Authentication.Cookies/2.2.0": {
-      "sha512": "UvV1L0jkRNF3SDidl5qb26XlBaOlctZxUqY80k/ghi4hFpN+MrCmediLDWfTW7x43hcnlbnr2wwNeN9Zfl2yrQ==",
+      "sha512": "Iar9VFlBHkZGdSG9ZUTmn6Q8Qg+6CtW5G/TyJI2F8B432TOH+nZlkU7O0W0byow6xsxqOYeTviSHz4cCJ3amfQ==",
       "type": "package",
       "path": "microsoft.aspnetcore.authentication.cookies/2.2.0",
       "files": [
@@ -4067,7 +4067,7 @@
       ]
     },
     "Microsoft.AspNetCore.Authentication.Core/2.2.0": {
-      "sha512": "UxOqkyDMaM2X1PJaB5a0fO86SqBYhxZuUser6qZ+H78gLqNa4Faqkl78IcEWV19oVqrCY0EFNOj+2gXWPk2Faw==",
+      "sha512": "XlVJzJ5wPOYW+Y0J6Q/LVTEyfS4ssLXmt60T0SPP+D8abVhBTl+cgw2gDHlyKYIkcJg7btMVh383NDkMVqD/fg==",
       "type": "package",
       "path": "microsoft.aspnetcore.authentication.core/2.2.0",
       "files": [
@@ -4080,7 +4080,7 @@
       ]
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/2.2.0": {
-      "sha512": "z7TTtXFppuo+SJgP4jNTSCtajiTaSBIRIL1c+l7VpMY/+0N9jzAEnuPmrfuVpEHNc+ENx7z1uICuk6smgaJnUg==",
+      "sha512": "FnyoLdiIo8KDobVcDuUYYFSbQYp1OR8vSMIOcW6M5+dtF9TC6XvCCS8Ook+DSbqUj6HPxwOIKa5BeIZm1/EpMw==",
       "type": "package",
       "path": "microsoft.aspnetcore.authentication.jwtbearer/2.2.0",
       "files": [
@@ -11648,7 +11648,7 @@
         "netcoreapp2.1"
       ],
       "sources": {
-        "https://api.nuget.org/v3/index.json": {}
+        "C:\\Users\\54215\\.nuget\\localpackages": {}
       },
       "frameworks": {
         "netcoreapp2.1": {
