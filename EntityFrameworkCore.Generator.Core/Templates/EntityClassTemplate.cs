@@ -56,7 +56,6 @@ namespace EntityFrameworkCore.Generator.Templates
             using (this.CodeBuilder.Indent())
             {
                 this.GenerateConstructor();
-
                 this.GenerateProperties();
                 this.GenerateRelationshipProperties();
             }
@@ -130,45 +129,49 @@ namespace EntityFrameworkCore.Generator.Templates
 
         private void GenerateRelationshipProperties()
         {
-            foreach (var relationship in this._entity.Relationships)
+            var relationships = this._entity.Relationships.OrderBy(o => o.Cardinality).ToList();
+            foreach (var relationship in relationships)
             {
                 var propertyName = relationship.PropertyName.ToSafeName();
                 var primaryName = relationship.PrimaryEntity.EntityClass.ToSafeName();
-                if (relationship.Cardinality == Cardinality.Many)
+                switch (relationship.Cardinality)
                 {
-                    if (this.Options.Data.Entity.Document)
-                    {
-                        this.CodeBuilder.AppendLine("/// <summary>");
-                        this.CodeBuilder.AppendLine($"/// Gets or sets the navigation collection for entity <see cref=\"{primaryName}\" />.");
-                        this.CodeBuilder.AppendLine("/// </summary>");
-                        this.CodeBuilder.AppendLine("/// <value>");
-                        this.CodeBuilder.AppendLine($"/// The the navigation collection for entity <see cref=\"{primaryName}\" />.");
-                        this.CodeBuilder.AppendLine("/// </value>");
-                    }
-
-                    this.CodeBuilder.AppendLine($"public virtual ICollection<{primaryName}> {propertyName} {{ get; set; }}");
-                }
-                else
-                {
-                    if (this.Options.Data.Entity.Document)
-                    {
-                        this.CodeBuilder.AppendLine("/// <summary>");
-                        this.CodeBuilder.AppendLine($"/// Gets or sets the navigation property for entity <see cref=\"{primaryName}\" />.");
-                        this.CodeBuilder.AppendLine("/// </summary>");
-                        this.CodeBuilder.AppendLine("/// <value>");
-                        this.CodeBuilder.AppendLine($"/// The the navigation property for entity <see cref=\"{primaryName}\" />.");
-                        this.CodeBuilder.AppendLine("/// </value>");
-
-                        foreach (var property in relationship.Properties)
+                    case Cardinality.Many:
+                        if (this.Options.Data.Entity.Document)
                         {
-                            this.CodeBuilder.AppendLine($"/// <seealso cref=\"{property.PropertyName}\" />");
+                            this.CodeBuilder.AppendLine("/// <summary>");
+                            this.CodeBuilder.AppendLine($"/// Gets or sets the navigation collection for entity <see cref=\"{primaryName}\" />.");
+                            this.CodeBuilder.AppendLine("/// </summary>");
+                            this.CodeBuilder.AppendLine("/// <value>");
+                            this.CodeBuilder.AppendLine($"/// The the navigation collection for entity <see cref=\"{primaryName}\" />.");
+                            this.CodeBuilder.AppendLine("/// </value>");
                         }
-                    }
 
-                    this.CodeBuilder.AppendLine($"public virtual {primaryName} {propertyName} {{ get; set; }}");
+                        this.CodeBuilder.AppendLine($"public virtual ICollection<{primaryName}> {propertyName} {{ get; set; }}");
+                        break;
+                    case Cardinality.One:
+                        {
+                            if (this.Options.Data.Entity.Document)
+                            {
+                                this.CodeBuilder.AppendLine("/// <summary>");
+                                this.CodeBuilder.AppendLine($"/// Gets or sets the navigation property for entity <see cref=\"{primaryName}\" />.");
+                                this.CodeBuilder.AppendLine("/// </summary>");
+                                this.CodeBuilder.AppendLine("/// <value>");
+                                this.CodeBuilder.AppendLine($"/// The the navigation property for entity <see cref=\"{primaryName}\" />.");
+                                this.CodeBuilder.AppendLine("/// </value>");
+
+                                foreach (var property in relationship.Properties)
+                                {
+                                    this.CodeBuilder.AppendLine($"/// <seealso cref=\"{property.PropertyName}\" />");
+                                }
+                            }
+
+                            this.CodeBuilder.AppendLine($"public virtual {primaryName} {propertyName} {{ get; set; }}");
+                            break;
+                        }
                 }
 
-                if (!IsLastIndex(this._entity.Relationships, relationship))
+                if (!IsLastIndex(relationships, relationship))
                 {
                     this.CodeBuilder.AppendLine();
                 }

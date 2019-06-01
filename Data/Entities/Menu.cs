@@ -48,10 +48,10 @@ namespace Core.Data.Entities
 
         public int ParentId { get; set; }
 
-        public virtual ICollection<Permission> Permissions { get; set; }
-
         public virtual User UpdateByUser { get; set; }
 
         public virtual User CreateByUser { get; set; }
+
+        public virtual ICollection<Permission> Permissions { get; set; }
     }
 }

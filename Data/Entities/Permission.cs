@@ -40,8 +40,8 @@ namespace Core.Data.Entities
 
         public int MenuId { get; set; }
 
-        public virtual ICollection<RolePermissionMapping> CodeRolePermissionMappings { get; set; }
-
         public virtual Menu Menu { get; set; }
+
+        public virtual ICollection<RolePermissionMapping> CodeRolePermissionMappings { get; set; }
     }
 }
