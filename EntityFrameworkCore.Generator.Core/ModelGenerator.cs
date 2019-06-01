@@ -185,7 +185,7 @@ namespace EntityFrameworkCore.Generator
 
             string contextName = this.ContextName(entityClass);
             contextName = this.ToPropertyName(entityContext.ContextClass, contextName);
-            contextName = this._namer.UniqueContextName(contextName);
+            // contextName = this._namer.UniqueContextName(contextName);
 
             entity.EntityClass = entityClass;
             entity.EntityNamespace = entityNamespace;
@@ -638,7 +638,7 @@ namespace EntityFrameworkCore.Generator
                 return name + "DataSet";
             }
 
-            return name.Pluralize();
+            return name;
         }
 
         private string EntityName(string name)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using EntityFrameworkCore.Generator.Metadata.Generation;
 
 namespace EntityFrameworkCore.Generator.Extensions

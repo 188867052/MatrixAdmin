@@ -5,11 +5,11 @@ using EntityFrameworkCore.Generator.Options;
 
 namespace EntityFrameworkCore.Generator.Templates
 {
-    public class DataContextTemplate : CodeTemplateBase
+    public class DbContextTemplate : CodeTemplateBase
     {
         private readonly EntityContext _entityContext;
 
-        public DataContextTemplate(EntityContext entityContext, GeneratorOptions options) : base(options)
+        public DbContextTemplate(EntityContext entityContext, GeneratorOptions options) : base(options)
         {
             this._entityContext = entityContext;
         }

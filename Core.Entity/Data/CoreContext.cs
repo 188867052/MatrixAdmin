@@ -11,27 +11,27 @@ namespace Core.Data
         {
         }
 
-        public virtual DbSet<Core.Data.Entities.RolePermissionMapping> RolePermissionMappings { get; set; }
+        public virtual DbSet<Core.Data.Entities.RolePermissionMapping> RolePermissionMapping { get; set; }
 
-        public virtual DbSet<Core.Data.Entities.Permission> Permissions { get; set; }
+        public virtual DbSet<Core.Data.Entities.Permission> Permission { get; set; }
 
-        public virtual DbSet<Core.Data.Entities.Role> Roles { get; set; }
+        public virtual DbSet<Core.Data.Entities.Role> Role { get; set; }
 
-        public virtual DbSet<Core.Data.Entities.UserRoleMapping> UserRoleMappings { get; set; }
+        public virtual DbSet<Core.Data.Entities.UserRoleMapping> UserRoleMapping { get; set; }
 
-        public virtual DbSet<Core.Data.Entities.User> Users { get; set; }
+        public virtual DbSet<Core.Data.Entities.User> User { get; set; }
 
-        public virtual DbSet<Core.Data.Entities.UserStatus> UserStatuses { get; set; }
+        public virtual DbSet<Core.Data.Entities.UserStatus> UserStatus { get; set; }
 
-        public virtual DbSet<Core.Data.Entities.MultiplePrimaryKeyTable> MultiplePrimaryKeyTables { get; set; }
+        public virtual DbSet<Core.Data.Entities.MultiplePrimaryKeyTable> MultiplePrimaryKeyTable { get; set; }
 
-        public virtual DbSet<Core.Data.Entities.Icon> Icons { get; set; }
+        public virtual DbSet<Core.Data.Entities.Icon> Icon { get; set; }
 
-        public virtual DbSet<Core.Data.Entities.Menu> Menus { get; set; }
+        public virtual DbSet<Core.Data.Entities.Menu> Menu { get; set; }
 
-        public virtual DbSet<Core.Data.Entities.Configuration> Configurations { get; set; }
+        public virtual DbSet<Core.Data.Entities.Configuration> Configuration { get; set; }
 
-        public virtual DbSet<Core.Data.Entities.Log> Logs { get; set; }
+        public virtual DbSet<Core.Data.Entities.Log> Log { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

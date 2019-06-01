@@ -137,7 +137,7 @@ namespace EntityFrameworkCore.Generator
                 ? $"Updating data context class: {file}"
                 : $"Creating data context class: {file}");
 
-            var template = new DataContextTemplate(entityContext, this.Options);
+            var template = new DbContextTemplate(entityContext, this.Options);
             template.WriteCode(path);
         }
 
