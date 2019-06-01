@@ -40,7 +40,6 @@ namespace EntityFrameworkCore.Generator.Templates
             return CodeBuilder.ToString();
         }
 
-
         private void GenerateClass()
         {
             var entityClass = _entity.EntityClass.ToSafeName();
@@ -62,7 +61,6 @@ namespace EntityFrameworkCore.Generator.Templates
             }
 
             CodeBuilder.AppendLine("}");
-
         }
 
         private void GenerateMethods()
@@ -85,7 +83,6 @@ namespace EntityFrameworkCore.Generator.Templates
                 }
             }
             CodeBuilder.AppendLine();
-
         }
 
         private void GenerateMethod(Method method)

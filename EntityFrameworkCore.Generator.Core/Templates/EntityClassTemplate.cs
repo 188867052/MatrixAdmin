@@ -121,9 +121,16 @@ namespace EntityFrameworkCore.Generator.Templates
                 }
 
                 CodeBuilder.AppendLine($"public {propertyType} {propertyName} {{ get; set; }}");
+                if (!IsLastIndex(_entity.Properties, property))
+                {
+                    CodeBuilder.AppendLine();
+                }
+            }
+
+            if (_entity.Relationships.Any())
+            {
                 CodeBuilder.AppendLine();
             }
-            CodeBuilder.AppendLine();
         }
 
         private void GenerateRelationshipProperties()
@@ -164,10 +171,12 @@ namespace EntityFrameworkCore.Generator.Templates
                     }
 
                     CodeBuilder.AppendLine($"public virtual {primaryName} {propertyName} {{ get; set; }}");
-                    CodeBuilder.AppendLine();
+                    if (!IsLastIndex(_entity.Relationships, relationship))
+                    {
+                        CodeBuilder.AppendLine();
+                    }
                 }
             }
-            CodeBuilder.AppendLine();
         }
     }
 }

@@ -22,10 +22,8 @@ namespace EntityFrameworkCore.Generator.Templates
             CodeBuilder.AppendLine("using Microsoft.EntityFrameworkCore;");
             CodeBuilder.AppendLine("using Microsoft.EntityFrameworkCore.Metadata;");
             CodeBuilder.AppendLine();
-
             CodeBuilder.AppendLine($"namespace {_entityContext.ContextNamespace}");
             CodeBuilder.AppendLine("{");
-
             using (CodeBuilder.Indent())
             {
                 GenerateClass();
@@ -36,12 +34,10 @@ namespace EntityFrameworkCore.Generator.Templates
             return CodeBuilder.ToString();
         }
 
-
         private void GenerateClass()
         {
             var contextClass = _entityContext.ContextClass.ToSafeName();
             var baseClass = _entityContext.ContextBaseClass.ToSafeName();
-
             if (Options.Data.Context.Document)
             {
                 CodeBuilder.AppendLine("/// <summary>");
@@ -51,7 +47,6 @@ namespace EntityFrameworkCore.Generator.Templates
 
             CodeBuilder.AppendLine($"public partial class {contextClass} : {baseClass}");
             CodeBuilder.AppendLine("{");
-
             using (CodeBuilder.Indent())
             {
                 GenerateConstructors();
@@ -65,7 +60,6 @@ namespace EntityFrameworkCore.Generator.Templates
         private void GenerateConstructors()
         {
             var contextName = _entityContext.ContextClass.ToSafeName();
-
             if (Options.Data.Context.Document)
             {
                 CodeBuilder.AppendLine("/// <summary>");
@@ -85,7 +79,7 @@ namespace EntityFrameworkCore.Generator.Templates
 
         private void GenerateDbSets()
         {
-            foreach (var entityType in _entityContext.Entities.OrderBy(e => e.ContextProperty))
+            foreach (var entityType in _entityContext.Entities)
             {
                 var entityClass = entityType.EntityClass.ToSafeName();
                 var propertyName = entityType.ContextProperty.ToSafeName();
@@ -102,11 +96,11 @@ namespace EntityFrameworkCore.Generator.Templates
                 }
 
                 CodeBuilder.AppendLine($"public virtual DbSet<{fullName}> {propertyName} {{ get; set; }}");
-                CodeBuilder.AppendLine();
+                if (!IsLastIndex(_entityContext.Entities, entityType))
+                {
+                    CodeBuilder.AppendLine();
+                }
             }
-
-            if (_entityContext.Entities.Any())
-                CodeBuilder.AppendLine();
         }
 
         private void GenerateOnConfiguring()
@@ -121,7 +115,6 @@ namespace EntityFrameworkCore.Generator.Templates
 
             CodeBuilder.AppendLine("protected override void OnModelCreating(ModelBuilder modelBuilder)");
             CodeBuilder.AppendLine("{");
-
             using (CodeBuilder.Indent())
             {
                 foreach (var entityType in _entityContext.Entities.OrderBy(e => e.MappingClass))

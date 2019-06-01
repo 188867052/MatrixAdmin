@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using EntityFrameworkCore.Generator.Options;
 using EntityFrameworkCore.Generator.Parsing;
@@ -14,6 +15,16 @@ namespace EntityFrameworkCore.Generator.Templates
             Options = options;
             CodeBuilder = new IndentedStringBuilder();
             RegionParser = new RegionParser();
+        }
+
+        public static bool IsLastIndex<T>(IList<T> list, T element)
+        {
+            if (list.IndexOf(element) == list.Count - 1)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public GeneratorOptions Options { get; }
