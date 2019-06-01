@@ -7,7 +7,7 @@ namespace Core.Data.Entities
     {
         public UserStatus()
         {
-            Users = new HashSet<User>();
+            this.Users = new HashSet<User>();
         }
 
         public int Id { get; set; }

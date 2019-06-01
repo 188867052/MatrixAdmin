@@ -89,7 +89,7 @@ namespace EntityFrameworkCore.Generator.Templates
                     var propertyName = relationship.PropertyName.ToSafeName();
                     var primaryName = relationship.PrimaryEntity.EntityClass.ToSafeName();
 
-                    this.CodeBuilder.AppendLine($"{propertyName} = new HashSet<{primaryName}>();");
+                    this.CodeBuilder.AppendLine($"this.{propertyName} = new HashSet<{primaryName}>();");
                 }
             }
 

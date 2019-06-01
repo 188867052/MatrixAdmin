@@ -7,11 +7,11 @@ namespace Core.Data.Entities
     {
         public User()
         {
-            CreateByMenus = new HashSet<Menu>();
-            CreateByRoles = new HashSet<Role>();
-            UpdateByMenus = new HashSet<Menu>();
-            UpdateByRoles = new HashSet<Role>();
-            UserRoleMappings = new HashSet<UserRoleMapping>();
+            this.CreateByMenus = new HashSet<Menu>();
+            this.CreateByRoles = new HashSet<Role>();
+            this.UpdateByMenus = new HashSet<Menu>();
+            this.UpdateByRoles = new HashSet<Role>();
+            this.UserRoleMappings = new HashSet<UserRoleMapping>();
         }
 
         public int Id { get; set; }
