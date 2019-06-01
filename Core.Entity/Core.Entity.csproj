@@ -10,12 +10,13 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <CodeAnalysisRuleSet>../Core.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>1701;1702;1516;1101</NoWarn>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <CodeAnalysisRuleSet>../Core.ruleset</CodeAnalysisRuleSet>
-    <NoWarn>1701;1702;CS1030</NoWarn>
+    <NoWarn>1701;1702;1516;1101</NoWarn>
     <Optimize>false</Optimize>
   </PropertyGroup>
 
