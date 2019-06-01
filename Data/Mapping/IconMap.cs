@@ -88,6 +88,5 @@ namespace Core.Data.Mapping
 
             // relationships
         }
-
     }
 }

@@ -124,8 +124,6 @@ namespace Core.Data.Mapping
                 .WithMany(t => t.CreateByMenus)
                 .HasForeignKey(d => d.CreateByUserId)
                 .HasConstraintName("FK_Menu_User_Create");
-
         }
-
     }
 }

@@ -48,8 +48,6 @@ namespace Core.Data.Mapping
                 .WithMany(t => t.UserRoleMappings)
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("FK_UserRoleMapping_User");
-
         }
-
     }
 }

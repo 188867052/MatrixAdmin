@@ -19,12 +19,10 @@ namespace EntityFrameworkCore.Generator.Templates
         public override string WriteCode()
         {
             this.CodeBuilder.Clear();
-
             this.CodeBuilder.AppendLine("using System;");
             this.CodeBuilder.AppendLine("using System.Collections.Generic;");
             this.CodeBuilder.AppendLine("using Microsoft.EntityFrameworkCore;");
             this.CodeBuilder.AppendLine();
-
             this.CodeBuilder.AppendLine($"namespace {this._entity.MappingNamespace}");
             this.CodeBuilder.AppendLine("{");
 
@@ -92,16 +90,19 @@ namespace EntityFrameworkCore.Generator.Templates
             }
 
             this.CodeBuilder.AppendLine("}");
-            this.CodeBuilder.AppendLine();
         }
 
         private void GenerateRelationshipMapping()
         {
             this.CodeBuilder.AppendLine("// relationships");
-            foreach (var relationship in this._entity.Relationships.Where(e => e.IsMapped))
+            var relationships = this._entity.Relationships.Where(e => e.IsMapped).ToList();
+            foreach (var relationship in relationships)
             {
                 this.GenerateRelationshipMapping(relationship);
-                this.CodeBuilder.AppendLine();
+                if (!IsLastIndex(relationships, relationship))
+                {
+                    this.CodeBuilder.AppendLine();
+                }
             }
         }
 
@@ -275,7 +276,6 @@ namespace EntityFrameworkCore.Generator.Templates
         private void GenerateTableMapping()
         {
             this.CodeBuilder.AppendLine("// table");
-
             this.CodeBuilder.AppendLine(this._entity.TableSchema.HasValue()
                 ? $"builder.ToTable(\"{this._entity.TableName}\", \"{this._entity.TableSchema}\");"
                 : $"builder.ToTable(\"{this._entity.TableName}\");");

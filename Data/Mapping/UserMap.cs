@@ -112,8 +112,6 @@ namespace Core.Data.Mapping
                 .WithMany(t => t.Users)
                 .HasForeignKey(d => d.UserStatusId)
                 .HasConstraintName("FK__user__user_status");
-
         }
-
     }
 }

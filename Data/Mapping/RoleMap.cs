@@ -87,8 +87,6 @@ namespace Core.Data.Mapping
                 .WithMany(t => t.UpdateByRoles)
                 .HasForeignKey(d => d.UpdateByUserId)
                 .HasConstraintName("FK_Role_User_ModifiedBy");
-
         }
-
     }
 }

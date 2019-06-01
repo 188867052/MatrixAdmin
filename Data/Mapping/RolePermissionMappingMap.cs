@@ -47,8 +47,6 @@ namespace Core.Data.Mapping
                 .WithMany(t => t.RolePermissionMappings)
                 .HasForeignKey(d => d.RoleId)
                 .HasConstraintName("FK_RolePermissionMapping_Permission_Role");
-
         }
-
     }
 }

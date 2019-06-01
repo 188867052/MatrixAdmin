@@ -99,8 +99,6 @@ namespace Core.Data.Mapping
                 .WithMany(t => t.Permissions)
                 .HasForeignKey(d => d.MenuId)
                 .HasConstraintName("FK_Permission_Menu");
-
         }
-
     }
 }
