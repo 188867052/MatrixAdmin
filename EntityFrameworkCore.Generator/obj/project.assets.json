@@ -2290,7 +2290,7 @@
           "lib/netstandard1.3/YamlDotNet.dll": {}
         }
       },
-      "EntityFrameworkCore.Generator.Core/1.0.0": {
+      "EntityFrameworkCore.Generator.Core/1.1.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
@@ -7060,7 +7060,7 @@
         "yamldotnet.nuspec"
       ]
     },
-    "EntityFrameworkCore.Generator.Core/1.0.0": {
+    "EntityFrameworkCore.Generator.Core/1.1.0": {
       "type": "project",
       "path": "../EntityFrameworkCore.Generator.Core/EntityFrameworkCore.Generator.Core.csproj",
       "msbuildProject": "../EntityFrameworkCore.Generator.Core/EntityFrameworkCore.Generator.Core.csproj"
@@ -7068,7 +7068,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "EntityFrameworkCore.Generator.Core >= 1.0.0",
+      "EntityFrameworkCore.Generator.Core >= 1.1.0",
       "McMaster.Extensions.CommandLineUtils >= 2.3.4",
       "Microsoft.AspNetCore.Mvc.Analyzers >= 3.0.0-preview3-19153-02",
       "Microsoft.EntityFrameworkCore.Analyzers >= 3.0.0-preview5.19227.1",

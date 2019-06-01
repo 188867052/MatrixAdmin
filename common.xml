@@ -1,12 +1,12 @@
 <Project>
-  <Import Project="version.props" />
+  <Import Project="version.xml" />
 
   <PropertyGroup Label="Source Link">
     <ProjectParentDirectory>$([System.IO.Path]::GetDirectoryName('$(MSBuildProjectDirectory)'))</ProjectParentDirectory>
     <ProjectParentDirectoryName>$([System.IO.Path]::GetFileName('$(ProjectParentDirectory)'))</ProjectParentDirectoryName>
   </PropertyGroup>
 
-  <Import Project="sourcelink.props" Condition="'$(ProjectParentDirectoryName)' == 'src'" />
+  <Import Project="sourcelink.xml" Condition="'$(ProjectParentDirectoryName)' == 'src'" />
 
   <PropertyGroup Label="Package">
     <Product>EntityFrameworkCore.Generator</Product>
