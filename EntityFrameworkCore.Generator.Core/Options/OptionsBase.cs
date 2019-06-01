@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
-using EntityFrameworkCore.Generator.Extensions;
+using EntityFrameworkCore.Generator.Core.Extensions;
 
-namespace EntityFrameworkCore.Generator.Options
+namespace EntityFrameworkCore.Generator.Core.Options
 {
     public class OptionsBase
     {

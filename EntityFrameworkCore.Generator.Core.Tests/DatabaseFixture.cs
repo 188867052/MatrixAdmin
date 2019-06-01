@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -8,7 +7,7 @@ using DbUp.Engine.Output;
 using Microsoft.Extensions.Configuration;
 using Xunit.Abstractions;
 
-namespace FluentCommand.SqlServer.Tests
+namespace EntityFrameworkCore.Generator.Core.Tests
 {
     public class DatabaseFixture : IUpgradeLog, IDisposable
     {

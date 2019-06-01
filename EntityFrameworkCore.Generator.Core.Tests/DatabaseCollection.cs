@@ -1,9 +1,8 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 
-namespace FluentCommand.SqlServer.Tests
+namespace EntityFrameworkCore.Generator.Core.Tests
 {
-    [CollectionDefinition(DatabaseCollection.CollectionName)]
+    [CollectionDefinition(CollectionName)]
     public class DatabaseCollection : ICollectionFixture<DatabaseFixture>
     {
         public const string CollectionName = "DatabaseCollection";

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using EntityFrameworkCore.Generator.Extensions;
-using EntityFrameworkCore.Generator.Metadata.Generation;
-using EntityFrameworkCore.Generator.Options;
-using EntityFrameworkCore.Generator.Parsing;
-using EntityFrameworkCore.Generator.Templates;
+using EntityFrameworkCore.Generator.Core.Extensions;
+using EntityFrameworkCore.Generator.Core.Metadata.Generation;
+using EntityFrameworkCore.Generator.Core.Options;
+using EntityFrameworkCore.Generator.Core.Parsing;
+using EntityFrameworkCore.Generator.Core.Templates;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore.Scaffolding;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using Microsoft.Extensions.Logging;
 
-namespace EntityFrameworkCore.Generator
+namespace EntityFrameworkCore.Generator.Core
 {
     public class CodeGenerator : ICodeGenerator
     {

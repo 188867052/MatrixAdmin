@@ -3,7 +3,7 @@ using System.Data;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace EntityFrameworkCore.Generator.Metadata.Generation
+namespace EntityFrameworkCore.Generator.Core.Metadata.Generation
 {
     [DebuggerDisplay("Property: {PropertyName}, Column: {ColumnName}, Type: {StoreType}")]
     public class Property : ModelBase

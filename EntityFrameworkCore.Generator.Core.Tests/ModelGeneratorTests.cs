@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using EntityFrameworkCore.Generator.Options;
+﻿using EntityFrameworkCore.Generator.Core.Options;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using Microsoft.Extensions.Logging.Abstractions;

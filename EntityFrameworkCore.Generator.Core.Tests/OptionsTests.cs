@@ -1,5 +1,4 @@
-using System;
-using EntityFrameworkCore.Generator.Options;
+using EntityFrameworkCore.Generator.Core.Options;
 using Xunit;
 using Xunit.Abstractions;
 using YamlDotNet.Serialization;

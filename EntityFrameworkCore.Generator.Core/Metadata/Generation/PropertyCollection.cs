@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace EntityFrameworkCore.Generator.Metadata.Generation
+namespace EntityFrameworkCore.Generator.Core.Metadata.Generation
 {
     /// <summary>
     /// A collection of <see cref="Property"/> instances.

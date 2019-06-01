@@ -1,6 +1,6 @@
-﻿using EntityFrameworkCore.Generator.Options;
+﻿using EntityFrameworkCore.Generator.Core.Options;
 
-namespace EntityFrameworkCore.Generator
+namespace EntityFrameworkCore.Generator.Core
 {
     public interface ICodeGenerator
     {

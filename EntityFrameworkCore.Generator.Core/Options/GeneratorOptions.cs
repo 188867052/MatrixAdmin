@@ -1,6 +1,6 @@
 ﻿using YamlDotNet.Serialization;
 
-namespace EntityFrameworkCore.Generator.Options
+namespace EntityFrameworkCore.Generator.Core.Options
 {
     /// <summary>
     /// Top level generator configuration options.

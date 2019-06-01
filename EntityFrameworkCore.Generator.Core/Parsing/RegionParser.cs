@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using EntityFrameworkCore.Generator.Metadata.Parsing;
+using EntityFrameworkCore.Generator.Core.Metadata.Parsing;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace EntityFrameworkCore.Generator.Parsing
+namespace EntityFrameworkCore.Generator.Core.Parsing
 {
     public class RegionParser
     {

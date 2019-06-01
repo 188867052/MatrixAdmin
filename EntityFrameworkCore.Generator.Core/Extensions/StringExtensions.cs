@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace EntityFrameworkCore.Generator.Extensions
+namespace EntityFrameworkCore.Generator.Core.Extensions
 {
     public static class StringExtensions
     {

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace EntityFrameworkCore.Generator.Metadata.Generation
+namespace EntityFrameworkCore.Generator.Core.Metadata.Generation
 {
     /// <summary>
     /// An entity model for a database table used when reverse engineering an existing database.

@@ -1,4 +1,4 @@
-﻿namespace EntityFrameworkCore.Generator.Options
+﻿namespace EntityFrameworkCore.Generator.Core.Options
 {
     /// <summary>
     /// Relationship property naming strategy.

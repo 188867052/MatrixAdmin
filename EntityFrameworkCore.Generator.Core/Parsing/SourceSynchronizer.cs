@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using System.Linq;
-using EntityFrameworkCore.Generator.Metadata.Generation;
-using EntityFrameworkCore.Generator.Metadata.Parsing;
-using EntityFrameworkCore.Generator.Options;
+using EntityFrameworkCore.Generator.Core.Metadata.Generation;
+using EntityFrameworkCore.Generator.Core.Metadata.Parsing;
+using EntityFrameworkCore.Generator.Core.Options;
 using Microsoft.Extensions.Logging;
 
-namespace EntityFrameworkCore.Generator.Parsing
+namespace EntityFrameworkCore.Generator.Core.Parsing
 {
     public class SourceSynchronizer
     {

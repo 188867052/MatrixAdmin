@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace EntityFrameworkCore.Generator.Metadata.Parsing
+namespace EntityFrameworkCore.Generator.Core.Metadata.Parsing
 {
     [DebuggerDisplay("Table: {TableName}, Entity: {EntityClass}, Mapping: {MappingClass}")]
     public class ParsedEntity

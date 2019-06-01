@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using Newtonsoft.Json.Linq;
 
-namespace EntityFrameworkCore.Generator
+namespace EntityFrameworkCore.Generator.Core
 {
     public class SecretsStore
     {

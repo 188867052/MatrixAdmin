@@ -1,4 +1,4 @@
-﻿namespace EntityFrameworkCore.Generator.Options
+﻿namespace EntityFrameworkCore.Generator.Core.Options
 {
     /// <summary>
     /// EntityFramework mapping class generation options.

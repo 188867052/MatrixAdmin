@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace EntityFrameworkCore.Generator.Metadata.Parsing
+namespace EntityFrameworkCore.Generator.Core.Metadata.Parsing
 {
     [DebuggerDisplay("Entity: {EntityClass}, Property: {ContextProperty}")]
     public class ParsedEntitySet

@@ -1,9 +1,9 @@
-﻿namespace EntityFrameworkCore.Generator.Options
+﻿namespace EntityFrameworkCore.Generator.Core.Options
 {
     /// <summary>
     /// Create model file generation options.
     /// </summary>
-    /// <seealso cref="EntityFrameworkCore.Generator.Options.ModelOptionsBase" />
+    /// <seealso cref="ModelOptionsBase" />
     public class CreateModelOptions : ModelOptionsBase
     {
         public CreateModelOptions(VariableDictionary variables, string prefix)

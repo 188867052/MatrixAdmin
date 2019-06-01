@@ -1,4 +1,4 @@
-﻿namespace EntityFrameworkCore.Generator.Metadata.Generation
+﻿namespace EntityFrameworkCore.Generator.Core.Metadata.Generation
 {
     public enum ModelType
     {

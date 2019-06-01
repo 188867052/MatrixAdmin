@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using EntityFrameworkCore.Generator.Options;
-using EntityFrameworkCore.Generator.Parsing;
+using EntityFrameworkCore.Generator.Core.Options;
+using EntityFrameworkCore.Generator.Core.Parsing;
 using Microsoft.EntityFrameworkCore.Internal;
 
-namespace EntityFrameworkCore.Generator.Templates
+namespace EntityFrameworkCore.Generator.Core.Templates
 {
     public abstract class CodeTemplateBase
     {

@@ -1,6 +1,6 @@
-﻿using EntityFrameworkCore.Generator.Options;
+﻿using EntityFrameworkCore.Generator.Core.Options;
 
-namespace EntityFrameworkCore.Generator
+namespace EntityFrameworkCore.Generator.Core
 {
     /// <summary>
     /// <c>interface</c> for serialization and deserialization of <see cref="GeneratorOptions"/> class.

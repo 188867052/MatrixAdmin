@@ -1,4 +1,4 @@
-﻿namespace EntityFrameworkCore.Generator.Metadata.Parsing
+﻿namespace EntityFrameworkCore.Generator.Core.Metadata.Parsing
 {
     public class CodeRegion
     {

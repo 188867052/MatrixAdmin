@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace EntityFrameworkCore.Generator
+namespace EntityFrameworkCore.Generator.Core
 {
     public class UniqueNamer
     {

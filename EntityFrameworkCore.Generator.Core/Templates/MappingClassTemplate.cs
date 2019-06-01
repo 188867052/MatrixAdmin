@@ -1,11 +1,11 @@
 ﻿using System.Globalization;
 using System.Linq;
-using EntityFrameworkCore.Generator.Extensions;
-using EntityFrameworkCore.Generator.Metadata.Generation;
-using EntityFrameworkCore.Generator.Options;
+using EntityFrameworkCore.Generator.Core.Extensions;
+using EntityFrameworkCore.Generator.Core.Metadata.Generation;
+using EntityFrameworkCore.Generator.Core.Options;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace EntityFrameworkCore.Generator.Templates
+namespace EntityFrameworkCore.Generator.Core.Templates
 {
     public class MappingClassTemplate : CodeTemplateBase
     {

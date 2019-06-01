@@ -1,11 +1,11 @@
 ﻿using System;
 using System.IO;
-using EntityFrameworkCore.Generator.Options;
+using EntityFrameworkCore.Generator.Core.Options;
 using Microsoft.Extensions.Logging;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace EntityFrameworkCore.Generator
+namespace EntityFrameworkCore.Generator.Core
 {
     /// <summary>
     /// Serialization and Deserialization for the <see cref="GeneratorOptions"/> class.

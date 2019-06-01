@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using EntityFrameworkCore.Generator.Metadata.Generation;
+using EntityFrameworkCore.Generator.Core.Metadata.Generation;
 
-namespace EntityFrameworkCore.Generator.Extensions
+namespace EntityFrameworkCore.Generator.Core.Extensions
 {
     public static class GenerationExtensions
     {

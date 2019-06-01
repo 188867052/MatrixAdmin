@@ -1,8 +1,8 @@
-﻿using EntityFrameworkCore.Generator.Extensions;
-using EntityFrameworkCore.Generator.Metadata.Generation;
-using EntityFrameworkCore.Generator.Options;
+﻿using EntityFrameworkCore.Generator.Core.Extensions;
+using EntityFrameworkCore.Generator.Core.Metadata.Generation;
+using EntityFrameworkCore.Generator.Core.Options;
 
-namespace EntityFrameworkCore.Generator.Templates
+namespace EntityFrameworkCore.Generator.Core.Templates
 {
     public class ValidatorClassTemplate : CodeTemplateBase
     {

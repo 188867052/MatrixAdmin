@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace EntityFrameworkCore.Generator.Options
+namespace EntityFrameworkCore.Generator.Core.Options
 {
     /// <summary>
     /// Base class for Class generation.

@@ -1,4 +1,4 @@
-﻿namespace EntityFrameworkCore.Generator.Providers
+﻿namespace EntityFrameworkCore.Generator.Core.Providers
 {
     public interface IProviderTypeMapping
     {

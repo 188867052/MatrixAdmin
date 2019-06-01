@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace EntityFrameworkCore.Generator.Options
+namespace EntityFrameworkCore.Generator.Core.Options
 {
     /// <summary>
     /// Naming strategies for entity data set property on the generated <see cref="DbContext"/>.

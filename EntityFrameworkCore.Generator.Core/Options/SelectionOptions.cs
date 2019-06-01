@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EntityFrameworkCore.Generator.Options
+namespace EntityFrameworkCore.Generator.Core.Options
 {
     /// <summary>
     /// Selection options.

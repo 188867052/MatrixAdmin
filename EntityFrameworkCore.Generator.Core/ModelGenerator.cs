@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using EntityFrameworkCore.Generator.Extensions;
-using EntityFrameworkCore.Generator.Metadata.Generation;
-using EntityFrameworkCore.Generator.Options;
-using EntityFrameworkCore.Generator.Providers;
+using EntityFrameworkCore.Generator.Core.Extensions;
+using EntityFrameworkCore.Generator.Core.Metadata.Generation;
+using EntityFrameworkCore.Generator.Core.Options;
+using EntityFrameworkCore.Generator.Core.Providers;
 using Humanizer;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 
-namespace EntityFrameworkCore.Generator
+namespace EntityFrameworkCore.Generator.Core
 {
     public class ModelGenerator
     {

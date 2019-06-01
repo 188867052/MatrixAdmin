@@ -1,9 +1,9 @@
-﻿namespace EntityFrameworkCore.Generator.Options
+﻿namespace EntityFrameworkCore.Generator.Core.Options
 {
     /// <summary>
     /// Query extensions options.
     /// </summary>
-    /// <seealso cref="EntityFrameworkCore.Generator.Options.ClassOptionsBase" />
+    /// <seealso cref="ClassOptionsBase" />
     public class QueryExtensionOptions : ClassOptionsBase
     {
         /// <summary>

@@ -1,8 +1,8 @@
 ﻿using System;
-using EntityFrameworkCore.Generator.Options;
+using EntityFrameworkCore.Generator.Core.Options;
 using YamlDotNet.Serialization;
 
-namespace EntityFrameworkCore.Generator
+namespace EntityFrameworkCore.Generator.Core
 {
     public class GeneratorOptionsFactory : IObjectFactory
     {

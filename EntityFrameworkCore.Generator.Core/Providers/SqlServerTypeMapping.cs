@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace EntityFrameworkCore.Generator.Providers
+namespace EntityFrameworkCore.Generator.Core.Providers
 {
     public class SqlServerTypeMapping : ProviderTypeMappingBase
     {

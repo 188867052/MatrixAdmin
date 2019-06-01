@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EntityFrameworkCore.Generator.Metadata.Generation
+namespace EntityFrameworkCore.Generator.Core.Metadata.Generation
 {
     /// <summary>
     /// A collection of <see cref="Model"/>.

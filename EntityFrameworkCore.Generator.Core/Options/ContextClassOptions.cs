@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using Microsoft.EntityFrameworkCore;
 
-namespace EntityFrameworkCore.Generator.Options
+namespace EntityFrameworkCore.Generator.Core.Options
 {
     /// <summary>
     /// EntityFramework <see cref="DbContext"/> generation options.

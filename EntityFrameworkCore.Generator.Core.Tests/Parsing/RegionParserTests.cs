@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
-using EntityFrameworkCore.Generator.Parsing;
+using EntityFrameworkCore.Generator.Core.Parsing;
 using FluentAssertions;
 using Xunit;
 
