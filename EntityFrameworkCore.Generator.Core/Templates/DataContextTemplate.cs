@@ -96,10 +96,7 @@ namespace EntityFrameworkCore.Generator.Templates
                 }
 
                 CodeBuilder.AppendLine($"public virtual DbSet<{fullName}> {propertyName} {{ get; set; }}");
-                if (!IsLastIndex(_entityContext.Entities, entityType))
-                {
-                    CodeBuilder.AppendLine();
-                }
+                CodeBuilder.AppendLine();
             }
         }
 
