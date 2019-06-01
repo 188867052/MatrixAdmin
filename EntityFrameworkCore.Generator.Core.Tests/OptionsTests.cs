@@ -13,7 +13,7 @@ namespace EntityFrameworkCore.Generator.Core.Tests
 
         public OptionsTests(ITestOutputHelper output)
         {
-            _output = output;
+            this._output = output;
         }
 
         [Fact]
@@ -25,11 +25,9 @@ namespace EntityFrameworkCore.Generator.Core.Tests
                 .WithNamingConvention(new CamelCaseNamingConvention())
                 .Build();
 
-
             var yaml = serializer.Serialize(generatorOptions);
 
-
-            _output.WriteLine(yaml);
+            this._output.WriteLine(yaml);
         }
     }
 }

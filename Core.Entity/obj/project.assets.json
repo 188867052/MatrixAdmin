@@ -16,12 +16,6 @@
           "lib/netstandard2.0/Dapper.dll": {}
         }
       },
-      "Google.Cloud.Diagnostics.AspNetCore.Analyzers/1.0.0-beta02": {
-        "type": "package",
-        "dependencies": {
-          "NETStandard.Library": "1.6.1"
-        }
-      },
       "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -2020,21 +2014,6 @@
         "lib/netstandard1.3/Dapper.xml",
         "lib/netstandard2.0/Dapper.dll",
         "lib/netstandard2.0/Dapper.xml"
-      ]
-    },
-    "Google.Cloud.Diagnostics.AspNetCore.Analyzers/1.0.0-beta02": {
-      "sha512": "lJuOO5mdAEBD6dgxVgAAmHRjr1RsCZf6i2l85nZ1Ssbn/6rV1Op2Rl91Pgl6ddRwttZD+n+DEypmeipCPBXxKg==",
-      "type": "package",
-      "path": "google.cloud.diagnostics.aspnetcore.analyzers/1.0.0-beta02",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "analyzers/dotnet/cs/Google.Cloud.Diagnostics.AspNetCore.Analyzers.dll",
-        "google.cloud.diagnostics.aspnetcore.analyzers.1.0.0-beta02.nupkg.sha512",
-        "google.cloud.diagnostics.aspnetcore.analyzers.nuspec",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
       ]
     },
     "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
@@ -7244,7 +7223,6 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Dapper >= 1.60.6",
-      "Google.Cloud.Diagnostics.AspNetCore.Analyzers >= 1.0.0-beta02",
       "Microsoft.AspNetCore.Mvc.Analyzers >= 3.0.0-preview3-19153-02",
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
       "Microsoft.CodeQuality.Analyzers >= 2.9.2",
@@ -7308,10 +7286,6 @@
           "Dapper": {
             "target": "Package",
             "version": "[1.60.6, )"
-          },
-          "Google.Cloud.Diagnostics.AspNetCore.Analyzers": {
-            "target": "Package",
-            "version": "[1.0.0-beta02, )"
           },
           "Microsoft.AspNetCore.Mvc.Analyzers": {
             "target": "Package",

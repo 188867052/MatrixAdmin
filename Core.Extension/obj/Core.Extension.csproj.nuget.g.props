@@ -32,6 +32,5 @@
     <PkgMicrosoft_VisualStudio_Threading_Analyzers Condition=" '$(PkgMicrosoft_VisualStudio_Threading_Analyzers)' == '' ">C:\Users\54215\.nuget\packages\microsoft.visualstudio.threading.analyzers\16.0.102</PkgMicrosoft_VisualStudio_Threading_Analyzers>
     <PkgMicrosoft_NetCore_Analyzers Condition=" '$(PkgMicrosoft_NetCore_Analyzers)' == '' ">C:\Users\54215\.nuget\packages\microsoft.netcore.analyzers\2.9.2</PkgMicrosoft_NetCore_Analyzers>
     <PkgMicrosoft_CodeQuality_Analyzers Condition=" '$(PkgMicrosoft_CodeQuality_Analyzers)' == '' ">C:\Users\54215\.nuget\packages\microsoft.codequality.analyzers\2.9.2</PkgMicrosoft_CodeQuality_Analyzers>
-    <PkgGoogle_Cloud_Diagnostics_AspNetCore_Analyzers Condition=" '$(PkgGoogle_Cloud_Diagnostics_AspNetCore_Analyzers)' == '' ">C:\Users\54215\.nuget\packages\google.cloud.diagnostics.aspnetcore.analyzers\1.0.0-beta02</PkgGoogle_Cloud_Diagnostics_AspNetCore_Analyzers>
   </PropertyGroup>
 </Project>

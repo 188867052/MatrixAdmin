@@ -17,7 +17,7 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
             sb.AppendLine(@"using System;");
             sb.AppendLine(@"using Microsoft.EntityFrameworkCore;");
             sb.AppendLine(@"using Microsoft.EntityFrameworkCore.Metadata;");
-            sb.AppendLine(@"");
+            sb.AppendLine(string.Empty);
             sb.AppendLine(@"namespace Tracker.Data");
             sb.AppendLine(@"{");
             sb.AppendLine(@"    public partial class TrackerContext : DbContext");
@@ -26,7 +26,7 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
             sb.AppendLine(@"            : base(options)");
             sb.AppendLine(@"        {");
             sb.AppendLine(@"        }");
-            sb.AppendLine(@"");
+            sb.AppendLine(string.Empty);
             sb.AppendLine(@"        #region Generated Properties");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.Audit> Audits { get; set; }");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.Priority> Priorities { get; set; }");
@@ -38,7 +38,7 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.UserLogin> UserLogins { get; set; }");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.UserRole> UserRoles { get; set; }");
             sb.AppendLine(@"        #endregion");
-            sb.AppendLine(@"");
+            sb.AppendLine(string.Empty);
             sb.AppendLine(@"        protected override void OnModelCreating111(ModelBuilder modelBuilder)");
             sb.AppendLine(@"        {");
             sb.AppendLine(@"            #region Generated Configuration");
@@ -60,7 +60,6 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
             result.Should().NotBeNull();
             result.Properties.Count.Should().Be(9);
             result.ContextClass.Should().Be("TrackerContext");
-
         }
 
         [Fact]
@@ -72,7 +71,7 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
             sb.AppendLine(@"using System;");
             sb.AppendLine(@"using Microsoft.EntityFrameworkCore;");
             sb.AppendLine(@"using Microsoft.EntityFrameworkCore.Metadata;");
-            sb.AppendLine(@"");
+            sb.AppendLine(string.Empty);
             sb.AppendLine(@"namespace Tracker.Data");
             sb.AppendLine(@"{");
             sb.AppendLine(@"    public partial class TrackerContext : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>");
@@ -81,7 +80,7 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
             sb.AppendLine(@"            : base(options)");
             sb.AppendLine(@"        {");
             sb.AppendLine(@"        }");
-            sb.AppendLine(@"");
+            sb.AppendLine(string.Empty);
             sb.AppendLine(@"        #region Generated Properties");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.Audit> Audits { get; set; }");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.Priority> Priorities { get; set; }");
@@ -93,7 +92,7 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.UserLogin> UserLogins { get; set; }");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.UserRole> UserRoles { get; set; }");
             sb.AppendLine(@"        #endregion");
-            sb.AppendLine(@"");
+            sb.AppendLine(string.Empty);
             sb.AppendLine(@"        protected override void OnModelCreating111(ModelBuilder modelBuilder)");
             sb.AppendLine(@"        {");
             sb.AppendLine(@"            #region Generated Configuration");
@@ -115,7 +114,6 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
             result.Should().NotBeNull();
             result.Properties.Count.Should().Be(9);
             result.ContextClass.Should().Be("TrackerContext");
-
         }
 
         [Fact]
@@ -134,8 +132,6 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
 
             var result = parser.ParseCode(sb.ToString());
             result.Should().BeNull();
-
         }
-
     }
 }

@@ -20,31 +20,31 @@ namespace EntityFrameworkCore.Generator.Core.Tests
                 DatabaseName = "TestDatabase",
                 DefaultSchema = "dbo"
             };
-            var Configuration = new DatabaseTable
+            var configuration = new DatabaseTable
             {
                 Database = databaseModel,
                 Name = "Configuration",
                 Schema = "dbo"
             };
-            databaseModel.Tables.Add(Configuration);
+            databaseModel.Tables.Add(configuration);
 
             var identifierColumn = new DatabaseColumn
             {
-                Table = Configuration,
+                Table = configuration,
                 Name = "Id",
                 IsNullable = false,
                 StoreType = "int"
             };
-            Configuration.Columns.Add(identifierColumn);
+            configuration.Columns.Add(identifierColumn);
 
             var nameColumn = new DatabaseColumn
             {
-                Table = Configuration,
+                Table = configuration,
                 Name = "Name",
                 IsNullable = true,
                 StoreType = "varchar(50)"
             };
-            Configuration.Columns.Add(nameColumn);
+            configuration.Columns.Add(nameColumn);
             var generator = new ModelGenerator(NullLoggerFactory.Instance);
 
             var result = generator.Generate(generatorOptions, databaseModel);
@@ -86,31 +86,31 @@ namespace EntityFrameworkCore.Generator.Core.Tests
                 DatabaseName = "TestDatabase",
                 DefaultSchema = "dbo"
             };
-            var Configuration = new DatabaseTable
+            var configuration = new DatabaseTable
             {
                 Database = databaseModel,
                 Name = "Configuration",
                 Schema = "dbo"
             };
-            databaseModel.Tables.Add(Configuration);
+            databaseModel.Tables.Add(configuration);
 
             var identifierColumn = new DatabaseColumn
             {
-                Table = Configuration,
+                Table = configuration,
                 Name = "Id",
                 IsNullable = false,
                 StoreType = "int"
             };
-            Configuration.Columns.Add(identifierColumn);
+            configuration.Columns.Add(identifierColumn);
 
             var nameColumn = new DatabaseColumn
             {
-                Table = Configuration,
+                Table = configuration,
                 Name = "Name",
                 IsNullable = true,
                 StoreType = "varchar(50)"
             };
-            Configuration.Columns.Add(nameColumn);
+            configuration.Columns.Add(nameColumn);
             var generator = new ModelGenerator(NullLoggerFactory.Instance);
 
             var result = generator.Generate(generatorOptions, databaseModel);
@@ -138,7 +138,6 @@ namespace EntityFrameworkCore.Generator.Core.Tests
             firstModel.ValidatorClass.Should().StartWith("Configuration");
             firstModel.ValidatorClass.Should().EndWith("Validator");
             firstModel.ValidatorNamespace.Should().Be("TestDatabase.Domain.Validation");
-
         }
 
         [Fact]
@@ -185,30 +184,30 @@ namespace EntityFrameworkCore.Generator.Core.Tests
                 DatabaseName = "TestDatabase",
                 DefaultSchema = "dbo"
             };
-            var Configuration = new DatabaseTable
+            var configuration = new DatabaseTable
             {
                 Database = databaseModel,
                 Name = "Configuration"
             };
-            databaseModel.Tables.Add(Configuration);
+            databaseModel.Tables.Add(configuration);
 
             var identifierColumn = new DatabaseColumn
             {
-                Table = Configuration,
+                Table = configuration,
                 Name = "Id",
                 IsNullable = false,
                 StoreType = "int"
             };
-            Configuration.Columns.Add(identifierColumn);
+            configuration.Columns.Add(identifierColumn);
 
             var numberColumn = new DatabaseColumn
             {
-                Table = Configuration,
+                Table = configuration,
                 Name = "404",
                 IsNullable = true,
                 StoreType = "int"
             };
-            Configuration.Columns.Add(numberColumn);
+            configuration.Columns.Add(numberColumn);
             var generator = new ModelGenerator(NullLoggerFactory.Instance);
 
             var result = generator.Generate(generatorOptions, databaseModel);
@@ -239,26 +238,26 @@ namespace EntityFrameworkCore.Generator.Core.Tests
                 DatabaseName = "TestDatabase",
                 DefaultSchema = "dbo"
             };
-            var Configuration = new DatabaseTable
+            var configuration = new DatabaseTable
             {
                 Database = databaseModel,
                 Name = "Configuration",
                 Schema = "dbo"
             };
-            databaseModel.Tables.Add(Configuration);
+            databaseModel.Tables.Add(configuration);
 
             var identifierColumn = new DatabaseColumn
             {
-                Table = Configuration,
+                Table = configuration,
                 Name = "Id",
                 IsNullable = false,
                 StoreType = "int"
             };
-            Configuration.Columns.Add(identifierColumn);
+            configuration.Columns.Add(identifierColumn);
 
             var nameColumn = new DatabaseColumn
             {
-                Table = Configuration,
+                Table = configuration,
                 Name = "Name",
                 IsNullable = true,
                 StoreType = "varchar(50)",
@@ -266,7 +265,7 @@ namespace EntityFrameworkCore.Generator.Core.Tests
 create default abc0 as 0
 "
             };
-            Configuration.Columns.Add(nameColumn);
+            configuration.Columns.Add(nameColumn);
             var generator = new ModelGenerator(NullLoggerFactory.Instance);
 
             var result = generator.Generate(generatorOptions, databaseModel);
@@ -302,31 +301,31 @@ create default abc0 as 0
                 DatabaseName = "TestDatabase",
                 DefaultSchema = "dbo"
             };
-            var Configuration = new DatabaseTable
+            var configuration = new DatabaseTable
             {
                 Database = databaseModel,
                 Name = "aammstest",
                 Schema = "dbo"
             };
-            databaseModel.Tables.Add(Configuration);
+            databaseModel.Tables.Add(configuration);
 
             var identifierColumn = new DatabaseColumn
             {
-                Table = Configuration,
+                Table = configuration,
                 Name = "Id",
                 IsNullable = false,
                 StoreType = "int"
             };
-            Configuration.Columns.Add(identifierColumn);
+            configuration.Columns.Add(identifierColumn);
 
             var nameColumn = new DatabaseColumn
             {
-                Table = Configuration,
+                Table = configuration,
                 Name = "Name",
                 IsNullable = true,
                 StoreType = "varchar(50)"
             };
-            Configuration.Columns.Add(nameColumn);
+            configuration.Columns.Add(nameColumn);
             var generator = new ModelGenerator(NullLoggerFactory.Instance);
 
             var result = generator.Generate(generatorOptions, databaseModel);
@@ -356,7 +355,6 @@ create default abc0 as 0
         [Fact]
         public void GenerateWithPrefixedSchemaName()
         {
-
             var generatorOptions = new GeneratorOptions();
             generatorOptions.Data.Entity.PrefixWithSchemaName = true;
             var databaseModel = new DatabaseModel
@@ -364,54 +362,54 @@ create default abc0 as 0
                 DatabaseName = "TestDatabase",
                 DefaultSchema = "dbo"
             };
-            var ConfigurationDbo = new DatabaseTable
+            var configurationDbo = new DatabaseTable
             {
                 Database = databaseModel,
                 Name = "Configuration",
                 Schema = "dbo"
             };
-            var ConfigurationTst = new DatabaseTable
+            var configurationTst = new DatabaseTable
             {
                 Database = databaseModel,
                 Name = "Configuration",
                 Schema = "tst"
             };
-            databaseModel.Tables.Add(ConfigurationDbo);
-            databaseModel.Tables.Add(ConfigurationTst);
+            databaseModel.Tables.Add(configurationDbo);
+            databaseModel.Tables.Add(configurationTst);
 
             var identifierColumnDbo = new DatabaseColumn
             {
-                Table = ConfigurationDbo,
+                Table = configurationDbo,
                 Name = "Id",
                 IsNullable = false,
                 StoreType = "int"
             };
             var identifierColumnTst = new DatabaseColumn
             {
-                Table = ConfigurationTst,
+                Table = configurationTst,
                 Name = "Id",
                 IsNullable = false,
                 StoreType = "int"
             };
-            ConfigurationDbo.Columns.Add(identifierColumnDbo);
-            ConfigurationDbo.Columns.Add(identifierColumnTst);
+            configurationDbo.Columns.Add(identifierColumnDbo);
+            configurationDbo.Columns.Add(identifierColumnTst);
 
             var nameColumnDbo = new DatabaseColumn
             {
-                Table = ConfigurationDbo,
+                Table = configurationDbo,
                 Name = "Name",
                 IsNullable = true,
                 StoreType = "varchar(50)"
             };
             var nameColumnTst = new DatabaseColumn
             {
-                Table = ConfigurationTst,
+                Table = configurationTst,
                 Name = "Name",
                 IsNullable = true,
                 StoreType = "varchar(50)"
             };
-            ConfigurationDbo.Columns.Add(nameColumnDbo);
-            ConfigurationDbo.Columns.Add(nameColumnTst);
+            configurationDbo.Columns.Add(nameColumnDbo);
+            configurationDbo.Columns.Add(nameColumnTst);
 
             var generator = new ModelGenerator(NullLoggerFactory.Instance);
 
@@ -436,9 +434,6 @@ create default abc0 as 0
             secondEntity.EntityNamespace.Should().Be("TestDatabase.Data.Entities");
             secondEntity.MappingClass.Should().Be("TstConfigurationMap");
             secondEntity.MappingNamespace.Should().Be("TestDatabase.Data.Mapping");
-
         }
-
     }
 }
-

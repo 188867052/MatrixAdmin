@@ -17,27 +17,61 @@ namespace FluentCommand.SqlServer.Tests
 
         public DatabaseFixture()
         {
-            _buffer = new StringBuilder();
-            _logger = new StringWriter(_buffer);
+            this._buffer = new StringBuilder();
+            this._logger = new StringWriter(this._buffer);
 
-            ResolveConnectionString();
+            this.ResolveConnectionString();
 
-            CreateDatabase();
+            this.CreateDatabase();
         }
-
 
         public string ConnectionString { get; set; }
 
         public string ConnectionName { get; set; } = "Tracker";
 
+        public void Report(ITestOutputHelper output)
+        {
+            if (this._buffer.Length == 0)
+            {
+                return;
+            }
+
+            this._logger.Flush();
+            output.WriteLine(this._logger.ToString());
+
+            // reset logger
+            this._buffer.Clear();
+        }
+
+        public void Dispose()
+        {
+        }
+
+        public void WriteInformation(string format, params object[] args)
+        {
+            this._logger.Write("INFO : ");
+            this._logger.WriteLine(format, args);
+        }
+
+        public void WriteError(string format, params object[] args)
+        {
+            this._logger.Write("ERROR: ");
+            this._logger.WriteLine(format, args);
+        }
+
+        public void WriteWarning(string format, params object[] args)
+        {
+            this._logger.Write("WARN : ");
+            this._logger.WriteLine(format, args);
+        }
 
         private void CreateDatabase()
         {
             EnsureDatabase.For
-                .SqlDatabase(ConnectionString, this);
+                .SqlDatabase(this.ConnectionString, this);
 
             var upgradeEngine = DeployChanges.To
-                    .SqlDatabase(ConnectionString)
+                    .SqlDatabase(this.ConnectionString)
                     .WithScriptsEmbeddedInAssembly(Assembly.GetExecutingAssembly())
                     .LogTo(this)
                     .Build();
@@ -45,9 +79,11 @@ namespace FluentCommand.SqlServer.Tests
             var result = upgradeEngine.PerformUpgrade();
 
             if (result.Successful)
+            {
                 return;
+            }
 
-            _logger.WriteLine($"Exception: '{result.Error}'");
+            this._logger.WriteLine($"Exception: '{result.Error}'");
 
             throw result.Error;
         }
@@ -62,47 +98,9 @@ namespace FluentCommand.SqlServer.Tests
 
             var configuration = builder.Build();
 
-            var connectionString = configuration.GetConnectionString(ConnectionName);
+            var connectionString = configuration.GetConnectionString(this.ConnectionName);
 
-            ConnectionString = connectionString;
+            this.ConnectionString = connectionString;
         }
-
-
-        public void Report(ITestOutputHelper output)
-        {
-            if (_buffer.Length == 0)
-                return;
-
-            _logger.Flush();
-            output.WriteLine(_logger.ToString());
-
-            // reset logger
-            _buffer.Clear();
-        }
-
-        public void Dispose()
-        {
-
-        }
-
-
-        public void WriteInformation(string format, params object[] args)
-        {
-            _logger.Write("INFO : ");
-            _logger.WriteLine(format, args);
-        }
-
-        public void WriteError(string format, params object[] args)
-        {
-            _logger.Write("ERROR: ");
-            _logger.WriteLine(format, args);
-        }
-
-        public void WriteWarning(string format, params object[] args)
-        {
-            _logger.Write("WARN : ");
-            _logger.WriteLine(format, args);
-        }
-
     }
 }

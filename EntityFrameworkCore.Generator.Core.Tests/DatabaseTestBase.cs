@@ -10,10 +10,9 @@ namespace FluentCommand.SqlServer.Tests
     {
         protected DatabaseTestBase(ITestOutputHelper output, DatabaseFixture databaseFixture)
         {
-            Output = output;
-            Database = databaseFixture;
+            this.Output = output;
+            this.Database = databaseFixture;
         }
-
 
         public ITestOutputHelper Output { get; }
 
@@ -21,7 +20,7 @@ namespace FluentCommand.SqlServer.Tests
 
         public void Dispose()
         {
-            Database?.Report(Output);
+            this.Database?.Report(this.Output);
         }
     }
 }

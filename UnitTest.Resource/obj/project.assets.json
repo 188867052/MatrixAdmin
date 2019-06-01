@@ -2,12 +2,6 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.1": {
-      "Google.Cloud.Diagnostics.AspNetCore.Analyzers/1.0.0-beta02": {
-        "type": "package",
-        "dependencies": {
-          "NETStandard.Library": "1.6.1"
-        }
-      },
       "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -1956,21 +1950,6 @@
     }
   },
   "libraries": {
-    "Google.Cloud.Diagnostics.AspNetCore.Analyzers/1.0.0-beta02": {
-      "sha512": "lJuOO5mdAEBD6dgxVgAAmHRjr1RsCZf6i2l85nZ1Ssbn/6rV1Op2Rl91Pgl6ddRwttZD+n+DEypmeipCPBXxKg==",
-      "type": "package",
-      "path": "google.cloud.diagnostics.aspnetcore.analyzers/1.0.0-beta02",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "analyzers/dotnet/cs/Google.Cloud.Diagnostics.AspNetCore.Analyzers.dll",
-        "google.cloud.diagnostics.aspnetcore.analyzers.1.0.0-beta02.nupkg.sha512",
-        "google.cloud.diagnostics.aspnetcore.analyzers.nuspec",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
-      ]
-    },
     "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
       "sha512": "VloMLDJMf3n/9ic5lCBOa42IBYJgyB1JhzLsL68Zqg+2bEPWfGBj/xCJy/LrKTArN0coOcZp3wyVTZlx0y9pHQ==",
       "type": "package",
@@ -7117,7 +7096,6 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "Google.Cloud.Diagnostics.AspNetCore.Analyzers >= 1.0.0-beta02",
       "Microsoft.AspNetCore.Mvc.Analyzers >= 3.0.0-preview3-19153-02",
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
       "Microsoft.CodeQuality.Analyzers >= 2.9.2",
@@ -7175,10 +7153,6 @@
     "frameworks": {
       "netcoreapp2.1": {
         "dependencies": {
-          "Google.Cloud.Diagnostics.AspNetCore.Analyzers": {
-            "target": "Package",
-            "version": "[1.0.0-beta02, )"
-          },
           "Microsoft.AspNetCore.Mvc.Analyzers": {
             "target": "Package",
             "version": "[3.0.0-preview3-19153-02, )"

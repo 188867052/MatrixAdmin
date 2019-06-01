@@ -185,8 +185,8 @@ namespace EntityFrameworkCore.Generator
 
             string contextName = this.ContextName(entityClass);
             contextName = this.ToPropertyName(entityContext.ContextClass, contextName);
-            // contextName = this._namer.UniqueContextName(contextName);
 
+            // contextName = this._namer.UniqueContextName(contextName);
             entity.EntityClass = entityClass;
             entity.EntityNamespace = entityNamespace;
             entity.EntityBaseClass = entiyBaseClass;

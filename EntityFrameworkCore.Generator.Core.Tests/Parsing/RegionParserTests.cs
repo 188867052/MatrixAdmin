@@ -1,8 +1,8 @@
-﻿using EntityFrameworkCore.Generator.Parsing;
-using FluentAssertions;
-using System;
+﻿using System;
 using System.Linq;
 using System.Text;
+using EntityFrameworkCore.Generator.Parsing;
+using FluentAssertions;
 using Xunit;
 
 namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
@@ -17,7 +17,7 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
             var source = new StringBuilder();
             source.AppendLine(@"using System;");
             source.AppendLine(@"using System.Collections.Generic;");
-            source.AppendLine(@"");
+            source.AppendLine(string.Empty);
             source.AppendLine(@"namespace EntityFrameworkCore.Generator.Core.Tests");
             source.AppendLine(@"{");
             source.AppendLine(@"    public partial class User");
@@ -27,7 +27,6 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
             source.AppendLine(@"        #endregion");
             source.AppendLine(@"    }");
             source.AppendLine(@"}");
-
 
             var result = parser.ParseRegions(source.ToString());
             result.Should().NotBeNull();
@@ -43,7 +42,6 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
             content.AppendLine(@"        #endregion");
 
             first.Content.Should().Be(content.ToString());
-
         }
 
         [Fact]
@@ -54,7 +52,7 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
             var source = new StringBuilder();
             source.AppendLine(@"using System;");
             source.AppendLine(@"using System.Collections.Generic;");
-            source.AppendLine(@"");
+            source.AppendLine(string.Empty);
             source.AppendLine(@"namespace EntityFrameworkCore.Generator.Core.Tests");
             source.AppendLine(@"{");
             source.AppendLine(@"    public partial class User");
@@ -67,20 +65,19 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
             source.AppendLine(@"            UserRoles = new HashSet<UserRole>();");
             source.AppendLine(@"            #endregion");
             source.AppendLine(@"        }");
-            source.AppendLine(@"");
+            source.AppendLine(string.Empty);
             source.AppendLine(@"        #region Generated Properties");
             source.AppendLine(@"        public Guid Id { get; set; }");
             source.AppendLine(@"        public string EmailAddress { get; set; }");
             source.AppendLine(@"        public DateTimeOffset Created { get; set; }");
             source.AppendLine(@"        public DateTimeOffset Updated { get; set; }");
             source.AppendLine(@"        #endregion");
-            source.AppendLine(@"");
+            source.AppendLine(string.Empty);
             source.AppendLine(@"        #region Generated Relationships");
             source.AppendLine(@"        public virtual ICollection<UserRole> UserRoles { get; set; }");
             source.AppendLine(@"        #endregion");
             source.AppendLine(@"    }");
             source.AppendLine(@"}");
-
 
             var result = parser.ParseRegions(source.ToString());
             result.Should().NotBeNull();
@@ -99,22 +96,21 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
             var source = new StringBuilder();
             source.AppendLine(@"using System;");
             source.AppendLine(@"using System.Collections.Generic;");
-            source.AppendLine(@"");
+            source.AppendLine(string.Empty);
             source.AppendLine(@"namespace EntityFrameworkCore.Generator.Core.Tests");
             source.AppendLine(@"{");
             source.AppendLine(@"    public partial class User");
             source.AppendLine(@"    {");
             source.AppendLine(@"        #region Generated Properties");
             source.AppendLine(@"        public Guid Id { get; set; }");
-            source.AppendLine(@"");
+            source.AppendLine(string.Empty);
             source.AppendLine(@"        #region Nested Properties");
             source.AppendLine(@"        public string EmailAddress { get; set; }");
             source.AppendLine(@"        #endregion");
-            source.AppendLine(@"");
+            source.AppendLine(string.Empty);
             source.AppendLine(@"        #endregion");
             source.AppendLine(@"    }");
             source.AppendLine(@"}");
-
 
             var result = parser.ParseRegions(source.ToString());
             result.Should().NotBeNull();
@@ -138,17 +134,14 @@ namespace EntityFrameworkCore.Generator.Core.Tests.Parsing
             var generatedContent = new StringBuilder();
             generatedContent.AppendLine(@"#region Generated Properties");
             generatedContent.AppendLine(@"        public Guid Id { get; set; }");
-            generatedContent.AppendLine(@"");
+            generatedContent.AppendLine(string.Empty);
             generatedContent.AppendLine(@"        #region Nested Properties");
             generatedContent.AppendLine(@"        public string EmailAddress { get; set; }");
             generatedContent.AppendLine(@"        #endregion");
-            generatedContent.AppendLine(@"");
+            generatedContent.AppendLine(string.Empty);
             generatedContent.AppendLine(@"        #endregion");
 
             generated.Content.Should().Be(generatedContent.ToString());
-
         }
-
-
     }
 }

@@ -57,7 +57,6 @@ namespace EntityFrameworkCore.Generator.Core.Tests
             action.Should().Throw<FormatException>();
         }
 
-
         [Fact]
         public void FormatExceptionWithEscapedEndFormatBrace()
         {
@@ -69,7 +68,6 @@ namespace EntityFrameworkCore.Generator.Core.Tests
             Action action = () => dictionary.Get("Project.Namespace");
             action.Should().Throw<FormatException>();
         }
-
 
         [Fact]
         public void EvaluationWithEscapedBrace()
