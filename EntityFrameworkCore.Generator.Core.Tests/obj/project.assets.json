@@ -696,7 +696,7 @@
           }
         }
       },
-      "Microsoft.CodeCoverage/16.1.0": {
+      "Microsoft.CodeCoverage/16.1.1": {
         "type": "package",
         "compile": {
           "lib/netcoreapp1.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll": {}
@@ -1103,11 +1103,11 @@
           "lib/netstandard2.0/Microsoft.Extensions.Primitives.dll": {}
         }
       },
-      "Microsoft.NET.Test.Sdk/16.1.0": {
+      "Microsoft.NET.Test.Sdk/16.1.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.CodeCoverage": "16.1.0",
-          "Microsoft.TestPlatform.TestHost": "16.1.0"
+          "Microsoft.CodeCoverage": "16.1.1",
+          "Microsoft.TestPlatform.TestHost": "16.1.1"
         },
         "build": {
           "build/netcoreapp1.0/Microsoft.NET.Test.Sdk.props": {},
@@ -1314,7 +1314,7 @@
           "lib/netstandard1.0/_._": {}
         }
       },
-      "Microsoft.TestPlatform.ObjectModel/16.1.0": {
+      "Microsoft.TestPlatform.ObjectModel/16.1.1": {
         "type": "package",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
@@ -1423,11 +1423,11 @@
           }
         }
       },
-      "Microsoft.TestPlatform.TestHost/16.1.0": {
+      "Microsoft.TestPlatform.TestHost/16.1.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyModel": "1.0.3",
-          "Microsoft.TestPlatform.ObjectModel": "16.1.0",
+          "Microsoft.TestPlatform.ObjectModel": "16.1.1",
           "Newtonsoft.Json": "9.0.1"
         },
         "compile": {
@@ -3987,10 +3987,10 @@
         "microsoft.codeanalysis.csharp.nuspec"
       ]
     },
-    "Microsoft.CodeCoverage/16.1.0": {
-      "sha512": "3L0coJd+INnu0E/gPqB9AkAW+mtYDZBoN9R06F54V2N+K5jp0e+IZF07goWx5X05K87qOkVAo/dn+/CG3V1KUA==",
+    "Microsoft.CodeCoverage/16.1.1": {
+      "sha512": "PyWoU5QNma20JDmee8s9oT5WuG67ZKYj1q2mNsVKnWM15tjW9aa44nwMEOWsMyrd5+Vhx16VgqcnQ9BozWJCJA==",
       "type": "package",
-      "path": "microsoft.codecoverage/16.1.0",
+      "path": "microsoft.codecoverage/16.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4019,7 +4019,7 @@
         "build/netstandard1.0/zh-Hant/Microsoft.VisualStudio.TraceDataCollector.resources.dll",
         "lib/net45/Microsoft.VisualStudio.CodeCoverage.Shim.dll",
         "lib/netcoreapp1.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll",
-        "microsoft.codecoverage.16.1.0.nupkg.sha512",
+        "microsoft.codecoverage.16.1.1.nupkg.sha512",
         "microsoft.codecoverage.nuspec"
       ]
     },
@@ -4494,10 +4494,10 @@
         "microsoft.extensions.primitives.nuspec"
       ]
     },
-    "Microsoft.NET.Test.Sdk/16.1.0": {
-      "sha512": "iFis0ZiqN/HZMQQ7ya1jSt9AC4YTQUU6k1xFZcxTQsfVi5+eRfnMHGSbg8QHyt0LbbnP77TBBoEDjCKSBUp2yA==",
+    "Microsoft.NET.Test.Sdk/16.1.1": {
+      "sha512": "HypqmcOK2F/PbXFG02xeCj52Fin/9UF9u9IMH5Ohgn0+iEx7vYjBtXg5SkOf/p84golyLY8cO2S1jchem/1dRQ==",
       "type": "package",
-      "path": "microsoft.net.test.sdk/16.1.0",
+      "path": "microsoft.net.test.sdk/16.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4510,7 +4510,7 @@
         "build/netcoreapp1.0/Microsoft.NET.Test.Sdk.targets",
         "build/uap10.0/Microsoft.NET.Test.Sdk.props",
         "buildMultiTargeting/Microsoft.NET.Test.Sdk.props",
-        "microsoft.net.test.sdk.16.1.0.nupkg.sha512",
+        "microsoft.net.test.sdk.16.1.1.nupkg.sha512",
         "microsoft.net.test.sdk.nuspec"
       ]
     },
@@ -4892,10 +4892,10 @@
         "version.txt"
       ]
     },
-    "Microsoft.TestPlatform.ObjectModel/16.1.0": {
-      "sha512": "VytiQu6rxNy3BDhoLDRki8hq1YuM+8Z0NQIfgmL7IhvvNjyWjr3Ru0w68EAaN3K8nG0vIFpLhACXxdd0FfB0Jw==",
+    "Microsoft.TestPlatform.ObjectModel/16.1.1": {
+      "sha512": "BIJqcBBCcDXQw4UHO0xka9JtrnkJCsDKNBaczG2rkHYWpCBCSgA3rr/9xquB9j46PWK1LtrFoRoX/XDRY7KmqQ==",
       "type": "package",
-      "path": "microsoft.testplatform.objectmodel/16.1.0",
+      "path": "microsoft.testplatform.objectmodel/16.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4960,14 +4960,14 @@
         "lib/netstandard1.5/zh-Hans/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
         "lib/netstandard1.5/zh-Hant/Microsoft.TestPlatform.CoreUtilities.resources.dll",
         "lib/netstandard1.5/zh-Hant/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll",
-        "microsoft.testplatform.objectmodel.16.1.0.nupkg.sha512",
+        "microsoft.testplatform.objectmodel.16.1.1.nupkg.sha512",
         "microsoft.testplatform.objectmodel.nuspec"
       ]
     },
-    "Microsoft.TestPlatform.TestHost/16.1.0": {
-      "sha512": "NArLjTGYkyS6JWx+kSF/uq/g98huVuNBLVnZX1vq5cwhAHXecAbY7IK30JCoCWNCS7EOLS8W5oLRFRi5gieVbQ==",
+    "Microsoft.TestPlatform.TestHost/16.1.1": {
+      "sha512": "F1ftKuNtJ1ADMFYiiRFS4fEJ5pLMiyrmhhErqVpv/QXCxsQvbJw0mUzvZqEx+AkS3GBK+8N3dDGVOJVPQAQ2Hw==",
       "type": "package",
-      "path": "microsoft.testplatform.testhost/16.1.0",
+      "path": "microsoft.testplatform.testhost/16.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5107,7 +5107,7 @@
         "lib/uap10.0/Microsoft.TestPlatform.Utilities.dll",
         "lib/uap10.0/Microsoft.VisualStudio.TestPlatform.Common.dll",
         "lib/uap10.0/testhost.dll",
-        "microsoft.testplatform.testhost.16.1.0.nupkg.sha512",
+        "microsoft.testplatform.testhost.16.1.1.nupkg.sha512",
         "microsoft.testplatform.testhost.nuspec"
       ]
     },
@@ -9525,7 +9525,7 @@
       "Microsoft.EntityFrameworkCore.Analyzers >= 3.0.0-preview5.19227.1",
       "Microsoft.Extensions.Configuration.EnvironmentVariables >= 2.2.4",
       "Microsoft.Extensions.Configuration.Json >= 2.2.0",
-      "Microsoft.NET.Test.Sdk >= 16.1.0",
+      "Microsoft.NET.Test.Sdk >= 16.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.NetCore.Analyzers >= 2.9.2",
       "Microsoft.VisualStudio.Threading.Analyzers >= 16.0.102",
@@ -9602,7 +9602,7 @@
           },
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
-            "version": "[16.1.0, )"
+            "version": "[16.1.1, )"
           },
           "Microsoft.NETCore.App": {
             "target": "Package",
