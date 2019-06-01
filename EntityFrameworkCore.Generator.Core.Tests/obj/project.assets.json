@@ -3161,6 +3161,7 @@
           "Microsoft.Extensions.Configuration.Abstractions": "2.2.0",
           "Microsoft.Extensions.Configuration.FileExtensions": "2.2.0",
           "Microsoft.Extensions.Configuration.UserSecrets": "2.2.0",
+          "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Newtonsoft.Json": "12.0.2",
           "Npgsql": "4.0.7",
