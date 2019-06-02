@@ -26,15 +26,15 @@ namespace Core.Extension.Dapper
 
             var name = GetTableName<T>();
             var sb = new StringBuilder();
-            sb.Append("Select ");
+            sb.Append("SELECT ");
             BuildSelectColumns(sb);
-            sb.AppendFormat(" from {0} where ", Encapsulate(name));
+            sb.AppendFormat(" FROM {0} WHERE ", Encapsulate(name));
 
             for (var i = 0; i < idProps.Count; i++)
             {
                 if (i > 0)
                 {
-                    sb.Append(" and ");
+                    sb.Append(" AND ");
                 }
 
                 sb.AppendFormat("{0} = @{1}", ToColumn<T>(idProps[i].Name), idProps[i].Name);
@@ -105,9 +105,9 @@ namespace Core.Extension.Dapper
                 }
             }
 
-            StringBuilder sb = new StringBuilder($"insert into {Encapsulate(tableName)} (");
+            StringBuilder sb = new StringBuilder($"INSERT INTO {Encapsulate(tableName)} (");
             sb.Append($"[{string.Join("], [", newColumns)}]");
-            sb.Append(") values (");
+            sb.Append(") VALUES (");
             sb.Append($"@{string.Join(", @", newProperties)}");
             sb.Append($");{_getIdentitySql}");
 
@@ -130,9 +130,9 @@ namespace Core.Extension.Dapper
             }
 
             var name = GetTableName<TEntity>();
-            var sb = new StringBuilder($"update {Encapsulate(name)} set ");
+            var sb = new StringBuilder($"UPDATE {Encapsulate(name)} SET ");
             BuildUpdateSet<TEntity>(sb);
-            sb.Append(" where ");
+            sb.Append(" WHERE ");
             BuildWhere<TEntity>(sb, idProps, entityToUpdate);
 
             CancellationToken cancelToken = token ?? default;
@@ -154,11 +154,11 @@ namespace Core.Extension.Dapper
         public static Task<int> DeleteListAsync<T>(this IDbConnection connection, object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
         {
             var name = GetTableName<T>();
-            var sb = new StringBuilder($"Delete from {Encapsulate(name)}");
+            var sb = new StringBuilder($"DELETE FROM {Encapsulate(name)}");
             var where = GetAllProperties(whereConditions).ToArray();
             if (where.Any())
             {
-                sb.Append(" where ");
+                sb.Append(" WHERE ");
                 BuildWhere<T>(sb, where);
             }
 

@@ -32,17 +32,15 @@ namespace Core.Extension.Dapper
             }
 
             var name = GetTableName<T>();
-            var sb = new StringBuilder();
-            sb.Append("Select ");
-
+            var sb = new StringBuilder("SELECT ");
             BuildSelectColumns(sb);
-            sb.AppendFormat(" from {0} where ", name);
+            sb.AppendFormat(" FROM {0} WHERE ", name);
 
             for (var i = 0; i < idProps.Count; i++)
             {
                 if (i > 0)
                 {
-                    sb.Append(" and ");
+                    sb.Append(" AND ");
                 }
 
                 sb.AppendFormat("{0} = @{1}", ToColumn<T>(idProps[i].Name), idProps[i].Name);
@@ -81,7 +79,7 @@ namespace Core.Extension.Dapper
         {
             string propertyName = expression.GetPropertyName();
             string columnName = ToColumn<T>(propertyName);
-            string where = $"where {columnName} = @{propertyName}";
+            string where = $"WHERE {columnName} = @{propertyName}";
             var parameters = new DynamicParameters();
             parameters.Add("@" + propertyName, value);
 
@@ -91,7 +89,7 @@ namespace Core.Extension.Dapper
         public static IList<T> FindAll<T>(this IDbConnection connection, Expression<Func<T, string>> expression, string value)
         {
             string propertyName = expression.GetPropertyName();
-            string where = $"where {propertyName} = @{propertyName}";
+            string where = $"WHERE {propertyName} = @{propertyName}";
             var parameters = new DynamicParameters();
             parameters.Add("@" + propertyName, value);
 
@@ -110,7 +108,7 @@ namespace Core.Extension.Dapper
             string column = ToColumn<T>(key);
             parameters.Add($"@{key}", value);
 
-            return connection.GetList<T>($"where {column} = @{key}", parameters).FirstOrDefault();
+            return connection.GetList<T>($"WHERE {column} = @{key}", parameters).FirstOrDefault();
         }
 
         public static IList<T> FindAll<T>(this IDbConnection connection, int value)
@@ -120,7 +118,7 @@ namespace Core.Extension.Dapper
             string column = ToColumn<T>(key);
             parameters.Add($"@{key}", value);
 
-            return connection.GetList<T>($"where {column} = @{key}", parameters).ToList();
+            return connection.GetList<T>($"WHERE {column} = @{key}", parameters).ToList();
         }
 
         public static T QueryFirst<T>(this IDbConnection connection, Expression<Func<T, bool>> expression, bool value)
@@ -175,9 +173,9 @@ namespace Core.Extension.Dapper
                 }
             }
 
-            StringBuilder sb = new StringBuilder($"insert into {Encapsulate(tableName)} (");
+            StringBuilder sb = new StringBuilder($"INSERT INTO {Encapsulate(tableName)} (");
             sb.Append($"[{string.Join("], [", newColumns)}]");
-            sb.Append(") values (");
+            sb.Append(") VALUES (");
             sb.Append($"@{string.Join(", @", newProperties)}");
             sb.Append($");{_getIdentitySql}");
             var result = connection.Query(sb.ToString(), entity, transaction, true, commandTimeout);
@@ -210,9 +208,9 @@ namespace Core.Extension.Dapper
                 }
             }
 
-            StringBuilder sb = new StringBuilder($"insert into {Encapsulate(tableName)} (");
+            StringBuilder sb = new StringBuilder($"INSERT INTO {Encapsulate(tableName)} (");
             sb.Append($"[{string.Join("], [", newColumns)}]");
-            sb.Append(") values (");
+            sb.Append(") VALUES (");
             sb.Append($"@{string.Join(", @", newProperties)}");
             sb.Append(")");
 
@@ -226,9 +224,9 @@ namespace Core.Extension.Dapper
             {
                 var idProps = GetIdProperties(entity).ToList();
                 var tableName = GetTableName<T>();
-                sb.AppendFormat("update {0} set ", Encapsulate(tableName));
+                sb.AppendFormat("UPDATE {0} SET ", Encapsulate(tableName));
                 BuildUpdateSet<T>(sb);
-                sb.Append(" where ");
+                sb.Append(" WHERE ");
                 BuildWhere<T>(sb, idProps, entity);
             });
 
@@ -254,10 +252,10 @@ namespace Core.Extension.Dapper
             {
                 var tableName = GetTableName<T>();
                 var where = GetAllProperties(whereConditions).ToArray();
-                sb.AppendFormat("Delete from {0}", Encapsulate(tableName));
+                sb.AppendFormat("DELETE FROM {0}", Encapsulate(tableName));
                 if (where.Any())
                 {
-                    sb.Append(" where ");
+                    sb.Append(" WHERE ");
                     BuildWhere<T>(sb, where, whereConditions);
                 }
             });
@@ -318,12 +316,12 @@ namespace Core.Extension.Dapper
             {
                 var value = property.GetValue(whereConditions, null);
                 sb.AppendFormat(
-                    value == DBNull.Value ? "{0} is null" : "{0} = @{1}",
+                    value == DBNull.Value ? "{0} IS NULL" : "{0} = @{1}",
                     ToColumn<T>(property.Name) ?? property.Name,
                     property.Name);
                 if (propertyInfos.IndexOf(property) != propertyInfos.Length - 1)
                 {
-                    sb.AppendFormat(" and ");
+                    sb.AppendFormat(" AND ");
                 }
             }
         }
@@ -335,7 +333,7 @@ namespace Core.Extension.Dapper
             {
                 int index = keys.IndexOf(key);
                 string propertyToUse = ToProperty(key);
-                sb.AppendFormat("{0}{1} = @{2}", index == 0 ? string.Empty : " and ", key, propertyToUse);
+                sb.AppendFormat("{0}{1} = @{2}", index == 0 ? string.Empty : " AND ", key, propertyToUse);
             }
         }
 
@@ -406,17 +404,17 @@ namespace Core.Extension.Dapper
         private static void PrepareRecordCountByWhereSql<T>(string whereSql, out string sql)
         {
             var tableName = GetTableName<T>();
-            sql = $"Select count(1) from {Encapsulate(tableName)} {whereSql}";
+            sql = $"SELECT COUNT(*) FROM {Encapsulate(tableName)} {whereSql}";
         }
 
         private static void PrepareRecordCountByWhereEntity<T>(object whereEntity, out string sql)
         {
             var name = GetTableName<T>();
-            StringBuilder sb = new StringBuilder($"Select count(1) from {Encapsulate(name)}");
+            StringBuilder sb = new StringBuilder($"SELECT COUNT(*) FROM {Encapsulate(name)}");
             var where = GetAllProperties(whereEntity).ToArray();
             if (where.Any())
             {
-                sb.Append(" where ");
+                sb.Append(" WHERE ");
                 BuildWhere<T>(sb, where, whereEntity);
             }
 
@@ -426,36 +424,36 @@ namespace Core.Extension.Dapper
         private static void PrepareDeleteListByWhereSql<T>(string whereSql, out string sql)
         {
             var name = GetTableName<T>();
-            sql = $"Delete from {Encapsulate(name)} {whereSql}";
+            sql = $"DELETE FROM {Encapsulate(name)} {whereSql}";
         }
 
         private static void PrepareDeleteByEntity<T>(out string sql)
         {
             var tableName = GetTableName<T>();
-            var sb = new StringBuilder($"delete from {Encapsulate(tableName)} where ");
+            var sb = new StringBuilder($"DELETE FROM {Encapsulate(tableName)} WHERE ");
             BuildWhere<T>(sb);
             sql = sb.ToString();
         }
 
         private static void PrepareGetListByWhereSql<T>(string whereSql, out string sql)
         {
-            var sb = new StringBuilder("Select ");
+            var sb = new StringBuilder("SELECT ");
             BuildSelectColumns<T>(sb);
-            sb.Append($" from {Encapsulate(GetTableName<T>())} {whereSql}");
+            sb.Append($" FROM {Encapsulate(GetTableName<T>())} {whereSql}");
             sql = sb.ToString();
         }
 
         private static void PrepareGetListByEntity<T>(object entity, out string sql)
         {
-            var sb = new StringBuilder("Select ");
+            var sb = new StringBuilder("SELECT ");
             BuildSelectColumns<T>(sb);
             var tableName = GetTableName<T>();
-            sb.Append($" from {Encapsulate(tableName)}");
+            sb.Append($" FROM {Encapsulate(tableName)}");
 
             var properties = GetAllProperties(entity).ToArray();
             if (properties.Any())
             {
-                sb.Append(" where ");
+                sb.Append(" WHERE ");
                 BuildWhere<T>(sb, properties, entity);
             }
 
