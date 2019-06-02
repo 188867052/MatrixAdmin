@@ -65,13 +65,12 @@ namespace Core.UnitTest.Dapper.Insert
         [Test]
         public void TestMassInsert()
         {
-            // TODO:It is better to cache string builder.
             int count = 0;
             using (var transaction = DapperExtension.BeginTransaction())
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    Log log = new Log() { Message = Guid.NewGuid().ToString(), LogLevel = (int)LogLevel.None };
+                    Log log = new Log { Message = Guid.NewGuid().ToString(), LogLevel = (int)LogLevel.None };
                     count += DapperExtension.Connection.Insert(log, transaction);
                 }
 

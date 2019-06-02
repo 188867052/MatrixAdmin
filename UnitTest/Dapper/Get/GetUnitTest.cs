@@ -19,9 +19,9 @@ namespace Core.UnitTest.Dapper.Get
             User user = DapperExtension.Connection.QueryFirst<User>();
             if (user != null)
             {
-                //var users = DapperExtension.Connection.GetList<User>($"where login_name = '{user.LoginName}'");
-                //Assert.IsNotNull(users);
-                var users = DapperExtension.Connection.GetList<User>(new { login_name = "Strange 2" });
+                var users = DapperExtension.Connection.GetList<User>($"where login_name = '{user.LoginName}'");
+                Assert.IsNotNull(users);
+                users = DapperExtension.Connection.GetList<User>(new { login_name = "Strange 2" });
                 Assert.IsNotNull(users);
             }
         }
@@ -72,6 +72,15 @@ namespace Core.UnitTest.Dapper.Get
         }
 
         [Test]
+        public void TestGetListPagedAsync()
+        {
+            var logs = DapperExtension.Connection.GetListPagedAsync<Log>(2, 10, null, null).Result;
+            Assert.IsNotNull(logs);
+            logs = DapperExtension.Connection.GetListPagedAsync<Log>(1, 30, "where Id > @Id", null, new { Id = 14 }).Result;
+            Assert.IsNotNull(logs);
+        }
+
+        [Test]
         public void TestFilteredGetListParameters()
         {
             User user = DapperExtension.Connection.QueryFirst<User>();
@@ -92,6 +101,17 @@ namespace Core.UnitTest.Dapper.Get
             users = DapperExtension.Connection.GetList<User>(new { });
             Assert.IsNotNull(users);
             users = DapperExtension.Connection.GetList<User>();
+            Assert.IsNotNull(users);
+        }
+
+        [Test]
+        public void TestGetListWithNullWhereAsync()
+        {
+            var users = DapperExtension.Connection.GetListAsync<User>(null).Result;
+            Assert.IsNotNull(users);
+            users = DapperExtension.Connection.GetListAsync<User>(new { }).Result;
+            Assert.IsNotNull(users);
+            users = DapperExtension.Connection.GetListAsync<User>().Result;
             Assert.IsNotNull(users);
         }
     }

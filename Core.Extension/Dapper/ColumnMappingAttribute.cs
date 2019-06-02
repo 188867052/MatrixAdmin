@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Extension.Dapper.Attributes
+namespace Core.Extension.Dapper
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
     public class ColumnMappingAttribute : Attribute

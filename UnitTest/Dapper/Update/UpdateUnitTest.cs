@@ -26,7 +26,6 @@ namespace Core.UnitTest.Dapper.Update
         [Test]
         public void TestMassUpdate()
         {
-            // TODO:It is better to cache string builder.
             var log = DapperExtension.Connection.QueryFirst<Log>();
             if (log != null)
             {

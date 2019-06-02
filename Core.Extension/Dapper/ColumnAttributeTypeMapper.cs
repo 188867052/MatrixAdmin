@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using Core.Extension.Dapper.Attributes;
 using Dapper;
 
 namespace Core.Extension.Dapper

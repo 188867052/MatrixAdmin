@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Dapper;
 
 namespace Core.Extension.Dapper
 {
     /// <summary>
-    /// Main class for Dapper.SimpleCRUD extensions.
+    /// Main class for Dapper extensions.
     /// </summary>
     public static partial class DapperExtension
     {
@@ -23,13 +24,11 @@ namespace Core.Extension.Dapper
                 throw new ArgumentException("Get<T> only supports an entity with a [Key] or Id property");
             }
 
-            var name = DapperExtension.GetTableName<T>();
+            var name = GetTableName<T>();
             var sb = new StringBuilder();
             sb.Append("Select ");
-
-            // create a new empty instance of the type to get the base properties
-            BuildSelect(sb);
-            sb.AppendFormat(" from {0} where ", name);
+            BuildSelectColumns(sb);
+            sb.AppendFormat(" from {0} where ", Encapsulate(name));
 
             for (var i = 0; i < idProps.Count; i++)
             {
@@ -60,54 +59,14 @@ namespace Core.Extension.Dapper
 
         public static Task<IEnumerable<T>> GetListAsync<T>(this IDbConnection connection, object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            var type = typeof(T);
-            var idProps = GetIdProperties(type).ToList();
-
-            if (!idProps.Any())
-            {
-                throw new ArgumentException("Entity must have at least one [Key] property");
-            }
-
-            var name = DapperExtension.GetTableName<T>();
-
-            var sb = new StringBuilder();
-            var where = GetAllProperties(whereConditions).ToArray();
-            sb.Append("Select ");
-
-            // create a new empty instance of the type to get the base properties
-            BuildSelect(sb);
-            sb.AppendFormat(" from {0}", name);
-
-            if (where.Any())
-            {
-                sb.Append(" where ");
-                BuildWhere<T>(sb, where, whereConditions);
-            }
-
-            return connection.QueryAsync<T>(sb.ToString(), whereConditions, transaction, commandTimeout);
+            PrepareGetListByEntity<T>(whereConditions, out string sql);
+            return connection.QueryAsync<T>(sql, whereConditions, transaction, commandTimeout);
         }
 
-        public static Task<IEnumerable<T>> GetListAsync<T>(this IDbConnection connection, string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
+        public static Task<IEnumerable<T>> GetListAsync<T>(this IDbConnection connection, string whereSql, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            var type = typeof(T);
-            var idProps = GetIdProperties(type).ToList();
-            if (!idProps.Any())
-            {
-                throw new ArgumentException("Entity must have at least one [Key] property");
-            }
-
-            var name = DapperExtension.GetTableName<T>();
-
-            var sb = new StringBuilder();
-            sb.Append("Select ");
-
-            // create a new empty instance of the type to get the base properties
-            BuildSelect(sb);
-            sb.AppendFormat(" from {0}", name);
-
-            sb.Append(" " + conditions);
-
-            return connection.QueryAsync<T>(sb.ToString(), parameters, transaction, commandTimeout);
+            PrepareGetListByWhereSql<T>(whereSql, out var sql);
+            return connection.QueryAsync<T>(sql, parameters, transaction, commandTimeout);
         }
 
         public static Task<IEnumerable<T>> GetListAsync<T>(this IDbConnection connection)
@@ -115,39 +74,10 @@ namespace Core.Extension.Dapper
             return connection.GetListAsync<T>(new { });
         }
 
-        public static Task<IEnumerable<T>> GetListPagedAsync<T>(this IDbConnection connection, int pageNumber, int rowsPerPage, string conditions, string orderby, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
+        public static Task<IEnumerable<T>> GetListPagedAsync<T>(this IDbConnection connection, int pageNumber, int rowsPerPage, string conditions, string orderBy, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            if (string.IsNullOrEmpty(_pagedListSql))
-            {
-                throw new Exception("GetListPage is not supported with the current SQL Dialect");
-            }
-
-            var type = typeof(T);
-            var idProps = GetIdProperties(type).ToList();
-            if (!idProps.Any())
-            {
-                throw new ArgumentException("Entity must have at least one [Key] property");
-            }
-
-            var name = DapperExtension.GetTableName<T>();
-            var sb = new StringBuilder();
-            var query = _pagedListSql;
-            if (string.IsNullOrEmpty(orderby))
-            {
-                orderby = GetKey<T>();
-            }
-
-            // create a new empty instance of the type to get the base properties
-            BuildSelect(sb);
-            query = query.Replace("{SelectColumns}", sb.ToString());
-            query = query.Replace("{TableName}", name);
-            query = query.Replace("{PageNumber}", pageNumber.ToString());
-            query = query.Replace("{RowsPerPage}", rowsPerPage.ToString());
-            query = query.Replace("{OrderBy}", orderby);
-            query = query.Replace("{WhereClause}", conditions);
-            query = query.Replace("{Offset}", ((pageNumber - 1) * rowsPerPage).ToString());
-
-            return connection.QueryAsync<T>(query, parameters, transaction, commandTimeout);
+            PrepareGetListPagedByWhereSql<T>(pageNumber, rowsPerPage, orderBy, conditions, out string sql);
+            return connection.QueryAsync<T>(sql, parameters, transaction, commandTimeout);
         }
 
         public static dynamic Default(Type type)
@@ -157,18 +87,18 @@ namespace Core.Extension.Dapper
 
         public static async Task<dynamic> InsertAsync<TEntity>(this IDbConnection connection, TEntity entity, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            var tableName = DapperExtension.GetTableName<TEntity>();
-            var columns = DapperExtension.GetColumns<TEntity>().ToList();
+            var tableName = GetTableName<TEntity>();
+            var columns = GetColumns<TEntity>().ToList();
             var newColumns = new List<string>();
             var newProperties = new List<string>();
-            string key = DapperExtension.GetKey<TEntity>();
+            string key = GetKey<TEntity>();
 
             foreach (var columnName in columns)
             {
-                var property = typeof(TEntity).GetProperty(DapperExtension.ToProperty(columnName));
+                var property = typeof(TEntity).GetProperty(ToProperty(columnName));
                 dynamic value = property.GetValue(entity, null);
                 dynamic defaultValue = Default(property.PropertyType);
-                if (value != defaultValue && (DapperExtension.HasMultipleKey<TEntity>() || columnName != key))
+                if (value != defaultValue && (HasMultipleKey<TEntity>() || columnName != key))
                 {
                     newColumns.Add(columnName);
                     newProperties.Add(property.Name);
@@ -182,9 +112,9 @@ namespace Core.Extension.Dapper
             sb.Append($");{_getIdentitySql}");
 
             var result = await connection.QueryAsync(sb.ToString(), entity, transaction, commandTimeout);
-            if (DapperExtension.HasMultipleKey<TEntity>())
+            if (HasMultipleKey<TEntity>())
             {
-                return typeof(TEntity).GetProperty(DapperExtension.ToProperty(DapperExtension.ToProperty(key))).GetValue(entity, null);
+                return typeof(TEntity).GetProperty(ToProperty(ToProperty(key))).GetValue(entity, null);
             }
 
             return result.First().id;
@@ -200,56 +130,32 @@ namespace Core.Extension.Dapper
             }
 
             var name = GetTableName<TEntity>();
-
-            var sb = new StringBuilder();
-            sb.AppendFormat("update {0}", name);
-
-            sb.AppendFormat(" set ");
+            var sb = new StringBuilder($"update {Encapsulate(name)} set ");
             BuildUpdateSet<TEntity>(sb);
             sb.Append(" where ");
             BuildWhere<TEntity>(sb, idProps, entityToUpdate);
 
-            System.Threading.CancellationToken cancelToken = token ?? default;
+            CancellationToken cancelToken = token ?? default;
             return connection.ExecuteAsync(new CommandDefinition(sb.ToString(), entityToUpdate, transaction, commandTimeout, cancellationToken: cancelToken));
         }
 
         public static Task<int> DeleteAsync<T>(this IDbConnection connection, T entityToDelete, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            var stringBuilder = new StringBuilder();
-            StringBuilderCache(stringBuilder, $"{typeof(T).FullName}_Delete", sb =>
-            {
-                var tableName = DapperExtension.GetTableName<T>();
-                sb.AppendFormat("Delete from {0} where ", tableName);
-                BuildWhere<T>(sb);
-            });
-
-            return connection.ExecuteAsync(stringBuilder.ToString(), entityToDelete, transaction, commandTimeout);
+            PrepareDeleteByEntity<T>(out var sql);
+            return connection.ExecuteAsync(sql, entityToDelete, transaction, commandTimeout);
         }
 
         public static Task<int> DeleteAsync<T>(this IDbConnection connection, object id, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            var type = typeof(T);
-            var idProp = GetIdProperties(type).ToList().FirstOrDefault();
-
-            var name = DapperExtension.GetTableName<T>();
-
-            var sb = new StringBuilder();
-            sb.AppendFormat("Delete from {0} where ", name);
-
-            sb.AppendFormat("{0} = @{1}", ToColumn<T>(idProp.Name), idProp.Name);
-
-            var parameter = new DynamicParameters();
-            parameter.Add("@" + idProp.Name, id);
-
-            return connection.ExecuteAsync(sb.ToString(), parameter, transaction, commandTimeout);
+            PrepareDelete<T>(id, out var sql, out var parameter);
+            return connection.ExecuteAsync(sql, parameter, transaction, commandTimeout);
         }
 
         public static Task<int> DeleteListAsync<T>(this IDbConnection connection, object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            var name = DapperExtension.GetTableName<T>();
-            var sb = new StringBuilder();
+            var name = GetTableName<T>();
+            var sb = new StringBuilder($"Delete from {Encapsulate(name)}");
             var where = GetAllProperties(whereConditions).ToArray();
-            sb.AppendFormat("Delete from {0}", Encapsulate(name));
             if (where.Any())
             {
                 sb.Append(" where ");
@@ -259,45 +165,22 @@ namespace Core.Extension.Dapper
             return connection.ExecuteAsync(sb.ToString(), whereConditions, transaction, commandTimeout);
         }
 
-        public static Task<int> DeleteListAsync<T>(this IDbConnection connection, string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
+        public static Task<int> DeleteListAsync<T>(this IDbConnection connection, string whereSql, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            if (!conditions.ToLower().Contains("where"))
-            {
-                throw new ArgumentException("DeleteList<T> requires a where clause and must contain the WHERE keyword");
-            }
-
-            var name = DapperExtension.GetTableName<T>();
-
-            var sb = new StringBuilder();
-            sb.AppendFormat("Delete from {0}", Encapsulate(name));
-            sb.Append(" " + conditions);
-
-            return connection.ExecuteAsync(sb.ToString(), parameters, transaction, commandTimeout);
+            PrepareDeleteListByWhereSql<T>(whereSql, out var sql);
+            return connection.ExecuteAsync(sql, parameters, transaction, commandTimeout);
         }
 
-        public static Task<int> RecordCountAsync<T>(this IDbConnection connection, string conditions = "", object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
+        public static Task<int> RecordCountAsync<T>(this IDbConnection connection, string whereSql = "", object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            var name = DapperExtension.GetTableName<T>();
-            var sb = new StringBuilder();
-            sb.AppendFormat("Select count(1) from {0}", Encapsulate(name));
-            sb.Append(" " + conditions);
-
-            return connection.ExecuteScalarAsync<int>(sb.ToString(), parameters, transaction, commandTimeout);
+            PrepareRecordCountByWhereSql<T>(whereSql, out var sql);
+            return connection.ExecuteScalarAsync<int>(sql, parameters, transaction, commandTimeout);
         }
 
-        public static Task<int> RecordCountAsync<T>(this IDbConnection connection, object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
+        public static Task<int> RecordCountAsync<T>(this IDbConnection connection, object whereEntity, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            var name = DapperExtension.GetTableName<T>();
-            var sb = new StringBuilder();
-            var where = GetAllProperties(whereConditions).ToArray();
-            sb.AppendFormat("Select count(1) from {0}", Encapsulate(name));
-            if (where.Any())
-            {
-                sb.Append(" where ");
-                BuildWhere<T>(sb, where, whereConditions);
-            }
-
-            return connection.ExecuteScalarAsync<int>(sb.ToString(), whereConditions, transaction, commandTimeout);
+            PrepareRecordCountByWhereEntity<T>(whereEntity, out var sql);
+            return connection.ExecuteScalarAsync<int>(sql, whereEntity, transaction, commandTimeout);
         }
     }
 }

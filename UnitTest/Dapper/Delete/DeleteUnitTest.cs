@@ -55,6 +55,13 @@ namespace Core.UnitTest.Dapper.Delete
                 var count = DapperExtension.Connection.DeleteList<Log>("where Id = @Id", new { log.Id });
                 Assert.AreEqual(count, 1);
             }
+
+            log = DapperExtension.Connection.QueryFirst<Log>();
+            if (log != null)
+            {
+                var count = DapperExtension.Connection.DeleteListAsync<Log>("where Id = @Id", new { log.Id });
+                Assert.AreEqual(count.Result, 1);
+            }
         }
 
         [Test]
@@ -75,6 +82,13 @@ namespace Core.UnitTest.Dapper.Delete
             if (log != null)
             {
                 int count = DapperExtension.Connection.DeleteAsync(log).Result;
+                Assert.AreEqual(count, 1);
+            }
+
+            log = DapperExtension.Connection.QueryFirst<Log>();
+            if (log != null)
+            {
+                int count = DapperExtension.Connection.Delete(log);
                 Assert.AreEqual(count, 1);
             }
         }

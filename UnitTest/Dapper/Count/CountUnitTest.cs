@@ -48,6 +48,8 @@ namespace Core.UnitTest.Dapper.Count
             {
                 int count = await DapperExtension.Connection.RecordCountAsync<User>(new { id });
                 Assert.GreaterOrEqual(count, 0);
+                count = DapperExtension.Connection.RecordCount<User>(new { id });
+                Assert.GreaterOrEqual(count, 0);
             }
         }
 
