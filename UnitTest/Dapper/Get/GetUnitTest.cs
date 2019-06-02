@@ -8,13 +8,26 @@ using NUnit.Framework;
 namespace Core.UnitTest.Dapper.Get
 {
     /// <summary>
-    /// Api unit test.
+    /// Dapper unit test.
     /// </summary>
     [TestFixture]
     public class GetUnitTest
     {
         [Test]
-        public void TestFilteredGetList()
+        public void TestGet()
+        {
+            User user = DapperExtension.Connection.QueryFirst<User>();
+            if (user != null)
+            {
+                var users = DapperExtension.Connection.Get<User>(1);
+                Assert.IsNotNull(users);
+                users = DapperExtension.Connection.GetAsync<User>(new { id = 1 }).Result;
+                Assert.IsNotNull(users);
+            }
+        }
+
+        [Test]
+        public void TestGetList()
         {
             User user = DapperExtension.Connection.QueryFirst<User>();
             if (user != null)

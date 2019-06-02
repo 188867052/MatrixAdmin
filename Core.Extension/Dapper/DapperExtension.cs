@@ -1,122 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using Core.Entity;
+using System.Threading.Tasks;
 using Dapper;
-using Microsoft.EntityFrameworkCore;
 
 namespace Core.Extension.Dapper
 {
     public static partial class DapperExtension
     {
-        private static readonly Func<TableInfo, string, bool> predicate = (o, entity) => o.TableName.Replace("_", string.Empty).Equals(entity, StringComparison.InvariantCultureIgnoreCase);
-        private static IDbConnection _connection;
-
-        static DapperExtension()
+        public static T Get<T>(this IDbConnection connection, object id, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            var properties = typeof(CoreContext).GetProperties();
-            foreach (var property in properties)
-            {
-                if (property.ToString().Contains(typeof(DbSet<>).FullName))
-                {
-                    var type = property.PropertyType.GenericTypeArguments[0];
-                    SqlMapper.SetTypeMap(type, new ColumnAttributeTypeMapper(type));
-                }
-            }
-
-            using (var connection = Connection)
-            {
-                string sql = $"SELECT a.name AS [TableName],case e.name when f.column_NAME then 'True'else 'false' end AS IsPrimaryKey,F.COLUMN_NAME AS ColumnName FROM sysobjects AS a LEFT JOIN sysobjects AS b ON a.id=b.parent_obj LEFT JOIN sysindexes AS c ON a.id=c.id AND b.name=c.name LEFT JOIN sysindexkeys AS d ON a.id=d.id AND c.indid=d.indid LEFT JOIN syscolumns AS e ON a.id=e.id AND d.colid=e.colid left join  INFORMATION_SCHEMA.COLUMNS f on a.name=f.TABLE_NAME WHERE a.xtype='U' AND b.xtype='PK'";
-                Tables = connection.Query<TableInfo>(sql);
-            }
-
-            _getIdentitySql = "SELECT CAST(SCOPE_IDENTITY()  AS BIGINT) AS [id]";
-            _pagedListSql = "SELECT * FROM (SELECT ROW_NUMBER() OVER(ORDER BY {OrderBy}) AS PagedNumber, {SelectColumns} FROM {TableName} {WhereClause}) AS u WHERE PagedNumber BETWEEN (({PageNumber}-1) * {RowsPerPage} + 1) AND ({PageNumber} * {RowsPerPage})";
+            PrepareGet<T>(id, out string sql, out var parameters);
+            return connection.Query<T>(sql, parameters, transaction, true, commandTimeout).FirstOrDefault();
         }
 
-        public static IDbConnection Connection
+        public static async Task<T> GetAsync<T>(this IDbConnection connection, object id, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            get
-            {
-                if (_connection == null || _connection.State == ConnectionState.Closed)
-                {
-                    _connection = new SqlConnection("Data Source=.;App=Dapper;Initial Catalog=Core;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-                }
-
-                OpenConnection();
-                return _connection;
-            }
+            PrepareGet<T>(id, out string sql, out var parameters);
+            return (await connection.QueryAsync<T>(sql, parameters, transaction, commandTimeout)).FirstOrDefault();
         }
 
-        public static IEnumerable<TableInfo> Tables { get; }
-
-        public static void OpenConnection()
+        public static Task<IEnumerable<T>> GetListAsync<T>(this IDbConnection connection, string whereSql, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            if (_connection.State == ConnectionState.Closed)
-            {
-                _connection.Open();
-            }
+            PrepareGetListByWhereSql<T>(whereSql, out var sql);
+            return connection.QueryAsync<T>(sql, parameters, transaction, commandTimeout);
         }
 
-        public static void CloseConnection()
+        public static IEnumerable<T> GetList<T>(this IDbConnection connection, string whereSql, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            if (_connection.State == ConnectionState.Open)
-            {
-                _connection.Close();
-            }
+            PrepareGetListByWhereSql<T>(whereSql, out var sql);
+            return connection.Query<T>(sql, parameters, transaction, true, commandTimeout);
         }
 
-        public static IDbTransaction BeginTransaction()
+        public static IEnumerable<T> GetList<T>(this IDbConnection connection)
         {
-            return Connection.BeginTransaction();
+            return connection.GetList<T>(new { });
         }
 
-        public static string ToProperty(string field)
+        public static Task<IEnumerable<T>> GetListAsync<T>(this IDbConnection connection, object whereConditions, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            var array = field.Split('_');
-            return array.Aggregate<string, string>(default, (current, item) => current + char.ToUpper(item[0]) + item.Substring(1));
+            PrepareGetListByEntity<T>(whereConditions, out string sql);
+            return connection.QueryAsync<T>(sql, whereConditions, transaction, commandTimeout);
         }
 
-        public static string ToColumn<T>(string propertyName)
+        public static Task<IEnumerable<T>> GetListAsync<T>(this IDbConnection connection)
         {
-            return GetColumn<T>(propertyName);
+            return connection.GetListAsync<T>(new { });
         }
 
-        public static IEnumerable<string> GetColumns<T>()
+        public static Task<IEnumerable<T>> GetListPagedAsync<T>(this IDbConnection connection, int pageNumber, int rowsPerPage, string conditions, string orderBy, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            return GetTableInfo<T>().Select(x => x.ColumnName).Distinct();
+            PrepareGetListPagedByWhereSql<T>(pageNumber, rowsPerPage, orderBy, conditions, out string sql);
+            return connection.QueryAsync<T>(sql, parameters, transaction, commandTimeout);
         }
 
-        public static string GetColumn<T>(string propertyName)
+        public static IEnumerable<T> GetListPaged<T>(this IDbConnection connection, int pageNumber, int rowsPerPage, string conditions, string orderBy, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            return GetColumns<T>().FirstOrDefault(o => o.Replace("_", string.Empty).Equals(propertyName, StringComparison.InvariantCultureIgnoreCase));
-        }
-
-        public static IEnumerable<TableInfo> GetTableInfo<T>()
-        {
-            return Tables.Where(o => predicate(o, typeof(T).Name));
-        }
-
-        public static string GetKey<T>()
-        {
-            return GetTableInfo<T>().First(o => o.IsPrimaryKey).ColumnName;
-        }
-
-        public static IList<string> GetKeys<T>()
-        {
-            return GetTableInfo<T>().Where(o => o.IsPrimaryKey).Select(o => o.ColumnName).ToList();
-        }
-
-        public static bool HasMultipleKey<T>()
-        {
-            return GetTableInfo<T>().Count(o => o.IsPrimaryKey) > 1;
-        }
-
-        public static string GetTableName<T>()
-        {
-            return GetTableInfo<T>().First(o => o.IsPrimaryKey).TableName;
+            PrepareGetListPagedByWhereSql<T>(pageNumber, rowsPerPage, orderBy, conditions, out string sql);
+            return connection.Query<T>(sql, parameters, transaction, true, commandTimeout);
         }
     }
 }
