@@ -5,7 +5,7 @@ using Core.Entity;
 using Core.Extension.Dapper;
 using NUnit.Framework;
 
-namespace Core.UnitTest.Dapper
+namespace Core.UnitTest.Dapper.Get
 {
     /// <summary>
     /// Api unit test.
@@ -19,9 +19,9 @@ namespace Core.UnitTest.Dapper
             User user = DapperExtension.Connection.QueryFirst<User>();
             if (user != null)
             {
-                var users = DapperExtension.Connection.GetList<User>($"where login_name = '{user.LoginName}'");
-                Assert.IsNotNull(users);
-                users = DapperExtension.Connection.GetList<User>(new { login_name = "Strange 2" });
+                //var users = DapperExtension.Connection.GetList<User>($"where login_name = '{user.LoginName}'");
+                //Assert.IsNotNull(users);
+                var users = DapperExtension.Connection.GetList<User>(new { login_name = "Strange 2" });
                 Assert.IsNotNull(users);
             }
         }

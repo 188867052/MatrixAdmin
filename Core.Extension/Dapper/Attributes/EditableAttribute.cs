@@ -13,15 +13,15 @@ namespace Core.Extension.Dapper.Attributes
         /// Initializes a new instance of the <see cref="EditableAttribute"/> class.
         /// Optional Editable attribute.
         /// </summary>
-        /// <param name="iseditable">iseditable.</param>
-        public EditableAttribute(bool iseditable)
+        /// <param name="isEditable">is editable.</param>
+        public EditableAttribute(bool isEditable)
         {
-            this.AllowEdit = iseditable;
+            this.AllowEdit = isEditable;
         }
 
         /// <summary>
         /// Does this property persist to the database?.
         /// </summary>
-        public bool AllowEdit { get; private set; }
+        public bool AllowEdit { get; }
     }
 }

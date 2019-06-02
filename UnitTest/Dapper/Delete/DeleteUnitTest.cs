@@ -2,7 +2,7 @@ using Core.Entity;
 using Core.Extension.Dapper;
 using NUnit.Framework;
 
-namespace Core.UnitTest.Dapper
+namespace Core.UnitTest.Dapper.Delete
 {
     /// <summary>
     /// Api unit test.

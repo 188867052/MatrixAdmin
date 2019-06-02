@@ -9,7 +9,6 @@ namespace Core.Extension.Dapper
     /// <summary>
     /// Uses the Name value of the ColumnAttribute specified, otherwise maps as usual.
     /// </summary>
-    /// <typeparam name="T">The type of the object that this mapper applies to.</typeparam>
     public class ColumnAttributeTypeMapper : FallbackTypeMapper
     {
         public ColumnAttributeTypeMapper(Type type)

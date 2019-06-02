@@ -22,6 +22,6 @@ namespace Core.Extension.Dapper.Attributes
         /// <summary>
         /// Name of the column.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
     }
 }

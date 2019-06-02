@@ -28,7 +28,7 @@ namespace Core.Extension.Dapper
             sb.Append("Select ");
 
             // create a new empty instance of the type to get the base properties
-            BuildSelect(sb, GetScaffoldableProperties<T>().ToArray());
+            BuildSelect(sb);
             sb.AppendFormat(" from {0} where ", name);
 
             for (var i = 0; i < idProps.Count; i++)
@@ -38,7 +38,7 @@ namespace Core.Extension.Dapper
                     sb.Append(" and ");
                 }
 
-                sb.AppendFormat("{0} = @{1}", GetColumnName(idProps[i]), idProps[i].Name);
+                sb.AppendFormat("{0} = @{1}", ToColumn<T>(idProps[i].Name), idProps[i].Name);
             }
 
             var parameter = new DynamicParameters();
@@ -75,7 +75,7 @@ namespace Core.Extension.Dapper
             sb.Append("Select ");
 
             // create a new empty instance of the type to get the base properties
-            BuildSelect(sb, GetScaffoldableProperties<T>().ToArray());
+            BuildSelect(sb);
             sb.AppendFormat(" from {0}", name);
 
             if (where.Any())
@@ -102,7 +102,7 @@ namespace Core.Extension.Dapper
             sb.Append("Select ");
 
             // create a new empty instance of the type to get the base properties
-            BuildSelect(sb, GetScaffoldableProperties<T>().ToArray());
+            BuildSelect(sb);
             sb.AppendFormat(" from {0}", name);
 
             sb.Append(" " + conditions);
@@ -134,11 +134,11 @@ namespace Core.Extension.Dapper
             var query = _pagedListSql;
             if (string.IsNullOrEmpty(orderby))
             {
-                orderby = GetColumnName(idProps.First());
+                orderby = GetKey<T>();
             }
 
             // create a new empty instance of the type to get the base properties
-            BuildSelect(sb, GetScaffoldableProperties<T>().ToArray());
+            BuildSelect(sb);
             query = query.Replace("{SelectColumns}", sb.ToString());
             query = query.Replace("{TableName}", name);
             query = query.Replace("{PageNumber}", pageNumber.ToString());
@@ -236,7 +236,7 @@ namespace Core.Extension.Dapper
             var sb = new StringBuilder();
             sb.AppendFormat("Delete from {0} where ", name);
 
-            sb.AppendFormat("{0} = @{1}", GetColumnName(idProp, idProp.Name), idProp.Name);
+            sb.AppendFormat("{0} = @{1}", ToColumn<T>(idProp.Name), idProp.Name);
 
             var parameter = new DynamicParameters();
             parameter.Add("@" + idProp.Name, id);
@@ -294,7 +294,7 @@ namespace Core.Extension.Dapper
             if (where.Any())
             {
                 sb.Append(" where ");
-                BuildWhere<T>(sb, where);
+                BuildWhere<T>(sb, where, whereConditions);
             }
 
             return connection.ExecuteScalarAsync<int>(sb.ToString(), whereConditions, transaction, commandTimeout);

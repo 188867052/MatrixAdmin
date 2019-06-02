@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Core.UnitTest.XUnit
+namespace Core.UnitTest.Dapper.Xunit
 {
     /// <summary>
     /// unit test.

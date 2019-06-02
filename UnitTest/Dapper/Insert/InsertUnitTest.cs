@@ -5,7 +5,7 @@ using Core.Extension.Dapper;
 using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 
-namespace Core.UnitTest.Dapper
+namespace Core.UnitTest.Dapper.Insert
 {
     /// <summary>
     /// Api unit test.

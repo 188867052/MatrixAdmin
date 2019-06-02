@@ -19,11 +19,9 @@ namespace Core.Extension.Dapper
     {
         private static readonly string _getIdentitySql;
         private static readonly string _pagedListSql;
-        private static readonly ConcurrentDictionary<Type, string> TableNames = new ConcurrentDictionary<Type, string>();
         private static readonly ConcurrentDictionary<string, string> ColumnNames = new ConcurrentDictionary<string, string>();
         private static readonly ConcurrentDictionary<string, string> StringBuilderCacheDictionary = new ConcurrentDictionary<string, string>();
         private static bool stringBuilderCacheEnabled = true;
-        private static ITableNameResolver _tableNameResolver = new TableNameResolver();
         private static IColumnNameResolver _columnNameResolver = new ColumnNameResolver();
 
         public static T Get<T>(this IDbConnection connection, object id, IDbTransaction transaction = null, int? commandTimeout = null)
@@ -41,7 +39,7 @@ namespace Core.Extension.Dapper
             sb.Append("Select ");
 
             // create a new empty instance of the type to get the base properties
-            BuildSelect(sb, GetScaffoldableProperties<T>().ToArray());
+            BuildSelect(sb);
             sb.AppendFormat(" from {0} where ", name);
 
             for (var i = 0; i < idProps.Count; i++)
@@ -51,7 +49,7 @@ namespace Core.Extension.Dapper
                     sb.Append(" and ");
                 }
 
-                sb.AppendFormat("{0} = @{1}", GetColumnName(idProps[i]), idProps[i].Name);
+                sb.AppendFormat("{0} = @{1}", ToColumn<T>(idProps[i].Name), idProps[i].Name);
             }
 
             var parameters = new DynamicParameters();
@@ -158,9 +156,7 @@ namespace Core.Extension.Dapper
 
         public static IEnumerable<T> GetList<T>(this IDbConnection connection, string conditions, object parameters = null, IDbTransaction transaction = null, int? commandTimeout = null)
         {
-            var currentType = typeof(T);
             var sb = new StringBuilder("Select ");
-
             string tableName = Encapsulate(DapperExtension.GetTableName<T>());
             BuildSelect<T>(sb);
             sb.Append($" from {tableName}");
@@ -320,11 +316,11 @@ namespace Core.Extension.Dapper
             {
                 var tableName = GetTableName<T>();
                 var where = GetAllProperties(whereConditions).ToArray();
-                sb.AppendFormat("Delete from {0}", tableName);
+                sb.AppendFormat("Delete from {0}", Encapsulate(tableName));
                 if (where.Any())
                 {
                     sb.Append(" where ");
-                    BuildWhere<T>(sb, where);
+                    BuildWhere<T>(sb, where, whereConditions);
                 }
             });
 
@@ -396,86 +392,28 @@ namespace Core.Extension.Dapper
         }
 
         // build select clause based on list of properties skipping ones with the IgnoreSelect and NotMapped attribute
-        private static void BuildSelect(StringBuilder masterSb, IEnumerable<PropertyInfo> properties, IList<string> columns = null)
+        private static void BuildSelect(StringBuilder stringBuilder, IList<string> columns = null)
         {
-            StringBuilderCache(masterSb, $"{properties.CacheKey()}_BuildSelect", sb =>
-            {
-                var propertyInfos = properties as IList<PropertyInfo> ?? properties.ToList();
-                var addedAny = false;
-                for (var i = 0; i < propertyInfos.Count; i++)
-                {
-                    if (i == columns.Count)
-                    {
-                        break;
-                    }
-
-                    var property = propertyInfos.ElementAt(i);
-
-                    if (property.GetCustomAttributes(true).Any(attr => attr.GetType().Name == typeof(IgnoreSelectAttribute).Name || attr.GetType().Name == typeof(NotMappedAttribute).Name))
-                    {
-                        continue;
-                    }
-
-                    if (addedAny)
-                    {
-                        sb.Append(",");
-                    }
-
-                    string name = columns.FirstOrDefault(o => o.Replace("_", string.Empty).Equals(property.Name, StringComparison.InvariantCultureIgnoreCase));
-                    sb.Append(GetColumnName(property, name));
-
-                    if (property.GetCustomAttributes(true).SingleOrDefault(attr => attr.GetType().Name == typeof(ColumnAttribute).Name) != null)
-                    {
-                        sb.Append(" as " + Encapsulate(property.Name));
-                    }
-
-                    addedAny = true;
-                }
-            });
+            stringBuilder.AppendJoin(",", columns);
         }
 
         private static void BuildSelect<T>(StringBuilder stringBuilder)
         {
-            StringBuilderCache(stringBuilder, $"{typeof(T).Name}_BuildSelect", sb =>
-            {
-                IEnumerable<string> columns = DapperExtension.GetColumns<T>();
-                columns.ToList().ForEach(o => GetColumnName<T>(o));
-                sb.Append(string.Join(",", columns));
-            });
+            var columns = GetColumns<T>();
+            stringBuilder.AppendJoin(",", columns);
         }
 
-        private static void BuildWhere<TEntity>(StringBuilder sb, IEnumerable<PropertyInfo> idProps, object whereConditions = null)
+        private static void BuildWhere<T>(StringBuilder sb, IEnumerable<PropertyInfo> idProps, object whereConditions = null)
         {
             var propertyInfos = idProps.ToArray();
-            for (var i = 0; i < propertyInfos.Length; i++)
+            foreach (var property in propertyInfos)
             {
-                var useIsNull = false;
-
-                // match up generic properties to source entity properties to allow fetching of the column attribute
-                // the anonymous object used for search doesn't have the custom attributes attached to them so this allows us to build the correct where clause
-                // by converting the model type to the database column name via the column attribute
-                var propertyToUse = propertyInfos.ElementAt(i);
-                var sourceProperties = GetScaffoldableProperties<TEntity>().ToArray();
-                for (var x = 0; x < sourceProperties.Length; x++)
-                {
-                    if (sourceProperties.ElementAt(x).Name.Equals(propertyToUse.Name, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        if (whereConditions != null && propertyToUse.CanRead && (propertyToUse.GetValue(whereConditions, null) == null || propertyToUse.GetValue(whereConditions, null) == DBNull.Value))
-                        {
-                            useIsNull = true;
-                        }
-
-                        propertyToUse = sourceProperties.ElementAt(x);
-                        break;
-                    }
-                }
-
+                var value = property.GetValue(whereConditions, null);
                 sb.AppendFormat(
-                    useIsNull ? "{0} is null" : "{0} = @{1}",
-                    GetColumnName(propertyToUse, propertyToUse.Name),
-                    propertyToUse.Name);
-
-                if (i < propertyInfos.Length - 1)
+                    value == DBNull.Value ? "{0} is null" : "{0} = @{1}",
+                    property.Name,
+                    property.Name);
+                if (propertyInfos.IndexOf(property) != propertyInfos.Length - 1)
                 {
                     sb.AppendFormat(" and ");
                 }
@@ -547,34 +485,6 @@ namespace Core.Extension.Dapper
         {
             var tp = type.GetProperties().Where(p => p.GetCustomAttributes(true).Any(attr => attr.GetType().Name == typeof(KeyAttribute).Name)).ToList();
             return tp.Any() ? tp : type.GetProperties().Where(p => p.Name.Equals("Id", StringComparison.OrdinalIgnoreCase));
-        }
-
-        private static string GetColumnName(PropertyInfo propertyInfo, string name = default)
-        {
-            string key = $"{propertyInfo.DeclaringType}.{propertyInfo.Name}";
-            if (ColumnNames.TryGetValue(key, out string columnName))
-            {
-                return columnName;
-            }
-
-            columnName = _columnNameResolver.ResolveColumnName(propertyInfo, name);
-            ColumnNames.AddOrUpdate(key, columnName, (t, v) => columnName);
-
-            return columnName;
-        }
-
-        private static string GetColumnName<T>(string name)
-        {
-            string key = $"{typeof(T).DeclaringType}.{typeof(T).Name}";
-            if (ColumnNames.TryGetValue(key, out string columnName))
-            {
-                return columnName;
-            }
-
-            columnName = _columnNameResolver.ResolveColumnName<T>(name);
-            ColumnNames.AddOrUpdate(key, columnName, (t, v) => columnName);
-
-            return columnName;
         }
 
         private static void StringBuilderCache(StringBuilder sb, string cacheKey, Action<StringBuilder> stringBuilderAction)
