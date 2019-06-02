@@ -1,4 +1,4 @@
-﻿using EntityFrameworkCore.Generator.Core.Options;
+﻿using EntityFrameworkCore.Generator.Options;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using Microsoft.Extensions.Logging.Abstractions;

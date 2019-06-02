@@ -57,8 +57,4 @@
     <PackageReference Include="xunit.analyzers" Version="0.10.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\EntityFrameworkCore.Generator.Core\EntityFrameworkCore.Generator.Core.csproj" />
-  </ItemGroup>
-
 </Project>

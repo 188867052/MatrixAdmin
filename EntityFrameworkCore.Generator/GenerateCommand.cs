@@ -1,7 +1,6 @@
 ﻿using System;
-using EntityFrameworkCore.Generator.Core;
-using EntityFrameworkCore.Generator.Core.Extensions;
-using EntityFrameworkCore.Generator.Core.Options;
+using EntityFrameworkCore.Generator.Extensions;
+using EntityFrameworkCore.Generator.Options;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 

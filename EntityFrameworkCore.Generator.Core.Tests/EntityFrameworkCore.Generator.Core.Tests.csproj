@@ -45,7 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EntityFrameworkCore.Generator.Core\EntityFrameworkCore.Generator.Core.csproj" />
     <ProjectReference Include="..\EntityFrameworkCore.Generator\EntityFrameworkCore.Generator.csproj" />
   </ItemGroup>
 

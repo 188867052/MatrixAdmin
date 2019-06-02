@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using EntityFrameworkCore.Generator.Core.Parsing;
+using EntityFrameworkCore.Generator.Parsing;
 using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;

@@ -24,6 +24,7 @@
         ],
         "sources": {
           "C:\\Users\\54215\\.nuget\\localpackages": {},
+          "https://api.nuget.org/v3/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
@@ -66,10 +67,6 @@
             "Dapper": {
               "target": "Package",
               "version": "[1.60.6, )"
-            },
-            "Google.Cloud.Diagnostics.AspNetCore.Analyzers": {
-              "target": "Package",
-              "version": "[1.0.0-beta02, )"
             },
             "Microsoft.AspNetCore.Mvc.Analyzers": {
               "target": "Package",
@@ -186,6 +183,7 @@
         ],
         "sources": {
           "C:\\Users\\54215\\.nuget\\localpackages": {},
+          "https://api.nuget.org/v3/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
@@ -210,10 +208,6 @@
             "Dapper": {
               "target": "Package",
               "version": "[1.60.6, )"
-            },
-            "Google.Cloud.Diagnostics.AspNetCore.Analyzers": {
-              "target": "Package",
-              "version": "[1.0.0-beta02, )"
             },
             "Microsoft.AspNetCore.Mvc.Analyzers": {
               "target": "Package",
@@ -281,6 +275,12 @@
               "target": "Package",
               "version": "[2.9.2, )"
             },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
             "Text.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
               "suppressParent": "All",
@@ -320,6 +320,7 @@
         ],
         "sources": {
           "C:\\Users\\54215\\.nuget\\localpackages": {},
+          "https://api.nuget.org/v3/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
@@ -348,10 +349,6 @@
             "Dapper": {
               "target": "Package",
               "version": "[1.60.6, )"
-            },
-            "Google.Cloud.Diagnostics.AspNetCore.Analyzers": {
-              "target": "Package",
-              "version": "[1.0.0-beta02, )"
             },
             "Microsoft.AspNetCore.Mvc.Analyzers": {
               "target": "Package",
@@ -450,6 +447,7 @@
         ],
         "sources": {
           "C:\\Users\\54215\\.nuget\\localpackages": {},
+          "https://api.nuget.org/v3/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
@@ -489,10 +487,6 @@
             "Dapper": {
               "target": "Package",
               "version": "[1.60.6, )"
-            },
-            "Google.Cloud.Diagnostics.AspNetCore.Analyzers": {
-              "target": "Package",
-              "version": "[1.0.0-beta02, )"
             },
             "Microsoft.AspNetCore": {
               "target": "Package",
@@ -653,6 +647,7 @@
         ],
         "sources": {
           "C:\\Users\\54215\\.nuget\\localpackages": {},
+          "https://api.nuget.org/v3/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
@@ -698,10 +693,6 @@
             "Dapper": {
               "target": "Package",
               "version": "[1.60.6, )"
-            },
-            "Google.Cloud.Diagnostics.AspNetCore.Analyzers": {
-              "target": "Package",
-              "version": "[1.0.0-beta02, )"
             },
             "Microsoft.AspNetCore": {
               "target": "Package",
@@ -842,6 +833,7 @@
         ],
         "sources": {
           "C:\\Users\\54215\\.nuget\\localpackages": {},
+          "https://api.nuget.org/v3/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
@@ -878,10 +870,6 @@
             "Dapper": {
               "target": "Package",
               "version": "[1.60.6, )"
-            },
-            "Google.Cloud.Diagnostics.AspNetCore.Analyzers": {
-              "target": "Package",
-              "version": "[1.0.0-beta02, )"
             },
             "Microsoft.AspNetCore": {
               "target": "Package",
@@ -1046,6 +1034,7 @@
         ],
         "sources": {
           "C:\\Users\\54215\\.nuget\\localpackages": {},
+          "https://api.nuget.org/v3/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
@@ -1070,10 +1059,6 @@
             "Dapper": {
               "target": "Package",
               "version": "[1.60.6, )"
-            },
-            "Google.Cloud.Diagnostics.AspNetCore.Analyzers": {
-              "target": "Package",
-              "version": "[1.0.0-beta02, )"
             },
             "Microsoft.AspNetCore.Mvc.Analyzers": {
               "target": "Package",
@@ -1182,6 +1167,7 @@
         ],
         "sources": {
           "C:\\Users\\54215\\.nuget\\localpackages": {},
+          "https://api.nuget.org/v3/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
@@ -1221,10 +1207,6 @@
             "Dapper": {
               "target": "Package",
               "version": "[1.60.6, )"
-            },
-            "Google.Cloud.Diagnostics.AspNetCore.Analyzers": {
-              "target": "Package",
-              "version": "[1.0.0-beta02, )"
             },
             "Microsoft.AspNetCore": {
               "target": "Package",
@@ -1389,6 +1371,7 @@
         ],
         "sources": {
           "C:\\Users\\54215\\.nuget\\localpackages": {},
+          "https://api.nuget.org/v3/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
           "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
@@ -1428,10 +1411,6 @@
             "Dapper": {
               "target": "Package",
               "version": "[1.60.6, )"
-            },
-            "Google.Cloud.Diagnostics.AspNetCore.Analyzers": {
-              "target": "Package",
-              "version": "[1.0.0-beta02, )"
             },
             "Microsoft.AspNetCore": {
               "target": "Package",
