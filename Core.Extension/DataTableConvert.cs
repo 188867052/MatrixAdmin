@@ -38,7 +38,7 @@ namespace Core.Extension
             }
 
             // 声明 委托Load<T>的一个实例rowMap
-            Load<T> rowMap = null;
+            Load<T> rowMap;
 
             // 从rowMapMethods查找当前T类对应的转换方法，没有则使用Emit构造一个。
             if (!rowMapMethods.ContainsKey(typeof(T)))

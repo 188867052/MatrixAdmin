@@ -177,6 +177,10 @@
               "target": "Package",
               "version": "[3.0.0-preview3-19153-02, )"
             },
+            "Microsoft.CodeAnalysis.CSharp": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
             "Microsoft.EntityFrameworkCore.Analyzers": {
               "target": "Package",
               "version": "[3.0.0-preview5.19227.1, )"
@@ -254,6 +258,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[1.1.118, )"
+            },
+            "YamlDotNet": {
+              "target": "Package",
+              "version": "[6.0.0, )"
             },
             "xunit.analyzers": {
               "target": "Package",
