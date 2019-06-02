@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.UnitTest.Resource", "U
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFrameworkCore.Generator", "EntityFrameworkCore.Generator\EntityFrameworkCore.Generator.csproj", "{B32BBD06-0CBE-4942-80CD-A34C721A8B3D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFrameworkCore.Generator.Core.Tests", "EntityFrameworkCore.Generator.Core.Tests\EntityFrameworkCore.Generator.Core.Tests.csproj", "{03A83D5B-1087-4C66-B9B5-52BD1F85F409}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFrameworkCore.Generator.Test", "EntityFrameworkCore.Generator.Core.Tests\EntityFrameworkCore.Generator.Test.csproj", "{03A83D5B-1087-4C66-B9B5-52BD1F85F409}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

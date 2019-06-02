@@ -4,7 +4,7 @@ using Xunit.Abstractions;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace EntityFrameworkCore.Generator.Core.Tests
+namespace EntityFrameworkCore.Generator.Test
 {
     public class OptionsTests
     {

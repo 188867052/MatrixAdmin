@@ -9509,9 +9509,9 @@
   "project": {
     "version": "1.1.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\EntityFrameworkCore.Generator.Core.Tests\\EntityFrameworkCore.Generator.Core.Tests.csproj",
-      "projectName": "EntityFrameworkCore.Generator.Core.Tests",
-      "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\EntityFrameworkCore.Generator.Core.Tests\\EntityFrameworkCore.Generator.Core.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\EntityFrameworkCore.Generator.Core.Tests\\EntityFrameworkCore.Generator.Test.csproj",
+      "projectName": "EntityFrameworkCore.Generator.Test",
+      "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\EntityFrameworkCore.Generator.Core.Tests\\EntityFrameworkCore.Generator.Test.csproj",
       "packagesPath": "C:\\Users\\54215\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\EntityFrameworkCore.Generator.Core.Tests\\obj\\",
       "projectStyle": "PackageReference",

@@ -54,7 +54,7 @@ namespace Core.UnitTest.Dapper.Count
         }
 
         [Test]
-        public async Task TestRecordCountByObjectAsyncEgnoreCaseAsync()
+        public async Task TestRecordCountByObjectAsyncIgnoreCaseAsync()
         {
             User user = DapperExtension.Connection.QueryFirst<User>();
             if (user != null)

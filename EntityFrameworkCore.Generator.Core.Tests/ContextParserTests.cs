@@ -4,7 +4,7 @@ using FluentAssertions;
 using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
 
-namespace EntityFrameworkCore.Generator.Core.Tests
+namespace EntityFrameworkCore.Generator.Test
 {
     public class ContextParserTests
     {
