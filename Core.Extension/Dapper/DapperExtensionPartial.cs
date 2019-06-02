@@ -639,7 +639,7 @@ namespace Core.Extension.Dapper
             }
         }
 
-        private class TableInfo
+        internal class TableInfo
         {
             public string TableName { get; set; }
 
