@@ -23,6 +23,7 @@ namespace Core.Entity
         public virtual DbSet<Permission> Permission { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<RolePermissionMapping> RolePermissionMapping { get; set; }
+        public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserRoleMapping> UserRoleMapping { get; set; }
         public virtual DbSet<UserStatus> UserStatus { get; set; }
@@ -344,6 +345,52 @@ namespace Core.Entity
                     .WithMany(p => p.RolePermissionMapping)
                     .HasForeignKey(d => d.RoleId)
                     .HasConstraintName("FK_RolePermissionMapping_Permission_Role");
+            });
+
+            modelBuilder.Entity<Status>(entity =>
+            {
+                entity.ToTable("status");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.CreateByUserName)
+                    .HasColumnName("create_by_user_name")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.CreateTime)
+                    .HasColumnName("create_time")
+                    .HasDefaultValueSql("(sysutcdatetime())");
+
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasMaxLength(255);
+
+                entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasColumnName("is_active")
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.RowVersion)
+                    .IsRequired()
+                    .HasColumnName("row_version")
+                    .IsRowVersion();
+
+                entity.Property(e => e.UpdateBy)
+                    .HasColumnName("update_by")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.UpdateTime)
+                    .HasColumnName("update_time")
+                    .HasDefaultValueSql("(sysutcdatetime())");
             });
 
             modelBuilder.Entity<User>(entity =>

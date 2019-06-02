@@ -83,7 +83,7 @@ namespace EntityFrameworkCore.Generator.Templates
 
                 int afterReplace = originalBuilder.Length;
 
-                offset = offset + (afterReplace - beforeReplace);
+                offset += afterReplace - beforeReplace;
             }
 
             var finalContent = originalBuilder.ToString();
