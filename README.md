@@ -679,7 +679,7 @@ public void TestUpdate()
 ```
 
 PM>
- dotnet pack .\..\EntityFrameworkCore.Generator\EntityFrameworkCore.Generator.csproj -o ..\..\..\..\.nuget\localpackages -c Release
+ dotnet pack .\EntityFrameworkCore.Generator\EntityFrameworkCore.Generator.csproj -o ..s\..\..\.nuget\localpackages -c Release
  dotnet tool uninstall --global EFCore.Generator
  dotnet tool install --global EFCore.Generator
  cd .\core.Entity

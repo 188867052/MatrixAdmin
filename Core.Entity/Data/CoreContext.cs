@@ -25,7 +25,23 @@ namespace Core.Data
 
         public virtual DbSet<Core.Data.Entities.MultiplePrimaryKeyTable> MultiplePrimaryKeyTable { get; set; }
 
+        public virtual DbSet<Core.Data.Entities.SchemaVersions> SchemaVersions { get; set; }
+
+        public virtual DbSet<Core.Data.Entities.Audit> Audit { get; set; }
+
+        public virtual DbSet<Core.Data.Entities.Priority> Priority { get; set; }
+
+        public virtual DbSet<Core.Data.Entities.Status> Status { get; set; }
+
+        public virtual DbSet<Core.Data.Entities.Task> Task { get; set; }
+
+        public virtual DbSet<Core.Data.Entities.TaskExtended> TaskExtended { get; set; }
+
+        public virtual DbSet<Core.Data.Entities.UserLogin> UserLogin { get; set; }
+
         public virtual DbSet<Core.Data.Entities.Icon> Icon { get; set; }
+
+        public virtual DbSet<Core.Data.Entities.UserRole> UserRole { get; set; }
 
         public virtual DbSet<Core.Data.Entities.Menu> Menu { get; set; }
 
@@ -35,15 +51,23 @@ namespace Core.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new Core.Data.Mapping.AuditMap());
             modelBuilder.ApplyConfiguration(new Core.Data.Mapping.ConfigurationMap());
             modelBuilder.ApplyConfiguration(new Core.Data.Mapping.IconMap());
             modelBuilder.ApplyConfiguration(new Core.Data.Mapping.LogMap());
             modelBuilder.ApplyConfiguration(new Core.Data.Mapping.MenuMap());
             modelBuilder.ApplyConfiguration(new Core.Data.Mapping.MultiplePrimaryKeyTableMap());
             modelBuilder.ApplyConfiguration(new Core.Data.Mapping.PermissionMap());
+            modelBuilder.ApplyConfiguration(new Core.Data.Mapping.PriorityMap());
             modelBuilder.ApplyConfiguration(new Core.Data.Mapping.RoleMap());
             modelBuilder.ApplyConfiguration(new Core.Data.Mapping.RolePermissionMappingMap());
+            modelBuilder.ApplyConfiguration(new Core.Data.Mapping.SchemaVersionsMap());
+            modelBuilder.ApplyConfiguration(new Core.Data.Mapping.StatusMap());
+            modelBuilder.ApplyConfiguration(new Core.Data.Mapping.TaskExtendedMap());
+            modelBuilder.ApplyConfiguration(new Core.Data.Mapping.TaskMap());
+            modelBuilder.ApplyConfiguration(new Core.Data.Mapping.UserLoginMap());
             modelBuilder.ApplyConfiguration(new Core.Data.Mapping.UserMap());
+            modelBuilder.ApplyConfiguration(new Core.Data.Mapping.UserRoleMap());
             modelBuilder.ApplyConfiguration(new Core.Data.Mapping.UserRoleMappingMap());
             modelBuilder.ApplyConfiguration(new Core.Data.Mapping.UserStatusMap());
         }

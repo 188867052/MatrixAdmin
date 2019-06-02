@@ -7,7 +7,6 @@ using EntityFrameworkCore.Generator.Extensions;
 using EntityFrameworkCore.Generator.Metadata.Generation;
 using EntityFrameworkCore.Generator.Options;
 using EntityFrameworkCore.Generator.Providers;
-using Humanizer;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata.Internal;
@@ -622,7 +621,7 @@ namespace EntityFrameworkCore.Generator
                 return name + "List";
             }
 
-            return name.Pluralize();
+            return name;
         }
 
         private string ContextName(string name)
@@ -641,28 +640,9 @@ namespace EntityFrameworkCore.Generator
             return name;
         }
 
-        private string EntityName(string name)
-        {
-            var tableNaming = this._options.Database.TableNaming;
-            var entityNaming = this._options.Data.Entity.EntityNaming;
-
-            if (tableNaming != TableNaming.Plural && entityNaming == EntityNaming.Plural)
-            {
-                name = name.Pluralize();
-            }
-            else if (tableNaming != TableNaming.Singular && entityNaming == EntityNaming.Singular)
-            {
-                name = name.Singularize();
-            }
-
-            return name;
-        }
-
         private string ToClassName(string tableName, string tableSchema)
         {
-            tableName = this.EntityName(tableName);
             var className = tableName;
-
             if (this._options.Data.Entity.PrefixWithSchemaName && tableSchema != null)
             {
                 className = $"{tableSchema}{tableName}";

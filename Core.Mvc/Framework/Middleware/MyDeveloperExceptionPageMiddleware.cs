@@ -12,14 +12,6 @@ namespace Core.Mvc.Framework.Middleware
     /// </summary>
     public class MyDeveloperExceptionPageMiddleware : DeveloperExceptionPageMiddleware
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MyDeveloperExceptionPageMiddleware"/> class.
-        /// </summary>
-        /// <param name="next"></param>
-        /// <param name="options"></param>
-        /// <param name="loggerFactory"></param>
-        /// <param name="hostingEnvironment"></param>
-        /// <param name="diagnosticSource"></param>
         public MyDeveloperExceptionPageMiddleware(
           RequestDelegate next,
           IOptions<MyDeveloperExceptionPageOptions> options,
