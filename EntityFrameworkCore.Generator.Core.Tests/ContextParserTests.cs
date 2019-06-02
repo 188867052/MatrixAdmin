@@ -27,7 +27,6 @@ namespace EntityFrameworkCore.Generator.Test
             sb.AppendLine(@"        {");
             sb.AppendLine(@"        }");
             sb.AppendLine(string.Empty);
-            sb.AppendLine(@"        #region Generated Properties");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.Audit> Audits { get; set; }");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.Priority> Priorities { get; set; }");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.Role> Roles { get; set; }");
@@ -37,11 +36,9 @@ namespace EntityFrameworkCore.Generator.Test
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.TaskExtended> TaskExtended { get; set; }");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.UserLogin> UserLogins { get; set; }");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.UserRole> UserRoles { get; set; }");
-            sb.AppendLine(@"        #endregion");
             sb.AppendLine(string.Empty);
             sb.AppendLine(@"        protected override void OnModelCreating111(ModelBuilder modelBuilder)");
             sb.AppendLine(@"        {");
-            sb.AppendLine(@"            #region Generated Configuration");
             sb.AppendLine(@"            modelBuilder.ApplyConfiguration(new Tracker.Data.Mapping.AuditMap());");
             sb.AppendLine(@"            modelBuilder.ApplyConfiguration(new Tracker.Data.Mapping.PriorityMap());");
             sb.AppendLine(@"            modelBuilder.ApplyConfiguration(new Tracker.Data.Mapping.RoleMap());");
@@ -51,7 +48,6 @@ namespace EntityFrameworkCore.Generator.Test
             sb.AppendLine(@"            modelBuilder.ApplyConfiguration(new Tracker.Data.Mapping.TaskExtendedMap());");
             sb.AppendLine(@"            modelBuilder.ApplyConfiguration(new Tracker.Data.Mapping.UserLoginMap());");
             sb.AppendLine(@"            modelBuilder.ApplyConfiguration(new Tracker.Data.Mapping.UserRoleMap());");
-            sb.AppendLine(@"            #endregion");
             sb.AppendLine(@"        }");
             sb.AppendLine(@"    }");
             sb.AppendLine(@"}");
@@ -81,7 +77,6 @@ namespace EntityFrameworkCore.Generator.Test
             sb.AppendLine(@"        {");
             sb.AppendLine(@"        }");
             sb.AppendLine(string.Empty);
-            sb.AppendLine(@"        #region Generated Properties");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.Audit> Audits { get; set; }");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.Priority> Priorities { get; set; }");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.Role> Roles { get; set; }");
@@ -91,11 +86,9 @@ namespace EntityFrameworkCore.Generator.Test
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.TaskExtended> TaskExtended { get; set; }");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.UserLogin> UserLogins { get; set; }");
             sb.AppendLine(@"        public virtual DbSet<Tracker.Data.Entities.UserRole> UserRoles { get; set; }");
-            sb.AppendLine(@"        #endregion");
             sb.AppendLine(string.Empty);
             sb.AppendLine(@"        protected override void OnModelCreating111(ModelBuilder modelBuilder)");
             sb.AppendLine(@"        {");
-            sb.AppendLine(@"            #region Generated Configuration");
             sb.AppendLine(@"            modelBuilder.ApplyConfiguration(new Tracker.Data.Mapping.AuditMap());");
             sb.AppendLine(@"            modelBuilder.ApplyConfiguration(new Tracker.Data.Mapping.PriorityMap());");
             sb.AppendLine(@"            modelBuilder.ApplyConfiguration(new Tracker.Data.Mapping.RoleMap());");
@@ -105,7 +98,6 @@ namespace EntityFrameworkCore.Generator.Test
             sb.AppendLine(@"            modelBuilder.ApplyConfiguration(new Tracker.Data.Mapping.TaskExtendedMap());");
             sb.AppendLine(@"            modelBuilder.ApplyConfiguration(new Tracker.Data.Mapping.UserLoginMap());");
             sb.AppendLine(@"            modelBuilder.ApplyConfiguration(new Tracker.Data.Mapping.UserRoleMap());");
-            sb.AppendLine(@"            #endregion");
             sb.AppendLine(@"        }");
             sb.AppendLine(@"    }");
             sb.AppendLine(@"}");
