@@ -638,14 +638,5 @@ namespace Core.Extension.Dapper
                 parameters.Add("@" + key, id.GetType().Namespace == nameof(System) ? id : id.GetType().GetProperty(key).GetValue(id, null));
             }
         }
-
-        public class TableInfo
-        {
-            public string TableName { get; set; }
-
-            public string ColumnName { get; set; }
-
-            public bool IsPrimaryKey { get; set; }
-        }
     }
 }
