@@ -38,9 +38,6 @@ namespace Core.UnitTest.Dapper.Count
         }
 
         [TestCase(1)]
-        [TestCase(2)]
-        [TestCase(3)]
-        [TestCase(4)]
         public async Task TestRecordCountByObjectAsync(int id)
         {
             User user = DapperExtension.Connection.QueryFirst<User>();
