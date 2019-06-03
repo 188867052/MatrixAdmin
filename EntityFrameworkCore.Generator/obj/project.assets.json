@@ -1242,10 +1242,114 @@
           "lib/netstandard1.0/_._": {}
         }
       },
+      "Microsoft.VisualStudio.Threading/16.0.102": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.VisualStudio.Validation": "15.3.15",
+          "System.Threading.Tasks.Extensions": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.VisualStudio.Threading.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.VisualStudio.Threading.dll": {}
+        },
+        "resource": {
+          "lib/netstandard2.0/cs/Microsoft.VisualStudio.Threading.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/netstandard2.0/de/Microsoft.VisualStudio.Threading.resources.dll": {
+            "locale": "de"
+          },
+          "lib/netstandard2.0/es/Microsoft.VisualStudio.Threading.resources.dll": {
+            "locale": "es"
+          },
+          "lib/netstandard2.0/fr/Microsoft.VisualStudio.Threading.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/netstandard2.0/it/Microsoft.VisualStudio.Threading.resources.dll": {
+            "locale": "it"
+          },
+          "lib/netstandard2.0/ja/Microsoft.VisualStudio.Threading.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/netstandard2.0/ko/Microsoft.VisualStudio.Threading.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/netstandard2.0/pl/Microsoft.VisualStudio.Threading.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/netstandard2.0/pt-BR/Microsoft.VisualStudio.Threading.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/netstandard2.0/ru/Microsoft.VisualStudio.Threading.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/netstandard2.0/tr/Microsoft.VisualStudio.Threading.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/netstandard2.0/zh-Hans/Microsoft.VisualStudio.Threading.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/netstandard2.0/zh-Hant/Microsoft.VisualStudio.Threading.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
       "Microsoft.VisualStudio.Threading.Analyzers/16.0.102": {
         "type": "package",
         "build": {
           "build/Microsoft.VisualStudio.Threading.Analyzers.targets": {}
+        }
+      },
+      "Microsoft.VisualStudio.Validation/15.3.15": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.0/Microsoft.VisualStudio.Validation.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/Microsoft.VisualStudio.Validation.dll": {}
+        },
+        "resource": {
+          "lib/netstandard1.0/cs/Microsoft.VisualStudio.Validation.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/netstandard1.0/de/Microsoft.VisualStudio.Validation.resources.dll": {
+            "locale": "de"
+          },
+          "lib/netstandard1.0/es/Microsoft.VisualStudio.Validation.resources.dll": {
+            "locale": "es"
+          },
+          "lib/netstandard1.0/fr/Microsoft.VisualStudio.Validation.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/netstandard1.0/it/Microsoft.VisualStudio.Validation.resources.dll": {
+            "locale": "it"
+          },
+          "lib/netstandard1.0/ja/Microsoft.VisualStudio.Validation.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/netstandard1.0/ko/Microsoft.VisualStudio.Validation.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/netstandard1.0/pl/Microsoft.VisualStudio.Validation.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/netstandard1.0/pt-BR/Microsoft.VisualStudio.Validation.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/netstandard1.0/ru/Microsoft.VisualStudio.Validation.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/netstandard1.0/tr/Microsoft.VisualStudio.Validation.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/netstandard1.0/zh-Hans/Microsoft.VisualStudio.Validation.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/netstandard1.0/zh-Hant/Microsoft.VisualStudio.Validation.resources.dll": {
+            "locale": "zh-Hant"
+          }
         }
       },
       "Microsoft.Win32.Registry/4.5.0": {
@@ -3775,6 +3879,81 @@
         "version.txt"
       ]
     },
+    "Microsoft.VisualStudio.Threading/16.0.102": {
+      "sha512": "hSwUYNrEioCu/kJHQHtpkakWEryzOFgFsgfhdTFnBvTxg5i5AJ/YB79c9jryovsPaXyWHLJz9GR/94o47yucAA==",
+      "type": "package",
+      "path": "microsoft.visualstudio.threading/16.0.102",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/Microsoft.VisualStudio.Threading.dll",
+        "lib/net45/Microsoft.VisualStudio.Threading.pdb",
+        "lib/net45/Microsoft.VisualStudio.Threading.xml",
+        "lib/net45/cs/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net45/de/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net45/es/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net45/fr/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net45/it/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net45/ja/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net45/ko/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net45/pl/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net45/pt-BR/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net45/ru/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net45/tr/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net45/zh-Hans/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net45/zh-Hant/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net46/Microsoft.VisualStudio.Threading.dll",
+        "lib/net46/Microsoft.VisualStudio.Threading.pdb",
+        "lib/net46/Microsoft.VisualStudio.Threading.xml",
+        "lib/net46/cs/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net46/de/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net46/es/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net46/fr/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net46/it/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net46/ja/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net46/ko/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net46/pl/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net46/pt-BR/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net46/ru/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net46/tr/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net46/zh-Hans/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/net46/zh-Hant/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard1.3/Microsoft.VisualStudio.Threading.dll",
+        "lib/netstandard1.3/Microsoft.VisualStudio.Threading.pdb",
+        "lib/netstandard1.3/Microsoft.VisualStudio.Threading.xml",
+        "lib/netstandard1.3/cs/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard1.3/de/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard1.3/es/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard1.3/fr/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard1.3/it/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard1.3/ja/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard1.3/ko/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard1.3/pl/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard1.3/pt-BR/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard1.3/ru/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard1.3/tr/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard1.3/zh-Hans/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard1.3/zh-Hant/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard2.0/Microsoft.VisualStudio.Threading.dll",
+        "lib/netstandard2.0/Microsoft.VisualStudio.Threading.pdb",
+        "lib/netstandard2.0/Microsoft.VisualStudio.Threading.xml",
+        "lib/netstandard2.0/cs/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard2.0/de/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard2.0/es/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard2.0/fr/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard2.0/it/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard2.0/ja/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard2.0/ko/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard2.0/pl/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard2.0/pt-BR/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard2.0/ru/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard2.0/tr/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard2.0/zh-Hans/Microsoft.VisualStudio.Threading.resources.dll",
+        "lib/netstandard2.0/zh-Hant/Microsoft.VisualStudio.Threading.resources.dll",
+        "microsoft.visualstudio.threading.16.0.102.nupkg.sha512",
+        "microsoft.visualstudio.threading.nuspec"
+      ]
+    },
     "Microsoft.VisualStudio.Threading.Analyzers/16.0.102": {
       "sha512": "84LjaPupgRCopp/iDEAK3dzuUOXaM278fbgcPPs6CsAwoLHue1RLwpErVNFIAsL1LXPloSE4gvov7CNw7uqqYg==",
       "type": "package",
@@ -3807,6 +3986,62 @@
         "microsoft.visualstudio.threading.analyzers.nuspec",
         "tools/install.ps1",
         "tools/uninstall.ps1"
+      ]
+    },
+    "Microsoft.VisualStudio.Validation/15.3.15": {
+      "sha512": "bvJIwuCLqu7YKXcZqY85VJy0ljtm9QSRkq4CD2bpO/GHynsm72uZxjBDa050VY7kElXS8mb7VW5JNUfg4D/UBA==",
+      "type": "package",
+      "path": "microsoft.visualstudio.validation/15.3.15",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/Microsoft.VisualStudio.Validation.dll",
+        "lib/net45/Microsoft.VisualStudio.Validation.xml",
+        "lib/net45/cs/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/net45/de/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/net45/es/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/net45/fr/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/net45/it/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/net45/ja/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/net45/ko/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/net45/pl/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/net45/pt-BR/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/net45/ru/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/net45/tr/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/net45/zh-Hans/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/net45/zh-Hant/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/netstandard1.0/Microsoft.VisualStudio.Validation.dll",
+        "lib/netstandard1.0/Microsoft.VisualStudio.Validation.xml",
+        "lib/netstandard1.0/cs/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/netstandard1.0/de/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/netstandard1.0/es/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/netstandard1.0/fr/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/netstandard1.0/it/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/netstandard1.0/ja/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/netstandard1.0/ko/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/netstandard1.0/pl/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/netstandard1.0/pt-BR/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/netstandard1.0/ru/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/netstandard1.0/tr/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/netstandard1.0/zh-Hans/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/netstandard1.0/zh-Hant/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Microsoft.VisualStudio.Validation.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Microsoft.VisualStudio.Validation.xml",
+        "lib/portable-net45+win8+wp8+wpa81/cs/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/portable-net45+win8+wp8+wpa81/de/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/portable-net45+win8+wp8+wpa81/es/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/portable-net45+win8+wp8+wpa81/fr/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/portable-net45+win8+wp8+wpa81/it/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/portable-net45+win8+wp8+wpa81/ja/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/portable-net45+win8+wp8+wpa81/ko/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/portable-net45+win8+wp8+wpa81/pl/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/portable-net45+win8+wp8+wpa81/pt-BR/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/portable-net45+win8+wp8+wpa81/ru/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/portable-net45+win8+wp8+wpa81/tr/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/portable-net45+win8+wp8+wpa81/zh-Hans/Microsoft.VisualStudio.Validation.resources.dll",
+        "lib/portable-net45+win8+wp8+wpa81/zh-Hant/Microsoft.VisualStudio.Validation.resources.dll",
+        "microsoft.visualstudio.validation.15.3.15.nupkg.sha512",
+        "microsoft.visualstudio.validation.nuspec"
       ]
     },
     "Microsoft.Win32.Registry/4.5.0": {
@@ -6798,6 +7033,7 @@
       "Microsoft.Extensions.Configuration.UserSecrets >= 2.2.0",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.NetCore.Analyzers >= 2.9.2",
+      "Microsoft.VisualStudio.Threading >= 16.0.102",
       "Microsoft.VisualStudio.Threading.Analyzers >= 16.0.102",
       "Newtonsoft.Json >= 12.0.2",
       "Npgsql >= 4.0.7",
@@ -6911,6 +7147,10 @@
           "Microsoft.NetCore.Analyzers": {
             "target": "Package",
             "version": "[2.9.2, )"
+          },
+          "Microsoft.VisualStudio.Threading": {
+            "target": "Package",
+            "version": "[16.0.102, )"
           },
           "Microsoft.VisualStudio.Threading.Analyzers": {
             "target": "Package",
