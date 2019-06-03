@@ -13,13 +13,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button
 {
     public class Button : SearchGridPage<object>
     {
-        protected override string FileName
-        {
-            get
-            {
-                return "buttons";
-            }
-        }
+        protected override string FileName { get; } = "buttons";
 
         public override string Render()
         {

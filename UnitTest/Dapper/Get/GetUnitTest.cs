@@ -15,14 +15,14 @@ namespace Core.UnitTest.Dapper.Get
     public class GetUnitTest
     {
         [Test]
-        public void TestGet()
+        public async Task TestGet()
         {
             User user = DapperExtension.Connection.QueryFirst<User>();
             if (user != null)
             {
                 var users = DapperExtension.Connection.Get<User>(1);
                 Assert.IsNotNull(users);
-                users = DapperExtension.Connection.GetAsync<User>(new { id = 1 }).Result;
+                users = await DapperExtension.Connection.GetAsync<User>(new { id = 1 });
                 Assert.IsNotNull(users);
             }
         }

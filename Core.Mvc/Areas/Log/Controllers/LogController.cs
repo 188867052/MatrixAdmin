@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Log;
@@ -16,10 +17,10 @@ namespace Core.Mvc.Areas.Log.Controllers
         /// The Index.
         /// </summary>
         /// <returns>A IActionResult.</returns>
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Index));
-            var model = HttpClientAsync.GetAsync<IList<LogModel>>(url).Result;
+            var model = await HttpClientAsync.GetAsync<IList<LogModel>>(url);
             LogIndex<LogModel, LogPostModel> table = new LogIndex<LogModel, LogPostModel>(model);
 
             return this.SearchGridConfiguration(table);
@@ -31,10 +32,10 @@ namespace Core.Mvc.Areas.Log.Controllers
         /// <param name="model">The model.</param>
         /// <returns>A IActionResult.</returns>
         [HttpPost]
-        public IActionResult GridStateChange(LogPostModel model)
+        public async Task<IActionResult> GridStateChange(LogPostModel model)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Search));
-            ResponseModel response = HttpClientAsync.PostAsync<IList<LogModel>, LogPostModel>(url, model).Result;
+            ResponseModel response = await HttpClientAsync.PostAsync<IList<LogModel>, LogPostModel>(url, model);
             LogGridConfiguration<LogModel> configuration = new LogGridConfiguration<LogModel>(response);
 
             return this.GridConfiguration(configuration);
@@ -45,10 +46,10 @@ namespace Core.Mvc.Areas.Log.Controllers
         /// </summary>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult Clear()
+        public async Task<IActionResult> Clear()
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Clear));
-            ResponseModel model = HttpClientAsync.DeleteAsync(url).Result;
+            ResponseModel model = await HttpClientAsync.DeleteAsync(url);
 
             return this.Submit(model);
         }
