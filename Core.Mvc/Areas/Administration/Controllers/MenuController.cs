@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.Menu;
@@ -18,10 +19,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// The index page.
         /// </summary>
         /// <returns>A IActionResult.</returns>
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Index));
-            var response = HttpClientAsync.GetAsync<IList<MenuModel>>(url).Result;
+            var response = await HttpClientAsync.GetAsync<IList<MenuModel>>(url);
             MenuIndex<MenuModel, MenuPostModel> index = new MenuIndex<MenuModel, MenuPostModel>(response);
 
             return this.SearchGridConfiguration(index);
@@ -33,10 +34,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="model">A model.</param>
         /// <returns>A IActionResult.</returns>
         [HttpPost]
-        public IActionResult GridStateChange(MenuPostModel model)
+        public async Task<IActionResult> GridStateChange(MenuPostModel model)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Search));
-            var response = HttpClientAsync.PostAsync<IList<MenuModel>, MenuPostModel>(url, model).Result;
+            var response = await HttpClientAsync.PostAsync<IList<MenuModel>, MenuPostModel>(url, model);
             MenuViewConfiguration<MenuModel> configuration = new MenuViewConfiguration<MenuModel>(response);
 
             return this.GridConfiguration(configuration);
@@ -59,10 +60,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="id">The id.</param>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult RowContextMenu(int id)
+        public async Task<IActionResult> RowContextMenu(int id)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.FindById));
-            ResponseModel model = HttpClientAsync.GetAsync<MenuModel>(url, id).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<MenuModel>(url, id);
             MenuModel menuModel = (MenuModel)model.Data;
             MenuRowContextMenu menu = new MenuRowContextMenu(menuModel);
             return this.Content(menu.Render(), "text/html", Encoding.UTF8);
@@ -74,10 +75,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="model">The model.</param>
         /// <returns>The IActionResult.</returns>
         [HttpPost]
-        public IActionResult SaveCreate(MenuCreatePostModel model)
+        public async Task<IActionResult> SaveCreate(MenuCreatePostModel model)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Create));
-            var response = HttpClientAsync.SubmitAsync(url, model).Result;
+            var response = await HttpClientAsync.SubmitAsync(url, model);
 
             return this.Submit(response);
         }
@@ -88,10 +89,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="id">The id.</param>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult EditDialog(int id)
+        public async Task<IActionResult> EditDialog(int id)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.FindById));
-            ResponseModel model = HttpClientAsync.GetAsync<MenuModel>(url, id).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<MenuModel>(url, id);
             MenuModel menuModel = (MenuModel)model.Data;
             EditMenuDialogConfiguration<MenuEditPostModel, MenuModel> dialog = new EditMenuDialogConfiguration<MenuEditPostModel, MenuModel>(menuModel);
 
@@ -104,10 +105,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="model">The model.</param>
         /// <returns>The IActionResult.</returns>
         [HttpPost]
-        public IActionResult SaveEdit(MenuEditPostModel model)
+        public async Task<IActionResult> SaveEdit(MenuEditPostModel model)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Edit));
-            var response = HttpClientAsync.SubmitAsync(url, model).Result;
+            var response = await HttpClientAsync.SubmitAsync(url, model);
 
             return this.Submit(response);
         }
@@ -118,10 +119,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="id">The id.</param>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Delete));
-            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
+            ResponseModel model = await HttpClientAsync.DeleteAsync(url, id);
 
             return this.Submit(model);
         }
@@ -132,10 +133,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="id">The id.</param>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult Recover(int id)
+        public async Task<IActionResult> Recover(int id)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Recover));
-            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
+            ResponseModel model = await HttpClientAsync.DeleteAsync(url, id);
 
             return this.Submit(model);
         }
@@ -146,10 +147,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="id">The id.</param>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult Forbidden(int id)
+        public async Task<IActionResult> Forbidden(int id)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Forbidden));
-            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
+            ResponseModel model = await HttpClientAsync.DeleteAsync(url, id);
 
             return this.Submit(model);
         }
@@ -160,10 +161,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="id">The id.</param>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult Normal(int id)
+        public async Task<IActionResult> Normal(int id)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Normal));
-            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
+            ResponseModel model = await HttpClientAsync.DeleteAsync(url, id);
 
             return this.Submit(model);
         }

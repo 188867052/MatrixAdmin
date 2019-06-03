@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Entity;
 using Core.Extension;
 using Core.Model;
@@ -17,10 +18,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// The Index.
         /// </summary>
         /// <returns>A IActionResult.</returns>
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Index));
-            var model = HttpClientAsync.GetAsync<IList<Permission>>(url).Result;
+            var model = await HttpClientAsync.GetAsync<IList<Permission>>(url);
             PermissionIndex table = new PermissionIndex(model);
 
             return this.SearchGridConfiguration(table);
@@ -32,10 +33,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="model">The model.</param>
         /// <returns>A IActionResult.</returns>
         [HttpPost]
-        public IActionResult GridStateChange(PermissionPostModel model)
+        public async Task<IActionResult> GridStateChange(PermissionPostModel model)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Search));
-            ResponseModel response = HttpClientAsync.PostAsync<IList<Permission>, PermissionPostModel>(url, model).Result;
+            ResponseModel response = await HttpClientAsync.PostAsync<IList<Permission>, PermissionPostModel>(url, model);
             PermissionGridConfiguration configuration = new PermissionGridConfiguration(response);
 
             return this.GridConfiguration(configuration);

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
@@ -18,10 +19,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// </summary>
         /// <returns>A IActionResult.</returns>
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Index));
-            var model = HttpClientAsync.GetAsync<IList<UserModel>>(url).Result;
+            var model = await HttpClientAsync.GetAsync<IList<UserModel>>(url);
             UserIndex<UserModel, UserPostModel> table = new UserIndex<UserModel, UserPostModel>(model);
 
             return this.SearchGridConfiguration(table);
@@ -33,10 +34,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="model">The model.</param>
         /// <returns>A IActionResult.</returns>
         [HttpPost]
-        public IActionResult GridStateChange(UserPostModel model)
+        public async Task<IActionResult> GridStateChange(UserPostModel model)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Search));
-            ResponseModel response = HttpClientAsync.PostAsync<IList<UserModel>, UserPostModel>(url, model).Result;
+            ResponseModel response = await HttpClientAsync.PostAsync<IList<UserModel>, UserPostModel>(url, model);
             UserViewConfiguration<UserModel> configuration = new UserViewConfiguration<UserModel>(response);
 
             return this.GridConfiguration(configuration);
@@ -48,10 +49,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="id">The id.</param>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult RowContextMenu(int id)
+        public async Task<IActionResult> RowContextMenu(int id)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.FindById));
-            ResponseModel model = HttpClientAsync.GetAsync<UserModel>(url, id).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<UserModel>(url, id);
             UserModel user = (UserModel)model.Data;
             UserRowContextMenu menu = new UserRowContextMenu(user);
             return this.Content(menu.Render(), "text/html", Encoding.UTF8);
@@ -74,10 +75,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="model">The model.</param>
         /// <returns>The IActionResult.</returns>
         [HttpPost]
-        public IActionResult SaveCreate(UserCreatePostModel model)
+        public async Task<IActionResult> SaveCreate(UserCreatePostModel model)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Create));
-            var response = HttpClientAsync.SubmitAsync(url, model).Result;
+            var response = await HttpClientAsync.SubmitAsync(url, model);
 
             return this.Submit(response);
         }
@@ -88,10 +89,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="model">The model.</param>
         /// <returns>The IActionResult.</returns>
         [HttpPost]
-        public IActionResult SaveEdit(UserEditPostModel model)
+        public async Task<IActionResult> SaveEdit(UserEditPostModel model)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Edit));
-            var response = HttpClientAsync.SubmitAsync(url, model).Result;
+            var response = await HttpClientAsync.SubmitAsync(url, model);
 
             return this.Submit(response);
         }
@@ -102,10 +103,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="id">The id.</param>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult EditDialog(int id)
+        public async Task<IActionResult> EditDialog(int id)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.FindById));
-            ResponseModel model = HttpClientAsync.GetAsync<UserModel>(url, id).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<UserModel>(url, id);
             EditUserDialogConfiguration<UserEditPostModel, UserModel> dialog = new EditUserDialogConfiguration<UserEditPostModel, UserModel>((UserModel)model.Data);
 
             return this.Dialog(dialog);
@@ -117,10 +118,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="id">The id.</param>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Delete));
-            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
+            ResponseModel model = await HttpClientAsync.DeleteAsync(url, id);
 
             return this.Submit(model);
         }
@@ -131,10 +132,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="id">The id.</param>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult Recover(int id)
+        public async Task<IActionResult> Recover(int id)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Recover));
-            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
+            ResponseModel model = await HttpClientAsync.DeleteAsync(url, id);
 
             return this.Submit(model);
         }
@@ -145,10 +146,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="id">The id.</param>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult Forbidden(int id)
+        public async Task<IActionResult> Forbidden(int id)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Disable));
-            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
+            ResponseModel model = await HttpClientAsync.DeleteAsync(url, id);
 
             return this.Submit(model);
         }
@@ -159,10 +160,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <param name="id">The id.</param>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult Normal(int id)
+        public async Task<IActionResult> Normal(int id)
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Enable));
-            ResponseModel model = HttpClientAsync.DeleteAsync(url, id).Result;
+            ResponseModel model = await HttpClientAsync.DeleteAsync(url, id);
 
             return this.Submit(model);
         }

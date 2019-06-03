@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Api.Controllers;
 using Core.Entity;
 using Core.Extension;
@@ -19,30 +20,30 @@ namespace Core.Mvc.Areas.AdvancedDropDownFilters
         /// <param name="name">The name.</param>
         /// <returns>The IActionResult.</returns>
         [HttpGet]
-        public IActionResult RoleDataList(string name)
+        public async Task<IActionResult> RoleDataList(string name)
         {
             var url = new Url(typeof(DataListController), nameof(DataListController.GetRoleDataList));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<Role>>(url, name).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<IList<Role>>(url, name);
             IList<Role> roles = (IList<Role>)model.Data;
 
             return this.DataListContent(roles, o => o.Id, o => o.Name);
         }
 
         [HttpGet]
-        public IActionResult UserDataList(string name)
+        public async Task<IActionResult> UserDataList(string name)
         {
             var url = new Url(typeof(DataListController), nameof(DataListController.GetUserDataList));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<UserModel>>(url, name).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<IList<UserModel>>(url, name);
             IList<UserModel> users = (IList<UserModel>)model.Data;
 
             return this.DataListContent(users, o => o.Id, o => o.LoginName);
         }
 
         [HttpGet]
-        public IActionResult MenuDataList(string name)
+        public async Task<IActionResult> MenuDataList(string name)
         {
             var url = new Url(typeof(DataListController), nameof(DataListController.GetMenuDataList));
-            ResponseModel model = HttpClientAsync.GetAsync<IList<MenuModel>>(url, name).Result;
+            ResponseModel model = await HttpClientAsync.GetAsync<IList<MenuModel>>(url, name);
             IList<MenuModel> users = (IList<MenuModel>)model.Data;
 
             return this.DataListContent(users, o => o.Id, o => o.Name);
