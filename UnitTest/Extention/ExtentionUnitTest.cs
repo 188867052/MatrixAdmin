@@ -1,0 +1,25 @@
+using System.Data;
+using Core.Entity;
+using Core.Extension;
+using Core.Extension.Dapper;
+using NUnit.Framework;
+
+namespace Core.UnitTest.Extention
+{
+    /// <summary>
+    /// Api unit test.
+    /// </summary>
+    [TestFixture]
+    public class UnitTest
+    {
+        [Test]
+        public void TestEmit()
+        {
+            var logs = DapperExtension.Connection.FindAll<Log>();
+            DataTable dt = logs.ToDataTable();
+            dt.ToList<Log>();
+
+            Assert.True(true);
+        }
+    }
+}

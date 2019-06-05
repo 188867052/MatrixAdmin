@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Core.UnitTest.Dapper.Insert
 {
     /// <summary>
-    /// Api unit test.
+    /// Dapper unit test.
     /// </summary>
     [TestFixture]
     public class InsertUnitTest

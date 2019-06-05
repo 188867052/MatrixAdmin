@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace Core.UnitTest.Dapper.Delete
 {
     /// <summary>
-    /// Api unit test.
+    /// Dapper unit test.
     /// </summary>
     [TestFixture]
     public class DeleteUnitTest

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
@@ -43,7 +44,7 @@ namespace Core.Extension
             // 从rowMapMethods查找当前T类对应的转换方法，没有则使用Emit构造一个。
             if (!rowMapMethods.ContainsKey(typeof(T)))
             {
-                DynamicMethod method = new DynamicMethod("DynamicCreateEntity_" + typeof(T).Name, typeof(T), new[] { typeof(DataRow) }, typeof(T), true);
+                DynamicMethod method = new DynamicMethod(typeof(T).Name, typeof(T), new[] { typeof(DataRow) }, typeof(T), true);
                 ILGenerator generator = method.GetILGenerator();
                 LocalBuilder result = generator.DeclareLocal(typeof(T));
                 generator.Emit(OpCodes.Newobj, typeof(T).GetConstructor(Type.EmptyTypes));
@@ -74,6 +75,7 @@ namespace Core.Extension
 
                 // 构造完成以后传给rowMap
                 rowMap = (Load<T>)method.CreateDelegate(typeof(Load<T>));
+                rowMapMethods.Add(typeof(T), rowMap);
             }
             else
             {
@@ -87,6 +89,34 @@ namespace Core.Extension
             }
 
             return list;
+        }
+
+        public static DataTable ToDataTable<T>(this IList<T> list)
+        {
+            DataTable result = new DataTable();
+            if (list.Count > 0)
+            {
+                PropertyInfo[] propertys = typeof(T).GetProperties();
+                foreach (PropertyInfo pi in propertys)
+                {
+                    result.Columns.Add(pi.Name, pi.PropertyType);
+                }
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    ArrayList tempList = new ArrayList();
+                    foreach (PropertyInfo pi in propertys)
+                    {
+                        object obj = pi.GetValue(list[i], null);
+                        tempList.Add(obj);
+                    }
+
+                    object[] array = tempList.ToArray();
+                    result.LoadDataRow(array, true);
+                }
+            }
+
+            return result;
         }
     }
 }
