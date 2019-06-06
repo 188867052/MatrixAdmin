@@ -10,7 +10,7 @@ namespace Core.UnitTest.Extention
     /// Extention unit test.
     /// </summary>
     [TestFixture]
-    public class UnitTest
+    public class ExtentionUnitTest
     {
         [Test]
         public void TestEmit()
