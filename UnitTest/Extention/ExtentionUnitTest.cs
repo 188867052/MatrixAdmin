@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace Core.UnitTest.Extention
 {
     /// <summary>
-    /// Api unit test.
+    /// Extention unit test.
     /// </summary>
     [TestFixture]
     public class UnitTest

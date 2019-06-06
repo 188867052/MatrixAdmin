@@ -36,7 +36,6 @@ namespace Core.Api.Controllers
         /// <param name="password">password.</param>
         /// <returns></returns>
         [HttpGet]
-        //http://localhost:90/api/Oauth/Auth
         public IActionResult Auth(string username, string password)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
