@@ -19,6 +19,8 @@ namespace Core.UnitTest.Filter
                 query = query.AddStringContainsFilter(o => o.LoginName, "a");
                 var a = context.User.Where(o => o.LoginName.Contains("a")).Expression.ToString();
                 var b = query.Expression.ToString();
+                Console.WriteLine($"AddStringContainsFilter:{a}");
+                Console.WriteLine($"Query:{b}");
 
                 Assert.AreEqual(a, b, UnitTestResource.TestStringContainsFilter);
             }
@@ -33,6 +35,8 @@ namespace Core.UnitTest.Filter
                 query = query.AddStringIsNullFilter(o => o.LoginName);
                 var a = context.User.Where(o => o.LoginName == null).Expression.ToString();
                 var b = query.Expression.ToString();
+                Console.WriteLine($"AddStringIsNullFilter:{a}");
+                Console.WriteLine($"Query:{b}");
 
                 Assert.AreEqual(a, b, UnitTestResource.TestAddStringIsNullFilter);
             }
@@ -43,10 +47,12 @@ namespace Core.UnitTest.Filter
         {
             using (var context = new CoreContext())
             {
-                var a = context.User.Where(o => o.LoginName == string.Empty).Expression.ToString();
-                var b = context.User.AddStringIsEmptyFilter(o => o.LoginName).Expression.ToString();
+                var a = context.User.AddStringIsEmptyFilter(o => o.LoginName).Expression.ToString();
+                var b = context.User.Where(o => o.LoginName == string.Empty).Expression.ToString();
+                Console.WriteLine($"AddStringIsEmptyFilter:{a}");
+                Console.WriteLine($"Query:{b}");
 
-                Assert.AreEqual(a.Replace("String.Empty", "\"\""), b, UnitTestResource.TestAddStringIsEmptyFilter);
+                Assert.AreEqual(b.Replace("String.Empty", "\"\""), a, UnitTestResource.TestAddStringIsEmptyFilter);
             }
         }
 
@@ -59,7 +65,8 @@ namespace Core.UnitTest.Filter
                 query = query.AddIntegerEqualFilter(1, o => o.Id);
                 var a = context.User.Where(o => o.Id == 1).Expression.ToString();
                 var b = query.Expression.ToString();
-
+                Console.WriteLine($"AddIntegerEqualFilter:{a}");
+                Console.WriteLine($"Query:{b}");
                 Assert.AreEqual(a, b, UnitTestResource.TestAddIntegerEqualFilter);
             }
         }
@@ -72,7 +79,6 @@ namespace Core.UnitTest.Filter
                 var list = context.User.Take(10).Select(o => o.Id).ToArray();
                 var a = context.User.Where(o => list.Contains(o.Id)).ToList();
                 var b = context.User.AddIntegerInArrayFilter(o => o.Id, list).ToList();
-
                 Assert.AreEqual(a.Count, b.Count, UnitTestResource.TestAddIntegerInArrayFilter);
             }
         }
@@ -85,7 +91,6 @@ namespace Core.UnitTest.Filter
                 var list = context.Role.Take(10).Select(o => o.Name).ToArray();
                 var a = context.Role.Where(o => list.Contains(o.Name)).ToList();
                 var b = context.Role.AddStringInArrayFilter(o => o.Name, list).ToList();
-
                 Assert.AreEqual(a.Count, b.Count, UnitTestResource.TestAddStringInArrayFilter);
             }
         }
@@ -98,6 +103,8 @@ namespace Core.UnitTest.Filter
                 var a = context.User.Where(o => o.LoginName.EndsWith("a")).Expression.ToString();
                 var b = context.User.AddStringEndsWithFilter("a", o => o.LoginName).Expression.ToString();
 
+                Console.WriteLine($"TestAddStringEndsWithFilter:{a}");
+                Console.WriteLine($"Query:{b}");
                 Assert.AreEqual(a, b, UnitTestResource.TestAddStringEndsWithFilter);
             }
         }
@@ -110,7 +117,6 @@ namespace Core.UnitTest.Filter
                 var list = context.User.OrderBy(o => o.CreateTime).Take(10).Select(o => o.CreateTime).ToList();
                 var a = context.User.Where(o => o.CreateTime >= list.FirstOrDefault() && o.CreateTime <= list.LastOrDefault()).ToList();
                 var b = context.User.AddDateTimeBetweenFilter(list.FirstOrDefault(), list.LastOrDefault(), o => o.CreateTime).ToList();
-
                 Assert.AreEqual(a.Count, b.Count);
             }
         }
