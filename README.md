@@ -164,7 +164,7 @@ public class RoleViewConfiguration<T> : GridConfiguration<T>
 ```
 
 ## Example of using index.js
-```C#
+```javascript
 (function () {
     'use strict';
 
