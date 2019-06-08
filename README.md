@@ -25,7 +25,6 @@
 ## Practices
 
 * Clean Code
-* DDD (Domain-Driven Design)
 * Code Analysis
 * Inversion of Control
 * Logging
