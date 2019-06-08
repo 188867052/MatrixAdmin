@@ -4,6 +4,32 @@
 前端：基于bootstrap4封装的一套组件，GridSearchFilter，Dialog，RowContextMenu，
 一些表单提交，做BS开发不用重复造轮子，js采用严格模式，兼容性好，代码量少，不用写开发人员不用写html，统一了UI，开发人员只需要写业务
 
+## Code Analysis
+* [Microsoft.AspNetCore.Mvc.Analyzers]
+* [Microsoft.CodeAnalysis.CSharp.Analyzers]
+* [Microsoft.CodeQuality.CSharp.Analyzers]
+* [Microsoft.VisualStudio.Threading.Analyzers]
+* [StyleCop.Analyzers]
+
+## Technologies
+
+* [.NET Core 2.1](https://dotnet.microsoft.com/download)
+* [ASP.NET Core 2.1](https://docs.microsoft.com/en-us/aspnet/core)
+* [Entity Framework Core 3.0](https://docs.microsoft.com/en-us/ef/core)
+* [C# 7.3](https://docs.microsoft.com/en-us/dotnet/csharp)
+* [HTML](https://www.w3schools.com/html)
+* [CSS](https://www.w3schools.com/css)
+* [JWT](https://jwt.io)
+* [Swagger](https://swagger.io)
+
+## Practices
+
+* Clean Code
+* DDD (Domain-Driven Design)
+* Code Analysis
+* Inversion of Control
+* Logging
+
 ## Example of using grid search filters 
 [See Code](https://github.com/188867052/Asp.Net/blob/37fc5e0a587a0dc6feb816d3b462864b0153cc43/Core.Models/Administration/User/UserPostModel.cs)
 ```C#
