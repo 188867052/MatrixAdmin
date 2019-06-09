@@ -5,7 +5,6 @@ Based on a template by Kenneth Baltrinic.
 #>
 <#@ template debug="true" hostspecific="true" #>
 <#@ assembly name="System.Core" #>
-<#@ assembly name="System.Xml" #>
 <#@ assembly name="Microsoft.VisualStudio.Shell.Interop.8.0" #>
 <#@ assembly name="EnvDTE" #>
 <#@ assembly name="EnvDTE80" #>
@@ -14,8 +13,8 @@ Based on a template by Kenneth Baltrinic.
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Text.RegularExpressions" #>
-<#@ import namespace="System.Xml" #>
 <#@ import namespace="Microsoft.VisualStudio.Shell.Interop" #>
 <#@ import namespace="EnvDTE" #>
 <#@ import namespace="EnvDTE80" #>
@@ -48,19 +47,25 @@ try{
 	CreateNamespace(folder);
 	foreach (var item in ds)
     {
-       	WriteLine("\t");
         CreateNamespace(item);
-     }
+    }
 
-	 WriteLine("\t");
 	folder=AppRoot+@"wwwroot\css\";
 	ds = Directory.GetDirectories(folder);
 	CreateNamespace2(folder);
-	foreach (var item in ds)
-    {
-       	WriteLine("\t");
-        CreateNamespace(item);
-     }
+
+	  for (int i = 0; i < cache.Count ; i++)
+      {
+          if (i!=0)
+          {
+            WriteLine("\t");
+          }
+          WriteLine($"namespace {cache.ElementAt(i).Key}");
+          WriteLine("{");
+          WriteLine(cache.ElementAt(i).Value);
+          WriteLine("}");
+      }
+      cache.Clear();
 }
 catch(Exception ex)
 {
@@ -73,9 +78,11 @@ catch(Exception ex)
     static Project Project;
     static string AppRoot;
     static string RootNamespace;
+	static Dictionary<string, string> cache = new Dictionary<string, string>();
 
   void CreateNamespace(string dir)
         {
+			string classes = "";
             string wwwrootDir = AppRoot+"wwwroot";
             string[] a = Directory.GetFiles(dir);
             DirectoryInfo DirectoryInfo = new DirectoryInfo(dir);
@@ -85,25 +92,38 @@ catch(Exception ex)
 		   namespaceEnd =".Js";
 		   }
 		    string @namespace =RootNamespace + (namespaceEnd == "." ? "" : namespaceEnd);
-            WriteLine($"namespace {@namespace}");
-            WriteLine("{");
             string className = ToCamelCase(DirectoryInfo.Name);
 	    	if(className=="Js"){
 		    className ="Javascript";
 		    }	
-            WriteLine($"    public class {className}");
-            WriteLine("    {");
+            classes +=($"    public class {className}");
+			classes += Environment.NewLine;
+            classes +=("    {");
             foreach (var file in a.Where(o => o.EndsWith(".js") && !o.EndsWith("min.js")))
             {
                 FileInfo FileInfo = new FileInfo(file);
                 string value = FileInfo.FullName.Replace(wwwrootDir, "");
-                WriteLine($"        public const string {ToCamelCaseComplex(FileInfo.Name)} = \"{value.Replace(@"\", "/")}\";");
+				classes += Environment.NewLine;
+				classes +=($"        public const string {ToCamelCaseComplex(FileInfo.Name)} = \"{value.Replace(@"\", "/")}\";");
+			}
+			classes += Environment.NewLine;
+            classes +=("    }");
+			var cachedClasses = cache.FirstOrDefault(o => o.Key == @namespace).Value;
+            if (cachedClasses != null)
+            {
+				classes = Environment.NewLine + classes;
+                classes = cache.First(o => o.Key == @namespace).Value + Environment.NewLine+ classes;
+                cache.Remove(@namespace);
+                cache.Add(@namespace, classes);
             }
-            WriteLine("    }");
-            WriteLine("}");
+            else
+            {
+                cache.Add(@namespace, classes);
+            }
         }
-   void CreateNamespace2(string dir)
+    void CreateNamespace2(string dir)
         {
+			string classes = "";
             string wwwrootDir = AppRoot+"wwwroot";
             string[] a = Directory.GetFiles(dir);
             DirectoryInfo DirectoryInfo = new DirectoryInfo(dir);
@@ -113,22 +133,35 @@ catch(Exception ex)
 		   namespaceEnd =".Css";
 		   }
 		    string @namespace =RootNamespace + (namespaceEnd == "." ? "" : namespaceEnd);
-            WriteLine($"namespace {@namespace}");
-            WriteLine("{");
             string className = ToCamelCase(DirectoryInfo.Name);
 	    	if(className=="Css"){
 		    className ="Css";
 		    }	
-            WriteLine($"    public class {className}");
-            WriteLine("    {");
+			var cachedClasses = cache.FirstOrDefault(o => o.Key == @namespace).Value;
+
+            classes +=($"    public class {className}");
+			classes += Environment.NewLine;
+            classes +=("    {");
             foreach (var file in a.Where(o => o.EndsWith(".css") && !o.EndsWith("min.css")))
             {
                 FileInfo FileInfo = new FileInfo(file);
                 string value = FileInfo.FullName.Replace(wwwrootDir, "");
-                WriteLine($"        public const string {ToCamelCaseComplex2(FileInfo.Name)} = \"{value.Replace(@"\", "/")}\";");
+				classes += Environment.NewLine;
+				classes +=($"        public const string {ToCamelCaseComplex2(FileInfo.Name)} = \"{value.Replace(@"\", "/")}\";");
+			}
+			classes += Environment.NewLine;
+            classes +=("    }");
+            if (cachedClasses != null)
+            {
+				classes = Environment.NewLine + classes;
+                classes = cache.First(o => o.Key == @namespace).Value + Environment.NewLine+ classes;
+                cache.Remove(@namespace);
+                cache.Add(@namespace, classes);
             }
-            WriteLine("    }");
-            WriteLine("}");
+            else
+            {
+                cache.Add(@namespace, classes);
+            }
         }
    string ToCamelCaseComplex(string name)
         {

@@ -28,58 +28,7 @@
         public const string Popper = "/js/popper.js";
         public const string Wysihtml5030 = "/js/wysihtml5-0.3.0.js";
     }
-}
-	
-namespace Core.Mvc.Js
-{
-    public class Icon
-    {
-        public const string Index = "/js/Icon/index.js";
-    }
-}
-	
-namespace Core.Mvc.Js
-{
-    public class Log
-    {
-        public const string Index = "/js/Log/index.js";
-    }
-}
-	
-namespace Core.Mvc.Js
-{
-    public class Menu
-    {
-        public const string Index = "/js/Menu/index.js";
-    }
-}
-	
-namespace Core.Mvc.Js
-{
-    public class Permission
-    {
-        public const string Index = "/js/Permission/index.js";
-    }
-}
-	
-namespace Core.Mvc.Js
-{
-    public class Role
-    {
-        public const string Index = "/js/Role/index.js";
-    }
-}
-	
-namespace Core.Mvc.Js
-{
-    public class User
-    {
-        public const string Index = "/js/User/index.js";
-    }
-}
-	
-namespace Core.Mvc
-{
+
     public class Css
     {
         public const string BootstrapDatetimepicker = "/css/bootstrap-datetimepicker.css";
@@ -94,5 +43,38 @@ namespace Core.Mvc
         public const string Fullcalendar = "/css/fullcalendar.css";
         public const string JqueryGritter = "/css/jquery.gritter.css";
         public const string MatrixLogin = "/css/matrix-login.css";
+    }
+}
+
+namespace Core.Mvc.Js
+{
+    public class Icon
+    {
+        public const string Index = "/js/Icon/index.js";
+    }
+
+    public class Log
+    {
+        public const string Index = "/js/Log/index.js";
+    }
+
+    public class Menu
+    {
+        public const string Index = "/js/Menu/index.js";
+    }
+
+    public class Permission
+    {
+        public const string Index = "/js/Permission/index.js";
+    }
+
+    public class Role
+    {
+        public const string Index = "/js/Role/index.js";
+    }
+
+    public class User
+    {
+        public const string Index = "/js/User/index.js";
     }
 }

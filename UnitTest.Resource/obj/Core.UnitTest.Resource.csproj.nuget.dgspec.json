@@ -82,6 +82,10 @@
               "target": "Package",
               "version": "[2.9.2, )"
             },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
+            },
             "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
               "version": "[16.0.102, )"

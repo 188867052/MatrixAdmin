@@ -110,6 +110,10 @@
               "target": "Package",
               "version": "[2.9.2, )"
             },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
+            },
             "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
               "version": "[16.0.102, )"
@@ -255,6 +259,10 @@
               "target": "Package",
               "version": "[2.9.2, )"
             },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
+            },
             "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
               "version": "[16.0.102, )"
@@ -333,6 +341,9 @@
             "projectReferences": {
               "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj": {
                 "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj"
+              },
+              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\EntityFrameworkCore.Generator\\EntityFrameworkCore.Generator.csproj": {
+                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\EntityFrameworkCore.Generator\\EntityFrameworkCore.Generator.csproj"
               }
             }
           }
@@ -381,6 +392,10 @@
             "Microsoft.NetCore.Analyzers": {
               "target": "Package",
               "version": "[2.9.2, )"
+            },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
             },
             "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
@@ -574,6 +589,10 @@
               "target": "Package",
               "version": "[2.9.2, )"
             },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
+            },
             "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
               "version": "[16.0.102, )"
@@ -759,6 +778,10 @@
             "Microsoft.NetCore.Analyzers": {
               "target": "Package",
               "version": "[2.9.2, )"
+            },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
             },
             "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
@@ -957,6 +980,10 @@
               "target": "Package",
               "version": "[2.9.2, )"
             },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
+            },
             "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
               "version": "[16.0.102, )"
@@ -1101,6 +1128,10 @@
             "Microsoft.NetCore.Analyzers": {
               "target": "Package",
               "version": "[2.9.2, )"
+            },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
             },
             "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
@@ -1294,6 +1325,10 @@
               "target": "Package",
               "version": "[2.9.2, )"
             },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
+            },
             "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
               "version": "[16.0.102, )"
@@ -1478,6 +1513,10 @@
               "target": "Package",
               "version": "[2.9.2, )"
             },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
+            },
             "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
               "version": "[16.0.102, )"
@@ -1509,6 +1548,163 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[2.6.4, )"
+            },
+            "xunit.analyzers": {
+              "target": "Package",
+              "version": "[0.10.0, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\EntityFrameworkCore.Generator\\EntityFrameworkCore.Generator.csproj": {
+      "version": "1.1.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\EntityFrameworkCore.Generator\\EntityFrameworkCore.Generator.csproj",
+        "projectName": "EFCore.Generator",
+        "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\EntityFrameworkCore.Generator\\EntityFrameworkCore.Generator.csproj",
+        "packagesPath": "C:\\Users\\54215\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\EntityFrameworkCore.Generator\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\54215\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Users\\54215\\.nuget\\localpackages": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Humanizer": {
+              "target": "Package",
+              "version": "[2.6.2, )"
+            },
+            "McMaster.Extensions.CommandLineUtils": {
+              "target": "Package",
+              "version": "[2.3.4, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Analyzers": {
+              "target": "Package",
+              "version": "[3.0.0-preview3-19153-02, )"
+            },
+            "Microsoft.CodeAnalysis.CSharp": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Analyzers": {
+              "target": "Package",
+              "version": "[3.0.0-preview5.19227.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Configuration.FileExtensions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Configuration.UserSecrets": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.NetCore.Analyzers": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
+            },
+            "Microsoft.VisualStudio.Threading.Analyzers": {
+              "target": "Package",
+              "version": "[16.0.102, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.2, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[4.0.7, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Serilog.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "Serilog.Sinks.Console": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "YamlDotNet": {
+              "target": "Package",
+              "version": "[6.0.0, )"
             },
             "xunit.analyzers": {
               "target": "Package",
@@ -1600,6 +1796,10 @@
             "Microsoft.NetCore.Analyzers": {
               "target": "Package",
               "version": "[2.9.2, )"
+            },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
             },
             "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
@@ -1751,6 +1951,10 @@
             "Microsoft.UnitTestFramework.Extensions": {
               "target": "Package",
               "version": "[2.0.0, )"
+            },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
             },
             "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
