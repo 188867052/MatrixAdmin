@@ -21,6 +21,9 @@
 * [CSS](https://www.w3schools.com/css)
 * [JWT](https://jwt.io)
 * [Swagger](https://swagger.io)
+* [Bootstrap v4.3.1](https://www.bootcss.com)
+* [Dapper](https://github.com/StackExchange/Dapper)
+* [NUnit](https://github.com/nunit/nunit)
 
 ## Practices
 
@@ -28,6 +31,7 @@
 * Code Analysis
 * Inversion of Control
 * Logging
+* T4模板引擎(Text Template Transformation Toolkit)
 
 ## Example of using grid search filters 
 [See Code](https://github.com/188867052/Asp.Net/blob/37fc5e0a587a0dc6feb816d3b462864b0153cc43/Core.Models/Administration/User/UserPostModel.cs)
@@ -246,7 +250,7 @@ public class RoleViewConfiguration<T> : GridConfiguration<T>
 })();
 ```
 
-## example of using search grid page
+## Example of using search grid page
 ```C#
 public class UserIndex<TModel, TPostModel> : SearchGridPage<TModel>
      where TModel : UserModel

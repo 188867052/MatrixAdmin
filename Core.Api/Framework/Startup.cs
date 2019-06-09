@@ -36,9 +36,9 @@ namespace Core.Api.Framework
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<AppAuthenticationSettings>(this.Configuration.GetSection("AppAuthenticationSettings"));
+            services.Configure<AppAuthenticationSettings>(this.Configuration.GetSection(nameof(AppAuthenticationSettings)));
             AppAuthenticationSettings setting = new AppAuthenticationSettings();
-            this.Configuration.Bind("AppAuthenticationSettings", setting);
+            this.Configuration.Bind(nameof(AppAuthenticationSettings), setting);
 
             string[] urls = { "http://localhost:90" };
             services.AddCors(options =>
