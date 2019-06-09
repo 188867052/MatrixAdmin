@@ -4,12 +4,14 @@
 前端：基于bootstrap4封装的一套组件，GridSearchFilter，Dialog，RowContextMenu，
 一些表单提交，做BS开发不用重复造轮子，js采用严格模式，兼容性好，代码量少，不用写开发人员不用写html，统一了UI，开发人员只需要写业务
 
-## Code Analysis
-* [Microsoft.AspNetCore.Mvc.Analyzers]
-* [Microsoft.CodeAnalysis.CSharp.Analyzers]
-* [Microsoft.CodeQuality.CSharp.Analyzers]
-* [Microsoft.VisualStudio.Threading.Analyzers]
-* [StyleCop.Analyzers]
+## Practices
+
+* Clean Code
+* Code Analysis
+* Inversion of Control
+* Logging
+* T4模板引擎(Text Template Transformation Toolkit)
+* TDD(Test-Driven Development)
 
 ## Technologies
 
@@ -26,21 +28,12 @@
 * [NUnit](https://github.com/nunit/nunit)
 * [JQuery](http://jquery.com/)
 
-## Practices
-
-* Clean Code
-* Code Analysis
-* Inversion of Control
-* Logging
-* T4模板引擎(Text Template Transformation Toolkit)
-* TDD(Test-Driven Development)
-
 ## Unit Test
 
-* [Dapper Extension](https://github.com/188867052/Asp.Net/blob/master/UnitTest/Dapper/UnitTest.cs)
-* [Queryable Extension](https://github.com/188867052/Asp.Net/blob/master/UnitTest/Filter/UnitTest.cs)
-* [Web Api](https://github.com/188867052/Asp.Net/blob/master/UnitTest/Api/UnitTest.cs)
-* [Code Generator](https://github.com/188867052/Asp.Net/blob/master/UnitTest/CodeGenerator/UnitTest.cs)
+* [Dapper Extension Unit Test](https://github.com/188867052/Asp.Net/blob/master/UnitTest/Dapper/UnitTest.cs)
+* [Queryable Extension Unit Test](https://github.com/188867052/Asp.Net/blob/master/UnitTest/Filter/UnitTest.cs)
+* [Web Api Unit Test](https://github.com/188867052/Asp.Net/blob/master/UnitTest/Api/UnitTest.cs)
+* [Code Generator Unit Test](https://github.com/188867052/Asp.Net/blob/master/UnitTest/CodeGenerator/UnitTest.cs)
 
 ## Examples of Front End
 
@@ -57,9 +50,11 @@
 * Javascript&CSS
 * [Generators](https://github.com/188867052/Asp.Net/blob/master/Core.Mvc/Resource.Generated.tt)
 * [Generated File](https://github.com/188867052/Asp.Net/blob/master/Core.Mvc/Resource.Generated.cs)
+
 * Resources
 * [Generators](https://github.com/188867052/Asp.Net/blob/master/Core.Resource/Resource.Generated.tt)
 * [Generated File](https://github.com/188867052/Asp.Net/blob/master/Core.Resource/Resource.Generated.cs)
+
 * EntityFrameworkCore.Generator
 * [Generators](https://github.com/188867052/Asp.Net/tree/master/EntityFrameworkCore.Generator)
 * [Generated File](https://github.com/188867052/Asp.Net/tree/master/Core.Entity/Data)
@@ -68,6 +63,14 @@
 
 * [Queryable Extension](https://github.com/188867052/Asp.Net/blob/c601b87ed46d60a5989bc66539d9553d2ca7a4a8/Core.Extension/QueryableExtension.cs)
 * [Dapper Extension](https://github.com/188867052/Asp.Net/tree/master/Core.Extension/Dapper)
+
+## Code Analyzers
+
+* Microsoft.AspNetCore.Mvc.Analyzers
+* Microsoft.CodeAnalysis.CSharp.Analyzers
+* Microsoft.CodeQuality.CSharp.Analyzers
+* Microsoft.VisualStudio.Threading.Analyzers
+* StyleCop.Analyzers
 
 ## Install EntityFrameworkCore Generator
 
