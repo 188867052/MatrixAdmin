@@ -77,3 +77,22 @@ namespace Core.Mvc.Js
         public const string Index = "/js/User/index.js";
     }
 }
+	
+namespace Core.Mvc
+{
+    public class Css
+    {
+        public const string BootstrapDatetimepicker = "/css/bootstrap-datetimepicker.css";
+        public const string BootstrapGrid = "/css/bootstrap-grid.css";
+        public const string BootstrapReboot = "/css/bootstrap-reboot.css";
+        public const string BootstrapWysihtml5 = "/css/bootstrap-wysihtml5.css";
+        public const string Bootstrap = "/css/bootstrap.css";
+        public const string Colorpicker = "/css/colorpicker.css";
+        public const string Core = "/css/core.css";
+        public const string Datepicker = "/css/datepicker.css";
+        public const string FloatingLabels = "/css/floating-labels.css";
+        public const string Fullcalendar = "/css/fullcalendar.css";
+        public const string JqueryGritter = "/css/jquery.gritter.css";
+        public const string MatrixLogin = "/css/matrix-login.css";
+    }
+}

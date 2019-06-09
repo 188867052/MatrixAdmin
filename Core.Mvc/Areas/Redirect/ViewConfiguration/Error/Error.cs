@@ -31,7 +31,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Error
             return html;
         }
 
-        public override IList<string> Css()
+        public override IList<string> CssFiles()
         {
             return new List<string>
             {
@@ -39,7 +39,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Error
             };
         }
 
-        protected override IList<string> JavaScript()
+        protected override IList<string> JavaScriptFiles()
         {
             return new List<string>();
         }

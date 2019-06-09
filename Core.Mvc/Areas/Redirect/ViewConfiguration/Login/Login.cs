@@ -14,7 +14,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Login
             }
         }
 
-        public override IList<string> Css()
+        public override IList<string> CssFiles()
         {
             return new List<string>
             {
@@ -23,7 +23,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Login
             };
         }
 
-        protected override IList<string> JavaScript()
+        protected override IList<string> JavaScriptFiles()
         {
             return new List<string>
             {

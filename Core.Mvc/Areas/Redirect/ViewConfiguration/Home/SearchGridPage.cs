@@ -34,7 +34,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         /// Css文件.
         /// </summary>
         /// <returns>css list.</returns>
-        public abstract IList<string> Css();
+        public abstract IList<string> CssFiles();
 
         /// <summary>
         /// 渲染.
@@ -83,7 +83,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         /// JavaScript文件.
         /// </summary>
         /// <returns>The list.</returns>
-        protected abstract IList<string> JavaScript();
+        protected abstract IList<string> JavaScriptFiles();
 
         protected virtual SearchFilterConfiguration SearchFilterConfiguration()
         {
@@ -133,7 +133,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
                 Javascript.Framework,
                 Javascript.Core
             };
-            list.AddRange(this.JavaScript());
+            list.AddRange(this.JavaScriptFiles());
 
             return list;
         }
@@ -142,13 +142,13 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         {
             List<string> list = new List<string>
             {
-                "/css/bootstrap.min.css",
+                Css.Bootstrap,
                 "/css/bootstrap-responsive.min.css",
-                "/css/bootstrap-datetimepicker.css",
-                "/css/core.css",
+                Css.BootstrapDatetimepicker,
+                Css.Core,
                 "/font-awesome/css/font-awesome.css",
             };
-            list.AddRange(this.Css());
+            list.AddRange(this.CssFiles());
 
             return list;
         }

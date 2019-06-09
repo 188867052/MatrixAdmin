@@ -28,12 +28,12 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
             this._response = response;
         }
 
-        public override IList<string> Css()
+        public override IList<string> CssFiles()
         {
             return new List<string>();
         }
 
-        protected override IList<string> JavaScript()
+        protected override IList<string> JavaScriptFiles()
         {
             return new List<string>
             {

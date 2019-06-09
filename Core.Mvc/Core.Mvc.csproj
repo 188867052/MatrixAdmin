@@ -15,11 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Resource.Generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resource.Generated.tt</DependentUpon>
-    </Content>
     <Content Include="Resource.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Resource.Generated.cs</LastGenOutput>

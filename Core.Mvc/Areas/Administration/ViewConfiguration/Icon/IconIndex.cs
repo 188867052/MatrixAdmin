@@ -27,13 +27,13 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
         }
 
         /// <inheritdoc/>
-        public override IList<string> Css()
+        public override IList<string> CssFiles()
         {
             return new List<string>();
         }
 
         /// <inheritdoc/>
-        protected override IList<string> JavaScript()
+        protected override IList<string> JavaScriptFiles()
         {
             return new List<string>
             {

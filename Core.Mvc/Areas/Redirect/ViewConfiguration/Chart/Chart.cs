@@ -17,7 +17,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Chart
             }
         }
 
-        public override IList<string> Css()
+        public override IList<string> CssFiles()
         {
             return new List<string>
             {
@@ -26,7 +26,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Chart
             };
         }
 
-        protected override IList<string> JavaScript()
+        protected override IList<string> JavaScriptFiles()
         {
             return new List<string>
             {

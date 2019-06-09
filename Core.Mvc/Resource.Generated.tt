@@ -51,6 +51,16 @@ try{
        	WriteLine("\t");
         CreateNamespace(item);
      }
+
+	 WriteLine("\t");
+	folder=AppRoot+@"wwwroot\css\";
+	ds = Directory.GetDirectories(folder);
+	CreateNamespace2(folder);
+	foreach (var item in ds)
+    {
+       	WriteLine("\t");
+        CreateNamespace(item);
+     }
 }
 catch(Exception ex)
 {
@@ -92,7 +102,34 @@ catch(Exception ex)
             WriteLine("    }");
             WriteLine("}");
         }
-  
+   void CreateNamespace2(string dir)
+        {
+            string wwwrootDir = AppRoot+"wwwroot";
+            string[] a = Directory.GetFiles(dir);
+            DirectoryInfo DirectoryInfo = new DirectoryInfo(dir);
+            string namespaceEnd = DirectoryInfo.Parent.FullName.Replace(wwwrootDir, "").Replace(@"\", ".");
+          // todo
+		  if(namespaceEnd==".css"){
+		   namespaceEnd =".Css";
+		   }
+		    string @namespace =RootNamespace + (namespaceEnd == "." ? "" : namespaceEnd);
+            WriteLine($"namespace {@namespace}");
+            WriteLine("{");
+            string className = ToCamelCase(DirectoryInfo.Name);
+	    	if(className=="Css"){
+		    className ="Css";
+		    }	
+            WriteLine($"    public class {className}");
+            WriteLine("    {");
+            foreach (var file in a.Where(o => o.EndsWith(".css") && !o.EndsWith("min.css")))
+            {
+                FileInfo FileInfo = new FileInfo(file);
+                string value = FileInfo.FullName.Replace(wwwrootDir, "");
+                WriteLine($"        public const string {ToCamelCaseComplex2(FileInfo.Name)} = \"{value.Replace(@"\", "/")}\";");
+            }
+            WriteLine("    }");
+            WriteLine("}");
+        }
    string ToCamelCaseComplex(string name)
         {
             string pname = name.Replace(".js", "");
@@ -104,7 +141,17 @@ catch(Exception ex)
             }
             return value;
         }
-
+		   string ToCamelCaseComplex2(string name)
+        {
+            string pname = name.Replace(".css", "");
+            var arr = pname.Split('.', '-');
+            var value = "";
+            foreach (var item in arr)
+            {
+                value += ToCamelCase(item);
+            }
+            return value;
+        }
     string ToCamelCase(string name)
         {
             char firstChar = name[0];
