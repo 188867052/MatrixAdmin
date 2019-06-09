@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore;
+﻿using Core.Api.Framework;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 // Scaffold-DbContext -Force "Data Source=.;App=EntityFrameworkCore;Initial Catalog=Core;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" Microsoft.EntityFrameworkCore.SqlServer

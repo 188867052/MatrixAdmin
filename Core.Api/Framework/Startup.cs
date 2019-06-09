@@ -14,7 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
 
-namespace Core.Api
+namespace Core.Api.Framework
 {
     /// <summary>
     /// The startup.
