@@ -8,7 +8,6 @@ using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Mvc.Framework;
 using Core.Web.Sidebar;
 using Core.Web.ViewConfiguration;
-using Microsoft.VisualStudio.Threading;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button
 {
@@ -36,7 +35,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button
         {
             return new List<string>
             {
-                "/css/fullcalendar.css",
+                Css.Fullcalendar,
                 "/font-awesome/css/font-awesome.css",
             };
         }
@@ -45,7 +44,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button
         {
             return new List<string>
             {
-               "/js/matrix.js",
+               Javascript.Matrix
             };
         }
 

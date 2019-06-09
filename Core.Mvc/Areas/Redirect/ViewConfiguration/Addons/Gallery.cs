@@ -29,7 +29,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Addons
         {
             return new List<string>
             {
-               "/js/matrix.js",
+               Javascript.Matrix
             };
         }
 

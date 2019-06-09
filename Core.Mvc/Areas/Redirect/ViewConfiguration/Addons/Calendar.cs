@@ -22,7 +22,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Addons
             return new List<string>
             {
                 "/font-awesome/css/font-awesome.css",
-                "/css/fullcalendar.css"
+                Css.Fullcalendar
             };
         }
 
@@ -30,9 +30,9 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Addons
         {
             return new List<string>
             {
-               "/js/matrix.js",
-               "/js/fullcalendar.min.js",
-               "/js/matrix.calendar.js"
+              Javascript.Matrix,
+              "/js/fullcalendar.min.js",
+              Javascript.MatrixCalendar,
             };
         }
 

@@ -21,7 +21,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Chart
         {
             return new List<string>
             {
-                "/css/fullcalendar.css",
+                Css.Fullcalendar,
                 "/font-awesome/css/font-awesome.css",
             };
         }
@@ -32,9 +32,9 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Chart
             {
                "/js/jquery.flot.min.js",
                "/js/jquery.flot.pie.min.js",
-               "/js/matrix.charts.js",
+               Javascript.MatrixCharts,
                "/js/jquery.flot.resize.min.js",
-               "/js/matrix.js",
+               Javascript.Matrix,
                "/js/jquery.peity.min.js",
             };
         }

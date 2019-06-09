@@ -19,10 +19,9 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Index
         {
             return new List<string>
             {
-                "/css/fullcalendar.css",
-
+                Css.Fullcalendar,
                 "/font-awesome/css/font-awesome.css",
-                "/css/jquery.gritter.css",
+                Css.JqueryGritter
             };
         }
 
@@ -35,12 +34,12 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Index
                "/js/jquery.flot.resize.min.js",
                "/js/jquery.peity.min.js",
                "/js/fullcalendar.min.js",
-               "/js/matrix.js",
-               "/js/matrix.dashboard.js",
+               Javascript.Matrix,
+               Javascript.MatrixDashboard,
                "/js/jquery.gritter.min.js",
-               "/js/matrix.interface.js",
-               "/js/matrix.chat.js",
-               "/js/jquery.validate.js",
+               Javascript.MatrixInterface,
+               Javascript.MatrixChat,
+               Javascript.JqueryValidate
             };
         }
 

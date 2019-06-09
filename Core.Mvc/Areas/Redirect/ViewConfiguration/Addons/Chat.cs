@@ -30,8 +30,8 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Addons
         {
             return new List<string>
             {
-               "/js/matrix.js",
-               "/js/matrix.chat.js"
+               Javascript.Matrix,
+               Javascript.MatrixChat,
             };
         }
 
