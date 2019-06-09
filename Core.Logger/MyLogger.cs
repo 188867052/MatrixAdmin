@@ -9,22 +9,22 @@ namespace Core.MyLogger
         public override void Initialize(IEventSource eventSource)
         {
             //Register for the ProjectStarted, TargetStarted, and ProjectFinished events
-            eventSource.ProjectStarted += new ProjectStartedEventHandler(eventSource_ProjectStarted);
-            eventSource.TargetStarted += new TargetStartedEventHandler(eventSource_TargetStarted);
-            eventSource.ProjectFinished += new ProjectFinishedEventHandler(eventSource_ProjectFinished);
+            eventSource.ProjectStarted += new ProjectStartedEventHandler(EventSource_ProjectStarted);
+            eventSource.TargetStarted += new TargetStartedEventHandler(EventSource_TargetStarted);
+            eventSource.ProjectFinished += new ProjectFinishedEventHandler(EventSource_ProjectFinished);
         }
 
-        void eventSource_ProjectStarted(object sender, ProjectStartedEventArgs e)
+        void EventSource_ProjectStarted(object sender, ProjectStartedEventArgs e)
         {
             Console.WriteLine("Project Started: " + e.ProjectFile);
         }
 
-        void eventSource_ProjectFinished(object sender, ProjectFinishedEventArgs e)
+        void EventSource_ProjectFinished(object sender, ProjectFinishedEventArgs e)
         {
             Console.WriteLine("Project Finished: " + e.ProjectFile);
         }
 
-        void eventSource_TargetStarted(object sender, TargetStartedEventArgs e)
+        void EventSource_TargetStarted(object sender, TargetStartedEventArgs e)
         {
             if (Verbosity == LoggerVerbosity.Detailed)
             {
