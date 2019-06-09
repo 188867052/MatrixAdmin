@@ -33,7 +33,7 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
         {
             return new List<string>
             {
-                "/js/log/index.js",
+                Js.Log.Index
             };
         }
 

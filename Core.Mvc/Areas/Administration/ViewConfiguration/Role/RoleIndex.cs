@@ -36,7 +36,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
         {
             return new List<string>
             {
-                "/js/role/role.js",
+               Js.Role.Index
             };
         }
 

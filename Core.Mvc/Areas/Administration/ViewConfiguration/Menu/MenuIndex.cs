@@ -37,7 +37,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
         {
             return new List<string>
             {
-                "/js/menu/index.js",
+                Js.Menu.Index
             };
         }
 

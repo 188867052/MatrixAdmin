@@ -127,11 +127,11 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             {
                 "/js/jquery.min.js",
                 "/js/jquery.dataTables.min.js",
-                "/js/popper.js",
-                "/js/bootstrap.min.js",
-                "/js/bootstrap-datetimepicker.js",
-                "/js/framework.js",
-                "/js/core.js",
+                Javascript.Popper,
+                Javascript.Bootstrap,
+                Javascript.BootstrapDatetimepicker,
+                Javascript.Framework,
+                Javascript.Core
             };
             list.AddRange(this.JavaScript());
 
