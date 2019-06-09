@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using AutoMapper;
+using Core.Api.Authentication;
 using Core.Api.Framework.MiddleWare;
 using Core.Entity;
 using Microsoft.AspNetCore.Builder;
@@ -35,6 +36,10 @@ namespace Core.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<AppAuthenticationSettings>(this.Configuration.GetSection("AppAuthenticationSettings"));
+            AppAuthenticationSettings setting = new AppAuthenticationSettings();
+            this.Configuration.Bind("AppAuthenticationSettings", setting);
+
             string[] urls = { "http://localhost:90" };
             services.AddCors(options =>
             options.AddPolicy("AllowSameDomain", builder => builder.WithOrigins(urls).AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin().AllowCredentials()));
