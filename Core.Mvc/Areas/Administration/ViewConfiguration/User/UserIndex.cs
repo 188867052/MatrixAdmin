@@ -36,7 +36,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
         {
             return new List<string>
             {
-                "/js/User/user.js",
+               Js.User.Index,
             };
         }
 

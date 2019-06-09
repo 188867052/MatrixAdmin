@@ -15,6 +15,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Resource.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.Generated.tt</DependentUpon>
+    </Content>
+    <Content Include="Resource.Generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Resource.Generated.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.0" />
     <PackageReference Include="bootstrap" Version="4.3.1" />
@@ -74,6 +86,25 @@
     <Content Update="wwwroot\js\jquery.min.map">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resource.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.Generated.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resource.Generated.tt">
+      <LastGenOutput>Resource.Generated.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
   </ItemGroup>
   <Import Project="C:\Program Files\stylecop\sourceCode\stylecop\Tools\StyleCop\v4.7\StyleCop.targets" />
   <ProjectExtensions><VisualStudio><UserProperties Properties_4launchSettings_1json__JSONSchema="rule" /></VisualStudio></ProjectExtensions>
