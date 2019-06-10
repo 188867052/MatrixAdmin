@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest.Resource\\Core.UnitTest.Resource.csproj": {}
+    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\Core.UnitTest.Resource.csproj": {}
   },
   "projects": {
-    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest.Resource\\Core.UnitTest.Resource.csproj": {
+    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\Core.UnitTest.Resource.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest.Resource\\Core.UnitTest.Resource.csproj",
+        "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\Core.UnitTest.Resource.csproj",
         "projectName": "Core.UnitTest.Resource",
-        "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest.Resource\\Core.UnitTest.Resource.csproj",
+        "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\Core.UnitTest.Resource.csproj",
         "packagesPath": "C:\\Users\\54215\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest.Resource\\obj\\",
+        "outputPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

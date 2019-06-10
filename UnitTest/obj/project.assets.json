@@ -15399,8 +15399,8 @@
     },
     "Core.UnitTest.Resource/1.0.0": {
       "type": "project",
-      "path": "../Core.UnitTest.Resource/Core.UnitTest.Resource.csproj",
-      "msbuildProject": "../Core.UnitTest.Resource/Core.UnitTest.Resource.csproj"
+      "path": "../UnitTest.Resource/Core.UnitTest.Resource.csproj",
+      "msbuildProject": "../UnitTest.Resource/Core.UnitTest.Resource.csproj"
     },
     "Core.Web/1.0.0": {
       "type": "project",
@@ -15452,11 +15452,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest\\Core.UnitTest.csproj",
+      "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest\\Core.UnitTest.csproj",
       "projectName": "Core.UnitTest",
-      "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest\\Core.UnitTest.csproj",
+      "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest\\Core.UnitTest.csproj",
       "packagesPath": "C:\\Users\\54215\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest\\obj\\",
+      "outputPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -15486,8 +15486,8 @@
             "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj": {
               "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj"
             },
-            "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest.Resource\\Core.UnitTest.Resource.csproj": {
-              "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest.Resource\\Core.UnitTest.Resource.csproj"
+            "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\Core.UnitTest.Resource.csproj": {
+              "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\Core.UnitTest.Resource.csproj"
             }
           }
         }
