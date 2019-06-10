@@ -75,7 +75,7 @@
     <Content Update="wwwroot\js\jquery.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="wwwroot\js\jquery.min.js">
+    <Content Update="wwwroot\js\jquery.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Update="wwwroot\js\jquery.min.map">

@@ -11,6 +11,7 @@
         public const string Bootstrap = "/js/bootstrap.js";
         public const string Core = "/js/core.js";
         public const string Framework = "/js/framework.js";
+        public const string Jquery = "/js/jquery.js";
         public const string JqueryUniform = "/js/jquery.uniform.js";
         public const string JqueryValidate = "/js/jquery.validate.js";
         public const string JqueryWizard = "/js/jquery.wizard.js";
@@ -45,7 +46,7 @@
         public const string MatrixLogin = "/css/matrix-login.css";
     }
 }
-
+	
 namespace Core.Mvc.Js
 {
     public class Icon

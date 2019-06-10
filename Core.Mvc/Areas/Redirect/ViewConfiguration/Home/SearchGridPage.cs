@@ -125,7 +125,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         {
             List<string> list = new List<string>
             {
-                "/js/jquery.min.js",
+                Javascript.Jquery,
                 "/js/jquery.dataTables.min.js",
                 Javascript.Popper,
                 Javascript.Bootstrap,
