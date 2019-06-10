@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest\\Core.UnitTest.csproj": {}
+    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest\\Core.UnitTest.csproj": {}
   },
   "projects": {
     "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\Core.Api.csproj": {
@@ -1386,6 +1386,302 @@
         }
       }
     },
+    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest.Resource\\Core.UnitTest.Resource.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest.Resource\\Core.UnitTest.Resource.csproj",
+        "projectName": "Core.UnitTest.Resource",
+        "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest.Resource\\Core.UnitTest.Resource.csproj",
+        "packagesPath": "C:\\Users\\54215\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest.Resource\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\54215\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Users\\54215\\.nuget\\localpackages": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Analyzers": {
+              "target": "Package",
+              "version": "[3.0.0-preview3-19153-02, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
+            "Microsoft.CodeQuality.Analyzers": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Analyzers": {
+              "target": "Package",
+              "version": "[3.0.0-preview5.19227.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.0.0-preview5.19227.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.0.0-preview5.19227.1, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.NetCore.Analyzers": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
+            },
+            "Microsoft.VisualStudio.Threading.Analyzers": {
+              "target": "Package",
+              "version": "[16.0.102, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.2, )"
+            },
+            "Quartz": {
+              "target": "Package",
+              "version": "[3.0.7, )"
+            },
+            "Roslyn.Diagnostics.Analyzers": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "Text.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.6.4, )"
+            },
+            "xunit.analyzers": {
+              "target": "Package",
+              "version": "[0.10.0, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest\\Core.UnitTest.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest\\Core.UnitTest.csproj",
+        "projectName": "Core.UnitTest",
+        "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest\\Core.UnitTest.csproj",
+        "packagesPath": "C:\\Users\\54215\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\54215\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Users\\54215\\.nuget\\localpackages": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {
+              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\Core.Api.csproj": {
+                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\Core.Api.csproj"
+              },
+              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj": {
+                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj"
+              },
+              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Models\\Core.Model.csproj": {
+                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Models\\Core.Model.csproj"
+              },
+              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj": {
+                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj"
+              },
+              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest.Resource\\Core.UnitTest.Resource.csproj": {
+                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.UnitTest.Resource\\Core.UnitTest.Resource.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[2.0.0-beta4, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[2.0.0-beta4, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Analyzers": {
+              "target": "Package",
+              "version": "[3.0.0-preview3-19153-02, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
+            "Microsoft.CodeQuality.Analyzers": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            },
+            "Microsoft.EntityFrameworkCore.Analyzers": {
+              "target": "Package",
+              "version": "[3.0.0-preview5.19227.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.0.0-preview5.19227.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.0.0-preview5.19227.1, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.1.1, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.NetCore.Analyzers": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            },
+            "Microsoft.UnitTestFramework.Extensions": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
+            },
+            "Microsoft.VisualStudio.Threading.Analyzers": {
+              "target": "Package",
+              "version": "[16.0.102, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.12.0, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[3.13.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.2, )"
+            },
+            "Quartz": {
+              "target": "Package",
+              "version": "[3.0.7, )"
+            },
+            "Roslyn.Diagnostics.Analyzers": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "Text.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.6.4, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "xunit.analyzers": {
+              "target": "Package",
+              "version": "[0.10.0, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.1, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
     "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Web\\Core.Web.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -1709,302 +2005,6 @@
             "xunit.analyzers": {
               "target": "Package",
               "version": "[0.10.0, )"
-            }
-          },
-          "imports": [
-            "net461"
-          ],
-          "assetTargetFallback": true,
-          "warn": true
-        }
-      }
-    },
-    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\Core.UnitTest.Resource.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\Core.UnitTest.Resource.csproj",
-        "projectName": "Core.UnitTest.Resource",
-        "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\Core.UnitTest.Resource.csproj",
-        "packagesPath": "C:\\Users\\54215\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\54215\\AppData\\Roaming\\NuGet\\NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "netcoreapp2.1"
-        ],
-        "sources": {
-          "C:\\Users\\54215\\.nuget\\localpackages": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
-        },
-        "frameworks": {
-          "netcoreapp2.1": {
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "netcoreapp2.1": {
-          "dependencies": {
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
-              "target": "Package",
-              "version": "[3.0.0-preview3-19153-02, )"
-            },
-            "Microsoft.AspNetCore.Mvc.Core": {
-              "target": "Package",
-              "version": "[2.2.5, )"
-            },
-            "Microsoft.CodeQuality.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.2, )"
-            },
-            "Microsoft.EntityFrameworkCore.Analyzers": {
-              "target": "Package",
-              "version": "[3.0.0-preview5.19227.1, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.0.0-preview5.19227.1, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[3.0.0-preview5.19227.1, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.1.0, )",
-              "autoReferenced": true
-            },
-            "Microsoft.NetCore.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.2, )"
-            },
-            "Microsoft.VisualStudio.Threading": {
-              "target": "Package",
-              "version": "[16.0.102, )"
-            },
-            "Microsoft.VisualStudio.Threading.Analyzers": {
-              "target": "Package",
-              "version": "[16.0.102, )"
-            },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[12.0.2, )"
-            },
-            "Quartz": {
-              "target": "Package",
-              "version": "[3.0.7, )"
-            },
-            "Roslyn.Diagnostics.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.2, )"
-            },
-            "StyleCop.Analyzers": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[1.1.118, )"
-            },
-            "Text.Analyzers": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.6.4, )"
-            },
-            "xunit.analyzers": {
-              "target": "Package",
-              "version": "[0.10.0, )"
-            }
-          },
-          "imports": [
-            "net461"
-          ],
-          "assetTargetFallback": true,
-          "warn": true
-        }
-      }
-    },
-    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest\\Core.UnitTest.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest\\Core.UnitTest.csproj",
-        "projectName": "Core.UnitTest",
-        "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest\\Core.UnitTest.csproj",
-        "packagesPath": "C:\\Users\\54215\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\54215\\AppData\\Roaming\\NuGet\\NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "netcoreapp2.1"
-        ],
-        "sources": {
-          "C:\\Users\\54215\\.nuget\\localpackages": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
-        },
-        "frameworks": {
-          "netcoreapp2.1": {
-            "projectReferences": {
-              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\Core.Api.csproj": {
-                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\Core.Api.csproj"
-              },
-              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj": {
-                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj"
-              },
-              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Models\\Core.Model.csproj": {
-                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Models\\Core.Model.csproj"
-              },
-              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj": {
-                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj"
-              },
-              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\Core.UnitTest.Resource.csproj": {
-                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\Core.UnitTest.Resource.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "netcoreapp2.1": {
-          "dependencies": {
-            "MSTest.TestAdapter": {
-              "target": "Package",
-              "version": "[2.0.0-beta4, )"
-            },
-            "MSTest.TestFramework": {
-              "target": "Package",
-              "version": "[2.0.0-beta4, )"
-            },
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
-              "target": "Package",
-              "version": "[3.0.0-preview3-19153-02, )"
-            },
-            "Microsoft.AspNetCore.Mvc.Core": {
-              "target": "Package",
-              "version": "[2.2.5, )"
-            },
-            "Microsoft.CodeQuality.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.2, )"
-            },
-            "Microsoft.EntityFrameworkCore.Analyzers": {
-              "target": "Package",
-              "version": "[3.0.0-preview5.19227.1, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.0.0-preview5.19227.1, )"
-            },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[3.0.0-preview5.19227.1, )"
-            },
-            "Microsoft.NET.Test.Sdk": {
-              "target": "Package",
-              "version": "[16.1.1, )"
-            },
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.1.0, )",
-              "autoReferenced": true
-            },
-            "Microsoft.NetCore.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.2, )"
-            },
-            "Microsoft.UnitTestFramework.Extensions": {
-              "target": "Package",
-              "version": "[2.0.0, )"
-            },
-            "Microsoft.VisualStudio.Threading": {
-              "target": "Package",
-              "version": "[16.0.102, )"
-            },
-            "Microsoft.VisualStudio.Threading.Analyzers": {
-              "target": "Package",
-              "version": "[16.0.102, )"
-            },
-            "NUnit": {
-              "target": "Package",
-              "version": "[3.12.0, )"
-            },
-            "NUnit3TestAdapter": {
-              "target": "Package",
-              "version": "[3.13.0, )"
-            },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[12.0.2, )"
-            },
-            "Quartz": {
-              "target": "Package",
-              "version": "[3.0.7, )"
-            },
-            "Roslyn.Diagnostics.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.2, )"
-            },
-            "StyleCop.Analyzers": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[1.1.118, )"
-            },
-            "Text.Analyzers": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.6.4, )"
-            },
-            "xunit": {
-              "target": "Package",
-              "version": "[2.4.1, )"
-            },
-            "xunit.analyzers": {
-              "target": "Package",
-              "version": "[0.10.0, )"
-            },
-            "xunit.runner.visualstudio": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.4.1, )"
             }
           },
           "imports": [
