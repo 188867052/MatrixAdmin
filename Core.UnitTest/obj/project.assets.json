@@ -2331,7 +2331,7 @@
       "Microsoft.NetCore.Analyzers/2.9.2": {
         "type": "package",
         "build": {
-          "build/Microsoft.NetCore.Analyzers.props": {}
+          "build/_._": {}
         }
       },
       "Microsoft.NETCore.App/2.1.0": {
@@ -15427,7 +15427,6 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.0.0-preview5.19227.1",
       "Microsoft.NET.Test.Sdk >= 16.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
-      "Microsoft.NetCore.Analyzers >= 2.9.2",
       "Microsoft.UnitTestFramework.Extensions >= 2.0.0",
       "Microsoft.VisualStudio.Threading >= 16.0.102",
       "Microsoft.VisualStudio.Threading.Analyzers >= 16.0.102",
@@ -15548,10 +15547,6 @@
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
-          },
-          "Microsoft.NetCore.Analyzers": {
-            "target": "Package",
-            "version": "[2.9.2, )"
           },
           "Microsoft.UnitTestFramework.Extensions": {
             "target": "Package",
