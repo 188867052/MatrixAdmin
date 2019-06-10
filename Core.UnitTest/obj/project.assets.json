@@ -2328,7 +2328,7 @@
           "buildMultiTargeting/Microsoft.NET.Test.Sdk.props": {}
         }
       },
-      "Microsoft.NetCore.Analyzers/2.9.2": {
+      "Microsoft.NetCore.Analyzers/2.9.3": {
         "type": "package",
         "build": {
           "build/Microsoft.NetCore.Analyzers.props": {}
@@ -8273,10 +8273,10 @@
         "microsoft.net.test.sdk.nuspec"
       ]
     },
-    "Microsoft.NetCore.Analyzers/2.9.2": {
-      "sha512": "SLCvjexhfwWzlyHYDQ6zMAOgC0gXTLe4kc02LhZ4GTqx7HQ7FXwX1DZrcFZ4AGYLqjCAvJKPpxBF+4jxh1rdkQ==",
+    "Microsoft.NetCore.Analyzers/2.9.3": {
+      "sha512": "6QTU/GKuB/s4eX/VD9ZgiIpD8dhP+BuGMUpp2VRDPflrbka+1DmdnayqPO18epUa/79n1OR9uT9hpvd0jgdggg==",
       "type": "package",
-      "path": "microsoft.netcore.analyzers/2.9.2",
+      "path": "microsoft.netcore.analyzers/2.9.3",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -8288,7 +8288,7 @@
         "analyzers/dotnet/vb/Microsoft.NetCore.VisualBasic.Analyzers.dll",
         "build/Microsoft.NetCore.Analyzers.props",
         "documentation/Microsoft.NetCore.Analyzers.md",
-        "microsoft.netcore.analyzers.2.9.2.nupkg.sha512",
+        "microsoft.netcore.analyzers.2.9.3.nupkg.sha512",
         "microsoft.netcore.analyzers.nuspec",
         "rulesets/AllRulesDefault.ruleset",
         "rulesets/AllRulesDisabled.ruleset",
@@ -15430,7 +15430,7 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.0.0-preview5.19227.1",
       "Microsoft.NET.Test.Sdk >= 16.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
-      "Microsoft.NetCore.Analyzers >= 2.9.2",
+      "Microsoft.NetCore.Analyzers >= 2.9.3",
       "Microsoft.UnitTestFramework.Extensions >= 2.0.0",
       "Microsoft.VisualStudio.Threading >= 16.0.102",
       "Microsoft.VisualStudio.Threading.Analyzers >= 16.0.102",
@@ -15547,7 +15547,7 @@
           },
           "Microsoft.NetCore.Analyzers": {
             "target": "Package",
-            "version": "[2.9.2, )"
+            "version": "[2.9.3, )"
           },
           "Microsoft.UnitTestFramework.Extensions": {
             "target": "Package",
