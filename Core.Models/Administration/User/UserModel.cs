@@ -33,7 +33,7 @@ namespace Core.Model.Administration.User
             }
 
             this.CreateTime = user.CreateTime;
-            this.Status = user.IsEnable;
+            this.IsEnable = user.IsEnable;
             this.IsDeleted = user.IsDeleted;
             this.CreatedByUserName = user.CreateByUserName;
             this.UpdateTime = user.UpdateTime;
@@ -77,7 +77,7 @@ namespace Core.Model.Administration.User
         /// <summary>
         ///
         /// </summary>
-        public bool Status { get; set; }
+        public bool IsEnable { get; set; }
 
         /// <summary>
         ///

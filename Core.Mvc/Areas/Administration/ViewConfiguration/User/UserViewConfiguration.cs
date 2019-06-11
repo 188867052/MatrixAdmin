@@ -27,7 +27,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
             gridColumns.Add(new TextGridColumn<T>(o => o.LoginName, Resources.LoginName));
             gridColumns.Add(new TextGridColumn<T>(o => o.DisplayName, Resources.DisplayName));
             gridColumns.Add(new TextGridColumn<T>(o => o.RoleName, "角色"));
-            gridColumns.Add(new EnumGridColumn<T>(o => o.Status, Resources.Status));
+            gridColumns.Add(new BooleanGridColumn<T>(o => o.IsEnable, Resources.Status));
             BooleanGridColumn<T> column = new BooleanGridColumn<T>(o => o.IsDeleted, "是否删除");
             column.AddOption(false, "正常");
             column.AddOption(true, "已删除");
