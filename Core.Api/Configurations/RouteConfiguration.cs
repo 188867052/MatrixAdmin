@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Core.Api.Configurations
 {
@@ -24,6 +26,11 @@ namespace Core.Api.Configurations
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        public static void AddService(IServiceCollection services)
+        {
+            services.Configure<RouteOptions>(o => o.LowercaseUrls = false);
         }
     }
 }

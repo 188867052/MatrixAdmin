@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Core.Extension
 {
@@ -38,18 +40,40 @@ namespace Core.Extension
 
         public string Parameter { get; set; }
 
-        public string ActionParameterName
+        public IList<string> ActionParameterName
         {
             get
             {
-                var parameter = this.ControllerType.GetMethod(this.Action).GetParameters().FirstOrDefault();
+                ParameterInfo[] parameter = this.ControllerType.GetMethod(this.Action).GetParameters();
                 if (parameter == null)
                 {
                     throw new Exception($"Action:[{this.Action}]没有参数.");
                 }
 
-                return parameter.Name;
+                return parameter.Select(o => o.Name).ToList();
             }
+        }
+
+        public string Query(object parameters)
+        {
+            PropertyInfo[] propertyInfos = parameters.GetType().GetProperties();
+            if (propertyInfos.Length != this.ActionParameterName.Count)
+            {
+                throw new ArgumentException("参数数目不对.");
+            }
+
+            string query = "?";
+            for (int i = 0; i < this.ActionParameterName.Count; i++)
+            {
+                string value = propertyInfos[i].GetValue(parameters).ToString();
+                query += $"{ActionParameterName[i]}={value}";
+                if (i != ActionParameterName.Count - 1)
+                {
+                    query += "&";
+                }
+            }
+
+            return query;
         }
 
         public string Render()

@@ -56,6 +56,10 @@
       "frameworks": {
         "netcoreapp2.1": {
           "dependencies": {
+            "Microsoft.CodeAnalysis.FxCopAnalyzers": {
+              "target": "Package",
+              "version": "[2.9.3, )"
+            },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",
               "target": "Package",
@@ -667,7 +671,7 @@
             },
             "Microsoft.CodeQuality.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "Microsoft.EntityFrameworkCore.Analyzers": {
               "target": "Package",
@@ -693,7 +697,7 @@
             },
             "Microsoft.NetCore.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "Microsoft.VisualStudio.Threading": {
               "target": "Package",

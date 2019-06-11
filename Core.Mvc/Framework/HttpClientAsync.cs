@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Threading.Tasks;
 using Core.Extension;
 using Core.Model;
@@ -35,6 +36,27 @@ namespace Core.Mvc.Framework
         /// </summary>
         /// <typeparam name="T">T.</typeparam>
         /// <param name="url">url.</param>
+        /// <returns>Task.</returns>
+        public static async Task<dynamic> GetAsync(Url url, object parameters = null)
+        {
+            HttpResponseMessage httpResponse;
+            using (HttpClient client = new HttpClient())
+            {
+                string requestUrl = SiteConfiguration.Host + url.Render() + url.Query(parameters);
+                httpResponse = await client.GetAsync(requestUrl);
+            }
+
+            string json = await httpResponse.Content.ReadAsStringAsync();
+            dynamic data = JsonConvert.DeserializeObject<dynamic>(json);
+
+            return data;
+        }
+
+        /// <summary>
+        /// GetAsync.
+        /// </summary>
+        /// <typeparam name="T">T.</typeparam>
+        /// <param name="url">url.</param>
         /// <param name="data">data.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         public static async Task<ResponseModel> GetAsync<T>(Url url, object data)
@@ -45,7 +67,7 @@ namespace Core.Mvc.Framework
                 string requestUrl = SiteConfiguration.Host + url.Render();
                 if (data != null)
                 {
-                    requestUrl += $"?{url.ActionParameterName}=" + data;
+                    requestUrl += $"?{url.ActionParameterName[0]}=" + data;
                 }
 
                 httpResponse = await client.GetAsync(requestUrl);

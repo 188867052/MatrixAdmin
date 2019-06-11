@@ -1,4 +1,6 @@
-﻿using Core.Api.Auth;
+﻿using AutoMapper;
+using Core.Api.Auth;
+using Core.Api.Framework;
 using Core.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -11,17 +13,13 @@ namespace Core.Api.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class AuthenticationController : ControllerBase
+    public class AuthenticationController : StandardController
     {
         private readonly AppAuthenticationSettings _appSettings;
-        private readonly CoreContext _dbContext;
 
-        public AuthenticationController(IOptions<AppAuthenticationSettings> appSettings, CoreContext dbContext)
+        public AuthenticationController(IOptions<AppAuthenticationSettings> appSettings, CoreContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
             this._appSettings = appSettings.Value;
-            this._dbContext = dbContext;
         }
 
         /// <summary>
@@ -33,9 +31,9 @@ namespace Core.Api.Controllers
         [HttpGet]
         public IActionResult Auth(string username, string password)
         {
-            using (this._dbContext)
+            using (this.DbContext)
             {
-                User user = this._dbContext.User.FirstOrDefault(x => x.LoginName == username.Trim());
+                User user = this.DbContext.User.FirstOrDefault(x => x.LoginName == username.Trim());
                 if (user == null || !user.IsEnable)
                 {
                     return this.FailResponse("用户不存在");

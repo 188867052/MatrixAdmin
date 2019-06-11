@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Text.Encodings.Web;
+using System.Text.Unicode;
+using AutoMapper;
 using Core.Api.AuthContext;
 using Core.Api.Configurations;
 using Core.Api.Extensions.CustomException;
@@ -7,13 +9,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.WebEncoders;
 using Newtonsoft.Json.Serialization;
-using System.Text.Encodings.Web;
-using System.Text.Unicode;
 
 namespace Core.Api
 {
@@ -36,28 +35,16 @@ namespace Core.Api
             AuthenticationConfiguration.AddService(services, this.Configuration);
             DbContextConfiguration.AddService(services, this.Configuration);
             CorsConfiguration.AddService(services);
-            
+            RouteConfiguration.AddService(services);
             services.AddMemoryCache();
             services.AddHttpContextAccessor();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-            services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 #pragma warning disable 618
             services.AddAutoMapper();
 #pragma warning disable 618
-
-            services.Configure<WebEncoderOptions>(options =>
-                options.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs)
-            );
-
-            services
-                .AddMvc(config =>
-                {
-                    //config.Filters.Add(new ValidateModelAttribute());
-                })
-                .AddJsonOptions(options =>
-                {
-                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                })
+            services.Configure<WebEncoderOptions>(o => o.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs));
+            services.AddMvc(s => s.Filters.Add(new ValidateModelAttribute()))
+                .AddJsonOptions(s => s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -71,10 +58,7 @@ namespace Core.Api
         {
             SwaggerConfiguration.AddConfigure(app);
             AuthenticationConfiguration.AddConfigure(app);
-            if (env.IsDevelopment())
-            {
-            }
-            app.UseDeveloperExceptionPage();
+            DevelopmentConfiguration.AddConfigure(app, env);
 
             app.UseStaticFiles();
             app.UseFileServer();

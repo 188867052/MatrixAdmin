@@ -9,7 +9,6 @@ using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.Menu;
 using Dapper;
-using Core.Api.Framework;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Api.Controllers

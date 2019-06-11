@@ -21,7 +21,7 @@ namespace Core.Api.Framework.MiddleWare
         {
             if (this._categoryName == "Microsoft.EntityFrameworkCore.Database.Command")
             {
-                var logContent = formatter(state, exception);
+                string logContent = formatter(state, exception);
                 if (logContent != "A data reader was disposed." && !logContent.Contains("[Log]"))
                 {
                     var sql = this.ConvertToSql(logContent);

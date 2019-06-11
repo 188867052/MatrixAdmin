@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Core.Api.Controllers;
 using Core.Entity;
@@ -22,6 +25,39 @@ namespace Core.UnitTest.Api
     [TestFixture]
     public class UnitTest
     {
+        private string token = string.Empty;
+
+        [Test]
+        [Order(1)]
+        public async Task TestGetToken()
+        {
+            var url = new Url(typeof(AuthenticationController), nameof(AuthenticationController.Auth));
+            var data = await HttpClientAsync.GetAsync(url, new { username = "admin", password = "111111" });
+
+            Console.WriteLine(data);
+            int code = data.code;
+            this.token = data.token;
+
+            Assert.AreEqual(code, (int)HttpStatusCode.OK);
+        }
+
+        [Test]
+        public async Task TestAuthentication()
+        {
+            var url = new Url(typeof(TestController), nameof(TestController.TestAuthentication));
+            using (HttpClient client = new HttpClient())
+            {
+                string requestUrl = SiteConfiguration.Host + url.Render();
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(this.token);
+                var httpResponse = await client.GetAsync(requestUrl);
+
+                dynamic json = await httpResponse.Content.ReadAsStringAsync();
+                Console.WriteLine(json);
+
+                Assert.IsTrue(json.IsAuthenticated);
+            }
+        }
+
         [Test]
         public async Task TestGetUserDataListAsync()
         {
