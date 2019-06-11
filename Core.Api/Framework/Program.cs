@@ -1,29 +1,35 @@
-﻿using Core.Api.Framework;
+﻿/******************************************
+ * AUTHOR:          Rector
+ * CREATEDON:       2018-09-26
+ * OFFICIAL_SITE:    码友网(https://codedefault.com)--专注.NET/.NET Core
+ * 版权所有，请勿删除
+ ******************************************/
+
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-// Scaffold-DbContext -Force "Data Source=.;App=EntityFrameworkCore;Initial Catalog=Core;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" Microsoft.EntityFrameworkCore.SqlServer
 namespace Core.Api
 {
     /// <summary>
-    /// Program.
+    /// 
     /// </summary>
     public class Program
     {
         /// <summary>
-        /// 应用程序启动入口方法(Main).
+        /// 应用程序启动入口方法(Main)
         /// </summary>
-        /// <param name="args">args.</param>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            IWebHost host = CreateWebHostBuilder(args).Build();
+            //CreateWebHostBuilder(args).Build().Run();
+            var host = CreateWebHostBuilder(args).Build();
             host.Run();
         }
 
         /// <summary>
-        /// CreateWebHostBuilder.
+        /// 
         /// </summary>
-        /// <param name="args">args.</param>
+        /// <param name="args"></param>
         /// <returns></returns>
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)

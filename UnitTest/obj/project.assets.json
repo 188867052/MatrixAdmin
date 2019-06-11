@@ -3535,20 +3535,6 @@
       "StyleCop.Analyzers/1.1.118": {
         "type": "package"
       },
-      "Swashbuckle.AspNetCore/5.0.0-rc2": {
-        "type": "package",
-        "dependencies": {
-          "Swashbuckle.AspNetCore.Swagger": "5.0.0-rc2",
-          "Swashbuckle.AspNetCore.SwaggerGen": "5.0.0-rc2",
-          "Swashbuckle.AspNetCore.SwaggerUI": "5.0.0-rc2"
-        },
-        "compile": {
-          "lib/netstandard2.0/Swashbuckle.AspNetCore.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Swashbuckle.AspNetCore.dll": {}
-        }
-      },
       "Swashbuckle.AspNetCore.Swagger/5.0.0-rc2": {
         "type": "package",
         "dependencies": {
@@ -5318,28 +5304,12 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
-          "AutoMapper": "8.1.0",
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.1.0",
+          "Core.Entity": "1.0.0",
           "Core.Extension": "1.0.0",
           "Core.Model": "1.0.0",
-          "Core.Service": "1.0.0",
-          "Dapper": "1.60.6",
-          "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
-          "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
-          "Microsoft.CodeQuality.Analyzers": "2.9.2",
-          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
-          "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
-          "Microsoft.NETCore.App": "2.1.0",
-          "Microsoft.NetCore.Analyzers": "2.9.2",
-          "Microsoft.VisualStudio.Threading": "16.0.102",
-          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
-          "Newtonsoft.Json": "12.0.2",
-          "Quartz": "3.0.7",
-          "Roslyn.Diagnostics.Analyzers": "2.9.2",
-          "Swashbuckle.AspNetCore": "5.0.0-rc2",
           "Swashbuckle.AspNetCore.Swagger": "5.0.0-rc2",
-          "xunit.analyzers": "0.10.0"
+          "Swashbuckle.AspNetCore.SwaggerGen": "5.0.0-rc2",
+          "Swashbuckle.AspNetCore.SwaggerUI": "5.0.0-rc2"
         },
         "compile": {
           "bin/placeholder/Core.Api.dll": {}
@@ -5467,7 +5437,6 @@
           "Microsoft.AspNetCore.StaticFiles": "2.2.0",
           "Microsoft.CodeQuality.Analyzers": "2.9.2",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
-          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading": "16.0.102",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
@@ -5510,93 +5479,6 @@
         },
         "runtime": {
           "bin/placeholder/Core.Mvc.Resource.dll": {}
-        }
-      },
-      "Core.Repository/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.1",
-        "dependencies": {
-          "AutoMapper": "8.1.0",
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.1.0",
-          "Core.Model": "1.0.0",
-          "Dapper": "1.60.6",
-          "Microsoft.AspNetCore": "2.2.0",
-          "Microsoft.AspNetCore.Authentication": "2.2.0",
-          "Microsoft.AspNetCore.Authentication.Cookies": "2.2.0",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "2.2.0",
-          "Microsoft.AspNetCore.Diagnostics": "2.2.0",
-          "Microsoft.AspNetCore.Hosting": "2.2.0",
-          "Microsoft.AspNetCore.Hosting.Abstractions": "2.2.0",
-          "Microsoft.AspNetCore.HttpsPolicy": "2.2.0",
-          "Microsoft.AspNetCore.Mvc": "2.2.0",
-          "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
-          "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
-          "Microsoft.AspNetCore.StaticFiles": "2.2.0",
-          "Microsoft.CodeQuality.Analyzers": "2.9.2",
-          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
-          "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
-          "Microsoft.IdentityModel.Tokens": "5.4.0",
-          "Microsoft.NetCore.Analyzers": "2.9.2",
-          "Microsoft.VisualStudio.Threading": "16.0.102",
-          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
-          "Newtonsoft.Json": "12.0.2",
-          "Quartz": "3.0.7",
-          "Roslyn.Diagnostics.Analyzers": "2.9.2",
-          "Swashbuckle.AspNetCore.SwaggerUI": "5.0.0-rc2",
-          "System.IdentityModel.Tokens.Jwt": "5.4.0",
-          "System.Security.Claims": "4.3.0",
-          "xunit.analyzers": "0.10.0"
-        },
-        "compile": {
-          "bin/placeholder/Core.Repository.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Core.Repository.dll": {}
-        }
-      },
-      "Core.Service/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.1",
-        "dependencies": {
-          "AutoMapper": "8.1.0",
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.1.0",
-          "Core.Model": "1.0.0",
-          "Core.Repository": "1.0.0",
-          "Dapper": "1.60.6",
-          "Microsoft.AspNetCore": "2.2.0",
-          "Microsoft.AspNetCore.Authentication": "2.2.0",
-          "Microsoft.AspNetCore.Authentication.Cookies": "2.2.0",
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "2.2.0",
-          "Microsoft.AspNetCore.Diagnostics": "2.2.0",
-          "Microsoft.AspNetCore.Hosting": "2.2.0",
-          "Microsoft.AspNetCore.Hosting.Abstractions": "2.2.0",
-          "Microsoft.AspNetCore.HttpsPolicy": "2.2.0",
-          "Microsoft.AspNetCore.Mvc": "2.2.0",
-          "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
-          "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
-          "Microsoft.AspNetCore.StaticFiles": "2.2.0",
-          "Microsoft.CodeQuality.Analyzers": "2.9.2",
-          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
-          "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
-          "Microsoft.IdentityModel.Tokens": "5.4.0",
-          "Microsoft.NetCore.Analyzers": "2.9.2",
-          "Microsoft.VisualStudio.Threading": "16.0.102",
-          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
-          "Newtonsoft.Json": "12.0.2",
-          "Quartz": "3.0.7",
-          "Roslyn.Diagnostics.Analyzers": "2.9.2",
-          "Swashbuckle.AspNetCore.SwaggerUI": "5.0.0-rc2",
-          "System.IdentityModel.Tokens.Jwt": "5.4.0",
-          "System.Security.Claims": "4.3.0",
-          "xunit.analyzers": "0.10.0"
-        },
-        "compile": {
-          "bin/placeholder/Core.Service.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Core.Service.dll": {}
         }
       },
       "Core.UnitTest.Resource/1.0.0": {
@@ -5675,7 +5557,6 @@
           "Microsoft.Extensions.Configuration.Abstractions": "2.2.0",
           "Microsoft.Extensions.Configuration.FileExtensions": "2.2.0",
           "Microsoft.Extensions.Configuration.UserSecrets": "2.2.0",
-          "Microsoft.NETCore.App": "2.1.0",
           "Microsoft.NetCore.Analyzers": "2.9.2",
           "Microsoft.VisualStudio.Threading": "16.0.102",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
@@ -10226,18 +10107,6 @@
         "stylecop.analyzers.nuspec",
         "tools/install.ps1",
         "tools/uninstall.ps1"
-      ]
-    },
-    "Swashbuckle.AspNetCore/5.0.0-rc2": {
-      "sha512": "rvw+Y8U0Ivqn/P6gJ0eKEyJ2G1P/B4KLDXRnWc+6sKf2shgOQ3ngVsWy3yFhzZ+SCxiWKFinkY6l+osluI6WYg==",
-      "type": "package",
-      "path": "swashbuckle.aspnetcore/5.0.0-rc2",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netstandard2.0/Swashbuckle.AspNetCore.dll",
-        "swashbuckle.aspnetcore.5.0.0-rc2.nupkg.sha512",
-        "swashbuckle.aspnetcore.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore.Swagger/5.0.0-rc2": {
@@ -15387,16 +15256,6 @@
       "path": "../Core.Resource/Core.Mvc.Resource.csproj",
       "msbuildProject": "../Core.Resource/Core.Mvc.Resource.csproj"
     },
-    "Core.Repository/1.0.0": {
-      "type": "project",
-      "path": "../Core.Repository/Core.Repository.csproj",
-      "msbuildProject": "../Core.Repository/Core.Repository.csproj"
-    },
-    "Core.Service/1.0.0": {
-      "type": "project",
-      "path": "../Core.Service/Core.Service.csproj",
-      "msbuildProject": "../Core.Service/Core.Service.csproj"
-    },
     "Core.UnitTest.Resource/1.0.0": {
       "type": "project",
       "path": "../UnitTest.Resource/Core.UnitTest.Resource.csproj",
@@ -15469,7 +15328,13 @@
       ],
       "sources": {
         "C:\\Users\\54215\\.nuget\\localpackages": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
+        "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
+        "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
+        "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
+        "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
+        "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
       },
       "frameworks": {
         "netcoreapp2.1": {
@@ -15540,6 +15405,7 @@
             "version": "[16.1.1, )"
           },
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true

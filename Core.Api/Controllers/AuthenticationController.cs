@@ -1,29 +1,24 @@
-﻿using System.Linq;
-using System.Net;
-using System.Security.Claims;
-using Core.Api.Authentication;
+﻿using Core.Api.Auth;
 using Core.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Linq;
+using System.Net;
+using System.Security.Claims;
 
 namespace Core.Api.Controllers
 {
     /// <summary>
-    /// OauthController.
+    /// 
     /// </summary>
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class OauthController : ControllerBase
+    public class AuthenticationController : ControllerBase
     {
         private readonly AppAuthenticationSettings _appSettings;
         private readonly CoreContext _dbContext;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OauthController"/> class.
-        /// </summary>
-        /// <param name="appSettings">appSettings.</param>
-        /// <param name="dbContext">The dbContext.</param>
-        public OauthController(IOptions<AppAuthenticationSettings> appSettings, CoreContext dbContext)
+        public AuthenticationController(IOptions<AppAuthenticationSettings> appSettings, CoreContext dbContext)
         {
             this._appSettings = appSettings.Value;
             this._dbContext = dbContext;

@@ -6,21 +6,22 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Core.Api.Authentication
+namespace Core.Api.Auth
 {
     /// <summary>
-    /// JwtBearerAuthenticationExtension.
+    /// 
     /// </summary>
     public static class JwtBearerAuthenticationExtension
     {
         /// <summary>
-        /// 注册JWT Bearer认证服务的静态扩展方法.
+        /// 注册JWT Bearer认证服务的静态扩展方法
         /// </summary>
-        /// <param name="services">services.</param>
-        public static void AddJwtBearerAuthentication(this IServiceCollection services)
+        /// <param name="services"></param>
+        /// <param name="appSettings">JWT授权的配置项</param>
+        public static void AddJwtBearerAuthentication(this IServiceCollection services, AppAuthenticationSettings appSettings)
         {
-            // 使用应用密钥得到一个加密密钥字节数组
-            byte[] key = Encoding.ASCII.GetBytes("secret");
+            //使用应用密钥得到一个加密密钥字节数组
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -43,15 +44,15 @@ namespace Core.Api.Authentication
 
         public static string GetJwtAccessToken(AppAuthenticationSettings appSettings, ClaimsIdentity claimsIdentity)
         {
-            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-            byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
-            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = claimsIdentity,
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
-            SecurityToken token = tokenHandler.CreateToken(tokenDescriptor);
+            var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
     }

@@ -1,108 +1,90 @@
-﻿using System.ComponentModel;
-using AutoMapper;
-using Core.Api.Authentication;
-using Core.Api.Framework.MiddleWare;
-using Core.Entity;
+﻿using AutoMapper;
+using Core.Api.AuthContext;
+using Core.Api.Configurations;
+using Core.Api.Extensions.CustomException;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.WebEncoders;
 using Newtonsoft.Json.Serialization;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
-namespace Core.Api.Framework
+namespace Core.Api
 {
-    /// <summary>
-    /// The startup.
-    /// </summary>
     public class Startup
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Startup"/> class.
-        /// </summary>
-        /// <param name="environment">The environment.</param>
-        public Startup(IHostingEnvironment environment)
+        public Startup(IConfiguration configuration)
         {
-            this.Configuration = new ConfigurationBuilder().SetBasePath(environment.ContentRootPath).AddJsonFile("AppSettings.json").Build();
+            Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
-        public IContainer ApplicationContainer { get; private set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<AppAuthenticationSettings>(this.Configuration.GetSection(nameof(AppAuthenticationSettings)));
-            AppAuthenticationSettings setting = new AppAuthenticationSettings();
-            this.Configuration.Bind(nameof(AppAuthenticationSettings), setting);
-
-            string[] urls = { "http://localhost:90" };
-            services.AddCors(options =>
-            options.AddPolicy("AllowSameDomain", builder => builder.WithOrigins(urls).AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin().AllowCredentials()));
-
-            this.AddSwaggerGen(services);
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            SwaggerConfiguration.AddService(services);
+            AuthenticationConfiguration.AddService(services, this.Configuration);
+            DbContextConfiguration.AddService(services, this.Configuration);
+            CorsConfiguration.AddService(services);
+            
+            services.AddMemoryCache();
             services.AddHttpContextAccessor();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-
-            services.AddMvc(config =>
-            {
-            }).AddJsonOptions(options =>
-           {
-               options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-           })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 #pragma warning disable 618
             services.AddAutoMapper();
 #pragma warning disable 618
-            services.AddDbContext<CoreContext>(options =>
-            {
-                var loggerFactory = new LoggerFactory();
-                loggerFactory.AddProvider(new EntityFrameworkLoggerProvider());
-                options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")).UseLoggerFactory(loggerFactory).EnableSensitiveDataLogging();
-            });
+
+            services.Configure<WebEncoderOptions>(options =>
+                options.TextEncoderSettings = new TextEncoderSettings(UnicodeRanges.BasicLatin, UnicodeRanges.CjkUnifiedIdeographs)
+            );
+
+            services
+                .AddMvc(config =>
+                {
+                    //config.Filters.Add(new ValidateModelAttribute());
+                })
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         /// <summary>
-        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// 
         /// </summary>
-        /// <param name="app">app.</param>
-        public void Configure(IApplicationBuilder app)
+        /// <param name="app"></param>
+        /// <param name="env"></param>
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            this.SwaggerBuilder(app);
-            app.UseCors("AllowSameDomain");
-
-            app.UseMiddleware(typeof(ExceptionHandlerMiddleWare));
-            app.UseStaticFiles().UseMvc(routes =>
+            SwaggerConfiguration.AddConfigure(app);
+            AuthenticationConfiguration.AddConfigure(app);
+            if (env.IsDevelopment())
             {
-                routes.MapRoute(name: "default", template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-            });
+            }
+            app.UseDeveloperExceptionPage();
 
-            app.UseMvcWithDefaultRoute();
-        }
+            app.UseStaticFiles();
+            app.UseFileServer();
+            CorsConfiguration.AddConfigure(app);
+            app.ConfigureCustomExceptionMiddleware();
 
-        private void SwaggerBuilder(IApplicationBuilder app)
-        {
-            app.UseSwagger().UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Core Api V1");
-                c.SwaggerEndpoint("/swagger/v2/swagger.json", "Core Api V2");
-                c.RoutePrefix = "swagger";
-            });
-        }
-
-        private void AddSwaggerGen(IServiceCollection services)
-        {
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Core Api V1", Version = "v1" });
-                c.SwaggerDoc("v2", new OpenApiInfo { Title = "Core Api V2", Version = "v2" });
-            });
+            var serviceProvider = app.ApplicationServices;
+            var httpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
+            AuthenticationContextService.AddConfigure(httpContextAccessor);
+            RouteConfiguration.AddConfigure(app);
         }
     }
 }

@@ -1,88 +1,9 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\Core.Api.csproj": {}
+    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\DncZeus.Api\\DncZeus.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\Core.Api.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\Core.Api.csproj",
-        "projectName": "Core.Api",
-        "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\Core.Api.csproj",
-        "packagesPath": "C:\\Users\\54215\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\54215\\AppData\\Roaming\\NuGet\\NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "netcoreapp2.1"
-        ],
-        "sources": {
-          "C:\\Users\\54215\\.nuget\\localpackages": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
-          "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
-        },
-        "frameworks": {
-          "netcoreapp2.1": {
-            "projectReferences": {
-              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj": {
-                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj"
-              },
-              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Extension\\Core.Extension.csproj": {
-                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Extension\\Core.Extension.csproj"
-              },
-              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Models\\Core.Model.csproj": {
-                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Models\\Core.Model.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "netcoreapp2.1": {
-          "dependencies": {
-            "Microsoft.NETCore.App": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.1.0, )",
-              "autoReferenced": true
-            },
-            "Swashbuckle.AspNetCore.Swagger": {
-              "target": "Package",
-              "version": "[5.0.0-rc2, )"
-            },
-            "Swashbuckle.AspNetCore.SwaggerGen": {
-              "target": "Package",
-              "version": "[5.0.0-rc2, )"
-            },
-            "Swashbuckle.AspNetCore.SwaggerUI": {
-              "target": "Package",
-              "version": "[5.0.0-rc2, )"
-            }
-          },
-          "imports": [
-            "net461"
-          ],
-          "assetTargetFallback": true,
-          "warn": true
-        }
-      }
-    },
     "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -552,6 +473,85 @@
             "xunit.analyzers": {
               "target": "Package",
               "version": "[0.10.0, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\DncZeus.Api\\DncZeus.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\DncZeus.Api\\DncZeus.Api.csproj",
+        "projectName": "DncZeus.Api",
+        "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\DncZeus.Api\\DncZeus.Api.csproj",
+        "packagesPath": "C:\\Users\\54215\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\DncZeus.Api\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\54215\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Users\\54215\\.nuget\\localpackages": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {
+              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj": {
+                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj"
+              },
+              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Extension\\Core.Extension.csproj": {
+                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Extension\\Core.Extension.csproj"
+              },
+              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Models\\Core.Model.csproj": {
+                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Models\\Core.Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "Swashbuckle.AspNetCore.Swagger": {
+              "target": "Package",
+              "version": "[5.0.0-rc2, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerGen": {
+              "target": "Package",
+              "version": "[5.0.0-rc2, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerUI": {
+              "target": "Package",
+              "version": "[5.0.0-rc2, )"
             }
           },
           "imports": [

@@ -82,8 +82,8 @@ namespace Core.Api.Controllers
                 Permission entity = this.Mapper.Map<PermissionCreateViewModel, Permission>(model);
                 entity.CreateTime = DateTime.Now;
                 entity.Id = Guid.NewGuid().ToString("N");
-                entity.CreateByUserId = AuthContextService.CurrentUser.Id;
-                entity.CreateByUserName = AuthContextService.CurrentUser.DisplayName;
+                entity.CreateByUserId = AuthenticationContextService.CurrentUser.Id;
+                entity.CreateByUserName = AuthenticationContextService.CurrentUser.DisplayName;
                 this.DbContext.Permission.Add(entity);
                 this.DbContext.SaveChanges();
 
@@ -143,7 +143,7 @@ namespace Core.Api.Controllers
                 entity.MenuId = model.MenuId;
                 entity.IsEnable = model.IsEnable.Value;
                 entity.UpdateByUserId = 1;
-                entity.UpdateByUserName = AuthContextService.CurrentUser.DisplayName;
+                entity.UpdateByUserName = AuthenticationContextService.CurrentUser.DisplayName;
                 entity.CreateTime = DateTime.Now;
                 entity.Status = model.Status;
                 entity.Description = model.Description;

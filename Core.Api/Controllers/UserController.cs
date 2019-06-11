@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using AutoMapper;
 using Core.Api.ControllerHelpers;
-using Core.Api.Framework;
 using Core.Entity;
 using Core.Model;
 using Core.Model.Administration.User;
+using Core.Api.Framework;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

@@ -8,7 +8,7 @@ namespace Core.Api.AuthContext
     /// <summary>
     /// AuthContextService.
     /// </summary>
-    public static class AuthContextService
+    public static class AuthenticationContextService
     {
         private static IHttpContextAccessor _context;
 
@@ -38,7 +38,10 @@ namespace Core.Api.AuthContext
         /// </summary>
         public static bool IsAuthenticated
         {
-            get { return Current.User.Identity.IsAuthenticated; }
+            get
+            {
+                return Current.User.Identity.IsAuthenticated;
+            }
         }
 
         /// <summary>
@@ -57,7 +60,7 @@ namespace Core.Api.AuthContext
         /// Configure.
         /// </summary>
         /// <param name="httpContextAccessor">httpContextAccessor.</param>
-        public static void Configure(IHttpContextAccessor httpContextAccessor)
+        public static void AddConfigure(IHttpContextAccessor httpContextAccessor)
         {
             _context = httpContextAccessor;
         }

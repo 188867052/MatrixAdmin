@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Core.Api.AuthContext;
-using Core.Api.Framework;
 using Core.Entity;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.Icon;
 using Dapper;
+using Core.Api.Framework;
 using Microsoft.AspNetCore.Mvc;
+using Core.Api.AuthContext;
 
 namespace Core.Api.Controllers
 {
@@ -81,8 +81,8 @@ namespace Core.Api.Controllers
 
                 Icon entity = this.Mapper.Map<IconCreateViewModel, Icon>(model);
                 entity.CreateTime = DateTime.Now;
-                entity.CreateByUserId = AuthContextService.CurrentUser.Id;
-                entity.CreateByUserName = AuthContextService.CurrentUser.DisplayName;
+                entity.CreateByUserId = AuthenticationContextService.CurrentUser.Id;
+                entity.CreateByUserName = AuthenticationContextService.CurrentUser.DisplayName;
                 this.DbContext.Icon.Add(entity);
                 this.DbContext.SaveChanges();
                 response.SetSuccess();
@@ -139,8 +139,8 @@ namespace Core.Api.Controllers
                 entity.Custom = model.Custom;
                 entity.Size = model.Size;
                 entity.IsEnable = model.IsDeleted;
-                entity.UpdateByUserId = AuthContextService.CurrentUser.Id;
-                entity.UpdateByUserName = AuthContextService.CurrentUser.DisplayName;
+                entity.UpdateByUserId = AuthenticationContextService.CurrentUser.Id;
+                entity.UpdateByUserName = AuthenticationContextService.CurrentUser.DisplayName;
                 entity.UpdateTime = DateTime.Now;
                 entity.Status = model.Status.Value;
                 entity.Description = model.Description;
@@ -228,7 +228,6 @@ namespace Core.Api.Controllers
             IEnumerable<Icon> models = model.Icons.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries).Select(x => new Icon
             {
                 Code = x.Trim(),
-                CreateByUserId = AuthContextService.CurrentUser.Id,
                 CreateTime = DateTime.Now,
                 CreateByUserName = "超级管理员"
             });
