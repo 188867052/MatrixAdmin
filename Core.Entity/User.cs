@@ -20,8 +20,7 @@ namespace Core.Entity
         public string Password { get; set; }
         public string Avatar { get; set; }
         public int UserType { get; set; }
-        public int IsLocked { get; set; }
-        public int Status { get; set; }
+        public bool IsLocked { get; set; }
         public DateTime CreateTime { get; set; }
         public string CreateByUserName { get; set; }
         public DateTime UpdateTime { get; set; }

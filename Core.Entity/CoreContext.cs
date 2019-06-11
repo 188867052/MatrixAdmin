@@ -434,8 +434,6 @@ namespace Core.Entity
                     .HasColumnName("password")
                     .HasMaxLength(255);
 
-                entity.Property(e => e.Status).HasColumnName("status");
-
                 entity.Property(e => e.UpdateByUserId).HasColumnName("update_by_user_id");
 
                 entity.Property(e => e.UpdateByUserName).HasColumnName("update_by_user_name");

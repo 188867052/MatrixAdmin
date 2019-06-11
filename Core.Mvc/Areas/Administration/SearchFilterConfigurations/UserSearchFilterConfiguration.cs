@@ -16,7 +16,7 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
     {
         protected override void CreateSearchFilter(IList<BaseGridFilter> searchFilter)
         {
-            var dropDown = new DropDownGridFilter<T, ForbiddenStatusEnum>(o => (ForbiddenStatusEnum)o.ForbiddenStatus, Resources.ForbiddenStatus, tooltip: Resources.ForbiddenStatus);
+            var dropDown = new DropDownGridFilter<T, ForbiddenStatusEnum>(o => (ForbiddenStatusEnum)o.IsLocked, Resources.ForbiddenStatus, tooltip: Resources.ForbiddenStatus);
             dropDown.AddOption(ForbiddenStatusEnum.Normal, Resources.Normal);
             dropDown.AddOption(ForbiddenStatusEnum.Forbidden, Resources.Forbidden);
 
