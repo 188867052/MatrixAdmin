@@ -72,20 +72,22 @@ namespace Core.Api.Controllers
                     new Claim("userType", user.UserType.ToString())
                 });
 
-                var response = (token: JwtBearerAuthenticationExtension.GetJwtAccessToken(this._appSettings, claimsIdentity),
-                                code: (int)HttpStatusCode.OK,
-                                message: "操作成功");
-
-                return this.Ok(response);
+                return this.Ok(new
+                {
+                    token = JwtBearerAuthenticationExtension.GetJwtAccessToken(this._appSettings, claimsIdentity),
+                    code = (int)HttpStatusCode.OK,
+                    message = "操作成功"
+                });
             }
         }
 
         private OkObjectResult FailResponse(string message)
         {
-            var response = (code: (int)HttpStatusCode.OK,
-                            message);
-
-            return this.Ok(response);
+            return this.Ok(new
+            {
+                code = (int)HttpStatusCode.OK,
+                message
+            });
         }
     }
 }
