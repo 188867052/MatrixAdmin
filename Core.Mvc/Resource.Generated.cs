@@ -59,6 +59,11 @@ namespace Core.Mvc.Js
         public const string Index = "/js/Log/index.js";
     }
 
+    public class Login
+    {
+        public const string Index = "/js/Login/index.js";
+    }
+
     public class Menu
     {
         public const string Index = "/js/Menu/index.js";

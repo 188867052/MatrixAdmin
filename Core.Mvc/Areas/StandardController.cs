@@ -4,7 +4,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Http.Headers;
 using System.Text;
+using Core.Extension;
 using Core.Model;
+using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.Dialog;
 using Core.Web.Html;
@@ -27,7 +29,18 @@ namespace Core.Mvc.Areas
         {
             base.OnActionExecuting(context);
             this.HttpContext.Request.Headers.TryGetValue("token", out StringValues outValue);
-            this.Authentication = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, outValue);
+            if (string.IsNullOrEmpty(outValue))
+            {
+                var url = new Url(typeof(RedirectController), nameof(RedirectController.Login));
+                if (!this.HttpContext.Request.Path.Value.EndsWith(nameof(RedirectController.Login)))
+                {
+                    this.HttpContext.Response.Redirect(url);
+                }
+            }
+            else
+            {
+                this.Authentication = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, outValue);
+            }
         }
 
         protected ContentResult SearchGridConfiguration<T>(SearchGridPage<T> index)

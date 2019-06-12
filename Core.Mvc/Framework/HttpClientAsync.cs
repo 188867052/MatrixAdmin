@@ -25,7 +25,7 @@ namespace Core.Mvc.Framework
                     client.DefaultRequestHeaders.Authorization = authorization;
                 }
 
-                httpResponse = await client.GetAsync(SiteConfiguration.Host + url.Render());
+                httpResponse = await client.GetAsync(SiteConfiguration.Host + url);
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
@@ -105,7 +105,7 @@ namespace Core.Mvc.Framework
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
-                string requestUrl = SiteConfiguration.Host + url.Render();
+                string requestUrl = SiteConfiguration.Host + url;
                 if (data != null)
                 {
                     requestUrl += $"?{url.ActionParameterName[0]}=" + data;
@@ -136,7 +136,7 @@ namespace Core.Mvc.Framework
                 string postData = JsonConvert.SerializeObject(postModel);
                 StringContent httpContent = new StringContent(postData);
                 httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                httpResponse = await client.PostAsync(SiteConfiguration.Host + url.Render(), httpContent);
+                httpResponse = await client.PostAsync(SiteConfiguration.Host + url, httpContent);
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();
@@ -161,7 +161,7 @@ namespace Core.Mvc.Framework
                 string postData = JsonConvert.SerializeObject(postModel);
                 StringContent httpContent = new StringContent(postData);
                 httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                httpResponse = await client.PostAsync(SiteConfiguration.Host + url.Render(), httpContent);
+                httpResponse = await client.PostAsync(SiteConfiguration.Host + url, httpContent);
             }
 
             Task<string> json = httpResponse.Content.ReadAsStringAsync();

@@ -33,7 +33,7 @@ namespace Core.Web.JavaScript
 
         public void AddUrlInstance(string key, Url url)
         {
-            this.AddStringInstance(key, url.Render());
+            this.AddStringInstance(key, url);
         }
 
         public void AddFrameWorkInstance(string key, Identifier identifier)

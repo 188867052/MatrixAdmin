@@ -54,6 +54,11 @@ namespace Core.Extension
             }
         }
 
+        public static implicit operator string(Url url)
+        {
+            return url.Render();
+        }
+
         public string Query(object parameters)
         {
             PropertyInfo[] propertyInfos = parameters.GetType().GetProperties();

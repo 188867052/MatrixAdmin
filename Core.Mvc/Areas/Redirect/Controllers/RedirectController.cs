@@ -27,7 +27,7 @@ namespace Core.Mvc.Areas.Redirect.Controllers
 
         public IActionResult Login()
         {
-            Login login = new Login();
+            LoginIndex login = new LoginIndex();
             return this.Content(login.Render(), "text/html", Encoding.UTF8);
         }
 

@@ -42,28 +42,31 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         /// <returns>A string.</returns>
         public virtual string Render()
         {
-            string html = SiteConfiguration.SearchGridPage.Replace("{{head}}", this.HtmlHead());
-            html = html.Replace("{{sidebarMenu}}", SidebarNavigation.SidebarMenu());
-            html = html.Replace("{{content-header}}", this.ContentHeader());
-            html = html.Replace("{{Footer}}", this.Footer());
-            html = html.Replace("{{tobHeader}}", SiteConfiguration.TopHeader);
-
-            var filter = this.SearchFilterConfiguration();
-            if (filter != null)
+            using (CoreContext context = new CoreContext())
             {
-                html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
-                html = html.Replace("{{button-group}}", filter.GenerateButton());
-                html = html.Replace("{{Pager}}", this.Pager());
-            }
+                string html = context.Configuration.FirstOrDefault(o => o.Key == this.FileName)?.Value.Replace("{{head}}", this.HtmlHead());
+                html = html.Replace("{{sidebarMenu}}", SidebarNavigation.SidebarMenu());
+                html = html.Replace("{{content-header}}", this.ContentHeader());
+                html = html.Replace("{{Footer}}", this.Footer());
+                html = html.Replace("{{tobHeader}}", SiteConfiguration.TopHeader);
 
-            var grid = this.GridConfiguration();
-            if (grid != null)
-            {
-                string table = grid.GenerateGridColumn();
-                html = html.Replace("{{Table}}", table);
-            }
+                var filter = this.SearchFilterConfiguration();
+                if (filter != null)
+                {
+                    html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
+                    html = html.Replace("{{button-group}}", filter.GenerateButton());
+                    html = html.Replace("{{Pager}}", this.Pager());
+                }
 
-            return html + $"<script>{this.RenderJavaScript()}</script>";
+                var grid = this.GridConfiguration();
+                if (grid != null)
+                {
+                    string table = grid.GenerateGridColumn();
+                    html = html.Replace("{{Table}}", table);
+                }
+
+                return html + $"<script>{this.RenderJavaScript()}</script>";
+            }
         }
 
         public string Pager()
