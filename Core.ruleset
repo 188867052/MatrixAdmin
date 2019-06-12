@@ -122,6 +122,7 @@
     <Rule Id="CA2235" Action="None" />
     <Rule Id="CA2229" Action="None" />
     <Rule Id="CA1816" Action="None" />
+    <Rule Id="CA1303" Action="None" />
   </Rules>
   <Rules AnalyzerId="Microsoft.VisualStudio.Threading.Analyzers" RuleNamespace="Microsoft.VisualStudio.Threading.Analyzers">
     <Rule Id="VSTHRD104" Action="None" />

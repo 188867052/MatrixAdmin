@@ -25,19 +25,21 @@ namespace Core.Api.Framework.MiddleWare
                 if (logContent != "A data reader was disposed." && !logContent.Contains("[Log]"))
                 {
                     var sql = this.ConvertToSql(logContent);
-                    CoreContext ontext = new CoreContext();
-                    ontext.Log.Add(new Log
+                    using (CoreContext context = new CoreContext())
                     {
-                        Message = $"<code class=\"sql\">{sql}</code>",
-                        LogLevel = (int)logLevel,
-                        SqlOperateType = (int)(sql.StartsWith("SELECT") ? SqlTypeEnum.Select :
-                        sql.StartsWith("UPDATE") ? SqlTypeEnum.Update :
-                        sql.StartsWith("DELETE") ? SqlTypeEnum.Delete :
-                        sql.StartsWith("INSERT") ? SqlTypeEnum.Insert :
-                        sql.StartsWith("CREATE") ? SqlTypeEnum.Create : throw new Exception("暂时不支持的sql类型"))
-                    });
-                    ontext.SaveChanges();
-                }
+                        context.Log.Add(new Log
+                        {
+                            Message = $"<code class=\"sql\">{sql}</code>",
+                            LogLevel = (int)logLevel,
+                            SqlOperateType = (int)(sql.StartsWith("SELECT") ? SqlTypeEnum.Select :
+                            sql.StartsWith("UPDATE") ? SqlTypeEnum.Update :
+                            sql.StartsWith("DELETE") ? SqlTypeEnum.Delete :
+                            sql.StartsWith("INSERT") ? SqlTypeEnum.Insert :
+                            sql.StartsWith("CREATE") ? SqlTypeEnum.Create : throw new Exception("暂时不支持的sql类型"))
+                        });
+                        context.SaveChanges();
+                    }
+                };
             }
         }
 
