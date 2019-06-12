@@ -46,7 +46,7 @@ namespace Core.UnitTest.Api
         public async Task TestAuthentication()
         {
             var url = new Url(typeof(TestController), nameof(TestController.TestAuthentication));
-            dynamic data = await HttpClientAsync.GetAsync(url, Authentication);
+            dynamic data = await HttpClientAsync.GetAsync(url, this.Authentication);
             Console.WriteLine(data);
             bool isAuthenticated = data.isAuthenticated;
 

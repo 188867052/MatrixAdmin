@@ -60,7 +60,7 @@
             },
             "Microsoft.CodeQuality.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "Microsoft.EntityFrameworkCore.Analyzers": {
               "target": "Package",
@@ -94,7 +94,7 @@
             },
             "Microsoft.NetCore.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "Microsoft.VisualStudio.Threading": {
               "target": "Package",
@@ -118,7 +118,7 @@
             },
             "Roslyn.Diagnostics.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
@@ -208,7 +208,7 @@
             },
             "Microsoft.CodeQuality.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "Microsoft.EntityFrameworkCore.Analyzers": {
               "target": "Package",
@@ -228,7 +228,7 @@
             },
             "Microsoft.NetCore.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "Microsoft.VisualStudio.Threading": {
               "target": "Package",
@@ -252,7 +252,7 @@
             },
             "Roslyn.Diagnostics.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
@@ -390,7 +390,7 @@
             },
             "Microsoft.CodeQuality.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "Microsoft.EntityFrameworkCore.Analyzers": {
               "target": "Package",
@@ -424,7 +424,7 @@
             },
             "Microsoft.NetCore.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "Microsoft.VisualStudio.Threading": {
               "target": "Package",
@@ -448,7 +448,7 @@
             },
             "Roslyn.Diagnostics.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
@@ -591,7 +591,7 @@
             },
             "Microsoft.CodeQuality.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "Microsoft.EntityFrameworkCore.Analyzers": {
               "target": "Package",
@@ -625,7 +625,7 @@
             },
             "Microsoft.NetCore.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "Microsoft.VisualStudio.Threading": {
               "target": "Package",
@@ -649,7 +649,7 @@
             },
             "Roslyn.Diagnostics.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
@@ -746,6 +746,10 @@
               "target": "Package",
               "version": "[3.1.0, )"
             },
+            "Microsoft.CodeQuality.Analyzers": {
+              "target": "Package",
+              "version": "[2.9.3, )"
+            },
             "Microsoft.EntityFrameworkCore.Analyzers": {
               "target": "Package",
               "version": "[3.0.0-preview5.19227.1, )"
@@ -792,7 +796,7 @@
             },
             "Microsoft.NetCore.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "Microsoft.VisualStudio.Threading": {
               "target": "Package",
@@ -813,6 +817,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[2.2.4, )"
+            },
+            "Roslyn.Diagnostics.Analyzers": {
+              "target": "Package",
+              "version": "[2.9.3, )"
             },
             "Serilog.Extensions.Hosting": {
               "target": "Package",

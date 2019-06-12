@@ -18,14 +18,15 @@ namespace Core.Mvc.Areas
 {
     public class StandardController : Controller
     {
-        public AuthenticationHeaderValue Authentication;
         private readonly Encoding _encoding = Encoding.UTF8;
         private readonly string _contentType = "text/html";
+
+        public AuthenticationHeaderValue Authentication { get; set; }
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);
-            var isSuccess = this.HttpContext.Request.Headers.TryGetValue("token", out StringValues outValue);
+            this.HttpContext.Request.Headers.TryGetValue("token", out StringValues outValue);
             this.Authentication = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, outValue);
         }
 

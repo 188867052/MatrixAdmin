@@ -30,6 +30,24 @@
           "lib/netstandard2.0/Microsoft.Build.Utilities.Core.dll": {}
         }
       },
+      "Microsoft.CodeAnalysis.BannedApiAnalyzers/2.9.3": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.CodeAnalysis.BannedApiAnalyzers.props": {}
+        }
+      },
+      "Microsoft.CodeAnalysis.PublicApiAnalyzers/2.9.3": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.CodeAnalysis.PublicApiAnalyzers.props": {}
+        }
+      },
+      "Microsoft.CodeQuality.Analyzers/2.9.3": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.CodeQuality.Analyzers.props": {}
+        }
+      },
       "Microsoft.NETCore.App/2.1.0": {
         "type": "package",
         "dependencies": {
@@ -260,6 +278,16 @@
         },
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
+        }
+      },
+      "Roslyn.Diagnostics.Analyzers/2.9.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CodeAnalysis.BannedApiAnalyzers": "[2.9.3]",
+          "Microsoft.CodeAnalysis.PublicApiAnalyzers": "[2.9.3]"
+        },
+        "build": {
+          "build/Roslyn.Diagnostics.Analyzers.props": {}
         }
       },
       "System.Collections/4.3.0": {
@@ -516,6 +544,98 @@
         "microsoft.build.utilities.core.16.0.461.nupkg.sha512",
         "microsoft.build.utilities.core.nuspec",
         "notices/THIRDPARTYNOTICES.txt"
+      ]
+    },
+    "Microsoft.CodeAnalysis.BannedApiAnalyzers/2.9.3": {
+      "sha512": "V2Eqy8Yez2VGh/823owZnFjGLy0Ay1BNNv05LcvBTItvdoxKZTr0WtO38eM2YreZfeMhYCY9rNrosg6UVACBow==",
+      "type": "package",
+      "path": "microsoft.codeanalysis.bannedapianalyzers/2.9.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.rtf",
+        "analyzers/dotnet/cs/Microsoft.CodeAnalysis.BannedApiAnalyzers.dll",
+        "analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.BannedApiAnalyzers.dll",
+        "analyzers/dotnet/vb/Microsoft.CodeAnalysis.BannedApiAnalyzers.dll",
+        "analyzers/dotnet/vb/Microsoft.CodeAnalysis.VisualBasic.BannedApiAnalyzers.dll",
+        "build/Microsoft.CodeAnalysis.BannedApiAnalyzers.props",
+        "documentation/Microsoft.CodeAnalysis.BannedApiAnalyzers.md",
+        "microsoft.codeanalysis.bannedapianalyzers.2.9.3.nupkg.sha512",
+        "microsoft.codeanalysis.bannedapianalyzers.nuspec",
+        "rulesets/AllRulesDefault.ruleset",
+        "rulesets/AllRulesDisabled.ruleset",
+        "rulesets/AllRulesEnabled.ruleset",
+        "rulesets/ApiDesignRulesDefault.ruleset",
+        "rulesets/ApiDesignRulesEnabled.ruleset",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
+      ]
+    },
+    "Microsoft.CodeAnalysis.PublicApiAnalyzers/2.9.3": {
+      "sha512": "fVu+Mv7xKHPe3JrJxkVcJox88sgt73Fn5vsGH4Zo44uJdJtBd3KN5JOaa5Lg9XUXzeMZmVNhyfh7sPwIVLDgYg==",
+      "type": "package",
+      "path": "microsoft.codeanalysis.publicapianalyzers/2.9.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.rtf",
+        "analyzers/dotnet/Microsoft.CodeAnalysis.PublicApiAnalyzers.CodeFixes.dll",
+        "analyzers/dotnet/Microsoft.CodeAnalysis.PublicApiAnalyzers.dll",
+        "build/Microsoft.CodeAnalysis.PublicApiAnalyzers.props",
+        "documentation/Microsoft.CodeAnalysis.PublicApiAnalyzers.md",
+        "microsoft.codeanalysis.publicapianalyzers.2.9.3.nupkg.sha512",
+        "microsoft.codeanalysis.publicapianalyzers.nuspec",
+        "rulesets/AllRulesDefault.ruleset",
+        "rulesets/AllRulesDisabled.ruleset",
+        "rulesets/AllRulesEnabled.ruleset",
+        "rulesets/ApiDesignRulesDefault.ruleset",
+        "rulesets/ApiDesignRulesEnabled.ruleset",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
+      ]
+    },
+    "Microsoft.CodeQuality.Analyzers/2.9.3": {
+      "sha512": "5KFSFcQjibITq33jojBITiGIZZkf2OMdggT7ZeNryMAUkT3VkPB/csRWaA8erItQlEvrBzgIwzYnW0531HFV7g==",
+      "type": "package",
+      "path": "microsoft.codequality.analyzers/2.9.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.rtf",
+        "analyzers/dotnet/cs/Humanizer.dll",
+        "analyzers/dotnet/cs/Microsoft.CodeQuality.Analyzers.dll",
+        "analyzers/dotnet/cs/Microsoft.CodeQuality.CSharp.Analyzers.dll",
+        "analyzers/dotnet/vb/Humanizer.dll",
+        "analyzers/dotnet/vb/Microsoft.CodeQuality.Analyzers.dll",
+        "analyzers/dotnet/vb/Microsoft.CodeQuality.VisualBasic.Analyzers.dll",
+        "build/Microsoft.CodeQuality.Analyzers.props",
+        "documentation/Microsoft.CodeQuality.Analyzers.md",
+        "microsoft.codequality.analyzers.2.9.3.nupkg.sha512",
+        "microsoft.codequality.analyzers.nuspec",
+        "rulesets/AllRulesDefault.ruleset",
+        "rulesets/AllRulesDisabled.ruleset",
+        "rulesets/AllRulesEnabled.ruleset",
+        "rulesets/DesignRulesDefault.ruleset",
+        "rulesets/DesignRulesEnabled.ruleset",
+        "rulesets/DocumentationRulesDefault.ruleset",
+        "rulesets/DocumentationRulesEnabled.ruleset",
+        "rulesets/MaintainabilityRulesDefault.ruleset",
+        "rulesets/MaintainabilityRulesEnabled.ruleset",
+        "rulesets/NamingRulesDefault.ruleset",
+        "rulesets/NamingRulesEnabled.ruleset",
+        "rulesets/PerformanceRulesDefault.ruleset",
+        "rulesets/PerformanceRulesEnabled.ruleset",
+        "rulesets/ReliabilityRulesDefault.ruleset",
+        "rulesets/ReliabilityRulesEnabled.ruleset",
+        "rulesets/SecurityRulesDefault.ruleset",
+        "rulesets/SecurityRulesEnabled.ruleset",
+        "rulesets/UsageRulesDefault.ruleset",
+        "rulesets/UsageRulesEnabled.ruleset",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
       ]
     },
     "Microsoft.NETCore.App/2.1.0": {
@@ -1017,6 +1137,38 @@
         "lib/netstandard1.0/_._",
         "netstandard.library.2.0.3.nupkg.sha512",
         "netstandard.library.nuspec"
+      ]
+    },
+    "Roslyn.Diagnostics.Analyzers/2.9.3": {
+      "sha512": "izseuiLI5q0V/5rlzJjHf5c7BPDSPXm9ArTTb79AB3axc+dhlHnCjuCxvCjH8KN+a5Me2ulOm3yTKGHvTfZy3Q==",
+      "type": "package",
+      "path": "roslyn.diagnostics.analyzers/2.9.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.rtf",
+        "analyzers/dotnet/cs/Roslyn.Diagnostics.Analyzers.dll",
+        "analyzers/dotnet/cs/Roslyn.Diagnostics.CSharp.Analyzers.dll",
+        "analyzers/dotnet/vb/Roslyn.Diagnostics.Analyzers.dll",
+        "analyzers/dotnet/vb/Roslyn.Diagnostics.VisualBasic.Analyzers.dll",
+        "build/Roslyn.Diagnostics.Analyzers.props",
+        "documentation/Roslyn.Diagnostics.Analyzers.md",
+        "roslyn.diagnostics.analyzers.2.9.3.nupkg.sha512",
+        "roslyn.diagnostics.analyzers.nuspec",
+        "rulesets/AllRulesDefault.ruleset",
+        "rulesets/AllRulesDisabled.ruleset",
+        "rulesets/AllRulesEnabled.ruleset",
+        "rulesets/ApiDesignRulesDefault.ruleset",
+        "rulesets/ApiDesignRulesEnabled.ruleset",
+        "rulesets/RoslyDiagnosticsPerformanceRulesDefault.ruleset",
+        "rulesets/RoslyDiagnosticsPerformanceRulesEnabled.ruleset",
+        "rulesets/RoslyDiagnosticsReliabilityRulesDefault.ruleset",
+        "rulesets/RoslyDiagnosticsReliabilityRulesEnabled.ruleset",
+        "rulesets/UsageRulesDefault.ruleset",
+        "rulesets/UsageRulesEnabled.ruleset",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
       ]
     },
     "System.Collections/4.3.0": {
@@ -2121,7 +2273,9 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Microsoft.Build.Utilities.Core >= 16.0.461",
-      "Microsoft.NETCore.App >= 2.1.0"
+      "Microsoft.CodeQuality.Analyzers >= 2.9.3",
+      "Microsoft.NETCore.App >= 2.1.0",
+      "Roslyn.Diagnostics.Analyzers >= 2.9.3"
     ]
   },
   "packageFolders": {
@@ -2174,11 +2328,19 @@
             "target": "Package",
             "version": "[16.0.461, )"
           },
+          "Microsoft.CodeQuality.Analyzers": {
+            "target": "Package",
+            "version": "[2.9.3, )"
+          },
           "Microsoft.NETCore.App": {
             "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
+          },
+          "Roslyn.Diagnostics.Analyzers": {
+            "target": "Package",
+            "version": "[2.9.3, )"
           }
         },
         "imports": [

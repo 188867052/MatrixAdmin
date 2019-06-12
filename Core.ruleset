@@ -110,6 +110,7 @@
     <Rule Id="CA1040" Action="None" />
     <Rule Id="CA1010" Action="None" />
     <Rule Id="CA1031" Action="None" />
+    <Rule Id="CA1062" Action="None" />
   </Rules>
   <Rules AnalyzerId="Microsoft.CodeQuality.CSharp.Analyzers" RuleNamespace="Microsoft.CodeQuality.CSharp.Analyzers">
     <Rule Id="CA2234" Action="None" />

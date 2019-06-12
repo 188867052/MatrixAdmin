@@ -66,8 +66,8 @@ namespace Core.Extension
             for (int i = 0; i < this.ActionParameterName.Count; i++)
             {
                 string value = propertyInfos[i].GetValue(parameters).ToString();
-                query += $"{ActionParameterName[i]}={value}";
-                if (i != ActionParameterName.Count - 1)
+                query += $"{this.ActionParameterName[i]}={value}";
+                if (i != this.ActionParameterName.Count - 1)
                 {
                     query += "&";
                 }

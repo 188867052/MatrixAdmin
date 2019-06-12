@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using Core.Entity.Enums;
 using Core.Extension;
 
 namespace Core.Model.Administration.User

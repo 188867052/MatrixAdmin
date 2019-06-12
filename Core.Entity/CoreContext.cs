@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Core.Entity
 {
@@ -16,16 +14,27 @@ namespace Core.Entity
         }
 
         public virtual DbSet<Configuration> Configuration { get; set; }
+
         public virtual DbSet<Icon> Icon { get; set; }
+
         public virtual DbSet<Log> Log { get; set; }
+
         public virtual DbSet<Menu> Menu { get; set; }
+
         public virtual DbSet<MultiplePrimaryKeyTable> MultiplePrimaryKeyTable { get; set; }
+
         public virtual DbSet<Permission> Permission { get; set; }
+
         public virtual DbSet<Role> Role { get; set; }
+
         public virtual DbSet<RolePermissionMapping> RolePermissionMapping { get; set; }
+
         public virtual DbSet<Status> Status { get; set; }
+
         public virtual DbSet<User> User { get; set; }
+
         public virtual DbSet<UserRoleMapping> UserRoleMapping { get; set; }
+
         public virtual DbSet<UserStatus> UserStatus { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -26,13 +26,15 @@
     </PackageReference>
     <PackageReference Include="dbup-sqlserver" Version="4.2.0" />
     <PackageReference Include="FluentAssertions" Version="5.6.0" />
+    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.9.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.0.0-preview5.19227.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.2.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.1" />
-    <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.9.2" />
+    <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.9.3" />
     <PackageReference Include="Microsoft.VisualStudio.Threading" Version="16.0.102" />
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="16.0.102" />
+    <PackageReference Include="Roslyn.Diagnostics.Analyzers" Version="2.9.3" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>

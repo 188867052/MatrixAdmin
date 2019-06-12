@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace Core.Data.Entities
 {
     public partial class MultiplePrimaryKeyTable

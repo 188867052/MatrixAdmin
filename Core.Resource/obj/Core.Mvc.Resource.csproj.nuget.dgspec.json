@@ -60,7 +60,7 @@
             },
             "Microsoft.CodeQuality.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "Microsoft.EntityFrameworkCore.Analyzers": {
               "target": "Package",
@@ -90,7 +90,7 @@
             },
             "Microsoft.NetCore.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "Microsoft.VisualStudio.Threading": {
               "target": "Package",
@@ -114,7 +114,7 @@
             },
             "Roslyn.Diagnostics.Analyzers": {
               "target": "Package",
-              "version": "[2.9.2, )"
+              "version": "[2.9.3, )"
             },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
