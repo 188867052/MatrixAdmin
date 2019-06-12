@@ -15,6 +15,7 @@ using Core.Model.Administration.User;
 using Core.Model.Log;
 using Core.Mvc.Framework;
 using Core.UnitTest.Resource.Areas;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using NUnit.Framework;
 
 namespace Core.UnitTest.Api
@@ -32,7 +33,7 @@ namespace Core.UnitTest.Api
         public async Task TestGetToken()
         {
             var url = new Url(typeof(AuthenticationController), nameof(AuthenticationController.Auth));
-            var data = await HttpClientAsync.GetAsync(url, new { username = "admin", password = "111111" });
+            var data = await HttpClientAsync.GetAsync(url, parameters: new { username = "admin", password = "111111" });
 
             Console.WriteLine(data);
             int code = data.code;
@@ -47,14 +48,11 @@ namespace Core.UnitTest.Api
             var url = new Url(typeof(TestController), nameof(TestController.TestAuthentication));
             using (HttpClient client = new HttpClient())
             {
-                string requestUrl = SiteConfiguration.Host + url.Render();
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(this.token);
-                var httpResponse = await client.GetAsync(requestUrl);
+                dynamic data = await HttpClientAsync.GetAsync(url, new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, this.token));
+                Console.WriteLine(data);
+                bool isAuthenticated = data.isAuthenticated;
 
-                dynamic json = await httpResponse.Content.ReadAsStringAsync();
-                Console.WriteLine(json);
-
-                Assert.IsTrue(json.IsAuthenticated);
+                Assert.IsTrue(isAuthenticated);
             }
         }
 

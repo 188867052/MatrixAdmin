@@ -1,11 +1,4 @@
-﻿/******************************************
- * AUTHOR:          Rector
- * CREATEDON:       2018-09-26
- * OFFICIAL_SITE:    码友网(https://codedefault.com)--专注.NET/.NET Core
- * 版权所有，请勿删除
- ******************************************/
-
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Api
@@ -21,7 +14,6 @@ namespace Core.Api
         /// <param name="args"></param>
         public static void Main(string[] args)
         {
-            //CreateWebHostBuilder(args).Build().Run();
             var host = CreateWebHostBuilder(args).Build();
             host.Run();
         }

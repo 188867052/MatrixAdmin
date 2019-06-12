@@ -37,12 +37,18 @@ namespace Core.Mvc.Framework
         /// <typeparam name="T">T.</typeparam>
         /// <param name="url">url.</param>
         /// <returns>Task.</returns>
-        public static async Task<dynamic> GetAsync(Url url, object parameters = null)
+        public static async Task<dynamic> GetAsync(Url url, AuthenticationHeaderValue authorization = null, object parameters = null)
         {
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
-                string requestUrl = SiteConfiguration.Host + url.Render() + url.Query(parameters);
+                if (authorization != null)
+                {
+                    client.DefaultRequestHeaders.Authorization = authorization;
+                }
+
+                var query = parameters == null ? string.Empty : url.Query(parameters);
+                string requestUrl = SiteConfiguration.Host + url.Render() + query;
                 httpResponse = await client.GetAsync(requestUrl);
             }
 
@@ -94,7 +100,7 @@ namespace Core.Mvc.Framework
                 string requestUrl = SiteConfiguration.Host + url.Render();
                 if (data != null)
                 {
-                    requestUrl += $"?{url.ActionParameterName}=" + data;
+                    requestUrl += $"?{url.ActionParameterName[0]}=" + data;
                 }
 
                 httpResponse = await client.GetAsync(requestUrl);
