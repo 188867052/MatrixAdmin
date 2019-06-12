@@ -22,7 +22,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public async Task<IActionResult> Index()
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Index));
-            var model = await HttpClientAsync.GetAsync<IList<UserModel>>(url);
+            var model = await HttpClientAsync.GetAsync<IList<UserModel>>(url, this.Authentication);
             UserIndex<UserModel, UserPostModel> table = new UserIndex<UserModel, UserPostModel>(model);
 
             return this.SearchGridConfiguration(table);

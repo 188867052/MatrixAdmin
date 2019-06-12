@@ -2,20 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Http.Headers;
 using System.Text;
 using Core.Model;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.Dialog;
 using Core.Web.Html;
 using Core.Web.ViewConfiguration;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Primitives;
 
 namespace Core.Mvc.Areas
 {
     public class StandardController : Controller
     {
+        public AuthenticationHeaderValue Authentication;
         private readonly Encoding _encoding = Encoding.UTF8;
         private readonly string _contentType = "text/html";
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            base.OnActionExecuting(context);
+            var isSuccess = this.HttpContext.Request.Headers.TryGetValue("token", out StringValues outValue);
+            this.Authentication = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, outValue);
+        }
 
         protected ContentResult SearchGridConfiguration<T>(SearchGridPage<T> index)
         {

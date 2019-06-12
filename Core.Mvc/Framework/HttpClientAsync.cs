@@ -1,6 +1,5 @@
 ﻿using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Reflection;
 using System.Threading.Tasks;
 using Core.Extension;
 using Core.Model;
@@ -16,11 +15,16 @@ namespace Core.Mvc.Framework
         /// <typeparam name="T">T.</typeparam>
         /// <param name="url">url.</param>
         /// <returns>Task.</returns>
-        public static async Task<ResponseModel> GetAsync<T>(Url url)
+        public static async Task<ResponseModel> GetAsync<T>(Url url, AuthenticationHeaderValue authorization = null)
         {
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
+                if (authorization != null)
+                {
+                    client.DefaultRequestHeaders.Authorization = authorization;
+                }
+
                 httpResponse = await client.GetAsync(SiteConfiguration.Host + url.Render());
             }
 
