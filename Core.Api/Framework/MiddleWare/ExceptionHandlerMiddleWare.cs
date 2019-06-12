@@ -29,8 +29,8 @@ namespace Core.Api.Framework.MiddleWare
                     {
                         Message = $"[1:]{exception.StackTrace}{Environment.NewLine}{Environment.NewLine}" +
                                   $"<p style=\"color:blue\">{exception.Message}</p>{Environment.NewLine}{Environment.NewLine}" +
-                                  $"<p style=\"color:red\">{exception.InnerException.Message}</p>{Environment.NewLine}{Environment.NewLine}" +
-                                  $"[4:]{exception.InnerException.StackTrace}",
+                                  $"<p style=\"color:red\">{exception.InnerException?.Message}</p>{Environment.NewLine}{Environment.NewLine}" +
+                                  $"[4:]{exception.InnerException?.StackTrace}",
                         LogLevel = (int)LogLevel.Error
                     });
                     coreContext.SaveChanges();

@@ -25,11 +25,6 @@ namespace Core.Web.GridFilter
             this._isContainsEmpty = isContainsEmpty;
         }
 
-        public void AddOption(Enum key, string value)
-        {
-            this._keyValuePair.Add(new KeyValuePair<bool, string>((bool)Enum.Parse(key.GetType(), key.ToString()), value));
-        }
-
         public void AddOption(bool key, string value)
         {
             this._keyValuePair.Add(new KeyValuePair<bool, string>(key, value));
