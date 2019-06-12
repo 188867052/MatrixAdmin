@@ -62,10 +62,10 @@ namespace Core.Api.Controllers
                     new Claim(nameof(Entity.User.Id), user.Id.ToString()),
                     new Claim(nameof(Entity.User.LoginName), user.LoginName),
                     new Claim(nameof(Entity.User.Password), user.Password),
-                    new Claim(nameof(Entity.User.CreateByUserName), user.CreateByUserName),
-                    new Claim(nameof(Entity.User.UpdateByUserName), user.UpdateByUserName),
-                    new Claim(nameof(Entity.User.Description), user.Description),
-                    new Claim(nameof(Entity.User.DisplayName), user.DisplayName),
+                    new Claim(nameof(Entity.User.CreateByUserName), user.CreateByUserName??string.Empty),
+                    new Claim(nameof(Entity.User.UpdateByUserName), user.UpdateByUserName??string.Empty),
+                    new Claim(nameof(Entity.User.Description), user.Description??string.Empty),
+                    new Claim(nameof(Entity.User.DisplayName), user.DisplayName??string.Empty),
                     new Claim(nameof(Entity.User.IsEnable),  user.IsEnable.ToString()),
                     new Claim(nameof(Entity.User.UserType), user.UserType.ToString())
                 });
