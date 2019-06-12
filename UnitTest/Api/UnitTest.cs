@@ -46,14 +46,20 @@ namespace Core.UnitTest.Api
         public async Task TestAuthentication()
         {
             var url = new Url(typeof(TestController), nameof(TestController.TestAuthentication));
-            using (HttpClient client = new HttpClient())
-            {
-                dynamic data = await HttpClientAsync.GetAsync(url, new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, this.token));
-                Console.WriteLine(data);
-                bool isAuthenticated = data.isAuthenticated;
+            dynamic data = await HttpClientAsync.GetAsync(url, new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, this.token));
+            Console.WriteLine(data);
+            bool isAuthenticated = data.isAuthenticated;
 
-                Assert.IsTrue(isAuthenticated);
-            }
+            Assert.IsTrue(isAuthenticated);
+        }
+
+        [Test]
+        public async Task TestUnAuthenticate()
+        {
+            var url = new Url(typeof(TestController), nameof(TestController.TestAuthentication));
+            HttpResponseMessage response = await HttpClientAsync.GetResponseAsync(url);
+
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.Unauthorized);
         }
 
         [Test]

@@ -39,6 +39,15 @@ namespace Core.Mvc.Framework
         /// <returns>Task.</returns>
         public static async Task<dynamic> GetAsync(Url url, AuthenticationHeaderValue authorization = null, object parameters = null)
         {
+            var httpResponse = await GetResponseAsync(url, authorization, parameters);
+            string json = await httpResponse.Content.ReadAsStringAsync();
+            dynamic data = JsonConvert.DeserializeObject<dynamic>(json);
+
+            return data;
+        }
+
+        public static async Task<HttpResponseMessage> GetResponseAsync(Url url, AuthenticationHeaderValue authorization = null, object parameters = null)
+        {
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
@@ -49,13 +58,8 @@ namespace Core.Mvc.Framework
 
                 var query = parameters == null ? string.Empty : url.Query(parameters);
                 string requestUrl = SiteConfiguration.Host + url.Render() + query;
-                httpResponse = await client.GetAsync(requestUrl);
+                return httpResponse = await client.GetAsync(requestUrl);
             }
-
-            string json = await httpResponse.Content.ReadAsStringAsync();
-            dynamic data = JsonConvert.DeserializeObject<dynamic>(json);
-
-            return data;
         }
 
         /// <summary>
