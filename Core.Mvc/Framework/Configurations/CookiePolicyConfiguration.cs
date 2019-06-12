@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Mvc.Configurations
+namespace Core.Mvc.Framework.Configurations
 {
     public static class CookiePolicyConfiguration
     {

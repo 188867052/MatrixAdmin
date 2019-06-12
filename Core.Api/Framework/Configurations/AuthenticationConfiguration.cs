@@ -1,9 +1,10 @@
 ﻿using Core.Api.Auth;
+using Core.Api.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Api.Configurations
+namespace Core.Api.Framework.Configurations
 {
     public static class AuthenticationConfiguration
     {

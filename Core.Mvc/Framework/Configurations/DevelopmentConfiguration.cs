@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Core.Mvc.Configurations
+namespace Core.Mvc.Framework.Configurations
 {
     public static class DevelopmentConfiguration
     {

@@ -3,7 +3,7 @@ using Microsoft.Extensions.WebEncoders;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 
-namespace Core.Api.Configurations
+namespace Core.Api.Framework.Configurations
 {
     public static class WebEncoderConfiguration
     {

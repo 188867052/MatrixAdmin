@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Core.Api.AuthContext;
+using Core.Api.Authentication;
 using Core.Api.Framework;
 using Core.Entity;
 using Core.Extension;

@@ -1,4 +1,4 @@
-﻿namespace Core.Api.Auth
+﻿namespace Core.Api.Authentication
 {
     /// <summary>
     /// JWT授权的配置项

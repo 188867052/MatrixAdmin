@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Core.Mvc.Areas.Redirect.Controllers;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Api.Configurations
+namespace Core.Mvc.Framework.Configurations
 {
     public static class RouteConfiguration
     {
@@ -14,17 +16,14 @@ namespace Core.Api.Configurations
         {
             app.UseMvc(routes =>
             {
+                string defaultController = nameof(RedirectController).Replace(nameof(Controller), string.Empty);
+                string defaultAction = nameof(RedirectController.Index);
                 routes.MapRoute(
-                     name: "areaRoute",
-                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapRoute(
-                    name: "apiDefault",
-                    template: "api/{controller=Home}/{action=Index}/{id?}");
-
+                    name: "defaultWithArea",
+                    template: "{area:exists}/{controller=Redirect}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=" + defaultController + "}/{action=" + defaultAction + "}/{id?}");
             });
         }
 

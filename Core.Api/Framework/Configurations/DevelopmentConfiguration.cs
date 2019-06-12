@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Core.Api.Configurations
+namespace Core.Api.Framework.Configurations
 {
     public static class DevelopmentConfiguration
     {

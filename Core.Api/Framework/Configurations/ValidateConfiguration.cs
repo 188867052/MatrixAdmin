@@ -1,7 +1,7 @@
 ﻿using Core.Api.Extensions.CustomException;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Api.Configurations
+namespace Core.Api.Framework.Configurations
 {
     public static class ValidateConfiguration
     {

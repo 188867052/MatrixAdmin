@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Core.Api.Auth;
+using Core.Api.Authentication;
 using Core.Api.Framework;
 using Core.Entity;
 using Microsoft.AspNetCore.Mvc;

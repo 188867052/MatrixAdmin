@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace Core.Api.Configurations
+namespace Core.Api.Framework.Configurations
 {
     public static class SwaggerConfiguration
     {

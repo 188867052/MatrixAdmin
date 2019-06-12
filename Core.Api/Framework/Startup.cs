@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using Core.Api.AuthContext;
-using Core.Api.Configurations;
-using Core.Api.Extensions.CustomException;
+using Core.Api.Authentication;
+using Core.Api.Framework.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -61,7 +60,7 @@ namespace Core.Api
             app.UseStaticFiles();
             app.UseFileServer();
             CorsConfiguration.AddConfigure(app);
-            app.ConfigureCustomExceptionMiddleware();
+            ExceptionConfiguration.AddConfigure(app);
 
             var serviceProvider = app.ApplicationServices;
             var httpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();

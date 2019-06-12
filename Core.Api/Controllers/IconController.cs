@@ -9,7 +9,7 @@ using Core.Model.Administration.Icon;
 using Dapper;
 using Core.Api.Framework;
 using Microsoft.AspNetCore.Mvc;
-using Core.Api.AuthContext;
+using Core.Api.Authentication;
 
 namespace Core.Api.Controllers
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Api.Configurations
+namespace Core.Api.Framework.Configurations
 {
     /// <summary>
     /// The cross-origin resource sharing configuration.
