@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
-using Resources = Core.Api.Resource.Controllers.AuthenticationController;
+using Resources = Core.Api.Resource.Controllers.AuthenticationControllerResource;
 
 namespace Core.Api.Controllers
 {

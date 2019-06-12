@@ -6,7 +6,7 @@ namespace Core.Api.Resource.Controllers
 	/// <summary>
 	/// A static class used to access a specific set of resources.
 	/// </summary>
-	public static class AuthenticationController
+	public static class AuthenticationControllerResource
 	{
         private static ResourceManager resourceManager;
         
@@ -19,7 +19,7 @@ namespace Core.Api.Resource.Controllers
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Api.Resource.Controllers.AuthenticationController", typeof(AuthenticationController).Assembly);
+                    resourceManager = new ResourceManager("Core.Api.Resource.Controllers.AuthenticationControllerResource", typeof(AuthenticationControllerResource).Assembly);
                 }
                 return resourceManager;
             }
@@ -64,7 +64,7 @@ namespace Core.Api.Resource.Controllers
 	/// <summary>
 	/// A static class used to access a specific set of resources.
 	/// </summary>
-	public static class UserController
+	public static class UserControllerResource
 	{
         private static ResourceManager resourceManager;
         
@@ -77,7 +77,7 @@ namespace Core.Api.Resource.Controllers
 			{
                 if (object.ReferenceEquals(resourceManager, null)) 
 				{
-                    resourceManager = new ResourceManager("Core.Api.Resource.Controllers.UserController", typeof(UserController).Assembly);
+                    resourceManager = new ResourceManager("Core.Api.Resource.Controllers.UserControllerResource", typeof(UserControllerResource).Assembly);
                 }
                 return resourceManager;
             }

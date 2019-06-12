@@ -7,7 +7,7 @@ using Core.Model.Administration.User;
 using Core.Api.Framework;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Resources = Core.Api.Resource.Controllers.UserController;
+using Resources = Core.Api.Resource.Controllers.UserControllerResource;
 using Core.Api.Extensions.CustomException;
 
 namespace Core.Api.Controllers
