@@ -26,7 +26,7 @@ namespace Core.UnitTest.Api
     [TestFixture]
     public class UnitTest
     {
-        private string token = string.Empty;
+        private AuthenticationHeaderValue Authentication;
 
         [Test]
         [Order(1)]
@@ -37,7 +37,7 @@ namespace Core.UnitTest.Api
 
             Console.WriteLine(data);
             int code = data.code;
-            this.token = data.token;
+            this.Authentication = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, data.token.ToString());
 
             Assert.AreEqual(code, (int)HttpStatusCode.OK);
         }
@@ -46,7 +46,7 @@ namespace Core.UnitTest.Api
         public async Task TestAuthentication()
         {
             var url = new Url(typeof(TestController), nameof(TestController.TestAuthentication));
-            dynamic data = await HttpClientAsync.GetAsync(url, new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, this.token));
+            dynamic data = await HttpClientAsync.GetAsync(url, Authentication);
             Console.WriteLine(data);
             bool isAuthenticated = data.isAuthenticated;
 
@@ -99,7 +99,7 @@ namespace Core.UnitTest.Api
         public async Task TestUserIndexAsync()
         {
             var url = new Url(typeof(UserController), nameof(UserController.Index));
-            ResponseModel model = await HttpClientAsync.GetAsync<IList<UserModel>>(url);
+            ResponseModel model = await HttpClientAsync.GetAsync<IList<UserModel>>(url, this.Authentication);
             IList<UserModel> menus = (IList<UserModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
