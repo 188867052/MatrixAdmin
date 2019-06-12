@@ -7,6 +7,7 @@ using Core.Model.Administration.User;
 using Core.Api.Framework;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Resources = Core.Api.Resource.Controllers.UserController;
 
 namespace Core.Api.Controllers
 {
@@ -71,7 +72,7 @@ namespace Core.Api.Controllers
             ResponseModel response = ResponseModelFactory.CreateInstance;
             if (model.LoginName.Length <= 0)
             {
-                response.SetFailed("请输入登录名称");
+                response.SetFailed(Resources.PleaseInputLoginName);
                 return this.Ok(response);
             }
 
@@ -79,7 +80,7 @@ namespace Core.Api.Controllers
             {
                 if (this.DbContext.User.Count(x => x.LoginName == model.LoginName) > 0)
                 {
-                    response.SetFailed("登录名已存在");
+                    response.SetFailed(Resources.UserNameHasExist);
                     return this.Ok(response);
                 }
 
@@ -130,7 +131,7 @@ namespace Core.Api.Controllers
                 User entity = this.DbContext.User.Find(model.Id);
                 if (entity == null)
                 {
-                    response.SetFailed("用户不存在");
+                    response.SetFailed(Resources.UserNotExist);
                     return this.Ok(response);
                 }
 

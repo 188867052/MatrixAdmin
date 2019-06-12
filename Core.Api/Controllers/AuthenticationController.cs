@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
-using Core.Api.Auth;
 using Core.Api.Authentication;
 using Core.Api.Framework;
+using Core.Api.Framework.Configurations;
 using Core.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
+using Resources = Core.Api.Resource.Controllers.AuthenticationController;
 
 namespace Core.Api.Controllers
 {
@@ -37,40 +38,43 @@ namespace Core.Api.Controllers
                 User user = this.DbContext.User.FirstOrDefault(x => x.LoginName == username.Trim());
                 if (user == null || !user.IsEnable)
                 {
-                    return this.FailResponse("用户不存在");
+                    return this.FailResponse(Resources.UserNotExist);
                 }
 
                 if (user.Password != password.Trim())
                 {
-                    return this.FailResponse("密码不正确");
+                    return this.FailResponse(Resources.PasswordWrong);
                 }
 
                 if (user.IsLocked)
                 {
-                    return this.FailResponse("账号已被锁定");
+                    return this.FailResponse(Resources.Locked);
                 }
 
                 if (!user.IsEnable)
                 {
-                    return this.FailResponse("账号已被禁用");
+                    return this.FailResponse(Resources.UserDisable);
                 }
 
                 ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]
                 {
                     new Claim(ClaimTypes.Name, username),
-                    new Claim("id", user.Id.ToString()),
-                    new Claim("avatar", string.Empty),
-                    new Claim("displayName", user.DisplayName),
-                    new Claim("loginName", user.LoginName),
-                    new Claim("emailAddress", string.Empty),
-                    new Claim("userType", user.UserType.ToString())
+                    new Claim(nameof(Entity.User.Id), user.Id.ToString()),
+                    new Claim(nameof(Entity.User.LoginName), user.LoginName),
+                    new Claim(nameof(Entity.User.Password), user.Password),
+                    new Claim(nameof(Entity.User.CreateByUserName), user.CreateByUserName),
+                    new Claim(nameof(Entity.User.UpdateByUserName), user.UpdateByUserName),
+                    new Claim(nameof(Entity.User.Description), user.Description),
+                    new Claim(nameof(Entity.User.DisplayName), user.DisplayName),
+                    new Claim(nameof(Entity.User.IsEnable),  user.IsEnable.ToString()),
+                    new Claim(nameof(Entity.User.UserType), user.UserType.ToString())
                 });
 
                 return this.Ok(new
                 {
-                    token = JwtBearerAuthenticationExtension.GetJwtAccessToken(this._appSettings, claimsIdentity),
+                    token = AuthenticationConfiguration.GetJwtAccessToken(this._appSettings, claimsIdentity),
                     code = (int)HttpStatusCode.OK,
-                    message = "操作成功"
+                    message = Resources.OperateSuccess
                 });
             }
         }

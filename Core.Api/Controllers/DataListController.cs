@@ -8,7 +8,6 @@ using Core.Model.Administration.Role;
 using Core.Model.Administration.User;
 using Core.Api.Framework;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
 
 namespace Core.Api.Controllers
 {
@@ -22,7 +21,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="dbContext">The dbContext.</param>
         /// <param name="mapper">The mapper.</param>
-        public DataListController(Core.Entity.CoreContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public DataListController(CoreContext dbContext, IMapper mapper) : base(dbContext, mapper)
         {
         }
 
