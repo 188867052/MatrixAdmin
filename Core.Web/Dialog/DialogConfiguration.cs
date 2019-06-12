@@ -49,12 +49,15 @@ namespace Core.Web.Dialog
 
         public virtual string Render(TModel model)
         {
-            string html = new CoreContext().Configuration.FirstOrDefault(o => o.Key == "Dialog").Value;
-            html = html.Replace("{{id}}", this.Identifier.Value);
-            html = html.Replace("{{modal-title}}", this.Title);
-            html = html.Replace("{{modal-body}}", this.Body);
-            html = html.Replace("{{modal-footer}}", this.Buttons);
-            return html;
+            using (var context = new CoreContext())
+            {
+                string html = context.Configuration.FirstOrDefault(o => o.Key == "Dialog").Value;
+                html = html.Replace("{{id}}", this.Identifier.Value);
+                html = html.Replace("{{modal-title}}", this.Title);
+                html = html.Replace("{{modal-body}}", this.Body);
+                html = html.Replace("{{modal-footer}}", this.Buttons);
+                return html;
+            }
         }
 
         protected abstract void CreateButtons(IList<StandardButton> buttons);

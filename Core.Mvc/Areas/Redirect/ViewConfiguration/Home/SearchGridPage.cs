@@ -42,9 +42,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         /// <returns>A string.</returns>
         public virtual string Render()
         {
-            string htmlFormat = new CoreContext().Configuration.FirstOrDefault(o => o.Key == this.FileName)?.Value;
-
-            string html = htmlFormat.Replace("{{head}}", this.HtmlHead());
+            string html = SiteConfiguration.SearchGridPage.Replace("{{head}}", this.HtmlHead());
             html = html.Replace("{{sidebarMenu}}", SidebarNavigation.SidebarMenu());
             html = html.Replace("{{content-header}}", this.ContentHeader());
             html = html.Replace("{{Footer}}", this.Footer());
