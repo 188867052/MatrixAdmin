@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Core.Mvc.Framework.Configurations
+namespace Core.Mvc.Framework.StartupConfigurations
 {
     public static class DbContextConfiguration
     {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore;
+﻿using Core.Api.Framework.StartupConfigurations;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Api
@@ -9,7 +10,7 @@ namespace Core.Api
     public class Program
     {
         /// <summary>
-        /// 应用程序启动入口方法(Main)
+        /// Application launch entry method.
         /// </summary>
         /// <param name="args"></param>
         public static void Main(string[] args)

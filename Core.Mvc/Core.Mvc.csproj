@@ -15,13 +15,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Resource.Generated.tt">
+    <Content Include="Generated\ScriptStyle.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Resource.Generated.cs</LastGenOutput>
+      <LastGenOutput>ScriptStyle.Generated.cs</LastGenOutput>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.RouteAnalyzer" Version="0.5.3" />
     <PackageReference Include="AutoMapper" Version="8.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.0" />
     <PackageReference Include="bootstrap" Version="4.3.1" />
@@ -88,16 +89,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resource.Generated.cs">
+    <Compile Update="Generated\Resource.Generated.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource.Generated.tt</DependentUpon>
     </Compile>
+    <Compile Update="Generated\ScriptStyle.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ScriptStyle.Generated.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resource.Generated.tt">
+    <None Update="Generated\Resource.Generated.tt">
       <LastGenOutput>Resource.Generated.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Generated\ScriptStyle.Generated.tt">
+      <LastGenOutput>ScriptStyle.Generated.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
   </ItemGroup>

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.Api.Authentication;
 using Core.Api.Framework;
-using Core.Api.Framework.Configurations;
+using Core.Api.Framework.StartupConfigurations;
 using Core.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

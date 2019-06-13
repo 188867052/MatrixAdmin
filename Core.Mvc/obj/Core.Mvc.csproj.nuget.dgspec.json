@@ -629,6 +629,10 @@
       "frameworks": {
         "netcoreapp2.1": {
           "dependencies": {
+            "AspNetCore.RouteAnalyzer": {
+              "target": "Package",
+              "version": "[0.5.3, )"
+            },
             "AutoMapper": {
               "target": "Package",
               "version": "[8.1.0, )"

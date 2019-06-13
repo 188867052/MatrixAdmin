@@ -1,19 +1,18 @@
 ﻿using System.Text.Encodings.Web;
 using System.Text.Unicode;
-using Core.Mvc.Framework.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Mvc.Framework
+namespace Core.Mvc.Framework.StartupConfigurations
 {
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
-            this.Configuration = configuration;
+            Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }

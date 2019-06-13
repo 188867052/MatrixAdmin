@@ -1,7 +1,7 @@
 ﻿using Core.Api.Framework.MiddleWare;
 using Microsoft.AspNetCore.Builder;
 
-namespace Core.Mvc.Framework.Configurations
+namespace Core.Mvc.Framework.StartupConfigurations
 {
     public static class ExceptionConfiguration
     {

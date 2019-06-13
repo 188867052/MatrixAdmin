@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Mvc.Framework.Configurations
+namespace Core.Mvc.Framework.StartupConfigurations
 {
     public static class RouteConfiguration
     {
         /// <summary>
-        /// The Configure must be the last of the Configure in Startup.Configure.
+        /// The Configure must be the last request pipeline of the Configure method in Startup.cs.
         /// </summary>
-        /// <param name="app"></param>
+        /// <param name="app">app.</param>
         public static void AddConfigure(IApplicationBuilder app)
         {
             app.UseMvc(routes =>

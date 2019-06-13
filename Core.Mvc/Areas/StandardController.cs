@@ -14,7 +14,6 @@ using Core.Web.ViewConfiguration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Primitives;
 
 namespace Core.Mvc.Areas
 {
@@ -28,8 +27,8 @@ namespace Core.Mvc.Areas
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             base.OnActionExecuting(context);
-            this.HttpContext.Request.Headers.TryGetValue("token", out StringValues outValue);
-            if (string.IsNullOrEmpty(outValue))
+            this.HttpContext.Request.Cookies.TryGetValue("token", out string token);
+            if (string.IsNullOrEmpty(token))
             {
                 var url = new Url(typeof(RedirectController), nameof(RedirectController.Login));
                 if (!this.HttpContext.Request.Path.Value.EndsWith(nameof(RedirectController.Login)))
@@ -39,7 +38,9 @@ namespace Core.Mvc.Areas
             }
             else
             {
-                this.Authentication = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, outValue);
+                this.Authentication = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, token);
+                this.HttpContext.Response.Cookies.Delete("token");
+                this.HttpContext.Response.Cookies.Append("token", token);
             }
         }
 

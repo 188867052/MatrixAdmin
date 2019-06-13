@@ -18,6 +18,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Analyzers" Version="3.0.0-preview3-19153-02" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.2.0" />
     <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.9.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.0.0-preview5.19227.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0-preview5.19227.1">
@@ -57,7 +58,25 @@
     <ProjectReference Include="..\Core.Entity\Core.Entity.csproj" />
     <ProjectReference Include="..\Core.Models\Core.Model.csproj" />
     <ProjectReference Include="..\Core.Mvc\Core.Mvc.csproj" />
-    <ProjectReference Include="..\UnitTest.Resource\Core.UnitTest.Resource.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resource\Resource.Generated.tt">
+      <LastGenOutput>Resource.Generated.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resource\Resource.Generated.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resource.Generated.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

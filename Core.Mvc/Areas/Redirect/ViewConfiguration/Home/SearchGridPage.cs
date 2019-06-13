@@ -132,7 +132,8 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
                 Javascript.Bootstrap,
                 Javascript.BootstrapDatetimepicker,
                 Javascript.Framework,
-                Javascript.Core
+                Javascript.Core,
+                Javascript.JqueryRedirect
             };
             list.AddRange(this.JavaScriptFiles());
 

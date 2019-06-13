@@ -2,13 +2,21 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Mvc.Framework.Configurations
+namespace Core.Mvc.Framework.StartupConfigurations
 {
     public static class CookiePolicyConfiguration
     {
+        public static bool DisableCookie { get; set; }
+
         public static void AddConfigure(IApplicationBuilder app)
         {
-            app.UseCookiePolicy();
+            if (DisableCookie)
+            {
+                // AspNetCore2.1 supports the GDPR specification introduced on May 25, 2018,
+                // which considers cookies to be private data of users.If they are to be used,
+                // they must obtain user consent.
+                app.UseCookiePolicy();
+            }
         }
 
         public static void AddService(IServiceCollection services)

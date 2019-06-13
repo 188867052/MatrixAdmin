@@ -1,6 +1,6 @@
-﻿using AutoMapper;
+﻿using AspNetCore.RouteAnalyzers;
+using AutoMapper;
 using Core.Api.Authentication;
-using Core.Api.Framework.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
 
-namespace Core.Api
+namespace Core.Api.Framework.StartupConfigurations
 {
     public class Startup
     {
@@ -28,8 +28,8 @@ namespace Core.Api
         public void ConfigureServices(IServiceCollection services)
         {
             SwaggerConfiguration.AddService(services);
-            AuthenticationConfiguration.AddService(services, this.Configuration);
-            DbContextConfiguration.AddService(services, this.Configuration);
+            AuthenticationConfiguration.AddService(services, Configuration);
+            DbContextConfiguration.AddService(services, Configuration);
             CorsConfiguration.AddService(services);
             RouteConfiguration.AddService(services);
             services.AddMemoryCache();
@@ -40,7 +40,7 @@ namespace Core.Api
 #pragma warning disable 618
             WebEncoderConfiguration.AddService(services);
             ValidateConfiguration.AddService(services);
-
+            services.AddRouteAnalyzer();
             services.AddMvc().AddJsonOptions(s => s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

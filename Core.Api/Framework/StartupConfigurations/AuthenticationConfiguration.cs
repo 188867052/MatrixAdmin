@@ -9,7 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Core.Api.Framework.Configurations
+namespace Core.Api.Framework.StartupConfigurations
 {
     public static class AuthenticationConfiguration
     {

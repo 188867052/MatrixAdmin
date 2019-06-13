@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.1": {
+      "AspNetCore.RouteAnalyzer/0.5.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore": "2.0.0",
+          "Microsoft.AspNetCore.Mvc": "2.0.0"
+        },
+        "compile": {
+          "lib/netcoreapp2.0/AspNetCore.RouteAnalyzer.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/AspNetCore.RouteAnalyzer.dll": {}
+        }
+      },
       "AutoMapper/8.1.0": {
         "type": "package",
         "dependencies": {
@@ -1462,6 +1475,19 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.StaticFiles.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.TestHost/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Hosting": "2.2.0",
+          "System.IO.Pipelines": "4.5.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.TestHost.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.TestHost.dll": {}
         }
       },
       "Microsoft.AspNetCore.WebUtilities/2.2.0": {
@@ -5422,6 +5448,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
+          "AspNetCore.RouteAnalyzer": "0.5.3",
           "AutoMapper": "8.1.0",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "6.1.0",
           "Core.Api": "1.0.0",
@@ -5482,30 +5509,6 @@
         },
         "runtime": {
           "bin/placeholder/Core.Mvc.Resource.dll": {}
-        }
-      },
-      "Core.UnitTest.Resource/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.1",
-        "dependencies": {
-          "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
-          "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
-          "Microsoft.CodeQuality.Analyzers": "2.9.3",
-          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
-          "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview5.19227.1",
-          "Microsoft.NetCore.Analyzers": "2.9.3",
-          "Microsoft.VisualStudio.Threading": "16.0.102",
-          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
-          "Newtonsoft.Json": "12.0.2",
-          "Quartz": "3.0.7",
-          "Roslyn.Diagnostics.Analyzers": "2.9.3",
-          "xunit.analyzers": "0.10.0"
-        },
-        "compile": {
-          "bin/placeholder/Core.UnitTest.Resource.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Core.UnitTest.Resource.dll": {}
         }
       },
       "Core.Web/1.0.0": {
@@ -5583,6 +5586,19 @@
     }
   },
   "libraries": {
+    "AspNetCore.RouteAnalyzer/0.5.3": {
+      "sha512": "2qQdI7gX+qQjpFKEDccgpipLi5QId/Omhai4S4oAGJwEtk5CNK/dnpt9s2WlMKxy3DmXaCE8GnR50vF4l/DbbQ==",
+      "type": "package",
+      "path": "aspnetcore.routeanalyzer/0.5.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aspnetcore.routeanalyzer.0.5.3.nupkg.sha512",
+        "aspnetcore.routeanalyzer.nuspec",
+        "lib/netcoreapp2.0/AspNetCore.RouteAnalyzer.dll",
+        "lib/netcoreapp2.0/AspNetCore.RouteAnalyzer.pdb"
+      ]
+    },
     "AutoMapper/8.1.0": {
       "sha512": "Go75WXHE7p/8CtRaxZnvVEfcSh7xpE6zx9wkgN4I1BxvlzP0hoiTLHSXDYXgv9CoxaRj4ahwzCA/iwdpvyQyOA==",
       "type": "package",
@@ -7088,6 +7104,19 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.StaticFiles.xml",
         "microsoft.aspnetcore.staticfiles.2.2.0.nupkg.sha512",
         "microsoft.aspnetcore.staticfiles.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.TestHost/2.2.0": {
+      "sha512": "qjynDPGtn+5t1IHzFW2VpPoX+tkNVoI3htySJINETsvfGdKshs8keYOpDVpRfx6x7bGoN4G5icL7lKFPmAu/eA==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.testhost/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.TestHost.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.TestHost.xml",
+        "microsoft.aspnetcore.testhost.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.testhost.nuspec"
       ]
     },
     "Microsoft.AspNetCore.WebUtilities/2.2.0": {
@@ -15261,11 +15290,6 @@
       "path": "../Core.Resource/Core.Mvc.Resource.csproj",
       "msbuildProject": "../Core.Resource/Core.Mvc.Resource.csproj"
     },
-    "Core.UnitTest.Resource/1.0.0": {
-      "type": "project",
-      "path": "../UnitTest.Resource/Core.UnitTest.Resource.csproj",
-      "msbuildProject": "../UnitTest.Resource/Core.UnitTest.Resource.csproj"
-    },
     "Core.Web/1.0.0": {
       "type": "project",
       "path": "../Core.Web/Core.Web.csproj",
@@ -15283,11 +15307,11 @@
       "Core.Entity >= 1.0.0",
       "Core.Model >= 1.0.0",
       "Core.Mvc >= 1.0.0",
-      "Core.UnitTest.Resource >= 1.0.0",
       "MSTest.TestAdapter >= 2.0.0-beta4",
       "MSTest.TestFramework >= 2.0.0-beta4",
       "Microsoft.AspNetCore.Mvc.Analyzers >= 3.0.0-preview3-19153-02",
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
+      "Microsoft.AspNetCore.TestHost >= 2.2.0",
       "Microsoft.CodeQuality.Analyzers >= 2.9.3",
       "Microsoft.EntityFrameworkCore.Analyzers >= 3.0.0-preview5.19227.1",
       "Microsoft.EntityFrameworkCore.Design >= 3.0.0-preview5.19227.1",
@@ -15355,9 +15379,6 @@
             },
             "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj": {
               "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj"
-            },
-            "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\Core.UnitTest.Resource.csproj": {
-              "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest.Resource\\Core.UnitTest.Resource.csproj"
             }
           }
         }
@@ -15386,6 +15407,10 @@
           "Microsoft.AspNetCore.Mvc.Core": {
             "target": "Package",
             "version": "[2.2.5, )"
+          },
+          "Microsoft.AspNetCore.TestHost": {
+            "target": "Package",
+            "version": "[2.2.0, )"
           },
           "Microsoft.CodeQuality.Analyzers": {
             "target": "Package",

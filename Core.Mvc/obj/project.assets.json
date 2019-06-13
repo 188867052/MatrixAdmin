@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.1": {
+      "AspNetCore.RouteAnalyzer/0.5.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore": "2.0.0",
+          "Microsoft.AspNetCore.Mvc": "2.0.0"
+        },
+        "compile": {
+          "lib/netcoreapp2.0/AspNetCore.RouteAnalyzer.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/AspNetCore.RouteAnalyzer.dll": {}
+        }
+      },
       "AutoMapper/8.1.0": {
         "type": "package",
         "dependencies": {
@@ -1190,7 +1203,8 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll": {}
         },
         "build": {
-          "build/netstandard2.0/_._": {}
+          "build/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.props": {},
+          "build/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.targets": {}
         }
       },
       "Microsoft.AspNetCore.Mvc.RazorPages/2.2.0": {
@@ -1256,10 +1270,10 @@
       "Microsoft.AspNetCore.Razor.Design/2.2.0": {
         "type": "package",
         "build": {
-          "build/netstandard2.0/_._": {}
+          "build/netstandard2.0/Microsoft.AspNetCore.Razor.Design.props": {}
         },
         "buildMultiTargeting": {
-          "buildMultiTargeting/_._": {}
+          "buildMultiTargeting/Microsoft.AspNetCore.Razor.Design.props": {}
         }
       },
       "Microsoft.AspNetCore.Razor.Language/2.2.0": {
@@ -4887,6 +4901,19 @@
     }
   },
   "libraries": {
+    "AspNetCore.RouteAnalyzer/0.5.3": {
+      "sha512": "2qQdI7gX+qQjpFKEDccgpipLi5QId/Omhai4S4oAGJwEtk5CNK/dnpt9s2WlMKxy3DmXaCE8GnR50vF4l/DbbQ==",
+      "type": "package",
+      "path": "aspnetcore.routeanalyzer/0.5.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aspnetcore.routeanalyzer.0.5.3.nupkg.sha512",
+        "aspnetcore.routeanalyzer.nuspec",
+        "lib/netcoreapp2.0/AspNetCore.RouteAnalyzer.dll",
+        "lib/netcoreapp2.0/AspNetCore.RouteAnalyzer.pdb"
+      ]
+    },
     "AutoMapper/8.1.0": {
       "sha512": "Go75WXHE7p/8CtRaxZnvVEfcSh7xpE6zx9wkgN4I1BxvlzP0hoiTLHSXDYXgv9CoxaRj4ahwzCA/iwdpvyQyOA==",
       "type": "package",
@@ -13513,6 +13540,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "AspNetCore.RouteAnalyzer >= 0.5.3",
       "AutoMapper >= 8.1.0",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 6.1.0",
       "Core.Api >= 1.0.0",
@@ -13607,6 +13635,10 @@
     "frameworks": {
       "netcoreapp2.1": {
         "dependencies": {
+          "AspNetCore.RouteAnalyzer": {
+            "target": "Package",
+            "version": "[0.5.3, )"
+          },
           "AutoMapper": {
             "target": "Package",
             "version": "[8.1.0, )"

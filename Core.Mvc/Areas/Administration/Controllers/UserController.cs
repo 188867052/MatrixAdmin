@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Api.Extensions.CustomException;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
@@ -12,6 +13,7 @@ using ApiController = Core.Api.Controllers.UserController;
 namespace Core.Mvc.Areas.Administration.Controllers
 {
     [Area(nameof(Administration))]
+    [CustomAuthorize]
     public class UserController : StandardController
     {
         /// <summary>
