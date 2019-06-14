@@ -1,5 +1,4 @@
-﻿using AspNetCore.RouteAnalyzers.Controllers;
-using Microsoft.AspNetCore.Mvc.Abstractions;
+﻿using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Internal;
@@ -7,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AspNetCore.RouteAnalyzers.Inner
+namespace Core.Api.RouteAnalyzer
 {
     public class RouteAnalyzer : IRouteAnalyzer
     {
@@ -20,7 +19,7 @@ namespace AspNetCore.RouteAnalyzers.Inner
 
         public IEnumerable<RouteInformation> GetAllRouteInformations()
         {
-            List<RouteInformation> ret = new List<RouteInformation>();
+            List<RouteInformation> list = new List<RouteInformation>();
 
             var routes = _actionDescriptorCollectionProvider.ActionDescriptors.Items;
             foreach (ActionDescriptor route in routes)
@@ -38,7 +37,7 @@ namespace AspNetCore.RouteAnalyzers.Inner
                 {
                     var e = route as PageActionDescriptor;
                     info.Path = e.ViewEnginePath;
-                    info.Invocation = e.RelativePath;
+                    info.Namespace = e.RelativePath;
                 }
 
                 // Path of Route Attribute
@@ -46,25 +45,29 @@ namespace AspNetCore.RouteAnalyzers.Inner
                 {
                     var e = route;
                     info.Path = $"/{e.AttributeRouteInfo.Template}";
+                    foreach (var item in e.Parameters)
+                    {
+                        info.Parameters.Add(new ParameterInfo
+                        {
+                            Name = item.Name,
+                            Type = item.ParameterType.Name,
+                            BinderType = item.BindingInfo?.BinderType?.Name
+                        });
+                    }
                 }
 
-                // Path and Invocation of Controller/Action
                 if (route is ControllerActionDescriptor)
                 {
                     var e = route as ControllerActionDescriptor;
-                    if (info.Path == "")
-                    {
-                        info.Path = $"/{e.ControllerName}/{e.ActionName}";
-                    }
-                    info.Invocation = $"{e.ControllerName}Controller.{e.ActionName}";
+                    info.ControllerName = e.ControllerName;
+                    info.ActionName = e.ActionName;
+                    info.Namespace = e.ControllerTypeInfo.AsType().Namespace;
                 }
 
                 // Extract HTTP Verb
                 if (route.ActionConstraints != null && route.ActionConstraints.Select(t => t.GetType()).Contains(typeof(HttpMethodActionConstraint)))
                 {
-                    HttpMethodActionConstraint httpMethodAction =
-                        route.ActionConstraints.FirstOrDefault(a => a.GetType() == typeof(HttpMethodActionConstraint)) as HttpMethodActionConstraint;
-
+                    var httpMethodAction = route.ActionConstraints.FirstOrDefault(a => a.GetType() == typeof(HttpMethodActionConstraint)) as HttpMethodActionConstraint;
                     if (httpMethodAction != null)
                     {
                         info.HttpMethod = string.Join(",", httpMethodAction.HttpMethods);
@@ -77,15 +80,10 @@ namespace AspNetCore.RouteAnalyzers.Inner
                     info.Path = RouteAnalyzerRouteBuilderExtensions.RoutePath;
                 }
 
-                // Additional information of invocation
-                info.Invocation += $" ({route.DisplayName})";
-
-                // Generating List
-                ret.Add(info);
+                list.Add(info);
             }
 
-            // Result
-            return ret;
+            return list;
         }
     }
 }

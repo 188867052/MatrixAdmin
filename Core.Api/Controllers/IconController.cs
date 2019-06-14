@@ -116,7 +116,7 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public IActionResult Edit(IconCreateViewModel model)
+        public IActionResult SaveEdit(IconCreateViewModel model)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
             if (model.Code.Trim().Length <= 0)

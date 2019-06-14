@@ -67,7 +67,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="id">id.</param>
         /// <returns>IActionResult.</returns>
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult FindById(int id)
         {
             using (this.DbContext)

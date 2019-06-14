@@ -15,8 +15,9 @@ namespace Core.Mvc.Framework
         /// <typeparam name="T">T.</typeparam>
         /// <param name="url">url.</param>
         /// <returns>Task.</returns>
-        public static async Task<ResponseModel> GetAsync<T>(Url url, AuthenticationHeaderValue authorization = null)
+        public static async Task<ResponseModel> GetAsync<T>(string url, AuthenticationHeaderValue authorization = null)
         {
+            url = RemovePrefix(url);
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
@@ -94,6 +95,28 @@ namespace Core.Mvc.Framework
             return model;
         }
 
+        public static async Task<ResponseModel> GetAsync<T>(string url, object data)
+        {
+            url = RemovePrefix(url);
+            HttpResponseMessage httpResponse;
+            using (HttpClient client = new HttpClient())
+            {
+                string requestUrl = SiteConfiguration.Host + url;
+                if (data != null)
+                {
+                    url += "/" + data;
+                }
+
+                httpResponse = await client.GetAsync(requestUrl);
+            }
+
+            Task<string> json = httpResponse.Content.ReadAsStringAsync();
+            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
+            model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
+
+            return model;
+        }
+
         /// <summary>
         /// DeleteAsync.
         /// </summary>
@@ -120,6 +143,27 @@ namespace Core.Mvc.Framework
             return model;
         }
 
+        public static async Task<ResponseModel> DeleteAsync(string url, object data = null)
+        {
+            url = RemovePrefix(url);
+            HttpResponseMessage httpResponse;
+            using (HttpClient client = new HttpClient())
+            {
+                string requestUrl = SiteConfiguration.Host + url;
+                if (data != null)
+                {
+                    requestUrl += "/" + data;
+                }
+
+                httpResponse = await client.GetAsync(requestUrl);
+            }
+
+            Task<string> json = httpResponse.Content.ReadAsStringAsync();
+            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
+
+            return model;
+        }
+
         /// <summary>
         /// PostAsync.
         /// </summary>
@@ -128,8 +172,9 @@ namespace Core.Mvc.Framework
         /// <param name="url">url.</param>
         /// <param name="postModel">postModel.</param>
         /// <returns>ResponseModel.</returns>
-        public static async Task<ResponseModel> PostAsync<TModel, TPostModel>(Url url, TPostModel postModel)
+        public static async Task<ResponseModel> PostAsync<TModel, TPostModel>(string url, TPostModel postModel)
         {
+            url = RemovePrefix(url);
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
@@ -153,8 +198,9 @@ namespace Core.Mvc.Framework
         /// <param name="url">url.</param>
         /// <param name="postModel">postModel.</param>
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        public static async Task<ResponseModel> SubmitAsync<TPostModel>(Url url, TPostModel postModel)
+        public static async Task<ResponseModel> SubmitAsync<TPostModel>(string url, TPostModel postModel)
         {
+            url = RemovePrefix(url);
             HttpResponseMessage httpResponse;
             using (HttpClient client = new HttpClient())
             {
@@ -168,6 +214,17 @@ namespace Core.Mvc.Framework
             ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
 
             return model;
+        }
+
+        private static string RemovePrefix(string url)
+        {
+            if (url.StartsWith("/api"))
+            {
+                // TODO: when all the url changed to use Routes.Generated, the code will be removed.
+                url = url.Replace("/api", string.Empty);
+            }
+
+            return url;
         }
     }
 }

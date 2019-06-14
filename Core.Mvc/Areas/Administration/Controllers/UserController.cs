@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using Core.Api.Extensions.CustomException;
+using Core.Api.Routes;
 using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
@@ -24,7 +25,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         public async Task<IActionResult> Index()
         {
             var url = new Url(typeof(ApiController), nameof(ApiController.Index));
-            var model = await HttpClientAsync.GetAsync<IList<UserModel>>(url, this.Authentication);
+            var model = await HttpClientAsync.GetAsync<IList<UserModel>>(url, authorization: this.Authentication);
             UserIndex<UserModel, UserPostModel> table = new UserIndex<UserModel, UserPostModel>(model);
 
             return this.SearchGridConfiguration(table);
@@ -38,8 +39,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> GridStateChange(UserPostModel model)
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.Search));
-            ResponseModel response = await HttpClientAsync.PostAsync<IList<UserModel>, UserPostModel>(url, model);
+            ResponseModel response = await HttpClientAsync.PostAsync<IList<UserModel>, UserPostModel>(UserRoute.Search, model);
             UserViewConfiguration<UserModel> configuration = new UserViewConfiguration<UserModel>(response);
 
             return this.GridConfiguration(configuration);

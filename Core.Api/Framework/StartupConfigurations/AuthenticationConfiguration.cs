@@ -34,7 +34,7 @@ namespace Core.Api.Framework.StartupConfigurations
         public static void AddJwtBearerAuthentication(this IServiceCollection services, AppAuthenticationSettings appSettings)
         {
             //使用应用密钥得到一个加密密钥字节数组
-            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

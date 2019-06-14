@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace AspNetCore.RouteAnalyzers
+namespace Core.Api.RouteAnalyzer
 {
     public interface IRouteAnalyzer
     {

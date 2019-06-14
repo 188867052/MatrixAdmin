@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
-namespace AspNetCore.RouteAnalyzers.Controllers
+namespace Core.Api.RouteAnalyzer
 {
     public class RouteController : Controller
     {
@@ -12,10 +11,11 @@ namespace AspNetCore.RouteAnalyzers.Controllers
             _routeAnalyzer = routeAnalyzer;
         }
 
-        public IActionResult ShowAllRoutes()
+        [HttpGet]
+        public JsonResult ShowAllRoutes()
         {
             var infos = _routeAnalyzer.GetAllRouteInformations();
-            return Content(JsonConvert.SerializeObject(infos));
+            return Json(infos);
         }
     }
 }

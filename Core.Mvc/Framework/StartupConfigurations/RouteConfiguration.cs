@@ -1,4 +1,5 @@
-﻿using Core.Mvc.Areas.Redirect.Controllers;
+﻿using Core.Api.RouteAnalyzer;
+using Core.Mvc.Areas.Redirect.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -8,6 +9,8 @@ namespace Core.Mvc.Framework.StartupConfigurations
 {
     public static class RouteConfiguration
     {
+        public const string Route = "/routes";
+
         /// <summary>
         /// The Configure must be the last request pipeline of the Configure method in Startup.cs.
         /// </summary>
@@ -16,6 +19,7 @@ namespace Core.Mvc.Framework.StartupConfigurations
         {
             app.UseMvc(routes =>
             {
+                routes.MapRouteAnalyzer(Route); // Add
                 string defaultController = nameof(RedirectController).Replace(nameof(Controller), string.Empty);
                 string defaultAction = nameof(RedirectController.Index);
                 routes.MapRoute(

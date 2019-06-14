@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Core.Extension;
+using Core.Api.Routes;
 using Core.Model;
 using Core.Model.Administration.Role;
 using Core.Mvc.Areas.Administration.ViewConfiguration.Role;
 using Core.Mvc.Framework;
 using Microsoft.AspNetCore.Mvc;
-using ApiController = Core.Api.Controllers.RoleController;
 
 namespace Core.Mvc.Areas.Administration.Controllers
 {
@@ -20,8 +19,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <returns>A IActionResult.</returns>
         public async Task<IActionResult> Index()
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.Index));
-            var model = await HttpClientAsync.GetAsync<IList<RoleModel>>(url);
+            var model = await HttpClientAsync.GetAsync<IList<RoleModel>>(RoleRoute.Index);
             RoleIndex<RoleModel, RolePostModel> table = new RoleIndex<RoleModel, RolePostModel>(model);
 
             return this.SearchGridConfiguration(table);
@@ -46,8 +44,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> RowContextMenu(int id)
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.FindById));
-            ResponseModel model = await HttpClientAsync.GetAsync<RoleModel>(url, id);
+            ResponseModel model = await HttpClientAsync.GetAsync<RoleModel>(RoleRoute.FindById, data: id);
             RoleModel user = (RoleModel)model.Data;
             RoleRowContextMenu menu = new RoleRowContextMenu(user);
             return this.Content(menu.Render(), "text/html", Encoding.UTF8);
@@ -61,8 +58,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> GridStateChange(RolePostModel model)
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.Search));
-            var response = await HttpClientAsync.PostAsync<IList<RoleModel>, RolePostModel>(url, model);
+            var response = await HttpClientAsync.PostAsync<IList<RoleModel>, RolePostModel>(RoleRoute.Search, model);
             RoleViewConfiguration<RoleModel> configuration = new RoleViewConfiguration<RoleModel>(response);
 
             return this.GridConfiguration(configuration);
@@ -76,8 +72,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.Delete));
-            ResponseModel model = await HttpClientAsync.DeleteAsync(url, id);
+            ResponseModel model = await HttpClientAsync.DeleteAsync(RoleRoute.Delete, id);
 
             return this.Submit(model);
         }
@@ -90,8 +85,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> EditDialog(int id)
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.FindById));
-            ResponseModel model = await HttpClientAsync.GetAsync<RoleModel>(url, id);
+            ResponseModel model = await HttpClientAsync.GetAsync<RoleModel>(RoleRoute.FindById, id);
             RoleModel user = (RoleModel)model.Data;
             EditRoleDialogConfiguration<RoleEditPostModel, RoleModel> dialog = new EditRoleDialogConfiguration<RoleEditPostModel, RoleModel>(user);
 
@@ -106,8 +100,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveEdit(RoleEditPostModel model)
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.Edit));
-            var response = await HttpClientAsync.SubmitAsync(url, model);
+            var response = await HttpClientAsync.SubmitAsync(RoleRoute.Edit, model);
 
             return this.Submit(response);
         }
@@ -120,8 +113,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Recover(int id)
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.Recover));
-            ResponseModel model = await HttpClientAsync.DeleteAsync(url, id);
+            ResponseModel model = await HttpClientAsync.DeleteAsync(RoleRoute.Recover, id);
 
             return this.Submit(model);
         }
@@ -134,8 +126,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Forbidden(int id)
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.Forbidden));
-            ResponseModel model = await HttpClientAsync.DeleteAsync(url, id);
+            ResponseModel model = await HttpClientAsync.DeleteAsync(RoleRoute.Forbidden, id);
 
             return this.Submit(model);
         }
@@ -148,8 +139,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Normal(int id)
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.Normal));
-            ResponseModel model = await HttpClientAsync.DeleteAsync(url, id);
+            ResponseModel model = await HttpClientAsync.DeleteAsync(RoleRoute.Normal, id);
 
             return this.Submit(model);
         }
@@ -162,8 +152,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveCreate(RoleCreatePostModel model)
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.Create));
-            var response = await HttpClientAsync.SubmitAsync(url, model);
+            var response = await HttpClientAsync.SubmitAsync(RoleRoute.Create, model);
 
             return this.Submit(response);
         }

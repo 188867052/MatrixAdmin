@@ -1,9 +1,4 @@
-﻿<#
-/*
-Based on a template by Kenneth Baltrinic.
-*/
-#>
-<#@ template debug="true" hostspecific="true" #>
+﻿<#@ template debug="true" hostspecific="true" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="System.Xml" #>
 <#@ assembly name="Microsoft.VisualStudio.Shell.Interop.8.0" #>
@@ -252,7 +247,7 @@ Project GetProjectContainingT4File(DTE dte) {
         // Mark the .tt file as unsaved. This way it will be saved and update itself next time the
         // project is built. Basically, it keeps marking itself as unsaved to make the next build work.
         // Note: this is certainly hacky, but is the best I could come up with so far.
-        projectItem.Document.Saved = false;
+        projectItem.Document.Saved = true;
     }
 
     return projectItem.ContainingProject;

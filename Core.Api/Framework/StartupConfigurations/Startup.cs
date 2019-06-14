@@ -1,6 +1,6 @@
-﻿using AspNetCore.RouteAnalyzers;
-using AutoMapper;
+﻿using AutoMapper;
 using Core.Api.Authentication;
+using Core.Api.RouteAnalyzer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,7 +16,7 @@ namespace Core.Api.Framework.StartupConfigurations
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -28,16 +28,24 @@ namespace Core.Api.Framework.StartupConfigurations
         public void ConfigureServices(IServiceCollection services)
         {
             SwaggerConfiguration.AddService(services);
-            AuthenticationConfiguration.AddService(services, Configuration);
             DbContextConfiguration.AddService(services, Configuration);
             CorsConfiguration.AddService(services);
             RouteConfiguration.AddService(services);
             services.AddMemoryCache();
             services.AddHttpContextAccessor();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+            try
+            {
 #pragma warning disable 618
-            services.AddAutoMapper();
+                AuthenticationConfiguration.AddService(services, Configuration);
+                services.AddAutoMapper();
 #pragma warning disable 618
+            }
+            catch
+            {
+            }
+
             WebEncoderConfiguration.AddService(services);
             ValidateConfiguration.AddService(services);
             services.AddRouteAnalyzer();

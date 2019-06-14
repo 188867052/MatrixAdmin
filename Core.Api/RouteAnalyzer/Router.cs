@@ -1,18 +1,17 @@
-﻿using AspNetCore.RouteAnalyzers.Controllers;
-using Microsoft.AspNetCore.Routing;
+﻿using Microsoft.AspNetCore.Routing;
 using System.Threading.Tasks;
 
-namespace AspNetCore.RouteAnalyzers.Inner
+namespace Core.Api.RouteAnalyzer
 {
-    class Router : IRouter
+    public class Router : IRouter
     {
-        IRouter m_defaultRouter;
-        string m_routePath;
+        private readonly IRouter _defaultRouter;
+        private readonly string _routePath;
 
         public Router(IRouter defaultRouter, string routePath)
         {
-            m_defaultRouter = defaultRouter;
-            m_routePath = routePath;
+            this._defaultRouter = defaultRouter;
+            this._routePath = routePath;
         }
 
         public VirtualPathData GetVirtualPath(VirtualPathContext context)
@@ -22,14 +21,14 @@ namespace AspNetCore.RouteAnalyzers.Inner
 
         public async Task RouteAsync(RouteContext context)
         {
-            if (context.HttpContext.Request.Path == m_routePath)
+            if (context.HttpContext.Request.Path == _routePath)
             {
                 var routeData = new RouteData(context.RouteData);
-                routeData.Routers.Add(m_defaultRouter);
+                routeData.Routers.Add(_defaultRouter);
                 routeData.Values["controller"] = nameof(RouteController).Replace("Controller", string.Empty);
                 routeData.Values["action"] = nameof(RouteController.ShowAllRoutes);
                 context.RouteData = routeData;
-                await m_defaultRouter.RouteAsync(context);
+                await _defaultRouter.RouteAsync(context);
             }
         }
     }

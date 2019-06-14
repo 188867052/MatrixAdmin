@@ -120,7 +120,7 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public IActionResult Edit(PermissionEditViewModel model)
+        public IActionResult SaveEdit(PermissionEditViewModel model)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)

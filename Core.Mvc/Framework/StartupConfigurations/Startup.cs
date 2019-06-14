@@ -1,10 +1,13 @@
 ﻿using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using Core.Api.Framework.StartupConfigurations;
+using Core.Api.RouteAnalyzer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 
 namespace Core.Mvc.Framework.StartupConfigurations
 {
@@ -12,7 +15,7 @@ namespace Core.Mvc.Framework.StartupConfigurations
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -21,7 +24,11 @@ namespace Core.Mvc.Framework.StartupConfigurations
         public void ConfigureServices(IServiceCollection services)
         {
             CookiePolicyConfiguration.AddService(services);
+            CorsConfiguration.AddService(services);
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
+            RouteConfiguration.AddService(services);
+            services.AddRouteAnalyzer();
+            services.AddMvc().AddJsonOptions(s => s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -29,6 +36,7 @@ namespace Core.Mvc.Framework.StartupConfigurations
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             DevelopmentConfiguration.AddConfigure(app, env);
+            CorsConfiguration.AddConfigure(app);
             ExceptionConfiguration.AddConfigure(app);
             app.UseHttpsRedirection();
             app.UseStaticFiles();

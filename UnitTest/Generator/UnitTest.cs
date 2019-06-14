@@ -1,9 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
+using Core.Api.Framework.StartupConfigurations;
+using Core.Api.RouteAnalyzer;
 using Core.Entity;
 using Newtonsoft.Json;
 using NUnit.Framework;
@@ -42,15 +42,13 @@ namespace Core.UnitTest.CodeGenerator
         }
 
         [Test]
-        public async Task TestRouteGenerator()
+        public async Task TestApiAdvancedRouteGenerator()
         {
             try
             {
-                var client = new TestSite(typeof(Core.Api.Framework.StartupConfigurations.Startup)).BuildClient();
+                var client = new TestSite(typeof(Startup)).BuildClient();
                 var response = await client.GetAsync("/swagger/v1/swagger.json");
                 var content = await response.Content.ReadAsStringAsync();
-
-                //Console.WriteLine(content);
                 Assert.NotNull(content);
 
                 this.Generate(content);
@@ -62,30 +60,64 @@ namespace Core.UnitTest.CodeGenerator
         }
 
         [Test]
-        public async Task TestRouteGenerator2()
+        public async Task TestApiRouteGenerator()
         {
             try
             {
-                var client = new TestSite(typeof(Core.Api.Framework.StartupConfigurations.Startup)).BuildClient();
-                var response = await client.GetAsync("/routes");
+                var client = new TestSite(typeof(Startup)).BuildClient();
+                var response = await client.GetAsync(RouteConfiguration.route);
                 var content = await response.Content.ReadAsStringAsync();
-
-                var response2 = await client.GetAsync("/swagger/v1/swagger.json");
-                var content2 = await response2.Content.ReadAsStringAsync();
-
-                var response3 = await client.GetAsync("/swagger/index.html");
-                var content3 = await response3.Content.ReadAsStringAsync();
-
-
-                using (HttpClient HttpClient = new HttpClient())
-                {
-                    var httpResponse = await HttpClient.GetAsync("http://localhost:54321/routes");
-                    var content4 = await httpResponse.Content.ReadAsStringAsync();
-                }
 
                 Assert.NotNull(content);
 
-                this.Generate(content);
+                IEnumerable<RouteInformation> infos = JsonConvert.DeserializeObject<IEnumerable<RouteInformation>>(content);
+                foreach (IGrouping<string, RouteInformation> group in infos.Where(o => o.Path != null && o.Path != RouteConfiguration.route).GroupBy(o => o.ControllerName))
+                {
+                    Console.WriteLine($"namespace {group.First().Namespace.Replace("Controllers", "Routes")}");
+                    Console.WriteLine("{");
+                    Console.WriteLine($"    public class {group.First().ControllerName}Route");
+                    Console.WriteLine("    {");
+                    foreach (RouteInformation item in group)
+                    {
+                        Console.WriteLine($"        public const string {item.ActionName} = \"{item.Path}\";");
+                    }
+
+                    Console.WriteLine("    }");
+                    Console.WriteLine("}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        [Test]
+        public async Task TestMvcRouteGenerator()
+        {
+            try
+            {
+                var client = new TestSite(typeof(Mvc.Framework.StartupConfigurations.Startup)).BuildClient();
+                var response = await client.GetAsync(RouteConfiguration.route);
+                var content = await response.Content.ReadAsStringAsync();
+
+                Assert.NotNull(content);
+
+                IEnumerable<RouteInformation> infos = JsonConvert.DeserializeObject<IEnumerable<RouteInformation>>(content);
+                foreach (IGrouping<string, RouteInformation> group in infos.Where(o => o.Path != null && o.Path != RouteConfiguration.route).GroupBy(o => o.ControllerName))
+                {
+                    Console.WriteLine($"namespace {group.First().Namespace.Replace("Controllers", "Routes")}");
+                    Console.WriteLine("{");
+                    Console.WriteLine($"    public class {group.First().ControllerName}");
+                    Console.WriteLine("    {");
+                    foreach (RouteInformation item in group)
+                    {
+                        Console.WriteLine($"        public const string {item.ActionName} = \"{item.Path}\";");
+                    }
+
+                    Console.WriteLine("    }");
+                    Console.WriteLine("}");
+                }
             }
             catch (Exception ex)
             {
@@ -141,13 +173,5 @@ namespace Core.UnitTest.CodeGenerator
                 return false;
             }
         }
-    }
-
-    public class Route
-    {
-        public string HttpMethod { get; set; }
-        public string Path { get; set; }
-        public string ControllerName { get; set; }
-        public string Parameters { get; internal set; }
     }
 }

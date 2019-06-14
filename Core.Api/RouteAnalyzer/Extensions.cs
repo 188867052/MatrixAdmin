@@ -1,8 +1,7 @@
-﻿using AspNetCore.RouteAnalyzers.Inner;
-using Microsoft.AspNetCore.Routing;
+﻿using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AspNetCore.RouteAnalyzers
+namespace Core.Api.RouteAnalyzer
 {
     public static class RouteAnalyzerServiceCollectionExtensions
     {
@@ -15,7 +14,7 @@ namespace AspNetCore.RouteAnalyzers
 
     public static class RouteAnalyzerRouteBuilderExtensions
     {
-        public static string RoutePath { get; private set; } = "";
+        public static string RoutePath { get; private set; }
 
         public static IRouteBuilder MapRouteAnalyzer(this IRouteBuilder routes, string routePath)
         {
