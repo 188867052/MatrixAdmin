@@ -1,5 +1,5 @@
-﻿using Core.Api.Framework.MiddleWare;
-using Core.Entity;
+﻿using Core.Entity;
+using Core.Mvc.Framework.MiddleWare;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -28,13 +28,6 @@
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
-      "bootstrap/4.3.1": {
-        "type": "package",
-        "dependencies": {
-          "jQuery": "[3.0.0, 4.0.0)",
-          "popper.js": "[1.14.0, 2.0.0)"
-        }
-      },
       "Dapper/1.60.6": {
         "type": "package",
         "dependencies": {
@@ -566,9 +559,6 @@
             "locale": "zh-Hant"
           }
         }
-      },
-      "jQuery/3.0.0": {
-        "type": "package"
       },
       "McMaster.Extensions.CommandLineUtils/2.3.4": {
         "type": "package",
@@ -1193,7 +1183,7 @@
           "build/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.AspNetCore.Mvc.RazorPages/2.2.0": {
+      "Microsoft.AspNetCore.Mvc.RazorPages/2.2.5": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.Razor": "2.2.0"
@@ -1340,7 +1330,7 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Server.IIS.dll": {}
         },
         "build": {
-          "build/netstandard2.0/Microsoft.AspNetCore.Server.IIS.targets": {}
+          "build/netstandard2.0/_._": {}
         }
       },
       "Microsoft.AspNetCore.Server.IISIntegration/2.2.0": {
@@ -1367,7 +1357,7 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Server.IISIntegration.dll": {}
         },
         "build": {
-          "build/netstandard2.0/Microsoft.AspNetCore.Server.IISIntegration.targets": {}
+          "build/netstandard2.0/_._": {}
         }
       },
       "Microsoft.AspNetCore.Server.Kestrel/2.2.0": {
@@ -1624,7 +1614,7 @@
           "build/Microsoft.CodeQuality.Analyzers.props": {}
         }
       },
-      "Microsoft.CSharp/4.6.0-preview5.19224.8": {
+      "Microsoft.CSharp/4.5.0": {
         "type": "package",
         "compile": {
           "ref/netcoreapp2.0/_._": {}
@@ -1698,22 +1688,6 @@
       "Microsoft.EntityFrameworkCore.Analyzers/3.0.0-preview5.19227.1": {
         "type": "package"
       },
-      "Microsoft.EntityFrameworkCore.Design/3.0.0-preview5.19227.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.CSharp": "4.6.0-preview5.19224.8",
-          "Microsoft.EntityFrameworkCore.Relational": "3.0.0-preview5.19227.1"
-        },
-        "compile": {
-          "lib/netstandard2.0/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.dll": {}
-        },
-        "build": {
-          "build/netcoreapp2.0/Microsoft.EntityFrameworkCore.Design.props": {}
-        }
-      },
       "Microsoft.EntityFrameworkCore.Relational/3.0.0-preview5.19227.1": {
         "type": "package",
         "dependencies": {
@@ -1764,18 +1738,6 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.EntityFrameworkCore.SqlServer.dll": {}
-        }
-      },
-      "Microsoft.EntityFrameworkCore.Tools/3.0.0-preview5.19227.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore.Design": "3.0.0-preview5.19227.1"
-        },
-        "compile": {
-          "lib/netstandard2.0/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/_._": {}
         }
       },
       "Microsoft.Extensions.Caching.Abstractions/3.0.0-preview5.19227.9": {
@@ -1904,8 +1866,7 @@
           "lib/netstandard2.0/Microsoft.Extensions.Configuration.UserSecrets.dll": {}
         },
         "build": {
-          "build/netstandard2.0/Microsoft.Extensions.Configuration.UserSecrets.props": {},
-          "build/netstandard2.0/Microsoft.Extensions.Configuration.UserSecrets.targets": {}
+          "build/netstandard2.0/_._": {}
         }
       },
       "Microsoft.Extensions.DependencyInjection/3.0.0-preview5.19227.9": {
@@ -2558,7 +2519,7 @@
       "Microsoft.VisualStudio.Threading.Analyzers/16.0.102": {
         "type": "package",
         "build": {
-          "build/Microsoft.VisualStudio.Threading.Analyzers.targets": {}
+          "build/_._": {}
         }
       },
       "Microsoft.VisualStudio.Validation/15.3.15": {
@@ -2609,21 +2570,6 @@
           "lib/netstandard1.0/zh-Hant/Microsoft.VisualStudio.Validation.resources.dll": {
             "locale": "zh-Hant"
           }
-        }
-      },
-      "Microsoft.VisualStudio.Web.BrowserLink/2.2.0": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNetCore.Hosting.Abstractions": "2.2.0",
-          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
-          "Microsoft.AspNetCore.Http.Extensions": "2.2.0",
-          "Microsoft.Extensions.FileProviders.Physical": "2.2.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/Microsoft.VisualStudio.Web.BrowserLink.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.VisualStudio.Web.BrowserLink.dll": {}
         }
       },
       "Microsoft.VisualStudio.Web.CodeGeneration.Design/3.0.0-preview5-19264-04": {
@@ -2724,9 +2670,6 @@
         "runtime": {
           "lib/netstandard2.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {}
         }
-      },
-      "popper.js/1.14.0": {
-        "type": "package"
       },
       "Quartz/3.0.7": {
         "type": "package",
@@ -3162,9 +3105,6 @@
         "runtime": {
           "lib/netstandard1.1/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
-      },
-      "StyleCop.Analyzers/1.1.118": {
-        "type": "package"
       },
       "Swashbuckle.AspNetCore.Swagger/5.0.0-rc2": {
         "type": "package",
@@ -4650,12 +4590,6 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Text.Analyzers/2.6.4": {
-        "type": "package",
-        "build": {
-          "build/Text.Analyzers.props": {}
-        }
-      },
       "xunit.analyzers/0.10.0": {
         "type": "package"
       },
@@ -4725,6 +4659,7 @@
           "EFCore.Generator": "1.1.0",
           "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
+          "Microsoft.AspNetCore.Mvc.RazorPages": "2.2.5",
           "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.NetCore.Analyzers": "2.9.3",
@@ -4915,58 +4850,6 @@
         "automapper.extensions.microsoft.dependencyinjection.nuspec",
         "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll",
         "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.pdb"
-      ]
-    },
-    "bootstrap/4.3.1": {
-      "sha512": "lrVBeG2vmfwsHJuwSzeXz+1hPn/374vXDOAusU50vzljEWcFOFtif3wzIJJqfqQRHs2RnY0xttZ0Zv5JX4BFGg==",
-      "type": "package",
-      "path": "bootstrap/4.3.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.txt",
-        "bootstrap.4.3.1.nupkg.sha512",
-        "bootstrap.nuspec",
-        "content/Content/bootstrap-grid.css",
-        "content/Content/bootstrap-grid.css.map",
-        "content/Content/bootstrap-grid.min.css",
-        "content/Content/bootstrap-grid.min.css.map",
-        "content/Content/bootstrap-reboot.css",
-        "content/Content/bootstrap-reboot.css.map",
-        "content/Content/bootstrap-reboot.min.css",
-        "content/Content/bootstrap-reboot.min.css.map",
-        "content/Content/bootstrap.css",
-        "content/Content/bootstrap.css.map",
-        "content/Content/bootstrap.min.css",
-        "content/Content/bootstrap.min.css.map",
-        "content/Scripts/bootstrap.bundle.js",
-        "content/Scripts/bootstrap.bundle.js.map",
-        "content/Scripts/bootstrap.bundle.min.js",
-        "content/Scripts/bootstrap.bundle.min.js.map",
-        "content/Scripts/bootstrap.js",
-        "content/Scripts/bootstrap.js.map",
-        "content/Scripts/bootstrap.min.js",
-        "content/Scripts/bootstrap.min.js.map",
-        "contentFiles/Content/bootstrap-grid.css",
-        "contentFiles/Content/bootstrap-grid.css.map",
-        "contentFiles/Content/bootstrap-grid.min.css",
-        "contentFiles/Content/bootstrap-grid.min.css.map",
-        "contentFiles/Content/bootstrap-reboot.css",
-        "contentFiles/Content/bootstrap-reboot.css.map",
-        "contentFiles/Content/bootstrap-reboot.min.css",
-        "contentFiles/Content/bootstrap-reboot.min.css.map",
-        "contentFiles/Content/bootstrap.css",
-        "contentFiles/Content/bootstrap.css.map",
-        "contentFiles/Content/bootstrap.min.css",
-        "contentFiles/Content/bootstrap.min.css.map",
-        "contentFiles/Scripts/bootstrap.bundle.js",
-        "contentFiles/Scripts/bootstrap.bundle.js.map",
-        "contentFiles/Scripts/bootstrap.bundle.min.js",
-        "contentFiles/Scripts/bootstrap.bundle.min.js.map",
-        "contentFiles/Scripts/bootstrap.js",
-        "contentFiles/Scripts/bootstrap.js.map",
-        "contentFiles/Scripts/bootstrap.min.js",
-        "contentFiles/Scripts/bootstrap.min.js.map"
       ]
     },
     "Dapper/1.60.6": {
@@ -5558,29 +5441,6 @@
         "lib/netstandard2.0/zh-Hant/Humanizer.resources.dll"
       ]
     },
-    "jQuery/3.0.0": {
-      "sha512": "xFfntV19HzCtKdJWOp/XT9PUY3SslokTDDLFJZdBug36j1XVhw1+vPQ/n7Gd5y+jdpesn5B1m1yn1qIUq57jlA==",
-      "type": "package",
-      "path": "jquery/3.0.0",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Content/Scripts/jquery-3.0.0-vsdoc.js",
-        "Content/Scripts/jquery-3.0.0.js",
-        "Content/Scripts/jquery-3.0.0.min.js",
-        "Content/Scripts/jquery-3.0.0.min.map",
-        "Content/Scripts/jquery-3.0.0.slim.js",
-        "Content/Scripts/jquery-3.0.0.slim.min.js",
-        "Content/Scripts/jquery-3.0.0.slim.min.map",
-        "Tools/common.ps1",
-        "Tools/install.ps1",
-        "Tools/jquery-3.0.0.intellisense.js",
-        "Tools/uninstall.ps1",
-        "jquery.3.0.0.nupkg.sha512",
-        "jquery.nuspec"
-      ]
-    },
     "McMaster.Extensions.CommandLineUtils/2.3.4": {
       "sha512": "MbHigfGOQYQZcCtV1B28Q+OtsYDt7xrj5orkaIZu2yIjbYzyRMe5/eOPyJQrgI6zKL/o6bcd+07IApZOL9wJZw==",
       "type": "package",
@@ -6134,16 +5994,16 @@
         "microsoft.aspnetcore.mvc.razor.extensions.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Mvc.RazorPages/2.2.0": {
-      "sha512": "LB7ds5szI3rVJXNgpxHmOaN0PF6HMHdwATt/GVfN4fEZuS9iWHI5kL+ZFrdooqf/X+ZICYxRP617GjhnGjXM8Q==",
+    "Microsoft.AspNetCore.Mvc.RazorPages/2.2.5": {
+      "sha512": "l0Lcx0lfCF7SJQiv+5Aib9/pdkP4sXwMsal+pdAUekHu4MJrZB80r+LGvHyaJF8Z7ROMnjQ0oDVCccdneqXX8Q==",
       "type": "package",
-      "path": "microsoft.aspnetcore.mvc.razorpages/2.2.0",
+      "path": "microsoft.aspnetcore.mvc.razorpages/2.2.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.RazorPages.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.RazorPages.xml",
-        "microsoft.aspnetcore.mvc.razorpages.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.razorpages.2.2.5.nupkg.sha512",
         "microsoft.aspnetcore.mvc.razorpages.nuspec"
       ]
     },
@@ -6608,10 +6468,10 @@
         "tools/uninstall.ps1"
       ]
     },
-    "Microsoft.CSharp/4.6.0-preview5.19224.8": {
-      "sha512": "NKRaujZapqCS82W6XW3yuAr5BHM+TnpCejaw44PhXsqQz0JgR+QqvdYwaTs8b7HetHZWi+1L9gZcA6mozHzvuA==",
+    "Microsoft.CSharp/4.5.0": {
+      "sha512": "fcyI3xN2vZV2FTGmxxMjV2LmQykV4PknROKrXrBG4lrTFJqlJJx5d1bOwTTJ/Y9XzpWBHGYsTSBnA0q3bWgGjg==",
       "type": "package",
-      "path": "microsoft.csharp/4.6.0-preview5.19224.8",
+      "path": "microsoft.csharp/4.5.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6624,7 +6484,6 @@
         "lib/netcoreapp2.0/_._",
         "lib/netstandard1.3/Microsoft.CSharp.dll",
         "lib/netstandard2.0/Microsoft.CSharp.dll",
-        "lib/netstandard2.0/Microsoft.CSharp.xml",
         "lib/portable-net45+win8+wp8+wpa81/_._",
         "lib/uap10.0.16299/_._",
         "lib/win8/_._",
@@ -6634,7 +6493,7 @@
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
         "lib/xamarinwatchos10/_._",
-        "microsoft.csharp.4.6.0-preview5.19224.8.nupkg.sha512",
+        "microsoft.csharp.4.5.0.nupkg.sha512",
         "microsoft.csharp.nuspec",
         "ref/MonoAndroid10/_._",
         "ref/MonoTouch10/_._",
@@ -6743,23 +6602,6 @@
         "microsoft.entityframeworkcore.analyzers.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Design/3.0.0-preview5.19227.1": {
-      "sha512": "lJe0GP6si6JsmFuN6VH4tMD02IS6cWknHscHeGvN4srVH16phIE5dCY/y0SwJref2rFZ67L8tgL5v1Cr6OEWCQ==",
-      "type": "package",
-      "path": "microsoft.entityframeworkcore.design/3.0.0-preview5.19227.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "build/net461/Microsoft.EntityFrameworkCore.Design.props",
-        "build/netcoreapp2.0/Microsoft.EntityFrameworkCore.Design.props",
-        "lib/net461/Microsoft.EntityFrameworkCore.Design.dll",
-        "lib/net461/Microsoft.EntityFrameworkCore.Design.xml",
-        "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.dll",
-        "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.xml",
-        "microsoft.entityframeworkcore.design.3.0.0-preview5.19227.1.nupkg.sha512",
-        "microsoft.entityframeworkcore.design.nuspec"
-      ]
-    },
     "Microsoft.EntityFrameworkCore.Relational/3.0.0-preview5.19227.1": {
       "sha512": "ik88BM18B+EUmI1LAq/Nqo/xSaJAi48/XTxADHIUliyRz8xo13HUluETjN5xAXokhJgWNXcDT2NLtkg13Pgd9g==",
       "type": "package",
@@ -6809,30 +6651,6 @@
         "lib/netstandard2.0/Microsoft.EntityFrameworkCore.SqlServer.xml",
         "microsoft.entityframeworkcore.sqlserver.3.0.0-preview5.19227.1.nupkg.sha512",
         "microsoft.entityframeworkcore.sqlserver.nuspec"
-      ]
-    },
-    "Microsoft.EntityFrameworkCore.Tools/3.0.0-preview5.19227.1": {
-      "sha512": "7IL9Xm5SBBH84ixOYcHGld+SA3MvwU44foU0DlMM1d18uwMsgVt4+j8NzLzN4XkfStHhUwxnoyqotjNbDPZqDQ==",
-      "type": "package",
-      "path": "microsoft.entityframeworkcore.tools/3.0.0-preview5.19227.1",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netstandard2.0/_._",
-        "microsoft.entityframeworkcore.tools.3.0.0-preview5.19227.1.nupkg.sha512",
-        "microsoft.entityframeworkcore.tools.nuspec",
-        "tools/EntityFrameworkCore.PowerShell2.psd1",
-        "tools/EntityFrameworkCore.PowerShell2.psm1",
-        "tools/EntityFrameworkCore.psd1",
-        "tools/EntityFrameworkCore.psm1",
-        "tools/about_EntityFrameworkCore.help.txt",
-        "tools/init.ps1",
-        "tools/install.ps1",
-        "tools/net461/any/ef.exe",
-        "tools/net461/win-x86/ef.exe",
-        "tools/netcoreapp2.0/any/ef.dll",
-        "tools/netcoreapp2.0/any/ef.runtimeconfig.json"
       ]
     },
     "Microsoft.Extensions.Caching.Abstractions/3.0.0-preview5.19227.9": {
@@ -7978,19 +7796,6 @@
         "microsoft.visualstudio.validation.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Web.BrowserLink/2.2.0": {
-      "sha512": "KmuxkkGlPpNL1VYJJlOT4fcT/PIjM7DD+n3i3VT65gsOzT0ZcORJspCyt10hYIv7wBYsDT1ksmpL/yGzgbgFTQ==",
-      "type": "package",
-      "path": "microsoft.visualstudio.web.browserlink/2.2.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "lib/netstandard2.0/Microsoft.VisualStudio.Web.BrowserLink.dll",
-        "lib/netstandard2.0/Microsoft.VisualStudio.Web.BrowserLink.xml",
-        "microsoft.visualstudio.web.browserlink.2.2.0.nupkg.sha512",
-        "microsoft.visualstudio.web.browserlink.nuspec"
-      ]
-    },
     "Microsoft.VisualStudio.Web.CodeGeneration.Design/3.0.0-preview5-19264-04": {
       "sha512": "Qo0K2iOzMKRJA/WUeYTuoOvI6stu3Lx8JchbNVvUNLAWegg79tHTfw3XZa9n2e4PZgP/GUGF8nGqaX96nCJPvA==",
       "type": "package",
@@ -8266,43 +8071,6 @@
         "lib/netstandard2.0/Npgsql.EntityFrameworkCore.PostgreSQL.pdb",
         "npgsql.entityframeworkcore.postgresql.2.2.4.nupkg.sha512",
         "npgsql.entityframeworkcore.postgresql.nuspec"
-      ]
-    },
-    "popper.js/1.14.0": {
-      "sha512": "SPxZdXknelgQ015wey7GMZvsVdt/SyEmHYORhEp5k/uF9MUk9DPtkn+6dR98fud2hVWJjZm9KKr474+r7WQt+A==",
-      "type": "package",
-      "path": "popper.js/1.14.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "content/Scripts/README.md",
-        "content/Scripts/esm/popper-utils.js",
-        "content/Scripts/esm/popper-utils.js.map",
-        "content/Scripts/esm/popper-utils.min.js",
-        "content/Scripts/esm/popper-utils.min.js.map",
-        "content/Scripts/esm/popper.js",
-        "content/Scripts/esm/popper.js.map",
-        "content/Scripts/esm/popper.min.js",
-        "content/Scripts/esm/popper.min.js.map",
-        "content/Scripts/index.d.ts",
-        "content/Scripts/popper-utils.js",
-        "content/Scripts/popper-utils.js.map",
-        "content/Scripts/popper-utils.min.js",
-        "content/Scripts/popper-utils.min.js.map",
-        "content/Scripts/popper.js",
-        "content/Scripts/popper.js.map",
-        "content/Scripts/popper.min.js",
-        "content/Scripts/popper.min.js.map",
-        "content/Scripts/umd/popper-utils.js",
-        "content/Scripts/umd/popper-utils.js.map",
-        "content/Scripts/umd/popper-utils.min.js",
-        "content/Scripts/umd/popper-utils.min.js.map",
-        "content/Scripts/umd/popper.js",
-        "content/Scripts/umd/popper.js.map",
-        "content/Scripts/umd/popper.min.js",
-        "content/Scripts/umd/popper.min.js.map",
-        "popper.js.1.14.0.nupkg.sha512",
-        "popper.js.nuspec"
       ]
     },
     "Quartz/3.0.7": {
@@ -8859,31 +8627,6 @@
         "lib/netstandard1.1/SQLitePCLRaw.provider.e_sqlite3.dll",
         "sqlitepclraw.provider.e_sqlite3.netstandard11.1.1.12.nupkg.sha512",
         "sqlitepclraw.provider.e_sqlite3.netstandard11.nuspec"
-      ]
-    },
-    "StyleCop.Analyzers/1.1.118": {
-      "sha512": "Onx6ovGSqXSK07n/0eM3ZusiNdB6cIlJdabQhWGgJp3Vooy9AaLS/tigeybOJAobqbtggTamoWndz72JscZBvw==",
-      "type": "package",
-      "path": "stylecop.analyzers/1.1.118",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE",
-        "THIRD-PARTY-NOTICES.txt",
-        "analyzers/dotnet/cs/StyleCop.Analyzers.CodeFixes.dll",
-        "analyzers/dotnet/cs/StyleCop.Analyzers.dll",
-        "analyzers/dotnet/cs/de-DE/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/en-GB/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/es-MX/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/fr-FR/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/pl-PL/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/pt-BR/StyleCop.Analyzers.resources.dll",
-        "analyzers/dotnet/cs/ru-RU/StyleCop.Analyzers.resources.dll",
-        "stylecop.analyzers.1.1.118.nupkg.sha512",
-        "stylecop.analyzers.nuspec",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
       ]
     },
     "Swashbuckle.AspNetCore.Swagger/5.0.0-rc2": {
@@ -13416,29 +13159,6 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
-    "Text.Analyzers/2.6.4": {
-      "sha512": "wrtfjyk2eInf0jlDRePpExHrQz+A1tHHdKgkBn0XkGOXL8iZRyM5Vg2wY7z5M+NAK4OabeqhLKwVXGOzZtzSrQ==",
-      "type": "package",
-      "path": "text.analyzers/2.6.4",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ThirdPartyNotices.rtf",
-        "analyzers/dotnet/cs/Text.Analyzers.dll",
-        "analyzers/dotnet/cs/Text.CSharp.Analyzers.dll",
-        "analyzers/dotnet/vb/Text.Analyzers.dll",
-        "analyzers/dotnet/vb/Text.VisualBasic.Analyzers.dll",
-        "build/Text.Analyzers.props",
-        "rulesets/AllRulesDefault.ruleset",
-        "rulesets/AllRulesDisabled.ruleset",
-        "rulesets/AllRulesEnabled.ruleset",
-        "text.analyzers.2.6.4.nupkg.sha512",
-        "text.analyzers.nuspec",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
-      ]
-    },
     "xunit.analyzers/0.10.0": {
       "sha512": "Uw6EqkOmt0IystUtzkU4U8ixCEz+piqgczyoPT00RwPDsWHtWwzedjsBQTS6P1h2+uwDF6w5UpYt5/SSE7eexQ==",
       "type": "package",
@@ -13513,39 +13233,20 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
-      "AutoMapper >= 8.1.0",
-      "AutoMapper.Extensions.Microsoft.DependencyInjection >= 6.1.0",
       "Core.Api >= 1.0.0",
+      "Core.Entity >= 1.0.0",
       "Core.Extension >= 1.0.0",
+      "Core.Model >= 1.0.0",
       "Core.Mvc.Resource >= 1.0.0",
       "Core.Web >= 1.0.0",
-      "Dapper >= 1.60.6",
-      "Microsoft.AspNetCore >= 2.2.0",
-      "Microsoft.AspNetCore.Authentication >= 2.2.0",
       "Microsoft.AspNetCore.CookiePolicy >= 2.2.0",
-      "Microsoft.AspNetCore.Hosting >= 2.2.0",
-      "Microsoft.AspNetCore.Hosting.Abstractions >= 2.2.0",
-      "Microsoft.AspNetCore.HttpsPolicy >= 2.2.0",
-      "Microsoft.AspNetCore.Mvc.Analyzers >= 3.0.0-preview3-19153-02",
-      "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
-      "Microsoft.AspNetCore.StaticFiles >= 2.2.0",
       "Microsoft.CodeQuality.Analyzers >= 2.9.3",
-      "Microsoft.EntityFrameworkCore.Analyzers >= 3.0.0-preview5.19227.1",
-      "Microsoft.EntityFrameworkCore.Design >= 3.0.0-preview5.19227.1",
-      "Microsoft.EntityFrameworkCore.Tools >= 3.0.0-preview5.19227.1",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.NetCore.Analyzers >= 2.9.3",
-      "Microsoft.VisualStudio.Threading >= 16.0.102",
-      "Microsoft.VisualStudio.Threading.Analyzers >= 16.0.102",
-      "Microsoft.VisualStudio.Web.BrowserLink >= 2.2.0",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.0.0-preview5-19264-04",
-      "Newtonsoft.Json >= 12.0.2",
-      "Quartz >= 3.0.7",
       "Roslyn.Diagnostics.Analyzers >= 2.9.3",
-      "StyleCop.Analyzers >= 1.1.118",
-      "Text.Analyzers >= 2.6.4",
-      "bootstrap >= 4.3.1",
-      "xunit.analyzers >= 0.10.0"
+      "Swashbuckle.AspNetCore.Swagger >= 5.0.0-rc2",
+      "Swashbuckle.AspNetCore.SwaggerGen >= 5.0.0-rc2",
+      "Swashbuckle.AspNetCore.SwaggerUI >= 5.0.0-rc2"
     ]
   },
   "packageFolders": {
@@ -13586,8 +13287,14 @@
             "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\Core.Api.csproj": {
               "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\Core.Api.csproj"
             },
+            "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj": {
+              "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj"
+            },
             "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Extension\\Core.Extension.csproj": {
               "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Extension\\Core.Extension.csproj"
+            },
+            "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Models\\Core.Model.csproj": {
+              "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Models\\Core.Model.csproj"
             },
             "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Resource\\Core.Mvc.Resource.csproj": {
               "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Resource\\Core.Mvc.Resource.csproj"
@@ -13607,73 +13314,13 @@
     "frameworks": {
       "netcoreapp2.1": {
         "dependencies": {
-          "AutoMapper": {
-            "target": "Package",
-            "version": "[8.1.0, )"
-          },
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": {
-            "target": "Package",
-            "version": "[6.1.0, )"
-          },
-          "Dapper": {
-            "target": "Package",
-            "version": "[1.60.6, )"
-          },
-          "Microsoft.AspNetCore": {
-            "target": "Package",
-            "version": "[2.2.0, )"
-          },
-          "Microsoft.AspNetCore.Authentication": {
-            "target": "Package",
-            "version": "[2.2.0, )"
-          },
           "Microsoft.AspNetCore.CookiePolicy": {
-            "target": "Package",
-            "version": "[2.2.0, )"
-          },
-          "Microsoft.AspNetCore.Hosting": {
-            "target": "Package",
-            "version": "[2.2.0, )"
-          },
-          "Microsoft.AspNetCore.Hosting.Abstractions": {
-            "target": "Package",
-            "version": "[2.2.0, )"
-          },
-          "Microsoft.AspNetCore.HttpsPolicy": {
-            "target": "Package",
-            "version": "[2.2.0, )"
-          },
-          "Microsoft.AspNetCore.Mvc.Analyzers": {
-            "target": "Package",
-            "version": "[3.0.0-preview3-19153-02, )"
-          },
-          "Microsoft.AspNetCore.Mvc.Core": {
-            "target": "Package",
-            "version": "[2.2.5, )"
-          },
-          "Microsoft.AspNetCore.StaticFiles": {
             "target": "Package",
             "version": "[2.2.0, )"
           },
           "Microsoft.CodeQuality.Analyzers": {
             "target": "Package",
             "version": "[2.9.3, )"
-          },
-          "Microsoft.EntityFrameworkCore.Analyzers": {
-            "target": "Package",
-            "version": "[3.0.0-preview5.19227.1, )"
-          },
-          "Microsoft.EntityFrameworkCore.Design": {
-            "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-            "suppressParent": "All",
-            "target": "Package",
-            "version": "[3.0.0-preview5.19227.1, )"
-          },
-          "Microsoft.EntityFrameworkCore.Tools": {
-            "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-            "suppressParent": "All",
-            "target": "Package",
-            "version": "[3.0.0-preview5.19227.1, )"
           },
           "Microsoft.NETCore.App": {
             "suppressParent": "All",
@@ -13685,53 +13332,21 @@
             "target": "Package",
             "version": "[2.9.3, )"
           },
-          "Microsoft.VisualStudio.Threading": {
-            "target": "Package",
-            "version": "[16.0.102, )"
-          },
-          "Microsoft.VisualStudio.Threading.Analyzers": {
-            "target": "Package",
-            "version": "[16.0.102, )"
-          },
-          "Microsoft.VisualStudio.Web.BrowserLink": {
-            "target": "Package",
-            "version": "[2.2.0, )"
-          },
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
-            "target": "Package",
-            "version": "[3.0.0-preview5-19264-04, )"
-          },
-          "Newtonsoft.Json": {
-            "target": "Package",
-            "version": "[12.0.2, )"
-          },
-          "Quartz": {
-            "target": "Package",
-            "version": "[3.0.7, )"
-          },
           "Roslyn.Diagnostics.Analyzers": {
             "target": "Package",
             "version": "[2.9.3, )"
           },
-          "StyleCop.Analyzers": {
-            "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-            "suppressParent": "All",
+          "Swashbuckle.AspNetCore.Swagger": {
             "target": "Package",
-            "version": "[1.1.118, )"
+            "version": "[5.0.0-rc2, )"
           },
-          "Text.Analyzers": {
-            "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-            "suppressParent": "All",
+          "Swashbuckle.AspNetCore.SwaggerGen": {
             "target": "Package",
-            "version": "[2.6.4, )"
+            "version": "[5.0.0-rc2, )"
           },
-          "bootstrap": {
+          "Swashbuckle.AspNetCore.SwaggerUI": {
             "target": "Package",
-            "version": "[4.3.1, )"
-          },
-          "xunit.analyzers": {
-            "target": "Package",
-            "version": "[0.10.0, )"
+            "version": "[5.0.0-rc2, )"
           }
         },
         "imports": [

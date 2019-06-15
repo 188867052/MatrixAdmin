@@ -1,12 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Core.Api.Framework.StartupConfigurations;
-using Core.Api.RouteAnalyzer;
 using Core.Entity;
-using Newtonsoft.Json;
+using Core.Mvc.Framework;
+using Core.Mvc.Framework.StartupConfigurations;
 using NUnit.Framework;
+using Route.Generator;
 
 namespace Core.UnitTest.CodeGenerator
 {
@@ -42,16 +41,16 @@ namespace Core.UnitTest.CodeGenerator
         }
 
         [Test]
-        public async Task TestApiAdvancedRouteGenerator()
+        public async Task TestMvcRouteGenerator()
         {
             try
             {
                 var client = new TestSite(typeof(Startup)).BuildClient();
-                var response = await client.GetAsync("/swagger/v1/swagger.json");
+                var response = await client.GetAsync(RouteConfiguration.Route);
                 var content = await response.Content.ReadAsStringAsync();
-                Assert.NotNull(content);
 
-                this.Generate(content);
+                var routesGenerated = ModelGenerator.GetRoutesGenerated(content);
+                Assert.IsTrue(routesGenerated.Contains("namespace"));
             }
             catch (Exception ex)
             {
@@ -64,113 +63,15 @@ namespace Core.UnitTest.CodeGenerator
         {
             try
             {
-                var client = new TestSite(typeof(Startup)).BuildClient();
-                var response = await client.GetAsync(RouteConfiguration.route);
+                var client = new TestSite(typeof(Core.Api.Framework.Startup)).BuildClient();
+                var response = await client.GetAsync(RouteConfiguration.Route);
                 var content = await response.Content.ReadAsStringAsync();
 
-                Assert.NotNull(content);
-
-                IEnumerable<RouteInformation> infos = JsonConvert.DeserializeObject<IEnumerable<RouteInformation>>(content);
-                foreach (IGrouping<string, RouteInformation> group in infos.Where(o => o.Path != null && o.Path != RouteConfiguration.route).GroupBy(o => o.ControllerName))
-                {
-                    Console.WriteLine($"namespace {group.First().Namespace.Replace("Controllers", "Routes")}");
-                    Console.WriteLine("{");
-                    Console.WriteLine($"    public class {group.First().ControllerName}Route");
-                    Console.WriteLine("    {");
-                    foreach (RouteInformation item in group)
-                    {
-                        Console.WriteLine($"        public const string {item.ActionName} = \"{item.Path}\";");
-                    }
-
-                    Console.WriteLine("    }");
-                    Console.WriteLine("}");
-                }
+                Assert.IsNotEmpty(content);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-            }
-        }
-
-        [Test]
-        public async Task TestMvcRouteGenerator()
-        {
-            try
-            {
-                var client = new TestSite(typeof(Mvc.Framework.StartupConfigurations.Startup)).BuildClient();
-                var response = await client.GetAsync(RouteConfiguration.route);
-                var content = await response.Content.ReadAsStringAsync();
-
-                Assert.NotNull(content);
-
-                IEnumerable<RouteInformation> infos = JsonConvert.DeserializeObject<IEnumerable<RouteInformation>>(content);
-                foreach (IGrouping<string, RouteInformation> group in infos.Where(o => o.Path != null && o.Path != RouteConfiguration.route).GroupBy(o => o.ControllerName))
-                {
-                    Console.WriteLine($"namespace {group.First().Namespace.Replace("Controllers", "Routes")}");
-                    Console.WriteLine("{");
-                    Console.WriteLine($"    public class {group.First().ControllerName}");
-                    Console.WriteLine("    {");
-                    foreach (RouteInformation item in group)
-                    {
-                        Console.WriteLine($"        public const string {item.ActionName} = \"{item.Path}\";");
-                    }
-
-                    Console.WriteLine("    }");
-                    Console.WriteLine("}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-        }
-
-        private void Generate(string content)
-        {
-            var a = JsonConvert.DeserializeObject<dynamic>(content);
-            IEnumerable<dynamic> b = a.paths;
-
-            IList<Route> list = new List<Route>();
-            foreach (dynamic item in b)
-            {
-                Route route = new Route();
-                var first = item.First;
-                this.TryGet(first, "get", out dynamic get);
-                if (get != null)
-                {
-                    route.HttpMethod = "get";
-                    route.ControllerName = get.tags[0];
-                    route.Parameters = get.parameters.ToString();
-                    route.Path = item.Name;
-                }
-                else
-                {
-                    this.TryGet(first, "post", out dynamic post);
-                    if (post != null)
-                    {
-                        route.HttpMethod = "post";
-                        route.ControllerName = post.tags[0];
-                        route.Parameters = post.requestBody.content.ToString();
-                        route.Path = item.Name;
-                    }
-                }
-
-                list.Add(route);
-                Console.WriteLine(JsonConvert.SerializeObject(route));
-            }
-        }
-
-        private bool TryGet(dynamic dynamicIn, string key, out dynamic dynamicOut)
-        {
-            try
-            {
-                dynamicOut = dynamicIn[key];
-                return true;
-            }
-            catch (Exception ex)
-            {
-                dynamicOut = null;
-                return false;
             }
         }
     }

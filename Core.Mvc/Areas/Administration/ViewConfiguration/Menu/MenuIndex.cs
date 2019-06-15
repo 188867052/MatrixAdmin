@@ -37,7 +37,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
         {
             return new List<string>
             {
-                Js.Menu.Index
+                Api.Js.Menu.Index
             };
         }
 

@@ -12,21 +12,21 @@ namespace Core.Mvc.Framework.AdvancedGridFilters
     {
         public static AdvancedDropDownGridFilter<T> RoleAdvancedDropDown<T>(Expression<Func<T, int?>> expression)
         {
-            var url = new Url(nameof(Areas.AdvancedDropDownFilters), typeof(AdvancedDropDownController), nameof(AdvancedDropDownController.RoleDataList));
+            var url = new Url("AdvancedDropDownFilters", typeof(AdvancedDropDownController), nameof(AdvancedDropDownController.RoleDataList));
 
             return new AdvancedDropDownGridFilter<T>(expression, AdvancedDropDownIndexResource.RoleName, new MethodCall("core.addOption"), url);
         }
 
         public static AdvancedDropDownGridFilter<T> UserAdvancedDropDown<T>(Expression<Func<T, int?>> expression)
         {
-            var url = new Url(nameof(Areas.AdvancedDropDownFilters), typeof(AdvancedDropDownController), nameof(AdvancedDropDownController.UserDataList));
+            var url = new Url("AdvancedDropDownFilters", typeof(AdvancedDropDownController), nameof(AdvancedDropDownController.UserDataList));
 
             return new AdvancedDropDownGridFilter<T>(expression, AdvancedDropDownIndexResource.UserName, new MethodCall("core.addOption"), url);
         }
 
         public static AdvancedDropDownGridFilter<T> MenuAdvancedDropDown<T>(Expression<Func<T, int?>> expression)
         {
-            var url = new Url(nameof(Areas.AdvancedDropDownFilters), typeof(AdvancedDropDownController), nameof(AdvancedDropDownController.MenuDataList));
+            var url = new Url("AdvancedDropDownFilters", typeof(AdvancedDropDownController), nameof(AdvancedDropDownController.MenuDataList));
 
             return new AdvancedDropDownGridFilter<T>(expression, AdvancedDropDownIndexResource.MenuName, new MethodCall("core.addOption"), url);
         }

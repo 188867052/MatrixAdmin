@@ -80,3 +80,8 @@ PM>
  dotnet tool install --global EFCore.Generator
  cd .\core.Entity
  efg generate -c "Data Source=.;App=EntityFrameworkCore;Initial Catalog=Core;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+
+
+ dotnet pack .\Route.Generator\Route.Generator.csproj -o ..s\..\..\.nuget\localpackages -c Release
+ dotnet tool uninstall --global Route.Generator
+ dotnet tool install --global Route.Generator

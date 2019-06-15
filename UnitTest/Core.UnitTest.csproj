@@ -58,6 +58,7 @@
     <ProjectReference Include="..\Core.Entity\Core.Entity.csproj" />
     <ProjectReference Include="..\Core.Models\Core.Model.csproj" />
     <ProjectReference Include="..\Core.Mvc\Core.Mvc.csproj" />
+    <ProjectReference Include="..\Route.Generator\Route.Generator.csproj" />
   </ItemGroup>
 
   <ItemGroup>

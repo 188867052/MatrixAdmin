@@ -1170,7 +1170,7 @@
           "build/netstandard2.0/Microsoft.AspNetCore.Mvc.Razor.Extensions.targets": {}
         }
       },
-      "Microsoft.AspNetCore.Mvc.RazorPages/2.2.0": {
+      "Microsoft.AspNetCore.Mvc.RazorPages/2.2.5": {
         "type": "package",
         "dependencies": {
           "Microsoft.AspNetCore.Mvc.Razor": "2.2.0"
@@ -4597,6 +4597,7 @@
           "EFCore.Generator": "1.1.0",
           "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
+          "Microsoft.AspNetCore.Mvc.RazorPages": "2.2.5",
           "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.NetCore.Analyzers": "2.9.3",
@@ -5813,16 +5814,16 @@
         "microsoft.aspnetcore.mvc.razor.extensions.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Mvc.RazorPages/2.2.0": {
-      "sha512": "LB7ds5szI3rVJXNgpxHmOaN0PF6HMHdwATt/GVfN4fEZuS9iWHI5kL+ZFrdooqf/X+ZICYxRP617GjhnGjXM8Q==",
+    "Microsoft.AspNetCore.Mvc.RazorPages/2.2.5": {
+      "sha512": "l0Lcx0lfCF7SJQiv+5Aib9/pdkP4sXwMsal+pdAUekHu4MJrZB80r+LGvHyaJF8Z7ROMnjQ0oDVCccdneqXX8Q==",
       "type": "package",
-      "path": "microsoft.aspnetcore.mvc.razorpages/2.2.0",
+      "path": "microsoft.aspnetcore.mvc.razorpages/2.2.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.RazorPages.dll",
         "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.RazorPages.xml",
-        "microsoft.aspnetcore.mvc.razorpages.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.razorpages.2.2.5.nupkg.sha512",
         "microsoft.aspnetcore.mvc.razorpages.nuspec"
       ]
     },

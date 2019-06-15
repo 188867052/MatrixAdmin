@@ -7,80 +7,40 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <CodeAnalysisRuleSet>../Core.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>1701;1702;1516;1101</NoWarn>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;1516;1101</NoWarn>
     <CodeAnalysisRuleSet>../Core.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Generated\ScriptStyle.Generated.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ScriptStyle.Generated.cs</LastGenOutput>
-    </Content>
+    <None Remove="Routes.Generated.ps1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="8.1.0" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.0" />
-    <PackageReference Include="bootstrap" Version="4.3.1" />
-    <PackageReference Include="Dapper" Version="1.60.6" />
-    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <Content Include="Routes.Generated.ps1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.CookiePolicy" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Analyzers" Version="3.0.0-preview3-19153-02" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
     <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.9.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.0.0-preview5.19227.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0-preview5.19227.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0-preview5.19227.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.9.3" />
-    <PackageReference Include="Microsoft.VisualStudio.Threading" Version="16.0.102" />
-    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="16.0.102" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0-preview5-19264-04" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="Quartz" Version="3.0.7" />
     <PackageReference Include="Roslyn.Diagnostics.Analyzers" Version="2.9.3" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Text.Analyzers" Version="2.6.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="xunit.analyzers" Version="0.10.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0-rc2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0-rc2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0-rc2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Core.Api\Core.Api.csproj" />
+    <ProjectReference Include="..\Core.Entity\Core.Entity.csproj" />
     <ProjectReference Include="..\Core.Extension\Core.Extension.csproj" />
+    <ProjectReference Include="..\Core.Models\Core.Model.csproj" />
     <ProjectReference Include="..\Core.Resource\Core.Mvc.Resource.csproj" />
     <ProjectReference Include="..\Core.Web\Core.Web.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="wwwroot\js\jquery.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="wwwroot\js\jquery.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="wwwroot\js\jquery.min.map">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -88,28 +48,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Generated\Resource.Generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resource.Generated.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Generated\ScriptStyle.Generated.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
+    <Compile Update="ScriptStyle.Generated.cs">
       <DependentUpon>ScriptStyle.Generated.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Generated\Resource.Generated.tt">
-      <LastGenOutput>Resource.Generated.cs</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </None>
-    <None Update="Generated\ScriptStyle.Generated.tt">
-      <LastGenOutput>ScriptStyle.Generated.cs</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </None>
-  </ItemGroup>
-  <Import Project="C:\Program Files\stylecop\sourceCode\stylecop\Tools\StyleCop\v4.7\StyleCop.targets" />
-  <ProjectExtensions><VisualStudio><UserProperties Properties_4launchSettings_1json__JSONSchema="rule" /></VisualStudio></ProjectExtensions>
 </Project>

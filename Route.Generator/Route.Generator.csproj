@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <CodeAnalysisRuleSet>../Core.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <CodeAnalysisRuleSet>../Core.ruleset</CodeAnalysisRuleSet>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <ToolCommandName>rg</ToolCommandName>
+    <PackAsTool>true</PackAsTool>
+    <Authors>Route.Generator</Authors>
+    <Product>Route.Generator</Product>
+    <Copyright>Copyright © 2019 Core</Copyright>
+    <PackageProjectUrl />
+    <RepositoryUrl />
+    <PackageId>Route.Generator</PackageId>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <Company>Route.Generator</Company>
+    <PackageLicenseUrl />
+    <Description>.NET Core command-line (CLI) tool to generate Route source files.</Description>
+    <PackageTags>Route.Generator</PackageTags>
+    <Version>2.0.0.1</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Humanizer" Version="2.6.2" />
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.3.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Analyzers" Version="3.0.0-preview3-19153-02" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.2.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.1.0" />
+    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.9.3" />
+    <PackageReference Include="Microsoft.NetCore.Analyzers" Version="2.9.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Threading" Version="16.0.102" />
+    <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="16.0.102" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Roslyn.Diagnostics.Analyzers" Version="2.9.3" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="2.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="xunit.analyzers" Version="0.10.0" />
+    <PackageReference Include="YamlDotNet" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Mvc\Core.Mvc.csproj" />
+  </ItemGroup>
+
+</Project>

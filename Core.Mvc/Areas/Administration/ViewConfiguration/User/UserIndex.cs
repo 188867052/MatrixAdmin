@@ -3,6 +3,7 @@ using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
+using Core.Mvc.Areas.Administration.ViewConfiguration.User;
 using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
@@ -10,7 +11,7 @@ using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
 using Core.Web.ViewConfiguration;
 
-namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
+namespace Core.Api.Areas.Administration.ViewConfiguration.User
 {
     public class UserIndex<TModel, TPostModel> : SearchGridPage<TModel>
          where TModel : UserModel
@@ -24,7 +25,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
         /// <param name="response">The response.</param>
         public UserIndex(ResponseModel response)
         {
-            this._response = response;
+            _response = response;
         }
 
         public override IList<string> CssFiles()
@@ -72,7 +73,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 
         protected override GridConfiguration<TModel> GridConfiguration()
         {
-            return new UserViewConfiguration<TModel>(this._response);
+            return new UserViewConfiguration<TModel>(_response);
         }
     }
 }

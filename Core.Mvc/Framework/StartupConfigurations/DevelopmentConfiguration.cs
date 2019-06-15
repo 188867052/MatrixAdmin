@@ -1,5 +1,4 @@
-﻿using Core.Mvc.Framework.Middleware;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Core.Mvc.Framework.StartupConfigurations
@@ -8,14 +7,9 @@ namespace Core.Mvc.Framework.StartupConfigurations
     {
         public static void AddConfigure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (true || env.IsDevelopment())
+            if (env.IsDevelopment())
             {
-                app.UseMyDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
+                app.UseDeveloperExceptionPage();
             }
         }
     }

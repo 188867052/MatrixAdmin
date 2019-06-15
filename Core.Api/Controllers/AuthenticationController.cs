@@ -24,6 +24,12 @@ namespace Core.Api.Controllers
             this._appSettings = appSettings.Value;
         }
 
+        [HttpGet]
+        public IActionResult Auth666666665(string username, string password)
+        {
+            return null;
+        }
+
         /// <summary>
         /// Auth.
         /// </summary>

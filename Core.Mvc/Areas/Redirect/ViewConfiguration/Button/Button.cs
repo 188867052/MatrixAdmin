@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core.Api;
+using Core.Api.Controllers;
 using Core.Entity;
 using Core.Extension;
 using Core.Model;
@@ -17,7 +19,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button
 
         public override string Render()
         {
-            var url = new Url(typeof(Api.Controllers.IconController), nameof(Api.Controllers.IconController.Index));
+            var url = new Url(typeof(IconController), nameof(IconController.Index));
             Task<ResponseModel> a = HttpClientAsync.GetAsync<IList<Icon>>(url);
 #pragma warning disable VSTHRD002 // 避免有问题的同步等待
             List<Icon> icons = (List<Icon>)a.Result.Data;

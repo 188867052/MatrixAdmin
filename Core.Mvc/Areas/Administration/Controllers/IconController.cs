@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core.Api.Routes;
 using Core.Entity;
-using Core.Extension;
 using Core.Model.Administration.Icon;
 using Core.Mvc.Areas.Administration.ViewConfiguration.Icon;
 using Core.Mvc.Framework;
 using Microsoft.AspNetCore.Mvc;
-using ApiController = Core.Api.Controllers.IconController;
 
 namespace Core.Mvc.Areas.Administration.Controllers
 {
@@ -19,11 +18,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <returns>A IActionResult.</returns>
         public async Task<IActionResult> Index()
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.Index));
-            var responseModel = await HttpClientAsync.GetAsync<IList<Icon>>(url);
+            var responseModel = await HttpClientAsync.GetAsync<IList<Icon>>(IconRoute.Index);
             IconIndex<IconPostModel> index = new IconIndex<IconPostModel>(responseModel);
 
-            return this.SearchGridConfiguration(index);
+            return SearchGridConfiguration(index);
         }
 
         /// <summary>
@@ -34,11 +32,10 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> GridStateChange(IconPostModel model)
         {
-            var url = new Url(typeof(ApiController), nameof(ApiController.Search));
-            var response = await HttpClientAsync.PostAsync<IList<Icon>, IconPostModel>(url, model);
+            var response = await HttpClientAsync.PostAsync<IList<Icon>, IconPostModel>(IconRoute.Search, model);
             IconGridConfiguration configuration = new IconGridConfiguration(response);
 
-            return this.GridConfiguration(configuration);
+            return GridConfiguration(configuration);
         }
 
         /// <summary>

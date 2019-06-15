@@ -1,7 +1,5 @@
-﻿using Core.Api.RouteAnalyzer;
-using Core.Mvc.Areas.Redirect.Controllers;
+﻿using Core.Extension.RouteAnalyzer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,22 +10,25 @@ namespace Core.Mvc.Framework.StartupConfigurations
         public const string Route = "/routes";
 
         /// <summary>
-        /// The Configure must be the last request pipeline of the Configure method in Startup.cs.
+        /// The Configure must be the last of the Configure in Startup.Configure.
         /// </summary>
-        /// <param name="app">app.</param>
+        /// <param name="app"></param>
         public static void AddConfigure(IApplicationBuilder app)
         {
             app.UseMvc(routes =>
             {
                 routes.MapRouteAnalyzer(Route); // Add
-                string defaultController = nameof(RedirectController).Replace(nameof(Controller), string.Empty);
-                string defaultAction = nameof(RedirectController.Index);
                 routes.MapRoute(
-                    name: "defaultWithArea",
-                    template: "{area:exists}/{controller=Redirect}/{action=Index}/{id?}");
+                     name: "areaRoute",
+                     template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                    name: "apiDefault",
+                    template: "api/{controller=Home}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=" + defaultController + "}/{action=" + defaultAction + "}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
 

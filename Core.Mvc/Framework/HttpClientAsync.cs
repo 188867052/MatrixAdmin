@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Core.Api;
 using Core.Extension;
 using Core.Model;
 using Newtonsoft.Json;

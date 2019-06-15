@@ -297,6 +297,10 @@
               "target": "Package",
               "version": "[2.2.5, )"
             },
+            "Microsoft.AspNetCore.Mvc.RazorPages": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
             "Microsoft.CodeQuality.Analyzers": {
               "target": "Package",
               "version": "[2.9.3, )"
@@ -608,8 +612,14 @@
               "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\Core.Api.csproj": {
                 "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\Core.Api.csproj"
               },
+              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj": {
+                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Entity\\Core.Entity.csproj"
+              },
               "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Extension\\Core.Extension.csproj": {
                 "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Extension\\Core.Extension.csproj"
+              },
+              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Models\\Core.Model.csproj": {
+                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Models\\Core.Model.csproj"
               },
               "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Resource\\Core.Mvc.Resource.csproj": {
                 "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Resource\\Core.Mvc.Resource.csproj"
@@ -629,73 +639,13 @@
       "frameworks": {
         "netcoreapp2.1": {
           "dependencies": {
-            "AutoMapper": {
-              "target": "Package",
-              "version": "[8.1.0, )"
-            },
-            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[6.1.0, )"
-            },
-            "Dapper": {
-              "target": "Package",
-              "version": "[1.60.6, )"
-            },
-            "Microsoft.AspNetCore": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.AspNetCore.Authentication": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
             "Microsoft.AspNetCore.CookiePolicy": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.AspNetCore.Hosting": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.AspNetCore.Hosting.Abstractions": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.AspNetCore.HttpsPolicy": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
-              "target": "Package",
-              "version": "[3.0.0-preview3-19153-02, )"
-            },
-            "Microsoft.AspNetCore.Mvc.Core": {
-              "target": "Package",
-              "version": "[2.2.5, )"
-            },
-            "Microsoft.AspNetCore.StaticFiles": {
               "target": "Package",
               "version": "[2.2.0, )"
             },
             "Microsoft.CodeQuality.Analyzers": {
               "target": "Package",
               "version": "[2.9.3, )"
-            },
-            "Microsoft.EntityFrameworkCore.Analyzers": {
-              "target": "Package",
-              "version": "[3.0.0-preview5.19227.1, )"
-            },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.0.0-preview5.19227.1, )"
-            },
-            "Microsoft.EntityFrameworkCore.Tools": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.0.0-preview5.19227.1, )"
             },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",
@@ -707,53 +657,21 @@
               "target": "Package",
               "version": "[2.9.3, )"
             },
-            "Microsoft.VisualStudio.Threading": {
-              "target": "Package",
-              "version": "[16.0.102, )"
-            },
-            "Microsoft.VisualStudio.Threading.Analyzers": {
-              "target": "Package",
-              "version": "[16.0.102, )"
-            },
-            "Microsoft.VisualStudio.Web.BrowserLink": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
-              "target": "Package",
-              "version": "[3.0.0-preview5-19264-04, )"
-            },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[12.0.2, )"
-            },
-            "Quartz": {
-              "target": "Package",
-              "version": "[3.0.7, )"
-            },
             "Roslyn.Diagnostics.Analyzers": {
               "target": "Package",
               "version": "[2.9.3, )"
             },
-            "StyleCop.Analyzers": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-              "suppressParent": "All",
+            "Swashbuckle.AspNetCore.Swagger": {
               "target": "Package",
-              "version": "[1.1.118, )"
+              "version": "[5.0.0-rc2, )"
             },
-            "Text.Analyzers": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-              "suppressParent": "All",
+            "Swashbuckle.AspNetCore.SwaggerGen": {
               "target": "Package",
-              "version": "[2.6.4, )"
+              "version": "[5.0.0-rc2, )"
             },
-            "bootstrap": {
+            "Swashbuckle.AspNetCore.SwaggerUI": {
               "target": "Package",
-              "version": "[4.3.1, )"
-            },
-            "xunit.analyzers": {
-              "target": "Package",
-              "version": "[0.10.0, )"
+              "version": "[5.0.0-rc2, )"
             }
           },
           "imports": [
@@ -1242,6 +1160,133 @@
         }
       }
     },
+    "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Route.Generator\\Route.Generator.csproj": {
+      "version": "2.0.0.1",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Route.Generator\\Route.Generator.csproj",
+        "projectName": "Route.Generator",
+        "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Route.Generator\\Route.Generator.csproj",
+        "packagesPath": "C:\\Users\\54215\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Route.Generator\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\54215\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Users\\54215\\.nuget\\localpackages": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-entityframeworkcore/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/aspnet-extensions/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json": {},
+          "https://dotnetfeed.blob.core.windows.net/dotnet-windowsdesktop/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {
+              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj": {
+                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Humanizer": {
+              "target": "Package",
+              "version": "[2.6.2, )"
+            },
+            "McMaster.Extensions.CommandLineUtils": {
+              "target": "Package",
+              "version": "[2.3.4, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Analyzers": {
+              "target": "Package",
+              "version": "[3.0.0-preview3-19153-02, )"
+            },
+            "Microsoft.AspNetCore.TestHost": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.CodeAnalysis.CSharp": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Microsoft.CodeQuality.Analyzers": {
+              "target": "Package",
+              "version": "[2.9.3, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.NetCore.Analyzers": {
+              "target": "Package",
+              "version": "[2.9.3, )"
+            },
+            "Microsoft.VisualStudio.Threading": {
+              "target": "Package",
+              "version": "[16.0.102, )"
+            },
+            "Microsoft.VisualStudio.Threading.Analyzers": {
+              "target": "Package",
+              "version": "[16.0.102, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.2, )"
+            },
+            "Roslyn.Diagnostics.Analyzers": {
+              "target": "Package",
+              "version": "[2.9.3, )"
+            },
+            "Serilog.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "Serilog.Sinks.Console": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "StyleCop.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.1.118, )"
+            },
+            "YamlDotNet": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "xunit.analyzers": {
+              "target": "Package",
+              "version": "[0.10.0, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
     "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\UnitTest\\Core.UnitTest.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -1284,6 +1329,9 @@
               },
               "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj": {
                 "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj"
+              },
+              "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Route.Generator\\Route.Generator.csproj": {
+                "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Route.Generator\\Route.Generator.csproj"
               }
             }
           }
