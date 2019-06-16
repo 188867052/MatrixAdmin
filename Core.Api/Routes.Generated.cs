@@ -88,13 +88,6 @@ namespace Core.Api.Routes
 }
 namespace Core.Api.Routes
 {
-    public class RouteRoute
-    {
-        public const string ShowAllRoutes = "/Route/ShowAllRoutes";
-    }
-}
-namespace Core.Api.Routes
-{
     public class TestRoute
     {
         public const string TestAuthentication = "/api/Test/TestAuthentication";

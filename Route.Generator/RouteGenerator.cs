@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Extension.RouteAnalyzer;
-using Core.Mvc.Framework.StartupConfigurations;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -43,7 +42,6 @@ namespace Route.Generator
 
         public string GenerateCode(string workingDirectory)
         {
-            this._logger.LogInformation($"workingDirectory:{workingDirectory}");
             Type type = workingDirectory.Contains("Core.Api") ? typeof(Core.Api.Framework.Startup) : typeof(Core.Mvc.Framework.Startup);
             var client = new TestSite(type).BuildClient();
             var response = client.GetAsync(Router.DefaultRoute).Result;

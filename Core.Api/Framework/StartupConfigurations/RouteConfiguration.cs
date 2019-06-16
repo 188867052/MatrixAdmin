@@ -15,7 +15,7 @@ namespace Core.Api.Framework.StartupConfigurations
         {
             app.UseMvc(routes =>
             {
-                routes.MapRouteAnalyzer(Router.DefaultRoute); // Add
+                routes.MapRouteAnalyzer(Router.DefaultRoute);
                 routes.MapRoute(
                      name: "areaRoute",
                      template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");

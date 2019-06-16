@@ -78,13 +78,11 @@ namespace Core.Extension.RouteAnalyzer
                     }
                 }
 
-                // Special controller path
-                if (info.Path == Router.DefaultRoute)
+                // Exclude analyzer route
+                if (info.Path != Router.DefaultRoute)
                 {
-                    info.Path = RouteAnalyzerRouteBuilderExtensions.RoutePath;
+                    list.Add(info);
                 }
-
-                list.Add(info);
             }
 
             return list;

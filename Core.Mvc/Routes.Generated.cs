@@ -1,10 +1,3 @@
-namespace Core.Mvc
-{
-    public class RouteRoute
-    {
-        public const string ShowAllRoutes = "/Route/ShowAllRoutes";
-    }
-}
 namespace Core.Mvc.Areas.Redirect.Routes
 {
     public class RedirectRoute

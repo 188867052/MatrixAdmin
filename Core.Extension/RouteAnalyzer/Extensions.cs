@@ -14,11 +14,8 @@ namespace Core.Extension.RouteAnalyzer
 
     public static class RouteAnalyzerRouteBuilderExtensions
     {
-        public static string RoutePath { get; private set; }
-
         public static IRouteBuilder MapRouteAnalyzer(this IRouteBuilder routes, string routePath)
         {
-            RoutePath = routePath;
             routes.Routes.Add(new Router(routes.DefaultHandler, routePath));
             return routes;
         }
