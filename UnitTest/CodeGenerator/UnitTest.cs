@@ -49,7 +49,7 @@ namespace Core.UnitTest.CodeGenerator
                 var response = await client.GetAsync(Router.DefaultRoute);
                 var content = await response.Content.ReadAsStringAsync();
 
-                var routesGenerated = RouteGenerator.GetRoutesGenerated(content);
+                var routesGenerated = RouteGenerator.GenerateRoutes(content);
                 Assert.IsTrue(routesGenerated.Contains("namespace"));
             }
             catch (Exception ex)
