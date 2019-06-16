@@ -98,14 +98,14 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
-        public IActionResult Edit(int id)
+        public JsonResult Edit(int id)
         {
             using (this.DbContext)
             {
                 Icon entity = this.DbContext.Icon.FirstOrDefault(x => x.Id == id);
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(this.Mapper.Map<Icon, IconCreateViewModel>(entity));
-                return this.Ok(response);
+                return this.Json(response);
             }
         }
 
@@ -157,10 +157,10 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         [HttpGet("{ids}")]
         [ProducesResponseType(200)]
-        public IActionResult Delete(int[] ids)
+        public JsonResult Delete(int[] ids)
         {
             ResponseModel response = this.UpdateIsEnable(false, ids);
-            return this.Ok(response);
+            return this.Json(response);
         }
 
         /// <summary>
@@ -170,10 +170,10 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         [HttpGet("{ids}")]
         [ProducesResponseType(200)]
-        public IActionResult Recover(int[] ids)
+        public JsonResult Recover(int[] ids)
         {
             ResponseModel response = this.UpdateIsEnable(true, ids);
-            return this.Ok(response);
+            return this.Json(response);
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(200)]
-        public IActionResult Batch(string command, int[] ids)
+        public JsonResult Batch(string command, int[] ids)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
             switch (command)
@@ -206,7 +206,7 @@ namespace Core.Api.Controllers
                     break;
             }
 
-            return this.Ok(response);
+            return this.Json(response);
         }
 
         /// <summary>
@@ -216,13 +216,13 @@ namespace Core.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public IActionResult Import(IconImportViewModel model)
+        public JsonResult Import(IconImportViewModel model)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
             if (model.Icons.Trim().Length <= 0)
             {
                 response.SetFailed("没有可用的图标");
-                return this.Ok(response);
+                return this.Json(response);
             }
 
             IEnumerable<Icon> models = model.Icons.Split(new[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries).Select(x => new Icon
@@ -236,7 +236,7 @@ namespace Core.Api.Controllers
                 this.DbContext.Icon.AddRange(models);
                 this.DbContext.SaveChanges();
                 response.SetSuccess();
-                return this.Ok(response);
+                return this.Json(response);
             }
         }
 

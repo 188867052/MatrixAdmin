@@ -100,7 +100,7 @@ namespace Core.Api.Controllers
         /// <param name="id">id.</param>
         /// <returns>IActionResult.</returns>
         [HttpGet]
-        public IActionResult FindById(int id)
+        public JsonResult FindById(int id)
         {
             using (this.DbContext)
             {
@@ -111,7 +111,7 @@ namespace Core.Api.Controllers
                 ResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(model);
 
-                return this.Ok(response);
+                return this.Json(response);
             }
         }
 
@@ -122,7 +122,7 @@ namespace Core.Api.Controllers
         /// <returns>IActionResult.</returns>
         [HttpPost]
         [ProducesResponseType(200)]
-        public IActionResult Edit(UserEditPostModel model)
+        public JsonResult Edit(UserEditPostModel model)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
@@ -134,14 +134,14 @@ namespace Core.Api.Controllers
                 if (entity == null)
                 {
                     response.SetFailed(Resources.UserNotExist);
-                    return this.Ok(response);
+                    return this.Json(response);
                 }
 
                 model.MapTo(entity);
 
                 this.DbContext.SaveChanges();
                 response = ResponseModelFactory.CreateInstance;
-                return this.Ok(response);
+                return this.Json(response);
             }
         }
 
@@ -151,10 +151,10 @@ namespace Core.Api.Controllers
         /// <param name="ids">ids.</param>
         /// <returns>IActionResult.</returns>
         [HttpGet]
-        public IActionResult Delete(int[] ids)
+        public JsonResult Delete(int[] ids)
         {
             ResponseModel response = UserControllerHelper.UpdateIsDeleted(true, ids);
-            return this.Ok(response);
+            return this.Json(response);
         }
 
         /// <summary>
@@ -163,10 +163,10 @@ namespace Core.Api.Controllers
         /// <param name="ids">ids.</param>
         /// <returns>IActionResult.</returns>
         [HttpGet]
-        public IActionResult Recover(int[] ids)
+        public JsonResult Recover(int[] ids)
         {
             ResponseModel response = UserControllerHelper.UpdateIsDeleted(false, ids);
-            return this.Ok(response);
+            return this.Json(response);
         }
 
         /// <summary>
@@ -175,10 +175,10 @@ namespace Core.Api.Controllers
         /// <param name="ids">ids.</param>
         /// <returns>IActionResult.</returns>
         [HttpGet]
-        public IActionResult Enable(int[] ids)
+        public JsonResult Enable(int[] ids)
         {
             ResponseModel response = UserControllerHelper.UpdateIsEnable(true, ids);
-            return this.Ok(response);
+            return this.Json(response);
         }
 
         /// <summary>
@@ -187,10 +187,10 @@ namespace Core.Api.Controllers
         /// <param name="ids">ids.</param>
         /// <returns>IActionResult.</returns>
         [HttpGet]
-        public IActionResult Disable(int[] ids)
+        public JsonResult Disable(int[] ids)
         {
             ResponseModel response = UserControllerHelper.UpdateIsEnable(false, ids);
-            return this.Ok(response);
+            return this.Json(response);
         }
     }
 }

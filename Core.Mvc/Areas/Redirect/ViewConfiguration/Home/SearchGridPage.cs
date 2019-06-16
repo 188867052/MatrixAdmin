@@ -5,6 +5,7 @@ using Core.Api;
 using Core.Entity;
 using Core.Extension;
 using Core.Mvc.Areas.Redirect.Controllers;
+using Core.Mvc.Framework;
 using Core.Web.Html;
 using Core.Web.JavaScript;
 using Core.Web.SearchFilterConfiguration;

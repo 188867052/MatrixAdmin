@@ -1,6 +1,5 @@
 ﻿using Core.Api.Extensions.CustomException;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System.Security.Claims;
 using System.Linq;
 using Core.Api.Framework;
@@ -25,16 +24,16 @@ namespace Core.Api.Controllers
         }
 
         /// <summary>
-        /// 测试 Authentication
+        /// Test Authentication
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult TestAuthentication()
+        public JsonResult TestAuthentication()
         {
             ClaimsPrincipal ClaimsPrincipal = this.HttpContext.User;
             ClaimsIdentity ClaimsIdentity = (ClaimsIdentity)ClaimsPrincipal.Identity;
-            var Claims = JsonConvert.SerializeObject(ClaimsIdentity.Claims.Select(o => o.Value));
-            return this.Ok(new { Claims, ClaimsPrincipal.Identity.IsAuthenticated });
+            var Claims = ClaimsIdentity.Claims.Select(o => o.Value);
+            return this.Json(new { Claims, ClaimsPrincipal.Identity.IsAuthenticated });
         }
     }
 }

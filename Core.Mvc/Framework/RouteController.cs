@@ -1,7 +1,7 @@
 ﻿using Core.Extension.RouteAnalyzer;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Core.Mvc
+namespace Core.Mvc.Framework
 {
     public class RouteController : Controller
     {
@@ -9,7 +9,7 @@ namespace Core.Mvc
 
         public RouteController(IRouteAnalyzer routeAnalyzer)
         {
-            this._routeAnalyzer = routeAnalyzer;
+            _routeAnalyzer = routeAnalyzer;
         }
 
         [HttpGet]

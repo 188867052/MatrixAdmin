@@ -11,7 +11,7 @@ namespace Core.Api.Framework
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class StandardController : ControllerBase
+    public class StandardController : Controller
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StandardController"/> class.
