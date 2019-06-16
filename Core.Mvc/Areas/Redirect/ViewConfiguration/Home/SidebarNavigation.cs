@@ -1,6 +1,5 @@
-﻿using Core.Extension;
-using Core.Mvc.Areas.Administration.Controllers;
-using Core.Mvc.Areas.Log.Controllers;
+﻿using Core.Mvc.Areas.Administration.Routes;
+using Core.Mvc.Areas.Log.Routes;
 using Core.Mvc.Areas.Redirect.Routes;
 using Core.Mvc.Resource.Areas.Administration.ViewConfiguration;
 using Core.Web.Sidebar;
@@ -37,14 +36,14 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
             error.AddLinkButton(new LinkedAnchor(RedirectRoute.Error + "?number=500", SidebarNavigationResource.Error500));
 
             SubMenu manage = new SubMenu("icon icon-user", default, Resources.SystemManage, 8);
-            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(UserController), nameof(UserController.Index)), Resources.UserManage));
-            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.Index)), Resources.RoleManage));
-            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(PermissionController), nameof(PermissionController.Index)), Resources.PermissionManage));
-            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(MenuController), nameof(MenuController.Index)), Resources.MenuManage));
-            manage.AddLinkButton(new LinkedAnchor(new Url(nameof(Administration), typeof(IconController), nameof(IconController.Index)), Resources.IconManage));
+            manage.AddLinkButton(new LinkedAnchor(UserRoute.Index, Resources.UserManage));
+            manage.AddLinkButton(new LinkedAnchor(RoleRoute.Index, Resources.RoleManage));
+            manage.AddLinkButton(new LinkedAnchor(PermissionRoute.Index, Resources.PermissionManage));
+            manage.AddLinkButton(new LinkedAnchor(MenuRoute.Index, Resources.MenuManage));
+            manage.AddLinkButton(new LinkedAnchor(IconRoute.Index, Resources.IconManage));
 
             SubMenu log = new SubMenu("icon icon-edit", default, Resources.LogManage, 2);
-            log.AddLinkButton(new LinkedAnchor(new Url(nameof(Log), typeof(LogController), nameof(LogController.Index)), Resources.ErrorLog));
+            log.AddLinkButton(new LinkedAnchor(LogRoute.Index, Resources.ErrorLog));
 
             Sidebar sidebar = new Sidebar();
             sidebar.AddSubMenu(new SubMenu("icon icon-home", RedirectRoute.Index, SidebarNavigationResource.DashboardTitle, 0, true));

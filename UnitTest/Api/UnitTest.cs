@@ -33,8 +33,16 @@ namespace Core.UnitTest.Api
         [Order(1)]
         public async Task TestGetToken()
         {
-            var url = new Url(typeof(AuthenticationController), nameof(AuthenticationController.Auth));
-            var data = await HttpClientAsync.GetAsync(url, parameters: new { username = "admin", password = "111111" });
+            HttpClient client = new HttpClient()
+            {
+                BaseAddress = new Uri(SiteConfiguration.Host)
+            };
+            using (client)
+            {
+                HttpResponseMessage httpResponse = await client.GetAsync(LogRoute.Index);
+                Task<string> json = httpResponse.Content.ReadAsStringAsync();
+            }
+            var data = await HttpClientAsync.Async(AuthenticationRoute.Auth, new { username = "admin", password = "111111" });
 
             Console.WriteLine(data);
             int code = data.code;
@@ -46,8 +54,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestAuthentication()
         {
-            var url = new Url(typeof(TestController), nameof(TestController.TestAuthentication));
-            dynamic data = await HttpClientAsync.GetAsync(url, this.authentication);
+            dynamic data = await HttpClientAsync.Async(TestRoute.TestAuthentication, this.authentication);
             Console.WriteLine(data);
             bool isAuthenticated = data.isAuthenticated;
 
@@ -58,16 +65,17 @@ namespace Core.UnitTest.Api
         public async Task TestUnAuthenticate()
         {
             var url = new Url(typeof(TestController), nameof(TestController.TestAuthentication));
-            HttpResponseMessage response = await HttpClientAsync.GetResponseAsync(url);
-
-            Assert.AreEqual(response.StatusCode, HttpStatusCode.Unauthorized);
+            using (HttpClient client = HttpClientAsync.CreateInstance())
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                Assert.AreEqual(response.StatusCode, HttpStatusCode.Unauthorized);
+            }
         }
 
         [Test]
         public async Task TestGetUserDataListAsync()
         {
-            var url = new Url(typeof(DataListController), nameof(DataListController.GetUserDataList));
-            ResponseModel model = await HttpClientAsync.GetAsync<IList<UserModel>>(url);
+            ResponseModel model = await HttpClientAsync.Async<IList<UserModel>>(DataListRoute.GetUserDataList);
             IList<UserModel> users = (IList<UserModel>)model.Data;
 
             Assert.GreaterOrEqual(users.Count, 0);
@@ -77,8 +85,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestGetRoleDataListAsync()
         {
-            var url = new Url(typeof(DataListController), nameof(DataListController.GetRoleDataList));
-            ResponseModel model = await HttpClientAsync.GetAsync<IList<RoleModel>>(url);
+            ResponseModel model = await HttpClientAsync.Async<IList<RoleModel>>(DataListRoute.GetRoleDataList);
             IList<RoleModel> roles = (IList<RoleModel>)model.Data;
 
             Assert.GreaterOrEqual(roles.Count, 0);
@@ -88,8 +95,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestGetMenuDataListAsync()
         {
-            var url = new Url(typeof(DataListController), nameof(DataListController.GetMenuDataList));
-            ResponseModel model = await HttpClientAsync.GetAsync<IList<MenuModel>>(url);
+            ResponseModel model = await HttpClientAsync.Async<IList<MenuModel>>(DataListRoute.GetMenuDataList);
             IList<MenuModel> menus = (IList<MenuModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
@@ -99,7 +105,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestUserIndexAsync()
         {
-            ResponseModel model = await HttpClientAsync.GetAsync<IList<UserModel>>(UserRoute.Index, this.authentication);
+            ResponseModel model = await HttpClientAsync.Async<IList<UserModel>>(UserRoute.Index, this.authentication);
             IList<UserModel> menus = (IList<UserModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
@@ -109,7 +115,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestRoleIndexAsync()
         {
-            ResponseModel model = await HttpClientAsync.GetAsync<IList<RoleModel>>(RoleRoute.Index);
+            ResponseModel model = await HttpClientAsync.Async<IList<RoleModel>>(RoleRoute.Index);
             IList<RoleModel> menus = (IList<RoleModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
@@ -119,7 +125,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestMenuIndexAsync()
         {
-            ResponseModel model = await HttpClientAsync.GetAsync<IList<MenuModel>>(MenuRoute.Index);
+            ResponseModel model = await HttpClientAsync.Async<IList<MenuModel>>(MenuRoute.Index);
             IList<MenuModel> menus = (IList<MenuModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
@@ -129,7 +135,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestLogIndexAsync()
         {
-            ResponseModel model = await HttpClientAsync.GetAsync<IList<LogModel>>(LogRoute.Index);
+            ResponseModel model = await HttpClientAsync.Async<IList<LogModel>>(LogRoute.Index);
             IList<LogModel> menus = (IList<LogModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
@@ -139,7 +145,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestUserFindByIdAsync()
         {
-            ResponseModel model = await HttpClientAsync.GetAsync<UserModel>(UserRoute.FindById, 1);
+            ResponseModel model = await HttpClientAsync.Async<UserModel>(UserRoute.FindById, 1);
             UserModel user = (UserModel)model.Data;
 
             Assert.IsNotNull(user);
@@ -149,7 +155,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestMenuFindByIdAsync()
         {
-            ResponseModel model = await HttpClientAsync.GetAsync<MenuModel>(MenuRoute.FindById, 1);
+            ResponseModel model = await HttpClientAsync.Async<MenuModel>(MenuRoute.FindById, 1);
             MenuModel user = (MenuModel)model.Data;
 
             Assert.IsNotNull(user);
@@ -159,7 +165,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestRoleFindByIdAsync()
         {
-            ResponseModel model = await HttpClientAsync.GetAsync<RoleModel>(RoleRoute.FindById, 1);
+            ResponseModel model = await HttpClientAsync.Async<RoleModel>(RoleRoute.FindById, 1);
             RoleModel user = (RoleModel)model.Data;
 
             Assert.IsNotNull(user);
@@ -176,17 +182,18 @@ namespace Core.UnitTest.Api
             User user = DapperExtension.Connection.QueryFirst<User>(o => o.IsEnable, true);
             if (user != null)
             {
-                var url = new Url(typeof(UserController), nameof(UserController.Disable));
-                ResponseModel model = await HttpClientAsync.DeleteAsync(url, user.Id);
-                Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
+                dynamic model = await HttpClientAsync.Async(UserRoute.Disable, user.Id);
+                int code = model.code;
+                Assert.AreEqual(code, (int)HttpStatusCode.OK);
                 user = DapperExtension.Connection.QueryFirst<User>(o => o.Id, user.Id);
                 Assert.IsFalse(user.IsEnable, UnitTestResource.DisableFail);
 
-                url = new Url(typeof(UserController), nameof(UserController.Enable));
-                model = await HttpClientAsync.DeleteAsync(url, user.Id);
-                Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
+                model = await HttpClientAsync.Async(UserRoute.Enable, user.Id);
+                code = model.code;
+                Assert.AreEqual(code, (int)HttpStatusCode.OK);
                 user = DapperExtension.Connection.QueryFirst<User>(o => o.Id, user.Id);
-                Assert.IsTrue(user.IsEnable, UnitTestResource.EnableFail);
+                bool isEnable = user.IsEnable;
+                Assert.IsTrue(isEnable, UnitTestResource.EnableFail);
             }
         }
     }

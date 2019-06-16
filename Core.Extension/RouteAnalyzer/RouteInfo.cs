@@ -2,11 +2,12 @@ using System.Collections.Generic;
 
 namespace Core.Extension.RouteAnalyzer
 {
-    public class RouteInformation
+    public class RouteInfo
     {
-        public RouteInformation()
+        public RouteInfo()
         {
             this.Parameters = new List<ParameterInfo>();
+            this.HttpMethod = "GET";
         }
 
         public string HttpMethod { get; set; }

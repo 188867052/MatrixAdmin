@@ -17,14 +17,14 @@ namespace Core.Extension.RouteAnalyzer
             this._actionDescriptorCollectionProvider = actionDescriptorCollectionProvider;
         }
 
-        public IEnumerable<RouteInformation> GetAllRouteInformations()
+        public IEnumerable<RouteInfo> GetAllRouteInformations()
         {
-            List<RouteInformation> list = new List<RouteInformation>();
+            List<RouteInfo> list = new List<RouteInfo>();
 
             var routes = this._actionDescriptorCollectionProvider.ActionDescriptors.Items;
             foreach (ActionDescriptor route in routes)
             {
-                RouteInformation info = new RouteInformation();
+                RouteInfo info = new RouteInfo();
 
                 // Area
                 if (route.RouteValues.ContainsKey("area"))

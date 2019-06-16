@@ -1,230 +1,149 @@
-﻿using System.Net.Http;
+﻿using System;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Core.Extension;
 using Core.Model;
 using Newtonsoft.Json;
+using System.Net.Http;
+using HttpMethodEnum = Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpMethod;
+using Core.Extension.RouteAnalyzer;
+using System.Collections.Generic;
 
 namespace Core.Mvc.Framework
 {
     public static class HttpClientAsync
     {
-        /// <summary>
-        /// GetAsync.
-        /// </summary>
-        /// <typeparam name="T">T.</typeparam>
-        /// <param name="url">url.</param>
-        /// <returns>Task.</returns>
-        public static async Task<ResponseModel> GetAsync<T>(string url, AuthenticationHeaderValue authorization = null)
+        public static HttpClient CreateInstance()
         {
-            url = RemovePrefix(url);
-            HttpResponseMessage httpResponse;
-            using (HttpClient client = new HttpClient())
-            {
-                if (authorization != null)
-                {
-                    client.DefaultRequestHeaders.Authorization = authorization;
-                }
-
-                httpResponse = await client.GetAsync(SiteConfiguration.Host + url);
-            }
-
-            Task<string> json = httpResponse.Content.ReadAsStringAsync();
-            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
-            model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
-
-            return model;
+            return new HttpClient() { BaseAddress = new Uri(SiteConfiguration.Host) };
         }
 
-        /// <summary>
-        /// GetAsync.
-        /// </summary>
-        /// <typeparam name="T">T.</typeparam>
-        /// <param name="url">url.</param>
-        /// <returns>Task.</returns>
-        public static async Task<dynamic> GetAsync(Url url, AuthenticationHeaderValue authorization = null, object parameters = null)
+        public static async Task<ResponseModel> Async<T>(string route, AuthenticationHeaderValue authorization, params object[] data)
         {
-            var httpResponse = await GetResponseAsync(url, authorization, parameters);
-            string json = await httpResponse.Content.ReadAsStringAsync();
-            dynamic data = JsonConvert.DeserializeObject<dynamic>(json);
-
-            return data;
-        }
-
-        public static async Task<HttpResponseMessage> GetResponseAsync(Url url, AuthenticationHeaderValue authorization = null, object parameters = null)
-        {
-            HttpResponseMessage httpResponse;
-            using (HttpClient client = new HttpClient())
+            OnAsync(route, out IList<ParameterInfo> parameters, data);
+            using (HttpClient httpClient = CreateInstance())
             {
-                if (authorization != null)
-                {
-                    client.DefaultRequestHeaders.Authorization = authorization;
-                }
+                httpClient.DefaultRequestHeaders.Authorization = authorization;
+                Task<string> json = GetResponseAsync(httpClient, route, parameters, data);
+                ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
+                model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
 
-                var query = parameters == null ? string.Empty : url.Query(parameters);
-                string requestUrl = SiteConfiguration.Host + url.Render() + query;
-                return httpResponse = await client.GetAsync(requestUrl);
+                return model;
             }
         }
 
-        /// <summary>
-        /// GetAsync.
-        /// </summary>
-        /// <typeparam name="T">T.</typeparam>
-        /// <param name="url">url.</param>
-        /// <param name="data">data.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        public static async Task<ResponseModel> GetAsync<T>(Url url, object data)
+        public static async Task<dynamic> Async(string route, AuthenticationHeaderValue authorization, params object[] data)
         {
-            HttpResponseMessage httpResponse;
-            using (HttpClient client = new HttpClient())
+            OnAsync(route, out IList<ParameterInfo> parameters, data);
+            using (HttpClient httpClient = CreateInstance())
             {
-                string requestUrl = SiteConfiguration.Host + url.Render();
-                if (data != null)
-                {
-                    requestUrl += $"?{url.ActionParameterName[0]}=" + data;
-                }
+                httpClient.DefaultRequestHeaders.Authorization = authorization;
+                Task<string> json = GetResponseAsync(httpClient, route, parameters, data);
+                dynamic model = JsonConvert.DeserializeObject<dynamic>(await json);
 
-                httpResponse = await client.GetAsync(requestUrl);
+                return model;
             }
-
-            Task<string> json = httpResponse.Content.ReadAsStringAsync();
-            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
-            model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
-
-            return model;
         }
 
-        public static async Task<ResponseModel> GetAsync<T>(string url, object data)
+        public static async Task<ResponseModel> Async<T>(string route, params object[] data)
         {
-            url = RemovePrefix(url);
-            HttpResponseMessage httpResponse;
-            using (HttpClient client = new HttpClient())
+            OnAsync(route, out IList<ParameterInfo> parameters, data);
+            using (HttpClient httpClient = CreateInstance())
             {
-                string requestUrl = SiteConfiguration.Host + url;
-                if (data != null)
-                {
-                    url += "/" + data;
-                }
+                Task<string> json = GetResponseAsync(httpClient, route, parameters, data);
+                ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
+                model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
 
-                httpResponse = await client.GetAsync(requestUrl);
+                return model;
             }
-
-            Task<string> json = httpResponse.Content.ReadAsStringAsync();
-            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
-            model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
-
-            return model;
         }
 
-        /// <summary>
-        /// DeleteAsync.
-        /// </summary>
-        /// <param name="url">url.</param>
-        /// <param name="data">data.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        public static async Task<ResponseModel> DeleteAsync(Url url, object data = null)
+        public static async Task<ResponseModel> ResponseAsync(string route, params object[] data)
         {
-            HttpResponseMessage httpResponse;
-            using (HttpClient client = new HttpClient())
+            OnAsync(route, out IList<ParameterInfo> parameters, data);
+            using (HttpClient httpClient = CreateInstance())
             {
-                string requestUrl = SiteConfiguration.Host + url;
-                if (data != null)
-                {
-                    requestUrl += $"?{url.ActionParameterName[0]}=" + data;
-                }
+                Task<string> json = GetResponseAsync(httpClient, route, parameters, data);
+                ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
 
-                httpResponse = await client.GetAsync(requestUrl);
+                return model;
             }
-
-            Task<string> json = httpResponse.Content.ReadAsStringAsync();
-            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
-
-            return model;
         }
 
-        public static async Task<ResponseModel> DeleteAsync(string url, object data = null)
+        public static async Task<dynamic> Async(string route, params object[] data)
         {
-            url = RemovePrefix(url);
-            HttpResponseMessage httpResponse;
-            using (HttpClient client = new HttpClient())
+            OnAsync(route, out IList<ParameterInfo> parameters, data);
+            using (HttpClient httpClient = CreateInstance())
             {
-                string requestUrl = SiteConfiguration.Host + url;
-                if (data != null)
-                {
-                    requestUrl += "/" + data;
-                }
+                Task<string> json = GetResponseAsync(httpClient, route, parameters, data);
+                var model = JsonConvert.DeserializeObject<dynamic>(await json);
 
-                httpResponse = await client.GetAsync(requestUrl);
+                return model;
             }
-
-            Task<string> json = httpResponse.Content.ReadAsStringAsync();
-            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
-
-            return model;
         }
 
-        /// <summary>
-        /// PostAsync.
-        /// </summary>
-        /// <typeparam name="TModel">TModel.</typeparam>
-        /// <typeparam name="TPostModel">TPostModel.</typeparam>
-        /// <param name="url">url.</param>
-        /// <param name="postModel">postModel.</param>
-        /// <returns>ResponseModel.</returns>
-        public static async Task<ResponseModel> PostAsync<TModel, TPostModel>(string url, TPostModel postModel)
+        private static async Task<string> PostAsync(HttpClient httpClient, string route, params object[] data)
         {
-            url = RemovePrefix(url);
-            HttpResponseMessage httpResponse;
-            using (HttpClient client = new HttpClient())
+            var content = JsonConvert.SerializeObject(data[0]);
+            using (StringContent httpContent = new StringContent(content))
             {
-                string postData = JsonConvert.SerializeObject(postModel);
-                StringContent httpContent = new StringContent(postData);
                 httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                httpResponse = await client.PostAsync(SiteConfiguration.Host + url, httpContent);
+                using (HttpResponseMessage httpResponse = await httpClient.PostAsync(route, httpContent))
+                {
+                    return await httpResponse.Content.ReadAsStringAsync();
+                }
             }
-
-            Task<string> json = httpResponse.Content.ReadAsStringAsync();
-            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
-            model.Data = JsonConvert.DeserializeObject<TModel>(model.Data.ToString());
-
-            return model;
         }
 
-        /// <summary>
-        /// SubmitAsync.
-        /// </summary>
-        /// <typeparam name="TPostModel">TPostModel.</typeparam>
-        /// <param name="url">url.</param>
-        /// <param name="postModel">postModel.</param>
-        /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
-        public static async Task<ResponseModel> SubmitAsync<TPostModel>(string url, TPostModel postModel)
+        private static async Task<string> GetAsync(HttpClient httpClient, string relativeUri, IList<ParameterInfo> parameterInfos, params object[] data)
         {
-            url = RemovePrefix(url);
-            HttpResponseMessage httpResponse;
-            using (HttpClient client = new HttpClient())
+            if (relativeUri.Contains("{") && relativeUri.Contains("}"))
             {
-                string postData = JsonConvert.SerializeObject(postModel);
-                StringContent httpContent = new StringContent(postData);
-                httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                httpResponse = await client.PostAsync(SiteConfiguration.Host + url, httpContent);
+                relativeUri = relativeUri.Replace($"{{{parameterInfos[0].Name}}}", $"{data[0]}");
             }
-
-            Task<string> json = httpResponse.Content.ReadAsStringAsync();
-            ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
-
-            return model;
+            else if (data != null && data.Length > 0)
+            {
+                relativeUri += "?";
+                for (int i = 0; i < data.Length; i++)
+                {
+                    relativeUri += $"{parameterInfos[i].Name}={data[i]}";
+                    if (i != data.Length - 1)
+                    {
+                        relativeUri += "&";
+                    }
+                }
+            }
+            using (HttpResponseMessage httpResponse = await httpClient.GetAsync(relativeUri))
+            {
+                return await httpResponse.Content.ReadAsStringAsync();
+            }
         }
 
-        private static string RemovePrefix(string url)
+        private static Task<string> GetResponseAsync(HttpClient httpClient, string route, IList<ParameterInfo> Parameters, params object[] data)
         {
-            if (url.StartsWith("/api"))
+            var httpMethod = Api.Framework.RouteController.GetHttpMethod(route);
+            Task<string> json;
+            switch (httpMethod)
             {
-                // TODO: when all the url changed to use Routes.Generated, the code will be removed.
-                url = url.Replace("/api", string.Empty);
+                case HttpMethodEnum.Get:
+                    json = GetAsync(httpClient, route, Parameters, data);
+                    break;
+                case HttpMethodEnum.Post:
+                    json = PostAsync(httpClient, route, data);
+                    break;
+                default:
+                    throw new HttpRequestException($"Unsupported HttpMethod: {httpMethod}");
             }
 
-            return url;
+            return json;
+        }
+
+        private static void OnAsync(string route, out IList<ParameterInfo> parameters, params object[] data)
+        {
+            parameters = Api.Framework.RouteController.GetParameterInfo(route);
+            if (data.Length != parameters.Count)
+            {
+                throw new HttpRequestException($"Http Parameter Count Wrong. Request: {JsonConvert.SerializeObject(data)},Expected: {JsonConvert.SerializeObject(parameters)}");
+            }
         }
     }
 }

@@ -4,6 +4,6 @@ namespace Core.Extension.RouteAnalyzer
 {
     public interface IRouteAnalyzer
     {
-        IEnumerable<RouteInformation> GetAllRouteInformations();
+        IEnumerable<RouteInfo> GetAllRouteInformations();
     }
 }

@@ -18,7 +18,7 @@ namespace Core.Mvc.Areas.Log.Controllers
         /// <returns>A IActionResult.</returns>
         public async Task<IActionResult> Index()
         {
-            var model = await HttpClientAsync.GetAsync<IList<LogModel>>(LogRoute.Index);
+            var model = await HttpClientAsync.Async<IList<LogModel>>(LogRoute.Index);
             LogIndex<LogModel, LogPostModel> table = new LogIndex<LogModel, LogPostModel>(model);
 
             return this.SearchGridConfiguration(table);
@@ -32,7 +32,7 @@ namespace Core.Mvc.Areas.Log.Controllers
         [HttpPost]
         public async Task<IActionResult> GridStateChange(LogPostModel model)
         {
-            ResponseModel response = await HttpClientAsync.PostAsync<IList<LogModel>, LogPostModel>(LogRoute.Search, model);
+            ResponseModel response = await HttpClientAsync.Async<IList<LogModel>>(LogRoute.Search, model);
             LogGridConfiguration<LogModel> configuration = new LogGridConfiguration<LogModel>(response);
 
             return this.GridConfiguration(configuration);
@@ -45,7 +45,7 @@ namespace Core.Mvc.Areas.Log.Controllers
         [HttpGet]
         public async Task<IActionResult> Clear()
         {
-            ResponseModel model = await HttpClientAsync.DeleteAsync(LogRoute.Clear);
+            ResponseModel model = await HttpClientAsync.ResponseAsync(LogRoute.Clear);
 
             return this.Submit(model);
         }

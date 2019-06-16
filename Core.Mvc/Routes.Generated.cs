@@ -1,5 +1,310 @@
+using System.Collections.Generic;
+using Core.Extension.RouteAnalyzer;
+
 namespace Core.Mvc.Areas.Redirect.Routes
 {
+    public class Cache
+    {
+        public static Dictionary<string, dynamic> Dictionary = new Dictionary<string, dynamic>()
+        {
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Index, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Index2, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Login, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Widgets, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Buttons, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Calendar, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Charts, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Chat, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Error, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Gallery, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Interface, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Invoice, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Log.Routes.LogRoute.Index, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Log.Routes.LogRoute.GridStateChange, new
+                {
+                    HttpMethod = "POST",
+                }
+            },
+            {Core.Mvc.Areas.Log.Routes.LogRoute.Clear, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.AdvancedDropDownFilters.AdvancedDropDownRoute.RoleDataList, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.AdvancedDropDownFilters.AdvancedDropDownRoute.UserDataList, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.AdvancedDropDownFilters.AdvancedDropDownRoute.MenuDataList, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.AuthenticationRoute.Auth, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.IconRoute.Index, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.IconRoute.GridStateChange, new
+                {
+                    HttpMethod = "POST",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.IconRoute.AddDialog, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.LoginRoute.Index, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.LoginRoute.Error, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.Index, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.GridStateChange, new
+                {
+                    HttpMethod = "POST",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.AddDialog, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.RowContextMenu, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.SaveCreate, new
+                {
+                    HttpMethod = "POST",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.EditDialog, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.SaveEdit, new
+                {
+                    HttpMethod = "POST",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.Delete, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.Recover, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.Forbidden, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.Normal, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.PermissionRoute.Index, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.PermissionRoute.GridStateChange, new
+                {
+                    HttpMethod = "POST",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.Index, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.AddDialog, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.RowContextMenu, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.GridStateChange, new
+                {
+                    HttpMethod = "POST",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.Delete, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.EditDialog, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.SaveEdit, new
+                {
+                    HttpMethod = "POST",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.Recover, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.Forbidden, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.Normal, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.SaveCreate, new
+                {
+                    HttpMethod = "POST",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.Index, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.GridStateChange, new
+                {
+                    HttpMethod = "POST",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.RowContextMenu, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.AddDialog, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.SaveCreate, new
+                {
+                    HttpMethod = "POST",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.SaveEdit, new
+                {
+                    HttpMethod = "POST",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.EditDialog, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.Delete, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.Recover, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.Forbidden, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.Normal, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+        };
+    }
+
     /// <summary>
     /// <see cref="Controllers.RedirectController"/>
     /// </summary>

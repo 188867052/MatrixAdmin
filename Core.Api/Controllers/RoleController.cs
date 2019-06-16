@@ -218,7 +218,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="payload">角色分配权限的请求载体类.</param>
         /// <returns></returns>
-        [HttpPost("/api/v1/rbac/role/assign_permission")]
+        [HttpPost("/api/v1/role/assign_permission")]
         public IActionResult AssignPermission(RoleAssignPermissionPayload payload)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;
@@ -263,7 +263,7 @@ namespace Core.Api.Controllers
         /// </summary>
         /// <param name="guid">用户GUID.</param>
         /// <returns></returns>
-        [HttpGet("/api/v1/rbac/role/find_list_by_user_guid/{guid}")]
+        [HttpGet("/api/v1/role/find_list_by_user_guid/{guid}")]
         public IActionResult FindListByUserGuid(Guid guid)
         {
             ResponseModel response = ResponseModelFactory.CreateInstance;

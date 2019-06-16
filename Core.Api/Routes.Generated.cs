@@ -1,5 +1,485 @@
+using System.Collections.Generic;
+using Core.Extension.RouteAnalyzer;
+
 namespace Core.Api.Routes
 {
+    public class Cache
+    {
+        public static Dictionary<string, dynamic> Dictionary = new Dictionary<string, dynamic>()
+        {
+            {Core.Api.Routes.AuthenticationRoute.Auth, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "username", Type = "String",  BinderType = "" },
+                        new ParameterInfo() {Name = "password", Type = "String",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.DataListRoute.GetUserDataList, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "name", Type = "String",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.DataListRoute.GetRoleDataList, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "name", Type = "String",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.DataListRoute.GetMenuDataList, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "name", Type = "String",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.IconRoute.Index, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Api.Routes.IconRoute.Search, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "IconPostModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.IconRoute.Create, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "IconCreateViewModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.IconRoute.Edit, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "Int32",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.IconRoute.SaveEdit, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "IconCreateViewModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.IconRoute.Delete, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "Int32[]",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.IconRoute.Recover, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "Int32[]",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.IconRoute.Batch, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "command", Type = "String",  BinderType = "" },
+                        new ParameterInfo() {Name = "ids", Type = "Int32[]",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.IconRoute.Import, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "IconImportViewModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.LogRoute.Index, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Api.Routes.LogRoute.Search, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "LogPostModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.LogRoute.Clear, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Api.Routes.MenuRoute.Index, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Api.Routes.MenuRoute.Search, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "MenuPostModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.MenuRoute.FindById, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "Int32",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.MenuRoute.Create, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "MenuCreatePostModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.MenuRoute.Edit, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "MenuEditPostModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.MenuRoute.Tree, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "selected", Type = "String",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.MenuRoute.Delete, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "Int32[]",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.MenuRoute.Recover, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "Int32[]",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.MenuRoute.Normal, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "Int32[]",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.MenuRoute.Forbidden, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "Int32[]",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.PermissionRoute.Index, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Api.Routes.PermissionRoute.Search, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "PermissionPostModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.PermissionRoute.Create, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "PermissionCreateViewModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.PermissionRoute.Edit, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "code", Type = "String",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.PermissionRoute.SaveEdit, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "PermissionEditViewModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.PermissionRoute.Delete, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "String",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.PermissionRoute.Recover, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "String",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.PermissionRoute.PermissionTree, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "code", Type = "Int32",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.RoleRoute.Index, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Api.Routes.RoleRoute.FindById, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "Int32",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.RoleRoute.Search, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "RolePostModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.RoleRoute.Create, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "RoleCreatePostModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.RoleRoute.Edit, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "RoleEditPostModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.RoleRoute.Delete, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "Int32[]",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.RoleRoute.Recover, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "Int32[]",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.RoleRoute.Normal, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "Int32[]",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.RoleRoute.Forbidden, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "Int32[]",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.RoleRoute.AssignPermission, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "payload", Type = "RoleAssignPermissionPayload",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.RoleRoute.FindListByUserGuid, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "guid", Type = "Guid",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.RoleRoute.FindSimpleList, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Api.Routes.TestRoute.TestAuthentication, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Api.Routes.UserRoute.Index, new
+                {
+                    HttpMethod = "GET",
+                }
+            },
+            {Core.Api.Routes.UserRoute.Search, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "UserPostModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.UserRoute.Create, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "UserCreatePostModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.UserRoute.FindById, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "Int32",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.UserRoute.Edit, new
+                {
+                    HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "UserEditPostModel",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.UserRoute.Delete, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "Int32[]",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.UserRoute.Recover, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "Int32[]",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.UserRoute.Enable, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "Int32[]",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Api.Routes.UserRoute.Disable, new
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "ids", Type = "Int32[]",  BinderType = "" },
+                    }
+                }
+            },
+        };
+    }
+
     /// <summary>
     /// <see cref="Controllers.AuthenticationController"/>
     /// </summary>
@@ -203,7 +683,7 @@ namespace Core.Api.Routes
         /// <summary>
         /// <see cref="Controllers.PermissionController.PermissionTree"/>
         /// </summary>
-        public const string PermissionTree = "/api/v1/rbac/permission/permission_tree/{code}";
+        public const string PermissionTree = "/api/v1/permission/permission_tree/{code}";
     }
 
     /// <summary>
@@ -259,12 +739,12 @@ namespace Core.Api.Routes
         /// <summary>
         /// <see cref="Controllers.RoleController.AssignPermission"/>
         /// </summary>
-        public const string AssignPermission = "/api/v1/rbac/role/assign_permission";
+        public const string AssignPermission = "/api/v1/role/assign_permission";
 
         /// <summary>
         /// <see cref="Controllers.RoleController.FindListByUserGuid"/>
         /// </summary>
-        public const string FindListByUserGuid = "/api/v1/rbac/role/find_list_by_user_guid/{guid}";
+        public const string FindListByUserGuid = "/api/v1/role/find_list_by_user_guid/{guid}";
 
         /// <summary>
         /// <see cref="Controllers.RoleController.FindSimpleList"/>

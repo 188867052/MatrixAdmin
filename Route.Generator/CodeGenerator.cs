@@ -1,23 +1,20 @@
 ﻿using System;
 using System.IO;
-using Microsoft.Extensions.Logging;
 
 namespace Route.Generator
 {
     public class CodeGenerator : ICodeGenerator
     {
-        private readonly ILogger _logger;
         private readonly RouteGenerator _modelGenerator;
 
-        public CodeGenerator(ILoggerFactory loggerFactory)
+        public CodeGenerator()
         {
-            this._logger = loggerFactory.CreateLogger<CodeGenerator>();
-            this._modelGenerator = new RouteGenerator(loggerFactory);
+            this._modelGenerator = new RouteGenerator();
         }
 
         public bool Generate(string workingDirectory)
         {
-            var context = this._modelGenerator.GenerateCode(workingDirectory);
+            var context = this._modelGenerator.GenerateCodeAsync(workingDirectory).Result;
             Console.WriteLine(context);
             string fullPath = Path.Combine(workingDirectory, "Routes.Generated.cs");
             File.WriteAllText(fullPath, context);

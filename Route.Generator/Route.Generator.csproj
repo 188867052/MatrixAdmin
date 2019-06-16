@@ -46,6 +46,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Collections" Version="4.3.0" />
     <PackageReference Include="xunit.analyzers" Version="0.10.0" />
     <PackageReference Include="YamlDotNet" Version="6.0.0" />
   </ItemGroup>

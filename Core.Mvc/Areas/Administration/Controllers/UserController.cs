@@ -22,7 +22,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var model = await HttpClientAsync.GetAsync<IList<UserModel>>(UserRoute.Index, authorization: this.Authentication);
+            var model = await HttpClientAsync.Async<IList<UserModel>>(UserRoute.Index, this.Authentication);
             UserIndex<UserModel, UserPostModel> table = new UserIndex<UserModel, UserPostModel>(model);
 
             return this.SearchGridConfiguration(table);
@@ -36,7 +36,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> GridStateChange(UserPostModel model)
         {
-            ResponseModel response = await HttpClientAsync.PostAsync<IList<UserModel>, UserPostModel>(UserRoute.Search, model);
+            ResponseModel response = await HttpClientAsync.Async<IList<UserModel>>(UserRoute.Search, model);
             UserViewConfiguration<UserModel> configuration = new UserViewConfiguration<UserModel>(response);
 
             return this.GridConfiguration(configuration);
@@ -50,7 +50,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> RowContextMenu(int id)
         {
-            ResponseModel model = await HttpClientAsync.GetAsync<UserModel>(UserRoute.FindById, id);
+            ResponseModel model = await HttpClientAsync.Async<UserModel>(UserRoute.FindById, id);
             UserModel user = (UserModel)model.Data;
             UserRowContextMenu menu = new UserRowContextMenu(user);
             return this.Content(menu.Render(), "text/html", Encoding.UTF8);
@@ -75,7 +75,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveCreate(UserCreatePostModel model)
         {
-            var response = await HttpClientAsync.SubmitAsync(UserRoute.Create, model);
+            var response = await HttpClientAsync.ResponseAsync(UserRoute.Create, model);
 
             return this.Submit(response);
         }
@@ -88,7 +88,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveEdit(UserEditPostModel model)
         {
-            var response = await HttpClientAsync.SubmitAsync(UserRoute.Edit, model);
+            var response = await HttpClientAsync.ResponseAsync(UserRoute.Edit, model);
 
             return this.Submit(response);
         }
@@ -101,7 +101,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> EditDialog(int id)
         {
-            ResponseModel model = await HttpClientAsync.GetAsync<UserModel>(UserRoute.FindById, id);
+            ResponseModel model = await HttpClientAsync.Async<UserModel>(UserRoute.FindById, id);
             EditUserDialogConfiguration<UserEditPostModel, UserModel> dialog = new EditUserDialogConfiguration<UserEditPostModel, UserModel>((UserModel)model.Data);
 
             return this.Dialog(dialog);
@@ -115,7 +115,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            ResponseModel model = await HttpClientAsync.DeleteAsync(UserRoute.Delete, id);
+            ResponseModel model = await HttpClientAsync.ResponseAsync(UserRoute.Delete, id);
 
             return this.Submit(model);
         }
@@ -128,7 +128,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Recover(int id)
         {
-            ResponseModel model = await HttpClientAsync.DeleteAsync(UserRoute.Recover, id);
+            ResponseModel model = await HttpClientAsync.ResponseAsync(UserRoute.Recover, id);
 
             return this.Submit(model);
         }
@@ -141,7 +141,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Forbidden(int id)
         {
-            ResponseModel model = await HttpClientAsync.DeleteAsync(UserRoute.Disable, id);
+            ResponseModel model = await HttpClientAsync.ResponseAsync(UserRoute.Disable, id);
 
             return this.Submit(model);
         }
@@ -154,7 +154,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Normal(int id)
         {
-            ResponseModel model = await HttpClientAsync.DeleteAsync(UserRoute.Enable, id);
+            ResponseModel model = await HttpClientAsync.ResponseAsync(UserRoute.Enable, id);
 
             return this.Submit(model);
         }

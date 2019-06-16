@@ -13333,6 +13333,7 @@
       "Serilog.Extensions.Hosting >= 2.0.0",
       "Serilog.Sinks.Console >= 3.1.1",
       "StyleCop.Analyzers >= 1.1.118",
+      "System.Collections >= 4.3.0",
       "YamlDotNet >= 6.0.0",
       "xunit.analyzers >= 0.10.0"
     ]
@@ -13450,6 +13451,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[1.1.118, )"
+          },
+          "System.Collections": {
+            "target": "Package",
+            "version": "[4.3.0, )"
           },
           "YamlDotNet": {
             "target": "Package",

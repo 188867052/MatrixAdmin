@@ -19,7 +19,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         /// <returns>A IActionResult.</returns>
         public async Task<IActionResult> Index()
         {
-            var model = await HttpClientAsync.GetAsync<IList<Permission>>(PermissionRoute.Index);
+            var model = await HttpClientAsync.Async<IList<Permission>>(PermissionRoute.Index);
             PermissionIndex table = new PermissionIndex(model);
 
             return this.SearchGridConfiguration(table);
@@ -33,7 +33,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> GridStateChange(PermissionPostModel model)
         {
-            ResponseModel response = await HttpClientAsync.PostAsync<IList<Permission>, PermissionPostModel>(PermissionRoute.Search, model);
+            ResponseModel response = await HttpClientAsync.Async<IList<Permission>>(PermissionRoute.Search, model);
             PermissionGridConfiguration configuration = new PermissionGridConfiguration(response);
 
             return this.GridConfiguration(configuration);

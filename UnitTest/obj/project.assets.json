@@ -5545,6 +5545,7 @@
           "Roslyn.Diagnostics.Analyzers": "2.9.3",
           "Serilog.Extensions.Hosting": "2.0.0",
           "Serilog.Sinks.Console": "3.1.1",
+          "System.Collections": "4.3.0",
           "YamlDotNet": "6.0.0",
           "xunit.analyzers": "0.10.0"
         },
