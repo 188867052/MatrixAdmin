@@ -1,22 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Extension.RouteAnalyzer;
-using Core.Mvc.Framework;
 using Core.Mvc.Framework.StartupConfigurations;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace Route.Generator
 {
-    public class ModelGenerator
+    public class RouteGenerator
     {
         private readonly ILogger _logger;
 
-        public ModelGenerator(ILoggerFactory logger)
+        public RouteGenerator(ILoggerFactory logger)
         {
-            this._logger = logger.CreateLogger<ModelGenerator>();
+            this._logger = logger.CreateLogger<RouteGenerator>();
         }
 
         public static string GetRoutesGenerated(string content)
@@ -41,10 +41,12 @@ namespace Route.Generator
             return sb.ToString();
         }
 
-        public string GenerateCode()
+        public string GenerateCode(string workingDirectory)
         {
-            var client = new TestSite(typeof(Core.Api.Framework.Startup)).BuildClient();
-            var response = client.GetAsync(RouteConfiguration.Route).Result;
+            this._logger.LogInformation($"workingDirectory:{workingDirectory}");
+            Type type = workingDirectory.Contains("Core.Api") ? typeof(Core.Api.Framework.Startup) : typeof(Core.Mvc.Framework.Startup);
+            var client = new TestSite(type).BuildClient();
+            var response = client.GetAsync(Router.DefaultRoute).Result;
             Task<string> content = response.Content.ReadAsStringAsync();
 
             return GetRoutesGenerated(content.Result);

@@ -5,6 +5,9 @@ namespace Core.Extension.RouteAnalyzer
 {
     public class Router : IRouter
     {
+        public const string ControllerName = "Route";
+        public const string ActionName = "ShowAllRoutes";
+        public const string DefaultRoute = "/" + ControllerName + "/" + ActionName;
         private readonly IRouter _defaultRouter;
         private readonly string _routePath;
 
@@ -25,8 +28,8 @@ namespace Core.Extension.RouteAnalyzer
             {
                 var routeData = new RouteData(context.RouteData);
                 routeData.Routers.Add(this._defaultRouter);
-                routeData.Values["controller"] = nameof(RouteController).Replace("Controller", string.Empty);
-                routeData.Values["action"] = nameof(RouteController.ShowAllRoutes);
+                routeData.Values["controller"] = ControllerName;
+                routeData.Values["action"] = ActionName;
                 context.RouteData = routeData;
                 await this._defaultRouter.RouteAsync(context);
             }

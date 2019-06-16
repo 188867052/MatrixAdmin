@@ -2,8 +2,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Entity;
+using Core.Extension.RouteAnalyzer;
 using Core.Mvc.Framework;
-using Core.Mvc.Framework.StartupConfigurations;
 using NUnit.Framework;
 using Route.Generator;
 
@@ -46,10 +46,10 @@ namespace Core.UnitTest.CodeGenerator
             try
             {
                 var client = new TestSite(typeof(Startup)).BuildClient();
-                var response = await client.GetAsync(RouteConfiguration.Route);
+                var response = await client.GetAsync(Router.DefaultRoute);
                 var content = await response.Content.ReadAsStringAsync();
 
-                var routesGenerated = ModelGenerator.GetRoutesGenerated(content);
+                var routesGenerated = RouteGenerator.GetRoutesGenerated(content);
                 Assert.IsTrue(routesGenerated.Contains("namespace"));
             }
             catch (Exception ex)
@@ -64,7 +64,7 @@ namespace Core.UnitTest.CodeGenerator
             try
             {
                 var client = new TestSite(typeof(Core.Api.Framework.Startup)).BuildClient();
-                var response = await client.GetAsync(RouteConfiguration.Route);
+                var response = await client.GetAsync(Router.DefaultRoute);
                 var content = await response.Content.ReadAsStringAsync();
 
                 Assert.IsNotEmpty(content);

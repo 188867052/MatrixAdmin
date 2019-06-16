@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core.Extension.RouteAnalyzer;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Core.Extension.RouteAnalyzer
+namespace Core.Mvc
 {
     public class RouteController : Controller
     {
@@ -12,6 +13,7 @@ namespace Core.Extension.RouteAnalyzer
         }
 
         [HttpGet]
+        [Route(Router.DefaultRoute)]
         public JsonResult ShowAllRoutes()
         {
             var infos = this._routeAnalyzer.GetAllRouteInformations();

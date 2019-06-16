@@ -29,7 +29,6 @@ namespace Core.Mvc.Framework
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-            SwaggerConfiguration.AddService(services);
             DbContextConfiguration.AddService(services, Configuration);
             CorsConfiguration.AddService(services);
             RouteConfiguration.AddService(services);
@@ -39,6 +38,7 @@ namespace Core.Mvc.Framework
 
             try
             {
+                // TODO: when use code gen, a exception will occurred.
 #pragma warning disable 618
                 AuthenticationConfiguration.AddService(services, Configuration);
                 services.AddAutoMapper();
@@ -63,7 +63,6 @@ namespace Core.Mvc.Framework
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            SwaggerConfiguration.AddConfigure(app);
             AuthenticationConfiguration.AddConfigure(app);
             DevelopmentConfiguration.AddConfigure(app, env);
 

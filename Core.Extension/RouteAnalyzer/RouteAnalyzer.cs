@@ -62,6 +62,10 @@ namespace Core.Extension.RouteAnalyzer
                     info.ControllerName = e.ControllerName;
                     info.ActionName = e.ActionName;
                     info.Namespace = e.ControllerTypeInfo.AsType().Namespace;
+                    if (string.IsNullOrEmpty(e.AttributeRouteInfo?.Template))
+                    {
+                        info.Path = $"/{e.ControllerName}/{e.ActionName}";
+                    }
                 }
 
                 // Extract HTTP Verb
@@ -75,7 +79,7 @@ namespace Core.Extension.RouteAnalyzer
                 }
 
                 // Special controller path
-                if (info.Path == $"/{nameof(RouteController).Replace("Controller", string.Empty)}/{nameof(RouteController.ShowAllRoutes)}")
+                if (info.Path == Router.DefaultRoute)
                 {
                     info.Path = RouteAnalyzerRouteBuilderExtensions.RoutePath;
                 }

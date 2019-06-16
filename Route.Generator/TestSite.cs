@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.TestHost;
 
 namespace Route.Generator
 {
-
     public class TestSite
     {
         private readonly Type _startupType;

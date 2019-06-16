@@ -7,7 +7,7 @@ using Serilog;
 
 namespace Route.Generator
 {
-    [Command("rg", Description = "route generation tool")]
+    [Command("routegen", Description = "route generation tool")]
     [Subcommand(typeof(InitializeCommand))]
     [Subcommand(typeof(GenerateCommand))]
     [VersionOptionFromMember("--version", MemberName = nameof(GetVersion))]

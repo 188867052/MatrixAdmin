@@ -7,8 +7,6 @@ namespace Core.Api.Framework.StartupConfigurations
 {
     public static class RouteConfiguration
     {
-        public const string Route = "/routes";
-
         /// <summary>
         /// The Configure must be the last of the Configure in Startup.Configure.
         /// </summary>
@@ -17,7 +15,7 @@ namespace Core.Api.Framework.StartupConfigurations
         {
             app.UseMvc(routes =>
             {
-                routes.MapRouteAnalyzer(Route); // Add
+                routes.MapRouteAnalyzer(Router.DefaultRoute); // Add
                 routes.MapRoute(
                      name: "areaRoute",
                      template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");

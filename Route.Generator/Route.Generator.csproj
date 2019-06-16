@@ -12,7 +12,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <ToolCommandName>rg</ToolCommandName>
+    <ToolCommandName>routegen</ToolCommandName>
     <PackAsTool>true</PackAsTool>
     <Authors>Route.Generator</Authors>
     <Product>Route.Generator</Product>

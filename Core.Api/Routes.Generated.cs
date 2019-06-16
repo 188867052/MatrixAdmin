@@ -44,7 +44,7 @@ namespace Core.Api.Routes
     {
         public const string Index = "/api/Menu/Index";
         public const string Search = "/api/Menu/Search";
-        public const string FindById = "/api/Menu/FindById";
+        public const string FindById = "/api/Menu/FindById/{id}";
         public const string Create = "/api/Menu/Create";
         public const string Edit = "/api/Menu/Edit";
         public const string Tree = "/api/Menu/Tree/{selected?}";
@@ -84,6 +84,13 @@ namespace Core.Api.Routes
         public const string AssignPermission = "/api/v1/rbac/role/assign_permission";
         public const string FindListByUserGuid = "/api/v1/rbac/role/find_list_by_user_guid/{guid}";
         public const string FindSimpleList = "/api/Role/FindSimpleList";
+    }
+}
+namespace Core.Api.Routes
+{
+    public class RouteRoute
+    {
+        public const string ShowAllRoutes = "/Route/ShowAllRoutes";
     }
 }
 namespace Core.Api.Routes

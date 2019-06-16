@@ -5,7 +5,7 @@ using Core.Extension;
 using Core.UnitTest.Resource.Areas;
 using NUnit.Framework;
 
-namespace Core.UnitTest.Filter
+namespace Core.UnitTest.ExpressionFilter
 {
     [TestFixture]
     public class UnitTest
