@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core.Api;
+using Core.Mvc;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.ViewConfiguration;
@@ -24,7 +24,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Login
             return new List<string>
             {
                Javascript.MatrixLogin,
-               Api.Js.Login.Index
+               Mvc.Js.Login.Index
             };
         }
 

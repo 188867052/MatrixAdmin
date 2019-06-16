@@ -11,7 +11,7 @@ using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
 using Core.Web.ViewConfiguration;
 
-namespace Core.Api.Areas.Administration.ViewConfiguration.User
+namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 {
     public class UserIndex<TModel, TPostModel> : SearchGridPage<TModel>
          where TModel : UserModel

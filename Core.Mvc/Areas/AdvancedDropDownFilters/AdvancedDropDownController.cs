@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Core.Api.Controllers;
 using Core.Entity;
-using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.Menu;
 using Core.Model.Administration.User;
 using Core.Mvc.Framework;
 using Microsoft.AspNetCore.Mvc;
+using Core.Api.Routes;
 
 namespace Core.Mvc.Areas.AdvancedDropDownFilters
 {
@@ -22,8 +21,7 @@ namespace Core.Mvc.Areas.AdvancedDropDownFilters
         [HttpGet]
         public async Task<IActionResult> RoleDataList(string name)
         {
-            var url = new Url(typeof(DataListController), nameof(DataListController.GetRoleDataList));
-            ResponseModel model = await HttpClientAsync.GetAsync<IList<Role>>(url, name);
+            ResponseModel model = await HttpClientAsync.GetAsync<IList<Role>>(DataListRoute.GetRoleDataList, name);
             IList<Role> roles = (IList<Role>)model.Data;
 
             return this.DataListContent(roles, o => o.Id, o => o.Name);
@@ -32,8 +30,7 @@ namespace Core.Mvc.Areas.AdvancedDropDownFilters
         [HttpGet]
         public async Task<IActionResult> UserDataList(string name)
         {
-            var url = new Url(typeof(DataListController), nameof(DataListController.GetUserDataList));
-            ResponseModel model = await HttpClientAsync.GetAsync<IList<UserModel>>(url, name);
+            ResponseModel model = await HttpClientAsync.GetAsync<IList<UserModel>>(DataListRoute.GetUserDataList, name);
             IList<UserModel> users = (IList<UserModel>)model.Data;
 
             return this.DataListContent(users, o => o.Id, o => o.LoginName);
@@ -42,8 +39,7 @@ namespace Core.Mvc.Areas.AdvancedDropDownFilters
         [HttpGet]
         public async Task<IActionResult> MenuDataList(string name)
         {
-            var url = new Url(typeof(DataListController), nameof(DataListController.GetMenuDataList));
-            ResponseModel model = await HttpClientAsync.GetAsync<IList<MenuModel>>(url, name);
+            ResponseModel model = await HttpClientAsync.GetAsync<IList<MenuModel>>(DataListRoute.GetMenuDataList, name);
             IList<MenuModel> users = (IList<MenuModel>)model.Data;
 
             return this.DataListContent(users, o => o.Id, o => o.Name);

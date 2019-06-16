@@ -1,4 +1,4 @@
-﻿using Core.Api.Authentication;
+﻿using Core.Mvc.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;

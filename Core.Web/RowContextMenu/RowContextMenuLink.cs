@@ -6,9 +6,9 @@ namespace Core.Web.RowContextMenu
     {
         private readonly string _labelText;
         private readonly string _method;
-        private readonly Url _url;
+        private readonly string _url;
 
-        public RowContextMenuLink(string labelText, string method, Url url)
+        public RowContextMenuLink(string labelText, string method, string url)
         {
             this._labelText = labelText;
             this._method = method;
@@ -17,7 +17,7 @@ namespace Core.Web.RowContextMenu
 
         public string Render()
         {
-            return $"<a class=\"icon-edit dropdown-item\" data-url=\"{this._url.Render()}\" data-method=\"{this._method}\" href=\"#\">&nbsp;{this._labelText}</a>";
+            return $"<a class=\"icon-edit dropdown-item\" data-url=\"{this._url}\" data-method=\"{this._method}\" href=\"#\">&nbsp;{this._labelText}</a>";
         }
     }
 }

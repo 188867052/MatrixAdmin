@@ -1,4 +1,4 @@
-﻿using Core.Api.Authentication;
+﻿using Core.Mvc.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;

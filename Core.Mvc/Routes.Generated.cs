@@ -77,17 +77,17 @@ namespace Core.Mvc.Areas.Log.Routes
         /// <summary>
         /// <see cref="Controllers.LogController.Index"/>
         /// </summary>
-        public const string Index = "/Log/Index";
+        public const string Index = "/Log/Log/Index";
 
         /// <summary>
         /// <see cref="Controllers.LogController.GridStateChange"/>
         /// </summary>
-        public const string GridStateChange = "/Log/GridStateChange";
+        public const string GridStateChange = "/Log/Log/GridStateChange";
 
         /// <summary>
         /// <see cref="Controllers.LogController.Clear"/>
         /// </summary>
-        public const string Clear = "/Log/Clear";
+        public const string Clear = "/Log/Log/Clear";
     }
 }
 
@@ -101,17 +101,17 @@ namespace Core.Mvc.Areas.AdvancedDropDownFilters
         /// <summary>
         /// <see cref="AdvancedDropDownController.RoleDataList"/>
         /// </summary>
-        public const string RoleDataList = "/AdvancedDropDown/RoleDataList";
+        public const string RoleDataList = "/AdvancedDropDownFilters/AdvancedDropDown/RoleDataList";
 
         /// <summary>
         /// <see cref="AdvancedDropDownController.UserDataList"/>
         /// </summary>
-        public const string UserDataList = "/AdvancedDropDown/UserDataList";
+        public const string UserDataList = "/AdvancedDropDownFilters/AdvancedDropDown/UserDataList";
 
         /// <summary>
         /// <see cref="AdvancedDropDownController.MenuDataList"/>
         /// </summary>
-        public const string MenuDataList = "/AdvancedDropDown/MenuDataList";
+        public const string MenuDataList = "/AdvancedDropDownFilters/AdvancedDropDown/MenuDataList";
     }
 }
 
@@ -125,7 +125,7 @@ namespace Core.Mvc.Areas.Administration.Routes
         /// <summary>
         /// <see cref="Controllers.AuthenticationController.Auth"/>
         /// </summary>
-        public const string Auth = "/Authentication/Auth";
+        public const string Auth = "/Administration/Authentication/Auth";
     }
 
     /// <summary>
@@ -136,17 +136,17 @@ namespace Core.Mvc.Areas.Administration.Routes
         /// <summary>
         /// <see cref="Controllers.IconController.Index"/>
         /// </summary>
-        public const string Index = "/Icon/Index";
+        public const string Index = "/Administration/Icon/Index";
 
         /// <summary>
         /// <see cref="Controllers.IconController.GridStateChange"/>
         /// </summary>
-        public const string GridStateChange = "/Icon/GridStateChange";
+        public const string GridStateChange = "/Administration/Icon/GridStateChange";
 
         /// <summary>
         /// <see cref="Controllers.IconController.AddDialog"/>
         /// </summary>
-        public const string AddDialog = "/Icon/AddDialog";
+        public const string AddDialog = "/Administration/Icon/AddDialog";
     }
 
     /// <summary>
@@ -157,12 +157,12 @@ namespace Core.Mvc.Areas.Administration.Routes
         /// <summary>
         /// <see cref="Controllers.LoginController.Index"/>
         /// </summary>
-        public const string Index = "/Login/Index";
+        public const string Index = "/Administration/Login/Index";
 
         /// <summary>
         /// <see cref="Controllers.LoginController.Error"/>
         /// </summary>
-        public const string Error = "/Login/Error";
+        public const string Error = "/Administration/Login/Error";
     }
 
     /// <summary>
@@ -173,57 +173,57 @@ namespace Core.Mvc.Areas.Administration.Routes
         /// <summary>
         /// <see cref="Controllers.MenuController.Index"/>
         /// </summary>
-        public const string Index = "/Menu/Index";
+        public const string Index = "/Administration/Menu/Index";
 
         /// <summary>
         /// <see cref="Controllers.MenuController.GridStateChange"/>
         /// </summary>
-        public const string GridStateChange = "/Menu/GridStateChange";
+        public const string GridStateChange = "/Administration/Menu/GridStateChange";
 
         /// <summary>
         /// <see cref="Controllers.MenuController.AddDialog"/>
         /// </summary>
-        public const string AddDialog = "/Menu/AddDialog";
+        public const string AddDialog = "/Administration/Menu/AddDialog";
 
         /// <summary>
         /// <see cref="Controllers.MenuController.RowContextMenu"/>
         /// </summary>
-        public const string RowContextMenu = "/Menu/RowContextMenu";
+        public const string RowContextMenu = "/Administration/Menu/RowContextMenu";
 
         /// <summary>
         /// <see cref="Controllers.MenuController.SaveCreate"/>
         /// </summary>
-        public const string SaveCreate = "/Menu/SaveCreate";
+        public const string SaveCreate = "/Administration/Menu/SaveCreate";
 
         /// <summary>
         /// <see cref="Controllers.MenuController.EditDialog"/>
         /// </summary>
-        public const string EditDialog = "/Menu/EditDialog";
+        public const string EditDialog = "/Administration/Menu/EditDialog";
 
         /// <summary>
         /// <see cref="Controllers.MenuController.SaveEdit"/>
         /// </summary>
-        public const string SaveEdit = "/Menu/SaveEdit";
+        public const string SaveEdit = "/Administration/Menu/SaveEdit";
 
         /// <summary>
         /// <see cref="Controllers.MenuController.Delete"/>
         /// </summary>
-        public const string Delete = "/Menu/Delete";
+        public const string Delete = "/Administration/Menu/Delete";
 
         /// <summary>
         /// <see cref="Controllers.MenuController.Recover"/>
         /// </summary>
-        public const string Recover = "/Menu/Recover";
+        public const string Recover = "/Administration/Menu/Recover";
 
         /// <summary>
         /// <see cref="Controllers.MenuController.Forbidden"/>
         /// </summary>
-        public const string Forbidden = "/Menu/Forbidden";
+        public const string Forbidden = "/Administration/Menu/Forbidden";
 
         /// <summary>
         /// <see cref="Controllers.MenuController.Normal"/>
         /// </summary>
-        public const string Normal = "/Menu/Normal";
+        public const string Normal = "/Administration/Menu/Normal";
     }
 
     /// <summary>
@@ -234,12 +234,12 @@ namespace Core.Mvc.Areas.Administration.Routes
         /// <summary>
         /// <see cref="Controllers.PermissionController.Index"/>
         /// </summary>
-        public const string Index = "/Permission/Index";
+        public const string Index = "/Administration/Permission/Index";
 
         /// <summary>
         /// <see cref="Controllers.PermissionController.GridStateChange"/>
         /// </summary>
-        public const string GridStateChange = "/Permission/GridStateChange";
+        public const string GridStateChange = "/Administration/Permission/GridStateChange";
     }
 
     /// <summary>
@@ -250,57 +250,57 @@ namespace Core.Mvc.Areas.Administration.Routes
         /// <summary>
         /// <see cref="Controllers.RoleController.Index"/>
         /// </summary>
-        public const string Index = "/Role/Index";
+        public const string Index = "/Administration/Role/Index";
 
         /// <summary>
         /// <see cref="Controllers.RoleController.AddDialog"/>
         /// </summary>
-        public const string AddDialog = "/Role/AddDialog";
+        public const string AddDialog = "/Administration/Role/AddDialog";
 
         /// <summary>
         /// <see cref="Controllers.RoleController.RowContextMenu"/>
         /// </summary>
-        public const string RowContextMenu = "/Role/RowContextMenu";
+        public const string RowContextMenu = "/Administration/Role/RowContextMenu";
 
         /// <summary>
         /// <see cref="Controllers.RoleController.GridStateChange"/>
         /// </summary>
-        public const string GridStateChange = "/Role/GridStateChange";
+        public const string GridStateChange = "/Administration/Role/GridStateChange";
 
         /// <summary>
         /// <see cref="Controllers.RoleController.Delete"/>
         /// </summary>
-        public const string Delete = "/Role/Delete";
+        public const string Delete = "/Administration/Role/Delete";
 
         /// <summary>
         /// <see cref="Controllers.RoleController.EditDialog"/>
         /// </summary>
-        public const string EditDialog = "/Role/EditDialog";
+        public const string EditDialog = "/Administration/Role/EditDialog";
 
         /// <summary>
         /// <see cref="Controllers.RoleController.SaveEdit"/>
         /// </summary>
-        public const string SaveEdit = "/Role/SaveEdit";
+        public const string SaveEdit = "/Administration/Role/SaveEdit";
 
         /// <summary>
         /// <see cref="Controllers.RoleController.Recover"/>
         /// </summary>
-        public const string Recover = "/Role/Recover";
+        public const string Recover = "/Administration/Role/Recover";
 
         /// <summary>
         /// <see cref="Controllers.RoleController.Forbidden"/>
         /// </summary>
-        public const string Forbidden = "/Role/Forbidden";
+        public const string Forbidden = "/Administration/Role/Forbidden";
 
         /// <summary>
         /// <see cref="Controllers.RoleController.Normal"/>
         /// </summary>
-        public const string Normal = "/Role/Normal";
+        public const string Normal = "/Administration/Role/Normal";
 
         /// <summary>
         /// <see cref="Controllers.RoleController.SaveCreate"/>
         /// </summary>
-        public const string SaveCreate = "/Role/SaveCreate";
+        public const string SaveCreate = "/Administration/Role/SaveCreate";
     }
 
     /// <summary>
@@ -311,56 +311,56 @@ namespace Core.Mvc.Areas.Administration.Routes
         /// <summary>
         /// <see cref="Controllers.UserController.Index"/>
         /// </summary>
-        public const string Index = "/User/Index";
+        public const string Index = "/Administration/User/Index";
 
         /// <summary>
         /// <see cref="Controllers.UserController.GridStateChange"/>
         /// </summary>
-        public const string GridStateChange = "/User/GridStateChange";
+        public const string GridStateChange = "/Administration/User/GridStateChange";
 
         /// <summary>
         /// <see cref="Controllers.UserController.RowContextMenu"/>
         /// </summary>
-        public const string RowContextMenu = "/User/RowContextMenu";
+        public const string RowContextMenu = "/Administration/User/RowContextMenu";
 
         /// <summary>
         /// <see cref="Controllers.UserController.AddDialog"/>
         /// </summary>
-        public const string AddDialog = "/User/AddDialog";
+        public const string AddDialog = "/Administration/User/AddDialog";
 
         /// <summary>
         /// <see cref="Controllers.UserController.SaveCreate"/>
         /// </summary>
-        public const string SaveCreate = "/User/SaveCreate";
+        public const string SaveCreate = "/Administration/User/SaveCreate";
 
         /// <summary>
         /// <see cref="Controllers.UserController.SaveEdit"/>
         /// </summary>
-        public const string SaveEdit = "/User/SaveEdit";
+        public const string SaveEdit = "/Administration/User/SaveEdit";
 
         /// <summary>
         /// <see cref="Controllers.UserController.EditDialog"/>
         /// </summary>
-        public const string EditDialog = "/User/EditDialog";
+        public const string EditDialog = "/Administration/User/EditDialog";
 
         /// <summary>
         /// <see cref="Controllers.UserController.Delete"/>
         /// </summary>
-        public const string Delete = "/User/Delete";
+        public const string Delete = "/Administration/User/Delete";
 
         /// <summary>
         /// <see cref="Controllers.UserController.Recover"/>
         /// </summary>
-        public const string Recover = "/User/Recover";
+        public const string Recover = "/Administration/User/Recover";
 
         /// <summary>
         /// <see cref="Controllers.UserController.Forbidden"/>
         /// </summary>
-        public const string Forbidden = "/User/Forbidden";
+        public const string Forbidden = "/Administration/User/Forbidden";
 
         /// <summary>
         /// <see cref="Controllers.UserController.Normal"/>
         /// </summary>
-        public const string Normal = "/User/Normal";
+        public const string Normal = "/Administration/User/Normal";
     }
 }

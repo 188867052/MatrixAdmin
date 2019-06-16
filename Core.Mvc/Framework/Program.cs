@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Core.Api
+namespace Core.Mvc
 {
     /// <summary>
     /// 

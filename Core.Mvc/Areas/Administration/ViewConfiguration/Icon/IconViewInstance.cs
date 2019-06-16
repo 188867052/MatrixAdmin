@@ -1,5 +1,4 @@
-﻿using Core.Extension;
-using Core.Mvc.Areas.Administration.Controllers;
+﻿using Core.Mvc.Areas.Administration.Routes;
 using Core.Web.JavaScript;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
@@ -10,10 +9,8 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
 
         public override void InitializeViewInstance(JavaScriptInitialize initialize)
         {
-            Url searchUrl = new Url(nameof(Administration), typeof(IconController), nameof(IconController.GridStateChange));
-            Url addUrl = new Url(nameof(Administration), typeof(IconController), nameof(IconController.AddDialog));
-            initialize.AddUrlInstance("searchUrl", searchUrl);
-            initialize.AddUrlInstance("addUrl", addUrl);
+            initialize.AddUrlInstance("searchUrl", IconRoute.GridStateChange);
+            initialize.AddUrlInstance("addUrl", IconRoute.AddDialog);
         }
     }
 }

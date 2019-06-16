@@ -1,5 +1,4 @@
-﻿using Core.Extension;
-using Core.Mvc.Areas.Administration.Controllers;
+﻿using Core.Mvc.Areas.Administration.Routes;
 using Core.Web.JavaScript;
 
 namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
@@ -10,8 +9,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
 
         public override void InitializeViewInstance(JavaScriptInitialize initialize)
         {
-            Url url = new Url(nameof(Administration), typeof(PermissionController), nameof(PermissionController.GridStateChange));
-            initialize.AddUrlInstance("searchUrl", url);
+            initialize.AddUrlInstance("searchUrl", PermissionRoute.GridStateChange);
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
         {
             return new List<string>
             {
-                Api.Js.Icon.Index
+                Js.Icon.Index
             };
         }
 

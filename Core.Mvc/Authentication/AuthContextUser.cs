@@ -1,6 +1,6 @@
 ﻿using Core.Entity.Enums;
 
-namespace Core.Api.Authentication
+namespace Core.Mvc.Authentication
 {
     /// <summary>
     /// 登录用户上下文.

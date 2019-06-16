@@ -64,7 +64,12 @@ namespace Core.Extension.RouteAnalyzer
                     info.Namespace = e.ControllerTypeInfo.AsType().Namespace;
                     if (string.IsNullOrEmpty(e.AttributeRouteInfo?.Template))
                     {
-                        info.Path = $"/{e.ControllerName}/{e.ActionName}";
+                        if (!string.IsNullOrEmpty(info.Area))
+                        {
+                            info.Path = $"/{info.Area}";
+                        }
+
+                        info.Path += $"/{e.ControllerName}/{e.ActionName}";
                     }
                 }
 

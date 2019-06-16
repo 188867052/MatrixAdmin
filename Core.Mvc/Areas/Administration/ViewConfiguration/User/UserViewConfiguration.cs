@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
-using Core.Mvc.Areas.Administration.Controllers;
+using Core.Mvc.Areas.Administration.Routes;
 using Core.Web.GridColumn;
 using Core.Web.ViewConfiguration;
 using Resources = Core.Mvc.Resource.Areas.Administration.ViewConfiguration.User.UserIndexResource;
@@ -22,8 +21,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 
         public override void CreateGridColumn(IList<BaseGridColumn<T>> gridColumns)
         {
-            Url url = new Url(nameof(Administration), typeof(UserController), nameof(UserController.RowContextMenu));
-            gridColumns.Add(new RowContextMenuColumn<T>(o => o.Id, "操作", url));
+            gridColumns.Add(new RowContextMenuColumn<T>(o => o.Id, "操作", UserRoute.RowContextMenu));
             gridColumns.Add(new TextGridColumn<T>(o => o.LoginName, Resources.LoginName));
             gridColumns.Add(new TextGridColumn<T>(o => o.DisplayName, Resources.DisplayName));
             gridColumns.Add(new TextGridColumn<T>(o => o.RoleName, "角色"));

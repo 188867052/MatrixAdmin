@@ -1,4 +1,4 @@
-﻿namespace Core.Api
+﻿namespace Core.Mvc
 {
     public class Javascript
     {
@@ -48,7 +48,7 @@
     }
 }
 	
-namespace Core.Api.Js
+namespace Core.Mvc.Js
 {
     public class Icon
     {

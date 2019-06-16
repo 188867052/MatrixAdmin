@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Core.Api.Authentication;
+using Core.Mvc.Authentication;
 using Core.Extension.RouteAnalyzer;
 using Core.Extension.StartupConfigurations;
 using Core.Mvc.Framework.StartupConfigurations;

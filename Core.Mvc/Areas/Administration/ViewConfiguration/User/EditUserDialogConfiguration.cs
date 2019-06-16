@@ -3,6 +3,7 @@ using Core.Entity.Enums;
 using Core.Extension;
 using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.Controllers;
+using Core.Mvc.Areas.Administration.Routes;
 using Core.Web.Button;
 using Core.Web.Dialog;
 using Core.Web.Enums;
@@ -46,9 +47,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 
         protected override void CreateButtons(IList<StandardButton> buttons)
         {
-            Url saveEditUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.SaveEdit));
-
-            buttons.Add(new StandardButton(Resources.Submit, "index.submit", saveEditUrl));
+            buttons.Add(new StandardButton(Resources.Submit, "index.submit", UserRoute.SaveEdit));
             buttons.Add(new StandardButton(Resources.Cancel, "core.cancel"));
         }
     }

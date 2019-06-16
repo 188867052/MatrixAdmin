@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Core.Extension;
 using Core.Model.Administration.Role;
-using Core.Mvc.Areas.Administration.Controllers;
+using Core.Mvc.Areas.Administration.Routes;
 using Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Role;
 using Core.Web.Button;
 using Core.Web.Dialog;
@@ -37,9 +36,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 
         protected override void CreateButtons(IList<StandardButton> buttons)
         {
-            Url saveEditUrl = new Url(nameof(Administration), typeof(RoleController), nameof(RoleController.SaveEdit));
-
-            buttons.Add(new StandardButton("提交", "index.submit", saveEditUrl));
+            buttons.Add(new StandardButton("提交", "index.submit", RoleRoute.SaveEdit));
             buttons.Add(new StandardButton("取消", "core.cancel"));
         }
     }

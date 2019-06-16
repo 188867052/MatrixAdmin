@@ -43,7 +43,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Permission
         {
             return new List<string>
             {
-               Api.Js.Permission.Index
+               Mvc.Js.Permission.Index
             };
         }
 

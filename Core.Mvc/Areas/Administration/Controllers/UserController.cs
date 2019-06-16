@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Core.Api.Areas.Administration.ViewConfiguration.User;
 using Core.Api.Routes;
 using Core.Model;
 using Core.Model.Administration.User;

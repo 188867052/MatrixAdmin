@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Core.Api;
+using Core.Mvc;
 using Core.Entity;
 using Core.Extension;
 using Core.Mvc.Areas.Redirect.Controllers;

@@ -31,7 +31,7 @@ namespace Core.Web.JavaScript
             this._fields.Add(key, value);
         }
 
-        public void AddUrlInstance(string key, Url url)
+        public void AddUrlInstance(string key, string url)
         {
             this.AddStringInstance(key, url);
         }

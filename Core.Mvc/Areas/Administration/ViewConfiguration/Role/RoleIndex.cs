@@ -36,7 +36,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
         {
             return new List<string>
             {
-               Api.Js.Role.Index
+               Js.Role.Index
             };
         }
 
