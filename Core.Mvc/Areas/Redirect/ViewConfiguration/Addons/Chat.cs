@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core.Mvc;
-using Core.Extension;
-using Core.Mvc.Areas.Redirect.Controllers;
+using Core.Mvc.Areas.Redirect.Routes;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
@@ -49,7 +47,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Addons
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("Gallery");
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(RedirectRoute.Index, "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
         }
     }

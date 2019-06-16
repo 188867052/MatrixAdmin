@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Core.Extension;
 using Core.Model.Administration.User;
-using Core.Mvc.Areas.Administration.Controllers;
+using Core.Mvc.Areas.Administration.Routes;
 using Core.Mvc.Framework.AdvancedGridFilters;
 using Core.Web.Button;
 using Core.Web.GridFilter;
@@ -31,11 +30,8 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 
         protected override void CreateButton(IList<StandardButton> buttons)
         {
-            Url searchUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.GridStateChange));
-            Url addDialogUrl = new Url(nameof(Administration), typeof(UserController), nameof(UserController.AddDialog));
-
-            buttons.Add(new StandardButton(Resources.SearchButtonLabel, "index.search", searchUrl, Resources.SearchButtonLabel));
-            buttons.Add(new StandardButton(Resources.AddButtonLabel, "core.dialog", addDialogUrl, Resources.AddButtonLabel));
+            buttons.Add(new StandardButton(Resources.SearchButtonLabel, "index.search", UserRoute.GridStateChange, Resources.SearchButtonLabel));
+            buttons.Add(new StandardButton(Resources.AddButtonLabel, "core.dialog", UserRoute.AddDialog, Resources.AddButtonLabel));
             buttons.Add(new StandardButton(Resources.ClearButtonLabel, "core.clear", tooltip: Resources.ClearButtonLabel));
         }
     }

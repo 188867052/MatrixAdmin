@@ -21,8 +21,8 @@
         {
             Pager pager = new Pager
             {
-                PageSize = Pager.DefaultPageSize,
-                PageIndex = Pager.DefaultPageIndex,
+                PageSize = DefaultPageSize,
+                PageIndex = DefaultPageIndex,
             };
 
             return pager;

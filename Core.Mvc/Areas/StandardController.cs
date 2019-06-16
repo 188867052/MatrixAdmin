@@ -4,9 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Http.Headers;
 using System.Text;
-using Core.Extension;
 using Core.Model;
-using Core.Mvc.Areas.Redirect.Controllers;
+using Core.Mvc.Areas.Redirect.Routes;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.Dialog;
 using Core.Web.Html;
@@ -30,10 +29,9 @@ namespace Core.Mvc.Areas
             this.HttpContext.Request.Cookies.TryGetValue("token", out string token);
             if (string.IsNullOrEmpty(token))
             {
-                var url = new Url(typeof(RedirectController), nameof(RedirectController.Login));
-                if (!this.HttpContext.Request.Path.Value.EndsWith(nameof(RedirectController.Login)))
+                if (this.HttpContext.Request.Path.Value != RedirectRoute.Login)
                 {
-                    this.HttpContext.Response.Redirect(url);
+                    this.HttpContext.Response.Redirect(RedirectRoute.Login);
                 }
             }
             else

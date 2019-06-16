@@ -1,10 +1,8 @@
-﻿using Core.Extension;
-
-namespace Core.Web.Sidebar
+﻿namespace Core.Web.Sidebar
 {
     public class LinkedAnchor
     {
-        public LinkedAnchor(Url url, string innerText, string @class = default)
+        public LinkedAnchor(string url, string innerText, string @class = default)
         {
             this.Url = url;
             this.InnerText = innerText;
@@ -15,11 +13,11 @@ namespace Core.Web.Sidebar
 
         private string InnerText { get; }
 
-        private Url Url { get; }
+        private string Url { get; }
 
         public string Render()
         {
-            return $"<li><a href=\"{this.Url.Render()}\">{this.InnerText}</a></li>";
+            return $"<li><a href=\"{this.Url}\">{this.InnerText}</a></li>";
         }
     }
 }

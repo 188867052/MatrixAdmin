@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Core.Mvc;
 using Core.Entity;
-using Core.Extension;
-using Core.Mvc.Areas.Redirect.Controllers;
+using Core.Mvc.Areas.Redirect.Routes;
 using Core.Mvc.Framework;
 using Core.Web.Html;
 using Core.Web.JavaScript;
@@ -97,7 +95,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
         protected virtual string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader();
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(RedirectRoute.Index, "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
         }
 

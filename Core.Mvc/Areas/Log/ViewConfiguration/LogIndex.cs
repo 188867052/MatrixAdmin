@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Core.Extension;
 using Core.Model;
 using Core.Model.Log;
 using Core.Mvc.Areas.Log.SearchFilterConfigurations;
-using Core.Mvc.Areas.Redirect.Controllers;
+using Core.Mvc.Areas.Redirect.Routes;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Mvc.Resource.Areas.Log.ViewConfiguration;
 using Core.Web.JavaScript;
@@ -33,14 +32,14 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
         {
             return new List<string>
             {
-                Mvc.Js.Log.Index
+                Js.Log.Index
             };
         }
 
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader(ErrorResource.Header);
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "Error-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(RedirectRoute.Index, "Home", "Go to Home", "Error-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
         }

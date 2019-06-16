@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Core.Extension;
 using Core.Model.Administration.Menu;
-using Core.Mvc.Areas.Administration.Controllers;
+using Core.Mvc.Areas.Administration.Routes;
 using Core.Web.Button;
 using Core.Web.Dialog;
 using Core.Web.Html;
@@ -38,9 +37,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 
         protected override void CreateButtons(IList<StandardButton> buttons)
         {
-            Url saveCreateUrl = new Url(nameof(Administration), typeof(MenuController), nameof(MenuController.SaveCreate));
-
-            buttons.Add(new StandardButton(Resources.Submit, "index.submit", saveCreateUrl));
+            buttons.Add(new StandardButton(Resources.Submit, "index.submit", MenuRoute.SaveCreate));
             buttons.Add(new StandardButton(Resources.Cancel, "core.cancel"));
         }
     }

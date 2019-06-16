@@ -13,7 +13,7 @@ namespace Core.Web.GridFilter
     /// <typeparam name="T">The post model.</typeparam>
     public class AdvancedDropDownGridFilter<T> : BaseGridFilter
     {
-        private readonly Url _url;
+        private readonly string _url;
         private readonly string _script;
         private readonly Identifier _id;
 
@@ -24,7 +24,7 @@ namespace Core.Web.GridFilter
         /// <param name="labelText">The labelText.</param>
         /// <param name="methodCall">The method call.</param>
         /// <param name="url">url.</param>
-        public AdvancedDropDownGridFilter(Expression<Func<T, int?>> expression, string labelText, MethodCall methodCall, Url url) : base(labelText, expression.GetPropertyName())
+        public AdvancedDropDownGridFilter(Expression<Func<T, int?>> expression, string labelText, MethodCall methodCall, string url) : base(labelText, expression.GetPropertyName())
         {
             this._url = url;
             this._script = new JavaScriptEvent(func: methodCall.Method, methodCall.Id, eventType: JavaScriptEventEnum.MouseDown).Render();
@@ -37,7 +37,7 @@ namespace Core.Web.GridFilter
             return $"<div class=\"{this.ContainerClass}\">" +
                    $"<div class=\"form-group\">" +
                    $"<label>{this.LabelText}</label>" +
-                   $"<input class=\"form-control\" id=\"{this._id.Value}\" name=\"{this.InputName}\" data-url=\"{this._url.Render()}\" list=\"{listId}\">" +
+                   $"<input class=\"form-control\" id=\"{this._id.Value}\" name=\"{this.InputName}\" data-url=\"{this._url}\" list=\"{listId}\">" +
                    $"</select>" +
                    $"</div>" +
                    $"</div>{this._script}" + $"<datalist id=\"{listId}\"></datalist>";

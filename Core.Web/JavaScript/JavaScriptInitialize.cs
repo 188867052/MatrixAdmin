@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using Core.Extension;
 using Core.Web.Identifiers;
 
 namespace Core.Web.JavaScript

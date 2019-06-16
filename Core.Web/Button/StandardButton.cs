@@ -1,5 +1,4 @@
 ﻿using System;
-using Core.Extension;
 using Core.Web.Identifiers;
 using Core.Web.JavaScript;
 

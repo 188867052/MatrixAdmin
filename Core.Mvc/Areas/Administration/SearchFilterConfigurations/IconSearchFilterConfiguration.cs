@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Core.Extension;
 using Core.Model.Administration.Icon;
-using Core.Mvc.Areas.Administration.Controllers;
+using Core.Mvc.Areas.Administration.Routes;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.SearchFilterConfiguration;
@@ -23,8 +22,7 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 
         protected override void CreateButton(IList<StandardButton> buttons)
         {
-            Url searchUrl = new Url(nameof(Administration), typeof(IconController), nameof(IconController.GridStateChange));
-            buttons.Add(new StandardButton(Resources.SearchButtonLabel, "index.search", searchUrl, Resources.SearchButtonLabel));
+            buttons.Add(new StandardButton(Resources.SearchButtonLabel, "index.search", IconRoute.GridStateChange, Resources.SearchButtonLabel));
             buttons.Add(new StandardButton(Resources.ClearButtonLabel, "core.clear", tooltip: Resources.ClearButtonToolTip));
         }
     }

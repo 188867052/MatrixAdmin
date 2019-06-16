@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Core.Extension;
 using Core.Model.Administration.Permission;
-using Core.Mvc.Areas.Administration.Controllers;
+using Core.Mvc.Areas.Administration.Routes;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.SearchFilterConfiguration;
@@ -19,9 +18,7 @@ namespace Core.Mvc.Areas.Administration.SearchFilterConfigurations
 
         protected override void CreateButton(IList<StandardButton> buttons)
         {
-            Url searchUrl = new Url(nameof(Administration), typeof(PermissionController), nameof(PermissionController.GridStateChange));
-
-            buttons.Add(new StandardButton(Resources.SearchButtonLabel, "index.search", searchUrl));
+            buttons.Add(new StandardButton(Resources.SearchButtonLabel, "index.search", PermissionRoute.GridStateChange));
             buttons.Add(new StandardButton(Resources.AddButtonLabel, "index.search"));
             buttons.Add(new StandardButton(Resources.ClearButtonLabel, "core.clear"));
         }

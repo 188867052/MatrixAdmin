@@ -1,6 +1,4 @@
-﻿using Core.Extension;
-
-namespace Core.Web.RowContextMenu
+﻿namespace Core.Web.RowContextMenu
 {
     public class RowContextMenuLink
     {

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Core.Extension;
 
 namespace Core.Web.Sidebar
 {
@@ -7,10 +6,10 @@ namespace Core.Web.Sidebar
     {
         private IList<LinkedAnchor> _linkedAnchors;
 
-        public SubMenu(string iconClass, Url url, string innerText, int importantCount = default, bool isSelected = default)
+        public SubMenu(string iconClass, string url, string innerText, int importantCount = default, bool isSelected = default)
         {
             this.IconClass = iconClass;
-            this.Url = url?.Render();
+            this.Url = url;
             this.InnerText = innerText;
             this.ImportantCount = importantCount;
             this.IsSelected = isSelected;

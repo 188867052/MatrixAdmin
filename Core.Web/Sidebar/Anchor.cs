@@ -1,12 +1,10 @@
-﻿using Core.Extension;
-
-namespace Core.Web.Sidebar
+﻿namespace Core.Web.Sidebar
 {
     public class Anchor
     {
-        public Anchor(Url url, string displayText, string toolTip, string iconClass, string @class)
+        public Anchor(string url, string displayText, string toolTip, string iconClass, string @class)
         {
-            this.Url = url.Render();
+            this.Url = url;
             this.DisplayText = displayText;
             this.Class = @class;
             this.ToolTip = toolTip;

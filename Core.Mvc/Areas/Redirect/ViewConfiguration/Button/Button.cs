@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Entity;
-using Core.Extension;
 using Core.Model;
-using Core.Mvc.Areas.Redirect.Controllers;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Mvc.Framework;
 using Core.Web.Sidebar;
 using Core.Web.ViewConfiguration;
 using Core.Api.Routes;
+using Core.Mvc.Areas.Redirect.Routes;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button
 {
@@ -56,7 +55,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("Buttons & Icons");
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(RedirectRoute.Index, "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
         }
     }

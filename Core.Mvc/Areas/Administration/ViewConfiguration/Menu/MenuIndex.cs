@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.Menu;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
-using Core.Mvc.Areas.Redirect.Controllers;
+using Core.Mvc.Areas.Redirect.Routes;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Mvc.Resource.Areas.Administration.ViewConfiguration.Menu;
 using Core.Web.JavaScript;
@@ -37,14 +36,14 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
         {
             return new List<string>
             {
-                Mvc.Js.Menu.Index
+                Js.Menu.Index
             };
         }
 
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader(MenuIndexResource.MenuManageTitle);
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(RedirectRoute.Index, "Home", "Go to Home", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
         }

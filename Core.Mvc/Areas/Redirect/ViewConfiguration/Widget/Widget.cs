@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core.Extension;
-using Core.Mvc.Areas.Redirect.Controllers;
+using Core.Mvc.Areas.Redirect.Routes;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.Sidebar;
 using Core.Web.ViewConfiguration;
@@ -43,7 +42,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Widget
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("Widget");
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "Home", "Go to Home", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(RedirectRoute.Index, "Home", "Go to Home", "icon-home", "tip-bottom"));
             return contentHeader.Render();
         }
     }

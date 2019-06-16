@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using Core.Entity.Enums;
-using Core.Extension;
 using Core.Model.Log;
+using Core.Mvc.Areas.Log.Routes;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.SearchFilterConfiguration;
 using Microsoft.Extensions.Logging;
-using LogController = Core.Mvc.Areas.Log.Controllers.LogController;
 using Resources = Core.Mvc.Resource.Areas.Log.SearchFilterConfigurations.LogSearchFilterConfigurationResource;
 
 namespace Core.Mvc.Areas.Log.SearchFilterConfigurations
@@ -38,10 +37,8 @@ namespace Core.Mvc.Areas.Log.SearchFilterConfigurations
 
         protected override void CreateButton(IList<StandardButton> buttons)
         {
-            Url url = new Url(nameof(Log), typeof(LogController), nameof(LogController.Clear));
-            Url searchUrl = new Url(nameof(Log), typeof(LogController), nameof(LogController.GridStateChange));
-            buttons.Add(new StandardButton(Resources.SearchButtonLabel, "index.search", searchUrl, Resources.SearchButtonLabel));
-            buttons.Add(new StandardButton(Resources.ClearButtonLabel, "index.clear", url, Resources.ClearButtonToolTip));
+            buttons.Add(new StandardButton(Resources.SearchButtonLabel, "index.search", LogRoute.GridStateChange, Resources.SearchButtonLabel));
+            buttons.Add(new StandardButton(Resources.ClearButtonLabel, "index.clear", LogRoute.Index, Resources.ClearButtonToolTip));
             buttons.Add(new StandardButton(Resources.ClearEmptyButtonLabel, "core.clear", tooltip: Resources.ClearEmptyButtonToolTip));
         }
     }

@@ -237,17 +237,17 @@ namespace Core.Extension
             MemberExpression left = Expression.Property(parameter, typeof(T).GetProperty(propertyName));
             ConstantExpression right = Expression.Constant(value);
 
-            return query.Provider.CreateQuery<T>(Expression.Call(null, QueryableExtension.WhereTSource(typeof(T)), query.Expression, Expression.Quote(lambda(left, right, parameter))));
+            return query.Provider.CreateQuery<T>(Expression.Call(null, WhereTSource(typeof(T)), query.Expression, Expression.Quote(lambda(left, right, parameter))));
         }
 
         private static MethodInfo WhereTSource(Type source)
         {
-            if (QueryableExtension.whereTSource is null)
+            if (whereTSource is null)
             {
-                QueryableExtension.whereTSource = new Func<IQueryable<object>, Expression<Func<object, bool>>, IQueryable<object>>(Queryable.Where).GetMethodInfo().GetGenericMethodDefinition();
+                whereTSource = new Func<IQueryable<object>, Expression<Func<object, bool>>, IQueryable<object>>(Queryable.Where).GetMethodInfo().GetGenericMethodDefinition();
             }
 
-            return QueryableExtension.whereTSource.MakeGenericMethod(source);
+            return whereTSource.MakeGenericMethod(source);
         }
 
         private static IQueryable<TEntity> AddInArrayFilter<TEntity, TValue>(this IQueryable<TEntity> query, Expression<Func<TEntity, TValue>> expression, TValue[] value)
