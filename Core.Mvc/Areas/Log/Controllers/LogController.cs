@@ -32,7 +32,7 @@ namespace Core.Mvc.Areas.Log.Controllers
         [HttpPost]
         public async Task<IActionResult> GridStateChange(LogPostModel model)
         {
-            ResponseModel response = await HttpClientAsync.Async<IList<LogModel>>(LogRoute.Search, model);
+            HttpResponseModel response = await HttpClientAsync.Async<IList<LogModel>>(LogRoute.Search, model);
             LogGridConfiguration<LogModel> configuration = new LogGridConfiguration<LogModel>(response);
 
             return this.GridConfiguration(configuration);
@@ -45,7 +45,7 @@ namespace Core.Mvc.Areas.Log.Controllers
         [HttpGet]
         public async Task<IActionResult> Clear()
         {
-            ResponseModel model = await HttpClientAsync.ResponseAsync(LogRoute.Clear);
+            HttpResponseModel model = await HttpClientAsync.Async<HttpResponseModel>(LogRoute.Clear);
 
             return this.Submit(model);
         }

@@ -74,7 +74,7 @@ namespace Core.Api.Controllers
             {
                 Menu entity = this.DbContext.Menu.Find(id);
                 MenuModel model = new MenuModel(entity);
-                ResponseModel response = ResponseModelFactory.CreateInstance;
+                HttpResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(model);
 
                 return this.Ok(response);
@@ -97,7 +97,7 @@ namespace Core.Api.Controllers
                 entity.CreateByUserName = "管理员";
                 this.DbContext.Menu.Add(entity);
                 this.DbContext.SaveChanges();
-                ResponseModel response = ResponseModelFactory.CreateInstance;
+                HttpResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetSuccess();
 
                 return this.Ok(response);
@@ -119,7 +119,7 @@ namespace Core.Api.Controllers
                 model.MapTo(entity);
 
                 this.DbContext.SaveChanges();
-                ResponseModel response = ResponseModelFactory.CreateInstance;
+                HttpResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetSuccess();
                 return this.Ok(response);
             }
@@ -133,7 +133,7 @@ namespace Core.Api.Controllers
         [HttpGet("{selected?}")]
         public IActionResult Tree(string selected)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
+            HttpResponseModel response = ResponseModelFactory.CreateInstance;
             List<MenuTree> tree = this.LoadMenuTree(selected);
             response.SetData(tree);
             return this.Ok(response);
@@ -148,7 +148,7 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Delete(int[] ids)
         {
-            ResponseModel response = this.UpdateIsEnable(true, ids);
+            HttpResponseModel response = this.UpdateIsEnable(true, ids);
             return this.Ok(response);
         }
 
@@ -161,7 +161,7 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Recover(int[] ids)
         {
-            ResponseModel response = this.UpdateIsEnable(false, ids);
+            HttpResponseModel response = this.UpdateIsEnable(false, ids);
             return this.Ok(response);
         }
 
@@ -173,7 +173,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public IActionResult Normal(int[] ids)
         {
-            ResponseModel response = MenuControllerHelper.UpdateStatus(true, ids);
+            HttpResponseModel response = MenuControllerHelper.UpdateStatus(true, ids);
             return this.Ok(response);
         }
 
@@ -185,7 +185,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public IActionResult Forbidden(int[] ids)
         {
-            ResponseModel response = MenuControllerHelper.UpdateStatus(false, ids);
+            HttpResponseModel response = MenuControllerHelper.UpdateStatus(false, ids);
             return this.Ok(response);
         }
 
@@ -213,7 +213,7 @@ namespace Core.Api.Controllers
         /// <param name="isEnable">isEnable.</param>
         /// <param name="ids">菜单ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
-        private ResponseModel UpdateIsEnable(bool isEnable, int[] ids)
+        private HttpResponseModel UpdateIsEnable(bool isEnable, int[] ids)
         {
             using (this.DbContext)
             {
@@ -229,7 +229,7 @@ namespace Core.Api.Controllers
         /// <param name="status">菜单状态.</param>
         /// <param name="ids">菜单ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
-        private ResponseModel UpdateStatus(StatusEnum status, int[] ids)
+        private HttpResponseModel UpdateStatus(StatusEnum status, int[] ids)
         {
             using (this.DbContext)
             {

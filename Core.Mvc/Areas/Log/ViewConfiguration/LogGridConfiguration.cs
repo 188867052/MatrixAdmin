@@ -11,7 +11,7 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
     public class LogGridConfiguration<T> : GridConfiguration<T>
     where T : LogModel
     {
-        public LogGridConfiguration(ResponseModel response) : base(response)
+        public LogGridConfiguration(HttpResponseModel response) : base(response)
         {
         }
 

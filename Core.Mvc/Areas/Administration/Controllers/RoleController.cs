@@ -44,7 +44,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> RowContextMenu(int id)
         {
-            ResponseModel model = await HttpClientAsync.Async<RoleModel>(RoleRoute.FindById, data: id);
+            HttpResponseModel model = await HttpClientAsync.Async<RoleModel>(RoleRoute.FindById, data: id);
             RoleModel user = (RoleModel)model.Data;
             RoleRowContextMenu menu = new RoleRowContextMenu(user);
             return this.Content(menu.Render(), "text/html", Encoding.UTF8);
@@ -72,7 +72,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            ResponseModel model = await HttpClientAsync.ResponseAsync(RoleRoute.Delete, id);
+            HttpResponseModel model = await HttpClientAsync.Async<HttpResponseModel>(RoleRoute.Delete, id);
 
             return this.Submit(model);
         }
@@ -85,7 +85,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> EditDialog(int id)
         {
-            ResponseModel model = await HttpClientAsync.Async<RoleModel>(RoleRoute.FindById, id);
+            HttpResponseModel model = await HttpClientAsync.Async<RoleModel>(RoleRoute.FindById, id);
             RoleModel user = (RoleModel)model.Data;
             EditRoleDialogConfiguration<RoleEditPostModel, RoleModel> dialog = new EditRoleDialogConfiguration<RoleEditPostModel, RoleModel>(user);
 
@@ -100,7 +100,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveEdit(RoleEditPostModel model)
         {
-            var response = await HttpClientAsync.ResponseAsync(RoleRoute.Edit, model);
+            var response = await HttpClientAsync.Async<HttpResponseModel>(RoleRoute.Edit, model);
 
             return this.Submit(response);
         }
@@ -113,7 +113,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Recover(int id)
         {
-            ResponseModel model = await HttpClientAsync.ResponseAsync(RoleRoute.Recover, id);
+            HttpResponseModel model = await HttpClientAsync.Async<HttpResponseModel>(RoleRoute.Recover, id);
 
             return this.Submit(model);
         }
@@ -126,7 +126,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Forbidden(int id)
         {
-            ResponseModel model = await HttpClientAsync.ResponseAsync(RoleRoute.Forbidden, id);
+            HttpResponseModel model = await HttpClientAsync.Async<HttpResponseModel>(RoleRoute.Forbidden, id);
 
             return this.Submit(model);
         }
@@ -139,7 +139,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Normal(int id)
         {
-            ResponseModel model = await HttpClientAsync.ResponseAsync(RoleRoute.Normal, id);
+            HttpResponseModel model = await HttpClientAsync.Async<HttpResponseModel>(RoleRoute.Normal, id);
 
             return this.Submit(model);
         }
@@ -152,7 +152,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveCreate(RoleCreatePostModel model)
         {
-            var response = await HttpClientAsync.ResponseAsync(RoleRoute.Create, model);
+            var response = await HttpClientAsync.Async<HttpResponseModel>(RoleRoute.Create, model);
 
             return this.Submit(response);
         }

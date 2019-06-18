@@ -59,7 +59,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> RowContextMenu(int id)
         {
-            ResponseModel model = await HttpClientAsync.Async<MenuModel>(MenuRoute.FindById, id);
+            HttpResponseModel model = await HttpClientAsync.Async<MenuModel>(MenuRoute.FindById, id);
             MenuModel menuModel = (MenuModel)model.Data;
             MenuRowContextMenu menu = new MenuRowContextMenu(menuModel);
             return this.Content(menu.Render(), "text/html", Encoding.UTF8);
@@ -73,7 +73,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveCreate(MenuCreatePostModel model)
         {
-            var response = await HttpClientAsync.ResponseAsync(MenuRoute.Create, model);
+            var response = await HttpClientAsync.Async<HttpResponseModel>(MenuRoute.Create, model);
 
             return this.Submit(response);
         }
@@ -86,7 +86,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> EditDialog(int id)
         {
-            ResponseModel model = await HttpClientAsync.Async<MenuModel>(MenuRoute.FindById, id);
+            HttpResponseModel model = await HttpClientAsync.Async<MenuModel>(MenuRoute.FindById, id);
             MenuModel menuModel = (MenuModel)model.Data;
             EditMenuDialogConfiguration<MenuEditPostModel, MenuModel> dialog = new EditMenuDialogConfiguration<MenuEditPostModel, MenuModel>(menuModel);
 
@@ -101,7 +101,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveEdit(MenuEditPostModel model)
         {
-            var response = await HttpClientAsync.ResponseAsync(MenuRoute.Edit, model);
+            var response = await HttpClientAsync.Async<HttpResponseModel>(MenuRoute.Edit, model);
 
             return this.Submit(response);
         }
@@ -114,7 +114,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            ResponseModel model = await HttpClientAsync.ResponseAsync(MenuRoute.Delete, id);
+            HttpResponseModel model = await HttpClientAsync.Async<HttpResponseModel>(MenuRoute.Delete, id);
 
             return this.Submit(model);
         }
@@ -127,7 +127,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Recover(int id)
         {
-            ResponseModel model = await HttpClientAsync.ResponseAsync(MenuRoute.Recover, id);
+            HttpResponseModel model = await HttpClientAsync.Async<HttpResponseModel>(MenuRoute.Recover, id);
 
             return this.Submit(model);
         }
@@ -140,7 +140,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Forbidden(int id)
         {
-            ResponseModel model = await HttpClientAsync.ResponseAsync(MenuRoute.Forbidden, id);
+            HttpResponseModel model = await HttpClientAsync.Async<HttpResponseModel>(MenuRoute.Forbidden, id);
 
             return this.Submit(model);
         }
@@ -153,7 +153,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpGet]
         public async Task<IActionResult> Normal(int id)
         {
-            ResponseModel model = await HttpClientAsync.ResponseAsync(MenuRoute.Normal, id);
+            HttpResponseModel model = await HttpClientAsync.Async<HttpResponseModel>(MenuRoute.Normal, id);
 
             return this.Submit(model);
         }

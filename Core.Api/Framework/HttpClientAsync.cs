@@ -7,6 +7,8 @@ using System.Net.Http;
 using Core.Extension.RouteAnalyzer;
 using System.Collections.Generic;
 using Core.Api.Routes;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Core.Api.Framework
 {
@@ -17,27 +19,33 @@ namespace Core.Api.Framework
             return new HttpClient() { BaseAddress = new Uri(SiteConfiguration.Host) };
         }
 
-        public static async Task<ResponseModel> Async<T>(string route, AuthenticationHeaderValue authorization, params object[] data)
+        public static async Task<HttpResponseModel> Async<TData>(string route, AuthenticationHeaderValue authorization, params object[] data)
         {
-            OnAsync(route, out IList<ParameterInfo> parameters);
             using (HttpClient httpClient = CreateInstance())
             {
                 httpClient.DefaultRequestHeaders.Authorization = authorization;
-                string json = await ExcuteAsync(httpClient, route, parameters, data);
-                ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json);
-                model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
+                string json = await ExcuteAsync(httpClient, route, data);
+                HttpResponseModel model = JsonConvert.DeserializeObject<HttpResponseModel>(json);
+                model.Data = JsonConvert.DeserializeObject<TData>(model.Data.ToString());
 
                 return model;
             }
         }
 
+        public static async Task<HttpResponseModel> Async<TData>(string route, params object[] data)
+        {
+            HttpResponseModel model = await Async2<HttpResponseModel>(route, data);
+            model.Data = JsonConvert.DeserializeObject<TData>(model.Data.ToString());
+
+            return model;
+        }
+
         public static async Task<dynamic> Async(string route, AuthenticationHeaderValue authorization, params object[] data)
         {
-            OnAsync(route, out IList<ParameterInfo> parameters);
             using (HttpClient httpClient = CreateInstance())
             {
                 httpClient.DefaultRequestHeaders.Authorization = authorization;
-                string json = await ExcuteAsync(httpClient, route, parameters, data);
+                string json = await ExcuteAsync(httpClient, route, data);
                 dynamic model = JsonConvert.DeserializeObject<dynamic>(json);
 
                 return model;
@@ -46,36 +54,10 @@ namespace Core.Api.Framework
 
         public static async Task<T> Async2<T>(string route, params object[] data)
         {
-            OnAsync(route, out IList<ParameterInfo> parameters);
             using (HttpClient httpClient = CreateInstance())
             {
-                string json = await ExcuteAsync(httpClient, route, parameters, data);
+                string json = await ExcuteAsync(httpClient, route, data);
                 T model = JsonConvert.DeserializeObject<T>(json);
-
-                return model;
-            }
-        }
-
-        public static async Task<ResponseModel> Async<T>(string route, params object[] data)
-        {
-            OnAsync(route, out IList<ParameterInfo> parameters);
-            using (HttpClient httpClient = CreateInstance())
-            {
-                string json = await ExcuteAsync(httpClient, route, parameters, data);
-                ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json);
-                model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
-
-                return model;
-            }
-        }
-
-        public static async Task<ResponseModel> ResponseAsync(string route, params object[] data)
-        {
-            OnAsync(route, out IList<ParameterInfo> parameters);
-            using (HttpClient httpClient = CreateInstance())
-            {
-                string json = await ExcuteAsync(httpClient, route, parameters, data);
-                ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json);
 
                 return model;
             }
@@ -83,10 +65,9 @@ namespace Core.Api.Framework
 
         public static async Task<dynamic> Async(string route, params object[] data)
         {
-            OnAsync(route, out IList<ParameterInfo> parameters);
             using (HttpClient httpClient = CreateInstance())
             {
-                string json = await ExcuteAsync(httpClient, route, parameters, data);
+                string json = await ExcuteAsync(httpClient, route, data);
                 var model = JsonConvert.DeserializeObject<dynamic>(json);
 
                 return model;
@@ -106,38 +87,64 @@ namespace Core.Api.Framework
             }
         }
 
-        private static async Task<string> GetAsync(HttpClient httpClient, string relativeUri, IList<ParameterInfo> parameterInfos, params object[] data)
+        private static async Task<string> GetAsync(HttpClient httpClient, string relativeUri, params object[] data)
         {
-            if (relativeUri.Contains("{") && relativeUri.Contains("}"))
-            {
-                relativeUri = relativeUri.Replace($"{{{parameterInfos[0].Name}}}", $"{data[0]}");
-            }
-            else if (data != null && data.Length > 0)
-            {
-                relativeUri += "?";
-                for (int i = 0; i < data.Length; i++)
-                {
-                    relativeUri += $"{parameterInfos[i].Name}={data[i]}";
-                    if (i != data.Length - 1)
-                    {
-                        relativeUri += "&";
-                    }
-                }
-            }
-            using (HttpResponseMessage httpResponse = await httpClient.GetAsync(relativeUri))
+            string url = GenerateUrl(relativeUri, data);
+            using (HttpResponseMessage httpResponse = await httpClient.GetAsync(url))
             {
                 return await httpResponse.Content.ReadAsStringAsync();
             }
         }
 
-        private static Task<string> ExcuteAsync(HttpClient httpClient, string route, IList<ParameterInfo> Parameters, params object[] data)
+        private static string GenerateUrl(string relativeUri, params object[] data)
+        {
+            string url = relativeUri;
+            IList<ParameterInfo> parameterInfos = Cache.Dictionary[relativeUri].Parameters;
+
+            // Attribute
+            if (relativeUri.Contains("{") && relativeUri.Contains("}"))
+            {
+                parameterInfos[0].Value = data[0].ToString();
+                url = Regex.Replace(relativeUri, "{.+}", data[0].ToString());
+                return url;
+            }
+            else if (data != null && data.Length > 0)
+            {
+                for (int i = 0; i < data.Length; i++)
+                {
+                    var obj = data[i].ToString();
+                    if (obj.Contains("{") && obj.Contains("}") && obj.Contains("="))
+                    {
+                        var keyPare = obj.Split(',');
+                        foreach (var item in keyPare)
+                        {
+                            string key = item.Split('=')[0].Trim('{').Trim();
+                            string value = item.Split('=')[1].Trim('}').Trim();
+                            parameterInfos.FirstOrDefault(o => o.Name == key).Value = value;
+                        }
+                    }
+                    else
+                    {
+                        parameterInfos[i].Value = data[i].ToString();
+                    }
+                }
+            }
+
+            url = relativeUri
+                + (parameterInfos.Count > 0 ? "?" : "")
+                + string.Join("&", parameterInfos.Select(o => $"{o.Name}={o.Value}"));
+
+            return url;
+        }
+
+        private static Task<string> ExcuteAsync(HttpClient httpClient, string route, params object[] data)
         {
             var httpMethod = Cache.Dictionary[route].HttpMethod;
             Task<string> json;
             switch (httpMethod.ToUpper())
             {
                 case "GET":
-                    json = GetAsync(httpClient, route, Parameters, data);
+                    json = GetAsync(httpClient, route, data);
                     break;
                 case "POST":
                     json = PostAsync(httpClient, route, data);
@@ -147,11 +154,6 @@ namespace Core.Api.Framework
             }
 
             return json;
-        }
-
-        private static void OnAsync(string route, out IList<ParameterInfo> parameters)
-        {
-            parameters = Cache.Dictionary[route].Parameters;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
         /// Initializes a new instance of the <see cref="IconGridConfiguration"/> class.
         /// </summary>
         /// <param name="model">The model.</param>
-        public IconGridConfiguration(ResponseModel model) : base(model)
+        public IconGridConfiguration(HttpResponseModel model) : base(model)
         {
         }
 

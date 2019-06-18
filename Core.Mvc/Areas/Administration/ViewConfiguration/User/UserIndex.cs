@@ -16,13 +16,13 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
          where TModel : UserModel
          where TPostModel : UserPostModel
     {
-        private readonly ResponseModel _response;
+        private readonly HttpResponseModel _response;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserIndex{TModel, TPostModel}"/> class.
         /// </summary>
         /// <param name="response">The response.</param>
-        public UserIndex(ResponseModel response)
+        public UserIndex(HttpResponseModel response)
         {
             _response = response;
         }

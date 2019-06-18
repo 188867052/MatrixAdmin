@@ -8,11 +8,11 @@
         /// <summary>
         /// CreateInstance.
         /// </summary>
-        public static ResponseModel CreateInstance => new ResponseModel();
+        public static HttpResponseModel CreateInstance => new HttpResponseModel();
 
         /// <summary>
         /// CreateResultInstance.
         /// </summary>
-        public static ResponseModel CreateResultInstance => new ResponseModel();
+        public static HttpResponseModel CreateResultInstance => new HttpResponseModel();
     }
 }

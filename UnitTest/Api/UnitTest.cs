@@ -44,6 +44,9 @@ namespace Core.UnitTest.Api
         public async Task TestGetTokenWithDynamicObject()
         {
             var data = await HttpClientAsync.Async(AuthenticationRoute.Auth, new { username = "admin", password = "111111" });
+            int code = data.code;
+
+            Assert.AreEqual(code, (int)HttpStatusCode.OK);
         }
 
         [Test]
@@ -69,7 +72,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestGetUserDataListAsync()
         {
-            ResponseModel model = await HttpClientAsync.Async<IList<UserModel>>(DataListRoute.GetUserDataList);
+            HttpResponseModel model = await HttpClientAsync.Async<IList<UserModel>>(DataListRoute.GetUserDataList);
             IList<UserModel> users = (IList<UserModel>)model.Data;
 
             Assert.GreaterOrEqual(users.Count, 0);
@@ -79,7 +82,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestGetRoleDataListAsync()
         {
-            ResponseModel model = await HttpClientAsync.Async<IList<RoleModel>>(DataListRoute.GetRoleDataList);
+            HttpResponseModel model = await HttpClientAsync.Async<IList<RoleModel>>(DataListRoute.GetRoleDataList);
             IList<RoleModel> roles = (IList<RoleModel>)model.Data;
 
             Assert.GreaterOrEqual(roles.Count, 0);
@@ -89,7 +92,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestGetMenuDataListAsync()
         {
-            ResponseModel model = await HttpClientAsync.Async<IList<MenuModel>>(DataListRoute.GetMenuDataList);
+            HttpResponseModel model = await HttpClientAsync.Async<IList<MenuModel>>(DataListRoute.GetMenuDataList);
             IList<MenuModel> menus = (IList<MenuModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
@@ -99,7 +102,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestUserIndexAsync()
         {
-            ResponseModel model = await HttpClientAsync.Async<IList<UserModel>>(UserRoute.Index, this.authentication);
+            HttpResponseModel model = await HttpClientAsync.Async<IList<UserModel>>(UserRoute.Index, this.authentication);
             IList<UserModel> menus = (IList<UserModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
@@ -109,7 +112,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestRoleIndexAsync()
         {
-            ResponseModel model = await HttpClientAsync.Async<IList<RoleModel>>(RoleRoute.Index);
+            HttpResponseModel model = await HttpClientAsync.Async<IList<RoleModel>>(RoleRoute.Index);
             IList<RoleModel> menus = (IList<RoleModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
@@ -119,7 +122,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestMenuIndexAsync()
         {
-            ResponseModel model = await HttpClientAsync.Async<IList<MenuModel>>(MenuRoute.Index);
+            HttpResponseModel model = await HttpClientAsync.Async<IList<MenuModel>>(MenuRoute.Index);
             IList<MenuModel> menus = (IList<MenuModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
@@ -129,7 +132,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestLogIndexAsync()
         {
-            ResponseModel model = await HttpClientAsync.Async<IList<LogModel>>(LogRoute.Index);
+            HttpResponseModel model = await HttpClientAsync.Async<IList<LogModel>>(LogRoute.Index);
             IList<LogModel> menus = (IList<LogModel>)model.Data;
 
             Assert.GreaterOrEqual(menus.Count, 0);
@@ -139,7 +142,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestUserFindByIdAsync()
         {
-            ResponseModel model = await HttpClientAsync.Async<UserModel>(UserRoute.FindById, 1);
+            HttpResponseModel model = await HttpClientAsync.Async<UserModel>(UserRoute.FindById, 1);
             UserModel user = (UserModel)model.Data;
 
             Assert.IsNotNull(user);
@@ -149,7 +152,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestMenuFindByIdAsync()
         {
-            ResponseModel model = await HttpClientAsync.Async<MenuModel>(MenuRoute.FindById, 1);
+            HttpResponseModel model = await HttpClientAsync.Async<MenuModel>(MenuRoute.FindById, 1);
             MenuModel user = (MenuModel)model.Data;
 
             Assert.IsNotNull(user);
@@ -159,7 +162,7 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestRoleFindByIdAsync()
         {
-            ResponseModel model = await HttpClientAsync.Async<RoleModel>(RoleRoute.FindById, 1);
+            HttpResponseModel model = await HttpClientAsync.Async<RoleModel>(RoleRoute.FindById, 1);
             RoleModel user = (RoleModel)model.Data;
 
             Assert.IsNotNull(user);

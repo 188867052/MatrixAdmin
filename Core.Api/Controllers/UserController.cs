@@ -71,7 +71,7 @@ namespace Core.Api.Controllers
         [HttpPost]
         public IActionResult Create(UserCreatePostModel model)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
+            HttpResponseModel response = ResponseModelFactory.CreateInstance;
             if (model.LoginName.Length <= 0)
             {
                 response.SetFailed(Resources.PleaseInputLoginName);
@@ -108,7 +108,7 @@ namespace Core.Api.Controllers
                 this.DbContext.Set<Role>().Load();
                 User entity = this.DbContext.User.Find(id);
                 UserModel model = new UserModel(entity);
-                ResponseModel response = ResponseModelFactory.CreateInstance;
+                HttpResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(model);
 
                 return this.Json(response);
@@ -124,7 +124,7 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public JsonResult Edit(UserEditPostModel model)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
+            HttpResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
             {
                 this.DbContext.Set<UserRoleMapping>().Load();
@@ -153,7 +153,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public JsonResult Delete(int[] ids)
         {
-            ResponseModel response = UserControllerHelper.UpdateIsDeleted(true, ids);
+            HttpResponseModel response = UserControllerHelper.UpdateIsDeleted(true, ids);
             return this.Json(response);
         }
 
@@ -165,7 +165,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public JsonResult Recover(int[] ids)
         {
-            ResponseModel response = UserControllerHelper.UpdateIsDeleted(false, ids);
+            HttpResponseModel response = UserControllerHelper.UpdateIsDeleted(false, ids);
             return this.Json(response);
         }
 
@@ -177,7 +177,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public JsonResult Enable(int[] ids)
         {
-            ResponseModel response = UserControllerHelper.UpdateIsEnable(true, ids);
+            HttpResponseModel response = UserControllerHelper.UpdateIsEnable(true, ids);
             return this.Json(response);
         }
 
@@ -189,7 +189,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public JsonResult Disable(int[] ids)
         {
-            ResponseModel response = UserControllerHelper.UpdateIsEnable(false, ids);
+            HttpResponseModel response = UserControllerHelper.UpdateIsEnable(false, ids);
             return this.Json(response);
         }
     }

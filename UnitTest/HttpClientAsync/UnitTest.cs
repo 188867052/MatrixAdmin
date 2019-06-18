@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Core.Api.Framework;
 using Core.Api.Routes;
@@ -22,42 +23,42 @@ namespace Core.UnitTest.Async
         public async Task TestGetWithNoParameterAsync()
         {
             var model = await HttpClientAsync.Async<IList<Permission>>(PermissionRoute.Index);
-            Assert.AreEqual(model.Code, 200);
+            Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
         }
 
         [Test]
         public async Task TestGetWithNoParameterGeneratedAsync()
         {
-            var model = await PermissionRoute.IndexAsync<ResponseModel>();
-            Assert.AreEqual(model.Code, 200);
+            var model = await PermissionRoute.IndexAsync<HttpResponseModel>();
+            Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
         }
 
         [Test]
         public async Task TestGetWithOneAttributeParameterAsync()
         {
             var model = await HttpClientAsync.Async<MenuModel>(MenuRoute.FindById, 1);
-            Assert.AreEqual(model.Code, 200);
+            Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
         }
 
         [Test]
         public async Task TestGetWithOneAttributeParameterGeneratedAsync()
         {
-            var model = await MenuRoute.FindByIdAsync<ResponseModel>(1);
-            Assert.AreEqual(model.Code, 200);
+            var model = await MenuRoute.FindByIdAsync<HttpResponseModel>(1);
+            Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
         }
 
         [Test]
         public async Task TestGetWithOneParameterAsync()
         {
             var model = await HttpClientAsync.Async<UserModel>(UserRoute.FindById, 1);
-            Assert.AreEqual(model.Code, 200);
+            Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
         }
 
         [Test]
         public async Task TestGetWithOneParameterGeneratedAsync()
         {
-            var model = await UserRoute.FindByIdAsync<ResponseModel>(1);
-            Assert.AreEqual(model.Code, 200);
+            var model = await UserRoute.FindByIdAsync<HttpResponseModel>(1);
+            Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
         }
 
         [Test]
@@ -65,7 +66,7 @@ namespace Core.UnitTest.Async
         {
             dynamic model = await HttpClientAsync.Async(AuthenticationRoute.Auth, "admin", "111111");
             int code = model.code;
-            Assert.AreEqual(code, 200);
+            Assert.AreEqual(code, (int)HttpStatusCode.OK);
         }
 
         [Test]
@@ -73,21 +74,21 @@ namespace Core.UnitTest.Async
         {
             var model = await AuthenticationRoute.AuthAsync<dynamic>("admin", "111111");
             int code = model.code;
-            Assert.AreEqual(code, 200);
+            Assert.AreEqual(code, (int)HttpStatusCode.OK);
         }
 
         [Test]
         public async Task TestPostWithParameterAsync()
         {
-            ResponseModel model = await HttpClientAsync.Async<IList<LogModel>>(LogRoute.Search, new LogPostModel() { PageSize = 10, PageIndex = 1 });
-            Assert.AreEqual(model.Code, 200);
+            HttpResponseModel model = await HttpClientAsync.Async<IList<LogModel>>(LogRoute.Search, new LogPostModel() { PageSize = 10, PageIndex = 1 });
+            Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
         }
 
         [Test]
         public async Task TestPostWithParameterGeneratedAsync()
         {
-            ResponseModel model = await LogRoute.SearchAsync<ResponseModel>(new LogPostModel() { PageSize = 10, PageIndex = 1 });
-            Assert.AreEqual(model.Code, 200);
+            HttpResponseModel model = await LogRoute.SearchAsync<HttpResponseModel>(new LogPostModel() { PageSize = 10, PageIndex = 1 });
+            Assert.AreEqual(model.Code, (int)HttpStatusCode.OK);
 
             IList<LogModel> data = JsonConvert.DeserializeObject<IList<LogModel>>(model.Data.ToString());
             Assert.NotNull(data);

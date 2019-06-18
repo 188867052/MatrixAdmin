@@ -45,12 +45,14 @@ namespace Core.UnitTest.CodeGenerator
         {
             try
             {
-                var client = new TestSite(typeof(Startup)).BuildClient();
-                var response = await client.GetAsync(Router.DefaultRoute);
-                var content = await response.Content.ReadAsStringAsync();
+                using (var client = new TestSite(typeof(Startup)).BuildClient())
+                {
+                    var response = await client.GetAsync(Router.DefaultRoute);
+                    var content = await response.Content.ReadAsStringAsync();
 
-                var routesGenerated = RouteGenerator.GenerateRoutes(content);
-                Assert.IsTrue(routesGenerated.Contains("namespace"));
+                    var routesGenerated = RouteGenerator.GenerateRoutes(content);
+                    Assert.IsTrue(routesGenerated.Contains("namespace"));
+                }
             }
             catch (Exception ex)
             {

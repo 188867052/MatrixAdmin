@@ -17,7 +17,7 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Button
 
         public override string Render()
         {
-            Task<ResponseModel> a = HttpClientAsync.Async<IList<Icon>>(IconRoute.Index);
+            Task<HttpResponseModel> a = HttpClientAsync.Async<IList<Icon>>(IconRoute.Index);
 #pragma warning disable VSTHRD002 // 避免有问题的同步等待
             List<Icon> icons = (List<Icon>)a.Result.Data;
 #pragma warning restore VSTHRD002 // 避免有问题的同步等待

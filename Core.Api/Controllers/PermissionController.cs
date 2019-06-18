@@ -64,7 +64,7 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Create(PermissionCreateViewModel model)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
+            HttpResponseModel response = ResponseModelFactory.CreateInstance;
             if (model.Name.Trim().Length <= 0)
             {
                 response.SetFailed("请输入权限名称");
@@ -104,7 +104,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 Permission entity = this.DbContext.Permission.FirstOrDefault(x => x.Id == code);
-                ResponseModel response = ResponseModelFactory.CreateInstance;
+                HttpResponseModel response = ResponseModelFactory.CreateInstance;
                 PermissionEditViewModel model = this.Mapper.Map<Permission, PermissionEditViewModel>(entity);
                 Menu menu = this.DbContext.Menu.FirstOrDefault(x => x.Id == entity.MenuId);
                 model.MenuName = menu.Name;
@@ -122,7 +122,7 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult SaveEdit(PermissionEditViewModel model)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
+            HttpResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
             {
                 if (this.DbContext.Permission.Count(x => x.ActionCode == model.ActionCode && x.Id != model.Code) > 0)
@@ -162,7 +162,7 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Delete(string ids)
         {
-            ResponseModel response = this.UpdateIsEnable(true, ids);
+            HttpResponseModel response = this.UpdateIsEnable(true, ids);
             return this.Ok(response);
         }
 
@@ -175,7 +175,7 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Recover(string ids)
         {
-            ResponseModel response = this.UpdateIsEnable(false, ids);
+            HttpResponseModel response = this.UpdateIsEnable(false, ids);
             return this.Ok(response);
         }
 
@@ -187,7 +187,7 @@ namespace Core.Api.Controllers
         [HttpGet("/api/v1/permission/permission_tree/{code}")]
         public IActionResult PermissionTree(int code)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
+            HttpResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
             {
                 Role role = this.DbContext.Role.FirstOrDefault(x => x.Id == code);
@@ -222,7 +222,7 @@ namespace Core.Api.Controllers
         /// <param name="isEnable">The isEnable.</param>
         /// <param name="ids">权限ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
-        private ResponseModel UpdateIsEnable(bool isEnable, string ids)
+        private HttpResponseModel UpdateIsEnable(bool isEnable, string ids)
         {
             using (this.DbContext)
             {
@@ -238,7 +238,7 @@ namespace Core.Api.Controllers
         /// <param name="status">权限状态.</param>
         /// <param name="ids">权限ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
-        private ResponseModel UpdateStatus(bool status, string ids)
+        private HttpResponseModel UpdateStatus(bool status, string ids)
         {
             using (this.DbContext)
             {

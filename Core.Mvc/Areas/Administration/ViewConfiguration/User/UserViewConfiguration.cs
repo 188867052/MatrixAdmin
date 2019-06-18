@@ -15,7 +15,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
         /// Initializes a new instance of the <see cref="UserViewConfiguration{T}"/> class.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        public UserViewConfiguration(ResponseModel entity) : base(entity)
+        public UserViewConfiguration(HttpResponseModel entity) : base(entity)
         {
         }
 

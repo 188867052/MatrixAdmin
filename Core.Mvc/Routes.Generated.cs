@@ -53,7 +53,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "number", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "number", Type = "int"},
                     }
                 }
             },
@@ -82,7 +82,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "POST",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "model", Type = "Core.Model.Log.LogPostModel",  BinderType = "" },
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Log.LogPostModel"},
                     }
                 }
             },
@@ -96,7 +96,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "name", Type = "string",  BinderType = "" },
+                        new ParameterInfo() {Name = "name", Type = "string"},
                     }
                 }
             },
@@ -105,7 +105,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "name", Type = "string",  BinderType = "" },
+                        new ParameterInfo() {Name = "name", Type = "string"},
                     }
                 }
             },
@@ -114,7 +114,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "name", Type = "string",  BinderType = "" },
+                        new ParameterInfo() {Name = "name", Type = "string"},
                     }
                 }
             },
@@ -123,8 +123,8 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "username", Type = "string",  BinderType = "" },
-                        new ParameterInfo() {Name = "password", Type = "string",  BinderType = "" },
+                        new ParameterInfo() {Name = "username", Type = "string"},
+                        new ParameterInfo() {Name = "password", Type = "string"},
                     }
                 }
             },
@@ -138,7 +138,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "POST",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Icon.IconPostModel",  BinderType = "" },
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Icon.IconPostModel"},
                     }
                 }
             },
@@ -167,7 +167,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "POST",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Menu.MenuPostModel",  BinderType = "" },
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Menu.MenuPostModel"},
                     }
                 }
             },
@@ -181,7 +181,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -190,7 +190,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "POST",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Menu.MenuCreatePostModel",  BinderType = "" },
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Menu.MenuCreatePostModel"},
                     }
                 }
             },
@@ -199,7 +199,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -208,7 +208,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "POST",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Menu.MenuEditPostModel",  BinderType = "" },
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Menu.MenuEditPostModel"},
                     }
                 }
             },
@@ -217,7 +217,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -226,7 +226,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -235,7 +235,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -244,7 +244,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -258,7 +258,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "POST",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Permission.PermissionPostModel",  BinderType = "" },
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Permission.PermissionPostModel"},
                     }
                 }
             },
@@ -277,7 +277,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -286,7 +286,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "POST",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Role.RolePostModel",  BinderType = "" },
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Role.RolePostModel"},
                     }
                 }
             },
@@ -295,7 +295,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -304,7 +304,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -313,7 +313,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "POST",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Role.RoleEditPostModel",  BinderType = "" },
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Role.RoleEditPostModel"},
                     }
                 }
             },
@@ -322,7 +322,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -331,7 +331,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -340,7 +340,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -349,7 +349,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "POST",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Role.RoleCreatePostModel",  BinderType = "" },
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Role.RoleCreatePostModel"},
                     }
                 }
             },
@@ -363,7 +363,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "POST",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.User.UserPostModel",  BinderType = "" },
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.User.UserPostModel"},
                     }
                 }
             },
@@ -372,7 +372,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -386,7 +386,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "POST",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.User.UserCreatePostModel",  BinderType = "" },
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.User.UserCreatePostModel"},
                     }
                 }
             },
@@ -395,7 +395,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "POST",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.User.UserEditPostModel",  BinderType = "" },
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.User.UserEditPostModel"},
                     }
                 }
             },
@@ -404,7 +404,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -413,7 +413,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -422,7 +422,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -431,7 +431,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },
@@ -440,7 +440,7 @@ namespace Core.Mvc.Areas.Redirect.Routes
                     HttpMethod = "GET",
                     Parameters = new List<ParameterInfo>
                     {
-                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                        new ParameterInfo() {Name = "id", Type = "int"},
                     }
                 }
             },

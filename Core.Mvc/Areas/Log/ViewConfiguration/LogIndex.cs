@@ -16,9 +16,9 @@ namespace Core.Mvc.Areas.Log.ViewConfiguration
         where TModel : LogModel
         where TPostModel : LogPostModel
     {
-        private readonly ResponseModel _response;
+        private readonly HttpResponseModel _response;
 
-        public LogIndex(ResponseModel response)
+        public LogIndex(HttpResponseModel response)
         {
             this._response = response;
         }

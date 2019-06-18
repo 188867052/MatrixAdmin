@@ -61,7 +61,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public IActionResult Clear()
         {
-            ResponseModel response = LogControllerHelper.DeleteAll();
+            HttpResponseModel response = LogControllerHelper.DeleteAll();
             return this.Ok(response);
         }
     }

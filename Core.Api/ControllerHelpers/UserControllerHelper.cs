@@ -12,7 +12,7 @@ namespace Core.Api.ControllerHelpers
         /// <param name="isDeleted">isDeleted.</param>
         /// <param name="ids">ids.</param>
         /// <returns>A ResponseModel.</returns>
-        public static ResponseModel UpdateIsDeleted(bool isDeleted, int[] ids)
+        public static HttpResponseModel UpdateIsDeleted(bool isDeleted, int[] ids)
         {
             string sql = @"UPDATE [User] SET is_deleted = @IsDeleted WHERE Id IN @Id";
             CoreContext.Dapper.Execute(sql, new { IsDeleted = isDeleted, Id = ids });
@@ -25,7 +25,7 @@ namespace Core.Api.ControllerHelpers
         /// <param name="isEnable">IsEnable.</param>
         /// <param name="ids">ids.</param>
         /// <returns>A ResponseModel.</returns>
-        public static ResponseModel UpdateIsEnable(bool isEnable, int[] ids)
+        public static HttpResponseModel UpdateIsEnable(bool isEnable, int[] ids)
         {
             string sql = @"UPDATE [User] SET is_enable = @IsEnable WHERE Id IN @Id";
             CoreContext.Dapper.Execute(sql, new { IsEnable = isEnable, Id = ids });

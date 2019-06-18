@@ -14,13 +14,13 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Icon
     public class IconIndex<T> : SearchGridPage<T>
         where T : IconPostModel
     {
-        private readonly ResponseModel _response;
+        private readonly HttpResponseModel _response;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IconIndex{T}"/> class.
         /// </summary>
         /// <param name="response">The response.</param>
-        public IconIndex(ResponseModel response)
+        public IconIndex(HttpResponseModel response)
         {
             this._response = response;
         }

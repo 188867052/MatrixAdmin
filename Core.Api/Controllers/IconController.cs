@@ -64,7 +64,7 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Create(IconCreateViewModel model)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
+            HttpResponseModel response = ResponseModelFactory.CreateInstance;
             if (model.Code.Trim().Length <= 0)
             {
                 response.SetFailed("请输入图标名称");
@@ -103,7 +103,7 @@ namespace Core.Api.Controllers
             using (this.DbContext)
             {
                 Icon entity = this.DbContext.Icon.FirstOrDefault(x => x.Id == id);
-                ResponseModel response = ResponseModelFactory.CreateInstance;
+                HttpResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(this.Mapper.Map<Icon, IconCreateViewModel>(entity));
                 return this.Json(response);
             }
@@ -118,7 +118,7 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult SaveEdit(IconCreateViewModel model)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
+            HttpResponseModel response = ResponseModelFactory.CreateInstance;
             if (model.Code.Trim().Length <= 0)
             {
                 response.SetFailed("请输入图标名称");
@@ -159,7 +159,7 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public JsonResult Delete(int[] ids)
         {
-            ResponseModel response = this.UpdateIsEnable(false, ids);
+            HttpResponseModel response = this.UpdateIsEnable(false, ids);
             return this.Json(response);
         }
 
@@ -172,7 +172,7 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public JsonResult Recover(int[] ids)
         {
-            ResponseModel response = this.UpdateIsEnable(true, ids);
+            HttpResponseModel response = this.UpdateIsEnable(true, ids);
             return this.Json(response);
         }
 
@@ -186,7 +186,7 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public JsonResult Batch(string command, int[] ids)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
+            HttpResponseModel response = ResponseModelFactory.CreateInstance;
             switch (command)
             {
                 case "delete":
@@ -218,7 +218,7 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public JsonResult Import(IconImportViewModel model)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
+            HttpResponseModel response = ResponseModelFactory.CreateInstance;
             if (model.Icons.Trim().Length <= 0)
             {
                 response.SetFailed("没有可用的图标");
@@ -246,7 +246,7 @@ namespace Core.Api.Controllers
         /// <param name="isEnable">is enable.</param>
         /// <param name="ids">图标ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
-        private ResponseModel UpdateIsEnable(bool isEnable, int[] ids)
+        private HttpResponseModel UpdateIsEnable(bool isEnable, int[] ids)
         {
             using (this.DbContext)
             {
@@ -262,7 +262,7 @@ namespace Core.Api.Controllers
         /// <param name="status">图标状态.</param>
         /// <param name="ids">图标ID字符串,多个以逗号隔开.</param>
         /// <returns></returns>
-        private ResponseModel UpdateStatus(bool status, int[] ids)
+        private HttpResponseModel UpdateStatus(bool status, int[] ids)
         {
             using (this.DbContext)
             {

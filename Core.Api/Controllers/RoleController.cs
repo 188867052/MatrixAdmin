@@ -54,7 +54,7 @@ namespace Core.Api.Controllers
             {
                 Role entity = this.DbContext.Role.Find(id);
                 RoleModel model = new RoleModel(entity);
-                ResponseModel response = ResponseModelFactory.CreateInstance;
+                HttpResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(model);
 
                 return this.Ok(response);
@@ -95,7 +95,7 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Create(RoleCreatePostModel model)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
+            HttpResponseModel response = ResponseModelFactory.CreateInstance;
             if (model.Name.Trim().Length <= 0)
             {
                 response.SetFailed("请输入角色名称");
@@ -133,7 +133,7 @@ namespace Core.Api.Controllers
         [ProducesResponseType(200)]
         public IActionResult Edit(RoleEditPostModel model)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
+            HttpResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
             {
                 if (this.DbContext.Role.Any(x => x.Name == model.Name && x.Id != model.Id))
@@ -173,7 +173,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public IActionResult Delete(int[] ids)
         {
-            ResponseModel response = RoleControllerHelper.UpdateIsDeleted(true, ids);
+            HttpResponseModel response = RoleControllerHelper.UpdateIsDeleted(true, ids);
             return this.Ok(response);
         }
 
@@ -185,7 +185,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public IActionResult Recover(int[] ids)
         {
-            ResponseModel response = RoleControllerHelper.UpdateIsDeleted(false, ids);
+            HttpResponseModel response = RoleControllerHelper.UpdateIsDeleted(false, ids);
             return this.Ok(response);
         }
 
@@ -197,7 +197,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public IActionResult Normal(int[] ids)
         {
-            ResponseModel response = RoleControllerHelper.UpdateIsForbidden(false, ids);
+            HttpResponseModel response = RoleControllerHelper.UpdateIsForbidden(false, ids);
             return this.Ok(response);
         }
 
@@ -209,7 +209,7 @@ namespace Core.Api.Controllers
         [HttpGet]
         public IActionResult Forbidden(int[] ids)
         {
-            ResponseModel response = RoleControllerHelper.UpdateIsForbidden(true, ids);
+            HttpResponseModel response = RoleControllerHelper.UpdateIsForbidden(true, ids);
             return this.Ok(response);
         }
 
@@ -221,7 +221,7 @@ namespace Core.Api.Controllers
         [HttpPost("/api/v1/role/assign_permission")]
         public IActionResult AssignPermission(RoleAssignPermissionPayload payload)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
+            HttpResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
             {
                 Role role = this.DbContext.Role.FirstOrDefault(x => x.Id == payload.RoleCode);
@@ -266,7 +266,7 @@ namespace Core.Api.Controllers
         [HttpGet("/api/v1/role/find_list_by_user_guid/{guid}")]
         public IActionResult FindListByUserGuid(Guid guid)
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
+            HttpResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
             {
                 // 有N+1次查询的性能问题
@@ -297,7 +297,7 @@ WHERE URM.UserGuid={0}";
         [HttpGet]
         public IActionResult FindSimpleList()
         {
-            ResponseModel response = ResponseModelFactory.CreateInstance;
+            HttpResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
             {
                 var roles = this.DbContext.Role.Where(x => !x.IsEnable && x.IsForbidden).Select(x => new { x.Name, x.Id }).ToList();

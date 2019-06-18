@@ -171,7 +171,7 @@ namespace Route.Generator
                 sb.AppendLine("                    {");
                 foreach (var item in parameters)
                 {
-                    sb.AppendLine($"                        new {nameof(ParameterInfo)}() {{{nameof(item.Name)} = \"{item.Name}\", {nameof(item.Type)} = \"{item.Type}\",  {nameof(item.BinderType)} = \"{item.BinderType}\" }},");
+                    sb.AppendLine($"                        new {nameof(ParameterInfo)}() {{{nameof(item.Name)} = \"{item.Name}\", {nameof(item.Type)} = \"{item.Type}\"}},");
                 }
 
                 sb.AppendLine("                    }");

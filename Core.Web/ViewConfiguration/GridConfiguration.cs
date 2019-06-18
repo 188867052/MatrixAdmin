@@ -14,7 +14,7 @@ namespace Core.Web.ViewConfiguration
         /// Initializes a new instance of the <see cref="GridConfiguration{T}"/> class.
         /// </summary>
         /// <param name="model">The model.</param>
-        protected GridConfiguration(ResponseModel model)
+        protected GridConfiguration(HttpResponseModel model)
         {
             this._entityList = (List<T>)model.Data;
             this.Count = model.TotalCount;

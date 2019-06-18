@@ -59,7 +59,7 @@ namespace Core.Mvc.Areas
             return new JsonResult(new { data = index.Render(default), id = index.Identifier.Value });
         }
 
-        protected IActionResult Submit(ResponseModel model)
+        protected IActionResult Submit(HttpResponseModel model)
         {
             return new JsonResult(model);
         }

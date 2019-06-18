@@ -21,7 +21,9 @@ namespace Route.Generator
                 .UseContentRoot(AppContext.BaseDirectory)
                 .UseStartup(this._startupType);
 
+#pragma warning disable CA2000 // Dispose objects before losing scope
             TestServer server = new TestServer(builder);
+#pragma warning restore CA2000 // Dispose objects before losing scope
             var client = server.CreateClient();
             client.BaseAddress = new Uri("http://localhost");
 

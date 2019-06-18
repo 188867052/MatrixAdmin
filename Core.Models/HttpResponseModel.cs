@@ -5,14 +5,14 @@ namespace Core.Model
     /// <summary>
     /// 请求响应实体.
     /// </summary>
-    public class ResponseModel : Pager
+    public class HttpResponseModel : Pager
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResponseModel"/> class.
+        /// Initializes a new instance of the <see cref="HttpResponseModel"/> class.
         /// </summary>
         /// <param name="data">data.</param>
         /// <param name="pager">pager.</param>
-        public ResponseModel(object data, Pager pager) : this()
+        public HttpResponseModel(object data, Pager pager) : this()
         {
             this.Data = data;
             this.PageSize = pager.PageSize;
@@ -21,10 +21,10 @@ namespace Core.Model
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResponseModel"/> class.
+        /// Initializes a new instance of the <see cref="HttpResponseModel"/> class.
         /// 请求响应实体类.
         /// </summary>
-        public ResponseModel()
+        public HttpResponseModel()
         {
             this.Code = (int)HttpStatusCode.OK;
             this.Message = "操作成功";

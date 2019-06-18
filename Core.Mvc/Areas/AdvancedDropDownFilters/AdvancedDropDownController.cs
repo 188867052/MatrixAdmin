@@ -21,7 +21,7 @@ namespace Core.Mvc.Areas.AdvancedDropDownFilters
         [HttpGet]
         public async Task<IActionResult> RoleDataList(string name)
         {
-            ResponseModel model = await HttpClientAsync.Async<IList<Role>>(DataListRoute.GetRoleDataList, name);
+            HttpResponseModel model = await HttpClientAsync.Async<IList<Role>>(DataListRoute.GetRoleDataList, name);
             IList<Role> roles = (IList<Role>)model.Data;
 
             return this.DataListContent(roles, o => o.Id, o => o.Name);
@@ -30,7 +30,7 @@ namespace Core.Mvc.Areas.AdvancedDropDownFilters
         [HttpGet]
         public async Task<IActionResult> UserDataList(string name)
         {
-            ResponseModel model = await HttpClientAsync.Async<IList<UserModel>>(DataListRoute.GetUserDataList, name);
+            HttpResponseModel model = await HttpClientAsync.Async<IList<UserModel>>(DataListRoute.GetUserDataList, name);
             IList<UserModel> users = (IList<UserModel>)model.Data;
 
             return this.DataListContent(users, o => o.Id, o => o.LoginName);
@@ -39,7 +39,7 @@ namespace Core.Mvc.Areas.AdvancedDropDownFilters
         [HttpGet]
         public async Task<IActionResult> MenuDataList(string name)
         {
-            ResponseModel model = await HttpClientAsync.Async<IList<MenuModel>>(DataListRoute.GetMenuDataList, name);
+            HttpResponseModel model = await HttpClientAsync.Async<IList<MenuModel>>(DataListRoute.GetMenuDataList, name);
             IList<MenuModel> users = (IList<MenuModel>)model.Data;
 
             return this.DataListContent(users, o => o.Id, o => o.Name);

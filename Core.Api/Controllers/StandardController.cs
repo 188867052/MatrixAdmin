@@ -36,7 +36,7 @@ namespace Core.Api.Framework
             }
 
             var list = query.ToPagedList(pager);
-            ResponseModel response = new ResponseModel(list, pager);
+            HttpResponseModel response = new HttpResponseModel(list, pager);
 
             return this.Ok(response);
         }
@@ -44,7 +44,7 @@ namespace Core.Api.Framework
         protected IActionResult StandardSearchResponse<T, TResponse>(IQueryable<T> query, Pager pager, Func<T, TResponse> convert)
         {
             IList<TResponse> models = query.ToPagedList(pager).Select(convert).ToList();
-            ResponseModel response = new ResponseModel(models, pager);
+            HttpResponseModel response = new HttpResponseModel(models, pager);
             return this.Ok(response);
         }
 
@@ -52,7 +52,7 @@ namespace Core.Api.Framework
         {
             Pager pager = Pager.CreateDefaultInstance();
             var list = query.ToPagedList(pager);
-            ResponseModel response = new ResponseModel(list, pager);
+            HttpResponseModel response = new HttpResponseModel(list, pager);
 
             return this.Ok(response);
         }
@@ -61,12 +61,12 @@ namespace Core.Api.Framework
         {
             Pager pager = Pager.CreateDefaultInstance();
             var list = query.ToPagedList(pager);
-            ResponseModel response = new ResponseModel(list, pager);
+            HttpResponseModel response = new HttpResponseModel(list, pager);
 
             return this.Ok(response);
         }
 
-        protected IActionResult SubmitResponse(ResponseModel response)
+        protected IActionResult SubmitResponse(HttpResponseModel response)
         {
             response.SetSuccess();
             return this.Ok(response);

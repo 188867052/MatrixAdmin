@@ -33,7 +33,7 @@ namespace Core.Mvc.Areas.Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> GridStateChange(PermissionPostModel model)
         {
-            ResponseModel response = await HttpClientAsync.Async<IList<Permission>>(PermissionRoute.Search, model);
+            HttpResponseModel response = await HttpClientAsync.Async<IList<Permission>>(PermissionRoute.Search, model);
             PermissionGridConfiguration configuration = new PermissionGridConfiguration(response);
 
             return this.GridConfiguration(configuration);

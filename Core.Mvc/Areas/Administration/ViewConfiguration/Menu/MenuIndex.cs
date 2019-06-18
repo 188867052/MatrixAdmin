@@ -16,13 +16,13 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
         where TModel : MenuModel
         where TPostModel : MenuPostModel
     {
-        private readonly ResponseModel _response;
+        private readonly HttpResponseModel _response;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MenuIndex{TModel, TPostModel}"/> class.
         /// </summary>
         /// <param name="response">The response.</param>
-        public MenuIndex(ResponseModel response)
+        public MenuIndex(HttpResponseModel response)
         {
             this._response = response;
         }
