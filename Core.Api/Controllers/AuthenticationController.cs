@@ -30,7 +30,6 @@ namespace Core.Api.Controllers
         /// <param name="username">username.</param>
         /// <param name="password">password.</param>
         /// <returns></returns>
-        [HttpGet]
         public IActionResult Auth(string username, string password)
         {
             using (this.DbContext)

@@ -1,305 +1,447 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Extension.RouteAnalyzer;
 
 namespace Core.Mvc.Areas.Redirect.Routes
 {
     public class Cache
     {
-        public static Dictionary<string, dynamic> Dictionary = new Dictionary<string, dynamic>()
+        public static Dictionary<string, RouteInfo> Dictionary = new Dictionary<string, RouteInfo>()
         {
-            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Index, new
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Index, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Index2, new
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Index2, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Login, new
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Login, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Widgets, new
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Widgets, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Buttons, new
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Buttons, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Calendar, new
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Calendar, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Charts, new
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Charts, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Chat, new
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Chat, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Error, new
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Error, new RouteInfo
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "number", Type = "int",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Gallery, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Gallery, new
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Interface, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Interface, new
+            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Invoice, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Redirect.Routes.RedirectRoute.Invoice, new
+            {Core.Mvc.Areas.Log.Routes.LogRoute.Index, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Log.Routes.LogRoute.Index, new
-                {
-                    HttpMethod = "GET",
-                }
-            },
-            {Core.Mvc.Areas.Log.Routes.LogRoute.GridStateChange, new
+            {Core.Mvc.Areas.Log.Routes.LogRoute.GridStateChange, new RouteInfo
                 {
                     HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Log.LogPostModel",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Log.Routes.LogRoute.Clear, new
+            {Core.Mvc.Areas.Log.Routes.LogRoute.Clear, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.AdvancedDropDownFilters.AdvancedDropDownRoute.RoleDataList, new
+            {Core.Mvc.Areas.AdvancedDropDownFilters.AdvancedDropDownRoute.RoleDataList, new RouteInfo
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "name", Type = "string",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Mvc.Areas.AdvancedDropDownFilters.AdvancedDropDownRoute.UserDataList, new RouteInfo
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "name", Type = "string",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Mvc.Areas.AdvancedDropDownFilters.AdvancedDropDownRoute.MenuDataList, new RouteInfo
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "name", Type = "string",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.AuthenticationRoute.Auth, new RouteInfo
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "username", Type = "string",  BinderType = "" },
+                        new ParameterInfo() {Name = "password", Type = "string",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.IconRoute.Index, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.AdvancedDropDownFilters.AdvancedDropDownRoute.UserDataList, new
-                {
-                    HttpMethod = "GET",
-                }
-            },
-            {Core.Mvc.Areas.AdvancedDropDownFilters.AdvancedDropDownRoute.MenuDataList, new
-                {
-                    HttpMethod = "GET",
-                }
-            },
-            {Core.Mvc.Areas.Administration.Routes.AuthenticationRoute.Auth, new
-                {
-                    HttpMethod = "GET",
-                }
-            },
-            {Core.Mvc.Areas.Administration.Routes.IconRoute.Index, new
-                {
-                    HttpMethod = "GET",
-                }
-            },
-            {Core.Mvc.Areas.Administration.Routes.IconRoute.GridStateChange, new
+            {Core.Mvc.Areas.Administration.Routes.IconRoute.GridStateChange, new RouteInfo
                 {
                     HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Icon.IconPostModel",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.IconRoute.AddDialog, new
+            {Core.Mvc.Areas.Administration.Routes.IconRoute.AddDialog, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.LoginRoute.Index, new
+            {Core.Mvc.Areas.Administration.Routes.LoginRoute.Index, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.LoginRoute.Error, new
+            {Core.Mvc.Areas.Administration.Routes.LoginRoute.Error, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.MenuRoute.Index, new
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.Index, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.MenuRoute.GridStateChange, new
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.GridStateChange, new RouteInfo
                 {
                     HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Menu.MenuPostModel",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.MenuRoute.AddDialog, new
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.AddDialog, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.MenuRoute.RowContextMenu, new
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.RowContextMenu, new RouteInfo
                 {
                     HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.MenuRoute.SaveCreate, new
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.SaveCreate, new RouteInfo
                 {
                     HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Menu.MenuCreatePostModel",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.MenuRoute.EditDialog, new
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.EditDialog, new RouteInfo
                 {
                     HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.MenuRoute.SaveEdit, new
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.SaveEdit, new RouteInfo
                 {
                     HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Menu.MenuEditPostModel",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.MenuRoute.Delete, new
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.Delete, new RouteInfo
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.Recover, new RouteInfo
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.Forbidden, new RouteInfo
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.MenuRoute.Normal, new RouteInfo
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.PermissionRoute.Index, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.MenuRoute.Recover, new
-                {
-                    HttpMethod = "GET",
-                }
-            },
-            {Core.Mvc.Areas.Administration.Routes.MenuRoute.Forbidden, new
-                {
-                    HttpMethod = "GET",
-                }
-            },
-            {Core.Mvc.Areas.Administration.Routes.MenuRoute.Normal, new
-                {
-                    HttpMethod = "GET",
-                }
-            },
-            {Core.Mvc.Areas.Administration.Routes.PermissionRoute.Index, new
-                {
-                    HttpMethod = "GET",
-                }
-            },
-            {Core.Mvc.Areas.Administration.Routes.PermissionRoute.GridStateChange, new
+            {Core.Mvc.Areas.Administration.Routes.PermissionRoute.GridStateChange, new RouteInfo
                 {
                     HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Permission.PermissionPostModel",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.RoleRoute.Index, new
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.Index, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.RoleRoute.AddDialog, new
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.AddDialog, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.RoleRoute.RowContextMenu, new
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.RowContextMenu, new RouteInfo
                 {
                     HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.RoleRoute.GridStateChange, new
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.GridStateChange, new RouteInfo
                 {
                     HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Role.RolePostModel",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.RoleRoute.Delete, new
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.Delete, new RouteInfo
                 {
                     HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.RoleRoute.EditDialog, new
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.EditDialog, new RouteInfo
                 {
                     HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.RoleRoute.SaveEdit, new
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.SaveEdit, new RouteInfo
                 {
                     HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Role.RoleEditPostModel",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.RoleRoute.Recover, new
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.Recover, new RouteInfo
                 {
                     HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.RoleRoute.Forbidden, new
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.Forbidden, new RouteInfo
                 {
                     HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.RoleRoute.Normal, new
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.Normal, new RouteInfo
                 {
                     HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.RoleRoute.SaveCreate, new
+            {Core.Mvc.Areas.Administration.Routes.RoleRoute.SaveCreate, new RouteInfo
                 {
                     HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.Role.RoleCreatePostModel",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.UserRoute.Index, new
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.Index, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.UserRoute.GridStateChange, new
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.GridStateChange, new RouteInfo
                 {
                     HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.User.UserPostModel",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.UserRoute.RowContextMenu, new
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.RowContextMenu, new RouteInfo
+                {
+                    HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
+                }
+            },
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.AddDialog, new RouteInfo
                 {
                     HttpMethod = "GET",
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.UserRoute.AddDialog, new
-                {
-                    HttpMethod = "GET",
-                }
-            },
-            {Core.Mvc.Areas.Administration.Routes.UserRoute.SaveCreate, new
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.SaveCreate, new RouteInfo
                 {
                     HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.User.UserCreatePostModel",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.UserRoute.SaveEdit, new
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.SaveEdit, new RouteInfo
                 {
                     HttpMethod = "POST",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "model", Type = "Core.Model.Administration.User.UserEditPostModel",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.UserRoute.EditDialog, new
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.EditDialog, new RouteInfo
                 {
                     HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.UserRoute.Delete, new
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.Delete, new RouteInfo
                 {
                     HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.UserRoute.Recover, new
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.Recover, new RouteInfo
                 {
                     HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.UserRoute.Forbidden, new
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.Forbidden, new RouteInfo
                 {
                     HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
                 }
             },
-            {Core.Mvc.Areas.Administration.Routes.UserRoute.Normal, new
+            {Core.Mvc.Areas.Administration.Routes.UserRoute.Normal, new RouteInfo
                 {
                     HttpMethod = "GET",
+                    Parameters = new List<ParameterInfo>
+                    {
+                        new ParameterInfo() {Name = "id", Type = "int",  BinderType = "" },
+                    }
                 }
             },
         };

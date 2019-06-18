@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Api.Framework;
 using Core.Extension.RouteAnalyzer;
 using Newtonsoft.Json;
 
@@ -21,6 +22,7 @@ namespace Route.Generator
             StringBuilder sb = new StringBuilder();
             var group = infos.GroupBy(o => o.Namespace);
             sb.AppendLine($"using {typeof(Dictionary<int, int>).Namespace};");
+            sb.AppendLine($"using {typeof(Task).Namespace};");
             sb.AppendLine($"using {typeof(ParameterInfo).Namespace};");
             sb.AppendLine();
             for (int i = 0; i < group.Count(); i++)
@@ -85,6 +87,16 @@ namespace Route.Generator
                 sb.AppendLine($"        /// <see cref=\"{crefNamespace}.{item.ActionName}\"/>");
                 sb.AppendLine("        /// </summary>");
                 sb.AppendLine($"        public const string {item.ActionName} = \"{item.Path}\";");
+
+                // TODO
+                if (item.Namespace.Contains("Core.Api"))
+                {
+                    sb.AppendLine($"        public static async Task<T> {item.ActionName}Async<T>({GeneraParameters(item.Parameters, true, false)})");
+                    sb.AppendLine("        {");
+                    sb.AppendLine($"            return await {typeof(HttpClientAsync).FullName}.{nameof(HttpClientAsync.Async2)}<T>({item.ActionName}{GeneraParameters(item.Parameters, false, true)});");
+                    sb.AppendLine("        }");
+                }
+
                 if (i != group.Count() - 1)
                 {
                     sb.AppendLine();
@@ -132,12 +144,12 @@ namespace Route.Generator
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("    public class Cache");
             sb.AppendLine("    {");
-            sb.AppendLine("        public static Dictionary<string, dynamic> Dictionary = new Dictionary<string, dynamic>()");
+            sb.AppendLine($"        public static Dictionary<string, {nameof(RouteInfo)}> Dictionary = new Dictionary<string, {nameof(RouteInfo)}>()");
             sb.AppendLine("        {");
             for (int i = 0; i < infos.Count(); i++)
             {
                 var item = infos.ElementAt(i);
-                sb.AppendLine($"            {{{GetConvertedNamespace(item.Namespace)}.{item.ControllerName}Route.{item.ActionName}, new");
+                sb.AppendLine($"            {{{GetConvertedNamespace(item.Namespace)}.{item.ControllerName}Route.{item.ActionName}, new {nameof(RouteInfo)}");
                 sb.AppendLine("                {");
                 sb.AppendLine($"                    {nameof(item.HttpMethod)} = \"{item.HttpMethod}\",");
                 sb.Append(GenerateParameters(item.Parameters));
@@ -163,6 +175,30 @@ namespace Route.Generator
                 }
 
                 sb.AppendLine("                    }");
+            }
+
+            return sb.ToString();
+        }
+
+        private static string GeneraParameters(IList<ParameterInfo> parameters, bool hasType, bool hasPre)
+        {
+            StringBuilder sb = new StringBuilder();
+            IList<string> list = new List<string>();
+            if (parameters != null && parameters.Count > 0)
+            {
+                foreach (var item in parameters)
+                {
+                    if (hasType)
+                    {
+                        list.Add($"{item.Type} {item.Name}");
+                    }
+                    else
+                    {
+                        list.Add($"{item.Name}");
+                    }
+                }
+
+                sb.Append((hasPre ? ", " : string.Empty) + string.Join(", ", list));
             }
 
             return sb.ToString();

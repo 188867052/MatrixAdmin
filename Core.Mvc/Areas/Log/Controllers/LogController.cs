@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core.Api.Framework;
 using Core.Api.Routes;
 using Core.Model;
 using Core.Model.Log;
 using Core.Mvc.Areas.Log.ViewConfiguration;
-using Core.Mvc.Framework;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Mvc.Areas.Log.Controllers

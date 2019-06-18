@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
+using Core.Api.Framework;
 using Core.Api.Routes;
-using Core.Extension;
-using Core.Mvc.Framework;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Mvc.Areas.Administration.Controllers

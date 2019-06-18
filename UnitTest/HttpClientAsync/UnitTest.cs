@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Core.Api.Framework;
 using Core.Api.Routes;
 using Core.Entity;
 using Core.Model;
 using Core.Model.Administration.Menu;
 using Core.Model.Administration.User;
 using Core.Model.Log;
-using Core.Mvc.Framework;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace Core.UnitTest.Async
@@ -25,6 +26,13 @@ namespace Core.UnitTest.Async
         }
 
         [Test]
+        public async Task TestGetWithNoParameterGeneratedAsync()
+        {
+            var model = await PermissionRoute.IndexAsync<ResponseModel>();
+            Assert.AreEqual(model.Code, 200);
+        }
+
+        [Test]
         public async Task TestGetWithOneAttributeParameterAsync()
         {
             var model = await HttpClientAsync.Async<MenuModel>(MenuRoute.FindById, 1);
@@ -32,9 +40,23 @@ namespace Core.UnitTest.Async
         }
 
         [Test]
+        public async Task TestGetWithOneAttributeParameterGeneratedAsync()
+        {
+            var model = await MenuRoute.FindByIdAsync<ResponseModel>(1);
+            Assert.AreEqual(model.Code, 200);
+        }
+
+        [Test]
         public async Task TestGetWithOneParameterAsync()
         {
             var model = await HttpClientAsync.Async<UserModel>(UserRoute.FindById, 1);
+            Assert.AreEqual(model.Code, 200);
+        }
+
+        [Test]
+        public async Task TestGetWithOneParameterGeneratedAsync()
+        {
+            var model = await UserRoute.FindByIdAsync<ResponseModel>(1);
             Assert.AreEqual(model.Code, 200);
         }
 
@@ -47,10 +69,28 @@ namespace Core.UnitTest.Async
         }
 
         [Test]
+        public async Task TestGetWithMultipleParameterGeneratedAsync()
+        {
+            var model = await AuthenticationRoute.AuthAsync<dynamic>("admin", "111111");
+            int code = model.code;
+            Assert.AreEqual(code, 200);
+        }
+
+        [Test]
         public async Task TestPostWithParameterAsync()
         {
             ResponseModel model = await HttpClientAsync.Async<IList<LogModel>>(LogRoute.Search, new LogPostModel() { PageSize = 10, PageIndex = 1 });
             Assert.AreEqual(model.Code, 200);
+        }
+
+        [Test]
+        public async Task TestPostWithParameterGeneratedAsync()
+        {
+            ResponseModel model = await LogRoute.SearchAsync<ResponseModel>(new LogPostModel() { PageSize = 10, PageIndex = 1 });
+            Assert.AreEqual(model.Code, 200);
+
+            IList<LogModel> data = JsonConvert.DeserializeObject<IList<LogModel>>(model.Data.ToString());
+            Assert.NotNull(data);
         }
     }
 }

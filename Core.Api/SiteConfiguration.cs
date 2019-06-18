@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Core.Entity;
 
-namespace Core.Mvc.Framework
+namespace Core.Api
 {
     public static class SiteConfiguration
     {

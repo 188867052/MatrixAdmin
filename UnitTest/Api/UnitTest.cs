@@ -4,17 +4,15 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Core.Api.Controllers;
+using Core.Api.Framework;
 using Core.Api.Routes;
 using Core.Entity;
-using Core.Extension;
 using Core.Extension.Dapper;
 using Core.Model;
 using Core.Model.Administration.Menu;
 using Core.Model.Administration.Role;
 using Core.Model.Administration.User;
 using Core.Model.Log;
-using Core.Mvc.Framework;
 using Core.UnitTest.Resource.Areas;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using NUnit.Framework;
@@ -33,22 +31,19 @@ namespace Core.UnitTest.Api
         [Order(1)]
         public async Task TestGetToken()
         {
-            HttpClient client = new HttpClient()
-            {
-                BaseAddress = new Uri(SiteConfiguration.Host)
-            };
-            using (client)
-            {
-                HttpResponseMessage httpResponse = await client.GetAsync(LogRoute.Index);
-                Task<string> json = httpResponse.Content.ReadAsStringAsync();
-            }
-            var data = await HttpClientAsync.Async(AuthenticationRoute.Auth, new { username = "admin", password = "111111" });
+            var data = await AuthenticationRoute.AuthAsync<dynamic>("admin", "111111");
 
             Console.WriteLine(data);
             int code = data.code;
             this.authentication = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme, data.token.ToString());
 
             Assert.AreEqual(code, (int)HttpStatusCode.OK);
+        }
+
+        [Test]
+        public async Task TestGetTokenWithDynamicObject()
+        {
+            var data = await HttpClientAsync.Async(AuthenticationRoute.Auth, new { username = "admin", password = "111111" });
         }
 
         [Test]
@@ -64,10 +59,9 @@ namespace Core.UnitTest.Api
         [Test]
         public async Task TestUnAuthenticate()
         {
-            var url = new Url(typeof(TestController), nameof(TestController.TestAuthentication));
             using (HttpClient client = HttpClientAsync.CreateInstance())
             {
-                HttpResponseMessage response = await client.GetAsync(url);
+                HttpResponseMessage response = await client.GetAsync(TestRoute.TestAuthentication);
                 Assert.AreEqual(response.StatusCode, HttpStatusCode.Unauthorized);
             }
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -45,15 +46,7 @@ namespace Core.Extension.RouteAnalyzer
                 {
                     var e = route;
                     info.Path = $"/{e.AttributeRouteInfo.Template}";
-                    foreach (var item in e.Parameters)
-                    {
-                        info.Parameters.Add(new ParameterInfo
-                        {
-                            Name = item.Name,
-                            Type = item.ParameterType.Name,
-                            BinderType = item.BindingInfo?.BinderType?.Name
-                        });
-                    }
+                    this.AddParameters(info, e);
                 }
 
                 if (route is ControllerActionDescriptor)
@@ -61,6 +54,7 @@ namespace Core.Extension.RouteAnalyzer
                     var e = route as ControllerActionDescriptor;
                     info.ControllerName = e.ControllerName;
                     info.ActionName = e.ActionName;
+
                     info.Namespace = e.ControllerTypeInfo.AsType().Namespace;
                     if (string.IsNullOrEmpty(e.AttributeRouteInfo?.Template))
                     {
@@ -71,6 +65,8 @@ namespace Core.Extension.RouteAnalyzer
 
                         info.Path += $"/{e.ControllerName}/{e.ActionName}";
                     }
+
+                    this.AddParameters(info, e);
                 }
 
                 // Extract HTTP Verb
@@ -91,6 +87,40 @@ namespace Core.Extension.RouteAnalyzer
             }
 
             return list;
+        }
+
+        private void AddParameters(RouteInfo info, ActionDescriptor e)
+        {
+            foreach (var item in e.Parameters)
+            {
+                if (!info.Parameters.Any(o => o.Name == item.Name))
+                {
+                    info.Parameters.Add(new ParameterInfo
+                    {
+                        Name = item.Name,
+                        Type = this.ConvertType(item.ParameterType.FullName),
+                        BinderType = item.BindingInfo?.BinderType?.Name
+                    });
+                }
+            }
+        }
+
+        private string ConvertType(string type)
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>()
+            {
+                { typeof(int).FullName, "int" },
+                { typeof(string).FullName, "string" },
+                { typeof(string[]).FullName, "string[]" },
+                { typeof(int[]).FullName, "int[]" },
+            };
+
+            if (dictionary.ContainsKey(type))
+            {
+                return dictionary[type];
+            }
+
+            return type;
         }
     }
 }

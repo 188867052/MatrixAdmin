@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 using Core.Model;
 using Newtonsoft.Json;
 using System.Net.Http;
-using HttpMethodEnum = Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpMethod;
 using Core.Extension.RouteAnalyzer;
 using System.Collections.Generic;
+using Core.Api.Routes;
 
-namespace Core.Mvc.Framework
+namespace Core.Api.Framework
 {
     public static class HttpClientAsync
     {
@@ -19,12 +19,12 @@ namespace Core.Mvc.Framework
 
         public static async Task<ResponseModel> Async<T>(string route, AuthenticationHeaderValue authorization, params object[] data)
         {
-            OnAsync(route, out IList<ParameterInfo> parameters, data);
+            OnAsync(route, out IList<ParameterInfo> parameters);
             using (HttpClient httpClient = CreateInstance())
             {
                 httpClient.DefaultRequestHeaders.Authorization = authorization;
-                Task<string> json = GetResponseAsync(httpClient, route, parameters, data);
-                ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
+                string json = await ExcuteAsync(httpClient, route, parameters, data);
+                ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json);
                 model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
 
                 return model;
@@ -33,12 +33,24 @@ namespace Core.Mvc.Framework
 
         public static async Task<dynamic> Async(string route, AuthenticationHeaderValue authorization, params object[] data)
         {
-            OnAsync(route, out IList<ParameterInfo> parameters, data);
+            OnAsync(route, out IList<ParameterInfo> parameters);
             using (HttpClient httpClient = CreateInstance())
             {
                 httpClient.DefaultRequestHeaders.Authorization = authorization;
-                Task<string> json = GetResponseAsync(httpClient, route, parameters, data);
-                dynamic model = JsonConvert.DeserializeObject<dynamic>(await json);
+                string json = await ExcuteAsync(httpClient, route, parameters, data);
+                dynamic model = JsonConvert.DeserializeObject<dynamic>(json);
+
+                return model;
+            }
+        }
+
+        public static async Task<T> Async2<T>(string route, params object[] data)
+        {
+            OnAsync(route, out IList<ParameterInfo> parameters);
+            using (HttpClient httpClient = CreateInstance())
+            {
+                string json = await ExcuteAsync(httpClient, route, parameters, data);
+                T model = JsonConvert.DeserializeObject<T>(json);
 
                 return model;
             }
@@ -46,11 +58,11 @@ namespace Core.Mvc.Framework
 
         public static async Task<ResponseModel> Async<T>(string route, params object[] data)
         {
-            OnAsync(route, out IList<ParameterInfo> parameters, data);
+            OnAsync(route, out IList<ParameterInfo> parameters);
             using (HttpClient httpClient = CreateInstance())
             {
-                Task<string> json = GetResponseAsync(httpClient, route, parameters, data);
-                ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
+                string json = await ExcuteAsync(httpClient, route, parameters, data);
+                ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json);
                 model.Data = JsonConvert.DeserializeObject<T>(model.Data.ToString());
 
                 return model;
@@ -59,11 +71,11 @@ namespace Core.Mvc.Framework
 
         public static async Task<ResponseModel> ResponseAsync(string route, params object[] data)
         {
-            OnAsync(route, out IList<ParameterInfo> parameters, data);
+            OnAsync(route, out IList<ParameterInfo> parameters);
             using (HttpClient httpClient = CreateInstance())
             {
-                Task<string> json = GetResponseAsync(httpClient, route, parameters, data);
-                ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(await json);
+                string json = await ExcuteAsync(httpClient, route, parameters, data);
+                ResponseModel model = JsonConvert.DeserializeObject<ResponseModel>(json);
 
                 return model;
             }
@@ -71,11 +83,11 @@ namespace Core.Mvc.Framework
 
         public static async Task<dynamic> Async(string route, params object[] data)
         {
-            OnAsync(route, out IList<ParameterInfo> parameters, data);
+            OnAsync(route, out IList<ParameterInfo> parameters);
             using (HttpClient httpClient = CreateInstance())
             {
-                Task<string> json = GetResponseAsync(httpClient, route, parameters, data);
-                var model = JsonConvert.DeserializeObject<dynamic>(await json);
+                string json = await ExcuteAsync(httpClient, route, parameters, data);
+                var model = JsonConvert.DeserializeObject<dynamic>(json);
 
                 return model;
             }
@@ -118,32 +130,28 @@ namespace Core.Mvc.Framework
             }
         }
 
-        private static Task<string> GetResponseAsync(HttpClient httpClient, string route, IList<ParameterInfo> Parameters, params object[] data)
+        private static Task<string> ExcuteAsync(HttpClient httpClient, string route, IList<ParameterInfo> Parameters, params object[] data)
         {
-            var httpMethod = Api.Framework.RouteController.GetHttpMethod(route);
+            var httpMethod = Cache.Dictionary[route].HttpMethod;
             Task<string> json;
-            switch (httpMethod)
+            switch (httpMethod.ToUpper())
             {
-                case HttpMethodEnum.Get:
+                case "GET":
                     json = GetAsync(httpClient, route, Parameters, data);
                     break;
-                case HttpMethodEnum.Post:
+                case "POST":
                     json = PostAsync(httpClient, route, data);
                     break;
                 default:
-                    throw new HttpRequestException($"Unsupported HttpMethod: {httpMethod}");
+                    throw new HttpRequestException($"Unsupported Http Method: {httpMethod}");
             }
 
             return json;
         }
 
-        private static void OnAsync(string route, out IList<ParameterInfo> parameters, params object[] data)
+        private static void OnAsync(string route, out IList<ParameterInfo> parameters)
         {
-            parameters = Api.Framework.RouteController.GetParameterInfo(route);
-            if (data.Length != parameters.Count)
-            {
-                throw new HttpRequestException($"Http Parameter Count Wrong. Request: {JsonConvert.SerializeObject(data)},Expected: {JsonConvert.SerializeObject(parameters)}");
-            }
+            parameters = Cache.Dictionary[route].Parameters;
         }
     }
 }
