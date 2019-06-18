@@ -12,11 +12,21 @@ namespace Route.Generator
             this._modelGenerator = new RouteGenerator();
         }
 
-        public bool Generate(string workingDirectory)
+        public bool Generate(string projectName, string outPutFile)
         {
-            var context = this._modelGenerator.GenerateCodeAsync(workingDirectory).Result;
+            var context = this._modelGenerator.GenerateCodeAsync(projectName).Result;
             Console.WriteLine(context);
-            string fullPath = Path.Combine(workingDirectory, "Routes.Generated.cs");
+            if (string.IsNullOrEmpty(outPutFile))
+            {
+                outPutFile = "Routes.Generated.cs";
+            }
+
+            if (!outPutFile.EndsWith(".cs"))
+            {
+                outPutFile += ".cs";
+            }
+
+            string fullPath = Path.Combine(Environment.CurrentDirectory, outPutFile);
             File.WriteAllText(fullPath, context);
             return true;
         }

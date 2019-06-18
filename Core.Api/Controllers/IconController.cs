@@ -10,6 +10,7 @@ using Dapper;
 using Core.Api.Framework;
 using Microsoft.AspNetCore.Mvc;
 using Core.Api.Authentication;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Api.Controllers
 {
@@ -33,7 +34,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                return this.StandardResponse(this.DbContext.Icon);
+                return this.StandardResponse(this.DbContext.Icon.AsNoTracking());
             }
         }
 
@@ -47,7 +48,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Icon> query = this.DbContext.Icon;
+                IQueryable<Icon> query = this.DbContext.Icon.AsNoTracking();
                 query = query.AddStringContainsFilter(o => o.Code, model.Code);
                 query = query.AddFilter(o => o.IsEnable, model.IsEnable);
 
@@ -102,7 +103,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                Icon entity = this.DbContext.Icon.FirstOrDefault(x => x.Id == id);
+                Icon entity = this.DbContext.Icon.AsNoTracking().FirstOrDefault(x => x.Id == id);
                 HttpResponseModel response = ResponseModelFactory.CreateInstance;
                 response.SetData(this.Mapper.Map<Icon, IconCreateViewModel>(entity));
                 return this.Json(response);

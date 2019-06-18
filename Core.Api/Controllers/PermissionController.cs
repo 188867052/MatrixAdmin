@@ -10,6 +10,7 @@ using Core.Model;
 using Core.Model.Administration.Permission;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Api.Controllers
 {
@@ -33,7 +34,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                return this.StandardResponse(this.DbContext.Permission);
+                return this.StandardResponse(this.DbContext.Permission.AsNoTracking());
             }
         }
 
@@ -47,7 +48,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Permission> query = this.DbContext.Permission;
+                IQueryable<Permission> query = this.DbContext.Permission.AsNoTracking();
                 query = query.AddBooleanFilter(o => o.IsEnable, model.IsEnable);
                 query = query.AddStringContainsFilter(o => o.ActionCode, model.ActionCode);
 

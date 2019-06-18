@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -33,10 +34,25 @@ namespace Route.Generator
             return sb.ToString();
         }
 
-        public async Task<string> GenerateCodeAsync(string workingDirectory)
+        public async Task<string> GenerateCodeAsync(string projectName)
         {
-            Type type = workingDirectory.Contains("Core.Api") ? typeof(Core.Api.Framework.Startup) : typeof(Core.Mvc.Framework.Startup);
-            var client = new TestSite(type).BuildClient();
+            Console.WriteLine($"projectName: {projectName}");
+            if (string.IsNullOrEmpty(projectName))
+            {
+                projectName = "*";
+            }
+
+            Console.WriteLine($"Environment.CurrentDirectory: {Environment.CurrentDirectory}");
+            var projectFile = Directory.GetFiles(Environment.CurrentDirectory, $"{projectName}.csproj", SearchOption.AllDirectories).FirstOrDefault();
+            if (projectFile == null)
+            {
+                throw new ArgumentException($"No .csproj file found under the directory: {projectName}.");
+            }
+
+            Console.WriteLine($"projectFile: {projectFile}");
+            FileInfo file = new FileInfo(projectFile);
+            Console.WriteLine($"file.Name: {file.Name}");
+            var client = new TestSite(file.Name.Replace(".csproj", string.Empty)).BuildClient();
             using (HttpResponseMessage response = await client.GetAsync(Router.DefaultRoute))
             {
                 string content = await response.Content.ReadAsStringAsync();

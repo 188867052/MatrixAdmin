@@ -4,6 +4,7 @@ using Core.Api.Framework;
 using Core.Api.Framework.StartupConfigurations;
 using Core.Entity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Linq;
 using System.Net;
@@ -34,7 +35,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                User user = this.DbContext.User.FirstOrDefault(x => x.LoginName == username.Trim());
+                User user = this.DbContext.User.AsNoTracking().FirstOrDefault(x => x.LoginName == username.Trim());
                 if (user == null || !user.IsEnable)
                 {
                     return this.FailResponse(Resources.UserNotExist);

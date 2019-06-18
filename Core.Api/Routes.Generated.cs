@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Extension.RouteAnalyzer;
+using JetBrains.Annotations;
 
 namespace Core.Api.Routes
 {
@@ -490,7 +491,7 @@ namespace Core.Api.Routes
         /// <see cref="Controllers.AuthenticationController.Auth"/>
         /// </summary>
         public const string Auth = "/api/Authentication/Auth";
-        public static async Task<T> AuthAsync<T>(string username, string password)
+        public static async Task<T> AuthAsync<T>([NotNull]string username, string password)
         {
             return await Core.Api.Framework.HttpClientAsync.Async2<T>(Auth, username, password);
         }

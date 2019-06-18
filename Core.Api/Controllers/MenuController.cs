@@ -10,6 +10,7 @@ using Core.Model;
 using Core.Model.Administration.Menu;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Api.Controllers
 {
@@ -33,7 +34,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Menu> query = this.DbContext.Menu;
+                IQueryable<Menu> query = this.DbContext.Menu.AsNoTracking();
                 query = query.OrderByDescending(o => o.CreateTime);
                 Pager pager = Pager.CreateDefaultInstance();
 
@@ -51,7 +52,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Menu> query = this.DbContext.Menu;
+                IQueryable<Menu> query = this.DbContext.Menu.AsNoTracking();
                 query = query.AddStringContainsFilter(o => o.Name, model.Name);
                 query = query.AddStringContainsFilter(o => o.Description, model.Description);
                 query = query.AddFilter(o => o.Status, model.Status);
@@ -191,7 +192,7 @@ namespace Core.Api.Controllers
 
         private List<MenuTree> LoadMenuTree(string selectedGuid = null)
         {
-            List<MenuTree> temp = this.DbContext.Menu.Where(x => !x.IsEnable && x.Status).ToList().Select(x => new MenuTree
+            List<MenuTree> temp = this.DbContext.Menu.AsNoTracking().Where(x => !x.IsEnable && x.Status).ToList().Select(x => new MenuTree
             {
                 ParentId = x.ParentId,
                 Title = x.Name

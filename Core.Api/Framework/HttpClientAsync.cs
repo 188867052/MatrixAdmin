@@ -3,12 +3,13 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Core.Model;
 using Newtonsoft.Json;
-using System.Net.Http;
 using Core.Extension.RouteAnalyzer;
 using System.Collections.Generic;
 using Core.Api.Routes;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Net.Http;
+using HttpMethod = Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpMethod;
 
 namespace Core.Api.Framework
 {
@@ -101,7 +102,7 @@ namespace Core.Api.Framework
             string url = relativeUri;
             IList<ParameterInfo> parameterInfos = Cache.Dictionary[relativeUri].Parameters;
 
-            // Attribute
+            // Attribute Constraint Route.    
             if (relativeUri.Contains("{") && relativeUri.Contains("}"))
             {
                 parameterInfos[0].Value = data[0].ToString();
@@ -115,11 +116,12 @@ namespace Core.Api.Framework
                     var obj = data[i].ToString();
                     if (obj.Contains("{") && obj.Contains("}") && obj.Contains("="))
                     {
-                        var keyPare = obj.Split(',');
-                        foreach (var item in keyPare)
+                        var keyPaireValue = obj.Split(',');
+                        foreach (var item in keyPaireValue)
                         {
-                            string key = item.Split('=')[0].Trim('{').Trim();
-                            string value = item.Split('=')[1].Trim('}').Trim();
+                            var array = item.Split('=');
+                            string key = array[0].Trim('{', ' ');
+                            string value = array[1].Trim('}', ' ');
                             parameterInfos.FirstOrDefault(o => o.Name == key).Value = value;
                         }
                     }
@@ -139,18 +141,18 @@ namespace Core.Api.Framework
 
         private static Task<string> ExcuteAsync(HttpClient httpClient, string route, params object[] data)
         {
-            var httpMethod = Cache.Dictionary[route].HttpMethod;
             Task<string> json;
-            switch (httpMethod.ToUpper())
+            var httpMethod = (HttpMethod)Enum.Parse(typeof(HttpMethod), Cache.Dictionary[route].HttpMethod, true);
+            switch (httpMethod)
             {
-                case "GET":
+                case HttpMethod.Get:
                     json = GetAsync(httpClient, route, data);
                     break;
-                case "POST":
+                case HttpMethod.Post:
                     json = PostAsync(httpClient, route, data);
                     break;
                 default:
-                    throw new HttpRequestException($"Unsupported Http Method: {httpMethod}");
+                    throw new HttpRequestException($"Unsupported Http Method: {httpMethod}.");
             }
 
             return json;

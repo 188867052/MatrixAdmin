@@ -45,7 +45,7 @@ namespace Core.UnitTest.CodeGenerator
         {
             try
             {
-                using (var client = new TestSite(typeof(Startup)).BuildClient())
+                using (var client = new TestSite("Core.Mvc").BuildClient())
                 {
                     var response = await client.GetAsync(Router.DefaultRoute);
                     var content = await response.Content.ReadAsStringAsync();
@@ -65,7 +65,7 @@ namespace Core.UnitTest.CodeGenerator
         {
             try
             {
-                var client = new TestSite(typeof(Core.Mvc.Framework.Startup)).BuildClient();
+                var client = new TestSite("Core.Api").BuildClient();
                 var response = await client.GetAsync(Router.DefaultRoute);
                 var content = await response.Content.ReadAsStringAsync();
 

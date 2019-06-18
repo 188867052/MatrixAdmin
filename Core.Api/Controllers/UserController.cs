@@ -35,7 +35,7 @@ namespace Core.Api.Controllers
                 this.DbContext.Set<UserRoleMapping>().Load();
                 this.DbContext.Set<UserStatus>().Load();
                 this.DbContext.Set<Role>().Load();
-                IQueryable<User> query = this.DbContext.User;
+                IQueryable<User> query = this.DbContext.User.AsNoTracking();
                 query = query.OrderByDescending(o => o.CreateTime);
                 Pager pager = Pager.CreateDefaultInstance();
 
@@ -56,7 +56,7 @@ namespace Core.Api.Controllers
                 this.DbContext.Set<UserStatus>().Load();
                 this.DbContext.Set<UserRoleMapping>().Load();
                 this.DbContext.Set<Role>().Load();
-                IQueryable<User> query = this.DbContext.User;
+                IQueryable<User> query = this.DbContext.User.AsNoTracking();
                 query = model.GenerateQuery(query);
 
                 return this.StandardSearchResponse(query, model, UserModel.Convert);

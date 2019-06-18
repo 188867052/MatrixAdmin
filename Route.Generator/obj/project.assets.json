@@ -560,6 +560,15 @@
           }
         }
       },
+      "JetBrains.Annotations/2019.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {}
+        }
+      },
       "McMaster.Extensions.CommandLineUtils/2.3.4": {
         "type": "package",
         "dependencies": {
@@ -4625,6 +4634,7 @@
           "Core.Entity": "1.0.0",
           "Core.Extension": "1.0.0",
           "Core.Model": "1.0.0",
+          "JetBrains.Annotations": "2019.1.1",
           "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.NetCore.Analyzers": "2.9.3",
           "Roslyn.Diagnostics.Analyzers": "2.9.3",
@@ -4676,7 +4686,6 @@
           "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.Mvc.RazorPages": "2.2.5",
-          "Microsoft.AspNetCore.Server.Kestrel": "2.2.0",
           "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.NetCore.Analyzers": "2.9.3",
@@ -5481,6 +5490,27 @@
         "humanizer.core.zh-hant.nuspec",
         "lib/netstandard1.0/zh-Hant/Humanizer.resources.dll",
         "lib/netstandard2.0/zh-Hant/Humanizer.resources.dll"
+      ]
+    },
+    "JetBrains.Annotations/2019.1.1": {
+      "sha512": "y4RFn+HZ7BekqIx+uXuVAvh80quYNiu86oRG2QztmFXQ2mm1lprb7xNawZdFfLxBAh8BQUkSQdO0Itanal8DbQ==",
+      "type": "package",
+      "path": "jetbrains.annotations/2019.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "jetbrains.annotations.2019.1.1.nupkg.sha512",
+        "jetbrains.annotations.nuspec",
+        "lib/net20/JetBrains.Annotations.dll",
+        "lib/net20/JetBrains.Annotations.xml",
+        "lib/netstandard1.0/JetBrains.Annotations.deps.json",
+        "lib/netstandard1.0/JetBrains.Annotations.dll",
+        "lib/netstandard1.0/JetBrains.Annotations.xml",
+        "lib/netstandard2.0/JetBrains.Annotations.deps.json",
+        "lib/netstandard2.0/JetBrains.Annotations.dll",
+        "lib/netstandard2.0/JetBrains.Annotations.xml",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.dll",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.xml"
       ]
     },
     "McMaster.Extensions.CommandLineUtils/2.3.4": {
@@ -13318,6 +13348,8 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "Core.Api >= 1.0.0",
+      "Core.Extension >= 1.0.0",
       "Core.Mvc >= 1.0.0",
       "Humanizer >= 2.6.2",
       "McMaster.Extensions.CommandLineUtils >= 2.3.4",
@@ -13356,12 +13388,14 @@
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\54215\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\54215\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Users\\54215\\.nuget\\localpackages": {},
         "https://api.nuget.org/v3/index.json": {},
         "https://dotnetfeed.blob.core.windows.net/aspnet-aspnetcore-tooling/index.json": {},
@@ -13374,6 +13408,12 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
+            "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\Core.Api.csproj": {
+              "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Api\\Core.Api.csproj"
+            },
+            "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Extension\\Core.Extension.csproj": {
+              "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Extension\\Core.Extension.csproj"
+            },
             "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj": {
               "projectPath": "C:\\Users\\54215\\Desktop\\Study\\Asp.Net\\Core.Mvc\\Core.Mvc.csproj"
             }

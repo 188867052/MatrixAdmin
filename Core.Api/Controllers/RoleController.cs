@@ -34,7 +34,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Role> query = this.DbContext.Role;
+                IQueryable<Role> query = this.DbContext.Role.AsNoTracking();
                 query = query.OrderBy(o => o.IsForbidden).ThenByDescending(o => o.CreateTime);
                 Pager pager = Pager.CreateDefaultInstance();
 
@@ -71,7 +71,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Role> query = this.DbContext.Role;
+                IQueryable<Role> query = this.DbContext.Role.AsNoTracking();
                 query = query.AddStringContainsFilter(o => o.Name, model.RoleName);
                 query = query.AddStringContainsFilter(o => o.Description, model.Description);
                 query = query.AddDateTimeBetweenFilter(model.StartCreateTime, model.EndCreateTime, o => o.CreateTime);
@@ -282,9 +282,9 @@ namespace Core.Api.Controllers
                 string sql = @"SELECT R.* FROM DncUserRoleMapping AS URM
 INNER JOIN DncRole AS R ON R.Code=URM.RoleCode
 WHERE URM.UserGuid={0}";
-                List<Role> query = this.DbContext.Role.FromSqlRaw(sql, guid).ToList();
+                List<Role> query = this.DbContext.Role.AsNoTracking().FromSqlRaw(sql, guid).ToList();
                 List<int> assignedRoles = query.ToList().Select(x => x.Id).ToList();
-                var roles = this.DbContext.Role.Where(x => !x.IsEnable && x.IsForbidden).ToList().Select(x => new { label = x.Name, key = x.Id });
+                var roles = this.DbContext.Role.AsNoTracking().Where(x => !x.IsEnable && x.IsForbidden).ToList().Select(x => new { label = x.Name, key = x.Id });
                 response.SetData(new { roles, assignedRoles });
                 return this.Ok(response);
             }
@@ -300,7 +300,7 @@ WHERE URM.UserGuid={0}";
             HttpResponseModel response = ResponseModelFactory.CreateInstance;
             using (this.DbContext)
             {
-                var roles = this.DbContext.Role.Where(x => !x.IsEnable && x.IsForbidden).Select(x => new { x.Name, x.Id }).ToList();
+                var roles = this.DbContext.Role.AsNoTracking().Where(x => !x.IsEnable && x.IsForbidden).Select(x => new { x.Name, x.Id }).ToList();
                 response.SetData(roles);
             }
 

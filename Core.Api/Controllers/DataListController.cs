@@ -8,6 +8,7 @@ using Core.Model.Administration.Role;
 using Core.Model.Administration.User;
 using Core.Api.Framework;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Api.Controllers
 {
@@ -30,7 +31,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<User> query = this.DbContext.User;
+                IQueryable<User> query = this.DbContext.User.AsNoTracking();
                 query = query.OrderByDescending(o => o.CreateTime);
                 query = query.AddBooleanFilter(o => o.IsDeleted, false);
                 query = query.AddBooleanFilter(o => o.IsEnable, true);
@@ -46,7 +47,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Role> query = this.DbContext.Role;
+                IQueryable<Role> query = this.DbContext.Role.AsNoTracking();
                 query = query.OrderByDescending(o => o.CreateTime);
                 query = query.AddBooleanFilter(o => o.IsForbidden, false);
                 query = query.AddBooleanFilter(o => o.IsEnable, true);
@@ -62,7 +63,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Menu> query = this.DbContext.Menu;
+                IQueryable<Menu> query = this.DbContext.Menu.AsNoTracking();
                 query = query.OrderByDescending(o => o.CreateTime);
                 query = query.AddBooleanFilter(o => o.IsEnable, true);
                 query = query.AddStringContainsFilter(o => o.Name, name);

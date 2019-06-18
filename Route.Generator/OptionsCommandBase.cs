@@ -1,5 +1,4 @@
-﻿using System;
-using McMaster.Extensions.CommandLineUtils;
+﻿using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 
 namespace Route.Generator
@@ -12,11 +11,14 @@ namespace Route.Generator
             this.Serializer = serializer;
         }
 
-        [Option("-d <directory>", Description = "The root working directory")]
-        public string WorkingDirectory { get; set; } = Environment.CurrentDirectory;
+        [Option("-p <project>", Description = "The project name")]
+        public string ProjectName { get; set; }
 
         [Option("-f <file>", Description = "The options file name")]
         public string OptionsFile { get; set; }
+
+        [Option("-o <output>", Description = "The out put file name")]
+        public string OutPutFile { get; set; }
 
         protected IGeneratorOptionsSerializer Serializer { get; }
     }

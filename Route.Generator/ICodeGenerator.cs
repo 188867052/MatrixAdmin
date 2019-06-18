@@ -2,6 +2,6 @@
 {
     public interface ICodeGenerator
     {
-        bool Generate(string workingDirectory);
+        bool Generate(string projectName, string outPutFile);
     }
 }

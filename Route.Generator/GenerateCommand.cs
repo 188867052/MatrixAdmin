@@ -17,8 +17,9 @@ namespace Route.Generator
 
         protected override int OnExecute(CommandLineApplication application)
         {
-            var workingDirectory = this.WorkingDirectory ?? Environment.CurrentDirectory;
-            var result = this._codeGenerator.Generate(workingDirectory);
+            Console.WriteLine($"this.ProjectName: { this.ProjectName}");
+            Console.WriteLine($"this.OutPutFile: { this.OutPutFile}");
+            var result = this._codeGenerator.Generate(this.ProjectName, this.OutPutFile);
 
             return result ? 0 : 1;
         }

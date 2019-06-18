@@ -7,6 +7,7 @@ using Core.Model;
 using Core.Model.Log;
 using Core.Api.Framework;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.Api.Controllers
 {
@@ -29,7 +30,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Log> query = this.DbContext.Log;
+                IQueryable<Log> query = this.DbContext.Log.AsNoTracking();
                 query = query.OrderByDescending(o => o.CreateTime);
                 Pager pager = Pager.CreateDefaultInstance();
 
@@ -42,7 +43,7 @@ namespace Core.Api.Controllers
         {
             using (this.DbContext)
             {
-                IQueryable<Log> query = this.DbContext.Log;
+                IQueryable<Log> query = this.DbContext.Log.AsNoTracking();
 
                 query = query.AddFilter(o => o.LogLevel == (int?)model.LogLevel, model.LogLevel);
                 query = query.AddFilter(o => o.SqlOperateType == (int?)model.SqlType, model.SqlType);

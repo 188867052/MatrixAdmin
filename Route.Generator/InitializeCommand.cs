@@ -17,7 +17,7 @@ namespace Route.Generator
 
         protected override int OnExecute(CommandLineApplication application)
         {
-            var workingDirectory = this.WorkingDirectory ?? Environment.CurrentDirectory;
+            var workingDirectory = this.ProjectName ?? Environment.CurrentDirectory;
             this.Logger.LogInformation($"工作目录:{workingDirectory}");
             this.Logger.LogInformation($" Environment.CurrentDirectory:{Environment.CurrentDirectory}");
             if (application.Arguments != null)
@@ -34,7 +34,7 @@ namespace Route.Generator
             var optionsFile = this.OptionsFile;
 
             this.Logger.LogTrace($"optionsFile: {optionsFile}");
-            this.Logger.LogTrace($"WorkingDirectory: {this.WorkingDirectory}");
+            this.Logger.LogTrace($"WorkingDirectory: {this.ProjectName}");
 
             this.Serializer.Save(workingDirectory);
 
