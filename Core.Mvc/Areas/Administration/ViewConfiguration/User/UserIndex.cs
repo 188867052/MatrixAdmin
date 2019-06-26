@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Core.Extension;
 using Core.Model;
 using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.SearchFilterConfigurations;
-using Core.Mvc.Areas.Redirect.Controllers;
+using Core.Mvc.Areas.Redirect.Routes;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.JavaScript;
 using Core.Web.SearchFilterConfiguration;
@@ -47,7 +46,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
         protected override string ContentHeader()
         {
             ContentHeader contentHeader = new ContentHeader("用户管理");
-            contentHeader.AddAnchor(new Anchor(new Url(typeof(RedirectController), nameof(RedirectController.Index)), "首页", "返回首页", "icon-home", "tip-bottom"));
+            contentHeader.AddAnchor(new Anchor(RedirectRoute.Index, "首页", "返回首页", "icon-home", "tip-bottom"));
             string html = contentHeader.Render();
             return html;
         }

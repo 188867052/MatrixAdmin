@@ -2,17 +2,16 @@ using System.Data;
 using Core.Entity;
 using Core.Extension;
 using Core.Extension.Dapper;
-using NUnit.Framework;
+using Xunit;
 
 namespace Core.UnitTest.Extention
 {
     /// <summary>
     /// Extention unit test.
     /// </summary>
-    [TestFixture]
     public class ExtentionUnitTest
     {
-        [Test]
+        [Fact]
         public void TestEmit()
         {
             var logs = DapperExtension.Connection.FindAll<Log>();

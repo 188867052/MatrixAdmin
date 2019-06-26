@@ -1,5 +1,4 @@
-﻿using System;
-using McMaster.Extensions.CommandLineUtils;
+﻿using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
 
 namespace Route.Generator
