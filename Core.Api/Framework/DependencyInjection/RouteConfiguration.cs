@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Api.Framework.StartupConfigurations
+namespace Core.Api.Framework.DependencyInjection
 {
-    public static class RouteConfiguration
+    public static class RouteExtension
     {
         /// <summary>
         /// The Configure must be the last of the Configure in Startup.Configure.
@@ -15,7 +15,6 @@ namespace Core.Api.Framework.StartupConfigurations
         {
             app.UseMvc(routes =>
             {
-                routes.MapRouteAnalyzer(Router.DefaultRoute);
                 routes.MapRoute(
                      name: "areaRoute",
                      template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");

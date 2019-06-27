@@ -5,9 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Core.Api.Framework.StartupConfigurations
+namespace Core.Api.Framework.DependencyInjection
 {
-    public static class DbContextConfiguration
+    public static class DbContextExtension
     {
         public static void AddService(IServiceCollection services, IConfiguration Configuration)
         {

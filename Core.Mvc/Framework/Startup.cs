@@ -1,16 +1,13 @@
 ﻿using AutoMapper;
 using Core.Mvc.Authentication;
-using Core.Extension.RouteAnalyzer;
-using Core.Extension.StartupConfigurations;
 using Core.Mvc.Framework.StartupConfigurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Serialization;
+using Core.Extension.DependencyInjection;
 
 namespace Core.Mvc.Framework
 {
@@ -32,6 +29,7 @@ namespace Core.Mvc.Framework
             DbContextConfiguration.AddService(services, Configuration);
             CorsConfiguration.AddService(services);
             RouteConfiguration.AddService(services);
+            RouteAnalyzerExtension.AddService(services);
             services.AddMemoryCache();
             services.AddHttpContextAccessor();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
@@ -50,9 +48,8 @@ namespace Core.Mvc.Framework
 
             WebEncoderConfiguration.AddService(services);
             ValidateConfiguration.AddService(services);
-            services.AddRouteAnalyzer();
-            services.AddMvc().AddJsonOptions(s => s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            JsonExtension.AddService(services);
+            SetCompatibilityVersionExtension.AddService(services);
         }
 
         /// <summary>
@@ -75,6 +72,7 @@ namespace Core.Mvc.Framework
             var httpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
             AuthenticationContextService.AddConfigure(httpContextAccessor);
             RouteConfiguration.AddConfigure(app);
+            RouteAnalyzerExtension.AddConfigure(app);
         }
     }
 }

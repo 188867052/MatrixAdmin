@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.Api.Framework.StartupConfigurations
+namespace Core.Api.Framework.DependencyInjection
 {
     /// <summary>
     /// The cross-origin resource sharing configuration.
     /// </summary>
-    public static class CorsConfiguration
+    public static class CorsExtension
     {
         public static void AddService(IServiceCollection services)
         {

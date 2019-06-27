@@ -96,6 +96,11 @@ namespace Core.Api.Resource.Controllers
         }
 		
 		/// <summary>
+		/// {"app_version":"3.0.0","provider_app_version":"","signature":"d460049b3767ba6e2c8a5bc17feac8e1","provider_app_channel":"","req_no":"nf1561543548922","mediumno":"0100981014214203","account_type_code":null,"provider_app_code":"","service_code":"apc_02000000009","login_token":"","plat_form":"01","app_code":"apc_02000000009","timestamp":"1561543548956"}
+		/// </summary>
+		public static string Json { get { return GetResourceString("Json"); } }
+
+		/// <summary>
 		/// Gets the localized string for PasswordWrong.
 		/// </summary>
 		public static string PasswordWrong { get { return GetResourceString("PasswordWrong"); } }

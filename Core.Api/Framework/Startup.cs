@@ -1,16 +1,13 @@
 ﻿using AutoMapper;
 using Core.Api.Authentication;
-using Core.Api.Framework.StartupConfigurations;
-using Core.Extension.RouteAnalyzer;
-using Core.Extension.StartupConfigurations;
+using Core.Api.Framework.DependencyInjection;
+using Core.Extension.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Serialization;
 
 namespace Core.Api.Framework
 {
@@ -30,9 +27,10 @@ namespace Core.Api.Framework
         public void ConfigureServices(IServiceCollection services)
         {
             SwaggerConfiguration.AddService(services);
-            DbContextConfiguration.AddService(services, Configuration);
-            CorsConfiguration.AddService(services);
-            RouteConfiguration.AddService(services);
+            DbContextExtension.AddService(services, Configuration);
+            CorsExtension.AddService(services);
+            RouteExtension.AddService(services);
+            RouteAnalyzerExtension.AddService(services);
             services.AddMemoryCache();
             services.AddHttpContextAccessor();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
@@ -50,9 +48,8 @@ namespace Core.Api.Framework
 
             WebEncoderConfiguration.AddService(services);
             ValidateConfiguration.AddService(services);
-            services.AddRouteAnalyzer();
-            services.AddMvc().AddJsonOptions(s => s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            JsonExtension.AddService(services);
+            SetCompatibilityVersionExtension.AddService(services);
         }
 
         /// <summary>
@@ -69,13 +66,14 @@ namespace Core.Api.Framework
 
             app.UseStaticFiles();
             app.UseFileServer();
-            CorsConfiguration.AddConfigure(app);
+            CorsExtension.AddConfigure(app);
             ExceptionConfiguration.AddConfigure(app);
 
             var serviceProvider = app.ApplicationServices;
             var httpContextAccessor = serviceProvider.GetRequiredService<IHttpContextAccessor>();
             AuthenticationContextService.AddConfigure(httpContextAccessor);
-            RouteConfiguration.AddConfigure(app);
+            RouteExtension.AddConfigure(app);
+            RouteAnalyzerExtension.AddConfigure(app);
         }
     }
 }

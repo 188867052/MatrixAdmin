@@ -1,7 +1,7 @@
 ﻿using Core.Api.Extensions.CustomException;
 using Microsoft.AspNetCore.Builder;
 
-namespace Core.Api.Framework.StartupConfigurations
+namespace Core.Api.Framework.DependencyInjection
 {
     public static class ExceptionConfiguration
     {

@@ -3,7 +3,7 @@ using System.Text.Unicode;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.WebEncoders;
 
-namespace Core.Extension.StartupConfigurations
+namespace Core.Extension.DependencyInjection
 {
     public static class WebEncoderConfiguration
     {

@@ -17,7 +17,6 @@ namespace Core.Mvc.Framework.StartupConfigurations
         {
             app.UseMvc(routes =>
             {
-                routes.MapRouteAnalyzer(Router.DefaultRoute); // Add
                 string defaultController = nameof(RedirectController).Replace(nameof(Controller), string.Empty);
                 string defaultAction = nameof(RedirectController.Index);
                 routes.MapRoute(

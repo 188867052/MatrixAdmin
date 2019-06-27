@@ -4667,6 +4667,7 @@
           "Core.Entity": "1.0.0",
           "Dapper": "1.60.6",
           "EFCore.Generator": "1.1.0",
+          "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.AspNetCore.Mvc.Analyzers": "3.0.0-preview3-19153-02",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.Mvc.RazorPages": "2.2.5",

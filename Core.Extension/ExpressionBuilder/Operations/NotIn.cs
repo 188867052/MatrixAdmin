@@ -10,7 +10,6 @@ namespace Core.Extension.ExpressionBuilder.Operations
     /// </summary>
     public class NotIn : OperationBase
     {
-        /// <inheritdoc />
         public NotIn()
             : base("NotIn", 1, TypeGroup.Default | TypeGroup.Boolean | TypeGroup.Date | TypeGroup.Number | TypeGroup.Text, true, true)
         {

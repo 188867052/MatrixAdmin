@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.Api.Authentication;
 using Core.Api.Framework;
-using Core.Api.Framework.StartupConfigurations;
+using Core.Api.Framework.DependencyInjection;
 using Core.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -31,6 +31,7 @@ namespace Core.Api.Controllers
         /// <param name="username">username.</param>
         /// <param name="password">password.</param>
         /// <returns></returns>
+        [HttpGet]
         public IActionResult Auth(string username, string password)
         {
             using (this.DbContext)
@@ -72,7 +73,7 @@ namespace Core.Api.Controllers
 
                 return this.Ok(new
                 {
-                    token = AuthenticationConfiguration.GetJwtAccessToken(this._appSettings, claimsIdentity),
+                    token = Framework.DependencyInjection.AuthenticationConfiguration.GetJwtAccessToken(this._appSettings, claimsIdentity),
                     code = (int)HttpStatusCode.OK,
                     message = Resources.OperateSuccess
                 });
