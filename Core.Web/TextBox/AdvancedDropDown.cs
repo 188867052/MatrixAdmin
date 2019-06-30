@@ -2,9 +2,12 @@
 using System.Linq.Expressions;
 using Core.Extension;
 using Core.Web.Enums;
+using Core.Web.GridFilter;
 using Core.Web.Html;
 using Core.Web.Identifiers;
 using Core.Web.JavaScript;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.TextBox
 {
@@ -34,16 +37,26 @@ namespace Core.Web.TextBox
             this._id = methodCall.Id;
         }
 
-        public string Render(TModel model)
+        public TagHelperOutput Render(TModel model)
         {
             string listId = new Identifier().Value;
             string property = this._expression.GetPropertyName();
 
-            return $"<div class=\"form-group\">" +
-                   $"<label>{this._labelText}</label>" +
-                   $"<input class=\"form-control\" id=\"{this._id.Value}\" name=\"{property}\" list=\"{listId}\">" +
-                   $"</select>" +
-                   $"</div>{this._script}" + $"<datalist id=\"{listId}\"></datalist>";
+            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "form-group" }, });
+            var label = HtmlContentUtilities.MakeTagHelperOutput("label");
+            label.Content.SetContent(this._labelText);
+            var input = HtmlContentUtilities.MakeTagHelperOutput("input", new TagHelperAttributeList {
+                { "class", "form-control" },
+                { "id", this._id.Value },
+                { "name", property },
+                { "list", listId },
+            });
+            label.PostElement.AppendHtml(input);
+            label.PostElement.AppendHtml(HtmlContentUtilities.MakeTagHelperOutput("select"));
+            div.PostElement.AppendHtmlLine(this._script);
+            div.PostElement.AppendHtml(HtmlContentUtilities.MakeTagHelperOutput("datalist", new TagHelperAttributeList { { "id", listId }, }));
+
+            return div;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Core.Web.Button
 
         public JavaScriptEvent Event { get; set; }
 
-        public string Render()
+        public TagHelperOutput Render()
         {
             TagHelperAttributeList attributes = new TagHelperAttributeList
             {
@@ -40,9 +40,9 @@ namespace Core.Web.Button
 
             var output = HtmlContentUtilities.MakeTagHelperOutput("buttons", attributes);
             output.Content.SetContent(this.Text);
-            var button = HtmlContentUtilities.HtmlContentToString(output);
+            output.Content.AppendHtml(this.Event.Render());
 
-            return button + Environment.NewLine + this.Event.Render();
+            return output;
         }
     }
 }

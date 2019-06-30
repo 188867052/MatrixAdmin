@@ -25,10 +25,10 @@ namespace Core.Web.GridFilter
 
         protected string LabelText { get; }
 
-        public virtual string Render()
+        public virtual TagHelperOutput Render()
         {
             string id = new Identifier().Value;
-            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", ContainerClass }, });
+            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
             var divGroup = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "form-group" }, });
             TagHelperAttributeList labelAttributes = new TagHelperAttributeList
             {
@@ -51,9 +51,7 @@ namespace Core.Web.GridFilter
             divGroup.Content.SetHtmlContent(label);
             label.Content.SetContent(this.LabelText);
             label.PostElement.AppendHtml(input);
-
-            var html = HtmlContentUtilities.HtmlContentToString(div);
-            return html;
+            return div;
         }
     }
 }

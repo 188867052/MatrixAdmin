@@ -8,6 +8,7 @@ using Core.Model;
 using Core.Mvc.Areas.Redirect.Routes;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.Dialog;
+using Core.Web.GridFilter;
 using Core.Web.Html;
 using Core.Web.ViewConfiguration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -56,7 +57,7 @@ namespace Core.Mvc.Areas
 
         protected IActionResult Dialog<TPostModel, T>(DialogConfiguration<TPostModel, T> index)
         {
-            return new JsonResult(new { data = index.Render(default), id = index.Identifier.Value });
+            return new JsonResult(new { data = HtmlContentUtilities.HtmlContentToString(index.Render(default)), id = index.Identifier.Value });
         }
 
         protected IActionResult Submit(HttpResponseModel model)

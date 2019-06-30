@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Core.Extension;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.GridFilter
 {
@@ -30,7 +31,7 @@ namespace Core.Web.GridFilter
             this._keyValuePair.Add(new KeyValuePair<bool, string>(key, value));
         }
 
-        public override string Render()
+        public override TagHelperOutput Render()
         {
             if (this._keyValuePair.Count == 0)
             {
@@ -40,12 +41,30 @@ namespace Core.Web.GridFilter
             string options = this._isContainsEmpty ? "<option></option>" : default;
             options = this._keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
-            return $"<div class=\"{this.ContainerClass}\">" +
-                   $"<div class=\"form-group\">" +
-                   $"<label {this.Tooltip}>{this.LabelText}</label>" +
-                   $"<select class=\"form-control\" style=\"width:204.16px\" name=\"{this.InputName}\">{options}</select>" +
-                   $"</div>" +
-                   $"</div>";
+            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
+            var divGroup = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "form-group" }, });
+            TagHelperAttributeList labelAttributes = new TagHelperAttributeList
+            {
+                 { "data-toggle", "tooltip" },
+                 { "data-placement", "top" },
+                 { "title", this.Tooltip },
+            };
+            var label = HtmlContentUtilities.MakeTagHelperOutput("label", labelAttributes);
+
+            TagHelperAttributeList inputAttributes = new TagHelperAttributeList
+            {
+                { "class", "form-control" },
+                { "style", "width:204.16px" },
+                { "name", this.InputName },
+            };
+            var select = HtmlContentUtilities.MakeTagHelperOutput("select", inputAttributes);
+
+            select.Content.SetHtmlContent(options);
+            div.Content.SetHtmlContent(divGroup);
+            divGroup.Content.SetHtmlContent(label);
+            label.Content.SetContent(this.LabelText);
+            label.PostElement.AppendHtml(select);
+            return div;
         }
 
         /// <summary>

@@ -4,6 +4,7 @@ using Core.Extension;
 using Core.Web.Enums;
 using Core.Web.GridFilter;
 using Core.Web.Html;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.TextBox
@@ -21,7 +22,7 @@ namespace Core.Web.TextBox
             this._type = JavaScriptEnumMappings.ToString(TextBoxTypeEnum.Hidden);
         }
 
-        public string Render(TModel model)
+        public TagHelperOutput Render(TModel model)
         {
             string name = this._expression.GetPropertyName();
             TagHelperAttributeList attributes = new TagHelperAttributeList
@@ -32,7 +33,7 @@ namespace Core.Web.TextBox
             };
 
             var div = HtmlContentUtilities.MakeTagHelperOutput("input", attributes);
-            return HtmlContentUtilities.HtmlContentToString(div);
+            return div;
         }
     }
 }

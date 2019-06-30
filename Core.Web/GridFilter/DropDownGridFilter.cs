@@ -35,7 +35,7 @@ namespace Core.Web.GridFilter
             this._keyValuePair.Add(new KeyValuePair<int, string>((int)Enum.Parse(key.GetType(), key.ToString()), value));
         }
 
-        public override string Render()
+        public override TagHelperOutput Render()
         {
             string options = this._isContainsEmpty ? "<option></option>" : default;
             options = this._keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
@@ -49,7 +49,7 @@ namespace Core.Web.GridFilter
             divGroup.Content.AppendHtml(label);
             var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
             div.Content.AppendHtml(divGroup);
-            return HtmlContentUtilities.HtmlContentToString(div);
+            return div;
         }
     }
 }

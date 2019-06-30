@@ -53,8 +53,8 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
                 var filter = this.SearchFilterConfiguration();
                 if (filter != null)
                 {
-                    html = html.Replace("{{grid-search-filter}}", filter.GenerateSearchFilter());
-                    html = html.Replace("{{button-group}}", filter.GenerateButton());
+                    html = html.Replace("{{grid-search-filter}}", HtmlContentUtilities.HtmlContentToString(filter.GenerateSearchFilter()));
+                    html = html.Replace("{{button-group}}", HtmlContentUtilities.HtmlContentToString(filter.GenerateButton()));
                     html = html.Replace("{{Pager}}", this.Pager());
                 }
 
@@ -110,11 +110,14 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 
         private string Footer()
         {
-            return $"<div class=\"row-fluid\">" +
-                   $"<div id = \"footer\" class=\"span12\"> 2019 &copy;https://github.com/188867052" +
-                   $"<a href=\"http://www.taobao.com/\" target=\"_blank\"> My Blog</a>" +
-                   $"</div>" +
-                   $"</div>";
+            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "row-fluid" }, });
+            var div2 = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "span12" },{ "id", "footer" }, });
+            div2.Content.Append(" 2019 ©https://github.com/188867052");
+            var a = HtmlContentUtilities.MakeTagHelperOutput("a", new TagHelperAttributeList { { "href", "http://www.taobao.com/" },{ "target", "_blank" }, });
+            a.Content.SetContent(" My Blog");
+            div2.Content.AppendHtml(a);
+            div.Content.SetHtmlContent(div2);
+            return HtmlContentUtilities.HtmlContentToString(div);
         }
 
         private string RenderJavaScript()

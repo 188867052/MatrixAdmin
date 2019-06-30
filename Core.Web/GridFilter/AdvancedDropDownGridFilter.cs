@@ -4,6 +4,7 @@ using Core.Extension;
 using Core.Web.Enums;
 using Core.Web.Identifiers;
 using Core.Web.JavaScript;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.GridFilter
 {
@@ -31,16 +32,36 @@ namespace Core.Web.GridFilter
             this._id = methodCall.Id;
         }
 
-        public override string Render()
+        public override TagHelperOutput Render()
         {
             string listId = new Identifier().Value;
-            return $"<div class=\"{this.ContainerClass}\">" +
-                   $"<div class=\"form-group\">" +
-                   $"<label>{this.LabelText}</label>" +
-                   $"<input class=\"form-control\" id=\"{this._id.Value}\" name=\"{this.InputName}\" data-url=\"{this._url}\" list=\"{listId}\">" +
-                   $"</select>" +
-                   $"</div>" +
-                   $"</div>{this._script}" + $"<datalist id=\"{listId}\"></datalist>";
+            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
+            var divGroup = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "form-group" }, });
+            TagHelperAttributeList labelAttributes = new TagHelperAttributeList
+            {
+                 { "data-toggle", "tooltip" },
+                 { "data-placement", "top" },
+                 { "title", this.Tooltip },
+            };
+            var label = HtmlContentUtilities.MakeTagHelperOutput("label", labelAttributes);
+            label.Content.SetContent(this.LabelText);
+            TagHelperAttributeList inputAttributes = new TagHelperAttributeList
+            {
+                { "class", "form-control" },
+                { "id", this._id.Value },
+                { "name", this.InputName },
+                { "data-url", this._url },
+                { "list", listId },
+            };
+            var input = HtmlContentUtilities.MakeTagHelperOutput("input", inputAttributes);
+
+            div.Content.SetHtmlContent(divGroup);
+            div.Content.AppendHtml(this._script);
+            div.Content.AppendHtml(HtmlContentUtilities.MakeTagHelperOutput("datalist", new TagHelperAttributeList { { "id", listId }, }));
+            divGroup.Content.SetHtmlContent(label);
+            label.Content.SetContent(this.LabelText);
+            label.PostElement.AppendHtml(input);
+            return div;
         }
     }
 }

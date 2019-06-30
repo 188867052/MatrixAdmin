@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Core.Web.Button;
 using Core.Web.GridFilter;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.SearchFilterConfiguration
 {
@@ -12,28 +11,48 @@ namespace Core.Web.SearchFilterConfiguration
         /// Generate search filter.
         /// </summary>
         /// <returns>A string.</returns>
-        public string GenerateSearchFilter()
+        public TagHelperOutput GenerateSearchFilter()
         {
             var searchFilter = new List<BaseGridFilter>();
             this.CreateSearchFilter(searchFilter);
-            StringBuilder filterText = new StringBuilder();
+            TagHelperOutput content = default;
             foreach (var item in searchFilter)
             {
-                filterText.Append(item.Render());
+                if (content == default)
+                {
+                    content = item.Render();
+                }
+                else
+                {
+                    content.PostElement.AppendHtml(item.Render());
+                }
             }
 
-            return filterText.ToString();
+            return content;
         }
 
         /// <summary>
         /// Generate button.
         /// </summary>
         /// <returns>A string.</returns>
-        public string GenerateButton()
+        public TagHelperOutput GenerateButton()
         {
             IList<StandardButton> buttons = new List<StandardButton>();
             this.CreateButton(buttons);
-            return buttons.Aggregate<StandardButton, string>(default, (current, button) => current + button.Render());
+            TagHelperOutput content = default;
+            foreach (var item in buttons)
+            {
+                if (content == default)
+                {
+                    content = item.Render();
+                }
+                else
+                {
+                    content.PostElement.AppendHtml(item.Render());
+                }
+            }
+
+            return content;
         }
 
         /// <summary>

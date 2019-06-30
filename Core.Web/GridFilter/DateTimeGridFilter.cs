@@ -12,7 +12,7 @@ namespace Core.Web.GridFilter
         {
         }
 
-        public override string Render()
+        public override TagHelperOutput Render()
         {
             string id = new Identifier().Value;
             var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
@@ -39,8 +39,7 @@ namespace Core.Web.GridFilter
             divGroup.Content.SetHtmlContent(label);
             label.Content.SetContent(this.LabelText);
             label.PostElement.AppendHtml(input);
-            var html = HtmlContentUtilities.HtmlContentToString(div);
-            return html;
+            return div;
         }
     }
 }

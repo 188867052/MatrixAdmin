@@ -1,7 +1,9 @@
-﻿namespace Core.Web.Html
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+
+namespace Core.Web.Html
 {
     public interface ITextRender<TPostModel, TModel>
     {
-        string Render(TModel model);
+        TagHelperOutput Render(TModel model);
     }
 }

@@ -27,28 +27,54 @@ namespace Core.Web.Dialog
 
         public Identifier Identifier { get; }
 
-        private string Buttons
+        private TagHelperOutput Buttons
         {
             get
             {
                 IList<StandardButton> buttons = new List<StandardButton>();
                 this.CreateButtons(buttons);
-                return buttons.Aggregate<StandardButton, string>(default, (current, item) => current + item.Render());
+                TagHelperOutput content = default;
+                foreach (var item in buttons)
+                {
+                    if (content == default)
+                    {
+                        content = item.Render();
+                    }
+                    else
+                    {
+                        content.PostElement.AppendHtml(item.Render());
+                    }
+                }
+
+                return content;
             }
         }
 
-        private string Body
+        private TagHelperOutput Body
         {
             get
             {
                 IList<ITextRender<TPostModel, TModel>> textBoxes = new List<ITextRender<TPostModel, TModel>>();
                 this.CreateBody(textBoxes);
                 this.CreateHiddenValues(textBoxes);
-                return textBoxes.Aggregate<ITextRender<TPostModel, TModel>, string>(default, (current, item) => current + item.Render(this.Model));
+                TagHelperOutput content = default;
+                foreach (var item in textBoxes)
+                {
+                    if (content == default)
+                    {
+                        content = item.Render(this.Model);
+                    }
+                    else
+                    {
+                        content.PostElement.AppendHtml(item.Render(this.Model));
+                    }
+                }
+
+                return content;
             }
         }
 
-        public virtual string Render(TModel model)
+        public virtual TagHelperOutput Render(TModel model)
         {
             var modalHeader = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal-header" }, });
             var headerTitle = HtmlContentUtilities.MakeTagHelperOutput("h4", new TagHelperAttributeList { { "class", "modal-title" }, });
@@ -69,13 +95,12 @@ namespace Core.Web.Dialog
             modalContent.Content.AppendHtml(modalBody);
             modalContent.Content.AppendHtml(modalFooter);
 
-            var modalDialog = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal-dialog modal-md" }, });
+            var modalDialog = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal-dialog modal-lg" }, });
             modalDialog.Content.AppendHtml(modalContent);
             var modal = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal fade" }, { "id", this.Identifier.Value }, });
             modal.Content.AppendHtml(modalDialog);
 
-            var html = HtmlContentUtilities.HtmlContentToString(modal);
-            return html;
+            return modal;
         }
 
         protected abstract void CreateButtons(IList<StandardButton> buttons);
