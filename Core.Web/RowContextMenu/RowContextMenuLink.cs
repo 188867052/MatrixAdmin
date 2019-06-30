@@ -1,4 +1,7 @@
-﻿namespace Core.Web.RowContextMenu
+﻿using Core.Web.GridFilter;
+using Microsoft.AspNetCore.Razor.TagHelpers;
+
+namespace Core.Web.RowContextMenu
 {
     public class RowContextMenuLink
     {
@@ -15,7 +18,16 @@
 
         public string Render()
         {
-            return $"<a class=\"icon-edit dropdown-item\" data-url=\"{this._url}\" data-method=\"{this._method}\" href=\"#\">&nbsp;{this._labelText}</a>";
+            TagHelperAttributeList labelAttributes = new TagHelperAttributeList
+            {
+                 { "class", "icon-edit dropdown-item" },
+                 { "data-url", this._url },
+                 { "data-method", this._method },
+                 { "href", "#" },
+            };
+            var anchor = HtmlContentUtilities.MakeTagHelperOutput("class", labelAttributes);
+            anchor.Content.SetHtmlContent($"&nbsp;{this._labelText}");
+            return HtmlContentUtilities.HtmlContentToString(anchor);
         }
     }
 }

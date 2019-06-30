@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Core.Api;
 using Core.Entity;
 using Core.Mvc.Areas.Redirect.Routes;
+using Core.Web.GridFilter;
 using Core.Web.Html;
 using Core.Web.JavaScript;
 using Core.Web.SearchFilterConfiguration;
 using Core.Web.Sidebar;
 using Core.Web.ViewConfiguration;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 {
@@ -156,18 +157,25 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 
         private string HtmlHead()
         {
-            StringBuilder stringBuilder = new StringBuilder();
+            var head = HtmlContentUtilities.MakeTagHelperOutput("head");
             foreach (var item in this.CssResource())
             {
-                stringBuilder.Append($"<link href=\"{item}\" rel=\"stylesheet\">");
+                head.Content.AppendHtml(HtmlContentUtilities.MakeTagHelperOutput("link", attributes: new TagHelperAttributeList
+               {
+                    new TagHelperAttribute("href", item),
+                    new TagHelperAttribute("rel", "stylesheet"),
+               }));
             }
 
             foreach (var item in this.JavaScriptResource())
             {
-                stringBuilder.Append($"<script src=\"{item}\"></script>");
+                head.Content.AppendHtml(HtmlContentUtilities.MakeTagHelperOutput("script", attributes: new TagHelperAttributeList
+               {
+                    new TagHelperAttribute("src", item),
+               }));
             }
 
-            return $"<head>{stringBuilder}</head>";
+            return HtmlContentUtilities.HtmlContentToString(head);
         }
     }
 }

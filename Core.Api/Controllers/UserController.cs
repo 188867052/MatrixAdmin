@@ -27,7 +27,7 @@ namespace Core.Api.Controllers
         }
 
         [HttpGet]
-        [CustomAuthorize]
+        //[CustomAuthorize]
         public IActionResult Index()
         {
             using (this.DbContext)

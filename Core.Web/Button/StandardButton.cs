@@ -1,6 +1,8 @@
 ﻿using System;
+using Core.Web.GridFilter;
 using Core.Web.Identifiers;
 using Core.Web.JavaScript;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.Button
 {
@@ -25,11 +27,22 @@ namespace Core.Web.Button
 
         public string Render()
         {
-            string tooltip = this._tooltip == default ? string.Empty : $"data-toggle=\"tooltip\" data-placement=\"top\" title=\"{this._tooltip}\"";
-            string idAttribute = this._id == default ? string.Empty : $"id=\"{this._id.Value}\"";
-            string dataUrl = this._url == null ? string.Empty : $"data-url=\"{this._url}\"";
+            TagHelperAttributeList attributes = new TagHelperAttributeList
+            {
+                 { "class", "btn btn-primary" },
+                 { "id", this._id.Value },
+                 { "data-url", this._url },
+                 { "data-toggle", "tooltip" },
+                 { "data-placement", "top" },
+                 { "title",  this._tooltip },
+                 { "type", this._tooltip },
+            };
 
-            return $"<button {idAttribute} type=\"submit\" class=\"btn btn-primary\" {tooltip} {dataUrl}>{this.Text}</button>" + Environment.NewLine + this.Event.Render();
+            var output = HtmlContentUtilities.MakeTagHelperOutput("buttons", attributes);
+            output.Content.SetContent(this.Text);
+            var button = HtmlContentUtilities.HtmlContentToString(output);
+
+            return button + Environment.NewLine + this.Event.Render();
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using Core.Web.Enums;
+﻿using System.Threading.Tasks;
+using Core.Web.Enums;
 using Core.Web.Identifiers;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.GridFilter
 {
@@ -9,7 +11,7 @@ namespace Core.Web.GridFilter
 
         protected BaseGridFilter(string labelText, string inputName, TextBoxTypeEnum type = default, string tooltip = default)
         {
-            this.Tooltip = tooltip == default ? string.Empty : $"data-toggle=\"tooltip\" data-placement=\"top\" title=\"{tooltip}\"";
+            this.Tooltip = tooltip;
             this.LabelText = labelText;
             this.InputName = inputName;
             this._inputType = JavaScriptEnumMappings.ToString(type);
@@ -26,13 +28,32 @@ namespace Core.Web.GridFilter
         public virtual string Render()
         {
             string id = new Identifier().Value;
+            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", ContainerClass }, });
+            var divGroup = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "form-group" }, });
+            TagHelperAttributeList labelAttributes = new TagHelperAttributeList
+            {
+                 { "data-toggle", "tooltip" },
+                 { "data-placement", "top" },
+                 { "title", this.Tooltip },
+            };
+            var label = HtmlContentUtilities.MakeTagHelperOutput("label", labelAttributes);
 
-            return $"<div class=\"{this.ContainerClass}\">" +
-                   $"<div class=\"form-group\">" +
-                   $"<label for=\"{id}\" {this.Tooltip}>{this.LabelText}</label>" +
-                   $"<input class=\"form-control\" id=\"{id}\" name=\"{this.InputName}\" type=\"{this._inputType}\">" +
-                   $"</div>" +
-                   $"</div>";
+            TagHelperAttributeList inputAttributes = new TagHelperAttributeList
+            {
+                { "class", "form-control" },
+                { "id", id },
+                { "name", this.InputName },
+                { "type", this._inputType },
+            };
+            var input = HtmlContentUtilities.MakeTagHelperOutput("input", inputAttributes);
+
+            div.Content.SetHtmlContent(divGroup);
+            divGroup.Content.SetHtmlContent(label);
+            label.Content.SetContent(this.LabelText);
+            label.PostElement.AppendHtml(input);
+
+            var html = HtmlContentUtilities.HtmlContentToString(div);
+            return html;
         }
     }
 }

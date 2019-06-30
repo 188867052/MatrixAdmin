@@ -30,7 +30,7 @@ namespace Core.Mvc.Areas.AdvancedDropDownFilters
         [HttpGet]
         public async Task<IActionResult> UserDataList(string name)
         {
-            HttpResponseModel model = await HttpClientAsync.Async<IList<UserModel>>(DataListRoute.GetUserDataList, name);
+            HttpResponseModel model = await DataListRoute.GetUserDataListAsync<HttpResponseModel>(name);
             IList<UserModel> users = (IList<UserModel>)model.Data;
 
             return this.DataListContent(users, o => o.Id, o => o.LoginName);

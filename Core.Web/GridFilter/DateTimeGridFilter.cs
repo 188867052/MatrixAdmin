@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using Core.Extension;
 using Core.Web.Identifiers;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.GridFilter
 {
@@ -14,13 +15,32 @@ namespace Core.Web.GridFilter
         public override string Render()
         {
             string id = new Identifier().Value;
+            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
+            var divGroup = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "form-group" }, });
 
-            return $"<div class=\"{this.ContainerClass}\">" +
-                   $"<div class=\"form-group\">" +
-                   $"<label for=\"{id}\" {this.Tooltip}>{this.LabelText}</label>" +
-                   $"<input class=\"form_datetime form-control\" name=\"{this.InputName}\" type=\"text\" id=\"{id}\">" +
-                   $"</div>" +
-                   $"</div>";
+            TagHelperAttributeList labelAttributes = new TagHelperAttributeList
+            {
+                 { "data-toggle", "tooltip" },
+                 { "data-placement", "top" },
+                 { "title", this.Tooltip },
+            };
+            var label = HtmlContentUtilities.MakeTagHelperOutput("label", labelAttributes);
+
+            TagHelperAttributeList inputAttributes = new TagHelperAttributeList
+            {
+                { "class", "form_datetime form-control" },
+                { "id", id },
+                { "name", this.InputName },
+                { "type", "text" },
+            };
+
+            var input = HtmlContentUtilities.MakeTagHelperOutput("input", inputAttributes);
+            div.Content.SetHtmlContent(divGroup);
+            divGroup.Content.SetHtmlContent(label);
+            label.Content.SetContent(this.LabelText);
+            label.PostElement.AppendHtml(input);
+            var html = HtmlContentUtilities.HtmlContentToString(div);
+            return html;
         }
     }
 }

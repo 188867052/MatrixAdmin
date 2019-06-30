@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Core.Entity;
 using Core.Web.Button;
+using Core.Web.GridFilter;
 using Core.Web.Html;
 using Core.Web.Identifiers;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.Dialog
 {
@@ -49,15 +50,32 @@ namespace Core.Web.Dialog
 
         public virtual string Render(TModel model)
         {
-            using (var context = new CoreContext())
-            {
-                string html = context.Configuration.FirstOrDefault(o => o.Key == "Dialog").Value;
-                html = html.Replace("{{id}}", this.Identifier.Value);
-                html = html.Replace("{{modal-title}}", this.Title);
-                html = html.Replace("{{modal-body}}", this.Body);
-                html = html.Replace("{{modal-footer}}", this.Buttons);
-                return html;
-            }
+            var modalHeader = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal-header" }, });
+            var headerTitle = HtmlContentUtilities.MakeTagHelperOutput("h4", new TagHelperAttributeList { { "class", "modal-title" }, });
+            headerTitle.Content.AppendHtml(this.Title);
+            var headerButton = HtmlContentUtilities.MakeTagHelperOutput("button", new TagHelperAttributeList { { "type", "button" }, { "class", "close" }, { "data-dismiss", "modal" }, });
+            headerButton.Content.AppendHtml("&times;");
+            modalHeader.Content.AppendHtml(headerTitle);
+            modalHeader.Content.AppendHtml(headerButton);
+
+            var modalBody = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal-body" }, });
+            modalBody.Content.AppendHtml(this.Body);
+
+            var modalFooter = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal-footer" }, });
+            modalFooter.Content.AppendHtml(this.Buttons);
+
+            var modalContent = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal-content" } });
+            modalContent.Content.AppendHtml(modalHeader);
+            modalContent.Content.AppendHtml(modalBody);
+            modalContent.Content.AppendHtml(modalFooter);
+
+            var modalDialog = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal-dialog modal-md" }, });
+            modalDialog.Content.AppendHtml(modalContent);
+            var modal = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal fade" }, { "id", this.Identifier.Value }, });
+            modal.Content.AppendHtml(modalDialog);
+
+            var html = HtmlContentUtilities.HtmlContentToString(modal);
+            return html;
         }
 
         protected abstract void CreateButtons(IList<StandardButton> buttons);

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Core.Mvc.Areas.Administration.Controllers
 {
     [Area(nameof(Administration))]
-    [CustomAuthorize]
+    //[CustomAuthorize]
     public class UserController : StandardController
     {
         /// <summary>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Core.Extension;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.GridFilter
 {
@@ -39,14 +40,16 @@ namespace Core.Web.GridFilter
             string options = this._isContainsEmpty ? "<option></option>" : default;
             options = this._keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
-            return $"<div class=\"{this.ContainerClass}\">" +
-                   $"<div class=\"form-group\">" +
-                   $"<label {this.Tooltip}>{this.LabelText}</label>" +
-                   $"<select class=\"form-control\" style=\"width:204.16px\" name=\"{this.InputName}\">" +
-                   $"{options}" +
-                   $"</select>" +
-                   $"</div>" +
-                   $"</div>";
+            var label = HtmlContentUtilities.MakeTagHelperOutput("label");
+            var select = HtmlContentUtilities.MakeTagHelperOutput("select", new TagHelperAttributeList { { "class", "form-control" }, { "style", "width:204.16px" }, { "name", this.InputName }, });
+            select.Content.AppendHtml(options);
+            label.Content.SetContent(this.LabelText);
+            label.PostElement.AppendHtml(select);
+            var divGroup = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "form-group" }, });
+            divGroup.Content.AppendHtml(label);
+            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
+            div.Content.AppendHtml(divGroup);
+            return HtmlContentUtilities.HtmlContentToString(div);
         }
     }
 }

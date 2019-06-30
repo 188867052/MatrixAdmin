@@ -2,8 +2,10 @@
 using System.Linq.Expressions;
 using Core.Extension;
 using Core.Web.Enums;
+using Core.Web.GridFilter;
 using Core.Web.Html;
 using Core.Web.Identifiers;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.TextBox
 {
@@ -26,17 +28,26 @@ namespace Core.Web.TextBox
         {
             string id = new Identifier().Value;
             string value = default;
+            string name = this._expression.GetPropertyName();
             if (entity != null)
             {
                 value = this._modelExpression.Compile()(entity);
             }
 
-            string name = this._expression.GetPropertyName();
-            string html = $"<div class=\"form-group\">" +
-                          $"<label for=\"{id}\">{this._label}:</label>" +
-                          $"<input type=\"{this.type}\" name=\"{name}\" class=\"form-control\" value=\"{value}\" id=\"{id}\">" +
-                          $"</div>";
-            return html;
+            var label = HtmlContentUtilities.MakeTagHelperOutput("label", new TagHelperAttributeList { { "for", id }, });
+            label.Content.SetContent(this._label + ":");
+            TagHelperAttributeList attributes = new TagHelperAttributeList
+            {
+                { "class", "form-control" },
+                { "type", this.type },
+                { "name", name },
+                { "value", value },
+                { "id", id },
+            };
+            label.PostElement.AppendHtml(HtmlContentUtilities.MakeTagHelperOutput("input", attributes));
+            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "form-group" }, });
+            div.Content.AppendHtml(label);
+            return HtmlContentUtilities.HtmlContentToString(div);
         }
     }
 }

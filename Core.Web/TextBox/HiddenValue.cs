@@ -2,7 +2,9 @@
 using System.Linq.Expressions;
 using Core.Extension;
 using Core.Web.Enums;
+using Core.Web.GridFilter;
 using Core.Web.Html;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.TextBox
 {
@@ -22,7 +24,15 @@ namespace Core.Web.TextBox
         public string Render(TModel model)
         {
             string name = this._expression.GetPropertyName();
-            return $"<input type=\"{this._type}\" name=\"{name}\" value=\"{this._value}\">";
+            TagHelperAttributeList attributes = new TagHelperAttributeList
+            {
+                { "type", this._type },
+                { "name", name },
+                { "value", this._value },
+            };
+
+            var div = HtmlContentUtilities.MakeTagHelperOutput("input", attributes);
+            return HtmlContentUtilities.HtmlContentToString(div);
         }
     }
 }
