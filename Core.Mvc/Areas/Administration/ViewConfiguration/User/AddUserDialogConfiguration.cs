@@ -24,7 +24,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
 
         public override string Title => Resources.Title;
 
-        protected override void CreateBody(IList<ITextRender<TPostModel, TModel>> textBoxes)
+        protected override void CreateBody(IList<IHtmlContent<TPostModel, TModel>> textBoxes)
         {
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.LoginName, o => o.LoginName));
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.DisplayName, o => o.DisplayName));
@@ -34,7 +34,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.User
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.Password, o => o.Password, null, TextBoxTypeEnum.Password));
         }
 
-        protected override void CreateHiddenValues(IList<ITextRender<TPostModel, TModel>> textBoxes)
+        protected override void CreateHiddenValues(IList<IHtmlContent<TPostModel, TModel>> textBoxes)
         {
         }
 

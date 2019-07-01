@@ -5,7 +5,6 @@ using System.Linq.Expressions;
 using Core.Extension;
 using Core.Web.GridFilter;
 using Core.Web.Html;
-using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.TextBox
@@ -15,7 +14,7 @@ namespace Core.Web.TextBox
     /// </summary>
     /// <typeparam name="TPostModel">The post model.</typeparam>
     /// <typeparam name="TModel">The enum.</typeparam>
-    public class DropDownTextBox<TPostModel, TModel> : ITextRender<TPostModel, TModel>
+    public class DropDownTextBox<TPostModel, TModel> : IHtmlContent<TPostModel, TModel>
     {
         private readonly IList<KeyValuePair<int, string>> _keyValuePair;
         private readonly bool _isContainsEmpty;
@@ -52,10 +51,10 @@ namespace Core.Web.TextBox
             string options = this._isContainsEmpty ? "<option></option>" : default;
             options = this._keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}' {(this._selectedKey == item.Key ? "selected=\"selected\"" : string.Empty)}>{item.Value}</option>");
 
-            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "form-group" }, });
-            var label = HtmlContentUtilities.MakeTagHelperOutput("label");
+            var div = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "form-group" }, });
+            var label = HtmlContent.TagHelper("label");
             label.Content.SetContent(this._labelText);
-            var select = HtmlContentUtilities.MakeTagHelperOutput("select", new TagHelperAttributeList {
+            var select = HtmlContent.TagHelper("select", new TagHelperAttributeList {
                 { "class", "form-control" },
                 { "name", property },
             });

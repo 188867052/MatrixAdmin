@@ -23,12 +23,12 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 
         public override string Title => Resources.EditMenuTitle;
 
-        protected override void CreateHiddenValues(IList<ITextRender<TPostModel, TModel>> textBoxes)
+        protected override void CreateHiddenValues(IList<IHtmlContent<TPostModel, TModel>> textBoxes)
         {
             textBoxes.Add(new HiddenValue<TPostModel, TModel>(o => o.Id, this.Model.Id));
         }
 
-        protected override void CreateBody(IList<ITextRender<TPostModel, TModel>> textBoxes)
+        protected override void CreateBody(IList<IHtmlContent<TPostModel, TModel>> textBoxes)
         {
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.Name, o => o.Name, o => o.Name));
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.Url, o => o.Url, o => o.Url));

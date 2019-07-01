@@ -35,15 +35,15 @@ namespace Core.Web.GridFilter
         public override TagHelperOutput Render()
         {
             string listId = new Identifier().Value;
-            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
-            var divGroup = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "form-group" }, });
+            var div = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
+            var divGroup = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "form-group" }, });
             TagHelperAttributeList labelAttributes = new TagHelperAttributeList
             {
                  { "data-toggle", "tooltip" },
                  { "data-placement", "top" },
                  { "title", this.Tooltip },
             };
-            var label = HtmlContentUtilities.MakeTagHelperOutput("label", labelAttributes);
+            var label = HtmlContent.TagHelper("label", labelAttributes);
             label.Content.SetContent(this.LabelText);
             TagHelperAttributeList inputAttributes = new TagHelperAttributeList
             {
@@ -53,11 +53,11 @@ namespace Core.Web.GridFilter
                 { "data-url", this._url },
                 { "list", listId },
             };
-            var input = HtmlContentUtilities.MakeTagHelperOutput("input", inputAttributes);
+            var input = HtmlContent.TagHelper("input", inputAttributes);
 
             div.Content.SetHtmlContent(divGroup);
             div.Content.AppendHtml(this._script);
-            div.Content.AppendHtml(HtmlContentUtilities.MakeTagHelperOutput("datalist", new TagHelperAttributeList { { "id", listId }, }));
+            div.Content.AppendHtml(HtmlContent.TagHelper("datalist", new TagHelperAttributeList { { "id", listId }, }));
             divGroup.Content.SetHtmlContent(label);
             label.Content.SetContent(this.LabelText);
             label.PostElement.AppendHtml(input);

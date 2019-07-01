@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Core.Web.Enums;
+﻿using Core.Web.Enums;
 using Core.Web.Identifiers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
@@ -28,15 +27,15 @@ namespace Core.Web.GridFilter
         public virtual TagHelperOutput Render()
         {
             string id = new Identifier().Value;
-            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
-            var divGroup = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "form-group" }, });
+            var div = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
+            var divGroup = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "form-group" }, });
             TagHelperAttributeList labelAttributes = new TagHelperAttributeList
             {
                  { "data-toggle", "tooltip" },
                  { "data-placement", "top" },
                  { "title", this.Tooltip },
             };
-            var label = HtmlContentUtilities.MakeTagHelperOutput("label", labelAttributes);
+            var label = HtmlContent.TagHelper("label", labelAttributes);
 
             TagHelperAttributeList inputAttributes = new TagHelperAttributeList
             {
@@ -45,7 +44,7 @@ namespace Core.Web.GridFilter
                 { "name", this.InputName },
                 { "type", this._inputType },
             };
-            var input = HtmlContentUtilities.MakeTagHelperOutput("input", inputAttributes);
+            var input = HtmlContent.TagHelper("input", inputAttributes);
 
             div.Content.SetHtmlContent(divGroup);
             divGroup.Content.SetHtmlContent(label);

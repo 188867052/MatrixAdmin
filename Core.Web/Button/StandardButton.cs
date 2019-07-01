@@ -1,5 +1,4 @@
-﻿using System;
-using Core.Web.GridFilter;
+﻿using Core.Web.GridFilter;
 using Core.Web.Identifiers;
 using Core.Web.JavaScript;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -38,7 +37,7 @@ namespace Core.Web.Button
                  { "type", this._tooltip },
             };
 
-            var output = HtmlContentUtilities.MakeTagHelperOutput("buttons", attributes);
+            var output = HtmlContent.TagHelper("buttons", attributes);
             output.Content.SetContent(this.Text);
             output.Content.AppendHtml(this.Event.Render());
 

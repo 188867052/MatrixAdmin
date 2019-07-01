@@ -22,13 +22,13 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Role
 
         public override string Title => RoleIndexResource.AddRoleDialogTitle;
 
-        protected override void CreateBody(IList<ITextRender<TPostModel, TModel>> textBoxes)
+        protected override void CreateBody(IList<IHtmlContent<TPostModel, TModel>> textBoxes)
         {
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>("角色名", o => o.Name));
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>("描述", o => o.Description));
         }
 
-        protected override void CreateHiddenValues(IList<ITextRender<TPostModel, TModel>> textBoxes)
+        protected override void CreateHiddenValues(IList<IHtmlContent<TPostModel, TModel>> textBoxes)
         {
         }
 

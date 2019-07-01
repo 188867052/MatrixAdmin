@@ -4,12 +4,11 @@ using Core.Extension;
 using Core.Web.Enums;
 using Core.Web.GridFilter;
 using Core.Web.Html;
-using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.TextBox
 {
-    public class HiddenValue<TPostModel, TModel> : ITextRender<TPostModel, TModel>
+    public class HiddenValue<TPostModel, TModel> : IHtmlContent<TPostModel, TModel>
     {
         private readonly Expression<Func<TPostModel, int>> _expression;
         private readonly int _value;
@@ -24,16 +23,12 @@ namespace Core.Web.TextBox
 
         public TagHelperOutput Render(TModel model)
         {
-            string name = this._expression.GetPropertyName();
-            TagHelperAttributeList attributes = new TagHelperAttributeList
+            return HtmlContent.TagHelper("input", new TagHelperAttributeList
             {
                 { "type", this._type },
-                { "name", name },
+                { "name", this._expression.GetPropertyName() },
                 { "value", this._value },
-            };
-
-            var div = HtmlContentUtilities.MakeTagHelperOutput("input", attributes);
-            return div;
+            });
         }
     }
 }

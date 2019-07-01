@@ -15,8 +15,8 @@ namespace Core.Web.GridFilter
         public override TagHelperOutput Render()
         {
             string id = new Identifier().Value;
-            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
-            var divGroup = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "form-group" }, });
+            var div = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
+            var divGroup = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "form-group" }, });
 
             TagHelperAttributeList labelAttributes = new TagHelperAttributeList
             {
@@ -24,7 +24,7 @@ namespace Core.Web.GridFilter
                  { "data-placement", "top" },
                  { "title", this.Tooltip },
             };
-            var label = HtmlContentUtilities.MakeTagHelperOutput("label", labelAttributes);
+            var label = HtmlContent.TagHelper("label", labelAttributes);
 
             TagHelperAttributeList inputAttributes = new TagHelperAttributeList
             {
@@ -34,7 +34,7 @@ namespace Core.Web.GridFilter
                 { "type", "text" },
             };
 
-            var input = HtmlContentUtilities.MakeTagHelperOutput("input", inputAttributes);
+            var input = HtmlContent.TagHelper("input", inputAttributes);
             div.Content.SetHtmlContent(divGroup);
             divGroup.Content.SetHtmlContent(label);
             label.Content.SetContent(this.LabelText);

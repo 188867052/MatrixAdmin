@@ -16,7 +16,7 @@ namespace Core.Web.TextBox
     /// </summary>
     /// <typeparam name="TPostModel">The post model.</typeparam>
     /// <typeparam name="TModel">TModel.</typeparam>
-    public class AdvancedDropDown<TPostModel, TModel> : ITextRender<TPostModel, TModel>
+    public class AdvancedDropDown<TPostModel, TModel> : IHtmlContent<TPostModel, TModel>
     {
         private readonly Expression<Func<TPostModel, Enum>> _expression;
         private readonly string _labelText;
@@ -42,19 +42,19 @@ namespace Core.Web.TextBox
             string listId = new Identifier().Value;
             string property = this._expression.GetPropertyName();
 
-            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "form-group" }, });
-            var label = HtmlContentUtilities.MakeTagHelperOutput("label");
+            var div = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "form-group" }, });
+            var label = HtmlContent.TagHelper("label");
             label.Content.SetContent(this._labelText);
-            var input = HtmlContentUtilities.MakeTagHelperOutput("input", new TagHelperAttributeList {
+            var input = HtmlContent.TagHelper("input", new TagHelperAttributeList {
                 { "class", "form-control" },
                 { "id", this._id.Value },
                 { "name", property },
                 { "list", listId },
             });
             label.PostElement.AppendHtml(input);
-            label.PostElement.AppendHtml(HtmlContentUtilities.MakeTagHelperOutput("select"));
+            label.PostElement.AppendHtml(HtmlContent.TagHelper("select"));
             div.PostElement.AppendHtmlLine(this._script);
-            div.PostElement.AppendHtml(HtmlContentUtilities.MakeTagHelperOutput("datalist", new TagHelperAttributeList { { "id", listId }, }));
+            div.PostElement.AppendHtml(HtmlContent.TagHelper("datalist", new TagHelperAttributeList { { "id", listId }, }));
 
             return div;
         }

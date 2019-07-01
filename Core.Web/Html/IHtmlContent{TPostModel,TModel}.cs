@@ -2,7 +2,7 @@
 
 namespace Core.Web.Html
 {
-    public interface ITextRender<TPostModel, TModel>
+    public interface IHtmlContent<TPostModel, TModel>
     {
         TagHelperOutput Render(TModel model);
     }

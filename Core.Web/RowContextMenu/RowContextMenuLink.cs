@@ -25,9 +25,9 @@ namespace Core.Web.RowContextMenu
                  { "data-method", this._method },
                  { "href", "#" },
             };
-            var anchor = HtmlContentUtilities.MakeTagHelperOutput("class", labelAttributes);
+            var anchor = HtmlContent.TagHelper("class", labelAttributes);
             anchor.Content.SetHtmlContent($"&nbsp;{this._labelText}");
-            return HtmlContentUtilities.HtmlContentToString(anchor);
+            return HtmlContent.ToString(anchor);
         }
     }
 }

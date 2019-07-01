@@ -53,8 +53,8 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
                 var filter = this.SearchFilterConfiguration();
                 if (filter != null)
                 {
-                    html = html.Replace("{{grid-search-filter}}", HtmlContentUtilities.HtmlContentToString(filter.GenerateSearchFilter()));
-                    html = html.Replace("{{button-group}}", HtmlContentUtilities.HtmlContentToString(filter.GenerateButton()));
+                    html = html.Replace("{{grid-search-filter}}", HtmlContent.ToString(filter.GenerateSearchFilter()));
+                    html = html.Replace("{{button-group}}", HtmlContent.ToString(filter.GenerateButton()));
                     html = html.Replace("{{Pager}}", this.Pager());
                 }
 
@@ -110,14 +110,14 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 
         private string Footer()
         {
-            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "row-fluid" }, });
-            var div2 = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "span12" },{ "id", "footer" }, });
+            var div = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "row-fluid" }, });
+            var div2 = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "span12" },{ "id", "footer" }, });
             div2.Content.Append(" 2019 ©https://github.com/188867052");
-            var a = HtmlContentUtilities.MakeTagHelperOutput("a", new TagHelperAttributeList { { "href", "http://www.taobao.com/" },{ "target", "_blank" }, });
+            var a = HtmlContent.TagHelper("a", new TagHelperAttributeList { { "href", "http://www.taobao.com/" },{ "target", "_blank" }, });
             a.Content.SetContent(" My Blog");
             div2.Content.AppendHtml(a);
             div.Content.SetHtmlContent(div2);
-            return HtmlContentUtilities.HtmlContentToString(div);
+            return HtmlContent.ToString(div);
         }
 
         private string RenderJavaScript()
@@ -160,10 +160,10 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 
         private string HtmlHead()
         {
-            var head = HtmlContentUtilities.MakeTagHelperOutput("head");
+            var head = HtmlContent.TagHelper("head");
             foreach (var item in this.CssResource())
             {
-                head.Content.AppendHtml(HtmlContentUtilities.MakeTagHelperOutput("link", attributes: new TagHelperAttributeList
+                head.Content.AppendHtml(HtmlContent.TagHelper("link", attributes: new TagHelperAttributeList
                {
                     new TagHelperAttribute("href", item),
                     new TagHelperAttribute("rel", "stylesheet"),
@@ -172,13 +172,13 @@ namespace Core.Mvc.Areas.Redirect.ViewConfiguration.Home
 
             foreach (var item in this.JavaScriptResource())
             {
-                head.Content.AppendHtml(HtmlContentUtilities.MakeTagHelperOutput("script", attributes: new TagHelperAttributeList
+                head.Content.AppendHtml(HtmlContent.TagHelper("script", attributes: new TagHelperAttributeList
                {
                     new TagHelperAttribute("src", item),
                }));
             }
 
-            return HtmlContentUtilities.HtmlContentToString(head);
+            return HtmlContent.ToString(head);
         }
     }
 }

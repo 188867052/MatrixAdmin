@@ -22,7 +22,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
 
         public override string Title => Resources.AddMenuTitle;
 
-        protected override void CreateBody(IList<ITextRender<TPostModel, TModel>> textBoxes)
+        protected override void CreateBody(IList<IHtmlContent<TPostModel, TModel>> textBoxes)
         {
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.Name, o => o.Name));
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.Url, o => o.Url));
@@ -31,7 +31,7 @@ namespace Core.Mvc.Areas.Administration.ViewConfiguration.Menu
             textBoxes.Add(new LabeledTextBox<TPostModel, TModel>(Resources.Alias, o => o.Alias));
         }
 
-        protected override void CreateHiddenValues(IList<ITextRender<TPostModel, TModel>> textBoxes)
+        protected override void CreateHiddenValues(IList<IHtmlContent<TPostModel, TModel>> textBoxes)
         {
         }
 

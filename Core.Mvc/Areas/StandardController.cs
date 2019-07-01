@@ -57,7 +57,7 @@ namespace Core.Mvc.Areas
 
         protected IActionResult Dialog<TPostModel, T>(DialogConfiguration<TPostModel, T> index)
         {
-            return new JsonResult(new { data = HtmlContentUtilities.HtmlContentToString(index.Render(default)), id = index.Identifier.Value });
+            return new JsonResult(new { data = HtmlContent.ToString(index.Render(default)), id = index.Identifier.Value });
         }
 
         protected IActionResult Submit(HttpResponseModel model)

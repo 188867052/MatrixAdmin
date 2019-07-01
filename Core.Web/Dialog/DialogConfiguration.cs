@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Core.Web.Button;
 using Core.Web.GridFilter;
 using Core.Web.Html;
@@ -8,7 +7,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.Dialog
 {
-    public abstract class DialogConfiguration<TPostModel, TModel> : ITextRender<TPostModel, TModel>
+    public abstract class DialogConfiguration<TPostModel, TModel> : IHtmlContent<TPostModel, TModel>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DialogConfiguration{TPostModel, TModel}"/> class.
@@ -54,7 +53,7 @@ namespace Core.Web.Dialog
         {
             get
             {
-                IList<ITextRender<TPostModel, TModel>> textBoxes = new List<ITextRender<TPostModel, TModel>>();
+                IList<IHtmlContent<TPostModel, TModel>> textBoxes = new List<IHtmlContent<TPostModel, TModel>>();
                 this.CreateBody(textBoxes);
                 this.CreateHiddenValues(textBoxes);
                 TagHelperOutput content = default;
@@ -76,37 +75,21 @@ namespace Core.Web.Dialog
 
         public virtual TagHelperOutput Render(TModel model)
         {
-            var modalHeader = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal-header" }, });
-            var headerTitle = HtmlContentUtilities.MakeTagHelperOutput("h4", new TagHelperAttributeList { { "class", "modal-title" }, });
-            headerTitle.Content.AppendHtml(this.Title);
-            var headerButton = HtmlContentUtilities.MakeTagHelperOutput("button", new TagHelperAttributeList { { "type", "button" }, { "class", "close" }, { "data-dismiss", "modal" }, });
-            headerButton.Content.AppendHtml("&times;");
-            modalHeader.Content.AppendHtml(headerTitle);
-            modalHeader.Content.AppendHtml(headerButton);
+            var headerTitle = HtmlContent.TagHelper("h4", new TagHelperAttributeList { { "class", "modal-title" }, }, this.Title);
+            var headerButton = HtmlContent.TagHelper("button", new TagHelperAttributeList { { "type", "button" }, { "class", "close" }, { "data-dismiss", "modal" }, }, "&times;");
+            var modalHeader = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "modal-header" }, }, headerTitle, headerButton);
+            var modalBody = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "modal-body" }, }, this.Body);
+            var modalFooter = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "modal-footer" }, }, this.Buttons);
+            var modalContent = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "modal-content" } }, modalHeader, modalBody, modalFooter);
+            var modalDialog = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "modal-dialog modal-lg" }, }, modalContent);
 
-            var modalBody = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal-body" }, });
-            modalBody.Content.AppendHtml(this.Body);
-
-            var modalFooter = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal-footer" }, });
-            modalFooter.Content.AppendHtml(this.Buttons);
-
-            var modalContent = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal-content" } });
-            modalContent.Content.AppendHtml(modalHeader);
-            modalContent.Content.AppendHtml(modalBody);
-            modalContent.Content.AppendHtml(modalFooter);
-
-            var modalDialog = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal-dialog modal-lg" }, });
-            modalDialog.Content.AppendHtml(modalContent);
-            var modal = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "modal fade" }, { "id", this.Identifier.Value }, });
-            modal.Content.AppendHtml(modalDialog);
-
-            return modal;
+            return HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "modal fade" }, { "id", this.Identifier.Value }, }, modalDialog);
         }
 
         protected abstract void CreateButtons(IList<StandardButton> buttons);
 
-        protected abstract void CreateBody(IList<ITextRender<TPostModel, TModel>> textBoxes);
+        protected abstract void CreateBody(IList<IHtmlContent<TPostModel, TModel>> textBoxes);
 
-        protected abstract void CreateHiddenValues(IList<ITextRender<TPostModel, TModel>> textBoxes);
+        protected abstract void CreateHiddenValues(IList<IHtmlContent<TPostModel, TModel>> textBoxes);
     }
 }

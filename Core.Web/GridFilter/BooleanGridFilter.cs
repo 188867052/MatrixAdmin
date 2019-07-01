@@ -41,15 +41,15 @@ namespace Core.Web.GridFilter
             string options = this._isContainsEmpty ? "<option></option>" : default;
             options = this._keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
-            var div = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
-            var divGroup = HtmlContentUtilities.MakeTagHelperOutput("div", new TagHelperAttributeList { { "class", "form-group" }, });
+            var div = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
+            var divGroup = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "form-group" }, });
             TagHelperAttributeList labelAttributes = new TagHelperAttributeList
             {
                  { "data-toggle", "tooltip" },
                  { "data-placement", "top" },
                  { "title", this.Tooltip },
             };
-            var label = HtmlContentUtilities.MakeTagHelperOutput("label", labelAttributes);
+            var label = HtmlContent.TagHelper("label", labelAttributes);
 
             TagHelperAttributeList inputAttributes = new TagHelperAttributeList
             {
@@ -57,7 +57,7 @@ namespace Core.Web.GridFilter
                 { "style", "width:204.16px" },
                 { "name", this.InputName },
             };
-            var select = HtmlContentUtilities.MakeTagHelperOutput("select", inputAttributes);
+            var select = HtmlContent.TagHelper("select", inputAttributes);
 
             select.Content.SetHtmlContent(options);
             div.Content.SetHtmlContent(divGroup);
