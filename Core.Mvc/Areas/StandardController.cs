@@ -8,7 +8,6 @@ using Core.Model;
 using Core.Mvc.Areas.Redirect.Routes;
 using Core.Mvc.Areas.Redirect.ViewConfiguration.Home;
 using Core.Web.Dialog;
-using Core.Web.GridFilter;
 using Core.Web.Html;
 using Core.Web.ViewConfiguration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

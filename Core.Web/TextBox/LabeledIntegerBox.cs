@@ -2,7 +2,6 @@
 using System.Linq.Expressions;
 using Core.Extension;
 using Core.Web.Enums;
-using Core.Web.GridFilter;
 using Core.Web.Html;
 using Core.Web.Identifiers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -34,9 +33,6 @@ namespace Core.Web.TextBox
                 value = this._modelExpression.Compile()(entity).ToString();
             }
 
-            var div = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "form-group" }, });
-            var label = HtmlContent.TagHelper("label", new TagHelperAttributeList { { "for", id }, });
-            label.Content.SetContent(this._label + ":");
             TagHelperAttributeList attributes = new TagHelperAttributeList
             {
                 { "class", "form-control" },
@@ -45,9 +41,11 @@ namespace Core.Web.TextBox
                 { "value", value },
                 { "id", id },
             };
-            label.PostElement.AppendHtml(HtmlContent.TagHelper("input", attributes));
-            div.Content.AppendHtml(label);
-            return div;
+
+            var label = HtmlContent.TagHelper("label", new TagHelperAttributeList { { "for", id }, }, this._label + ":");
+            var input = HtmlContent.TagHelper("input", attributes);
+
+            return HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "form-group" }, }, label, input);
         }
     }
 }

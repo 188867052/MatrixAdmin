@@ -1,4 +1,4 @@
-﻿using Core.Web.GridFilter;
+﻿using Core.Web.Html;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.RowContextMenu
@@ -25,8 +25,8 @@ namespace Core.Web.RowContextMenu
                  { "data-method", this._method },
                  { "href", "#" },
             };
-            var anchor = HtmlContent.TagHelper("class", labelAttributes);
-            anchor.Content.SetHtmlContent($"&nbsp;{this._labelText}");
+
+            var anchor = HtmlContent.TagHelper("class", labelAttributes, $"&nbsp;{this._labelText}");
             return HtmlContent.ToString(anchor);
         }
     }

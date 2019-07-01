@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Core.Web.Button;
-using Core.Web.GridFilter;
 using Core.Web.Html;
 using Core.Web.Identifiers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -75,13 +74,15 @@ namespace Core.Web.Dialog
 
         public virtual TagHelperOutput Render(TModel model)
         {
-            var headerTitle = HtmlContent.TagHelper("h4", new TagHelperAttributeList { { "class", "modal-title" }, }, this.Title);
-            var headerButton = HtmlContent.TagHelper("button", new TagHelperAttributeList { { "type", "button" }, { "class", "close" }, { "data-dismiss", "modal" }, }, "&times;");
-            var modalHeader = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "modal-header" }, }, headerTitle, headerButton);
-            var modalBody = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "modal-body" }, }, this.Body);
-            var modalFooter = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "modal-footer" }, }, this.Buttons);
-            var modalContent = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "modal-content" } }, modalHeader, modalBody, modalFooter);
-            var modalDialog = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "modal-dialog modal-lg" }, }, modalContent);
+            TagHelperAttributeList attributes = new TagHelperAttributeList { { "type", "button" }, { "class", "close" }, { "data-dismiss", "modal" }, };
+
+            var headerTitle = HtmlContent.TagHelper("h4", new TagHelperAttribute("class", "modal-title"), this.Title);
+            var headerButton = HtmlContent.TagHelper("button", attributes, "&times;");
+            var modalHeader = HtmlContent.TagHelper("div", new TagHelperAttribute("class", "modal-header"), headerTitle, headerButton);
+            var modalBody = HtmlContent.TagHelper("div", new TagHelperAttribute("class", "modal-body"), this.Body);
+            var modalFooter = HtmlContent.TagHelper("div", new TagHelperAttribute("class", "modal-footer"), this.Buttons);
+            var modalContent = HtmlContent.TagHelper("div", new TagHelperAttribute("class", "modal-content"), modalHeader, modalBody, modalFooter);
+            var modalDialog = HtmlContent.TagHelper("div", new TagHelperAttribute("class", "modal-dialog modal-lg"), modalContent);
 
             return HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "modal fade" }, { "id", this.Identifier.Value }, }, modalDialog);
         }

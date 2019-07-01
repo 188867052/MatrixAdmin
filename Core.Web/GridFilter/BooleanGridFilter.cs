@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Core.Extension;
+using Core.Web.Html;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Core.Web.GridFilter
@@ -41,15 +42,12 @@ namespace Core.Web.GridFilter
             string options = this._isContainsEmpty ? "<option></option>" : default;
             options = this._keyValuePair.Aggregate(options, (current, item) => current + $"<option value='{item.Key}'>{item.Value}</option>");
 
-            var div = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", this.ContainerClass }, });
-            var divGroup = HtmlContent.TagHelper("div", new TagHelperAttributeList { { "class", "form-group" }, });
             TagHelperAttributeList labelAttributes = new TagHelperAttributeList
             {
                  { "data-toggle", "tooltip" },
                  { "data-placement", "top" },
                  { "title", this.Tooltip },
             };
-            var label = HtmlContent.TagHelper("label", labelAttributes);
 
             TagHelperAttributeList inputAttributes = new TagHelperAttributeList
             {
@@ -57,14 +55,11 @@ namespace Core.Web.GridFilter
                 { "style", "width:204.16px" },
                 { "name", this.InputName },
             };
-            var select = HtmlContent.TagHelper("select", inputAttributes);
 
-            select.Content.SetHtmlContent(options);
-            div.Content.SetHtmlContent(divGroup);
-            divGroup.Content.SetHtmlContent(label);
-            label.Content.SetContent(this.LabelText);
-            label.PostElement.AppendHtml(select);
-            return div;
+            var label = HtmlContent.TagHelper("label", labelAttributes, this.LabelText);
+            var select = HtmlContent.TagHelper("select", inputAttributes, options);
+            var divGroup = HtmlContent.TagHelper("div", new TagHelperAttribute ("class", "form-group" ), label, select);
+            return HtmlContent.TagHelper("div", new TagHelperAttribute("class", this.ContainerClass), divGroup);
         }
 
         /// <summary>

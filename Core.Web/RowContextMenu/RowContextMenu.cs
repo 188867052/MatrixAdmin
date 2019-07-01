@@ -18,7 +18,7 @@ namespace Core.Web.RowContextMenu
         public string Render()
         {
             this.CreateMenu(this._links);
-            return this._links.Aggregate<RowContextMenuLink, string>(default, (current, link) => current + link.Render());
+            return this._links.Aggregate<RowContextMenuLink, string>(default, (current, link) => current + link.    Render());
         }
 
         protected abstract void CreateMenu(IList<RowContextMenuLink> links);
