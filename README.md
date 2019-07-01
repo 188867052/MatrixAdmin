@@ -85,3 +85,9 @@ PM>
  dotnet pack .\Route.Generator\Route.Generator.csproj -o ..s\..\..\.nuget\localpackages -c Release
  dotnet tool uninstall --global Route.Generator
  dotnet tool install --global Route.Generator
+
+ ## My projects
+* [Asp.Net](https://github.com/188867052/Asp.Net)
+* [Route.Generator](https://github.com/188867052/Route.Generator)
+* [DapperExtension](https://github.com/188867052/DapperExtension)
+* [DependencyInjection.Analyzer](https://github.com/188867052/DependencyInjection.Analyzer)

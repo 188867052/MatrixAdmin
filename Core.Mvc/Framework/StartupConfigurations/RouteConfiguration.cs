@@ -1,5 +1,4 @@
-﻿using Core.Extension.RouteAnalyzer;
-using Core.Mvc.Areas.Redirect.Controllers;
+﻿using Core.Mvc.Areas.Redirect.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;

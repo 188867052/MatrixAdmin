@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Shared.Utilities;
 using Core.Web.Button;
 using Core.Web.Html;
 using Core.Web.Identifiers;
@@ -12,11 +13,13 @@ namespace Core.Web.Dialog
         /// Initializes a new instance of the <see cref="DialogConfiguration{TPostModel, TModel}"/> class.
         /// </summary>
         /// <param name="model">The model.</param>
-        /// <param name="id">The id.</param>
-        protected DialogConfiguration(Identifier id, TModel model = default)
+        /// <param name="identifier">The id.</param>
+        protected DialogConfiguration(Identifier identifier, TModel model = default)
         {
+            Check.NotNull(identifier, nameof(identifier));
+
             this.Model = model;
-            this.Identifier = id;
+            this.Identifier = identifier;
         }
 
         public TModel Model { get; }

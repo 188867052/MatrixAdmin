@@ -1,4 +1,5 @@
-﻿using Core.Web.Enums;
+﻿using Core.Shared.Utilities;
+using Core.Web.Enums;
 using Core.Web.Html;
 using Core.Web.Identifiers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -11,6 +12,9 @@ namespace Core.Web.GridFilter
 
         protected BaseGridFilter(string labelText, string inputName, TextBoxTypeEnum type = default, string tooltip = default)
         {
+            Check.NotEmpty(labelText, nameof(labelText));
+            Check.NotEmpty(inputName, nameof(inputName));
+
             this.Tooltip = tooltip;
             this.LabelText = labelText;
             this.InputName = inputName;

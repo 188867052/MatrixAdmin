@@ -37,8 +37,7 @@ namespace Core.Web.Button
                  { "type", this._tooltip },
             };
 
-            var output = HtmlContent.TagHelper("buttons", attributes);
-            output.Content.SetContent(this.Text);
+            var output = HtmlContent.TagHelper("buttons", attributes, this.Text);
             output.Content.AppendHtml(this.Event.Render());
 
             return output;

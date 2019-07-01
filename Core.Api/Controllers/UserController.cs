@@ -8,7 +8,6 @@ using Core.Api.Framework;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Resources = Core.Api.Resource.Controllers.UserControllerResource;
-using Core.Api.Extensions.CustomException;
 
 namespace Core.Api.Controllers
 {

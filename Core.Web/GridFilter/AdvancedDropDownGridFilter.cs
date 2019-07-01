@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using Core.Extension;
+using Core.Shared.Utilities;
 using Core.Web.Enums;
 using Core.Web.Html;
 using Core.Web.Identifiers;
@@ -28,6 +29,11 @@ namespace Core.Web.GridFilter
         /// <param name="url">url.</param>
         public AdvancedDropDownGridFilter(Expression<Func<T, int?>> expression, string labelText, MethodCall methodCall, string url) : base(labelText, expression.GetPropertyName())
         {
+            Check.NotEmpty(url, nameof(url));
+            Check.NotNull(expression, nameof(expression));
+            Check.NotNull(methodCall, nameof(methodCall));
+            Check.NotEmpty(labelText, nameof(labelText));
+
             this._url = url;
             this._script = new JavaScriptEvent(func: methodCall.Method, methodCall.Id, eventType: JavaScriptEventEnum.MouseDown).Render();
             this._id = methodCall.Id;

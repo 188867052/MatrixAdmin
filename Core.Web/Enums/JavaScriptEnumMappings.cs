@@ -27,7 +27,7 @@ namespace Core.Web.Enums
         /// <summary>
         /// Java script event enum.
         /// </summary>
-        /// <param name="event"></param>
+        /// <param name="event">event.</param>
         /// <returns></returns>
         public static string ToString(JavaScriptEventEnum @event)
         {

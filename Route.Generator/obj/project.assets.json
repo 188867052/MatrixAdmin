@@ -4808,6 +4808,7 @@
           "Core.Extension": "1.0.0",
           "Core.Model": "1.0.0",
           "Dapper": "1.60.6",
+          "JetBrains.Annotations": "2019.1.1",
           "Microsoft.AspNetCore": "2.2.0",
           "Microsoft.AspNetCore.Authentication": "2.2.0",
           "Microsoft.AspNetCore.Hosting": "2.2.0",

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Core.Extension;
+using Core.Shared.Utilities;
 using Core.Web.Html;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
@@ -23,12 +24,17 @@ namespace Core.Web.GridFilter
         /// <param name="tooltip">toolTip.</param>
         public BooleanGridFilter(Expression<Func<T, bool?>> expression, string labelText, bool isContainsEmpty = true, string tooltip = default) : base(labelText, expression.GetPropertyName(), tooltip: tooltip)
         {
+            Check.NotEmpty(labelText, nameof(labelText));
+            Check.NotNull(expression, nameof(expression));
+
             this._keyValuePair = new List<KeyValuePair<bool, string>>();
             this._isContainsEmpty = isContainsEmpty;
         }
 
         public void AddOption(bool key, string value)
         {
+            Check.NotEmpty(value, nameof(value));
+
             this._keyValuePair.Add(new KeyValuePair<bool, string>(key, value));
         }
 

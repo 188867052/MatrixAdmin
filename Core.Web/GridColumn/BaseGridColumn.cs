@@ -1,9 +1,13 @@
-﻿namespace Core.Web.GridColumn
+﻿using Core.Shared.Utilities;
+
+namespace Core.Web.GridColumn
 {
     public abstract class BaseGridColumn<T>
     {
         protected BaseGridColumn(string thead)
         {
+            Check.NotEmpty(thead, nameof(thead));
+
             this.Thead = thead;
         }
 

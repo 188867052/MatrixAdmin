@@ -1,4 +1,5 @@
-﻿using Core.Web.Identifiers;
+﻿using Core.Shared.Utilities;
+using Core.Web.Identifiers;
 
 namespace Core.Web.JavaScript
 {
@@ -6,6 +7,8 @@ namespace Core.Web.JavaScript
     {
         public MethodCall(string method)
         {
+            Check.NotEmpty(method, nameof(method));
+
             this.Method = method;
             this.Id = new Identifier();
         }

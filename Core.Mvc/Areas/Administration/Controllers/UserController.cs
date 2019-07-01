@@ -6,7 +6,6 @@ using Core.Api.Routes;
 using Core.Model;
 using Core.Model.Administration.User;
 using Core.Mvc.Areas.Administration.ViewConfiguration.User;
-using Core.Mvc.CustomException;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Mvc.Areas.Administration.Controllers

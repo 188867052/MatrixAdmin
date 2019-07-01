@@ -560,6 +560,15 @@
           }
         }
       },
+      "JetBrains.Annotations/2019.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/JetBrains.Annotations.dll": {}
+        }
+      },
       "McMaster.Extensions.CommandLineUtils/2.3.4": {
         "type": "package",
         "dependencies": {
@@ -5315,6 +5324,27 @@
         "humanizer.core.zh-hant.nuspec",
         "lib/netstandard1.0/zh-Hant/Humanizer.resources.dll",
         "lib/netstandard2.0/zh-Hant/Humanizer.resources.dll"
+      ]
+    },
+    "JetBrains.Annotations/2019.1.1": {
+      "sha512": "y4RFn+HZ7BekqIx+uXuVAvh80quYNiu86oRG2QztmFXQ2mm1lprb7xNawZdFfLxBAh8BQUkSQdO0Itanal8DbQ==",
+      "type": "package",
+      "path": "jetbrains.annotations/2019.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "jetbrains.annotations.2019.1.1.nupkg.sha512",
+        "jetbrains.annotations.nuspec",
+        "lib/net20/JetBrains.Annotations.dll",
+        "lib/net20/JetBrains.Annotations.xml",
+        "lib/netstandard1.0/JetBrains.Annotations.deps.json",
+        "lib/netstandard1.0/JetBrains.Annotations.dll",
+        "lib/netstandard1.0/JetBrains.Annotations.xml",
+        "lib/netstandard2.0/JetBrains.Annotations.deps.json",
+        "lib/netstandard2.0/JetBrains.Annotations.dll",
+        "lib/netstandard2.0/JetBrains.Annotations.xml",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.dll",
+        "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.xml"
       ]
     },
     "McMaster.Extensions.CommandLineUtils/2.3.4": {
@@ -13103,6 +13133,7 @@
       "Core.Extension >= 1.0.0",
       "Core.Model >= 1.0.0",
       "Dapper >= 1.60.6",
+      "JetBrains.Annotations >= 2019.1.1",
       "Microsoft.AspNetCore >= 2.2.0",
       "Microsoft.AspNetCore.Authentication >= 2.2.0",
       "Microsoft.AspNetCore.Hosting >= 2.2.0",
@@ -13189,6 +13220,10 @@
           "Dapper": {
             "target": "Package",
             "version": "[1.60.6, )"
+          },
+          "JetBrains.Annotations": {
+            "target": "Package",
+            "version": "[2019.1.1, )"
           },
           "Microsoft.AspNetCore": {
             "target": "Package",

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Core.Api.Authentication;
 using Core.Api.Framework;
-using Core.Api.Framework.DependencyInjection;
 using Core.Entity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
