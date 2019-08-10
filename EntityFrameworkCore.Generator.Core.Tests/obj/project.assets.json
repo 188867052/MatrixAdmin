@@ -578,6 +578,9 @@
           "lib/netstandard2.0/McMaster.Extensions.CommandLineUtils.dll": {}
         }
       },
+      "Microsoft.AspNetCore.Mvc.Analyzers/2.2.0": {
+        "type": "package"
+      },
       "Microsoft.CodeAnalysis.Analyzers/2.6.2-beta2": {
         "type": "package"
       },
@@ -3248,6 +3251,7 @@
         "dependencies": {
           "Humanizer": "2.6.2",
           "McMaster.Extensions.CommandLineUtils": "2.3.4",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "2.2.0",
           "Microsoft.CodeAnalysis.CSharp": "3.1.0",
           "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
@@ -3980,6 +3984,18 @@
         "lib/netstandard2.0/McMaster.Extensions.CommandLineUtils.xml",
         "mcmaster.extensions.commandlineutils.2.3.4.nupkg.sha512",
         "mcmaster.extensions.commandlineutils.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Mvc.Analyzers/2.2.0": {
+      "sha512": "oyKy2Ey3z+TW+XRZGYJ0qATGzzHYVfpVat+n/rzhYi9GaqedGVYK7q+KFpzmytEMd+qVEztCTklomjLjidxeXg==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.mvc.analyzers/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "analyzers/dotnet/cs/Microsoft.AspNetCore.Mvc.Analyzers.dll",
+        "microsoft.aspnetcore.mvc.analyzers.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.mvc.analyzers.nuspec"
       ]
     },
     "Microsoft.CodeAnalysis.Analyzers/2.6.2-beta2": {
@@ -9860,6 +9876,7 @@
     ".NETCoreApp,Version=v2.1": [
       "EFCore.Generator >= 1.1.0",
       "FluentAssertions >= 5.6.0",
+      "Microsoft.AspNetCore.Mvc.Analyzers >= 2.2.0",
       "Microsoft.CodeQuality.Analyzers >= 2.9.3",
       "Microsoft.EntityFrameworkCore.Analyzers >= 3.0.0-preview5.19227.1",
       "Microsoft.Extensions.Configuration.EnvironmentVariables >= 2.2.4",
@@ -9927,6 +9944,10 @@
           "FluentAssertions": {
             "target": "Package",
             "version": "[5.6.0, )"
+          },
+          "Microsoft.AspNetCore.Mvc.Analyzers": {
+            "target": "Package",
+            "version": "[2.2.0, )"
           },
           "Microsoft.CodeQuality.Analyzers": {
             "target": "Package",

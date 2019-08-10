@@ -46,6 +46,10 @@
               "target": "Package",
               "version": "[1.60.6, )"
             },
+            "Microsoft.AspNetCore.Mvc.Analyzers": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
               "version": "[2.2.5, )"
@@ -195,6 +199,10 @@
               "target": "Package",
               "version": "[2.2.0, )"
             },
+            "Microsoft.AspNetCore.Mvc.Analyzers": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
               "version": "[2.2.5, )"
@@ -326,6 +334,10 @@
             "McMaster.Extensions.CommandLineUtils": {
               "target": "Package",
               "version": "[2.3.4, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Analyzers": {
+              "target": "Package",
+              "version": "[2.2.0, )"
             },
             "Microsoft.CodeAnalysis.CSharp": {
               "target": "Package",

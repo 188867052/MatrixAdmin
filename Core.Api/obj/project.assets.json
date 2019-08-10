@@ -4602,6 +4602,7 @@
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
           "Dapper": "1.60.6",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "2.2.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
@@ -4631,6 +4632,7 @@
           "Dapper": "1.60.6",
           "EFCore.Generator": "1.1.0",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "2.2.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.Mvc.RazorPages": "2.2.5",
           "Microsoft.CodeQuality.Analyzers": "2.9.3",
@@ -4669,6 +4671,7 @@
           "Microsoft.AspNetCore.Hosting.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.HttpsPolicy": "2.2.0",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "2.2.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.StaticFiles": "2.2.0",
           "Microsoft.CodeQuality.Analyzers": "2.9.3",
@@ -4699,6 +4702,7 @@
         "dependencies": {
           "Humanizer": "2.6.2",
           "McMaster.Extensions.CommandLineUtils": "2.3.4",
+          "Microsoft.AspNetCore.Mvc.Analyzers": "2.2.0",
           "Microsoft.CodeAnalysis.CSharp": "3.1.0",
           "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
@@ -13139,6 +13143,7 @@
       "Core.Extension >= 1.0.0",
       "Core.Model >= 1.0.0",
       "JetBrains.Annotations >= 2019.1.1",
+      "Microsoft.AspNetCore.Mvc.Analyzers >= 2.2.0",
       "Microsoft.CodeQuality.Analyzers >= 2.9.3",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.NetCore.Analyzers >= 2.9.3",
@@ -13203,6 +13208,10 @@
           "JetBrains.Annotations": {
             "target": "Package",
             "version": "[2019.1.1, )"
+          },
+          "Microsoft.AspNetCore.Mvc.Analyzers": {
+            "target": "Package",
+            "version": "[2.2.0, )"
           },
           "Microsoft.CodeQuality.Analyzers": {
             "target": "Package",
