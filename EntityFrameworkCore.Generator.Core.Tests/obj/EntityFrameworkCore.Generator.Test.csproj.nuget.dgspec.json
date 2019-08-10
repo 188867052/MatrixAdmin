@@ -50,10 +50,6 @@
               "target": "Package",
               "version": "[5.6.0, )"
             },
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
             "Microsoft.CodeQuality.Analyzers": {
               "target": "Package",
               "version": "[2.9.3, )"
@@ -185,10 +181,6 @@
             "McMaster.Extensions.CommandLineUtils": {
               "target": "Package",
               "version": "[2.3.4, )"
-            },
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
-              "target": "Package",
-              "version": "[2.2.0, )"
             },
             "Microsoft.CodeAnalysis.CSharp": {
               "target": "Package",

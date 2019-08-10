@@ -56,10 +56,6 @@
               "target": "Package",
               "version": "[2019.1.1, )"
             },
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
             "Microsoft.CodeQuality.Analyzers": {
               "target": "Package",
               "version": "[2.9.3, )"
@@ -145,10 +141,6 @@
             "Dapper": {
               "target": "Package",
               "version": "[1.60.6, )"
-            },
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
-              "target": "Package",
-              "version": "[2.2.0, )"
             },
             "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
@@ -296,10 +288,6 @@
               "version": "[1.60.6, )"
             },
             "Microsoft.AspNetCore.Mvc": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
               "target": "Package",
               "version": "[2.2.0, )"
             },
@@ -482,10 +470,6 @@
               "target": "Package",
               "version": "[2.2.0, )"
             },
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
             "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
               "version": "[2.2.5, )"
@@ -655,10 +639,6 @@
               "target": "Package",
               "version": "[2.2.0, )"
             },
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
             "Microsoft.CodeQuality.Analyzers": {
               "target": "Package",
               "version": "[2.9.3, )"
@@ -744,10 +724,6 @@
             "Dapper": {
               "target": "Package",
               "version": "[1.60.6, )"
-            },
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
-              "target": "Package",
-              "version": "[2.2.0, )"
             },
             "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
@@ -922,10 +898,6 @@
               "target": "Package",
               "version": "[2.2.0, )"
             },
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
             "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
               "version": "[2.2.5, )"
@@ -1067,10 +1039,6 @@
             "McMaster.Extensions.CommandLineUtils": {
               "target": "Package",
               "version": "[2.3.4, )"
-            },
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
-              "target": "Package",
-              "version": "[2.2.0, )"
             },
             "Microsoft.CodeAnalysis.CSharp": {
               "target": "Package",
@@ -1244,10 +1212,6 @@
               "target": "Package",
               "version": "[2.3.4, )"
             },
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
-              "target": "Package",
-              "version": "[2.2.0, )"
-            },
             "Microsoft.AspNetCore.TestHost": {
               "target": "Package",
               "version": "[2.2.0, )"
@@ -1387,10 +1351,6 @@
             "MSTest.TestFramework": {
               "target": "Package",
               "version": "[2.0.0-beta4, )"
-            },
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
-              "target": "Package",
-              "version": "[2.2.0, )"
             },
             "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",

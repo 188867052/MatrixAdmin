@@ -166,9 +166,6 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Abstractions.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Mvc.Analyzers/2.2.0": {
-        "type": "package"
-      },
       "Microsoft.AspNetCore.Mvc.Core/2.2.5": {
         "type": "package",
         "dependencies": {
@@ -2261,18 +2258,6 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Mvc.Abstractions.xml",
         "microsoft.aspnetcore.mvc.abstractions.2.2.0.nupkg.sha512",
         "microsoft.aspnetcore.mvc.abstractions.nuspec"
-      ]
-    },
-    "Microsoft.AspNetCore.Mvc.Analyzers/2.2.0": {
-      "sha512": "oyKy2Ey3z+TW+XRZGYJ0qATGzzHYVfpVat+n/rzhYi9GaqedGVYK7q+KFpzmytEMd+qVEztCTklomjLjidxeXg==",
-      "type": "package",
-      "path": "microsoft.aspnetcore.mvc.analyzers/2.2.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "analyzers/dotnet/cs/Microsoft.AspNetCore.Mvc.Analyzers.dll",
-        "microsoft.aspnetcore.mvc.analyzers.2.2.0.nupkg.sha512",
-        "microsoft.aspnetcore.mvc.analyzers.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Mvc.Core/2.2.5": {
@@ -7458,7 +7443,6 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
       "Dapper >= 1.60.6",
-      "Microsoft.AspNetCore.Mvc.Analyzers >= 2.2.0",
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
       "Microsoft.CodeQuality.Analyzers >= 2.9.3",
       "Microsoft.EntityFrameworkCore.Analyzers >= 3.0.0-preview5.19227.1",
@@ -7524,10 +7508,6 @@
           "Dapper": {
             "target": "Package",
             "version": "[1.60.6, )"
-          },
-          "Microsoft.AspNetCore.Mvc.Analyzers": {
-            "target": "Package",
-            "version": "[2.2.0, )"
           },
           "Microsoft.AspNetCore.Mvc.Core": {
             "target": "Package",
