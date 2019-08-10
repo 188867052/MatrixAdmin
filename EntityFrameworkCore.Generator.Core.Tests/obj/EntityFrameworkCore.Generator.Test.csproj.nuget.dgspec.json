@@ -182,10 +182,6 @@
               "target": "Package",
               "version": "[2.3.4, )"
             },
-            "Microsoft.AspNetCore.Mvc.Analyzers": {
-              "target": "Package",
-              "version": "[3.0.0-preview3-19153-02, )"
-            },
             "Microsoft.CodeAnalysis.CSharp": {
               "target": "Package",
               "version": "[3.1.0, )"

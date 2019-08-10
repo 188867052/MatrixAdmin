@@ -532,9 +532,6 @@
           "lib/netstandard2.0/McMaster.Extensions.CommandLineUtils.dll": {}
         }
       },
-      "Microsoft.AspNetCore.Mvc.Analyzers/3.0.0-preview3-19153-02": {
-        "type": "package"
-      },
       "Microsoft.CodeAnalysis.Analyzers/2.6.2-beta2": {
         "type": "package"
       },
@@ -2939,18 +2936,6 @@
         "lib/netstandard2.0/McMaster.Extensions.CommandLineUtils.xml",
         "mcmaster.extensions.commandlineutils.2.3.4.nupkg.sha512",
         "mcmaster.extensions.commandlineutils.nuspec"
-      ]
-    },
-    "Microsoft.AspNetCore.Mvc.Analyzers/3.0.0-preview3-19153-02": {
-      "sha512": "gw1Gx0nXEah01tGPm0uEJUsWDYIFcOtBSSAzXlDBC+iouay0YP7I4WbD7ckG2fgtz+nSqVdIdYlxIUztVzn7cw==",
-      "type": "package",
-      "path": "microsoft.aspnetcore.mvc.analyzers/3.0.0-preview3-19153-02",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "analyzers/dotnet/cs/Microsoft.AspNetCore.Mvc.Analyzers.dll",
-        "microsoft.aspnetcore.mvc.analyzers.3.0.0-preview3-19153-02.nupkg.sha512",
-        "microsoft.aspnetcore.mvc.analyzers.nuspec"
       ]
     },
     "Microsoft.CodeAnalysis.Analyzers/2.6.2-beta2": {
@@ -7172,7 +7157,6 @@
     ".NETCoreApp,Version=v2.1": [
       "Humanizer >= 2.6.2",
       "McMaster.Extensions.CommandLineUtils >= 2.3.4",
-      "Microsoft.AspNetCore.Mvc.Analyzers >= 3.0.0-preview3-19153-02",
       "Microsoft.CodeAnalysis.CSharp >= 3.1.0",
       "Microsoft.CodeQuality.Analyzers >= 2.9.3",
       "Microsoft.EntityFrameworkCore.Analyzers >= 3.0.0-preview5.19227.1",
@@ -7248,10 +7232,6 @@
           "McMaster.Extensions.CommandLineUtils": {
             "target": "Package",
             "version": "[2.3.4, )"
-          },
-          "Microsoft.AspNetCore.Mvc.Analyzers": {
-            "target": "Package",
-            "version": "[3.0.0-preview3-19153-02, )"
           },
           "Microsoft.CodeAnalysis.CSharp": {
             "target": "Package",

@@ -30,7 +30,6 @@
   <ItemGroup>
     <PackageReference Include="Humanizer" Version="2.6.2" />
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.3.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Analyzers" Version="3.0.0-preview3-19153-02" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.1.0" />
     <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.9.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.0.0-preview5.19227.1" />
