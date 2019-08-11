@@ -1476,8 +1476,11 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.WebUtilities.dll": {}
         }
       },
-      "Microsoft.CodeAnalysis.Analyzers/2.6.2-beta2": {
-        "type": "package"
+      "Microsoft.CodeAnalysis.Analyzers/2.6.3": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.CodeAnalysis.Analyzers.props": {}
+        }
       },
       "Microsoft.CodeAnalysis.BannedApiAnalyzers/2.9.3": {
         "type": "package",
@@ -6294,10 +6297,10 @@
         "microsoft.aspnetcore.webutilities.nuspec"
       ]
     },
-    "Microsoft.CodeAnalysis.Analyzers/2.6.2-beta2": {
-      "sha512": "rg5Ql73AmGCMG5Q40Kzbndq7C7S4XvsJA+2QXfZBCy2dRqD+a7BSbx/3942EoRUJ/8Wh9+kLg2G2qC46o3f1Aw==",
+    "Microsoft.CodeAnalysis.Analyzers/2.6.3": {
+      "sha512": "Xs33CKJNwyHO0JY06DYtcmtsgagLmcoEDMJv2rD0sz3SenJ6jRikwGEcF+fKobcYaZJy1ouhGly6ztPWMsuzKQ==",
       "type": "package",
-      "path": "microsoft.codeanalysis.analyzers/2.6.2-beta2",
+      "path": "microsoft.codeanalysis.analyzers/2.6.3",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -6307,7 +6310,8 @@
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.Analyzers.dll",
         "analyzers/dotnet/vb/Microsoft.CodeAnalysis.Analyzers.dll",
         "analyzers/dotnet/vb/Microsoft.CodeAnalysis.VisualBasic.Analyzers.dll",
-        "microsoft.codeanalysis.analyzers.2.6.2-beta2.nupkg.sha512",
+        "build/Microsoft.CodeAnalysis.Analyzers.props",
+        "microsoft.codeanalysis.analyzers.2.6.3.nupkg.sha512",
         "microsoft.codeanalysis.analyzers.nuspec",
         "rulesets/AllRulesDefault.ruleset",
         "rulesets/AllRulesDisabled.ruleset",
@@ -13267,6 +13271,7 @@
       "Core.Mvc.Resource >= 1.0.0",
       "Core.Web >= 1.0.0",
       "Microsoft.AspNetCore.CookiePolicy >= 2.2.0",
+      "Microsoft.CodeAnalysis.Analyzers >= 2.6.3",
       "Microsoft.CodeQuality.Analyzers >= 2.9.3",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.NetCore.Analyzers >= 2.9.3",
@@ -13340,6 +13345,12 @@
           "Microsoft.AspNetCore.CookiePolicy": {
             "target": "Package",
             "version": "[2.2.0, )"
+          },
+          "Microsoft.CodeAnalysis.Analyzers": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[2.6.3, )"
           },
           "Microsoft.CodeQuality.Analyzers": {
             "target": "Package",
