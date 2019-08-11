@@ -50,10 +50,6 @@
               "target": "Package",
               "version": "[2.3.4, )"
             },
-            "Microsoft.CodeAnalysis.CSharp": {
-              "target": "Package",
-              "version": "[3.1.0, )"
-            },
             "Microsoft.CodeQuality.Analyzers": {
               "target": "Package",
               "version": "[2.9.3, )"

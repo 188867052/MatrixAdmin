@@ -47,9 +47,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EntityFrameworkCore.Generator\EntityFrameworkCore.Generator.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Update="appsettings.appveyor.json">
