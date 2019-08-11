@@ -108,10 +108,6 @@
               "target": "Package",
               "version": "[3.0.7, )"
             },
-            "Roslyn.Diagnostics.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.3, )"
-            },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
               "suppressParent": "All",
@@ -243,10 +239,6 @@
             "Quartz": {
               "target": "Package",
               "version": "[3.0.7, )"
-            },
-            "Roslyn.Diagnostics.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.3, )"
             },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",

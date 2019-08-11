@@ -70,10 +70,6 @@
               "target": "Package",
               "version": "[2.9.3, )"
             },
-            "Roslyn.Diagnostics.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.3, )"
-            },
             "Swashbuckle.AspNetCore.Swagger": {
               "target": "Package",
               "version": "[5.0.0-rc2, )"
@@ -203,10 +199,6 @@
             "Quartz": {
               "target": "Package",
               "version": "[3.0.7, )"
-            },
-            "Roslyn.Diagnostics.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.3, )"
             },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
@@ -339,10 +331,6 @@
             "Quartz": {
               "target": "Package",
               "version": "[3.0.7, )"
-            },
-            "Roslyn.Diagnostics.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.3, )"
             },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
@@ -533,10 +521,6 @@
               "target": "Package",
               "version": "[3.0.7, )"
             },
-            "Roslyn.Diagnostics.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.3, )"
-            },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
               "suppressParent": "All",
@@ -653,10 +637,6 @@
               "autoReferenced": true
             },
             "Microsoft.NetCore.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.3, )"
-            },
-            "Roslyn.Diagnostics.Analyzers": {
               "target": "Package",
               "version": "[2.9.3, )"
             },
@@ -785,10 +765,6 @@
             "Quartz": {
               "target": "Package",
               "version": "[3.0.7, )"
-            },
-            "Roslyn.Diagnostics.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.3, )"
             },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
@@ -963,10 +939,6 @@
               "target": "Package",
               "version": "[3.0.7, )"
             },
-            "Roslyn.Diagnostics.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.3, )"
-            },
             "StyleCop.Analyzers": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers",
               "suppressParent": "All",
@@ -1082,10 +1054,6 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[12.0.2, )"
-            },
-            "Roslyn.Diagnostics.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.3, )"
             },
             "Serilog.Extensions.Hosting": {
               "target": "Package",

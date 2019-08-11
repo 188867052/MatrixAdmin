@@ -949,12 +949,6 @@
       "Microsoft.CodeAnalysis.Analyzers/2.6.2-beta2": {
         "type": "package"
       },
-      "Microsoft.CodeAnalysis.BannedApiAnalyzers/2.9.3": {
-        "type": "package",
-        "build": {
-          "build/Microsoft.CodeAnalysis.BannedApiAnalyzers.props": {}
-        }
-      },
       "Microsoft.CodeAnalysis.Common/2.8.0": {
         "type": "package",
         "dependencies": {
@@ -1015,12 +1009,6 @@
         },
         "runtime": {
           "lib/netstandard1.3/Microsoft.CodeAnalysis.CSharp.dll": {}
-        }
-      },
-      "Microsoft.CodeAnalysis.PublicApiAnalyzers/2.9.3": {
-        "type": "package",
-        "build": {
-          "build/Microsoft.CodeAnalysis.PublicApiAnalyzers.props": {}
         }
       },
       "Microsoft.CodeAnalysis.Razor/2.2.0": {
@@ -2074,16 +2062,6 @@
         },
         "runtime": {
           "lib/netstandard1.0/Remotion.Linq.dll": {}
-        }
-      },
-      "Roslyn.Diagnostics.Analyzers/2.9.3": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.CodeAnalysis.BannedApiAnalyzers": "[2.9.3]",
-          "Microsoft.CodeAnalysis.PublicApiAnalyzers": "[2.9.3]"
-        },
-        "build": {
-          "build/Roslyn.Diagnostics.Analyzers.props": {}
         }
       },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -3928,7 +3906,6 @@
           "JetBrains.Annotations": "2019.1.1",
           "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.NetCore.Analyzers": "2.9.3",
-          "Roslyn.Diagnostics.Analyzers": "2.9.3",
           "Swashbuckle.AspNetCore.Swagger": "5.0.0-rc2",
           "Swashbuckle.AspNetCore.SwaggerGen": "5.0.0-rc2",
           "Swashbuckle.AspNetCore.SwaggerUI": "5.0.0-rc2"
@@ -3956,7 +3933,6 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Quartz": "3.0.7",
-          "Roslyn.Diagnostics.Analyzers": "2.9.3",
           "xunit.analyzers": "0.10.0"
         },
         "compile": {
@@ -3983,7 +3959,6 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Quartz": "3.0.7",
-          "Roslyn.Diagnostics.Analyzers": "2.9.3",
           "xunit.analyzers": "0.10.0"
         },
         "compile": {
@@ -4023,7 +3998,6 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Quartz": "3.0.7",
-          "Roslyn.Diagnostics.Analyzers": "2.9.3",
           "System.IdentityModel.Tokens.Jwt": "5.4.0",
           "System.Security.Claims": "4.3.0",
           "xunit.analyzers": "0.10.0"
@@ -4050,7 +4024,6 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Quartz": "3.0.7",
-          "Roslyn.Diagnostics.Analyzers": "2.9.3",
           "xunit.analyzers": "0.10.0"
         },
         "compile": {
@@ -4086,7 +4059,6 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Quartz": "3.0.7",
-          "Roslyn.Diagnostics.Analyzers": "2.9.3",
           "xunit.analyzers": "0.10.0"
         },
         "compile": {
@@ -5014,32 +4986,6 @@
         "tools/uninstall.ps1"
       ]
     },
-    "Microsoft.CodeAnalysis.BannedApiAnalyzers/2.9.3": {
-      "sha512": "V2Eqy8Yez2VGh/823owZnFjGLy0Ay1BNNv05LcvBTItvdoxKZTr0WtO38eM2YreZfeMhYCY9rNrosg6UVACBow==",
-      "type": "package",
-      "path": "microsoft.codeanalysis.bannedapianalyzers/2.9.3",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ThirdPartyNotices.rtf",
-        "analyzers/dotnet/cs/Microsoft.CodeAnalysis.BannedApiAnalyzers.dll",
-        "analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.BannedApiAnalyzers.dll",
-        "analyzers/dotnet/vb/Microsoft.CodeAnalysis.BannedApiAnalyzers.dll",
-        "analyzers/dotnet/vb/Microsoft.CodeAnalysis.VisualBasic.BannedApiAnalyzers.dll",
-        "build/Microsoft.CodeAnalysis.BannedApiAnalyzers.props",
-        "documentation/Microsoft.CodeAnalysis.BannedApiAnalyzers.md",
-        "microsoft.codeanalysis.bannedapianalyzers.2.9.3.nupkg.sha512",
-        "microsoft.codeanalysis.bannedapianalyzers.nuspec",
-        "rulesets/AllRulesDefault.ruleset",
-        "rulesets/AllRulesDisabled.ruleset",
-        "rulesets/AllRulesEnabled.ruleset",
-        "rulesets/ApiDesignRulesDefault.ruleset",
-        "rulesets/ApiDesignRulesEnabled.ruleset",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
-      ]
-    },
     "Microsoft.CodeAnalysis.Common/2.8.0": {
       "sha512": "A2a4NejNvWVz+8FPXkZK/cd2j4/P3laHwpz56UU3fDcOAVu4Xb98T6FXGAIgqE/LzSVpHnn9Cgg7rhT59qsO8w==",
       "type": "package",
@@ -5066,30 +5012,6 @@
         "lib/netstandard1.3/Microsoft.CodeAnalysis.CSharp.xml",
         "microsoft.codeanalysis.csharp.2.8.0.nupkg.sha512",
         "microsoft.codeanalysis.csharp.nuspec"
-      ]
-    },
-    "Microsoft.CodeAnalysis.PublicApiAnalyzers/2.9.3": {
-      "sha512": "fVu+Mv7xKHPe3JrJxkVcJox88sgt73Fn5vsGH4Zo44uJdJtBd3KN5JOaa5Lg9XUXzeMZmVNhyfh7sPwIVLDgYg==",
-      "type": "package",
-      "path": "microsoft.codeanalysis.publicapianalyzers/2.9.3",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ThirdPartyNotices.rtf",
-        "analyzers/dotnet/Microsoft.CodeAnalysis.PublicApiAnalyzers.CodeFixes.dll",
-        "analyzers/dotnet/Microsoft.CodeAnalysis.PublicApiAnalyzers.dll",
-        "build/Microsoft.CodeAnalysis.PublicApiAnalyzers.props",
-        "documentation/Microsoft.CodeAnalysis.PublicApiAnalyzers.md",
-        "microsoft.codeanalysis.publicapianalyzers.2.9.3.nupkg.sha512",
-        "microsoft.codeanalysis.publicapianalyzers.nuspec",
-        "rulesets/AllRulesDefault.ruleset",
-        "rulesets/AllRulesDisabled.ruleset",
-        "rulesets/AllRulesEnabled.ruleset",
-        "rulesets/ApiDesignRulesDefault.ruleset",
-        "rulesets/ApiDesignRulesEnabled.ruleset",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
       ]
     },
     "Microsoft.CodeAnalysis.Razor/2.2.0": {
@@ -6719,38 +6641,6 @@
         "lib/portable-net45+win+wpa81+wp80/Remotion.Linq.xml",
         "remotion.linq.2.2.0.nupkg.sha512",
         "remotion.linq.nuspec"
-      ]
-    },
-    "Roslyn.Diagnostics.Analyzers/2.9.3": {
-      "sha512": "izseuiLI5q0V/5rlzJjHf5c7BPDSPXm9ArTTb79AB3axc+dhlHnCjuCxvCjH8KN+a5Me2ulOm3yTKGHvTfZy3Q==",
-      "type": "package",
-      "path": "roslyn.diagnostics.analyzers/2.9.3",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ThirdPartyNotices.rtf",
-        "analyzers/dotnet/cs/Roslyn.Diagnostics.Analyzers.dll",
-        "analyzers/dotnet/cs/Roslyn.Diagnostics.CSharp.Analyzers.dll",
-        "analyzers/dotnet/vb/Roslyn.Diagnostics.Analyzers.dll",
-        "analyzers/dotnet/vb/Roslyn.Diagnostics.VisualBasic.Analyzers.dll",
-        "build/Roslyn.Diagnostics.Analyzers.props",
-        "documentation/Roslyn.Diagnostics.Analyzers.md",
-        "roslyn.diagnostics.analyzers.2.9.3.nupkg.sha512",
-        "roslyn.diagnostics.analyzers.nuspec",
-        "rulesets/AllRulesDefault.ruleset",
-        "rulesets/AllRulesDisabled.ruleset",
-        "rulesets/AllRulesEnabled.ruleset",
-        "rulesets/ApiDesignRulesDefault.ruleset",
-        "rulesets/ApiDesignRulesEnabled.ruleset",
-        "rulesets/RoslyDiagnosticsPerformanceRulesDefault.ruleset",
-        "rulesets/RoslyDiagnosticsPerformanceRulesEnabled.ruleset",
-        "rulesets/RoslyDiagnosticsReliabilityRulesDefault.ruleset",
-        "rulesets/RoslyDiagnosticsReliabilityRulesEnabled.ruleset",
-        "rulesets/UsageRulesDefault.ruleset",
-        "rulesets/UsageRulesEnabled.ruleset",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
       ]
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -11891,7 +11781,6 @@
       "Microsoft.CodeQuality.Analyzers >= 2.9.3",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.NetCore.Analyzers >= 2.9.3",
-      "Roslyn.Diagnostics.Analyzers >= 2.9.3",
       "Swashbuckle.AspNetCore.Swagger >= 5.0.0-rc2",
       "Swashbuckle.AspNetCore.SwaggerGen >= 5.0.0-rc2",
       "Swashbuckle.AspNetCore.SwaggerUI >= 5.0.0-rc2"
@@ -11979,10 +11868,6 @@
             "autoReferenced": true
           },
           "Microsoft.NetCore.Analyzers": {
-            "target": "Package",
-            "version": "[2.9.3, )"
-          },
-          "Roslyn.Diagnostics.Analyzers": {
             "target": "Package",
             "version": "[2.9.3, )"
           },

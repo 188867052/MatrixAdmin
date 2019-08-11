@@ -245,18 +245,6 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.WebUtilities.dll": {}
         }
       },
-      "Microsoft.CodeAnalysis.BannedApiAnalyzers/2.9.3": {
-        "type": "package",
-        "build": {
-          "build/Microsoft.CodeAnalysis.BannedApiAnalyzers.props": {}
-        }
-      },
-      "Microsoft.CodeAnalysis.PublicApiAnalyzers/2.9.3": {
-        "type": "package",
-        "build": {
-          "build/Microsoft.CodeAnalysis.PublicApiAnalyzers.props": {}
-        }
-      },
       "Microsoft.CodeQuality.Analyzers/2.9.3": {
         "type": "package",
         "build": {
@@ -998,16 +986,6 @@
         },
         "runtime": {
           "lib/netstandard1.0/Remotion.Linq.dll": {}
-        }
-      },
-      "Roslyn.Diagnostics.Analyzers/2.9.3": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.CodeAnalysis.BannedApiAnalyzers": "[2.9.3]",
-          "Microsoft.CodeAnalysis.PublicApiAnalyzers": "[2.9.3]"
-        },
-        "build": {
-          "build/Roslyn.Diagnostics.Analyzers.props": {}
         }
       },
       "runtime.native.System/4.3.0": {
@@ -2327,56 +2305,6 @@
         "microsoft.aspnetcore.webutilities.nuspec"
       ]
     },
-    "Microsoft.CodeAnalysis.BannedApiAnalyzers/2.9.3": {
-      "sha512": "V2Eqy8Yez2VGh/823owZnFjGLy0Ay1BNNv05LcvBTItvdoxKZTr0WtO38eM2YreZfeMhYCY9rNrosg6UVACBow==",
-      "type": "package",
-      "path": "microsoft.codeanalysis.bannedapianalyzers/2.9.3",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ThirdPartyNotices.rtf",
-        "analyzers/dotnet/cs/Microsoft.CodeAnalysis.BannedApiAnalyzers.dll",
-        "analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.BannedApiAnalyzers.dll",
-        "analyzers/dotnet/vb/Microsoft.CodeAnalysis.BannedApiAnalyzers.dll",
-        "analyzers/dotnet/vb/Microsoft.CodeAnalysis.VisualBasic.BannedApiAnalyzers.dll",
-        "build/Microsoft.CodeAnalysis.BannedApiAnalyzers.props",
-        "documentation/Microsoft.CodeAnalysis.BannedApiAnalyzers.md",
-        "microsoft.codeanalysis.bannedapianalyzers.2.9.3.nupkg.sha512",
-        "microsoft.codeanalysis.bannedapianalyzers.nuspec",
-        "rulesets/AllRulesDefault.ruleset",
-        "rulesets/AllRulesDisabled.ruleset",
-        "rulesets/AllRulesEnabled.ruleset",
-        "rulesets/ApiDesignRulesDefault.ruleset",
-        "rulesets/ApiDesignRulesEnabled.ruleset",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
-      ]
-    },
-    "Microsoft.CodeAnalysis.PublicApiAnalyzers/2.9.3": {
-      "sha512": "fVu+Mv7xKHPe3JrJxkVcJox88sgt73Fn5vsGH4Zo44uJdJtBd3KN5JOaa5Lg9XUXzeMZmVNhyfh7sPwIVLDgYg==",
-      "type": "package",
-      "path": "microsoft.codeanalysis.publicapianalyzers/2.9.3",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ThirdPartyNotices.rtf",
-        "analyzers/dotnet/Microsoft.CodeAnalysis.PublicApiAnalyzers.CodeFixes.dll",
-        "analyzers/dotnet/Microsoft.CodeAnalysis.PublicApiAnalyzers.dll",
-        "build/Microsoft.CodeAnalysis.PublicApiAnalyzers.props",
-        "documentation/Microsoft.CodeAnalysis.PublicApiAnalyzers.md",
-        "microsoft.codeanalysis.publicapianalyzers.2.9.3.nupkg.sha512",
-        "microsoft.codeanalysis.publicapianalyzers.nuspec",
-        "rulesets/AllRulesDefault.ruleset",
-        "rulesets/AllRulesDisabled.ruleset",
-        "rulesets/AllRulesEnabled.ruleset",
-        "rulesets/ApiDesignRulesDefault.ruleset",
-        "rulesets/ApiDesignRulesEnabled.ruleset",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
-      ]
-    },
     "Microsoft.CodeQuality.Analyzers/2.9.3": {
       "sha512": "5KFSFcQjibITq33jojBITiGIZZkf2OMdggT7ZeNryMAUkT3VkPB/csRWaA8erItQlEvrBzgIwzYnW0531HFV7g==",
       "type": "package",
@@ -3646,38 +3574,6 @@
         "lib/portable-net45+win+wpa81+wp80/Remotion.Linq.xml",
         "remotion.linq.2.2.0.nupkg.sha512",
         "remotion.linq.nuspec"
-      ]
-    },
-    "Roslyn.Diagnostics.Analyzers/2.9.3": {
-      "sha512": "izseuiLI5q0V/5rlzJjHf5c7BPDSPXm9ArTTb79AB3axc+dhlHnCjuCxvCjH8KN+a5Me2ulOm3yTKGHvTfZy3Q==",
-      "type": "package",
-      "path": "roslyn.diagnostics.analyzers/2.9.3",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ThirdPartyNotices.rtf",
-        "analyzers/dotnet/cs/Roslyn.Diagnostics.Analyzers.dll",
-        "analyzers/dotnet/cs/Roslyn.Diagnostics.CSharp.Analyzers.dll",
-        "analyzers/dotnet/vb/Roslyn.Diagnostics.Analyzers.dll",
-        "analyzers/dotnet/vb/Roslyn.Diagnostics.VisualBasic.Analyzers.dll",
-        "build/Roslyn.Diagnostics.Analyzers.props",
-        "documentation/Roslyn.Diagnostics.Analyzers.md",
-        "roslyn.diagnostics.analyzers.2.9.3.nupkg.sha512",
-        "roslyn.diagnostics.analyzers.nuspec",
-        "rulesets/AllRulesDefault.ruleset",
-        "rulesets/AllRulesDisabled.ruleset",
-        "rulesets/AllRulesEnabled.ruleset",
-        "rulesets/ApiDesignRulesDefault.ruleset",
-        "rulesets/ApiDesignRulesEnabled.ruleset",
-        "rulesets/RoslyDiagnosticsPerformanceRulesDefault.ruleset",
-        "rulesets/RoslyDiagnosticsPerformanceRulesEnabled.ruleset",
-        "rulesets/RoslyDiagnosticsReliabilityRulesDefault.ruleset",
-        "rulesets/RoslyDiagnosticsReliabilityRulesEnabled.ruleset",
-        "rulesets/UsageRulesDefault.ruleset",
-        "rulesets/UsageRulesEnabled.ruleset",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
       ]
     },
     "runtime.native.System/4.3.0": {
@@ -7457,7 +7353,6 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.0.0-preview5-19264-04",
       "Newtonsoft.Json >= 12.0.2",
       "Quartz >= 3.0.7",
-      "Roslyn.Diagnostics.Analyzers >= 2.9.3",
       "StyleCop.Analyzers >= 1.1.118",
       "Text.Analyzers >= 2.6.4",
       "xunit.analyzers >= 0.10.0"
@@ -7570,10 +7465,6 @@
           "Quartz": {
             "target": "Package",
             "version": "[3.0.7, )"
-          },
-          "Roslyn.Diagnostics.Analyzers": {
-            "target": "Package",
-            "version": "[2.9.3, )"
           },
           "StyleCop.Analyzers": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers",
