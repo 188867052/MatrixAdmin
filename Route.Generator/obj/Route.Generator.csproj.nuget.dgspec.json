@@ -134,12 +134,6 @@
               "target": "Package",
               "version": "[2.2.5, )"
             },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[3.0.0-preview5.19227.1, )"
-            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[3.0.0-preview5.19227.1, )"
@@ -161,10 +155,6 @@
               "autoReferenced": true
             },
             "Microsoft.VisualStudio.Threading": {
-              "target": "Package",
-              "version": "[16.0.102, )"
-            },
-            "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
               "version": "[16.0.102, )"
             },
@@ -275,10 +265,6 @@
               "autoReferenced": true
             },
             "Microsoft.VisualStudio.Threading": {
-              "target": "Package",
-              "version": "[16.0.102, )"
-            },
-            "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
               "version": "[16.0.102, )"
             },
@@ -443,10 +429,6 @@
               "target": "Package",
               "version": "[16.0.102, )"
             },
-            "Microsoft.VisualStudio.Threading.Analyzers": {
-              "target": "Package",
-              "version": "[16.0.102, )"
-            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.0.0-preview5-19264-04, )"
@@ -558,12 +540,6 @@
               "target": "Package",
               "version": "[2.2.0, )"
             },
-            "Microsoft.CodeAnalysis.Analyzers": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[2.6.2-beta2, )"
-            },
             "Microsoft.NETCore.App": {
               "suppressParent": "All",
               "target": "Package",
@@ -653,10 +629,6 @@
               "autoReferenced": true
             },
             "Microsoft.VisualStudio.Threading": {
-              "target": "Package",
-              "version": "[16.0.102, )"
-            },
-            "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
               "version": "[16.0.102, )"
             },
@@ -805,10 +777,6 @@
               "target": "Package",
               "version": "[16.0.102, )"
             },
-            "Microsoft.VisualStudio.Threading.Analyzers": {
-              "target": "Package",
-              "version": "[16.0.102, )"
-            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.0.0-preview5-19264-04, )"
@@ -918,10 +886,6 @@
               "autoReferenced": true
             },
             "Microsoft.VisualStudio.Threading": {
-              "target": "Package",
-              "version": "[16.0.102, )"
-            },
-            "Microsoft.VisualStudio.Threading.Analyzers": {
               "target": "Package",
               "version": "[16.0.102, )"
             },

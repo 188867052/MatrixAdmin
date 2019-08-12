@@ -64,10 +64,6 @@
               "target": "Package",
               "version": "[16.0.102, )"
             },
-            "Microsoft.VisualStudio.Threading.Analyzers": {
-              "target": "Package",
-              "version": "[16.0.102, )"
-            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.0.0-preview5-19264-04, )"

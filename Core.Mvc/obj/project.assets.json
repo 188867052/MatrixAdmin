@@ -946,7 +946,7 @@
           "lib/netstandard2.0/Microsoft.AspNetCore.WebUtilities.dll": {}
         }
       },
-      "Microsoft.CodeAnalysis.Analyzers/2.6.2-beta2": {
+      "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
         "type": "package"
       },
       "Microsoft.CodeAnalysis.Common/2.8.0": {
@@ -1880,12 +1880,6 @@
           "lib/netstandard2.0/zh-Hant/Microsoft.VisualStudio.Threading.resources.dll": {
             "locale": "zh-Hant"
           }
-        }
-      },
-      "Microsoft.VisualStudio.Threading.Analyzers/16.0.102": {
-        "type": "package",
-        "build": {
-          "build/_._": {}
         }
       },
       "Microsoft.VisualStudio.Validation/15.3.15": {
@@ -3912,7 +3906,6 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.VisualStudio.Threading": "16.0.102",
-          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Quartz": "3.0.7",
@@ -3935,7 +3928,6 @@
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.Mvc.RazorPages": "2.2.5",
           "Microsoft.VisualStudio.Threading": "16.0.102",
-          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Quartz": "3.0.7",
@@ -3971,7 +3963,6 @@
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
           "Microsoft.VisualStudio.Threading": "16.0.102",
-          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Quartz": "3.0.7",
@@ -3994,7 +3985,6 @@
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.VisualStudio.Threading": "16.0.102",
-          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Quartz": "3.0.7",
@@ -4026,7 +4016,6 @@
           "Microsoft.AspNetCore.StaticFiles": "2.2.0",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.VisualStudio.Threading": "16.0.102",
-          "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.0.0-preview5-19264-04",
           "Newtonsoft.Json": "12.0.2",
           "Quartz": "3.0.7",
@@ -4919,10 +4908,10 @@
         "microsoft.aspnetcore.webutilities.nuspec"
       ]
     },
-    "Microsoft.CodeAnalysis.Analyzers/2.6.2-beta2": {
-      "sha512": "rg5Ql73AmGCMG5Q40Kzbndq7C7S4XvsJA+2QXfZBCy2dRqD+a7BSbx/3942EoRUJ/8Wh9+kLg2G2qC46o3f1Aw==",
+    "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
+      "sha512": "3C4W//iobiLYoblMfxXZy4omAW4qy+oiRfSqCgU5eFsZ+VAhBYKfHLyOvy1UIcny+t7EDXrjA73BgzMNkUJnIw==",
       "type": "package",
-      "path": "microsoft.codeanalysis.analyzers/2.6.2-beta2",
+      "path": "microsoft.codeanalysis.analyzers/1.1.0",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -4932,27 +4921,8 @@
         "analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.Analyzers.dll",
         "analyzers/dotnet/vb/Microsoft.CodeAnalysis.Analyzers.dll",
         "analyzers/dotnet/vb/Microsoft.CodeAnalysis.VisualBasic.Analyzers.dll",
-        "microsoft.codeanalysis.analyzers.2.6.2-beta2.nupkg.sha512",
+        "microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512",
         "microsoft.codeanalysis.analyzers.nuspec",
-        "rulesets/AllRulesDefault.ruleset",
-        "rulesets/AllRulesDisabled.ruleset",
-        "rulesets/AllRulesEnabled.ruleset",
-        "rulesets/CorrectnessRulesDefault.ruleset",
-        "rulesets/CorrectnessRulesEnabled.ruleset",
-        "rulesets/LibraryRulesDefault.ruleset",
-        "rulesets/LibraryRulesEnabled.ruleset",
-        "rulesets/MicrosoftCodeAnalysisCompatibilityRulesDefault.ruleset",
-        "rulesets/MicrosoftCodeAnalysisCompatibilityRulesEnabled.ruleset",
-        "rulesets/MicrosoftCodeAnalysisCorrectnessRulesDefault.ruleset",
-        "rulesets/MicrosoftCodeAnalysisCorrectnessRulesEnabled.ruleset",
-        "rulesets/MicrosoftCodeAnalysisDesignRulesDefault.ruleset",
-        "rulesets/MicrosoftCodeAnalysisDesignRulesEnabled.ruleset",
-        "rulesets/MicrosoftCodeAnalysisDocumentationRulesDefault.ruleset",
-        "rulesets/MicrosoftCodeAnalysisDocumentationRulesEnabled.ruleset",
-        "rulesets/MicrosoftCodeAnalysisLocalizationRulesDefault.ruleset",
-        "rulesets/MicrosoftCodeAnalysisLocalizationRulesEnabled.ruleset",
-        "rulesets/MicrosoftCodeAnalysisPerformanceRulesDefault.ruleset",
-        "rulesets/MicrosoftCodeAnalysisPerformanceRulesEnabled.ruleset",
         "tools/install.ps1",
         "tools/uninstall.ps1"
       ]
@@ -6162,40 +6132,6 @@
         "lib/netstandard2.0/zh-Hant/Microsoft.VisualStudio.Threading.resources.dll",
         "microsoft.visualstudio.threading.16.0.102.nupkg.sha512",
         "microsoft.visualstudio.threading.nuspec"
-      ]
-    },
-    "Microsoft.VisualStudio.Threading.Analyzers/16.0.102": {
-      "sha512": "84LjaPupgRCopp/iDEAK3dzuUOXaM278fbgcPPs6CsAwoLHue1RLwpErVNFIAsL1LXPloSE4gvov7CNw7uqqYg==",
-      "type": "package",
-      "path": "microsoft.visualstudio.threading.analyzers/16.0.102",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "analyzers/cs/Microsoft.VisualStudio.Threading.Analyzers.CodeFixes.dll",
-        "analyzers/cs/Microsoft.VisualStudio.Threading.Analyzers.dll",
-        "analyzers/cs/cs/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
-        "analyzers/cs/de/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
-        "analyzers/cs/es/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
-        "analyzers/cs/fr/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
-        "analyzers/cs/it/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
-        "analyzers/cs/ja/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
-        "analyzers/cs/ko/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
-        "analyzers/cs/pl/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
-        "analyzers/cs/pt-BR/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
-        "analyzers/cs/ru/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
-        "analyzers/cs/tr/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
-        "analyzers/cs/zh-Hans/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
-        "analyzers/cs/zh-Hant/Microsoft.VisualStudio.Threading.Analyzers.resources.dll",
-        "build/AdditionalFiles/vs-threading.LegacyThreadSwitchingMembers.txt",
-        "build/AdditionalFiles/vs-threading.MainThreadAssertingMethods.txt",
-        "build/AdditionalFiles/vs-threading.MainThreadSwitchingMethods.txt",
-        "build/AdditionalFiles/vs-threading.MembersRequiringMainThread.txt",
-        "build/Microsoft.VisualStudio.Threading.Analyzers.targets",
-        "microsoft.visualstudio.threading.analyzers.16.0.102.nupkg.sha512",
-        "microsoft.visualstudio.threading.analyzers.nuspec",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
       ]
     },
     "Microsoft.VisualStudio.Validation/15.3.15": {
@@ -11670,7 +11606,6 @@
       "Core.Mvc.Resource >= 1.0.0",
       "Core.Web >= 1.0.0",
       "Microsoft.AspNetCore.CookiePolicy >= 2.2.0",
-      "Microsoft.CodeAnalysis.Analyzers >= 2.6.2-beta2",
       "Microsoft.NETCore.App >= 2.1.0",
       "Swashbuckle.AspNetCore.Swagger >= 5.0.0-rc2",
       "Swashbuckle.AspNetCore.SwaggerGen >= 5.0.0-rc2",
@@ -11741,12 +11676,6 @@
           "Microsoft.AspNetCore.CookiePolicy": {
             "target": "Package",
             "version": "[2.2.0, )"
-          },
-          "Microsoft.CodeAnalysis.Analyzers": {
-            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-            "suppressParent": "All",
-            "target": "Package",
-            "version": "[2.6.2-beta2, )"
           },
           "Microsoft.NETCore.App": {
             "suppressParent": "All",
