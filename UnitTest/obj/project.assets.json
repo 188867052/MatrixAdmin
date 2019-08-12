@@ -1581,7 +1581,7 @@
           "build/netstandard1.0/Microsoft.CodeCoverage.targets": {}
         }
       },
-      "Microsoft.CSharp/4.6.0-preview5.19224.8": {
+      "Microsoft.CSharp/4.5.0": {
         "type": "package",
         "compile": {
           "ref/netcoreapp2.0/_._": {}
@@ -1661,22 +1661,6 @@
       },
       "Microsoft.EntityFrameworkCore.Analyzers/3.0.0-preview5.19227.1": {
         "type": "package"
-      },
-      "Microsoft.EntityFrameworkCore.Design/3.0.0-preview5.19227.1": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.CSharp": "4.6.0-preview5.19224.8",
-          "Microsoft.EntityFrameworkCore.Relational": "3.0.0-preview5.19227.1"
-        },
-        "compile": {
-          "lib/netstandard2.0/_._": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.dll": {}
-        },
-        "build": {
-          "build/netcoreapp2.0/Microsoft.EntityFrameworkCore.Design.props": {}
-        }
       },
       "Microsoft.EntityFrameworkCore.Relational/3.0.0-preview5.19227.1": {
         "type": "package",
@@ -5185,7 +5169,6 @@
         "dependencies": {
           "Dapper": "1.60.6",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
-          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.NetCore.Analyzers": "2.9.3",
@@ -5212,7 +5195,6 @@
           "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.Mvc.RazorPages": "2.2.5",
-          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.NetCore.Analyzers": "2.9.3",
           "Microsoft.VisualStudio.Threading": "16.0.102",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
@@ -5248,7 +5230,6 @@
           "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.StaticFiles": "2.2.0",
-          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
           "Microsoft.NetCore.Analyzers": "2.9.3",
@@ -5297,7 +5278,6 @@
         "dependencies": {
           "Dapper": "1.60.6",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
-          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.NetCore.Analyzers": "2.9.3",
           "Microsoft.VisualStudio.Threading": "16.0.102",
@@ -5331,7 +5311,6 @@
           "Microsoft.AspNetCore.HttpsPolicy": "2.2.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.StaticFiles": "2.2.0",
-          "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.NetCore.Analyzers": "2.9.3",
           "Microsoft.VisualStudio.Threading": "16.0.102",
@@ -6955,10 +6934,10 @@
         "microsoft.codecoverage.nuspec"
       ]
     },
-    "Microsoft.CSharp/4.6.0-preview5.19224.8": {
-      "sha512": "NKRaujZapqCS82W6XW3yuAr5BHM+TnpCejaw44PhXsqQz0JgR+QqvdYwaTs8b7HetHZWi+1L9gZcA6mozHzvuA==",
+    "Microsoft.CSharp/4.5.0": {
+      "sha512": "fcyI3xN2vZV2FTGmxxMjV2LmQykV4PknROKrXrBG4lrTFJqlJJx5d1bOwTTJ/Y9XzpWBHGYsTSBnA0q3bWgGjg==",
       "type": "package",
-      "path": "microsoft.csharp/4.6.0-preview5.19224.8",
+      "path": "microsoft.csharp/4.5.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6971,7 +6950,6 @@
         "lib/netcoreapp2.0/_._",
         "lib/netstandard1.3/Microsoft.CSharp.dll",
         "lib/netstandard2.0/Microsoft.CSharp.dll",
-        "lib/netstandard2.0/Microsoft.CSharp.xml",
         "lib/portable-net45+win8+wp8+wpa81/_._",
         "lib/uap10.0.16299/_._",
         "lib/win8/_._",
@@ -6981,7 +6959,7 @@
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
         "lib/xamarinwatchos10/_._",
-        "microsoft.csharp.4.6.0-preview5.19224.8.nupkg.sha512",
+        "microsoft.csharp.4.5.0.nupkg.sha512",
         "microsoft.csharp.nuspec",
         "ref/MonoAndroid10/_._",
         "ref/MonoTouch10/_._",
@@ -7088,23 +7066,6 @@
         "analyzers/dotnet/cs/Microsoft.EntityFrameworkCore.Analyzers.dll",
         "microsoft.entityframeworkcore.analyzers.3.0.0-preview5.19227.1.nupkg.sha512",
         "microsoft.entityframeworkcore.analyzers.nuspec"
-      ]
-    },
-    "Microsoft.EntityFrameworkCore.Design/3.0.0-preview5.19227.1": {
-      "sha512": "lJe0GP6si6JsmFuN6VH4tMD02IS6cWknHscHeGvN4srVH16phIE5dCY/y0SwJref2rFZ67L8tgL5v1Cr6OEWCQ==",
-      "type": "package",
-      "path": "microsoft.entityframeworkcore.design/3.0.0-preview5.19227.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "build/net461/Microsoft.EntityFrameworkCore.Design.props",
-        "build/netcoreapp2.0/Microsoft.EntityFrameworkCore.Design.props",
-        "lib/net461/Microsoft.EntityFrameworkCore.Design.dll",
-        "lib/net461/Microsoft.EntityFrameworkCore.Design.xml",
-        "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.dll",
-        "lib/netstandard2.0/Microsoft.EntityFrameworkCore.Design.xml",
-        "microsoft.entityframeworkcore.design.3.0.0-preview5.19227.1.nupkg.sha512",
-        "microsoft.entityframeworkcore.design.nuspec"
       ]
     },
     "Microsoft.EntityFrameworkCore.Relational/3.0.0-preview5.19227.1": {
@@ -14838,9 +14799,6 @@
       "MSTest.TestFramework >= 2.0.0-beta4",
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
       "Microsoft.AspNetCore.TestHost >= 2.2.0",
-      "Microsoft.EntityFrameworkCore.Analyzers >= 3.0.0-preview5.19227.1",
-      "Microsoft.EntityFrameworkCore.Design >= 3.0.0-preview5.19227.1",
-      "Microsoft.EntityFrameworkCore.SqlServer >= 3.0.0-preview5.19227.1",
       "Microsoft.NET.Test.Sdk >= 16.1.1",
       "Microsoft.NETCore.App >= 2.1.0",
       "Microsoft.UnitTestFramework.Extensions >= 2.0.0",
@@ -14931,20 +14889,6 @@
           "Microsoft.AspNetCore.TestHost": {
             "target": "Package",
             "version": "[2.2.0, )"
-          },
-          "Microsoft.EntityFrameworkCore.Analyzers": {
-            "target": "Package",
-            "version": "[3.0.0-preview5.19227.1, )"
-          },
-          "Microsoft.EntityFrameworkCore.Design": {
-            "include": "Runtime, Build, Native, ContentFiles, Analyzers",
-            "suppressParent": "All",
-            "target": "Package",
-            "version": "[3.0.0-preview5.19227.1, )"
-          },
-          "Microsoft.EntityFrameworkCore.SqlServer": {
-            "target": "Package",
-            "version": "[3.0.0-preview5.19227.1, )"
           },
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",

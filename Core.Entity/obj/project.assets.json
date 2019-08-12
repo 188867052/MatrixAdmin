@@ -7292,7 +7292,6 @@
     ".NETCoreApp,Version=v2.1": [
       "Dapper >= 1.60.6",
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
-      "Microsoft.EntityFrameworkCore.Analyzers >= 3.0.0-preview5.19227.1",
       "Microsoft.EntityFrameworkCore.Design >= 3.0.0-preview5.19227.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.0.0-preview5.19227.1",
       "Microsoft.EntityFrameworkCore.Tools >= 3.0.0-preview5.19227.1",
@@ -7358,10 +7357,6 @@
           "Microsoft.AspNetCore.Mvc.Core": {
             "target": "Package",
             "version": "[2.2.5, )"
-          },
-          "Microsoft.EntityFrameworkCore.Analyzers": {
-            "target": "Package",
-            "version": "[3.0.0-preview5.19227.1, )"
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers",
