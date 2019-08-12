@@ -60,10 +60,6 @@
               "version": "[2.1.0, )",
               "autoReferenced": true
             },
-            "Microsoft.NetCore.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.3, )"
-            },
             "Microsoft.VisualStudio.Threading": {
               "target": "Package",
               "version": "[16.0.102, )"
