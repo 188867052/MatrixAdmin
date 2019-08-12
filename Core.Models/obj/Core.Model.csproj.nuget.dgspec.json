@@ -50,10 +50,6 @@
               "target": "Package",
               "version": "[2.2.5, )"
             },
-            "Microsoft.CodeQuality.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.3, )"
-            },
             "Microsoft.EntityFrameworkCore.Analyzers": {
               "target": "Package",
               "version": "[3.0.0-preview5.19227.1, )"
@@ -195,10 +191,6 @@
             "Microsoft.AspNetCore.Mvc.RazorPages": {
               "target": "Package",
               "version": "[2.2.5, )"
-            },
-            "Microsoft.CodeQuality.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.3, )"
             },
             "Microsoft.EntityFrameworkCore.Analyzers": {
               "target": "Package",
@@ -370,10 +362,6 @@
             "Microsoft.AspNetCore.StaticFiles": {
               "target": "Package",
               "version": "[2.2.0, )"
-            },
-            "Microsoft.CodeQuality.Analyzers": {
-              "target": "Package",
-              "version": "[2.9.3, )"
             },
             "Microsoft.EntityFrameworkCore.Analyzers": {
               "target": "Package",

@@ -1581,12 +1581,6 @@
           "build/netstandard1.0/Microsoft.CodeCoverage.targets": {}
         }
       },
-      "Microsoft.CodeQuality.Analyzers/2.9.3": {
-        "type": "package",
-        "build": {
-          "build/Microsoft.CodeQuality.Analyzers.props": {}
-        }
-      },
       "Microsoft.CSharp/4.6.0-preview5.19224.8": {
         "type": "package",
         "compile": {
@@ -5173,7 +5167,6 @@
           "Core.Extension": "1.0.0",
           "Core.Model": "1.0.0",
           "JetBrains.Annotations": "2019.1.1",
-          "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.NetCore.Analyzers": "2.9.3",
           "Swashbuckle.AspNetCore.Swagger": "5.0.0-rc2",
           "Swashbuckle.AspNetCore.SwaggerGen": "5.0.0-rc2",
@@ -5192,7 +5185,6 @@
         "dependencies": {
           "Dapper": "1.60.6",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
-          "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
@@ -5220,7 +5212,6 @@
           "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.Mvc.RazorPages": "2.2.5",
-          "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.NetCore.Analyzers": "2.9.3",
           "Microsoft.VisualStudio.Threading": "16.0.102",
@@ -5257,7 +5248,6 @@
           "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.StaticFiles": "2.2.0",
-          "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.IdentityModel.Tokens": "5.4.0",
@@ -5289,7 +5279,6 @@
           "Core.Mvc.Resource": "1.0.0",
           "Core.Web": "1.0.0",
           "Microsoft.AspNetCore.CookiePolicy": "2.2.0",
-          "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.NetCore.Analyzers": "2.9.3",
           "Swashbuckle.AspNetCore.Swagger": "5.0.0-rc2",
           "Swashbuckle.AspNetCore.SwaggerGen": "5.0.0-rc2",
@@ -5308,7 +5297,6 @@
         "dependencies": {
           "Dapper": "1.60.6",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
-          "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.NetCore.Analyzers": "2.9.3",
@@ -5343,7 +5331,6 @@
           "Microsoft.AspNetCore.HttpsPolicy": "2.2.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.StaticFiles": "2.2.0",
-          "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.EntityFrameworkCore.Analyzers": "3.0.0-preview5.19227.1",
           "Microsoft.Extensions.Identity.Core": "3.0.0-preview-18579-0056",
           "Microsoft.NetCore.Analyzers": "2.9.3",
@@ -5371,7 +5358,6 @@
           "Humanizer": "2.6.2",
           "McMaster.Extensions.CommandLineUtils": "2.3.4",
           "Microsoft.AspNetCore.TestHost": "2.2.0",
-          "Microsoft.CodeQuality.Analyzers": "2.9.3",
           "Microsoft.NetCore.Analyzers": "2.9.3",
           "Microsoft.VisualStudio.Threading": "16.0.102",
           "Microsoft.VisualStudio.Threading.Analyzers": "16.0.102",
@@ -6967,48 +6953,6 @@
         "lib/netcoreapp1.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll",
         "microsoft.codecoverage.16.1.1.nupkg.sha512",
         "microsoft.codecoverage.nuspec"
-      ]
-    },
-    "Microsoft.CodeQuality.Analyzers/2.9.3": {
-      "sha512": "5KFSFcQjibITq33jojBITiGIZZkf2OMdggT7ZeNryMAUkT3VkPB/csRWaA8erItQlEvrBzgIwzYnW0531HFV7g==",
-      "type": "package",
-      "path": "microsoft.codequality.analyzers/2.9.3",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "ThirdPartyNotices.rtf",
-        "analyzers/dotnet/cs/Humanizer.dll",
-        "analyzers/dotnet/cs/Microsoft.CodeQuality.Analyzers.dll",
-        "analyzers/dotnet/cs/Microsoft.CodeQuality.CSharp.Analyzers.dll",
-        "analyzers/dotnet/vb/Humanizer.dll",
-        "analyzers/dotnet/vb/Microsoft.CodeQuality.Analyzers.dll",
-        "analyzers/dotnet/vb/Microsoft.CodeQuality.VisualBasic.Analyzers.dll",
-        "build/Microsoft.CodeQuality.Analyzers.props",
-        "documentation/Microsoft.CodeQuality.Analyzers.md",
-        "microsoft.codequality.analyzers.2.9.3.nupkg.sha512",
-        "microsoft.codequality.analyzers.nuspec",
-        "rulesets/AllRulesDefault.ruleset",
-        "rulesets/AllRulesDisabled.ruleset",
-        "rulesets/AllRulesEnabled.ruleset",
-        "rulesets/DesignRulesDefault.ruleset",
-        "rulesets/DesignRulesEnabled.ruleset",
-        "rulesets/DocumentationRulesDefault.ruleset",
-        "rulesets/DocumentationRulesEnabled.ruleset",
-        "rulesets/MaintainabilityRulesDefault.ruleset",
-        "rulesets/MaintainabilityRulesEnabled.ruleset",
-        "rulesets/NamingRulesDefault.ruleset",
-        "rulesets/NamingRulesEnabled.ruleset",
-        "rulesets/PerformanceRulesDefault.ruleset",
-        "rulesets/PerformanceRulesEnabled.ruleset",
-        "rulesets/ReliabilityRulesDefault.ruleset",
-        "rulesets/ReliabilityRulesEnabled.ruleset",
-        "rulesets/SecurityRulesDefault.ruleset",
-        "rulesets/SecurityRulesEnabled.ruleset",
-        "rulesets/UsageRulesDefault.ruleset",
-        "rulesets/UsageRulesEnabled.ruleset",
-        "tools/install.ps1",
-        "tools/uninstall.ps1"
       ]
     },
     "Microsoft.CSharp/4.6.0-preview5.19224.8": {
@@ -14894,7 +14838,6 @@
       "MSTest.TestFramework >= 2.0.0-beta4",
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
       "Microsoft.AspNetCore.TestHost >= 2.2.0",
-      "Microsoft.CodeQuality.Analyzers >= 2.9.3",
       "Microsoft.EntityFrameworkCore.Analyzers >= 3.0.0-preview5.19227.1",
       "Microsoft.EntityFrameworkCore.Design >= 3.0.0-preview5.19227.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.0.0-preview5.19227.1",
@@ -14988,10 +14931,6 @@
           "Microsoft.AspNetCore.TestHost": {
             "target": "Package",
             "version": "[2.2.0, )"
-          },
-          "Microsoft.CodeQuality.Analyzers": {
-            "target": "Package",
-            "version": "[2.9.3, )"
           },
           "Microsoft.EntityFrameworkCore.Analyzers": {
             "target": "Package",
